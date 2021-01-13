@@ -27,3 +27,7 @@
 docs/gradle-getting-started
 docs/tmp
 .vscode/
+
+session_mngt/
+
+.env
