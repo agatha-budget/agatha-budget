@@ -88,9 +88,6 @@ fun main() {
 
     app.before("/budget") { SuperTokens.middleware() }
     app.post("/budget") { ctx ->
-                          val session = SuperTokens.getFromContext(ctx)
-                          val userId = session.getUserId()
-                          ctx.status(200)
                           ctx.json("create budget")
     }
 
