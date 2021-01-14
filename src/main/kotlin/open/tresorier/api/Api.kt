@@ -46,7 +46,7 @@ fun main() {
     }
 
     app.before("/session/refresh") { SuperTokens.middleware() }
-    app.post("/session/refresh") { ctx -> ctx.result("") }
+    app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
 
     app.post("/login") { ctx ->
                              val email = ctx.queryParam<String>("email").get()
@@ -63,9 +63,24 @@ fun main() {
                          }
     }
 
+    app.get("/login") { ctx ->
+                             val email = ctx.queryParam<String>("email").get()
+                         val password = ctx.queryParam<String>("password").get()
+                         val person : Person? = ServiceManager.personService.login(email, password)
+                         if (person == null) {
+                             val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
+                             ctx.status(400)
+                             ctx.json("{'unlockingDate' : " + unlockingDate + "}")
+                         } else {
+                             ctx.status(200)
+                             SuperTokens.newSession(ctx, person.id).create()
+                             ctx.json(person.id)
+                         }
+    }
+
     app.before("/logout") { SuperTokens.middleware() }
     app.delete("/logout") { ctx ->
-                                val session = SuperTokens.getFromContext(ctx)
+                            val session = SuperTokens.getFromContext(ctx)
                             session.revokeSession()
                             ctx.status(200)
                             ctx.json("back to login page")
@@ -73,7 +88,7 @@ fun main() {
 
     app.before("/budget") { SuperTokens.middleware() }
     app.post("/budget") { ctx ->
-                              val session = SuperTokens.getFromContext(ctx)
+                          val session = SuperTokens.getFromContext(ctx)
                           val userId = session.getUserId()
                           ctx.status(200)
                           ctx.json("create budget")
