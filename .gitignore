@@ -31,3 +31,5 @@ docs/tmp
 session_mngt/
 
 .env
+
+db/
