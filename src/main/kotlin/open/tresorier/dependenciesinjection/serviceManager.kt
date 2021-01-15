@@ -5,11 +5,13 @@ import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 
 import open.tresorier.dao.IPersonDao
+import open.tresorier.dao.IBudgetDao
 import open.tresorier.services.PersonService
 
 object ServiceManager : KoinComponent {
 
     val personDao : IPersonDao by inject()
+    val budgetDao : IBudgetDao by inject()
     val personService : PersonService by inject()
 
     fun start(){

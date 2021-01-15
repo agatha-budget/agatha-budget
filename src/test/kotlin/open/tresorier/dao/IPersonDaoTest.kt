@@ -11,7 +11,7 @@ class PersonDaoTest : ITest {
     val personDao by inject<IPersonDao>()
 
     @Test fun testInsertTwoIdenticalPerson() {
-        val person1 = Person("anne", "ahahahahah", "anna@mail.eu")
+        val person1 = Person("Camille", "mimimi", "camille@mail.eu")
         val storedPerson = personDao.insert(person1)
         assertEquals(person1.id, storedPerson?.id)
         val shouldBeNull = personDao.insert(person1)

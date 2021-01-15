@@ -9,7 +9,7 @@ import org.koin.dsl.module
 import java.sql.DriverManager
 import org.jooq.Configuration
 import open.tresorier.generated.jooq.tables.daos.PersonDao as GeneratedPersonDao
-import open.tresorier.utils.FileReader
+import open.tresorier.utils.Properties
 
 val dbAccessTest_module = module {
     single<Configuration> {DBTestConfiguration.configuration}
@@ -17,7 +17,7 @@ val dbAccessTest_module = module {
 
 object DBTestConfiguration {
 
-    val properties = FileReader.getProperties()
+    val properties = Properties.getProperties()
 
     val userName = properties.getProperty("test_db_usr")
     val password = properties.getProperty("test_db_pwd")
