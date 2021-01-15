@@ -3,10 +3,13 @@ package open.tresorier.dao
 import open.tresorier.dependenciesinjection.ITest
 import open.tresorier.model.Person
 import open.tresorier.model.Budget
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.TestInstance
 import org.koin.core.component.inject
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BudgetDaoTest : ITest {
 
     val budgetDao by inject<IBudgetDao>()
@@ -23,7 +26,6 @@ class BudgetDaoTest : ITest {
         budgetDao.insert(budgetAnne2)
         val budgetLucie1 = Budget("lucie-B1", lucie.id)
         budgetDao.insert(budgetLucie1)
-
         val anneBudgets : List<Budget> = budgetDao.findByPersonId(anne.id)
         val anneBudgetsName : MutableList<String> = mutableListOf()
         for (budget in anneBudgets){
@@ -32,5 +34,22 @@ class BudgetDaoTest : ITest {
         val expectedAnneBudgetsName : MutableList<String> = mutableListOf("anne-B1", "anne-B2")
 
         assertEquals(expectedAnneBudgetsName, anneBudgetsName)
-        }
+    }
+
+    @Test fun testInsertWithInvalidPersonId() {
+        val invalidBudget = Budget("anne-B3", "not_a_real_id")
+        val shouldBeNull = budgetDao.insert(invalidBudget)
+        assertNull(shouldBeNull)
+    }
+
+    @Test fun testUpdateWithInvalidPersonId() {
+        val celine = Person("celine", "cecece", "cecile@mail.eu")
+        personDao.insert(celine)
+        val budgetCeline = Budget("celine-B1", celine.id)
+        budgetDao.insert(budgetCeline)
+        budgetCeline.personId = "not_a_real_id"
+        val shouldBeNull = budgetDao.update(budgetCeline)
+        assertNull(shouldBeNull)
+
+    }
 }
