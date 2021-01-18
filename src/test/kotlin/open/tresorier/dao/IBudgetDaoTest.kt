@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.TestInstance
 import org.koin.core.component.inject
+import open.tresorier.exception.TresorierException
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BudgetDaoTest : ITest {
 
     val budgetDao by inject<IBudgetDao>()
@@ -34,6 +34,7 @@ class BudgetDaoTest : ITest {
         val expectedAnneBudgetsName : MutableList<String> = mutableListOf("anne-B1", "anne-B2")
 
         assertEquals(expectedAnneBudgetsName, anneBudgetsName)
+        TresorierException(Exception("pas bien"), "exception test")
     }
 
     @Test fun testInsertWithInvalidPersonId() {

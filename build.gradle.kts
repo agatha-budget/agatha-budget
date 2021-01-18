@@ -56,7 +56,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10")
     implementation("io.javalin:javalin:3.11.0")
-    implementation("org.slf4j:slf4j-simple:1.7.30")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.10.3")
     implementation("org.koin:koin-core:2.2.1")
@@ -73,6 +72,10 @@ dependencies {
     implementation("org.jooq:jooq-codegen:3.13.4")
     jooqGenerator("org.postgresql:postgresql:42.2.12")
     implementation("org.postgresql:postgresql:42.2.12")
+    implementation("org.slf4j:slf4j-api:1.7.30")
+    implementation("org.slf4j:slf4j-simple:1.7.30")
+    implementation("ch.qos.logback:logback-classic:1.2.3")
+    implementation("ch.qos.logback:logback-core:1.2.3")
 }
 
 val generatedDir = "src/main/generated"

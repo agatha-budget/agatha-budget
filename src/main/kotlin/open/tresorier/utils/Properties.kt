@@ -6,7 +6,7 @@ import java.io.FileInputStream
 object Properties {
 
     fun getProperties() : Properties {
-        val defaultProperties = FileReader.getPropertiesFromFile("gradle.properties")
+        val defaultProperties = Utils.getPropertiesFromFile("gradle.properties")
         return getHerokuProperties(defaultProperties)
     }
 
