@@ -19,8 +19,8 @@ class TresorierException (
     }
 
     fun logException() {
-        val logger = Utils.getLogger("exception")
-        logger.error("exception_code : " + this.id
+        Utils.getLogger().error(
+            "exception_code : " + this.id
                      + Utils.newLine() +
                      "exception_message : " + this.message
                      + Utils.newLine() +
