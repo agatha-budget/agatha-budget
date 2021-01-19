@@ -5,8 +5,6 @@ import open.tresorier.model.Person
 import open.tresorier.model.Budget
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.TestInstance
 import org.koin.core.component.inject
 import open.tresorier.exception.TresorierException
 
@@ -34,13 +32,13 @@ class BudgetDaoTest : ITest {
         val expectedAnneBudgetsName : MutableList<String> = mutableListOf("anne-B1", "anne-B2")
 
         assertEquals(expectedAnneBudgetsName, anneBudgetsName)
-        TresorierException(Exception("pas bien"), "exception test")
     }
 
     @Test fun testInsertWithInvalidPersonId() {
         val invalidBudget = Budget("anne-B3", "not_a_real_id")
         val shouldBeNull = budgetDao.insert(invalidBudget)
         assertNull(shouldBeNull)
+
     }
 
     @Test fun testUpdateWithInvalidPersonId() {
