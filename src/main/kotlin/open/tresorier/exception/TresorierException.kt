@@ -15,6 +15,7 @@ class TresorierException (
 
     init {
         id = UUID.randomUUID().toString()
+        this.logException()
     }
 
     fun logException() {
