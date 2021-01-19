@@ -5,7 +5,7 @@ import io.supertokens.javalin.*
 import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.model.Person
 import open.tresorier.utils.Properties
-import open.tresorier.utils.Utils
+import open.tresorier.exception.TresorierException
 import open.tresorier.dependenciesinjection.ServiceManager
 
 fun main() {
@@ -24,8 +24,13 @@ fun main() {
     }.start(getHerokuAssignedOrDefaultPort())
 
     app.get("/") { ctx ->
-                       Utils.getLogger().debug("Hello Roku")
-                       ctx.result("Hello Heroku")
+                       ctx.result("Hello Sunshine !")
+    }
+
+
+    app.get("/error") { ctx ->
+                       val exception = TresorierException(Exception("why ?"), "this is your doing")
+                       ctx.result(exception.id)
     }
 
     app.get("/ping") { ctx ->
