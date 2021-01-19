@@ -24,8 +24,8 @@ class TresorierException (
                      + Utils.newLine() +
                      "exception_message : " + this.message
                      + Utils.newLine() +
-                     //"catched_exception_msg : " + this.catchedException.getMessage()
-                     //+ Utils.newLine() +
+                     "catched_exception_msg : " + this.catchedException.message
+                     + Utils.newLine() +
                      "catched_exception_trace : " + this.catchedException.getStackTrace()
         )
     }

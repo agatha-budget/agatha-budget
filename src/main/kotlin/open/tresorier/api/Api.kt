@@ -39,7 +39,7 @@ fun main() {
     }
 
     app.post("/person") { ctx ->
-                              val name = ctx.queryParam<String>("name").get()
+                          val name = ctx.queryParam<String>("name").get()
                           val password = ctx.queryParam<String>("password").get()
                           val email = ctx.queryParam<String>("email").get()
                           val person : Person? = ServiceManager.personService.createPerson(name, password, email)
