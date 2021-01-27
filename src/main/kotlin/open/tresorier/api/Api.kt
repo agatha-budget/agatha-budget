@@ -80,7 +80,7 @@ fun main() {
 
     app.before("/budget") { ctx ->
                                 SuperTokens.middleware()
-                            ctx.header("logged", true)
+                            ctx.header("logged", "trueee")
     }
     app.post("/budget") { ctx ->
                               val validSession = SuperTokens.getFromContext(ctx)
