@@ -78,7 +78,10 @@ fun main() {
                             ctx.json("back to login page")
     }
 
-    app.before("/budget") { SuperTokens.middleware() }
+    app.before("/budget") { ctx ->
+                                SuperTokens.middleware()
+                            ctx.header("logged", true)
+    }
     app.post("/budget") { ctx ->
                               val validSession = SuperTokens.getFromContext(ctx)
                           if (validSession == null) {
