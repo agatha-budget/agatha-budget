@@ -3,7 +3,7 @@ package open.tresorier.api
 import io.javalin.Javalin
 import io.supertokens.javalin.*
 import io.supertokens.javalin.core.exception.SuperTokensException
-import open.tresorier.model.Person
+import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import open.tresorier.exception.TresorierException
 import open.tresorier.dependenciesinjection.ServiceManager
@@ -27,10 +27,9 @@ fun main() {
                        ctx.result("Hello Sunshine !")
     }
 
-
     app.get("/error") { ctx ->
-                       val exception = TresorierException(Exception("why ?"), "this is your doing")
-                       ctx.result(exception.id)
+                            val exception = TresorierException(Exception("why ?"), "this is your doing")
+                        ctx.result(exception.id)
     }
 
     app.get("/ping") { ctx ->
@@ -39,7 +38,7 @@ fun main() {
     }
 
     app.post("/person") { ctx ->
-                          val name = ctx.queryParam<String>("name").get()
+                              val name = ctx.queryParam<String>("name").get()
                           val password = ctx.queryParam<String>("password").get()
                           val email = ctx.queryParam<String>("email").get()
                           val person : Person? = ServiceManager.personService.createPerson(name, password, email)
@@ -70,24 +69,10 @@ fun main() {
                          }
     }
 
-    app.get("/login") { ctx ->
-                             val email = ctx.queryParam<String>("email").get()
-                         val password = ctx.queryParam<String>("password").get()
-                         val person : Person? = ServiceManager.personService.login(email, password)
-                         if (person == null) {
-                             val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
-                             ctx.status(400)
-                             ctx.json("{'unlockingDate' : " + unlockingDate + "}")
-                         } else {
-                             ctx.status(200)
-                             SuperTokens.newSession(ctx, person.id).create()
-                             ctx.json(person.id)
-                         }
-    }
 
     app.before("/logout") { SuperTokens.middleware() }
     app.delete("/logout") { ctx ->
-                            val session = SuperTokens.getFromContext(ctx)
+                                val session = SuperTokens.getFromContext(ctx)
                             session.revokeSession()
                             ctx.status(200)
                             ctx.json("back to login page")
@@ -95,7 +80,27 @@ fun main() {
 
     app.before("/budget") { SuperTokens.middleware() }
     app.post("/budget") { ctx ->
-                          ctx.json("create budget")
+                              val validSession = SuperTokens.getFromContext(ctx)
+                          ctx.result(validSession.userId)
+                          /*
+                          val userId = ctx.queryParam<String>("user_id").get()
+                          val user : Person? = ServiceManager.personService.getById(userId)
+                          user?.let {
+                              val name = ctx.queryParam<String>("name").get()
+                              val budget : Budget? = ServiceManager.budgetService.createBudget(name, user)
+                              budget?.let {
+                                  ctx.json(budget.id)
+                              }
+                              if (budget==null){
+                                  ctx.status(400)
+                                  ctx.json("could not create a budget")
+                              }
+                          }
+                          if (user==null){
+                              ctx.status(400)
+                              ctx.json("the specified user doesn't exist")
+                          }*/
+
     }
 
 
