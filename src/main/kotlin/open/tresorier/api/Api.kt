@@ -1,12 +1,13 @@
 package open.tresorier.api
 
 import io.javalin.Javalin
-import io.supertokens.javalin.*
+import io.supertokens.javalin.SuperTokens
+import io.supertokens.javalin.core.exception.GeneralException
 import io.supertokens.javalin.core.exception.SuperTokensException
-import open.tresorier.model.*
-import open.tresorier.utils.Properties
-import open.tresorier.exception.TresorierException
 import open.tresorier.dependenciesinjection.ServiceManager
+import open.tresorier.exception.TresorierException
+import open.tresorier.model.Person
+import open.tresorier.utils.Properties
 
 fun main() {
 
@@ -19,9 +20,30 @@ fun main() {
     val app = Javalin.create { config ->
                                    config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
     }.apply {
-        exception(SuperTokensException::class.java) { _, _ -> SuperTokens.exceptionHandler()}
         exception(Exception::class.java) { e, _ -> e.printStackTrace() }
     }.start(getHerokuAssignedOrDefaultPort())
+
+    app.exception(SuperTokensException::class.java) { _, _ ->
+        SuperTokens.exceptionHandler()
+            .onTryRefreshTokenError {_, ctx ->
+                    ctx.status(401).result("Call the refresh API");
+                }
+            .onUnauthorisedError { _ , ctx ->
+                                      ctx.status(401).result("Please login again")
+            }
+            .onGeneralError { exception, ctx ->
+                                 ctx.status(401).result(exception.message ?: "no message")
+            }
+            .onTokenTheftDetectedError { exception, ctx ->
+                                            ctx.status(401).result("You are being attacked");
+                                            // revoke affected session.
+                                            try {
+                                                SuperTokens.revokeSession(exception.sessionHandle);
+                                            } catch (e : GeneralException) {
+                                                e.printStackTrace()
+                                            }
+            }
+    }
 
     app.get("/") { ctx ->
                        ctx.result("Hello Sunshine !")
@@ -95,19 +117,19 @@ fun main() {
                            val user : Person? = ServiceManager.personService.getById(userId)
                            user?.let {
                                val name = ctx.queryParam<String>("name").get()
-                              val budget : Budget? = ServiceManager.budgetService.createBudget(name, user)
-                              budget?.let {
-                                  ctx.json(budget.id)
-                              }
-                              if (budget==null){
-                                  ctx.status(400)
-                                  ctx.json("could not create a budget")
-                              }
-                          }
-                          if (user==null){
-                              ctx.status(400)
-                              ctx.json("the specified user doesn't exist")
-                          }*/
+                           val budget : Budget? = ServiceManager.budgetService.createBudget(name, user)
+                           budget?.let {
+                               ctx.json(budget.id)
+     }
+                           if (budget==null){
+                               ctx.status(400)
+                           ctx.json("could not create a budget")
+     }
+     }
+                           if (user==null){
+                               ctx.status(400)
+                           ctx.json("the specified user doesn't exist")
+     }*/
 
     }
 

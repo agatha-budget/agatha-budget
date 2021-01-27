@@ -1,7 +1,6 @@
 package open.tresorier.utils
 
 import java.util.Properties
-import java.io.FileInputStream
 
 object Properties {
 
