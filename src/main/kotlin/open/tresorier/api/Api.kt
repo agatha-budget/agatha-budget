@@ -19,7 +19,7 @@ fun main() {
     val app = Javalin.create { config ->
                                    config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
     }.apply {
-        exception(SuperTokensException::class.java, SuperTokens.exceptionHandler())
+        exception(SuperTokensException::class.java) { _, _ -> SuperTokens.exceptionHandler(). }
         exception(Exception::class.java) { e, _ -> e.printStackTrace() }
     }.start(getHerokuAssignedOrDefaultPort())
 
@@ -81,12 +81,17 @@ fun main() {
     app.before("/budget") { SuperTokens.middleware() }
     app.post("/budget") { ctx ->
                               val validSession = SuperTokens.getFromContext(ctx)
-                          ctx.result(validSession.userId)
+                          if (validSession == null) {
+                              ctx.result("invalid session")
+                          }
+                          else {
+                              ctx.result(validSession.userId)
+                          }
                           /*
-                          val userId = ctx.queryParam<String>("user_id").get()
-                          val user : Person? = ServiceManager.personService.getById(userId)
-                          user?.let {
-                              val name = ctx.queryParam<String>("name").get()
+                           val userId = validSession.userId
+                           val user : Person? = ServiceManager.personService.getById(userId)
+                           user?.let {
+                               val name = ctx.queryParam<String>("name").get()
                               val budget : Budget? = ServiceManager.budgetService.createBudget(name, user)
                               budget?.let {
                                   ctx.json(budget.id)
