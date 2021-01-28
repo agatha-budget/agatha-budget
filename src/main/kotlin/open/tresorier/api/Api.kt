@@ -5,10 +5,9 @@ import io.supertokens.javalin.SuperTokens
 import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
+import open.tresorier.model.Budget
 import open.tresorier.model.Person
 import open.tresorier.utils.Properties
-
-
 
 
 fun main() {
@@ -20,8 +19,9 @@ fun main() {
 
     ServiceManager.start()
 
-    val app = Javalin.create { config -> config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
-    //val app = Javalin.create { config -> config.enableCorsForAllOrigins()
+    val app = Javalin.create { config ->
+        config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
+        //val app = Javalin.create { config -> config.enableCorsForAllOrigins()
     }.start(getHerokuAssignedOrDefaultPort())
 
     app.get("/") { ctx ->
@@ -71,7 +71,7 @@ fun main() {
     }
 
 
-    app.before("/logout" , SuperTokens.middleware())
+    app.before("/logout", SuperTokens.middleware())
     app.delete("/logout") { ctx ->
         val session = SuperTokens.getFromContext(ctx)
         session.revokeSession()
@@ -83,29 +83,23 @@ fun main() {
 
     app.post("/budget") { ctx ->
         val validSession = SuperTokens.getFromContext(ctx)
-        if (validSession == null) {
-            ctx.result("invalid session")
-        } else {
-            ctx.result(validSession.userId)
+        val userId = validSession.userId
+        val user: Person? = ServiceManager.personService.getById(userId)
+        user?.let {
+            val name = ctx.queryParam<String>("name").get()
+            val budget: Budget? = ServiceManager.budgetService.createBudget(name, user)
+            budget?.let {
+                ctx.json(budget.id)
+            }
+            if (budget == null) {
+                ctx.status(400)
+                ctx.json("could not create a budget")
+            }
         }
-        /*
-         val userId = validSession.userId
-         val user : Person? = ServiceManager.personService.getById(userId)
-         user?.let {
-             val name = ctx.queryParam<String>("name").get()
-         val budget : Budget? = ServiceManager.budgetService.createBudget(name, user)
-         budget?.let {
-             ctx.json(budget.id)
-}
-         if (budget==null){
-             ctx.status(400)
-         ctx.json("could not create a budget")
-}
-}
-         if (user==null){
-             ctx.status(400)
-         ctx.json("the specified user doesn't exist")
-}*/
+        if (user == null) {
+            ctx.status(400)
+            ctx.json("the specified user doesn't exist")
+        }
 
     }
 
