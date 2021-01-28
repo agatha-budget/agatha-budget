@@ -4,7 +4,7 @@ import open.tresorier.model.Person
 
 interface IPersonDao {
 
-    // return null if an error occured (duplicate unique property etc..)
+    // return null if an error occurred (duplicate unique property etc..)
     fun insert(person: Person) : Person?
     fun update(person: Person)
     fun delete(person: Person)

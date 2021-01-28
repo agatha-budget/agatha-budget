@@ -2,7 +2,6 @@ package open.tresorier.services
 
 import de.mkammerer.argon2.Argon2
 import de.mkammerer.argon2.Argon2Factory
-import open.tresorier.model.Person
 
 object AuthenticationService {
 
@@ -16,9 +15,9 @@ object AuthenticationService {
 
     }
 
-    fun passwordMatch(hashedPassword: String, submitedPassword: String): Boolean {
+    fun passwordMatch(hashedPassword: String, submittedPassword: String): Boolean {
         val argon2 : Argon2 = Argon2Factory.create();
-        return argon2.verify(hashedPassword, submitedPassword.toCharArray() )
+        return argon2.verify(hashedPassword, submittedPassword.toCharArray() )
     }
 
 }

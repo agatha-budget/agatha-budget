@@ -18,9 +18,14 @@ class JooqBudgetDao (val generatedDao : BudgetDao) : IBudgetDao {
         return budget
     }
 
-    override fun update(budget : Budget){
+    override fun update(budget : Budget) : Budget?{
         val jooqBudget = this.toJooqBudget(budget)
-        this.generatedDao.update(jooqBudget)
+        try {
+            this.generatedDao.update(jooqBudget)
+        } catch (e : DataAccessException) {
+            return null
+        }
+        return budget
     }
 
     override fun delete(budget: Budget){

@@ -4,15 +4,15 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.context.startKoin
 
-import open.tresorier.dao.IPersonDao
-import open.tresorier.dao.IBudgetDao
-import open.tresorier.services.PersonService
+import open.tresorier.dao.*
+import open.tresorier.services.*
 
 object ServiceManager : KoinComponent {
 
     val personDao : IPersonDao by inject()
     val budgetDao : IBudgetDao by inject()
     val personService : PersonService by inject()
+    val budgetService : BudgetService by inject()
 
     fun start(){
         startKoin{
