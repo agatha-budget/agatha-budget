@@ -2,12 +2,14 @@ package open.tresorier.api
 
 import io.javalin.Javalin
 import io.supertokens.javalin.SuperTokens
-import io.supertokens.javalin.core.exception.GeneralException
 import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.Person
 import open.tresorier.utils.Properties
+
+
+
 
 fun main() {
 
@@ -18,9 +20,8 @@ fun main() {
 
     ServiceManager.start()
 
-    //    val app = Javalin.create { config ->config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
-    val app = Javalin.create { config ->
-        config.enableCorsForAllOrigins()
+    val app = Javalin.create { config -> config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
+    //val app = Javalin.create { config -> config.enableCorsForAllOrigins()
     }.start(getHerokuAssignedOrDefaultPort())
 
     app.get("/") { ctx ->
@@ -51,7 +52,7 @@ fun main() {
         }
     }
 
-    app.before("/session/refresh") { SuperTokens.middleware() }
+    app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
 
     app.post("/login") { ctx ->
@@ -70,7 +71,7 @@ fun main() {
     }
 
 
-    app.before("/logout") { SuperTokens.middleware() }
+    app.before("/logout" , SuperTokens.middleware())
     app.delete("/logout") { ctx ->
         val session = SuperTokens.getFromContext(ctx)
         session.revokeSession()
@@ -78,10 +79,8 @@ fun main() {
         ctx.json("back to login page")
     }
 
-    app.before("/budget") { ctx ->
-        SuperTokens.middleware()
-        ctx.header("logged", "trueee")
-    }
+    app.before("/budget", SuperTokens.middleware())
+
     app.post("/budget") { ctx ->
         val validSession = SuperTokens.getFromContext(ctx)
         if (validSession == null) {
@@ -110,27 +109,7 @@ fun main() {
 
     }
 
-    app.exception(SuperTokensException::class.java) { _, _ ->
-        SuperTokens.exceptionHandler()
-            .onTryRefreshTokenError { _, ctx ->
-                ctx.status(401).result("Call the refresh API");
-            }
-            .onUnauthorisedError { _, ctx ->
-                ctx.status(401).result("Please login again")
-            }
-            .onGeneralError { exception, ctx ->
-                ctx.status(401).result(exception.message ?: "no message")
-            }
-            .onTokenTheftDetectedError { exception, ctx ->
-                ctx.status(401).result("You are being attacked");
-                // revoke affected session.
-                try {
-                    SuperTokens.revokeSession(exception.sessionHandle);
-                } catch (e: GeneralException) {
-                    e.printStackTrace()
-                }
-            }
-    }
+    app.exception(SuperTokensException::class.java, SuperTokens.exceptionHandler())
 
 }
 
