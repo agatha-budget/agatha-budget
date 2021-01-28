@@ -18,44 +18,23 @@ fun main() {
 
     ServiceManager.start()
 
+    //    val app = Javalin.create { config ->config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
     val app = Javalin.create { config ->
-                                   config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
+        config.enableCorsForAllOrigins()
     }.start(getHerokuAssignedOrDefaultPort())
 
-    app.exception(SuperTokensException::class.java) { _, _ ->
-        SuperTokens.exceptionHandler()
-            .onTryRefreshTokenError { _, ctx ->
-                ctx.status(401).result("Call the refresh API");
-            }
-            .onUnauthorisedError { _, ctx ->
-                ctx.status(401).result("Please login again")
-            }
-            .onGeneralError { exception, ctx ->
-                                 ctx.status(401).result(exception.message ?: "no message")
-            }
-            .onTokenTheftDetectedError { exception, ctx ->
-                                            ctx.status(401).result("You are being attacked");
-                // revoke affected session.
-                try {
-                    SuperTokens.revokeSession(exception.sessionHandle);
-                } catch (e: GeneralException) {
-                    e.printStackTrace()
-                }
-            }
-    }
-
     app.get("/") { ctx ->
-                       ctx.result("Hello Sunshine !")
+        ctx.result("Hello Sunshine !")
     }
 
     app.get("/error") { ctx ->
-                            val exception = TresorierException(Exception("why ?"), "this is your doing")
-                        ctx.result(exception.id)
+        val exception = TresorierException(Exception("why ?"), "this is your doing")
+        ctx.result(exception.id)
     }
 
     app.get("/ping") { ctx ->
-                           ctx.status(200)
-                       ctx.json(properties.getProperty("environment"))
+        ctx.status(200)
+        ctx.json(properties.getProperty("environment"))
     }
 
     app.post("/person") { ctx ->
@@ -66,10 +45,10 @@ fun main() {
         if (person == null) {
             ctx.status(400)
             ctx.json("the user wasn't created")
-                          } else {
-                              ctx.status(200)
-                              ctx.json(person.id)
-                          }
+        } else {
+            ctx.status(200)
+            ctx.json(person.id)
+        }
     }
 
     app.before("/session/refresh") { SuperTokens.middleware() }
@@ -82,26 +61,26 @@ fun main() {
         if (person == null) {
             val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
             ctx.status(400)
-                             ctx.json("{'unlockingDate' : " + unlockingDate + "}")
-                         } else {
-                             ctx.status(200)
-                             SuperTokens.newSession(ctx, person.id).create()
-                             ctx.json(person.id)
-                         }
+            ctx.json("{'unlockingDate' : " + unlockingDate + "}")
+        } else {
+            ctx.status(200)
+            SuperTokens.newSession(ctx, person.id).create()
+            ctx.json(person.id)
+        }
     }
 
 
     app.before("/logout") { SuperTokens.middleware() }
     app.delete("/logout") { ctx ->
-                                val session = SuperTokens.getFromContext(ctx)
-                            session.revokeSession()
-                            ctx.status(200)
-                            ctx.json("back to login page")
+        val session = SuperTokens.getFromContext(ctx)
+        session.revokeSession()
+        ctx.status(200)
+        ctx.json("back to login page")
     }
 
     app.before("/budget") { ctx ->
-                                SuperTokens.middleware()
-                            ctx.header("logged", "trueee")
+        SuperTokens.middleware()
+        ctx.header("logged", "trueee")
     }
     app.post("/budget") { ctx ->
         val validSession = SuperTokens.getFromContext(ctx)
@@ -111,26 +90,47 @@ fun main() {
             ctx.result(validSession.userId)
         }
         /*
-                           val userId = validSession.userId
-                           val user : Person? = ServiceManager.personService.getById(userId)
-                           user?.let {
-                               val name = ctx.queryParam<String>("name").get()
-                           val budget : Budget? = ServiceManager.budgetService.createBudget(name, user)
-                           budget?.let {
-                               ctx.json(budget.id)
-     }
-                           if (budget==null){
-                               ctx.status(400)
-                           ctx.json("could not create a budget")
-     }
-     }
-                           if (user==null){
-                               ctx.status(400)
-                           ctx.json("the specified user doesn't exist")
-     }*/
+         val userId = validSession.userId
+         val user : Person? = ServiceManager.personService.getById(userId)
+         user?.let {
+             val name = ctx.queryParam<String>("name").get()
+         val budget : Budget? = ServiceManager.budgetService.createBudget(name, user)
+         budget?.let {
+             ctx.json(budget.id)
+}
+         if (budget==null){
+             ctx.status(400)
+         ctx.json("could not create a budget")
+}
+}
+         if (user==null){
+             ctx.status(400)
+         ctx.json("the specified user doesn't exist")
+}*/
 
     }
 
+    app.exception(SuperTokensException::class.java) { _, _ ->
+        SuperTokens.exceptionHandler()
+            .onTryRefreshTokenError { _, ctx ->
+                ctx.status(401).result("Call the refresh API");
+            }
+            .onUnauthorisedError { _, ctx ->
+                ctx.status(401).result("Please login again")
+            }
+            .onGeneralError { exception, ctx ->
+                ctx.status(401).result(exception.message ?: "no message")
+            }
+            .onTokenTheftDetectedError { exception, ctx ->
+                ctx.status(401).result("You are being attacked");
+                // revoke affected session.
+                try {
+                    SuperTokens.revokeSession(exception.sessionHandle);
+                } catch (e: GeneralException) {
+                    e.printStackTrace()
+                }
+            }
+    }
 
 }
 
