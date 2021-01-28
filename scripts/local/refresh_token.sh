@@ -1,0 +1,1 @@
+curl -X POST "http://localhost:7000/refresh/session" -H  "accept: application/json" -d "" -c /tmp/cookie -b /tmp/cookies -v

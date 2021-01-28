@@ -55,7 +55,7 @@ fun main() {
     app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
 
-    app.get("/login") { ctx ->
+    app.post("/login") { ctx ->
         val email = ctx.queryParam<String>("email").get()
         val password = ctx.queryParam<String>("password").get()
         val person: Person? = ServiceManager.personService.login(email, password)
