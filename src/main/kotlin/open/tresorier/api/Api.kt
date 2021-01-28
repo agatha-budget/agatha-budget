@@ -29,7 +29,7 @@ fun main() {
     }
 
     app.get("/error") { ctx ->
-        val exception = TresorierException(Exception("why ?"), "this is your doing")
+        val exception = TresorierException("this is your doing", Exception("why ?"))
         ctx.result(exception.id)
     }
 
@@ -84,27 +84,18 @@ fun main() {
     app.post("/budget") { ctx ->
         val validSession = SuperTokens.getFromContext(ctx)
         val userId = validSession.userId
-        val user: Person? = ServiceManager.personService.getById(userId)
-        user?.let {
-            val name = ctx.queryParam<String>("name").get()
-            val budget: Budget? = ServiceManager.budgetService.createBudget(name, user)
-            budget?.let {
-                ctx.json(budget.id)
-            }
-            if (budget == null) {
-                ctx.status(400)
-                ctx.json("could not create a budget")
-            }
-        }
-        if (user == null) {
-            ctx.status(400)
-            ctx.json("the specified user doesn't exist")
-        }
+        val user: Person = ServiceManager.personService.getById(userId)
+        val name = ctx.queryParam<String>("name").get()
+        val budget: Budget = ServiceManager.budgetService.createBudget(name, user)
+        ctx.json(budget.id)
 
     }
 
     app.exception(SuperTokensException::class.java, SuperTokens.exceptionHandler())
-
+    app.exception(TresorierException::class.java) { e, ctx ->
+        ctx.status(400)
+        ctx.json("an exception occured, if it seems irrelevant send this code to your administrator : " + e.id)
+    }
 }
 
 private fun getHerokuAssignedOrDefaultPort(): Int {

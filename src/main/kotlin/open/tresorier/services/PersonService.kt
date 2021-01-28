@@ -52,7 +52,7 @@ class PersonService(val personDao: IPersonDao) {
         return incrementedDate
     }
 
-    fun getById(id: String) : Person? {
+    fun getById(id: String) : Person {
         return personDao.getById(id)
     }
 

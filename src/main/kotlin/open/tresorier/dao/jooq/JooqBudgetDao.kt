@@ -1,29 +1,29 @@
 package open.tresorier.dao.jooq
 
-import org.jooq.exception.DataAccessException
 import open.tresorier.dao.IBudgetDao
-import open.tresorier.model.Budget
+import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.tables.daos.BudgetDao
-import open.tresorier.generated.jooq.tables.pojos.Budget as JooqBudget;
+import open.tresorier.model.Budget
+import open.tresorier.generated.jooq.tables.pojos.Budget as JooqBudget
 
 class JooqBudgetDao (val generatedDao : BudgetDao) : IBudgetDao {
 
-    override fun insert(budget : Budget) : Budget? {
+    override fun insert(budget : Budget) : Budget {
         val jooqBudget = this.toJooqBudget(budget)
         try {
         this.generatedDao.insert(jooqBudget)
-        } catch (e : DataAccessException) {
-            return null
+        } catch (e : Exception) {
+            throw TresorierException("could not insert budget : $budget", e)
         }
         return budget
     }
 
-    override fun update(budget : Budget) : Budget?{
+    override fun update(budget : Budget) : Budget {
         val jooqBudget = this.toJooqBudget(budget)
         try {
             this.generatedDao.update(jooqBudget)
-        } catch (e : DataAccessException) {
-            return null
+        } catch (e : Exception) {
+            throw TresorierException("could not update budget : $budget", e)
         }
         return budget
     }
@@ -33,9 +33,9 @@ class JooqBudgetDao (val generatedDao : BudgetDao) : IBudgetDao {
         this.generatedDao.delete(jooqBudget)
     }
 
-    override fun getById(id: String) : Budget? {
+    override fun getById(id: String) : Budget {
         val jooqBudget = this.generatedDao.fetchOneById(id)
-        return this.toBudget(jooqBudget)
+        return this.toBudget(jooqBudget) ?: throw TresorierException("no budget found for the following id : $id")
     }
 
     override fun findByPersonId(personId: String) : List<Budget> {

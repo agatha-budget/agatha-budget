@@ -1,16 +1,15 @@
 package open.tresorier.exception
 
 import open.tresorier.utils.Utils
-import open.tresorier.utils.Properties
-import java.util.UUID;
+import java.util.*
 
 class TresorierException (
-    val p_catchedException: Exception,
-    val p_message: String
+    val p_message: String,
+    val p_catchedException: Exception? = null
 ) : Exception(p_message) {
 
 
-    val catchedException : Exception = p_catchedException
+    val catchedException : Exception? = p_catchedException
     val id : String
 
     init {
@@ -24,9 +23,9 @@ class TresorierException (
                      + Utils.newLine() +
                      "exception_message : " + this.message
                      + Utils.newLine() +
-                     "catched_exception_msg : " + this.catchedException.message
+                     "catched_exception_msg : " + this.catchedException?.message
                      + Utils.newLine() +
-                     "catched_exception_trace : " + this.catchedException.getStackTrace()
+                     "catched_exception_trace : " + this.catchedException?.stackTrace
         )
     }
 }

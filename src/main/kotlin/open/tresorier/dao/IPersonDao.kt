@@ -5,10 +5,9 @@ import open.tresorier.model.Person
 interface IPersonDao {
 
     // return null if an error occurred (duplicate unique property etc..)
-    fun insert(person: Person) : Person?
+    fun insert(person: Person) : Person
     fun update(person: Person)
     fun delete(person: Person)
-    fun getById(id: String): Person?
+    fun getById(id: String): Person
     fun getByEmail(email: String) : Person?
-
 }

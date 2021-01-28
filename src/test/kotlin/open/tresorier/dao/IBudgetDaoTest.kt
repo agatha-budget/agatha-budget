@@ -1,12 +1,13 @@
 package open.tresorier.dao
 
 import open.tresorier.dependenciesinjection.ITest
-import open.tresorier.model.Person
+import open.tresorier.exception.TresorierException
 import open.tresorier.model.Budget
-import org.junit.jupiter.api.Assertions.*
+import open.tresorier.model.Person
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
-import open.tresorier.exception.TresorierException
 
 class BudgetDaoTest : ITest {
 
@@ -36,8 +37,10 @@ class BudgetDaoTest : ITest {
 
     @Test fun testInsertWithInvalidPersonId() {
         val invalidBudget = Budget("anne-B3", "not_a_real_id")
-        val shouldBeNull = budgetDao.insert(invalidBudget)
-        assertNull(shouldBeNull)
+        val exception = Assertions.assertThrows(TresorierException::class.java) {
+            budgetDao.insert(invalidBudget)
+        }
+        assertEquals("could not insert budget : $invalidBudget", exception.message)
 
     }
 
@@ -47,8 +50,10 @@ class BudgetDaoTest : ITest {
         val budgetCeline = Budget("celine-B1", celine.id)
         budgetDao.insert(budgetCeline)
         budgetCeline.personId = "not_a_real_id"
-        val shouldBeNull = budgetDao.update(budgetCeline)
-        assertNull(shouldBeNull)
+        val exception = Assertions.assertThrows(TresorierException::class.java) {
+            budgetDao.update(budgetCeline)
+        }
+        assertEquals("could not update budget : $budgetCeline", exception.message)
 
     }
 }
