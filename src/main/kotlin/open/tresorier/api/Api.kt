@@ -6,6 +6,7 @@ import io.supertokens.javalin.SuperTokens
 import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
+import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.Budget
 import open.tresorier.model.Person
 import open.tresorier.utils.Properties
@@ -51,8 +52,8 @@ fun main() {
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
 
     app.post("/login") { ctx ->
-        val email = ctx.queryParam<String>("email").get()
-        val password = ctx.queryParam<String>("password").get()
+        val email = getQueryParam(ctx, "email")
+        val password = getQueryParam(ctx, "password")
         val person: Person? = ServiceManager.personService.login(email, password)
         if (person == null) {
             val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
@@ -75,10 +76,17 @@ fun main() {
     app.before("/budget", SuperTokens.middleware())
     app.post("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
-        val name = ctx.queryParam<String>("name").get()
+        val name = getQueryParam(ctx, "name")
         val budget: Budget = ServiceManager.budgetService.createBudget(name, user)
         ctx.json(budget.id)
+    }
 
+    app.put("/budget") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(getQueryParam(ctx, "budget_id"))
+        val newName = getQueryParam(ctx, "new_name")
+        ServiceManager.budgetService.update(user, budget, newName)
+        ctx.json("updated from " + budget.name + " to " + newName)
     }
 }
 
@@ -89,18 +97,29 @@ private fun setUpApp(properties: JavaProperties): Javalin {
     }.start(getHerokuAssignedOrDefaultPort())
 
     app.exception(SuperTokensException::class.java, SuperTokens.exceptionHandler())
+
     app.exception(TresorierException::class.java) { e, ctx ->
         ctx.status(400)
-        ctx.json("an exception occured, if it seems suspiscious send this code to your administrator : " + e.id)
+        ctx.json("an exception occured" + sendToAdminMessage(e.id))
     }
+
+    app.exception(TresorierIllegalException::class.java) { e, ctx ->
+        ctx.status(403)
+        ctx.json("this transaction is not authorised for the authentified user" + sendToAdminMessage(e.id))
+    }
+
     app.exception(Exception::class.java) { e, ctx ->
         ctx.status(500)
         // is not thrown so that only an id code will be send to the client side, the handling is done inside TresorierException class
         val exception = TresorierException("catched by API", e)
-        ctx.json("an unexpected error occured on our side, send this code to your administrator for details : " + exception.id)
+        ctx.json("an unexpected error occured on our side" + sendToAdminMessage(exception.id))
     }
 
     return app
+}
+
+private fun sendToAdminMessage(errorId : String) : String {
+    return "Send this code to your administrator for details : $errorId"
 }
 
 private fun getHerokuAssignedOrDefaultPort(): Int {
@@ -115,4 +134,8 @@ private fun getUserFromAuth(ctx: Context): Person {
     val validSession = SuperTokens.getFromContext(ctx)
     val userId = validSession.userId
     return ServiceManager.personService.getById(userId)
+}
+
+private fun getQueryParam(ctx: Context, name: String) : String {
+    return ctx.queryParam<String>(name).get()
 }
