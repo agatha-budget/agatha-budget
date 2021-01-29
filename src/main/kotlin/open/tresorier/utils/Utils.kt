@@ -1,9 +1,9 @@
 package open.tresorier.utils
 
-import java.util.Properties
-import java.io.FileInputStream
-import org.slf4j.LoggerFactory
 import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import java.io.FileInputStream
+import java.util.Properties
 
 object Utils {
 
