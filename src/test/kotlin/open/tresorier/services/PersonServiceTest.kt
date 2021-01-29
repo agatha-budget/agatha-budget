@@ -35,7 +35,7 @@ class PersonServiceTest : ITest {
     @Test
     fun testFailFirstTwoLogin() {
         val leodile: Person =
-            personService.createPerson("Léodile Champseix", "Egalité!", "leodile@champseix.eu") as Person
+            personService.createPerson("Léodile Champseix", "Egalité!", "leodile@champseix.eu")
         val before = Time.now()
         // First 3 tries are free (after the third you have to wait)
         personService.login("leodile@champseix.eu", "SecondEmpire")
@@ -53,7 +53,7 @@ class PersonServiceTest : ITest {
             "Simone de Beauvoir",
             "Contraception!1974",
             "simone@planning-famillial.fr"
-        ) as Person
+        )
         val before = Time.now()
         personService.login("simone@planning-famillial.fr", "1949")
         personService.login("simone@planning-famillial.fr", "1967")
@@ -72,7 +72,7 @@ class PersonServiceTest : ITest {
     @Test
     fun testFailLoginRighPasswordButLockedAccount() {
         val julie: Person =
-            personService.createPerson("Julie Daubié", "Bacheliere!1861", "julie@diplomee.com") as Person
+            personService.createPerson("Julie Daubié", "Bacheliere!1861", "julie@diplomee.com")
         val before = Time.now()
         personService.login("julie@diplomee.com", "Certificat")
         personService.login("julie@diplomee.com", "Brevet")
@@ -92,7 +92,7 @@ class PersonServiceTest : ITest {
 
     @Test
     fun testWorkingLoginAfterFail() {
-        val louise: Person = personService.createPerson("Louise Weiss", "Vote!1944", "louise@suffragette.fr") as Person
+        val louise: Person = personService.createPerson("Louise Weiss", "Vote!1944", "louise@suffragette.fr")
         val now = Time.now()
         personService.login("louise@suffragette.fr", "1919")
         personService.login("louise@suffragette.fr", "1935")
