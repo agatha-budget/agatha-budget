@@ -9,7 +9,7 @@ class PersonService(val personDao: IPersonDao) {
     /* return either the created person or null if the creation failed
      ex : email already used
      */
-    fun createPerson(name: String, password: String, email: String): Person? {
+    fun createPerson(name: String, password: String, email: String): Person {
         val hashedPassword = AuthenticationService.hashPassword(password)
         val person = Person(name, hashedPassword, email)
         return personDao.insert(person)
