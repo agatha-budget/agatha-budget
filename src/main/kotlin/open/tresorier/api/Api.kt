@@ -84,9 +84,10 @@ fun main() {
     app.put("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(getQueryParam(ctx, "budget_id"))
+        val formerName = budget.name
         val newName = getQueryParam(ctx, "new_name")
         ServiceManager.budgetService.update(user, budget, newName)
-        ctx.json("updated from " + budget.name + " to " + newName)
+        ctx.json("updated from " + formerName + " to " + newName)
     }
 }
 
