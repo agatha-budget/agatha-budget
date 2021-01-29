@@ -3,7 +3,7 @@ package open.tresorier.exception
 import open.tresorier.utils.Utils
 import java.util.*
 
-class TresorierException (
+open class TresorierException (
     private val p_message: String,
     private val p_catchedException: Exception? = null
 ) : Exception(p_message) {
