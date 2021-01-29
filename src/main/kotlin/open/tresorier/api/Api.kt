@@ -94,7 +94,13 @@ fun main() {
     app.exception(SuperTokensException::class.java, SuperTokens.exceptionHandler())
     app.exception(TresorierException::class.java) { e, ctx ->
         ctx.status(400)
-        ctx.json("an exception occured, if it seems irrelevant send this code to your administrator : " + e.id)
+        ctx.json("an exception occured, if it seems suspiscious send this code to your administrator : " + e.id)
+    }
+    app.exception(Exception::class.java) {e, ctx ->
+        ctx.status(500)
+        // is not thrown so that only an id code will be send to the client side, the handling is done inside TresorierException class
+        val exception = TresorierException("catched by API", e)
+        ctx.json("an unexpected error occured on our side, send this code to your administrator for details : " + exception.id)
     }
 }
 
