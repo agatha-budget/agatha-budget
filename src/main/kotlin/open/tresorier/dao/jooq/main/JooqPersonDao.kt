@@ -1,12 +1,15 @@
-package open.tresorier.dao.jooq
+package open.tresorier.dao.jooq.main
 
 import open.tresorier.dao.IPersonDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.generated.jooq.tables.daos.PersonDao
+import open.tresorier.generated.jooq.main.tables.daos.PersonDao
 import open.tresorier.model.Person
-import open.tresorier.generated.jooq.tables.pojos.Person as JooqPerson
+import open.tresorier.generated.jooq.main.tables.pojos.Person as JooqPerson
+import org.jooq.Configuration
 
-class JooqPersonDao(val generatedDao: PersonDao) : IPersonDao {
+class JooqPersonDao(val configuration: Configuration) : IPersonDao {
+
+    private val generatedDao: PersonDao = PersonDao(configuration)
 
     override fun insert(person: Person): Person {
         val jooqPerson = this.toJooqPerson(person)

@@ -82,11 +82,13 @@ dependencies {
 }
 
 val generatedDir = "src/main/generated"
+val generatedDirMain = generatedDir + "/tresorier"
+val generatedDirTest = generatedDir + "/test"
 
 sourceSets {
     main {
         java {
-            setSrcDirs(listOf(generatedDir, "src/main/kotlin"))
+            setSrcDirs(listOf(generatedDirMain, generatedDirTest, "src/main/kotlin"))
         }
     }
 }
@@ -194,8 +196,8 @@ jooq {
                          isDaos = true
                      }
                      target.apply {
-                         packageName = "open.tresorier.generated.jooq.tresorier"
-                         directory= generatedDir + "/tresorier"
+                         packageName = "open.tresorier.generated.jooq.main"
+                         directory= generatedDirMain
 
                      }
                      strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
@@ -237,7 +239,7 @@ jooq {
                     }
                     target.apply {
                         packageName = "open.tresorier.generated.jooq.test"
-                        directory= generatedDir + "/test"
+                        directory= generatedDirTest
                     }
                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
                 }

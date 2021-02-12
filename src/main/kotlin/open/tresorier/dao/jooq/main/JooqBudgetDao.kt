@@ -1,12 +1,15 @@
-package open.tresorier.dao.jooq
+package open.tresorier.dao.jooq.main
 
 import open.tresorier.dao.IBudgetDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.generated.jooq.tables.daos.BudgetDao
+import open.tresorier.generated.jooq.main.tables.daos.BudgetDao
 import open.tresorier.model.Budget
-import open.tresorier.generated.jooq.tables.pojos.Budget as JooqBudget
+import open.tresorier.generated.jooq.main.tables.pojos.Budget as JooqBudget
+import org.jooq.Configuration
 
-class JooqBudgetDao (val generatedDao : BudgetDao) : IBudgetDao {
+class JooqBudgetDao (val configuration : Configuration) : IBudgetDao {
+
+    private val generatedDao : BudgetDao = BudgetDao(configuration)
 
     override fun insert(budget : Budget) : Budget {
         val jooqBudget = this.toJooqBudget(budget)
