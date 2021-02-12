@@ -13,11 +13,11 @@ class PersonDaoTest : ITest {
     val personDao by inject<IPersonDao>()
 
     @Test fun testInsertTwoIdenticalPerson() {
-        val person1 = Person("Camille", "mimimi", "camille@mail.eu")
-        val storedPerson = personDao.insert(person1)
-        assertEquals(person1.id, storedPerson.id)
+        val christine = Person("Christine de Pisan", "CiteDesDames", "no@adress.yet")
+        val storedPerson = personDao.insert(christine)
+        assertEquals(christine.id, storedPerson.id)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
-            personDao.insert(person1)
+            personDao.insert(christine)
         }
         assertEquals("could not create new person", exception.message)
     }

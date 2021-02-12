@@ -1,7 +1,6 @@
 package open.tresorier.services
 
 import open.tresorier.dependenciesinjection.ITest
-import open.tresorier.exception.TresorierException
 import open.tresorier.model.Person
 import open.tresorier.utils.Time
 import org.junit.jupiter.api.Assertions.*
@@ -10,20 +9,7 @@ import org.koin.core.component.inject
 
 class PersonServiceTest : ITest {
 
-    val personService by inject<PersonService>()
-
-    @Test
-    fun testCreateDuplicatePerson() {
-        personService.createPerson("Christine de Pisan", "CiteDesDames", "no@adress.yet")
-        val exception = assertThrows(TresorierException::class.java) {
-            personService.createPerson(
-                "Marie de Gournay",
-                "EducationDesFilles",
-                "no@adress.yet"
-            )
-        }
-        assertEquals("could not create new person", exception.message)
-    }
+    private val personService by inject<PersonService>()
 
     @Test
     fun testValidlogin() {
