@@ -10,6 +10,12 @@ val integration_db_url_dflt: String by project
 val integration_db_usr_dflt: String by project
 val integration_db_pwd_dflt: String by project
 
+val test_db_driver: String by project
+val test_db_url: String by project
+val test_db_usr: String by project
+val test_db_pwd: String by project
+val test_db_version: String by project
+
 
 val tresorierDB = "HEROKU_POSTGRESQL_AQUA_JDBC"
 val integrationDB = "HEROKU_POSTGRESQL_GREEN_JDBC"
@@ -33,7 +39,7 @@ buildscript {
 plugins {
     kotlin("jvm") version "1.4.10"
     id("org.jetbrains.dokka") version "1.4.0-rc"
-    id("org.flywaydb.flyway") version "6.5.5"
+    id("org.flywaydb.flyway") version "7.5.3"
     id("nu.studer.jooq") version "5.2"
     application
 }
@@ -59,10 +65,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.1.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.1.1")
     testImplementation("io.mockk:mockk:1.10.5")
-
-    testIntegrationImplementation("org.koin:koin-test:2.2.1")
-    testIntegrationImplementation("org.junit.jupiter:junit-jupiter-api:5.1.1")
-    testIntegrationImplementation("io.mockk:mockk:1.10.5")
+    testImplementation("com.h2database:h2:1.4.200")
 
     implementation("org.jooq:jooq:3.13.4")
     implementation("org.jooq:jooq-meta:3.13.4")
@@ -101,19 +104,28 @@ tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTresorierData
 }
 
 
-tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTestDatabase") {
+tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateIntegrationDatabase") {
     url = integration_db_url
     user = integration_db_usr
     password = integration_db_pwd
     locations = arrayOf(tresorier_db_version)
 }
 
+tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTestDatabase") {
+    driver = test_db_driver
+    url = test_db_url
+    user = test_db_usr
+    password = test_db_pwd
+    locations = arrayOf(test_db_version)
+}
+
 tasks.register("migrate") {
     dependsOn("migrateTresorierDatabase")
     dependsOn("migrateTestDatabase")
+    dependsOn("migrateIntegrationDatabase")
 }
 
-tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTestDatabase") {
+tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanIntegrationDatabase") {
     url = integration_db_url
     user = integration_db_usr
     password = integration_db_pwd
@@ -127,9 +139,18 @@ tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTresorierDatabase
     locations = arrayOf(tresorier_db_version)
 }
 
+tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTestDatabase") {
+    driver = test_db_driver
+    url = test_db_url
+    user = test_db_usr
+    password = test_db_pwd
+    locations = arrayOf(test_db_version)
+}
+
 tasks.register("cleanAllDB") {
     dependsOn("cleanTresorierDatabase")
     dependsOn("cleanTestDatabase")
+    dependsOn("cleanIntegrationDatabase")
 }
 
 
@@ -181,7 +202,6 @@ jooq {
 }
 
 tasks.named("test") {dependsOn("migrate")}
-tasks.named("test") {finalizedBy("cleanTestDatabase")}
 tasks.named("generateJooq") {dependsOn("migrateTresorierDatabase")}
 
 tasks.test {
