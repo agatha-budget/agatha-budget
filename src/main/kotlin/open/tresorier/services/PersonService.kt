@@ -9,7 +9,7 @@ class PersonService(val personDao: IPersonDao) {
     /* return either the created person or null if the creation failed
      ex : email already used
      */
-    fun createPerson(name: String, password: String, email: String): Person? {
+    fun createPerson(name: String, password: String, email: String): Person {
         val hashedPassword = AuthenticationService.hashPassword(password)
         val person = Person(name, hashedPassword, email)
         return personDao.insert(person)
@@ -21,19 +21,19 @@ class PersonService(val personDao: IPersonDao) {
      ex : account is still locked
      */
     fun login(email: String, password: String): Person? {
-        val person = personDao.getByEmail(email)
-        if (person == null) {
-            return null
-        } else {
-            val correctPassword = AuthenticationService.passwordMatch(person.hashedPassword, password)
-            val unlockedAccount = (person.unlockingDate <= Time.now())
-            updateLoginAttempt(person, correctPassword)
-
-            return if (correctPassword && unlockedAccount) person else null
+        var person : Person? = personDao.getByEmail(email)
+        person?.let {
+            val correctPassword = AuthenticationService.passwordMatch(it.hashedPassword, password)
+            val unlockedAccount = (it.unlockingDate <= Time.now())
+            updateLoginAttempt(it, correctPassword)
+            if (!(correctPassword && unlockedAccount)){
+                person = null
+            }
         }
+        return person
     }
 
-    fun updateLoginAttempt(person : Person, correctPassword: Boolean){
+    private fun updateLoginAttempt(person : Person, correctPassword: Boolean){
         if (!correctPassword){
             person.loginAttemptCount += 1
             person.unlockingDate = addIncrementalDelay(person.unlockingDate, person.loginAttemptCount)
@@ -52,7 +52,7 @@ class PersonService(val personDao: IPersonDao) {
         return incrementedDate
     }
 
-    fun getById(id: String) : Person? {
+    fun getById(id: String) : Person {
         return personDao.getById(id)
     }
 

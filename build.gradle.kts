@@ -6,31 +6,23 @@ val tresorier_db_usr_dflt: String by project
 val tresorier_db_pwd_dflt: String by project
 val tresorier_db_version: String by project
 
-val test_db_url_dflt: String by project
-val test_db_usr_dflt: String by project
-val test_db_pwd_dflt: String by project
-
-val auth_db_url_dflt: String by project
-val auth_db_usr_dflt: String by project
-val auth_db_pwd_dflt: String by project
-val auth_db_version: String by project
+val integration_db_url_dflt: String by project
+val integration_db_usr_dflt: String by project
+val integration_db_pwd_dflt: String by project
 
 
 val tresorierDB = "HEROKU_POSTGRESQL_AQUA_JDBC"
-val testDB = "HEROKU_POSTGRESQL_GREEN_JDBC"
-val authDB = "HEROKU_POSTGRESQL_RED_JDBC"
+val integrationDB = "HEROKU_POSTGRESQL_GREEN_JDBC"
 
 val tresorier_db_url = System.getenv(tresorierDB +"_URL") ?: tresorier_db_url_dflt
 val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: tresorier_db_usr_dflt
 val tresorier_db_pwd = System.getenv(tresorierDB + "_PASSWORD") ?: tresorier_db_pwd_dflt
 
-val test_db_url = System.getenv(testDB +"_URL") ?: test_db_url_dflt
-val test_db_usr = System.getenv(testDB + "_USERNAME") ?: test_db_usr_dflt
-val test_db_pwd = System.getenv(testDB + "_PASSWORD") ?: test_db_pwd_dflt
+val integration_db_url = System.getenv(integrationDB +"_URL") ?: integration_db_url_dflt
+val integration_db_usr = System.getenv(integrationDB + "_USERNAME") ?: integration_db_usr_dflt
+val integration_db_pwd = System.getenv(integrationDB + "_PASSWORD") ?: integration_db_pwd_dflt
 
-val auth_db_url = System.getenv(authDB +"_URL") ?: auth_db_url_dflt
-val auth_db_usr = System.getenv(authDB + "_USERNAME") ?: auth_db_usr_dflt
-val auth_db_pwd = System.getenv(authDB + "_PASSWORD") ?: auth_db_pwd_dflt
+
 
 buildscript {
     dependencies {
@@ -66,6 +58,11 @@ dependencies {
     testImplementation("org.koin:koin-test:2.2.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.1.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.1.1")
+    testImplementation("io.mockk:mockk:1.10.5")
+
+    testIntegrationImplementation("org.koin:koin-test:2.2.1")
+    testIntegrationImplementation("org.junit.jupiter:junit-jupiter-api:5.1.1")
+    testIntegrationImplementation("io.mockk:mockk:1.10.5")
 
     implementation("org.jooq:jooq:3.13.4")
     implementation("org.jooq:jooq-meta:3.13.4")
@@ -86,7 +83,7 @@ sourceSets {
             setSrcDirs(listOf(generatedDir, "src/main/kotlin"))
         }
     }
-}
+    }
 
 tasks.named("compileJava") {
     dependsOn("generateJooq")
@@ -103,30 +100,23 @@ tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTresorierData
     locations = arrayOf(tresorier_db_version)
 }
 
-tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateAuthSessionDatabase") {
-    url = auth_db_url
-    user = auth_db_usr
-    password = auth_db_pwd
-    locations = arrayOf(auth_db_version)
-}
 
 tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTestDatabase") {
-    url = test_db_url
-    user = test_db_usr
-    password = test_db_pwd
+    url = integration_db_url
+    user = integration_db_usr
+    password = integration_db_pwd
     locations = arrayOf(tresorier_db_version)
 }
 
 tasks.register("migrate") {
-    dependsOn("migrateAuthSessionDatabase")
     dependsOn("migrateTresorierDatabase")
     dependsOn("migrateTestDatabase")
 }
 
 tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTestDatabase") {
-    url = test_db_url
-    user = test_db_usr
-    password = test_db_pwd
+    url = integration_db_url
+    user = integration_db_usr
+    password = integration_db_pwd
     locations = arrayOf(tresorier_db_version)
 }
 
@@ -137,16 +127,7 @@ tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTresorierDatabase
     locations = arrayOf(tresorier_db_version)
 }
 
-
-tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanAuthSessionDatabase") {
-    url = auth_db_url
-    user = auth_db_usr
-    password = auth_db_pwd
-    locations = arrayOf(auth_db_version)
-}
-
 tasks.register("cleanAllDB") {
-    dependsOn("cleanAuthSessionDatabase")
     dependsOn("cleanTresorierDatabase")
     dependsOn("cleanTestDatabase")
 }
