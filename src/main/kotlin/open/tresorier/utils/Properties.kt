@@ -20,9 +20,9 @@ object Properties {
         val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: default.getProperty("tresorier_db_usr_dflt")
         val tresorier_db_pwd = System.getenv(tresorierDB + "_PASSWORD") ?: default.getProperty("tresorier_db_pwd_dflt")
 
-        val test_db_url = default.getProperty("test_db_url_dflt")
-        val test_db_usr = default.getProperty("test_db_usr_dflt")
-        val test_db_pwd = default.getProperty("test_db_pwd_dflt")
+        val test_db_url = default.getProperty("test_db_url")
+        val test_db_usr = default.getProperty("test_db_usr")
+        val test_db_pwd = default.getProperty("test_db_pwd")
 
         val integration_db_url = System.getenv(integrationDB +"_URL") ?: default.getProperty("integration_db_url_dflt")
         val integration_db_usr = System.getenv(integrationDB + "_USERNAME") ?: default.getProperty("integration_db_usr_dflt")
