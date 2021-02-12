@@ -33,6 +33,8 @@ val integration_db_pwd = System.getenv(integrationDB + "_PASSWORD") ?: integrati
 buildscript {
     dependencies {
         classpath("org.postgresql:postgresql:42.2.12")
+        classpath("com.h2database:h2:1.4.200")
+
     }
 }
 
@@ -71,6 +73,7 @@ dependencies {
     implementation("org.jooq:jooq-meta:3.13.4")
     implementation("org.jooq:jooq-codegen:3.13.4")
     jooqGenerator("org.postgresql:postgresql:42.2.12")
+    jooqGenerator("com.h2database:h2:1.4.200")
     implementation("org.postgresql:postgresql:42.2.12")
     implementation("org.slf4j:slf4j-api:1.7.30")
     implementation("org.slf4j:slf4j-simple:1.7.30")
@@ -86,7 +89,7 @@ sourceSets {
             setSrcDirs(listOf(generatedDir, "src/main/kotlin"))
         }
     }
-    }
+}
 
 tasks.named("compileJava") {
     dependsOn("generateJooq")
@@ -156,50 +159,100 @@ tasks.register("cleanAllDB") {
 
 jooq {
     configurations {
-        create("main") { // name of the jOOQ configuration
-                         jooqConfiguration.apply {
-                             logging = org.jooq.meta.jaxb.Logging.WARN
-                             jdbc.apply {
-                                 driver = tresorier_db_driver
-                                 url = tresorier_db_url
-                                 user = tresorier_db_usr
-                                 password = tresorier_db_pwd
-                             }
-                             generator.apply {
-                                 name = "org.jooq.codegen.JavaGenerator"
-                                 database.apply {
-                                     name = "org.jooq.meta.postgres.PostgresDatabase"
-                                     inputSchema = "public"
-                                     forcedTypes.addAll(
-                                         arrayOf(
-                                             ForcedType()
-                                                 .withName("varchar")
-                                                 .withIncludeExpression(".*")
-                                                 .withIncludeTypes("JSONB?"),
-                                             ForcedType()
-                                                 .withName("varchar")
-                                                 .withIncludeExpression(".*")
-                                                 .withIncludeTypes("INET")
-                                         ).toList()
-                                     )
-                                 }
-                                 generate.apply {
-                                     isDeprecated = false
-                                     isRecords = true
-                                     isImmutablePojos = true
-                                     isFluentSetters = true
-                                     isDaos = true
-                                 }
-                                 target.apply {
-                                     packageName = "open.tresorier.generated.jooq"
-                                     directory = generatedDir
-                                 }
-                                 strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
-                             }
-                         }
+        create("tresorier") { // name of the jOOQ configuration
+             jooqConfiguration.apply {
+                 logging = org.jooq.meta.jaxb.Logging.WARN
+                 jdbc.apply {
+                     driver = tresorier_db_driver
+                     url = tresorier_db_url
+                     user = tresorier_db_usr
+                     password = tresorier_db_pwd
+                 }
+                 generator.apply {
+                     name = "org.jooq.codegen.JavaGenerator"
+                     database.apply {
+                         name = "org.jooq.meta.postgres.PostgresDatabase"
+                         inputSchema = "public"
+                         forcedTypes.addAll(
+                             arrayOf(
+                                 ForcedType()
+                                     .withName("varchar")
+                                     .withIncludeExpression(".*")
+                                     .withIncludeTypes("JSONB?"),
+                                 ForcedType()
+                                     .withName("varchar")
+                                     .withIncludeExpression(".*")
+                                     .withIncludeTypes("INET")
+                             ).toList()
+                         )
+                     }
+                     generate.apply {
+                         isDeprecated = false
+                         isRecords = true
+                         isImmutablePojos = true
+                         isFluentSetters = true
+                         isDaos = true
+                     }
+                     target.apply {
+                         packageName = "open.tresorier.generated.jooq.tresorier"
+                         directory= generatedDir + "/tresorier"
+
+                     }
+                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
+                 }
+             }
+        }
+        create("test") { // name of the jOOQ configuration
+            jooqConfiguration.apply {
+                logging = org.jooq.meta.jaxb.Logging.WARN
+                jdbc.apply {
+                    driver = test_db_driver
+                    url = test_db_url
+                    user = test_db_usr
+                    password = test_db_pwd
+                }
+                generator.apply {
+                    name = "org.jooq.codegen.JavaGenerator"
+                    database.apply {
+                        name = "org.jooq.meta.h2.H2Database"
+                        forcedTypes.addAll(
+                            arrayOf(
+                                ForcedType()
+                                    .withName("varchar")
+                                    .withIncludeExpression(".*")
+                                    .withIncludeTypes("JSONB?"),
+                                ForcedType()
+                                    .withName("varchar")
+                                    .withIncludeExpression(".*")
+                                    .withIncludeTypes("INET")
+                            ).toList()
+                        )
+                    }
+                    generate.apply {
+                        isDeprecated = false
+                        isRecords = true
+                        isImmutablePojos = true
+                        isFluentSetters = true
+                        isDaos = true
+                    }
+                    target.apply {
+                        packageName = "open.tresorier.generated.jooq.test"
+                        directory= generatedDir + "/test"
+                    }
+                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
+                }
+            }
         }
     }
 }
+
+
+
+tasks.register("generateJooq") {
+    dependsOn("generateTresorierJooq")
+    dependsOn("generateTestJooq")
+}
+
 
 tasks.named("test") {dependsOn("migrate")}
 tasks.named("generateJooq") {dependsOn("migrateTresorierDatabase")}
