@@ -97,6 +97,10 @@ tasks.named("compileJava") {
     dependsOn("generateJooq")
 }
 
+tasks.named("compileKotlin") {
+    dependsOn("generateJooq")
+}
+
 tasks.clean {
     doLast { delete(project.file(generatedDir)) }
 }
@@ -255,9 +259,12 @@ tasks.register("generateJooq") {
     dependsOn("generateTestJooq")
 }
 
+tasks.named("generateTresorierJooq") {mustRunAfter("migrateTresorierDatabase")}
+tasks.named("generateTestJooq") {mustRunAfter("migrateTestDatabase")}
+
 
 tasks.named("test") {dependsOn("migrate")}
-tasks.named("generateJooq") {dependsOn("migrateTresorierDatabase")}
+tasks.named("generateJooq") {dependsOn("migrate")}
 
 tasks.test {
     useJUnitPlatform()
