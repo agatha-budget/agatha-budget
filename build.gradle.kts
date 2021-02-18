@@ -309,7 +309,11 @@ val integrationTest = task<Test>("integrationTest") {
         events("passed", "skipped", "failed")
     }
     shouldRunAfter("test")
-    failFast = true
+}
+
+tasks.named("integrationTest") {
+    dependsOn("migrate")
+    finalizedBy("cleanIntegrationDatabase")
 }
 
 tasks.check { dependsOn(integrationTest) }
