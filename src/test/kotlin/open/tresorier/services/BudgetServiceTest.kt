@@ -12,6 +12,4 @@ class BudgetServiceTest : ITest {
    fun testUpdateSomeoneElseBudget() {
 
    }
-
-
 }
