@@ -263,7 +263,11 @@ tasks.named("generateTresorierJooq") {mustRunAfter("migrateTresorierDatabase")}
 tasks.named("generateTestJooq") {mustRunAfter("migrateTestDatabase")}
 
 
-tasks.named("test") {dependsOn("migrate")}
+tasks.named("test") {
+    dependsOn("migrate")
+    finalizedBy("cleanTestDatabase")
+}
+
 tasks.named("generateJooq") {dependsOn("migrate")}
 
 tasks.test {
