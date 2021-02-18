@@ -13,8 +13,8 @@ object Properties {
 
         val properties = Properties(default)
 
-        val tresorierDB = "HEROKU_POSTGRESQL_AQUA_JDBC"
-        val integrationDB = "HEROKU_POSTGRESQL_GREEN_JDBC"
+        val tresorierDB = default.getProperty("herokuTresorierDB")
+        val integrationDB = default.getProperty("herokuIntegrationDB")
 
         val tresorier_db_url = System.getenv(tresorierDB +"_URL") ?: default.getProperty("tresorier_db_url_dflt")
         val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: default.getProperty("tresorier_db_usr_dflt")

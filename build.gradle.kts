@@ -16,18 +16,16 @@ val test_db_usr: String by project
 val test_db_pwd: String by project
 val test_db_version: String by project
 
+val herokuTresorierDB: String by project
+val herokuIntegrationDB: String by project
 
-val tresorierDB = "HEROKU_POSTGRESQL_AQUA_JDBC"
-val integrationDB = "HEROKU_POSTGRESQL_GREEN_JDBC"
+val tresorier_db_url = System.getenv(herokuTresorierDB +"_URL") ?: tresorier_db_url_dflt
+val tresorier_db_usr = System.getenv(herokuTresorierDB + "_USERNAME") ?: tresorier_db_usr_dflt
+val tresorier_db_pwd = System.getenv(herokuTresorierDB + "_PASSWORD") ?: tresorier_db_pwd_dflt
 
-val tresorier_db_url = System.getenv(tresorierDB +"_URL") ?: tresorier_db_url_dflt
-val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: tresorier_db_usr_dflt
-val tresorier_db_pwd = System.getenv(tresorierDB + "_PASSWORD") ?: tresorier_db_pwd_dflt
-
-val integration_db_url = System.getenv(integrationDB +"_URL") ?: integration_db_url_dflt
-val integration_db_usr = System.getenv(integrationDB + "_USERNAME") ?: integration_db_usr_dflt
-val integration_db_pwd = System.getenv(integrationDB + "_PASSWORD") ?: integration_db_pwd_dflt
-
+val integration_db_url = System.getenv(herokuIntegrationDB +"_URL") ?: integration_db_url_dflt
+val integration_db_usr = System.getenv(herokuIntegrationDB + "_USERNAME") ?: integration_db_usr_dflt
+val integration_db_pwd = System.getenv(herokuIntegrationDB + "_PASSWORD") ?: integration_db_pwd_dflt
 
 
 buildscript {
