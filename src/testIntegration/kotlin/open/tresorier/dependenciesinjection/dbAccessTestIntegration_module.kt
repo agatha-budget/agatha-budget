@@ -8,7 +8,7 @@ import org.jooq.Configuration
 import open.tresorier.utils.Properties
 import java.sql.Connection
 
-val dbAccessTest_module = module {
+val dbAccessTestIntegration_module = module {
     single<Configuration> {DBTestIntegrationConfiguration.configuration}
 }
 

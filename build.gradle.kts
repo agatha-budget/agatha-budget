@@ -50,6 +50,33 @@ repositories {
     jcenter()
 }
 
+val generatedDir = "src/main/generated"
+val generatedDirMain = generatedDir + "/tresorier"
+val generatedDirTest = generatedDir + "/test"
+
+sourceSets {
+    main {
+        java {
+            setSrcDirs(listOf(generatedDirMain, generatedDirTest, "src/main/kotlin"))
+        }
+    }
+    create("intTest") {
+        java {
+            compileClasspath += sourceSets.main.get().output
+            runtimeClasspath += sourceSets.main.get().output
+            setSrcDirs(listOf("src/testIntegration/kotlin"))
+        }
+    }
+}
+
+val intTestImplementation by configurations.getting {
+    extendsFrom(configurations.implementation.get())
+}
+
+val intTestRuntimeOnly by configurations.getting {
+    extendsFrom(configurations.runtimeOnly.get())
+}
+
 dependencies {
     implementation(kotlin("script-runtime"))
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.4.10")
@@ -69,6 +96,12 @@ dependencies {
     testImplementation("io.mockk:mockk:1.10.5")
     testImplementation("com.h2database:h2:1.4.200")
 
+    intTestImplementation("org.koin:koin-test:2.2.1")
+    intTestImplementation("org.junit.jupiter:junit-jupiter-api:5.1.1")
+    intTestImplementation("io.mockk:mockk:1.10.5")
+    intTestImplementation("org.postgresql:postgresql:42.2.12")
+    intTestRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.1.1")
+
     implementation("org.jooq:jooq:3.13.4")
     implementation("org.jooq:jooq-meta:3.13.4")
     implementation("org.jooq:jooq-codegen:3.13.4")
@@ -79,18 +112,6 @@ dependencies {
     implementation("org.slf4j:slf4j-simple:1.7.30")
     implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation("ch.qos.logback:logback-core:1.2.3")
-}
-
-val generatedDir = "src/main/generated"
-val generatedDirMain = generatedDir + "/tresorier"
-val generatedDirTest = generatedDir + "/test"
-
-sourceSets {
-    main {
-        java {
-            setSrcDirs(listOf(generatedDirMain, generatedDirTest, "src/main/kotlin"))
-        }
-    }
 }
 
 tasks.named("compileJava") {
@@ -257,6 +278,7 @@ jooq {
 tasks.register("generateJooq") {
     dependsOn("generateTresorierJooq")
     dependsOn("generateTestJooq")
+    dependsOn("migrate")
 }
 
 tasks.named("generateTresorierJooq") {mustRunAfter("migrateTresorierDatabase")}
@@ -268,14 +290,29 @@ tasks.named("test") {
     finalizedBy("cleanTestDatabase")
 }
 
-tasks.named("generateJooq") {dependsOn("migrate")}
-
 tasks.test {
     useJUnitPlatform()
     testLogging {
         events("passed", "skipped", "failed")
     }
+    failFast = true
 }
+
+val integrationTest = task<Test>("integrationTest") {
+    description = "Runs integration tests."
+    group = "verification"
+
+    testClassesDirs = sourceSets["intTest"].output.classesDirs
+    classpath = sourceSets["intTest"].runtimeClasspath
+    useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed")
+    }
+    shouldRunAfter("test")
+    failFast = true
+}
+
+tasks.check { dependsOn(integrationTest) }
 
 tasks.register<Jar>("uberJar") {
     manifest {
