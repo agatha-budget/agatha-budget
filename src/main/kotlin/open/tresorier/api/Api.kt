@@ -26,7 +26,6 @@ fun main() {
     // Dependencies injection
     ServiceManager.start()
 
-
     app.get("/") { ctx ->
         ctx.result("Hello Sunshine !")
     }

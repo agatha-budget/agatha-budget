@@ -7,7 +7,7 @@ import open.tresorier.model.Person
 
 class AccountService(private val accountDao: IAccountDao) {
 
-    fun createAccount(person: Person, name: String): Account {
+    fun create(person: Person, name: String): Account {
         val account = Account(name, person.id)
         return accountDao.insert(account)
     }
