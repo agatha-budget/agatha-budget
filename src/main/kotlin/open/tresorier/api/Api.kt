@@ -76,7 +76,7 @@ fun main() {
     app.post("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val name = getQueryParam(ctx, "name")
-        val budget: Budget = ServiceManager.budgetService.createBudget(user, name)
+        val budget: Budget = ServiceManager.budgetService.create(user, name)
         ctx.json(budget.id)
     }
 

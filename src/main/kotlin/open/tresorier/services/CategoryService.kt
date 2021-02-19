@@ -31,7 +31,7 @@ class CategoryService(private val categoryDao: ICategoryDao) {
     }
 
     private fun cancelIfUserIsUnauthorized(person: Person, category: Category) {
-        val owner = categoryDao.getCategoryOwner(category)
+        val owner = categoryDao.getOwner(category)
         if (owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + "isn't allowed to interact with category " + category.id)
         }

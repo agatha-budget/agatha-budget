@@ -52,7 +52,7 @@ class JooqTestAccountDao(val configuration: Configuration) : IAccountDao {
         return accountList
     }
 
-    override fun getAccountOwner(account: Account): Person {
+    override fun getOwner(account: Account): Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
                 .join(BUDGET).on(BUDGET.ID.eq(account.budgetId))

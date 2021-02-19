@@ -31,7 +31,7 @@ class AccountService(private val accountDao: IAccountDao) {
     }
 
     private fun cancelIfUserIsUnauthorized(person: Person, account: Account) {
-        val owner = accountDao.getAccountOwner(account)
+        val owner = accountDao.getOwner(account)
         if (owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + "isn't allowed to interact with account " + account.id)
         }

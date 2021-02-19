@@ -8,5 +8,5 @@ interface IAccountDao {
     fun update(account: Account) : Account
     fun getById(id: String): Account
     fun findByBudgetId(budgetId: String) : List<Account>
-    fun getAccountOwner(account: Account) : Person
+    fun getOwner(account: Account) : Person
 }

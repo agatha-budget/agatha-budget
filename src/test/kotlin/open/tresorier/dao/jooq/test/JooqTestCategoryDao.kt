@@ -52,7 +52,7 @@ class JooqTestCategoryDao(val configuration: Configuration) : ICategoryDao {
         return categoryList
     }
 
-    override fun getCategoryOwner(category: Category): Person {
+    override fun getOwner(category: Category): Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
                 .join(BUDGET).on(BUDGET.ID.eq(category.budgetId))

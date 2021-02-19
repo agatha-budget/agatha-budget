@@ -40,3 +40,13 @@ VALUES
         ('4', '2', 'grocery'),
         ('5', '3', 'rent')
 ;
+
+INSERT INTO
+       operation (id, operation_date, account_id, category_id, inflow, outflow, memo)
+VALUES
+        ('1', 2541, '1', '1', null, 4.45, 'saving 1 grocery'),
+        ('2', 2545, '1', '2', null, 4.45, 'saving 1 fun'),
+        ('3', 2546, '2', '3', 0.25, null, 'checking 1 gift'),
+        ('4', 2547, '4', '4', 0.25, null, 'checking 4 grocery'),
+        ('5', 2548, '3', '3', null, 4.45, 'credit 1 gift')
+;

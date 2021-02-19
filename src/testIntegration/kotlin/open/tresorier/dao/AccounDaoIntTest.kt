@@ -17,7 +17,7 @@ class AccountDaoIntTest : IIntegrationTest {
     fun getAccountOwner() {
         val account = accountDao.getById("1")
         val expectedOwner = personDao.getById("1")
-        val owner = accountDao.getAccountOwner(account)
+        val owner = accountDao.getOwner(account)
         Assertions.assertEquals(expectedOwner.email, owner.email)
     }
 
@@ -25,7 +25,7 @@ class AccountDaoIntTest : IIntegrationTest {
     fun getOwnerForUnstoredAccount() {
         val account = Account("courant", "id_of_an_inexisting_budget")
         val exception = Assertions.assertThrows(TresorierException::class.java) {
-            accountDao.getAccountOwner(account)
+            accountDao.getOwner(account)
         }
         Assertions.assertEquals("the given object appears to have no owner", exception.message)
     }
