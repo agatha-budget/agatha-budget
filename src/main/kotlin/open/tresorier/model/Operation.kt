@@ -5,8 +5,7 @@ class Operation (
     var accountId: String,
     var categoryId: String,
     var memo: String,
-    var inflow: Double?,
-    var outflow: Double?,
+    var amount: Double?,
     id: String? = null,
     deleted: Boolean? = null
 ) : DbObject(id, deleted)

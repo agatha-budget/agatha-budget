@@ -39,8 +39,7 @@ CREATE TABLE operation (
         operation_date BIGINT NOT NULL,
         account_id VARCHAR(36) NOT NULL,
         category_id VARCHAR(36) NOT NULL,
-        inflow DECIMAL(10,2),
-        outflow DECIMAL(10,2),
+        amount DECIMAL(10,2) NOT NULL,
         memo VARCHAR(280) NOT NULL,
         FOREIGN KEY (account_id) REFERENCES account(id),
         FOREIGN KEY (category_id) REFERENCES category(id)
@@ -50,8 +49,7 @@ CREATE TABLE allocation (
         id VARCHAR(36) NOT NULL PRIMARY KEY,
         category_id VARCHAR(36) NOT NULL,
         allocation_month BIGINT,
-        inflow DECIMAL(10,2),
-        outflow DECIMAL(10,2),
+        amount DECIMAL(10,2),
     FOREIGN KEY (category_id) REFERENCES category(id),
 
         CONSTRAINT only_one_allocation_per_month_and_budget UNIQUE (category_id, allocation_month),

@@ -89,30 +89,16 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
     }
 
     /**
-     * Fetch records that have <code>INFLOW BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>AMOUNT BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfInflow(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
-        return fetchRange(Allocation.ALLOCATION.INFLOW, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfAmount(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
+        return fetchRange(Allocation.ALLOCATION.AMOUNT, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>INFLOW IN (values)</code>
+     * Fetch records that have <code>AMOUNT IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByInflow(BigDecimal... values) {
-        return fetch(Allocation.ALLOCATION.INFLOW, values);
-    }
-
-    /**
-     * Fetch records that have <code>OUTFLOW BETWEEN lowerInclusive AND upperInclusive</code>
-     */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfOutflow(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
-        return fetchRange(Allocation.ALLOCATION.OUTFLOW, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>OUTFLOW IN (values)</code>
-     */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByOutflow(BigDecimal... values) {
-        return fetch(Allocation.ALLOCATION.OUTFLOW, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByAmount(BigDecimal... values) {
+        return fetch(Allocation.ALLOCATION.AMOUNT, values);
     }
 }

@@ -17,7 +17,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row5;
+import org.jooq.Row4;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -34,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation extends TableImpl<AllocationRecord> {
 
-    private static final long serialVersionUID = 337676169;
+    private static final long serialVersionUID = 1462064717;
 
     /**
      * The reference instance of <code>public.allocation</code>
@@ -65,14 +65,9 @@ public class Allocation extends TableImpl<AllocationRecord> {
     public final TableField<AllocationRecord, Long> ALLOCATION_MONTH = createField(DSL.name("allocation_month"), org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.allocation.inflow</code>.
+     * The column <code>public.allocation.amount</code>.
      */
-    public final TableField<AllocationRecord, BigDecimal> INFLOW = createField(DSL.name("inflow"), org.jooq.impl.SQLDataType.NUMERIC(10, 2), this, "");
-
-    /**
-     * The column <code>public.allocation.outflow</code>.
-     */
-    public final TableField<AllocationRecord, BigDecimal> OUTFLOW = createField(DSL.name("outflow"), org.jooq.impl.SQLDataType.NUMERIC(10, 2), this, "");
+    public final TableField<AllocationRecord, BigDecimal> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.NUMERIC(10, 2), this, "");
 
     /**
      * Create a <code>public.allocation</code> table reference
@@ -134,8 +129,7 @@ public class Allocation extends TableImpl<AllocationRecord> {
     @Override
     public List<Check<AllocationRecord>> getChecks() {
         return Arrays.<Check<AllocationRecord>>asList(
-              Internal.createCheck(this, DSL.name("either_inflow_or_outflow_is_null_but_not_both"), "(is_either_inflow_or_outflow_null_but_not_both(inflow, outflow))", true)
-            , Internal.createCheck(this, DSL.name("only_one_date_for_each_month"), "((date_part('day'::text, to_timestamp((allocation_month)::double precision)) = (1)::double precision))", true)
+              Internal.createCheck(this, DSL.name("only_one_date_for_each_month"), "((date_part('day'::text, to_timestamp((allocation_month)::double precision)) = (1)::double precision))", true)
         );
     }
 
@@ -166,11 +160,11 @@ public class Allocation extends TableImpl<AllocationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row4 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<String, String, Long, BigDecimal, BigDecimal> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row4<String, String, Long, BigDecimal> fieldsRow() {
+        return (Row4) super.fieldsRow();
     }
 }

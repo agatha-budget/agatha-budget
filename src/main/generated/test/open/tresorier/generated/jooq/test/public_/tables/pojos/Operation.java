@@ -14,14 +14,13 @@ import java.math.BigDecimal;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 356350081;
+    private static final long serialVersionUID = -791825169;
 
     private final String     id;
     private final Long       operationDate;
     private final String     accountId;
     private final String     categoryId;
-    private final BigDecimal inflow;
-    private final BigDecimal outflow;
+    private final BigDecimal amount;
     private final String     memo;
 
     public Operation(Operation value) {
@@ -29,8 +28,7 @@ public class Operation implements Serializable {
         this.operationDate = value.operationDate;
         this.accountId = value.accountId;
         this.categoryId = value.categoryId;
-        this.inflow = value.inflow;
-        this.outflow = value.outflow;
+        this.amount = value.amount;
         this.memo = value.memo;
     }
 
@@ -39,16 +37,14 @@ public class Operation implements Serializable {
         Long       operationDate,
         String     accountId,
         String     categoryId,
-        BigDecimal inflow,
-        BigDecimal outflow,
+        BigDecimal amount,
         String     memo
     ) {
         this.id = id;
         this.operationDate = operationDate;
         this.accountId = accountId;
         this.categoryId = categoryId;
-        this.inflow = inflow;
-        this.outflow = outflow;
+        this.amount = amount;
         this.memo = memo;
     }
 
@@ -68,12 +64,8 @@ public class Operation implements Serializable {
         return this.categoryId;
     }
 
-    public BigDecimal getInflow() {
-        return this.inflow;
-    }
-
-    public BigDecimal getOutflow() {
-        return this.outflow;
+    public BigDecimal getAmount() {
+        return this.amount;
     }
 
     public String getMemo() {
@@ -88,8 +80,7 @@ public class Operation implements Serializable {
         sb.append(", ").append(operationDate);
         sb.append(", ").append(accountId);
         sb.append(", ").append(categoryId);
-        sb.append(", ").append(inflow);
-        sb.append(", ").append(outflow);
+        sb.append(", ").append(amount);
         sb.append(", ").append(memo);
 
         sb.append(")");

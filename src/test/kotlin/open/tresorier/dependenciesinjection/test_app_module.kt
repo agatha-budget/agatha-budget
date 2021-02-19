@@ -21,7 +21,6 @@ val test_app_module = module {
     single<ICategoryDao> { JooqTestCategoryDao(get()) }
     single<IOperationDao> { JooqTestOperationDao(get()) }
 
-
     single<PersonService> { PersonService(get()) }
     single<BudgetService> { BudgetService(get()) }
     single<AccountService> { AccountService(get()) }

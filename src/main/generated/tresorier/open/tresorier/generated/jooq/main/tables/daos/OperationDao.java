@@ -103,31 +103,17 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>inflow BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>amount BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchRangeOfInflow(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
-        return fetchRange(Operation.OPERATION.INFLOW, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchRangeOfAmount(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
+        return fetchRange(Operation.OPERATION.AMOUNT, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>inflow IN (values)</code>
+     * Fetch records that have <code>amount IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchByInflow(BigDecimal... values) {
-        return fetch(Operation.OPERATION.INFLOW, values);
-    }
-
-    /**
-     * Fetch records that have <code>outflow BETWEEN lowerInclusive AND upperInclusive</code>
-     */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchRangeOfOutflow(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
-        return fetchRange(Operation.OPERATION.OUTFLOW, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>outflow IN (values)</code>
-     */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchByOutflow(BigDecimal... values) {
-        return fetch(Operation.OPERATION.OUTFLOW, values);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchByAmount(BigDecimal... values) {
+        return fetch(Operation.OPERATION.AMOUNT, values);
     }
 
     /**

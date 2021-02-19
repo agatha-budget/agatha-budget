@@ -72,8 +72,7 @@ class JooqOperationDao(val configuration: Configuration) : IOperationDao {
             operation.date,
             operation.accountId,
             operation.categoryId,
-            toNullOrBigDecimal(operation.inflow),
-            toNullOrBigDecimal(operation.outflow),
+            toNullOrBigDecimal(operation.amount),
             operation.memo
         )
     }
@@ -94,8 +93,7 @@ class JooqOperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.accountId,
             jooqOperation.categoryId,
             jooqOperation.memo,
-            jooqOperation.inflow?.toDouble(),
-            jooqOperation.outflow?.toDouble(),
+            jooqOperation.amount?.toDouble(),
             jooqOperation.id,
         )
     }

@@ -4,10 +4,7 @@
 package open.tresorier.generated.jooq.main;
 
 
-import java.math.BigDecimal;
-
 import open.tresorier.generated.jooq.main.routines.AreCategoryAndAccountFromSameBudget;
-import open.tresorier.generated.jooq.main.routines.IsEitherInflowOrOutflowNullButNotBoth;
 
 import org.jooq.Configuration;
 import org.jooq.Field;
@@ -49,40 +46,6 @@ public class Routines {
         AreCategoryAndAccountFromSameBudget f = new AreCategoryAndAccountFromSameBudget();
         f.set_CategoryId(_CategoryId);
         f.set_AccoundId(_AccoundId);
-
-        return f.asField();
-    }
-
-    /**
-     * Call <code>public.is_either_inflow_or_outflow_null_but_not_both</code>
-     */
-    public static Boolean isEitherInflowOrOutflowNullButNotBoth(Configuration configuration, BigDecimal _Inflow, BigDecimal _Outflow) {
-        IsEitherInflowOrOutflowNullButNotBoth f = new IsEitherInflowOrOutflowNullButNotBoth();
-        f.set_Inflow(_Inflow);
-        f.set_Outflow(_Outflow);
-
-        f.execute(configuration);
-        return f.getReturnValue();
-    }
-
-    /**
-     * Get <code>public.is_either_inflow_or_outflow_null_but_not_both</code> as a field.
-     */
-    public static Field<Boolean> isEitherInflowOrOutflowNullButNotBoth(BigDecimal _Inflow, BigDecimal _Outflow) {
-        IsEitherInflowOrOutflowNullButNotBoth f = new IsEitherInflowOrOutflowNullButNotBoth();
-        f.set_Inflow(_Inflow);
-        f.set_Outflow(_Outflow);
-
-        return f.asField();
-    }
-
-    /**
-     * Get <code>public.is_either_inflow_or_outflow_null_but_not_both</code> as a field.
-     */
-    public static Field<Boolean> isEitherInflowOrOutflowNullButNotBoth(Field<BigDecimal> _Inflow, Field<BigDecimal> _Outflow) {
-        IsEitherInflowOrOutflowNullButNotBoth f = new IsEitherInflowOrOutflowNullButNotBoth();
-        f.set_Inflow(_Inflow);
-        f.set_Outflow(_Outflow);
 
         return f.asField();
     }
