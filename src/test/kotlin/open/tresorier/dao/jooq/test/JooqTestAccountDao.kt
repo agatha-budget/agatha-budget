@@ -2,14 +2,21 @@ package open.tresorier.dao.jooq.test
 
 import open.tresorier.dao.IAccountDao
 import open.tresorier.exception.TresorierException
+import open.tresorier.generated.jooq.test.public_.Tables.BUDGET
+import open.tresorier.generated.jooq.test.public_.Tables.PERSON
 import open.tresorier.generated.jooq.test.public_.tables.daos.AccountDao
+import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.Account
+import open.tresorier.model.Person
 import org.jooq.Configuration
+import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Account as JooqAccount
 
-class JooqTestAccountDao(val configuration: Configuration) : IAccountDao {
+
+class JooqAccountDao(val configuration: Configuration) : IAccountDao {
 
     private val generatedDao: AccountDao = AccountDao(configuration)
+    private val query = DSL.using(configuration)
 
     override fun insert(account: Account): Account {
         val jooqAccount = this.toJooqAccount(account)
@@ -40,10 +47,22 @@ class JooqTestAccountDao(val configuration: Configuration) : IAccountDao {
         val jooqAccountList = this.generatedDao.fetchByBudgetId(budgetId)
         val accountList: MutableList<Account> = mutableListOf()
         for (jooqAccount in jooqAccountList) {
-            var account = this.toAccount(jooqAccount)
+            val account = this.toAccount(jooqAccount)
             account?.let { accountList.add(account) }
         }
         return accountList
+    }
+
+    override fun getAccountOwner(account: Account): Person {
+        try {
+            val owner: PersonRecord = this.query.select().from(PERSON)
+                .join(BUDGET).on(BUDGET.ID.eq(account.budgetId))
+                .where(PERSON.ID.eq(BUDGET.PERSON_ID))
+                .fetchAny().into(PERSON)
+            return JooqTestPersonDao.toPerson(owner)
+        } catch (e : Exception) {
+            throw TresorierException("the given object appears to have no owner")
+        }
     }
 
     private fun toJooqAccount(account: Account): JooqAccount {
