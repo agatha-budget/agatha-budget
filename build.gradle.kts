@@ -112,14 +112,6 @@ dependencies {
     implementation("ch.qos.logback:logback-core:1.2.3")
 }
 
-tasks.named("compileJava") {
-    dependsOn("generateJooq")
-}
-
-tasks.named("compileKotlin") {
-    dependsOn("generateJooq")
-}
-
 tasks.clean {
     doLast { delete(project.file(generatedDir)) }
 }
@@ -282,11 +274,12 @@ tasks.register("generateJooq") {
 tasks.named("generateTresorierJooq") {mustRunAfter("migrateTresorierDatabase")}
 tasks.named("generateTestJooq") {mustRunAfter("migrateTestDatabase")}
 
-
 tasks.named("test") {
-    dependsOn("migrate")
-    finalizedBy("cleanTestDatabase")
+    dependsOn("migrateTestDatabase")
+    dependsOn("cleanTestDatabase")
 }
+
+tasks.named("migrateTestDatabase") {mustRunAfter("cleanTestDatabase")}
 
 tasks.test {
     useJUnitPlatform()
