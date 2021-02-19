@@ -72,17 +72,9 @@ class JooqTestOperationDao(val configuration: Configuration) : IOperationDao {
             operation.date,
             operation.accountId,
             operation.categoryId,
-            toNullOrBigDecimal(operation.amount),
+            BigDecimal(operation.amount),
             operation.memo
         )
-    }
-
-    private fun toNullOrBigDecimal(double: Double?): BigDecimal? {
-        return if (double == null) {
-            null
-        } else {
-            BigDecimal(double)
-        }
     }
 
     private fun toOperation(jooqOperation: JooqOperation?): Operation? {
@@ -93,7 +85,7 @@ class JooqTestOperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.accountId,
             jooqOperation.categoryId,
             jooqOperation.memo,
-            jooqOperation.amount?.toDouble(),
+            jooqOperation.amount.toDouble(),
             jooqOperation.id,
         )
     }
