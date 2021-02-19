@@ -6,16 +6,13 @@ import open.tresorier.utils.Time
 
 class PersonService(val personDao: IPersonDao) {
 
-    /* return either the created person or null if the creation failed
-     ex : email already used
-     */
     fun createPerson(name: String, password: String, email: String): Person {
         val hashedPassword = AuthenticationService.hashPassword(password)
         val person = Person(name, hashedPassword, email)
         return personDao.insert(person)
     }
 
-    /* return either the authentication token or null if the login failed
+    /* return either the person or null if the login failed
      ex : email doesn't exist
      ex : invalid password
      ex : account is still locked
@@ -63,6 +60,11 @@ class PersonService(val personDao: IPersonDao) {
     fun getUnlockingDateForEmail(email : String) : Long? {
         val potentialPerson = personDao.getByEmail(email)
         return potentialPerson?.unlockingDate
+    }
+
+    fun delete(person: Person) {
+        person.deleted = true
+        return update(person)
     }
 
 }

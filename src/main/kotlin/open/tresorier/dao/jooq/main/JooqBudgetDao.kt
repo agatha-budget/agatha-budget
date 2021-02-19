@@ -4,8 +4,8 @@ import open.tresorier.dao.IBudgetDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.main.tables.daos.BudgetDao
 import open.tresorier.model.Budget
-import open.tresorier.generated.jooq.main.tables.pojos.Budget as JooqBudget
 import org.jooq.Configuration
+import open.tresorier.generated.jooq.main.tables.pojos.Budget as JooqBudget
 
 class JooqBudgetDao (val configuration : Configuration) : IBudgetDao {
 
@@ -29,11 +29,6 @@ class JooqBudgetDao (val configuration : Configuration) : IBudgetDao {
             throw TresorierException("could not update budget : $budget", e)
         }
         return budget
-    }
-
-    override fun delete(budget: Budget){
-        val jooqBudget = this.toJooqBudget(budget)
-        this.generatedDao.delete(jooqBudget)
     }
 
     override fun getById(id: String) : Budget {

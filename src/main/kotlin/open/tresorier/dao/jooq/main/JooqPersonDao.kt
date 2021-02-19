@@ -3,9 +3,10 @@ package open.tresorier.dao.jooq.main
 import open.tresorier.dao.IPersonDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.main.tables.daos.PersonDao
+import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.model.Person
-import open.tresorier.generated.jooq.main.tables.pojos.Person as JooqPerson
 import org.jooq.Configuration
+import open.tresorier.generated.jooq.main.tables.pojos.Person as JooqPerson
 
 class JooqPersonDao(val configuration: Configuration) : IPersonDao {
 
@@ -28,14 +29,9 @@ class JooqPersonDao(val configuration: Configuration) : IPersonDao {
         this.generatedDao.update(jooqPerson)
     }
 
-    override fun delete(person: Person) {
-        val jooqPerson = this.toJooqPerson(person)
-        this.generatedDao.delete(jooqPerson)
-    }
-
     override fun getByEmail(email: String): Person? {
         val jooqPerson = this.generatedDao.fetchOneByEmail(email)
-        return this.toPerson(jooqPerson)
+        return toPerson(jooqPerson)
     }
 
     override fun getById(id: String): Person {
@@ -56,17 +52,31 @@ class JooqPersonDao(val configuration: Configuration) : IPersonDao {
         )
     }
 
-    private fun toPerson(jooqPerson: JooqPerson?): Person? {
-        return if (jooqPerson == null)
-            null
-        else Person(
-            jooqPerson.name,
-            jooqPerson.password,
-            jooqPerson.email,
-            jooqPerson.unlockingdate,
-            jooqPerson.loginattemptcount,
-            jooqPerson.id,
-            jooqPerson.deleted
-        )
+    companion object {
+        fun toPerson(jooqPerson: JooqPerson?): Person? {
+            return if (jooqPerson == null)
+                null
+            else Person(
+                jooqPerson.name,
+                jooqPerson.password,
+                jooqPerson.email,
+                jooqPerson.unlockingdate,
+                jooqPerson.loginattemptcount,
+                jooqPerson.id,
+                jooqPerson.deleted
+            )
+        }
+
+        fun toPerson(recordPerson: PersonRecord): Person {
+            return Person(
+                recordPerson.name,
+                recordPerson.password,
+                recordPerson.email,
+                recordPerson.unlockingdate,
+                recordPerson.loginattemptcount,
+                recordPerson.id,
+                recordPerson.deleted
+            )
+        }
     }
 }

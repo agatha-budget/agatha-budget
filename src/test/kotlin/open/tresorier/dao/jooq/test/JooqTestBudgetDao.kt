@@ -4,8 +4,8 @@ import open.tresorier.dao.IBudgetDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.test.public_.tables.daos.BudgetDao
 import open.tresorier.model.Budget
-import open.tresorier.generated.jooq.test.public_.tables.pojos.Budget as JooqBudget
 import org.jooq.Configuration
+import open.tresorier.generated.jooq.test.public_.tables.pojos.Budget as JooqBudget
 
 class JooqTestBudgetDao (val configuration : Configuration) : IBudgetDao {
 
@@ -30,12 +30,7 @@ class JooqTestBudgetDao (val configuration : Configuration) : IBudgetDao {
         }
         return budget
     }
-
-    override fun delete(budget: Budget){
-        val jooqBudget = this.toJooqBudget(budget)
-        this.generatedDao.delete(jooqBudget)
-    }
-
+    
     override fun getById(id: String) : Budget {
         val jooqBudget = this.generatedDao.fetchOneById(id)
         return this.toBudget(jooqBudget) ?: throw TresorierException("no budget found for the following id : $id")

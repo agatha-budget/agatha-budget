@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
 
-class BudgetDaoTest : IIntegrationTest {
+class BudgetDaoIntTest : IIntegrationTest {
 
     val budgetDao by inject<IBudgetDao>()
     val personDao by inject<IPersonDao>()

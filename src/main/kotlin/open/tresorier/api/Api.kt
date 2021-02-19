@@ -77,17 +77,17 @@ fun main() {
     app.post("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val name = getQueryParam(ctx, "name")
-        val budget: Budget = ServiceManager.budgetService.createBudget(name, user)
+        val budget: Budget = ServiceManager.budgetService.createBudget(user, name)
         ctx.json(budget.id)
     }
 
     app.put("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(getQueryParam(ctx, "budget_id"))
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam(ctx, "budget_id"))
         val formerName = budget.name
         val newName = getQueryParam(ctx, "new_name")
         ServiceManager.budgetService.update(user, budget, newName)
-        ctx.json("updated from " + formerName + " to " + newName)
+        ctx.json("updated from $formerName to $newName")
     }
 }
 
