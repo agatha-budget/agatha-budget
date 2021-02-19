@@ -12,8 +12,7 @@ import org.jooq.Configuration
 import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Account as JooqAccount
 
-
-class JooqAccountDao(val configuration: Configuration) : IAccountDao {
+class JooqTestAccountDao(val configuration: Configuration) : IAccountDao {
 
     private val generatedDao: AccountDao = AccountDao(configuration)
     private val query = DSL.using(configuration)
