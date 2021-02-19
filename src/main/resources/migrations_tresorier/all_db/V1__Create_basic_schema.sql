@@ -1,11 +1,11 @@
 CREATE TABLE person (
-    id VARCHAR(36) NOT NULL PRIMARY KEY,
-    email VARCHAR(255) UNIQUE,
-    name VARCHAR(255),
-    password VARCHAR(255),
-    unlockingDate BIGINT DEFAULT 0,
-    loginAttemptCount INT DEFAULT 0,
-    deleted BOOLEAN DEFAULT false
+        id VARCHAR(36) NOT NULL PRIMARY KEY,
+        email VARCHAR(255) UNIQUE,
+        name VARCHAR(255),
+        password VARCHAR(255),
+        unlockingDate BIGINT DEFAULT 0,
+        loginAttemptCount INT DEFAULT 0,
+        deleted BOOLEAN DEFAULT false
 );
 
 CREATE TABLE budget (
@@ -22,7 +22,7 @@ CREATE TABLE account (
         name VARCHAR(100) NOT NULL,
         archived BOOLEAN DEFAULT false,
         deleted BOOLEAN DEFAULT false,
-    FOREIGN KEY (budget_id) REFERENCES budget(id)
+        FOREIGN KEY (budget_id) REFERENCES budget(id)
 );
 
 CREATE TABLE category (
@@ -31,7 +31,7 @@ CREATE TABLE category (
         name VARCHAR(100) NOT NULL,
         archived BOOLEAN DEFAULT false,
         deleted BOOLEAN DEFAULT false,
-    FOREIGN KEY (budget_id) REFERENCES budget(id)
+        FOREIGN KEY (budget_id) REFERENCES budget(id)
 );
 
 CREATE TABLE operation (
@@ -48,11 +48,11 @@ CREATE TABLE operation (
 CREATE TABLE allocation (
         id VARCHAR(36) NOT NULL PRIMARY KEY,
         category_id VARCHAR(36) NOT NULL,
-        allocation_month BIGINT,
+        year INT NOT NULL,
+        month INT NOT NULL,
         amount DECIMAL(10,2),
-    FOREIGN KEY (category_id) REFERENCES category(id),
-
-        CONSTRAINT only_one_allocation_per_month_and_budget UNIQUE (category_id, allocation_month),
-        -- prevent having an allocation for the same category pertaining to the same month but with a different date
-        CONSTRAINT only_one_date_for_each_month CHECK (EXTRACT(DAY FROM TO_TIMESTAMP(allocation_month)) = 1)
+        FOREIGN KEY (category_id) REFERENCES category(id),
+        CONSTRAINT only_one_allocation_per_month_and_budget UNIQUE (category_id, month, year),
+        CONSTRAINT no_negative_month CHECK ( month > 0),
+        CONSTRAINT no_invalid_month CHECK ( month < 13)
 );

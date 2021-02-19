@@ -3,14 +3,8 @@ package open.tresorier.dependenciesinjection
 
 import io.mockk.every
 import io.mockk.mockk
-import open.tresorier.dao.IAccountDao
-import open.tresorier.dao.IBudgetDao
-import open.tresorier.dao.IOperationDao
-import open.tresorier.dao.IPersonDao
-import open.tresorier.dao.jooq.main.JooqAccountDao
-import open.tresorier.dao.jooq.main.JooqBudgetDao
-import open.tresorier.dao.jooq.main.JooqOperationDao
-import open.tresorier.dao.jooq.main.JooqPersonDao
+import open.tresorier.dao.*
+import open.tresorier.dao.jooq.main.*
 import open.tresorier.exception.TresorierException
 import open.tresorier.services.PersonService
 import org.koin.core.qualifier.named
@@ -22,6 +16,8 @@ val test_integration_app_module = module {
     single<IBudgetDao> { JooqBudgetDao(get()) }
     single<IAccountDao> { JooqAccountDao(get()) }
     single<IOperationDao> { JooqOperationDao(get()) }
+    single<IAllocationDao> { JooqAllocationDao(get()) }
+
 
     // init default mock behavior
     val mockFactory = MockFactory()

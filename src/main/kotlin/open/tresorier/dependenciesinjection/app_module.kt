@@ -12,10 +12,13 @@ val app_module = module {
     single<IAccountDao> { JooqAccountDao((get())) }
     single<ICategoryDao> { JooqCategoryDao((get())) }
     single<IOperationDao> { JooqOperationDao((get())) }
+    single<IAllocationDao> { JooqAllocationDao(get()) }
 
     single<PersonService> { PersonService(get()) }
     single<BudgetService> { BudgetService(get()) }
     single<AccountService> { AccountService(get()) }
     single<CategoryService> { CategoryService(get()) }
     single<OperationService> { OperationService(get()) }
+    single<AllocationService> { AllocationService(get()) }
+
 }

@@ -75,17 +75,31 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
     }
 
     /**
-     * Fetch records that have <code>ALLOCATION_MONTH BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>YEAR BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfAllocationMonth(Long lowerInclusive, Long upperInclusive) {
-        return fetchRange(Allocation.ALLOCATION.ALLOCATION_MONTH, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfYear(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Allocation.ALLOCATION.YEAR, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>ALLOCATION_MONTH IN (values)</code>
+     * Fetch records that have <code>YEAR IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByAllocationMonth(Long... values) {
-        return fetch(Allocation.ALLOCATION.ALLOCATION_MONTH, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByYear(Integer... values) {
+        return fetch(Allocation.ALLOCATION.YEAR, values);
+    }
+
+    /**
+     * Fetch records that have <code>MONTH BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfMonth(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Allocation.ALLOCATION.MONTH, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>MONTH IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByMonth(Integer... values) {
+        return fetch(Allocation.ALLOCATION.MONTH, values);
     }
 
     /**
