@@ -14,34 +14,34 @@ import java.math.BigDecimal;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation implements Serializable {
 
-    private static final long serialVersionUID = 1782732015;
+    private static final long serialVersionUID = 278112148;
 
     private final String     id;
     private final String     categoryId;
-    private final Long       allocationMonth;
-    private final BigDecimal inflow;
-    private final BigDecimal outflow;
+    private final Integer    year;
+    private final Integer    month;
+    private final BigDecimal amount;
 
     public Allocation(Allocation value) {
         this.id = value.id;
         this.categoryId = value.categoryId;
-        this.allocationMonth = value.allocationMonth;
-        this.inflow = value.inflow;
-        this.outflow = value.outflow;
+        this.year = value.year;
+        this.month = value.month;
+        this.amount = value.amount;
     }
 
     public Allocation(
         String     id,
         String     categoryId,
-        Long       allocationMonth,
-        BigDecimal inflow,
-        BigDecimal outflow
+        Integer    year,
+        Integer    month,
+        BigDecimal amount
     ) {
         this.id = id;
         this.categoryId = categoryId;
-        this.allocationMonth = allocationMonth;
-        this.inflow = inflow;
-        this.outflow = outflow;
+        this.year = year;
+        this.month = month;
+        this.amount = amount;
     }
 
     public String getId() {
@@ -52,16 +52,16 @@ public class Allocation implements Serializable {
         return this.categoryId;
     }
 
-    public Long getAllocationMonth() {
-        return this.allocationMonth;
+    public Integer getYear() {
+        return this.year;
     }
 
-    public BigDecimal getInflow() {
-        return this.inflow;
+    public Integer getMonth() {
+        return this.month;
     }
 
-    public BigDecimal getOutflow() {
-        return this.outflow;
+    public BigDecimal getAmount() {
+        return this.amount;
     }
 
     @Override
@@ -70,9 +70,9 @@ public class Allocation implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(categoryId);
-        sb.append(", ").append(allocationMonth);
-        sb.append(", ").append(inflow);
-        sb.append(", ").append(outflow);
+        sb.append(", ").append(year);
+        sb.append(", ").append(month);
+        sb.append(", ").append(amount);
 
         sb.append(")");
         return sb.toString();

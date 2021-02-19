@@ -12,7 +12,6 @@ import open.tresorier.generated.jooq.main.Keys;
 import open.tresorier.generated.jooq.main.Public;
 import open.tresorier.generated.jooq.main.tables.records.AllocationRecord;
 
-import org.jooq.Check;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
@@ -24,7 +23,6 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
-import org.jooq.impl.Internal;
 import org.jooq.impl.TableImpl;
 
 
@@ -34,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation extends TableImpl<AllocationRecord> {
 
-    private static final long serialVersionUID = 337676169;
+    private static final long serialVersionUID = -1518417204;
 
     /**
      * The reference instance of <code>public.allocation</code>
@@ -60,19 +58,19 @@ public class Allocation extends TableImpl<AllocationRecord> {
     public final TableField<AllocationRecord, String> CATEGORY_ID = createField(DSL.name("category_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>public.allocation.allocation_month</code>.
+     * The column <code>public.allocation.year</code>.
      */
-    public final TableField<AllocationRecord, Long> ALLOCATION_MONTH = createField(DSL.name("allocation_month"), org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<AllocationRecord, Integer> YEAR = createField(DSL.name("year"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.allocation.inflow</code>.
+     * The column <code>public.allocation.month</code>.
      */
-    public final TableField<AllocationRecord, BigDecimal> INFLOW = createField(DSL.name("inflow"), org.jooq.impl.SQLDataType.NUMERIC(10, 2), this, "");
+    public final TableField<AllocationRecord, Integer> MONTH = createField(DSL.name("month"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.allocation.outflow</code>.
+     * The column <code>public.allocation.amount</code>.
      */
-    public final TableField<AllocationRecord, BigDecimal> OUTFLOW = createField(DSL.name("outflow"), org.jooq.impl.SQLDataType.NUMERIC(10, 2), this, "");
+    public final TableField<AllocationRecord, BigDecimal> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.NUMERIC(10, 2), this, "");
 
     /**
      * Create a <code>public.allocation</code> table reference
@@ -132,14 +130,6 @@ public class Allocation extends TableImpl<AllocationRecord> {
     }
 
     @Override
-    public List<Check<AllocationRecord>> getChecks() {
-        return Arrays.<Check<AllocationRecord>>asList(
-              Internal.createCheck(this, DSL.name("either_inflow_or_outflow_is_null_but_not_both"), "(is_either_inflow_or_outflow_null_but_not_both(inflow, outflow))", true)
-            , Internal.createCheck(this, DSL.name("only_one_date_for_each_month"), "((date_part('day'::text, to_timestamp((allocation_month)::double precision)) = (1)::double precision))", true)
-        );
-    }
-
-    @Override
     public Allocation as(String alias) {
         return new Allocation(DSL.name(alias), this);
     }
@@ -170,7 +160,7 @@ public class Allocation extends TableImpl<AllocationRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<String, String, Long, BigDecimal, BigDecimal> fieldsRow() {
+    public Row5<String, String, Integer, Integer, BigDecimal> fieldsRow() {
         return (Row5) super.fieldsRow();
     }
 }

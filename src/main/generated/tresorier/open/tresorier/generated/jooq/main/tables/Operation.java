@@ -17,7 +17,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -34,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = -870183785;
+    private static final long serialVersionUID = 669193842;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -70,14 +70,9 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, String> CATEGORY_ID = createField(DSL.name("category_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>public.operation.inflow</code>.
+     * The column <code>public.operation.amount</code>.
      */
-    public final TableField<OperationRecord, BigDecimal> INFLOW = createField(DSL.name("inflow"), org.jooq.impl.SQLDataType.NUMERIC(10, 2), this, "");
-
-    /**
-     * The column <code>public.operation.outflow</code>.
-     */
-    public final TableField<OperationRecord, BigDecimal> OUTFLOW = createField(DSL.name("outflow"), org.jooq.impl.SQLDataType.NUMERIC(10, 2), this, "");
+    public final TableField<OperationRecord, BigDecimal> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.NUMERIC(10, 2).nullable(false), this, "");
 
     /**
      * The column <code>public.operation.memo</code>.
@@ -149,7 +144,6 @@ public class Operation extends TableImpl<OperationRecord> {
     public List<Check<OperationRecord>> getChecks() {
         return Arrays.<Check<OperationRecord>>asList(
               Internal.createCheck(this, DSL.name("category_and_account_are_from_same_budget"), "(are_category_and_account_from_same_budget(category_id, account_id))", true)
-            , Internal.createCheck(this, DSL.name("either_inflow_or_outflow_is_null_but_not_both"), "(is_either_inflow_or_outflow_null_but_not_both(inflow, outflow))", true)
         );
     }
 
@@ -180,11 +174,11 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, Long, String, String, BigDecimal, BigDecimal, String> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row6<String, Long, String, String, BigDecimal, String> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 }

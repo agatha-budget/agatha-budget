@@ -75,44 +75,44 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
     }
 
     /**
-     * Fetch records that have <code>ALLOCATION_MONTH BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>YEAR BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfAllocationMonth(Long lowerInclusive, Long upperInclusive) {
-        return fetchRange(Allocation.ALLOCATION.ALLOCATION_MONTH, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfYear(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Allocation.ALLOCATION.YEAR, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>ALLOCATION_MONTH IN (values)</code>
+     * Fetch records that have <code>YEAR IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByAllocationMonth(Long... values) {
-        return fetch(Allocation.ALLOCATION.ALLOCATION_MONTH, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByYear(Integer... values) {
+        return fetch(Allocation.ALLOCATION.YEAR, values);
     }
 
     /**
-     * Fetch records that have <code>INFLOW BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>MONTH BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfInflow(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
-        return fetchRange(Allocation.ALLOCATION.INFLOW, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfMonth(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Allocation.ALLOCATION.MONTH, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>INFLOW IN (values)</code>
+     * Fetch records that have <code>MONTH IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByInflow(BigDecimal... values) {
-        return fetch(Allocation.ALLOCATION.INFLOW, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByMonth(Integer... values) {
+        return fetch(Allocation.ALLOCATION.MONTH, values);
     }
 
     /**
-     * Fetch records that have <code>OUTFLOW BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>AMOUNT BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfOutflow(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
-        return fetchRange(Allocation.ALLOCATION.OUTFLOW, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfAmount(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
+        return fetchRange(Allocation.ALLOCATION.AMOUNT, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>OUTFLOW IN (values)</code>
+     * Fetch records that have <code>AMOUNT IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByOutflow(BigDecimal... values) {
-        return fetch(Allocation.ALLOCATION.OUTFLOW, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByAmount(BigDecimal... values) {
+        return fetch(Allocation.ALLOCATION.AMOUNT, values);
     }
 }

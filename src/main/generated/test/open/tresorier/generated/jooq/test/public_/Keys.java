@@ -69,7 +69,7 @@ public class Keys {
     private static class UniqueKeys0 {
         public static final UniqueKey<AccountRecord> CONSTRAINT_E = Internal.createUniqueKey(Account.ACCOUNT, "CONSTRAINT_E", new TableField[] { Account.ACCOUNT.ID }, true);
         public static final UniqueKey<AllocationRecord> CONSTRAINT_A = Internal.createUniqueKey(Allocation.ALLOCATION, "CONSTRAINT_A", new TableField[] { Allocation.ALLOCATION.ID }, true);
-        public static final UniqueKey<AllocationRecord> ONLY_ONE_ALLOCATION_PER_MONTH_AND_BUDGET = Internal.createUniqueKey(Allocation.ALLOCATION, "ONLY_ONE_ALLOCATION_PER_MONTH_AND_BUDGET", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID, Allocation.ALLOCATION.ALLOCATION_MONTH }, true);
+        public static final UniqueKey<AllocationRecord> ONLY_ONE_ALLOCATION_PER_MONTH_AND_BUDGET = Internal.createUniqueKey(Allocation.ALLOCATION, "ONLY_ONE_ALLOCATION_PER_MONTH_AND_BUDGET", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID, Allocation.ALLOCATION.MONTH, Allocation.ALLOCATION.YEAR }, true);
         public static final UniqueKey<BudgetRecord> CONSTRAINT_7 = Internal.createUniqueKey(Budget.BUDGET, "CONSTRAINT_7", new TableField[] { Budget.BUDGET.ID }, true);
         public static final UniqueKey<CategoryRecord> CONSTRAINT_3 = Internal.createUniqueKey(Category.CATEGORY, "CONSTRAINT_3", new TableField[] { Category.CATEGORY.ID }, true);
         public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "flyway_schema_history_pk", new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);

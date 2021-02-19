@@ -7,7 +7,7 @@ import open.tresorier.model.Person
 
 class BudgetService(private val budgetDao: IBudgetDao) {
 
-    fun createBudget(person: Person, name: String): Budget {
+    fun create(person: Person, name: String): Budget {
         val budget = Budget(name, person.id)
         return budgetDao.insert(budget)
     }

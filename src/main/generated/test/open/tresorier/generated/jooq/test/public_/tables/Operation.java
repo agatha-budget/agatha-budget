@@ -16,7 +16,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 340327727;
+    private static final long serialVersionUID = -561501658;
 
     /**
      * The reference instance of <code>PUBLIC.OPERATION</code>
@@ -68,14 +68,9 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.OPERATION.INFLOW</code>.
+     * The column <code>PUBLIC.OPERATION.AMOUNT</code>.
      */
-    public final TableField<OperationRecord, BigDecimal> INFLOW = createField(DSL.name("INFLOW"), org.jooq.impl.SQLDataType.DECIMAL(10, 2), this, "");
-
-    /**
-     * The column <code>PUBLIC.OPERATION.OUTFLOW</code>.
-     */
-    public final TableField<OperationRecord, BigDecimal> OUTFLOW = createField(DSL.name("OUTFLOW"), org.jooq.impl.SQLDataType.DECIMAL(10, 2), this, "");
+    public final TableField<OperationRecord, BigDecimal> AMOUNT = createField(DSL.name("AMOUNT"), org.jooq.impl.SQLDataType.DECIMAL(10, 2).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.MEMO</code>.
@@ -170,11 +165,11 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, Long, String, String, BigDecimal, BigDecimal, String> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row6<String, Long, String, String, BigDecimal, String> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 }
