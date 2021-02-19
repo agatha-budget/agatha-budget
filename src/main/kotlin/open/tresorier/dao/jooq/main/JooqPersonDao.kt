@@ -4,8 +4,8 @@ import open.tresorier.dao.IPersonDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.main.tables.daos.PersonDao
 import open.tresorier.model.Person
-import open.tresorier.generated.jooq.main.tables.pojos.Person as JooqPerson
 import org.jooq.Configuration
+import open.tresorier.generated.jooq.main.tables.pojos.Person as JooqPerson
 
 class JooqPersonDao(val configuration: Configuration) : IPersonDao {
 
@@ -26,11 +26,6 @@ class JooqPersonDao(val configuration: Configuration) : IPersonDao {
     override fun update(person: Person) {
         val jooqPerson = this.toJooqPerson(person)
         this.generatedDao.update(jooqPerson)
-    }
-
-    override fun delete(person: Person) {
-        val jooqPerson = this.toJooqPerson(person)
-        this.generatedDao.delete(jooqPerson)
     }
 
     override fun getByEmail(email: String): Person? {

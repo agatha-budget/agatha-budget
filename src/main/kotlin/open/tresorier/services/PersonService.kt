@@ -65,4 +65,9 @@ class PersonService(val personDao: IPersonDao) {
         return potentialPerson?.unlockingDate
     }
 
+    fun delete(person: Person) {
+        person.deleted = true
+        return update(person)
+    }
+
 }
