@@ -279,7 +279,9 @@ tasks.named("test") {
     dependsOn("cleanTestDatabase")
 }
 
-tasks.named("migrateTestDatabase") {mustRunAfter("cleanTestDatabase")}
+tasks.named("migrateTestDatabase") {
+    dependsOn("cleanTestDatabase")
+}
 
 tasks.test {
     useJUnitPlatform()
