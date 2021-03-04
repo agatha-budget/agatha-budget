@@ -34,7 +34,7 @@
     "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
-  ],
+, "custom-store.d.ts"  ],
   "exclude": [
     "node_modules"
   ]
