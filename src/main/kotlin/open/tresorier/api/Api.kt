@@ -44,7 +44,7 @@ fun main() {
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
         val person: Person = ServiceManager.personService.createPerson(name, password, email)
-        ctx.json(person.name + "was successfully created")
+        ctx.json(person.name + " was successfully created")
     }
 
     app.before("/session/refresh", SuperTokens.middleware())
