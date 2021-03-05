@@ -5,13 +5,13 @@
     <input v-model="password" placeholder="password">
     <button v-on:click="login">Login</button>
     <button v-on:click="logout">Logout</button>
-    <p>User is logged : {{logged}}</p>
+    <p>User is logged as : {{userId}}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { personApi } from '../api/api'
+import { personService } from '../api/api'
 
 export default defineComponent({
   name: 'Login',
@@ -23,16 +23,17 @@ export default defineComponent({
     }
   },
   computed: {
-    logged (): boolean {
-      return this.$store.state.logged
+    userId (): string {
+      return this.$store.state.userId
     }
   },
   methods: {
     login () {
-      personApi.createSession(this.email, this.password)
+      personService.createSession(this.$store, this.email, this.password, this.$store)
       this.$store.dispatch('login')
     },
     logout () {
+      personService.deleteSession()
       this.$store.dispatch('logout')
     }
   }

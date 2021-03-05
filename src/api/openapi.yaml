@@ -1,0 +1,116 @@
+---
+openapi: 3.0.3
+info:
+  title: Tresorier
+  description: Trésorier api front to back
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 2.0.0
+externalDocs:
+  description: Find out more about Tresorier
+  url: http://tresorier.me
+servers:
+- url: https://tresorier-back.herokuapp.com/
+  description: heroku dev
+- url: https://virtserver.swaggerhub.com/ermoca/Tresorier/2.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:7000/
+  description: local
+paths:
+  /login:
+    post:
+      tags:
+      - Person
+      summary: Login
+      operationId: createSession
+      parameters:
+      - name: email
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: |
+            login successfully this request will return three cookies. "sAccessToken" and "sIdRefreshToken" need to be included in subsequent requests. "sRefreshToken" need to be included when querying "/session/refresh"
+          headers:
+            Set-Cookie-1:
+              style: simple
+              explode: false
+              schema:
+                type: string
+                example: sAccessToken=eyJhbGciOiJS5ZTKe6wWrz4zpe%2B5UCv07sdzTwrBn4gtPbppM%2BCTk7PwhBaQ%2Bi0wayui9VHfQ%3D%3D; Path=/; Expires=Thu, 14-Jan-2021 11:55:08 GMT; Max-Age=3600; HttpOnly; SameSite=Lax
+            Set-Cookie-2:
+              style: simple
+              explode: false
+              schema:
+                type: string
+                example: sIdRefreshToken=4a441a0a-f888-05dd4c6f14be; Path=/; Expires=Sat, 24-Apr-2021 10:55:08 GMT; Max-Age=8640000; HttpOnly; SameSite=Lax
+            Set-Cookie-3:
+              style: simple
+              explode: false
+              schema:
+                type: string
+                example: sRefreshToken=B290X8kOrDOnDIFJR%2FqLgHu1vHFKoU5d93fa5c58964916b014577f97a9022ea044.V2; Path=/session/refresh; Expires=Sat, 24-Apr-2021 10:55:08 GMT; Max-Age=8640000; HttpOnly; SameSite=Lax
+          content:
+            application/json:
+              schema:
+                type: string
+                example: user_id
+        "400":
+          description: login failed
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid password/login combination
+  /logout:
+    delete:
+      tags:
+      - Person
+      summary: Logout
+      operationId: deleteSession
+      responses:
+        "200":
+          description: Logged out successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example: the submitted user has been unlogged
+        "400":
+          description: an error occured
+          content:
+            application/json:
+              schema:
+                type: string
+                example: no session to revoke
+      security:
+      - accessToken: []
+        refreshTokenId: []
+components:
+  schemas: {}
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      name: sAccessToken
+      in: cookie
+    refreshToken:
+      type: apiKey
+      name: sRefreshToken
+      in: cookie
+    refreshTokenId:
+      type: apiKey
+      name: sIdRefreshToken
+      in: cookie
