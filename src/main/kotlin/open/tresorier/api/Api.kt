@@ -92,8 +92,8 @@ fun main() {
 
 private fun setUpApp(properties: JavaProperties): Javalin {
     val app = Javalin.create { config ->
-        config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
-        // config.enableCorsForAllOrigins()
+        //config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
+        config.enableCorsForAllOrigins()
     }.start(getHerokuAssignedOrDefaultPort())
 
     app.exception(SuperTokensException::class.java, SuperTokens.exceptionHandler())
