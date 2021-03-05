@@ -1,6 +1,6 @@
 enum Properties {
-    authenticationServer = 'https://tresorier-back.herokuapp.com',
-    refreshUrl = 'https://tresorier-back.herokuapp.com/session/refresh'
+    authenticationServer = 'https://api.beta.tresorier.me/',
+    refreshUrl = 'https://api.beta.tresorier.me/session/refresh'
 }
 
 export default Properties
