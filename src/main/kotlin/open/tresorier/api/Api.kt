@@ -115,14 +115,14 @@ private fun setUpApp(properties: JavaProperties): Javalin {
         ctx.status(500)
         // is not thrown so that only an id code will be send to the client side, the handling is done inside TresorierException class
         val exception = TresorierException("catched by API", e)
-        ctx.json("an unexpected error occured on our side" + sendToAdminMessage(exception.id))
+        ctx.json("an unexpected error occured on our side." + sendToAdminMessage(exception.id))
     }
 
     return app
 }
 
 private fun sendToAdminMessage(errorId : String) : String {
-    return "Send this code to your administrator for details : $errorId"
+    return " Send this code to your administrator for details : $errorId"
 }
 
 private fun getHerokuAssignedOrDefaultPort(): Int {
