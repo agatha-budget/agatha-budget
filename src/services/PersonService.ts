@@ -1,17 +1,19 @@
 import { State } from '@/store/index'
 import { Store } from 'vuex'
-import SuperTokensRequest from 'supertokens-website/axios'
-import { personApi } from '@/services/api/api'
+import { personApi } from '@/services/api/apis'
+import router from '@/router'
 
 class PersonService {
   public async createSession (store: Store<State>, email: string, password: string, options?: any) {
     await personApi.createSession(email, password, options)
-    const userId = SuperTokensRequest.getUserId()
-    store.dispatch('setUserId', userId)
+    store.dispatch('updateLogged')
+    router.push('/')
   }
 
-  public async deleteSession (options?: any) {
+  public async deleteSession (store: Store<State>, options?: any) {
     await personApi.deleteSession(options)
+    store.dispatch('updateLogged')
+    router.push('/login')
   }
 }
 

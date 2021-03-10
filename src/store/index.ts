@@ -1,41 +1,25 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
+import SuperTokensRequest from 'supertokens-website/axios'
 
 export interface State {
   logged: boolean;
-  userId: string;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol('injectionKey')
 
 export const store = createStore<State>({
   state: {
-    logged: false,
-    userId: 'none'
+    logged: false
   },
   mutations: {
-    setToLogged (state) {
-      console.log('was called')
-      state.logged = true
-      console.log(state.logged)
-    },
-    setToUnlogged (state) {
-      state.logged = false
-    },
-    setUserId (state, userId) {
-      state.userId = userId
+    updateLogged (state) {
+      state.logged = SuperTokensRequest.doesSessionExist()
     }
   },
   actions: {
-    login (context) {
-      context.commit('setToLogged')
-    },
-    logout (context) {
-      context.commit('setToUnlogged')
-    },
-    setUserId (context, userId) {
-      console.log('was here')
-      context.commit('setUserId', userId)
+    updateLogged (context) {
+      context.commit('updateLogged')
     }
   },
   modules: {
