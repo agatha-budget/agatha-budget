@@ -61,7 +61,7 @@ fun main() {
         }
         person?.let {
             SuperTokens.newSession(ctx, it.id).create()
-            ctx.json("Welcome " + it.name)
+            ctx.json("{'name' : " + it.name + "}")
         }
     }
 
