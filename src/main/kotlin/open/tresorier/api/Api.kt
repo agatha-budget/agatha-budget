@@ -57,11 +57,11 @@ fun main() {
         if (person == null) {
             val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
             ctx.status(400)
-            ctx.json("{'unlockingDate' : $unlockingDate}")
+            ctx.json('{"unlockingDate" : $unlockingDate}')
         }
         person?.let {
             SuperTokens.newSession(ctx, it.id).create()
-            ctx.json("{'name' : " + it.name + "}")
+            ctx.json('{"name" : ' + it.name + '}')
         }
     }
 
