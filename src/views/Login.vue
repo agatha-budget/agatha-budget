@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { personService } from '../api/api'
+import { personService } from '../services/PersonService'
 
 export default defineComponent({
   name: 'Login',

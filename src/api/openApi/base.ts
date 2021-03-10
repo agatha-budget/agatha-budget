@@ -28,7 +28,7 @@ SuperTokensRequest.init({
     refreshTokenUrl: Properties.refreshUrl
 });
 
-export const BASE_PATH = Properties.authenticationServer.replace(/\/+$/, "");
+export const BASE_PATH = Properties.server.replace(/\/+$/, "");
 
 /**
  *
