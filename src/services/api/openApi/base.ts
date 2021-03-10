@@ -18,7 +18,7 @@ import { Configuration } from "./configuration";
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 import SuperTokensRequest from 'supertokens-website/axios';
-import Properties from '../../../properties';
+import Properties from '@/../properties';
 
 
 SuperTokensRequest.makeSuper(globalAxios);

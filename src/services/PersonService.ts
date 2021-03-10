@@ -1,7 +1,7 @@
-import { State } from './../store/index'
+import { State } from '@/store/index'
 import { Store } from 'vuex'
 import SuperTokensRequest from 'supertokens-website/axios'
-import { personApi } from './../api/api'
+import { personApi } from '@/services/api/api'
 
 class PersonService {
   public async createSession (store: Store<State>, email: string, password: string, options?: any) {
