@@ -3,13 +3,15 @@ import { createStore, Store, useStore as baseUseStore } from 'vuex'
 
 export interface State {
   logged: boolean;
+  userId: string;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol('injectionKey')
 
 export const store = createStore<State>({
   state: {
-    logged: false
+    logged: false,
+    userId: 'none'
   },
   mutations: {
     setToLogged (state) {
@@ -19,6 +21,9 @@ export const store = createStore<State>({
     },
     setToUnlogged (state) {
       state.logged = false
+    },
+    setUserId (state, userId) {
+      state.userId = userId
     }
   },
   actions: {
@@ -27,6 +32,10 @@ export const store = createStore<State>({
     },
     logout (context) {
       context.commit('setToUnlogged')
+    },
+    setUserId (context, userId) {
+      console.log('was here')
+      context.commit('setUserId', userId)
     }
   },
   modules: {

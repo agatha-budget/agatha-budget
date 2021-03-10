@@ -1,0 +1,1 @@
+npx @openapitools/openapi-generator-cli generate -g typescript-axios -i src/api/openapi.yaml -o src/api/openApi
