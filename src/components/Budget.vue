@@ -4,24 +4,45 @@
     <p>
       Budget of today
     </p>
-    <h3>Spent</h3>
-    <ul>
-      <li>babel</li>
-      <li>babel 1</li>
-      <li>babel 2</li>
-      <li>babel 3</li>
-      <li>babel 4</li>
-    </ul>
+        <table id="budgetTable" v-for="masterCategorie in budget" :key="masterCategorie">
+            <tr>
+              <th>{{ masterCategorie.name }}</th>
+              <th>{{ masterCategorie.allocated }}</th>
+              <th>{{ masterCategorie.spent }}</th>
+              <th>{{ masterCategorie.available }}</th>
+            </tr>
+            <tr v-for="categorie in masterCategorie.categories" :key="categorie">
+              <td>{{ categorie.name }}</td>
+              <td>{{ categorie.allocated }}</td>
+              <td>{{ categorie.spent }}</td>
+              <td>{{ categorie.available }}</td>
+            </tr>
+        </table>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, reactive } from 'vue'
+import { budgetService } from '@/services/BudgetService'
 
 export default defineComponent({
   name: 'Budget',
-  props: {
-    month: String
+  created: async function () {
+    this.getCurrentBudget()
+  },
+  data () {
+    return {
+      budget: [{}]
+    }
+  },
+  methods: {
+    async getCurrentBudget () {
+      budgetService.getBudget().then(
+        (budget) => {
+          this.budget = budget
+        }
+      )
+    }
   }
 })
 </script>
