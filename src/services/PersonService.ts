@@ -4,13 +4,13 @@ import { personApi } from '@/services/api/apis'
 import router from '@/router'
 import axios from 'axios'
 
-type loginResponse = {
+interface LoginResponse {
     name: string;
     unlockingDate: number;
 }
 
 class PersonService {
-  public async createSession (store: Store<State>, email: string, password: string, options?: any): Promise<loginResponse> {
+  public async createSession (store: Store<State>, email: string, password: string, options?: any): Promise<LoginResponse> {
     let data
     let response
     try {

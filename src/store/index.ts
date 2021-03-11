@@ -10,7 +10,7 @@ export const key: InjectionKey<Store<State>> = Symbol('injectionKey')
 
 export const store = createStore<State>({
   state: {
-    logged: false
+    logged: SuperTokensRequest.doesSessionExist()
   },
   mutations: {
     updateLogged (state) {
