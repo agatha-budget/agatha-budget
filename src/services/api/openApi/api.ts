@@ -202,5 +202,3 @@ export class PersonApi extends BaseAPI {
         return PersonApiFp(this.configuration).deleteSession(options).then((request) => request(this.axios, this.basePath));
     }
 }
-
-

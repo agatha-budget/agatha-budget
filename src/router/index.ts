@@ -5,13 +5,13 @@ import Login from '../views/Login.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/home',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/about',
