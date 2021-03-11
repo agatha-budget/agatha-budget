@@ -4,16 +4,16 @@
     <p>
       Budget of today
     </p>
-        <table id="budgetTable" v-for="masterCategorie in budget" :key="masterCategorie">
+        <table id="budgetTable" v-for="masterCategory, masterCategoryId in budget" :key="masterCategory">
             <tr>
-              <th>{{ masterCategorie.name }}</th>
-              <th>{{ masterCategorie.allocated }}</th>
-              <th>{{ masterCategorie.spent }}</th>
-              <th>{{ masterCategorie.available }}</th>
+              <th>{{ masterCategory.name }}</th>
+              <th>{{ masterCategory.allocated }}</th>
+              <th>{{ masterCategory.spent }}</th>
+              <th>{{ masterCategory.available }}</th>
             </tr>
-            <tr v-for="category in masterCategorie.categories" :key="category">
+            <tr v-for="category, categoryId in masterCategory.categories" :key="category">
               <td>{{ category.name }}</td>
-              <td><input v-model.number=category.allocated type="number" v-on:change="updateAllocation(category)" :placeholder=category.allocated></td>
+              <td><input v-model.number=category.allocated type="number" v-on:change="updateAllocation(masterCategoryId, categoryId, category.allocated)" :placeholder=category.allocated></td>
               <td>{{ category.spent }}</td>
               <td>{{ category.available }}</td>
             </tr>
@@ -23,16 +23,20 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { budgetService, CategoryItem } from '@/services/BudgetService'
+import { budgetService, MasterCategoryArray } from '@/services/BudgetService'
+
+interface BudgetData {
+  budget: MasterCategoryArray;
+}
 
 export default defineComponent({
   name: 'Budget',
   created: async function () {
     this.getCurrentBudget()
   },
-  data () {
+  data (): BudgetData {
     return {
-      budget: [{}]
+      budget: {}
     }
   },
   methods: {
@@ -43,9 +47,19 @@ export default defineComponent({
         }
       )
     },
-    updateAllocation (category: CategoryItem) {
-      console.log('new alloc for ' + category.name + ' (' + category.id + '): ' + category.allocated)
+    updateAllocation (masterCategoryId: string, categoryId: string, newAllocation: number) {
+      console.log('new alloc for ' + categoryId + ' of ' + masterCategoryId + ' : ' + newAllocation)
+      this.udpateMasterCategoryAllocation(masterCategoryId)
+    },
+    udpateMasterCategoryAllocation (id: string) {
+      const categories = this.budget[id].categories
+      let allocated = 0
+      for (const categoryID in categories) {
+        allocated += categories[categoryID].allocated
+      }
+      this.budget[id].allocated = allocated
     }
+
   }
 })
 </script>
