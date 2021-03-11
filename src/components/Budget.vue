@@ -11,19 +11,19 @@
               <th>{{ masterCategorie.spent }}</th>
               <th>{{ masterCategorie.available }}</th>
             </tr>
-            <tr v-for="categorie in masterCategorie.categories" :key="categorie">
-              <td>{{ categorie.name }}</td>
-              <td>{{ categorie.allocated }}</td>
-              <td>{{ categorie.spent }}</td>
-              <td>{{ categorie.available }}</td>
+            <tr v-for="category in masterCategorie.categories" :key="category">
+              <td>{{ category.name }}</td>
+              <td><input v-model.number=category.allocated type="number" v-on:change="updateAllocation(category)" :placeholder=category.allocated></td>
+              <td>{{ category.spent }}</td>
+              <td>{{ category.available }}</td>
             </tr>
         </table>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue'
-import { budgetService } from '@/services/BudgetService'
+import { defineComponent } from 'vue'
+import { budgetService, CategoryItem } from '@/services/BudgetService'
 
 export default defineComponent({
   name: 'Budget',
@@ -42,6 +42,9 @@ export default defineComponent({
           this.budget = budget
         }
       )
+    },
+    updateAllocation (category: CategoryItem) {
+      console.log('new alloc for ' + category.name + ' (' + category.id + '): ' + category.allocated)
     }
   }
 })
