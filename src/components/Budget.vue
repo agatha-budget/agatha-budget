@@ -1,43 +1,43 @@
 <template>
-  <div class="hello">
-    <h1>{{ month }}</h1>
-    <p>
-      Budget of today
-    </p>
-        <table id="budgetTable" v-for="masterCategory, masterCategoryId in budget" :key="masterCategory">
-            <tr>
-              <th>{{ budget[masterCategoryId].name }}</th>
-               <th>{{ masterCategoriesData[masterCategoryId].allocated }}</th>
-              <th>{{ masterCategoriesData[masterCategoryId].spent }}</th>
-              <th>{{ masterCategoriesData[masterCategoryId].available }}</th>
-            </tr>
-            <tr v-for="category, categoryId in masterCategory.categories" :key="category">
-              <td>{{ category.name }}</td>
-              <td><input v-model.number=category.allocated type="number" v-on:change="updateAllocation(masterCategoryId, categoryId, category.allocated)" :placeholder=category.allocated></td>
-              <td>{{ category.spent }}</td>
-              <td>{{ category.available }}</td>
-            </tr>
-        </table>
+  <div class="col-md-6">
+    <h1 class="row">{{ month }}</h1>
+    <div id="budgetTables">
+    <table class="budgetTable" v-for="masterCategory, masterCategoryId in budget" :key="masterCategory">
+        <tr>
+          <th class="col-md-6">{{ masterCategoriesData[masterCategoryId].name }}</th>
+          <th class="col-md-2">{{ masterCategoriesData[masterCategoryId].allocated }}</th>
+          <th class="col-md-2">{{ masterCategoriesData[masterCategoryId].spent }}</th>
+          <th class="col-md-2">{{ masterCategoriesData[masterCategoryId].available }}</th>
+        </tr>
+        <tr v-for="category, categoryId in masterCategory.categories" :key="category">
+          <td class="col-md-6">{{ category.name }}</td>
+          <td class="col-md-2">
+            <input
+              class="form-control"
+              v-model.number=category.allocated
+              type="number"
+              v-on:change="updateAllocation(masterCategoryId, categoryId, category.allocated)"
+              :placeholder=category.allocated
+            >
+          </td>
+          <td class="col-md-2">{{ category.spent }}</td>
+          <td class="col-md-2">{{ category.available }}</td>
+        </tr>
+    </table>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { budgetService, MasterCategoryArray } from '@/services/BudgetService'
+import { budgetService } from '@/services/BudgetService'
+import { MasterCategoriesData, MasterCategoryArray } from '@/model/model'
 
 interface BudgetData {
-  budget: MasterCategoryArray;
-  formerAllocations: {
-    [categoryId: string]: number;
-  };
-}
-
-interface MasterCategoriesData {
-  [masterCategoryId: string]: {
-    allocated: number;
-    spent: number;
-    available: number;
-  };
+    budget: MasterCategoryArray;
+    formerAllocations: {
+        [categoryId: string]: number;
+    };
 }
 
 export default defineComponent({
@@ -45,6 +45,7 @@ export default defineComponent({
   created: async function () {
     this.getCurrentBudget()
   },
+  props: ['month'],
   data (): BudgetData {
     return {
       budget: {},
@@ -57,6 +58,7 @@ export default defineComponent({
       let category
       for (const masterCategoryId in this.budget) {
         masterCategoriesData[masterCategoryId] = {
+          name: this.budget[masterCategoryId].name,
           allocated: 0,
           spent: 0,
           available: 0
@@ -98,20 +100,12 @@ export default defineComponent({
 })
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-h3 {
-  margin: 40px 0 0;
+#logo {
+  height: 80px;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+#budgetTables {
+  //background: #C6F4FF;
+  visibility: 40%;
 }
 </style>

@@ -1,16 +1,4 @@
-export interface MasterCategoryArray {
-  [masterCategoryId: string]: {
-    name: string;
-    categories: {
-      [categoryId: string]: {
-        name: string;
-        allocated: number;
-        spent: number;
-        available: number;
-      };
-    };
-  };
-}
+import { MasterCategoryArray } from '@/model/model'
 
 class BudgetService {
   public async getBudget (): Promise<MasterCategoryArray> {

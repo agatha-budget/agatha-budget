@@ -4,7 +4,6 @@
     <router-link to="/about">About</router-link>
   </div>
   <div class="home">
-    <img id="logo" alt="Vue logo" src="../assets/logo.png" />
     <Budget month="February" />
   </div>
 </template>
