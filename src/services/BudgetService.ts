@@ -1,38 +1,30 @@
-export interface CategoryItem {
-  name: string;
-  allocated: number;
-  spent: number;
-  available: number;
-}
-
-export interface CategoryArray {
-  [categoryId: string]: CategoryItem;
-}
-
-export interface MasterCategoryItem extends CategoryItem {
-    categories: CategoryArray;
-}
-
 export interface MasterCategoryArray {
-  [masterCategoryId: string]: MasterCategoryItem;
+  [masterCategoryId: string]: {
+    name: string;
+    categories: {
+      [categoryId: string]: {
+        name: string;
+        allocated: number;
+        spent: number;
+        available: number;
+      };
+    };
+  };
 }
 
 class BudgetService {
   public async getBudget (): Promise<MasterCategoryArray> {
     return {
-      '4541dez': {
+      mc1: {
         name: 'Frais fixes',
-        allocated: 467,
-        spent: 467,
-        available: 0,
         categories: {
-          '4541dez': {
+          mc1c1: {
             name: 'Loyer',
             allocated: 452,
             spent: 452,
             available: 0
           },
-          '4541dez5': {
+          mc1c2: {
             name: 'Internet',
             allocated: 15,
             spent: 15,
@@ -40,23 +32,20 @@ class BudgetService {
           }
         }
       },
-      '4541dedezz': {
+      mc2: {
         name: 'Frais variable',
-        allocated: 467,
-        spent: 467,
-        available: 0,
         categories: {
-          '4541dreez': {
+          mc2c1: {
             name: 'Courses',
-            allocated: 452,
-            spent: 452,
-            available: 0
+            allocated: 100,
+            spent: 70,
+            available: 25
           },
-          '4541dezerz': {
+          mc2c2: {
             name: 'Frigo',
-            allocated: 15,
-            spent: 15,
-            available: 0
+            allocated: 10,
+            spent: 0,
+            available: 40
           }
         }
       }

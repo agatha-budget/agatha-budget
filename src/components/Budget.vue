@@ -6,10 +6,10 @@
     </p>
         <table id="budgetTable" v-for="masterCategory, masterCategoryId in budget" :key="masterCategory">
             <tr>
-              <th>{{ masterCategory.name }}</th>
-              <th>{{ masterCategory.allocated }}</th>
-              <th>{{ masterCategory.spent }}</th>
-              <th>{{ masterCategory.available }}</th>
+              <th>{{ budget[masterCategoryId].name }}</th>
+               <th>{{ masterCategoriesData[masterCategoryId].allocated }}</th>
+              <th>{{ masterCategoriesData[masterCategoryId].spent }}</th>
+              <th>{{ masterCategoriesData[masterCategoryId].available }}</th>
             </tr>
             <tr v-for="category, categoryId in masterCategory.categories" :key="category">
               <td>{{ category.name }}</td>
@@ -27,6 +27,17 @@ import { budgetService, MasterCategoryArray } from '@/services/BudgetService'
 
 interface BudgetData {
   budget: MasterCategoryArray;
+  formerAllocations: {
+    [categoryId: string]: number;
+  };
+}
+
+interface MasterCategoriesData {
+  [masterCategoryId: string]: {
+    allocated: number;
+    spent: number;
+    available: number;
+  };
 }
 
 export default defineComponent({
@@ -36,7 +47,28 @@ export default defineComponent({
   },
   data (): BudgetData {
     return {
-      budget: {}
+      budget: {},
+      formerAllocations: {} // use former budget to compute the "available" value from -formerBudget.available + budget.available without asking the back-end to compute
+    }
+  },
+  computed: {
+    masterCategoriesData () {
+      const masterCategoriesData: MasterCategoriesData = {}
+      let category
+      for (const masterCategoryId in this.budget) {
+        masterCategoriesData[masterCategoryId] = {
+          allocated: 0,
+          spent: 0,
+          available: 0
+        }
+        for (const categoryId in this.budget[masterCategoryId].categories) {
+          category = this.budget[masterCategoryId].categories[categoryId]
+          masterCategoriesData[masterCategoryId].allocated += category.allocated
+          masterCategoriesData[masterCategoryId].spent += category.spent
+          masterCategoriesData[masterCategoryId].available += category.available
+        }
+      }
+      return masterCategoriesData
     }
   },
   methods: {
@@ -44,22 +76,24 @@ export default defineComponent({
       budgetService.getBudget().then(
         (budget) => {
           this.budget = budget
+          this.initFormerAllocation()
         }
       )
     },
+    initFormerAllocation () {
+      let category
+      for (const masterCategoryId in this.budget) {
+        for (const categoryId in this.budget[masterCategoryId].categories) {
+          category = this.budget[masterCategoryId].categories[categoryId]
+          this.formerAllocations[categoryId] = category.allocated
+        }
+      }
+    },
     updateAllocation (masterCategoryId: string, categoryId: string, newAllocation: number) {
       console.log('new alloc for ' + categoryId + ' of ' + masterCategoryId + ' : ' + newAllocation)
-      this.udpateMasterCategoryAllocation(masterCategoryId)
-    },
-    udpateMasterCategoryAllocation (id: string) {
-      const categories = this.budget[id].categories
-      let allocated = 0
-      for (const categoryID in categories) {
-        allocated += categories[categoryID].allocated
-      }
-      this.budget[id].allocated = allocated
+      this.budget[masterCategoryId].categories[categoryId].available += (newAllocation - this.formerAllocations[categoryId])
+      this.formerAllocations[categoryId] = newAllocation
     }
-
   }
 })
 </script>
