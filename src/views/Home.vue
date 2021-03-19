@@ -1,10 +1,12 @@
-<template>
-  <div id="nav">
-    <a href="#" v-on:click="logout">Logout</a>
-    <router-link to="/about">About</router-link>
-  </div>
-  <div class="home">
-    <Budget month="February" />
+<template >
+  <div :class="this.css">
+    <div id="nav">
+      <a href="#" v-on:click="logout">Logout</a>
+      <router-link to="/about">About</router-link>
+    </div>
+    <div class="home">
+      <Budget month="February" />
+    </div>
   </div>
 </template>
 
@@ -20,6 +22,11 @@ export default defineComponent({
   components: {
     Budget
   },
+  data () {
+    return {
+      css: 'blue'
+    }
+  },
   setup () {
     if (!useStore().state.logged) {
       router.push('/login')
@@ -32,10 +39,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="less">
-#logo {
-  height: 80px;
-}
-</style>
