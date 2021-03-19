@@ -101,11 +101,4 @@ export default defineComponent({
 </script>
 
 <style scoped lang="less">
-#logo {
-  height: 80px;
-}
-#budgetTables {
-  //background: #C6F4FF;
-  visibility: 40%;
-}
 </style>
