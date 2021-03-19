@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="accountWidget">
     <ul>
       <li class="account" v-for="account, accountId in this.accountsList" :key="accountId">
         {{ account.name }} - {{account.amount}}

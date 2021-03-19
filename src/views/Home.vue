@@ -1,16 +1,14 @@
 <template >
   <div :class="this.css">
-    <div id="nav">
-      <a href="#" v-on:click="logout">Logout</a>
-      <router-link to="/about">About</router-link>
-    </div>
     <div class="home row">
       <Budget month="February" class="col-md-4 offset-md-2"/>
       <div class="col-md-4 offset-md-2">
       <AccountsWidget/>
-      <button>Graphs and Reports</button>
-      <button>Preferences</button>
-      <button>Log out</button>
+      <ul id="actionsList">
+        <li><button>Graphs and Reports</button></li>
+        <li><button>Preferences</button></li>
+        <li><button v-on:click="logout">Log out</button></li>
+      </ul>
       </div>
     </div>
   </div>
