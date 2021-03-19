@@ -1,29 +1,47 @@
 <template>
-  <div class="col-md-6">
-    <h1 class="row">{{ month }}</h1>
+  <div class="col-md-4 offset-md-2">
     <div id="budgetTables">
-    <table class="budgetTable" v-for="masterCategory, masterCategoryId in budget" :key="masterCategory">
-        <tr>
-          <th class="col-md-6">{{ masterCategoriesData[masterCategoryId].name }}</th>
-          <th class="col-md-2">{{ masterCategoriesData[masterCategoryId].allocated }}</th>
-          <th class="col-md-2">{{ masterCategoriesData[masterCategoryId].spent }}</th>
-          <th class="col-md-2">{{ masterCategoriesData[masterCategoryId].available }}</th>
-        </tr>
-        <tr v-for="category, categoryId in masterCategory.categories" :key="category">
-          <td class="col-md-6">{{ category.name }}</td>
-          <td class="col-md-2">
-            <input
-              class="form-control"
-              v-model.number=category.allocated
-              type="number"
-              v-on:change="updateAllocation(masterCategoryId, categoryId, category.allocated)"
-              :placeholder=category.allocated
-            >
-          </td>
-          <td class="col-md-2">{{ category.spent }}</td>
-          <td class="col-md-2">{{ category.available }}</td>
-        </tr>
-    </table>
+      <h1>{{ month }}</h1>
+      <table class="totalTable">
+          <tr>
+            <th class="col-md-6 name"><div>ahah</div></th>
+            <th class="col-md-2 allocated">allocated</th>
+            <th class="col-md-2 spent">spent</th>
+            <th class="col-md-3 available">available</th>
+          </tr>
+          <tbody>
+          <tr>
+            <td class="name"><div>ahah</div></td>
+            <td class="allocated">{{this.totalBudgetData.allocated}}</td>
+            <td class="spent">{{this.totalBudgetData.spent}}</td>
+            <td class="available">{{this.totalBudgetData.available}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="budgetTable" v-for="masterCategory, masterCategoryId in budget" :key="masterCategory">
+          <tr class="masterCategory">
+            <th class="col-md-6 name"><div><span>{{ masterCategoriesData[masterCategoryId].name }}</span></div></th>
+            <th class="col-md-2 allocated">{{ masterCategoriesData[masterCategoryId].allocated }}</th>
+            <th class="col-md-2 spent">{{ masterCategoriesData[masterCategoryId].spent }}</th>
+            <th class="col-md-2 available">{{ masterCategoriesData[masterCategoryId].available }}</th>
+          </tr>
+          <tbody>
+          <tr class="category" v-for="category, categoryId in masterCategory.categories" :key="category">
+            <td class="name"><div><span>{{ category.name }}</span></div></td>
+            <td class="allocated">
+              <input
+                class="form-control"
+                v-model.number=category.allocated
+                type="number"
+                v-on:change="updateAllocation(masterCategoryId, categoryId, category.allocated)"
+                :placeholder=category.allocated
+              >
+            </td>
+            <td class="spent">{{ category.spent }}</td>
+            <td class="available">{{ category.available }}</td>
+          </tr>
+          </tbody>
+      </table>
     </div>
   </div>
 </template>
@@ -71,6 +89,19 @@ export default defineComponent({
         }
       }
       return masterCategoriesData
+    },
+    totalBudgetData () {
+      const totalBudgetData = {
+        allocated: 0,
+        spent: 0,
+        available: 0
+      }
+      for (const masterCategoryId in this.masterCategoriesData) {
+        totalBudgetData.allocated += this.masterCategoriesData[masterCategoryId].allocated
+        totalBudgetData.spent += this.masterCategoriesData[masterCategoryId].spent
+        totalBudgetData.available += this.masterCategoriesData[masterCategoryId].available
+      }
+      return totalBudgetData
     }
   },
   methods: {
@@ -99,6 +130,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped lang="less">
-</style>
