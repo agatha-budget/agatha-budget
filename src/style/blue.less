@@ -1,0 +1,74 @@
+.blue {
+
+    #totalTable {
+
+    }
+
+    #budgetTables {
+        background: rgba(144, 217,233, 0.4);
+        border-radius: 28px;
+        padding: 20px;
+        table {
+            margin-bottom: 10px;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px;
+            margin-bottom: 30px;
+        }
+        tr.masterCategory {
+            th.name {
+                padding: 0 10px 0 0;
+                div {
+                    min-height: 26px;
+                    border-radius: 6px 6px 0 0;
+                    background : #4FB3CC;
+                    text-align: center;
+                }
+            }
+            th.allocated {
+                border-radius: 6px 0px 0px 0px;
+            }
+            th.available {
+                border-radius: 0px 6px 0px 0px;
+            }
+            th.allocated, th.available, th.spent {
+                background : #4FB3CC;
+                border-spacing : 0px;
+                text-align: center;
+            }
+        }
+
+        tr.category {
+            td.name {
+                padding: 0 10px 0 0;
+                div {
+                    min-height: 40px;
+                    background : #C6F4FF;
+                    padding: 0 0 0 10px;
+                    span {
+                        vertical-align: middle;
+                    }
+                }
+            }
+            td.allocated {
+                input {
+                    text-align: center;
+                }
+            }
+            td.allocated, td.available, td.spent {
+                text-align: center;
+                background : #C6F4FF;
+            }
+        }
+    }
+
+    a{
+        color: green;
+    }
+
+    background-color: #f4f8fc;
+    // thank you : https://www.transparenttextures.com/
+    background-image : url("../assets/skin/blue/background.png");
+
+}
