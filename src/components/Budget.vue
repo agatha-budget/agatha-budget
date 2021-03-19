@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-4 offset-md-2">
+  <div>
     <div id="budgetTables">
       <h1>{{ month }}</h1>
       <table class="totalTable">

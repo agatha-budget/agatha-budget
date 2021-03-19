@@ -4,8 +4,14 @@
       <a href="#" v-on:click="logout">Logout</a>
       <router-link to="/about">About</router-link>
     </div>
-    <div class="home">
-      <Budget month="February" />
+    <div class="home row">
+      <Budget month="February" class="col-md-4 offset-md-2"/>
+      <div class="col-md-4 offset-md-2">
+      <AccountsWidget/>
+      <button>Graphs and Reports</button>
+      <button>Preferences</button>
+      <button>Log out</button>
+      </div>
     </div>
   </div>
 </template>
@@ -16,11 +22,13 @@ import Budget from '@/components/Budget.vue' // @ is an alias to /src
 import { useStore } from '@/store/index'
 import router from '@/router'
 import { personService } from '@/services/PersonService'
+import AccountsWidget from '@/components/AccountsWidget.vue'
 
 export default defineComponent({
   name: 'Home',
   components: {
-    Budget
+    Budget,
+    AccountsWidget
   },
   data () {
     return {
