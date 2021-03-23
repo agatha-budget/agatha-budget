@@ -1,9 +1,9 @@
 <template>
   <div class="login_page">
     <img id="logo" alt="Vue logo" src="../assets/logo.png" />
-    <input v-model="email" placeholder="mail">
-    <input v-model="password" placeholder="password">
-    <button v-on:click="login">Login</button>
+    <input v-model="email" :placeholder="$t('EMAIL')">
+    <input v-model="password" :placeholder="$t('PASSWORD')">
+    <button v-on:click="login">{{$t('LOGIN')}}</button>
     <p>{{errorMsg}}</p>
   </div>
 </template>
@@ -31,9 +31,9 @@ export default defineComponent({
     async login () {
       const responseData = await personService.createSession(this.$store, this.email, this.password, this.$store)
       if (responseData.unlockingDate !== null) {
-        this.$data.errorMsg = 'Sorry, you are locked out until : ' + new Date(responseData.unlockingDate)
+        this.$data.errorMsg = this.$t('SORRY_LOCKED_OUT') + new Date(responseData.unlockingDate)
       } else {
-        this.$data.errorMsg = 'Invalid email/password combination'
+        this.$data.errorMsg = this.$t('SORRY_LOCKED_OUT')
       }
     }
   }

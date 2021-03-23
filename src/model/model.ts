@@ -5,7 +5,6 @@ interface Category {
     available: number;
 }
 
-
 interface MasterCategoryArray {
     [masterCategoryId: string]: {
         name: string;

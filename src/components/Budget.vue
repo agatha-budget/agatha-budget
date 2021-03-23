@@ -1,17 +1,17 @@
 <template>
   <div>
     <div id="budgetTables">
-      <h1>{{ month }}</h1>
+      <h1>{{ $t(month) }}</h1>
       <table id="totalTable"  class="table">
           <tr>
             <th class="col-6 name"></th>
-            <th class="col-2 allocated"><div>allocated</div></th>
-            <th class="col-2 spent"><div>spent</div></th>
-            <th class="col-2 available"><div>available</div></th>
+            <th class="col-2 allocated"><div>{{ $t("ALLOCATED") }}</div></th>
+            <th class="col-2 spent"><div>{{ $t("SPENT") }}</div></th>
+            <th class="col-2 available"><div>{{ $t("AVAILABLE") }}</div></th>
           </tr>
           <tbody>
           <tr>
-            <td class="name"><div>total</div></td>
+            <td class="name"><div>{{ $t("TOTAL") }}</div></td>
             <td class="allocated">{{this.totalBudgetData.allocated}}</td>
             <td class="spent">{{this.totalBudgetData.spent}}</td>
             <td class="available">{{this.totalBudgetData.available}}</td>
