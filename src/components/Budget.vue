@@ -2,32 +2,32 @@
   <div>
     <div id="budgetTables">
       <h1>{{ month }}</h1>
-      <table class="totalTable">
+      <table id="totalTable"  class="table">
           <tr>
-            <th class="col-md-6 name"><div>ahah</div></th>
-            <th class="col-md-2 allocated">allocated</th>
-            <th class="col-md-2 spent">spent</th>
-            <th class="col-md-3 available">available</th>
+            <th class="col-6 name"></th>
+            <th class="col-2 allocated"><div>allocated</div></th>
+            <th class="col-2 spent"><div>spent</div></th>
+            <th class="col-2 available"><div>available</div></th>
           </tr>
           <tbody>
           <tr>
-            <td class="name"><div>ahah</div></td>
+            <td class="name"><div>total</div></td>
             <td class="allocated">{{this.totalBudgetData.allocated}}</td>
             <td class="spent">{{this.totalBudgetData.spent}}</td>
             <td class="available">{{this.totalBudgetData.available}}</td>
           </tr>
         </tbody>
       </table>
-      <table class="budgetTable" v-for="masterCategory, masterCategoryId in budget" :key="masterCategory">
+      <table class="budgetTable table" v-for="masterCategory, masterCategoryId in budget" :key="masterCategory">
           <tr class="masterCategory">
-            <th class="col-md-6 name"><div><span>{{ masterCategoriesData[masterCategoryId].name }}</span></div></th>
-            <th class="col-md-2 allocated">{{ masterCategoriesData[masterCategoryId].allocated }}</th>
-            <th class="col-md-2 spent">{{ masterCategoriesData[masterCategoryId].spent }}</th>
-            <th class="col-md-2 available">{{ masterCategoriesData[masterCategoryId].available }}</th>
+            <th class="col-6 name"><div>{{ masterCategoriesData[masterCategoryId].name }}</div></th>
+            <th class="col-2 allocated">{{ masterCategoriesData[masterCategoryId].allocated }}</th>
+            <th class="col-2 spent">{{ masterCategoriesData[masterCategoryId].spent }}</th>
+            <th class="col-2 available">{{ masterCategoriesData[masterCategoryId].available }}</th>
           </tr>
           <tbody>
           <tr class="category" v-for="category, categoryId in masterCategory.categories" :key="category">
-            <td class="name"><div><span>{{ category.name }}</span></div></td>
+            <td class="name"><div>{{ category.name }}</div></td>
             <td class="allocated">
               <input
                 class="form-control"
