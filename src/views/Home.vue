@@ -1,7 +1,7 @@
 <template >
   <div :class="this.css">
     <div class="home row">
-      <Budget month="February" class="col-md-4 offset-md-2"/>
+      <Budget month="MARCH" class="col-md-4 offset-md-2"/>
       <div class="col-md-2 offset-md-2">
       <AccountsWidget/>
       <ul id="actionsList">

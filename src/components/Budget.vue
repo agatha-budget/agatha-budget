@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="budgetTables">
-      <h1>{{ month }}</h1>
+      <h1>{{ $t(month) }}</h1>
       <table id="totalTable"  class="table">
           <tr>
             <th class="col-6 name"></th>
