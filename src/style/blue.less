@@ -1,0 +1,164 @@
+.blue {
+
+    background-color: #f4f8fc;
+    // thank you : https://www.transparenttextures.com/
+    background-image : url("../assets/skin/blue/background.png");
+
+    .home {
+
+        padding: 50px;
+        
+        #accountWidget {
+            ul {
+                background: rgba(144, 217,233, 0.4);
+                border-radius: 28px;
+                padding: 20px;
+                li {
+                    background : #C6F4FF;
+                    border-radius: 20px;
+                    margin: 5px;
+                    text-align: center;
+                    list-style-type: none;
+                }
+            }
+        }
+
+        ul#actionsList {
+            li {
+                text-align: center;
+                button {
+                    background : rgba(101, 159, 212, 0.4);
+                    border-radius: 20px;
+                    margin: 5px;
+                    text-align: center;
+                }
+                list-style-type: none;
+            }
+        }
+
+        #budgetTables, #totalTable  {
+            tbody, td, tfoot, th, thead, tr {
+                border-style: none;
+            }
+        }
+
+        #totalTable {
+            tr {
+
+                th.allocated, th.available, th.spent{
+                    padding: 0 0 10px 0;
+                    div {
+                        min-height: 40px;
+                        background :#2F5662;
+                        text-align: center;
+                        color: whitesmoke
+
+                    }
+                }
+
+                td.allocated, td.available, td.spent {
+                    background : #4FB3CC;
+                    border-spacing : 0px;
+                    text-align: center;
+                }
+
+                td.allocated, td.available {
+                    font-weight: bold;
+                }
+
+                td.allocated, th.allocated div {
+                    border-radius: 6px 0 0 6px;
+                }
+
+                td.available, th.available div {
+                    border-radius: 0 6px 6px 0;
+                }
+
+                td.name {
+                    padding: 0 10px 0 0;
+                    div {
+                        font-weight: bold;
+                        min-height: 40px;
+                        border-radius: 6px;
+                        background :  #4FB3CC;
+                        text-align: center;
+                        line-height: 40px;
+                    }
+                }
+            }
+            
+        }
+
+        #budgetTables {
+            background: rgba(144, 217,233, 0.4);
+            border-radius: 28px;
+            padding: 20px;
+            table {
+                margin-bottom: 10px;
+            }
+            h1 {
+                text-align: center;
+                margin: 20px;
+                margin-bottom: 30px;
+            }
+            tr.masterCategory {
+                th.name {
+                    padding: 0 10px 0 0;
+                    div {
+                        min-height: 26px;
+                        border-radius: 6px 6px 0 0;
+                        background : #4FB3CC;
+                        text-align: center;
+                    }
+                }
+                th.allocated {
+                    border-radius: 6px 0px 0px 0px;
+                }
+                th.available {
+                    border-radius: 0px 6px 0px 0px;
+                }
+                th.allocated, th.available, th.spent {
+                    background : #4FB3CC;
+                    border-spacing : 0px;
+                    text-align: center;
+                }
+            }
+
+            tr.category {
+                td.name {
+                    padding: 0 10px 0 0;
+                    div {
+                        min-height: 54px;
+                        background : #C6F4FF;
+                        padding: 0 0 0 10px;
+                        line-height: 54px;
+                    }
+                }
+                td.allocated {
+                    input {
+                        text-align: center;
+                    }
+                }
+                td.allocated, td.available, td.spent {
+                    text-align: center;
+                    background : #C6F4FF;
+                }
+            }
+        }
+
+        .spent {
+            font-weight: lighter;
+        }
+
+        td {
+            vertical-align: middle;
+        }
+
+        a{
+            color: green;
+        }
+
+        
+
+    }
+}
