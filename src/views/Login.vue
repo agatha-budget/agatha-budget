@@ -1,10 +1,10 @@
 <template>
-  <div class="login_page">
+  <div id="login_page" class="col-2 offset-5">
     <img id="logo" alt="Vue logo" src="../assets/logo.png" />
-    <input v-model="email" :placeholder="$t('EMAIL')">
-    <input v-model="password" :placeholder="$t('PASSWORD')">
-    <button v-on:click="login">{{$t('LOGIN')}}</button>
-    <p>{{errorMsg}}</p>
+    <input class="form-control" v-model="email" :placeholder="$t('EMAIL')">
+    <input class="form-control" v-model="password" :placeholder="$t('PASSWORD')">
+    <button class="btn btn-outline-info" v-on:click="login">{{$t('LOGIN')}}</button>
+    <p id="login_error_msg">{{errorMsg}}</p>
   </div>
 </template>
 
@@ -31,9 +31,15 @@ export default defineComponent({
     async login () {
       const responseData = await personService.createSession(this.$store, this.email, this.password, this.$store)
       if (responseData.unlockingDate !== null) {
-        this.$data.errorMsg = this.$t('SORRY_LOCKED_OUT') + new Date(responseData.unlockingDate)
+        const minutes = 1000 * 60
+        const lockingDuration = Math.round((responseData.unlockingDate - new Date().getTime()) / minutes)
+        if (lockingDuration > 0) {
+          this.$data.errorMsg = this.$t('SORRY_LOCKED_OUT', { lockingDuration: lockingDuration })
+        } else {
+          this.$data.errorMsg = this.$t('SORRY_WRONG_PASSWORD')
+        }
       } else {
-        this.$data.errorMsg = this.$t('SORRY_LOCKED_OUT')
+        this.$data.errorMsg = this.$t('SORRY_WRONG_LOGIN')
       }
     }
   }
