@@ -2,7 +2,7 @@
   <div :class="this.css">
     <div class="home row">
       <Budget month="February" class="col-md-4 offset-md-2"/>
-      <div class="col-md-4 offset-md-2">
+      <div class="col-md-2 offset-md-2">
       <AccountsWidget/>
       <ul id="actionsList">
         <li><button>Graphs and Reports</button></li>
