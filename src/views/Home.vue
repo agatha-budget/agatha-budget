@@ -1,13 +1,13 @@
 <template >
   <div :class="this.css">
     <div class="home row">
-      <Budget month="MARCH" class="col-md-4 offset-md-2"/>
+      <Budget month="FEBRUARY" class="col-md-4 offset-md-2"/>
       <div class="col-md-2 offset-md-2">
       <AccountsWidget/>
       <ul id="actionsList">
-        <li><button>Graphs and Reports</button></li>
-        <li><button>Preferences</button></li>
-        <li><button v-on:click="logout">Log out</button></li>
+        <li><button>{{ $t("GRAPH_AND_REPORT") }}</button></li>
+        <li><button>{{ $t("PREFERENCES") }}</button></li>
+        <li><button v-on:click="logout">{{ $t("LOGOUT") }}</button></li>
       </ul>
       </div>
     </div>
