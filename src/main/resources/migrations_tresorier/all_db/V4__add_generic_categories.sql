@@ -1,6 +1,6 @@
 INSERT INTO
        category (id, name)
 VALUES
-        ('universal_income_category', 'income'),
-        ('universal_transfert_category', 'transfert')
+        ('universal_income_category', 'I18N_INCOME'),
+        ('universal_transfert_category', 'I18N_TRANSFERT')
 ;
