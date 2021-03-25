@@ -51,8 +51,8 @@ fun main() {
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
 
     app.post("/login") { ctx ->
-        val email = getQueryParam(ctx, "email")
-        val password = getQueryParam(ctx, "password")
+        val email = getQueryStringParam(ctx, "email")
+        val password = getQueryStringParam(ctx, "password")
         val person: Person? = ServiceManager.personService.login(email, password)
         if (person == null) {
             val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
@@ -75,23 +75,23 @@ fun main() {
     app.before("/budget", SuperTokens.middleware())
     app.post("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
-        val name = getQueryParam(ctx, "name")
+        val name = getQueryStringParam(ctx, "name")
         val budget: Budget = ServiceManager.budgetService.create(user, name)
         ctx.json(budget.id)
     }
 
     app.put("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam(ctx, "budget_id"))
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
         val formerName = budget.name
-        val newName = getQueryParam(ctx, "new_name")
+        val newName = getQueryStringParam(ctx, "new_name")
         ServiceManager.budgetService.update(user, budget, newName)
         ctx.json("updated from $formerName to $newName")
     }
 
     app.delete("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam(ctx, "budget_id"))
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
         ServiceManager.budgetService.delete(user, budget)
         ctx.json("budget ${budget.name} has been deleted")
     }
@@ -101,6 +101,16 @@ fun main() {
         val user = getUserFromAuth(ctx)
         val budgetList = ServiceManager.budgetService.findByUser(user)
         ctx.json(budgetList)
+    }
+
+    app.before("/account", SuperTokens.middleware())
+    app.post("/account") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
+        val name = getQueryStringParam(ctx, "name")
+        val amount = getQueryDoubleParam(ctx, "amount")
+        val account = ServiceManager.accountService.create(user, budget, name, amount)
+        ctx.json(account)
     }
 }
 
@@ -153,6 +163,10 @@ private fun getUserFromAuth(ctx: Context): Person {
     return ServiceManager.personService.getById(userId)
 }
 
-private fun getQueryParam(ctx: Context, name: String) : String {
+private fun getQueryStringParam(ctx: Context, name: String) : String {
     return ctx.queryParam<String>(name).get()
+}
+
+private fun getQueryDoubleParam(ctx: Context, amount: String) : Double {
+    return ctx.queryParam<Double>(amount).get()
 }
