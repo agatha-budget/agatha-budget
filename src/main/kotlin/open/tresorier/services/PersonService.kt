@@ -1,15 +1,18 @@
 package open.tresorier.services
 
 import open.tresorier.dao.IPersonDao
+import open.tresorier.model.Budget
 import open.tresorier.model.Person
 import open.tresorier.utils.Time
 
-class PersonService(val personDao: IPersonDao) {
+class PersonService(private val personDao: IPersonDao, private val budgetService: BudgetService) {
 
     fun createPerson(name: String, password: String, email: String): Person {
         val hashedPassword = AuthenticationService.hashPassword(password)
-        val person = Person(name, hashedPassword, email)
-        return personDao.insert(person)
+        var person = Person(name, hashedPassword, email)
+        person = personDao.insert(person)
+        budgetService.create(person, Budget.DEFAULT_BUDGET_NAME)
+        return person
     }
 
     /* return either the person or null if the login failed

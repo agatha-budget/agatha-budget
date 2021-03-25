@@ -14,8 +14,8 @@ val app_module = module {
     single<IOperationDao> { JooqOperationDao((get())) }
     single<IAllocationDao> { JooqAllocationDao(get()) }
 
-    single<AuthorizationService> { (get()) }
-    single<PersonService> { PersonService(get()) }
+    single<AuthorizationService> { AuthorizationService(get(), get(), get(), get()) }
+    single<PersonService> { PersonService(get(), get()) }
     single<BudgetService> { BudgetService(get(), get()) }
     single<AccountService> { AccountService(get(), get(), get()) }
     single<CategoryService> { CategoryService(get(), get()) }

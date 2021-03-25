@@ -5,4 +5,9 @@ class Budget (
     var personId: String,
     id: String? = null,
     deleted: Boolean? = null
-) : DbObject(id, deleted)
+) : DbObject(id, deleted) {
+
+    companion object {
+        const val DEFAULT_BUDGET_NAME = "I18N_DEFAULT_BUDGET"
+    }
+}
