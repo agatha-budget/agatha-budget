@@ -14,12 +14,12 @@
 
 
 import { Configuration } from './configuration';
-import { AxiosPromise, AxiosInstance } from 'axios';
+import superTokenAxios, { AxiosPromise, AxiosInstance } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, superTokenAxios } from './base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
 
 /**
  * 
@@ -60,10 +60,10 @@ export interface Account {
 }
 
 /**
- * AccountsApi - axios parameter creator
+ * AccountApi - axios parameter creator
  * @export
  */
-export const AccountsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const AccountApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * 
@@ -245,11 +245,11 @@ export const AccountsApiAxiosParamCreator = function (configuration?: Configurat
 };
 
 /**
- * AccountsApi - functional programming interface
+ * AccountApi - functional programming interface
  * @export
  */
-export const AccountsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = AccountsApiAxiosParamCreator(configuration)
+export const AccountApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AccountApiAxiosParamCreator(configuration)
     return {
         /**
          * 
@@ -303,11 +303,11 @@ export const AccountsApiFp = function(configuration?: Configuration) {
 };
 
 /**
- * AccountsApi - factory interface
+ * AccountApi - factory interface
  * @export
  */
-export const AccountsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = AccountsApiFp(configuration)
+export const AccountApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AccountApiFp(configuration)
     return {
         /**
          * 
@@ -357,12 +357,12 @@ export const AccountsApiFactory = function (configuration?: Configuration, baseP
 };
 
 /**
- * AccountsApi - object-oriented interface
+ * AccountApi - object-oriented interface
  * @export
- * @class AccountsApi
+ * @class AccountApi
  * @extends {BaseAPI}
  */
-export class AccountsApi extends BaseAPI {
+export class AccountApi extends BaseAPI {
     /**
      * 
      * @summary Add a new account
@@ -372,10 +372,10 @@ export class AccountsApi extends BaseAPI {
      * @param {string} currency 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof AccountsApi
+     * @memberof AccountApi
      */
     public addAccount(budgetId: string, name: string, amount: number, currency: string, options?: any) {
-        return AccountsApiFp(this.configuration).addAccount(budgetId, name, amount, currency, options).then((request) => request(this.axios, this.basePath));
+        return AccountApiFp(this.configuration).addAccount(budgetId, name, amount, currency, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -384,10 +384,10 @@ export class AccountsApi extends BaseAPI {
      * @param {number} accountId id of the account you want to delete
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof AccountsApi
+     * @memberof AccountApi
      */
     public deleteAccount(accountId: number, options?: any) {
-        return AccountsApiFp(this.configuration).deleteAccount(accountId, options).then((request) => request(this.axios, this.basePath));
+        return AccountApiFp(this.configuration).deleteAccount(accountId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -396,10 +396,10 @@ export class AccountsApi extends BaseAPI {
      * @param {number} budgetId id of the budget whose accounts you want to retrieve
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof AccountsApi
+     * @memberof AccountApi
      */
     public findAccountsByBudget(budgetId: number, options?: any) {
-        return AccountsApiFp(this.configuration).findAccountsByBudget(budgetId, options).then((request) => request(this.axios, this.basePath));
+        return AccountApiFp(this.configuration).findAccountsByBudget(budgetId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -409,10 +409,10 @@ export class AccountsApi extends BaseAPI {
      * @param {string} name 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof AccountsApi
+     * @memberof AccountApi
      */
     public updateAccount(id: string, name: string, options?: any) {
-        return AccountsApiFp(this.configuration).updateAccount(id, name, options).then((request) => request(this.axios, this.basePath));
+        return AccountApiFp(this.configuration).updateAccount(id, name, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

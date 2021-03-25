@@ -102,7 +102,7 @@ paths:
   /account:
     put:
       tags:
-      - Accounts
+      - Account
       summary: Rename an account
       operationId: updateAccount
       parameters:
@@ -143,7 +143,7 @@ paths:
                   value: invalid budget id
     post:
       tags:
-      - Accounts
+      - Account
       summary: Add a new account
       operationId: addAccount
       parameters:
@@ -192,7 +192,7 @@ paths:
               example: invalid budget id
     delete:
       tags:
-      - Accounts
+      - Account
       summary: Delete account
       operationId: deleteAccount
       parameters:
@@ -222,7 +222,7 @@ paths:
   /account/budget:
     get:
       tags:
-      - Accounts
+      - Account
       summary: Finds accounts by budget
       operationId: findAccountsByBudget
       parameters:
