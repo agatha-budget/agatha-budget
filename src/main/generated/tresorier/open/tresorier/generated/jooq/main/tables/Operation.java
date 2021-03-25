@@ -34,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 669193842;
+    private static final long serialVersionUID = 829267977;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -72,12 +72,12 @@ public class Operation extends TableImpl<OperationRecord> {
     /**
      * The column <code>public.operation.amount</code>.
      */
-    public final TableField<OperationRecord, BigDecimal> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.NUMERIC(10, 2).nullable(false), this, "");
+    public final TableField<OperationRecord, BigDecimal> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.NUMERIC(10, 2).nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.NUMERIC)), this, "");
 
     /**
      * The column <code>public.operation.memo</code>.
      */
-    public final TableField<OperationRecord, String> MEMO = createField(DSL.name("memo"), org.jooq.impl.SQLDataType.VARCHAR(280).nullable(false), this, "");
+    public final TableField<OperationRecord, String> MEMO = createField(DSL.name("memo"), org.jooq.impl.SQLDataType.VARCHAR(280).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * Create a <code>public.operation</code> table reference

@@ -12,6 +12,7 @@ import open.tresorier.generated.jooq.main.Keys;
 import open.tresorier.generated.jooq.main.Public;
 import open.tresorier.generated.jooq.main.tables.records.AllocationRecord;
 
+import org.jooq.Check;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
@@ -23,6 +24,7 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.Internal;
 import org.jooq.impl.TableImpl;
 
 
@@ -32,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation extends TableImpl<AllocationRecord> {
 
-    private static final long serialVersionUID = -1518417204;
+    private static final long serialVersionUID = 432237058;
 
     /**
      * The reference instance of <code>public.allocation</code>
@@ -127,6 +129,14 @@ public class Allocation extends TableImpl<AllocationRecord> {
 
     public Category category() {
         return new Category(this, Keys.ALLOCATION__ALLOCATION_CATEGORY_ID_FKEY);
+    }
+
+    @Override
+    public List<Check<AllocationRecord>> getChecks() {
+        return Arrays.<Check<AllocationRecord>>asList(
+              Internal.createCheck(this, DSL.name("no_invalid_month"), "((month < 13))", true)
+            , Internal.createCheck(this, DSL.name("no_negative_month"), "((month > 0))", true)
+        );
     }
 
     @Override
