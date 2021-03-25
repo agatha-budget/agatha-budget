@@ -30,6 +30,10 @@ class BudgetService(private val budgetDao: IBudgetDao) {
         return budgetDao.update(budget)
     }
 
+    fun findByUser(person: Person) : List<Budget> {
+        return budgetDao.findByPersonId(person.id)
+    }
+
     private fun cancelIfUserIsUnauthorized(person: Person, budget: Budget) {
         if (budget.personId != person.id) {
             throw TresorierIllegalException("user " + person.id + "isn't allowed to interact with budget " + budget.id)

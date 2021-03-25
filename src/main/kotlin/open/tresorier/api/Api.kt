@@ -88,6 +88,20 @@ fun main() {
         ServiceManager.budgetService.update(user, budget, newName)
         ctx.json("updated from $formerName to $newName")
     }
+
+    app.delete("/budget") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam(ctx, "budget_id"))
+        ServiceManager.budgetService.delete(user, budget)
+        ctx.json("budget ${budget.name} has been deleted")
+    }
+
+    app.before("/budget/user", SuperTokens.middleware())
+    app.get("/budget/user") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budgetList = ServiceManager.budgetService.findByUser(user)
+        ctx.json(budgetList)
+    }
 }
 
 private fun setUpApp(properties: JavaProperties): Javalin {
