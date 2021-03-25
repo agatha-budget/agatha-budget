@@ -84,8 +84,8 @@ class JooqTestOperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.operationDate,
             jooqOperation.accountId,
             jooqOperation.categoryId,
-            jooqOperation.memo,
             jooqOperation.amount.toDouble(),
+            jooqOperation.memo,
             jooqOperation.id,
         )
     }

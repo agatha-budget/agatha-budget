@@ -12,14 +12,14 @@ class OperationService(private val operationDao: IOperationDao, private  val acc
 
     fun createInitialOperation(person: Person, account: Account, amount: Double){
         this.accountService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(Time.now(), account.id, Category.INCOME_ID, memo, amount)
+        val operation = Operation(Time.now(), account.id, Category.INCOME_ID, amount)
         operationDao.insert(operation)
         cancelIfUserIsUnauthorized(person, operation)
     }
 
-    fun create(person: Person, account: Account, date: Long, category: Category, memo: String, amount: Double){
+    fun create(person: Person, account: Account, date: Long, category: Category, amount: Double, memo: String){
         this.accountService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(date, account.id, category.id, memo, amount)
+        val operation = Operation(date, account.id, category.id, amount, memo)
         operationDao.insert(operation)
         cancelIfUserIsUnauthorized(person, operation)
     }

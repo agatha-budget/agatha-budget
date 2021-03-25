@@ -23,7 +23,7 @@ class OperationDaoIntTest : IIntegrationTest {
 
     @Test
     fun getOwnerForUnstored() {
-        val operation = Operation(1225, "545", "56", "achat", -25.54)
+        val operation = Operation(1225, "545", "56", -25.54, "achat")
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             operationDao.getOwner(operation)
         }
@@ -32,7 +32,7 @@ class OperationDaoIntTest : IIntegrationTest {
 
     @Test
     fun cannotCreateWithAccountAndCategoryFromDistinctBudget() {
-        val operation = Operation(1225, "1", "5", "achat", 8525.74)
+        val operation = Operation(1225, "1", "5", 8525.74)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             operationDao.insert(operation)
         }
