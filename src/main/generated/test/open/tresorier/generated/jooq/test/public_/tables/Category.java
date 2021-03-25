@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Category extends TableImpl<CategoryRecord> {
 
-    private static final long serialVersionUID = 993827778;
+    private static final long serialVersionUID = 2041304634;
 
     /**
      * The reference instance of <code>PUBLIC.CATEGORY</code>
@@ -54,7 +54,7 @@ public class Category extends TableImpl<CategoryRecord> {
     /**
      * The column <code>PUBLIC.CATEGORY.BUDGET_ID</code>.
      */
-    public final TableField<CategoryRecord, String> BUDGET_ID = createField(DSL.name("BUDGET_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<CategoryRecord, String> BUDGET_ID = createField(DSL.name("BUDGET_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.CATEGORY.NAME</code>.

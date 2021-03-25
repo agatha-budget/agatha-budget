@@ -32,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = -561501658;
+    private static final long serialVersionUID = -468981622;
 
     /**
      * The reference instance of <code>PUBLIC.OPERATION</code>
@@ -70,12 +70,12 @@ public class Operation extends TableImpl<OperationRecord> {
     /**
      * The column <code>PUBLIC.OPERATION.AMOUNT</code>.
      */
-    public final TableField<OperationRecord, BigDecimal> AMOUNT = createField(DSL.name("AMOUNT"), org.jooq.impl.SQLDataType.DECIMAL(10, 2).nullable(false), this, "");
+    public final TableField<OperationRecord, BigDecimal> AMOUNT = createField(DSL.name("AMOUNT"), org.jooq.impl.SQLDataType.DECIMAL(10, 2).nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.DECIMAL)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.MEMO</code>.
      */
-    public final TableField<OperationRecord, String> MEMO = createField(DSL.name("MEMO"), org.jooq.impl.SQLDataType.VARCHAR(280).nullable(false), this, "");
+    public final TableField<OperationRecord, String> MEMO = createField(DSL.name("MEMO"), org.jooq.impl.SQLDataType.VARCHAR(280).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * Create a <code>PUBLIC.OPERATION</code> table reference

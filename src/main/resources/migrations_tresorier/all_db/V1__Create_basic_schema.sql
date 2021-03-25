@@ -27,7 +27,7 @@ CREATE TABLE account (
 
 CREATE TABLE category (
         id VARCHAR(36) NOT NULL PRIMARY KEY,
-        budget_id VARCHAR(36) NOT NULL,
+        budget_id VARCHAR(36) DEFAULT NULL,
         name VARCHAR(100) NOT NULL,
         archived BOOLEAN DEFAULT false,
         deleted BOOLEAN DEFAULT false,
@@ -39,8 +39,8 @@ CREATE TABLE operation (
         operation_date BIGINT NOT NULL,
         account_id VARCHAR(36) NOT NULL,
         category_id VARCHAR(36) NOT NULL,
-        amount DECIMAL(10,2) NOT NULL,
-        memo VARCHAR(280) NOT NULL,
+        amount DECIMAL(10,2) NOT NULL DEFAULT 0,
+        memo VARCHAR(280) DEFAULT NULL,
         FOREIGN KEY (account_id) REFERENCES account(id),
         FOREIGN KEY (category_id) REFERENCES category(id)
 );
