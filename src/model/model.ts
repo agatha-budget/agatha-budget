@@ -5,6 +5,14 @@ interface Category {
     available: number;
 }
 
+interface Account {
+    id: string;
+    name: string;
+    amount: number;
+    currency: Currency;
+}
+
+
 interface MasterCategoryArray {
     [masterCategoryId: string]: {
         name: string;
@@ -18,4 +26,9 @@ interface MasterCategoriesData {
     [masterCategoryId: string]: Category;
 }
 
-export { Category, MasterCategoriesData, MasterCategoryArray }
+interface Currency {
+    name: string,
+    symbol: string
+}
+
+export { Category, MasterCategoriesData, MasterCategoryArray, Account, Currency }

@@ -23,5 +23,11 @@
     "TOTAL": "total",
     "GRAPH_AND_REPORT": "graphiques et rapports",
     "PREFERENCES" : "préférence",
-    "LOGOUT": "déconnexion"
+    "LOGOUT": "déconnexion",
+    "MY_ACCOUNTS": "mes comptes",
+    "ADD_ACCOUNT": "ajouter un compte",
+    "ACCOUNT_NAME": "nom du compte",
+    "INITIAL_AMOUNT": "montant initial",
+    "CREATE_ACCOUNT": "ajouter ce compte",
+    "CANCEL": "annuler"
 }
