@@ -99,6 +99,130 @@ paths:
       security:
       - accessToken: []
         refreshTokenId: []
+  /budget:
+    put:
+      tags:
+      - Budget
+      summary: Update a budget
+      operationId: updateBudget
+      parameters:
+      - name: budget_id
+        in: query
+        description: id of the updated budget
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: new_name
+        in: query
+        description: new name of the new budget
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: budget was successfully updated
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                a:
+                  summary: invalid user
+                  value: invalid user id
+    post:
+      tags:
+      - Budget
+      summary: Add a new budget
+      operationId: addBudget
+      parameters:
+      - name: name
+        in: query
+        description: name of the new budget
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: budget was successfully created
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid user id
+      security:
+      - accessToken: []
+        refreshTokenId: []
+    delete:
+      tags:
+      - Budget
+      summary: Delete budget
+      operationId: deleteBudget
+      parameters:
+      - name: budget_id
+        in: query
+        description: id of the budget you want to delete
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: budget was successfully deleted
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid user id
+  /budget/user:
+    get:
+      tags:
+      - Budget
+      summary: Finds budgets by user
+      operationId: findBudgetsByUser
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Budget'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid user id
   /account:
     put:
       tags:
@@ -252,6 +376,18 @@ paths:
                 example: invalid budget id
 components:
   schemas:
+    Budget:
+      required:
+      - id
+      - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        isDefault:
+          type: boolean
     Account:
       required:
       - amount

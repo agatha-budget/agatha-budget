@@ -14,12 +14,12 @@
 
 
 import { Configuration } from './configuration';
-import superTokenAxios, { AxiosPromise, AxiosInstance } from 'axios';
+import { AxiosPromise, AxiosInstance } from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, superTokenAxios } from './base';
 
 /**
  * 
@@ -57,6 +57,31 @@ export interface Account {
      * @memberof Account
      */
     archived: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface Budget
+ */
+export interface Budget {
+    /**
+     * 
+     * @type {string}
+     * @memberof Budget
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Budget
+     */
+    name: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Budget
+     */
+    isDefault?: boolean;
 }
 
 /**
@@ -413,6 +438,328 @@ export class AccountApi extends BaseAPI {
      */
     public updateAccount(id: string, name: string, options?: any) {
         return AccountApiFp(this.configuration).updateAccount(id, name, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * BudgetApi - axios parameter creator
+ * @export
+ */
+export const BudgetApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Add a new budget
+         * @param {string} name name of the new budget
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addBudget: async (name: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('addBudget', 'name', name)
+            const localVarPath = `/budget`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication accessToken required
+
+            // authentication refreshTokenId required
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete budget
+         * @param {number} budgetId id of the budget you want to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteBudget: async (budgetId: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('deleteBudget', 'budgetId', budgetId)
+            const localVarPath = `/budget`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budget_id'] = budgetId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Finds budgets by user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findBudgetsByUser: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/budget/user`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update a budget
+         * @param {string} budgetId id of the updated budget
+         * @param {string} newName new name of the new budget
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateBudget: async (budgetId: string, newName: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('updateBudget', 'budgetId', budgetId)
+            // verify required parameter 'newName' is not null or undefined
+            assertParamExists('updateBudget', 'newName', newName)
+            const localVarPath = `/budget`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budget_id'] = budgetId;
+            }
+
+            if (newName !== undefined) {
+                localVarQueryParameter['new_name'] = newName;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * BudgetApi - functional programming interface
+ * @export
+ */
+export const BudgetApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = BudgetApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Add a new budget
+         * @param {string} name name of the new budget
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addBudget(name: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addBudget(name, options);
+            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Delete budget
+         * @param {number} budgetId id of the budget you want to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteBudget(budgetId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteBudget(budgetId, options);
+            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Finds budgets by user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findBudgetsByUser(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Budget>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findBudgetsByUser(options);
+            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update a budget
+         * @param {string} budgetId id of the updated budget
+         * @param {string} newName new name of the new budget
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateBudget(budgetId: string, newName: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateBudget(budgetId, newName, options);
+            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * BudgetApi - factory interface
+ * @export
+ */
+export const BudgetApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = BudgetApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Add a new budget
+         * @param {string} name name of the new budget
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addBudget(name: string, options?: any): AxiosPromise<string> {
+            return localVarFp.addBudget(name, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete budget
+         * @param {number} budgetId id of the budget you want to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteBudget(budgetId: number, options?: any): AxiosPromise<string> {
+            return localVarFp.deleteBudget(budgetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Finds budgets by user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findBudgetsByUser(options?: any): AxiosPromise<Array<Budget>> {
+            return localVarFp.findBudgetsByUser(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update a budget
+         * @param {string} budgetId id of the updated budget
+         * @param {string} newName new name of the new budget
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateBudget(budgetId: string, newName: string, options?: any): AxiosPromise<string> {
+            return localVarFp.updateBudget(budgetId, newName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * BudgetApi - object-oriented interface
+ * @export
+ * @class BudgetApi
+ * @extends {BaseAPI}
+ */
+export class BudgetApi extends BaseAPI {
+    /**
+     * 
+     * @summary Add a new budget
+     * @param {string} name name of the new budget
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BudgetApi
+     */
+    public addBudget(name: string, options?: any) {
+        return BudgetApiFp(this.configuration).addBudget(name, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete budget
+     * @param {number} budgetId id of the budget you want to delete
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BudgetApi
+     */
+    public deleteBudget(budgetId: number, options?: any) {
+        return BudgetApiFp(this.configuration).deleteBudget(budgetId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Finds budgets by user
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BudgetApi
+     */
+    public findBudgetsByUser(options?: any) {
+        return BudgetApiFp(this.configuration).findBudgetsByUser(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update a budget
+     * @param {string} budgetId id of the updated budget
+     * @param {string} newName new name of the new budget
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BudgetApi
+     */
+    public updateBudget(budgetId: string, newName: string, options?: any) {
+        return BudgetApiFp(this.configuration).updateBudget(budgetId, newName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
