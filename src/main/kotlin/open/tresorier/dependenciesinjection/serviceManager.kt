@@ -12,7 +12,7 @@ object ServiceManager : KoinComponent {
     val accountService : AccountService by inject()
     val categoryService : CategoryService by inject()
     val allocationService : AllocationService by inject()
-
+    val operationService : OperationService by inject()
 
     fun start(){
         startKoin{

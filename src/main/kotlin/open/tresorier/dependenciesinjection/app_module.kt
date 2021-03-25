@@ -18,7 +18,7 @@ val app_module = module {
     single<BudgetService> { BudgetService(get()) }
     single<AccountService> { AccountService(get()) }
     single<CategoryService> { CategoryService(get()) }
-    single<OperationService> { OperationService(get()) }
+    single<OperationService> { OperationService(get(), get()) }
     single<AllocationService> { AllocationService(get()) }
 
 }
