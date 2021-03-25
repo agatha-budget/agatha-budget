@@ -99,8 +99,180 @@ paths:
       security:
       - accessToken: []
         refreshTokenId: []
+  /account:
+    put:
+      tags:
+      - Accounts
+      summary: Rename an account
+      operationId: updateAccount
+      parameters:
+      - name: id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: account was successfully updated
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                a:
+                  summary: invalid account
+                  value: invalid account id
+                b:
+                  summary: invalid budget
+                  value: invalid budget id
+    post:
+      tags:
+      - Accounts
+      summary: Add a new account
+      operationId: addAccount
+      parameters:
+      - name: budget_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: currency
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: account was successfully created
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid budget id
+    delete:
+      tags:
+      - Accounts
+      summary: Delete account
+      operationId: deleteAccount
+      parameters:
+      - name: account_id
+        in: query
+        description: id of the account you want to delete
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: account was successfully deleted
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid account id
+  /account/budget:
+    get:
+      tags:
+      - Accounts
+      summary: Finds accounts by budget
+      operationId: findAccountsByBudget
+      parameters:
+      - name: budget_id
+        in: query
+        description: id of the budget whose accounts you want to retrieve
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid budget id
 components:
-  schemas: {}
+  schemas:
+    Account:
+      required:
+      - amount
+      - archived
+      - currency
+      - id
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        amount:
+          type: number
+        currency:
+          type: string
+        archived:
+          type: boolean
+      xml:
+        name: account
   securitySchemes:
     accessToken:
       type: apiKey
