@@ -1,7 +1,7 @@
 <template >
   <div :class="this.css">
     <div class="home row">
-      <Budget month="FEBRUARY" class="col-md-4 offset-md-2"/>
+      <BudgetCmpt month="FEBRUARY" :budget="budget" class="col-md-4 offset-md-2"/>
       <div class="col-md-2 offset-md-2">
       <AccountsWidget/>
       <ul id="actionsList">
@@ -16,20 +16,31 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Budget from '@/components/Budget.vue' // @ is an alias to /src
 import { useStore } from '@/store/index'
 import router from '@/router'
-import { personService } from '@/services/PersonService'
+import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
+import { personService } from '@/services/PersonService'
+import { budgetService } from '@/services/BudgetService'
+import { Budget } from '@/model/model'
+
+interface HomeData {
+    budget: Budget;
+    css: string;
+}
 
 export default defineComponent({
   name: 'Home',
+  created: async function () {
+    this.getDefaultBudget()
+  },
   components: {
-    Budget,
+    BudgetCmpt,
     AccountsWidget
   },
-  data () {
+  data (): HomeData {
     return {
+      budget: { id: '', name: '' },
       css: 'blue'
     }
   },
@@ -41,6 +52,13 @@ export default defineComponent({
   methods: {
     logout () {
       personService.deleteSession(this.$store)
+    },
+    async getDefaultBudget () {
+      /* budgetService.getDefaultBudget().then(
+        (budget) => {
+          this.budget = budget
+        }
+      ) */
     }
   }
 })
