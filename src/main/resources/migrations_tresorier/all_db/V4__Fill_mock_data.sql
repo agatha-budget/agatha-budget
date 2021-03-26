@@ -44,6 +44,7 @@ VALUES
 INSERT INTO
        operation (id, operation_date, account_id, category_id, amount, memo)
 VALUES
+        ('0', 2541, '1', 'universal_income_category', 1000154, 'income'),
         ('1', 2541, '1', '1', 9874466.45, 'saving 1 grocery'),
         ('2', 2545, '1', '2', -8468456.45, 'saving 1 fun'),
         ('3', 2546, '2', '3', 0.25, 'checking 1 gift'),
