@@ -32,7 +32,4 @@ class BudgetService(private val budgetDao: IBudgetDao, private val authorization
     fun findByUser(person: Person) : List<Budget> {
         return budgetDao.findByPersonId(person.id)
     }
-
-
-
 }

@@ -12,8 +12,7 @@ import org.jooq.impl.DSL
 import java.math.BigDecimal
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation as JooqAllocation
 
-
-class JooqAllocationDao(val configuration: Configuration) : IAllocationDao {
+class JooqTestAllocationDao(val configuration: Configuration) : IAllocationDao {
 
     private val generatedDao: AllocationDao = AllocationDao(configuration)
     private val query = DSL.using(configuration)
