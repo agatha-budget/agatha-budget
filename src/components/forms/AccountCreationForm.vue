@@ -19,9 +19,15 @@ export default defineComponent({
       amount: 0
     }
   },
+  emits: ['updateAccountList', 'closeForm'],
   methods: {
     createAccount () {
-      accountService.createAccount(this.$store.state.budget, this.name, this.amount)
+      accountService.createAccount(this.$store.state.budget, this.name, this.amount).then(
+        () => {
+          this.$emit('updateAccountList')
+          this.$emit('closeForm')
+        }
+      )
     }
   }
 })

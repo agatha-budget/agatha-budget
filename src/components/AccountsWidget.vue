@@ -19,7 +19,7 @@
           </button>
         </div>
         <div class="formContainer" v-if="accountCreationFormIsDisplayed">
-          <AccountCreationForm />
+          <AccountCreationForm @update-account-list="getAccounts" @close-form="changeAccountCreationFormDisplay" />
         </div>
       </li>
     </ul>
