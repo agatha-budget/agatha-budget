@@ -1,25 +1,20 @@
-import { Account, Currency } from '@/model/model'
-import { currencies } from "@/model/enum";
+import { Account, Budget, AccountList } from '@/model/model'
+import { accountApi } from './api/apis'
 
 class AccountService {
-  public async getAccounts (): Promise<Account> {
-    return {
-      id: "account_id",
-      name: "La Poste",
-      amount: 25.75,
-      currency: currencies.EUROS
+  public async getAccounts (budget: Budget): Promise<AccountList> {
+    const response = await accountApi.findAccountsByBudget(budget.id)
+    const accounts: Account[] = response.data
+    const data: AccountList = {}
+    for (const account of accounts) {
+      data[account.id] = { id: account.id, name: account.name, amount: 0 }
     }
+    return data
   }
 
-  public async createAccount (name: string, amount : number, currency : Currency): Promise<Account> {
-    return {
-      id: "account_2id",
-      name: name,
-      amount: amount,
-      currency: currency
-    }
+  public async createAccount (budget: Budget, name: string, amount: number) {
+    const response = await accountApi.addAccount(budget.id, name, amount)
   }
-
 }
 
 export const accountService = new AccountService()

@@ -1,6 +1,6 @@
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
-import { Budget, MasterCategoryArray } from '@/model/model'
+import { Budget, BudgetData } from '@/model/model'
 import { budgetApi } from './api/apis'
 
 class BudgetService {
@@ -11,7 +11,7 @@ class BudgetService {
     store.dispatch('updateBudget', budget)
   }
 
-  public async getBudgetData (budget: Budget): Promise<MasterCategoryArray> {
+  public async getBudgetData (budget: Budget): Promise<BudgetData> {
     return {
       mc1: {
         name: 'Frais fixes',

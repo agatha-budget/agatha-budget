@@ -16,8 +16,11 @@ interface Budget {
     name: string;
 }
 
+interface AccountList {
+    [accountId: string]: Account
+}
 
-interface MasterCategoryArray {
+interface BudgetData {
     [masterCategoryId: string]: {
         name: string;
         categories: {
@@ -30,4 +33,4 @@ interface MasterCategoriesData {
     [masterCategoryId: string]: Category;
 }
 
-export { Category, MasterCategoriesData, MasterCategoryArray, Account, Budget }
+export { Category, MasterCategoriesData, BudgetData, Account, AccountList, Budget }

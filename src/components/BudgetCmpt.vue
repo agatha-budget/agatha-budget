@@ -49,10 +49,10 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { budgetService } from '@/services/BudgetService'
-import { MasterCategoriesData, MasterCategoryArray } from '@/model/model'
+import { MasterCategoriesData, BudgetData } from '@/model/model'
 
-interface BudgetData {
-    budgetData: MasterCategoryArray;
+interface BudgetCmptData {
+    budgetData: BudgetData;
     formerAllocations: {
         [categoryId: string]: number;
     };
@@ -64,7 +64,7 @@ export default defineComponent({
     this.getCurrentBudget()
   },
   props: ['month', 'budget'],
-  data (): BudgetData {
+  data (): BudgetCmptData {
     return {
       budgetData: {},
       formerAllocations: {} // use former budget to compute the "available" value from -formerBudget.available + budget.available without asking the back-end to compute
