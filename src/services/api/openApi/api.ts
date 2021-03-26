@@ -188,11 +188,11 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary Finds accounts by budget
-         * @param {number} budgetId id of the budget whose accounts you want to retrieve
+         * @param {string} budgetId id of the budget whose accounts you want to retrieve
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findAccountsByBudget: async (budgetId: number, options: any = {}): Promise<RequestArgs> => {
+        findAccountsByBudget: async (budgetId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'budgetId' is not null or undefined
             assertParamExists('findAccountsByBudget', 'budgetId', budgetId)
             const localVarPath = `/account/budget`;
@@ -308,7 +308,7 @@ export const AccountApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findAccountsByBudget(budgetId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Account>>> {
+        async findAccountsByBudget(budgetId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Account>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findAccountsByBudget(budgetId, options);
             return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
         },
@@ -360,11 +360,11 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary Finds accounts by budget
-         * @param {number} budgetId id of the budget whose accounts you want to retrieve
+         * @param {string} budgetId id of the budget whose accounts you want to retrieve
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findAccountsByBudget(budgetId: number, options?: any): AxiosPromise<Array<Account>> {
+        findAccountsByBudget(budgetId: string, options?: any): AxiosPromise<Array<Account>> {
             return localVarFp.findAccountsByBudget(budgetId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -418,12 +418,12 @@ export class AccountApi extends BaseAPI {
     /**
      * 
      * @summary Finds accounts by budget
-     * @param {number} budgetId id of the budget whose accounts you want to retrieve
+     * @param {string} budgetId id of the budget whose accounts you want to retrieve
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public findAccountsByBudget(budgetId: number, options?: any) {
+    public findAccountsByBudget(budgetId: string, options?: any) {
         return AccountApiFp(this.configuration).findAccountsByBudget(budgetId, options).then((request) => request(this.axios, this.basePath));
     }
 
