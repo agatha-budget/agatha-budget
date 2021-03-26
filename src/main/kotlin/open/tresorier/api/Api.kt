@@ -113,7 +113,7 @@ fun main() {
         ctx.json(account)
     }
     app.before("/account/budget", SuperTokens.middleware())
-    app.post("/account/budget") { ctx ->
+    app.get("/account/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
         val accounts = ServiceManager.accountService.findByBudget(user, budget)
