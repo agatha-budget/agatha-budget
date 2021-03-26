@@ -112,6 +112,13 @@ fun main() {
         val account = ServiceManager.accountService.create(user, budget, name, amount)
         ctx.json(account)
     }
+    app.before("/account/budget", SuperTokens.middleware())
+    app.post("/account/budget") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
+        val accounts = ServiceManager.accountService.findByBudget(user, budget)
+        ctx.json(accounts)
+    }
 }
 
 private fun setUpApp(properties: JavaProperties): Javalin {

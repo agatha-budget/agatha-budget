@@ -32,4 +32,9 @@ class AccountService(private val accountDao: IAccountDao, private val authorizat
         account.deleted = true
         return accountDao.update(account)
     }
+
+    fun findByBudget(person: Person, budget: Budget) : List<Account> {
+        authorizationService.cancelIfUserIsUnauthorized(person, budget)
+        return accountDao.findByBudgetId(budget.id)
+    }
 }
