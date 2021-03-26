@@ -292,13 +292,6 @@ paths:
         explode: true
         schema:
           type: number
-      - name: currency
-        in: query
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       responses:
         "200":
           description: successful operation
@@ -392,7 +385,6 @@ components:
       required:
       - amount
       - archived
-      - currency
       - id
       - name
       type: object
@@ -403,8 +395,6 @@ components:
           type: string
         amount:
           type: number
-        currency:
-          type: string
         archived:
           type: boolean
       xml:
