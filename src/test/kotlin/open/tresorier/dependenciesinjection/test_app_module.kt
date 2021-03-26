@@ -17,17 +17,19 @@ val test_app_module = module {
     single<IAccountDao> { JooqTestAccountDao(get()) }
     single<ICategoryDao> { JooqTestCategoryDao(get()) }
     single<IOperationDao> { JooqTestOperationDao(get()) }
+    single<IAllocationDao> { JooqTestAllocationDao(get()) }
 
-    single<AuthorizationService> { AuthorizationService(get(), get(), get(), get()) }
-    single<PersonService> { PersonService(get(), get()) }
-    single<BudgetService> { BudgetService(get(), get()) }
-    single<AccountService> { AccountService(get(), get(), get()) }
-    single<CategoryService> { CategoryService(get(), get()) }
-
+    single { AuthorizationService(get(), get(), get(), get()) }
+    single { PersonService(get(), get()) }
+    single { BudgetService(get(), get()) }
+    single { AccountService(get(), get(), get()) }
+    single { CategoryService(get(), get()) }
+    single { OperationService(get(), get()) }
+    single { AllocationService(get(), get()) }
 
     // init default mock behavior
     val mockFactory = MockFactory()
-    single<PersonService>(named("PersonServiceInvalidDao")) { PersonService(mockFactory.mockInvalidPersonDao) }
+    single<PersonService>(named("PersonServiceInvalidDao")) { PersonService(mockFactory.mockInvalidPersonDao, get()) }
 }
 
 class MockFactory {
