@@ -1,4 +1,4 @@
-import { State } from '@/store/index'
+import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { personApi } from '@/services/api/apis'
 import router from '@/router'
@@ -10,11 +10,11 @@ interface LoginResponse {
 }
 
 class PersonService {
-  public async createSession (store: Store<State>, email: string, password: string, options?: any): Promise<LoginResponse> {
+  public async createSession (store: Store<StoreState>, email: string, password: string): Promise<LoginResponse> {
     let data
     let response
     try {
-      response = await personApi.createSession(email, password, options)
+      response = await personApi.createSession(email, password)
       data = response.data
       store.dispatch('updateLogged')
       router.push('/')
@@ -27,8 +27,8 @@ class PersonService {
     return JSON.parse(data)
   }
 
-  public async deleteSession (store: Store<State>, options?: any) {
-    await personApi.deleteSession(options)
+  public async deleteSession (store: Store<StoreState>) {
+    await personApi.deleteSession()
     store.dispatch('updateLogged')
     router.push('/login')
   }

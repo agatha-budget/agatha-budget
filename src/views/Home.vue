@@ -22,10 +22,8 @@ import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
 import { personService } from '@/services/PersonService'
 import { budgetService } from '@/services/BudgetService'
-import { Budget } from '@/model/model'
 
 interface HomeData {
-    budget: Budget;
     css: string;
 }
 
@@ -40,7 +38,6 @@ export default defineComponent({
   },
   data (): HomeData {
     return {
-      budget: { id: '', name: '' },
       css: 'blue'
     }
   },
@@ -54,11 +51,7 @@ export default defineComponent({
       personService.deleteSession(this.$store)
     },
     async getDefaultBudget () {
-      /* budgetService.getDefaultBudget().then(
-        (budget) => {
-          this.budget = budget
-        }
-      ) */
+      budgetService.getDefaultBudget(this.$store)
     }
   }
 })
