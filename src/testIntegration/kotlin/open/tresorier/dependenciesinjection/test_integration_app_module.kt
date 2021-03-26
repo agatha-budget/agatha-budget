@@ -1,10 +1,8 @@
 package open.tresorier.dependenciesinjection
 
-
 import open.tresorier.dao.*
 import open.tresorier.dao.jooq.main.*
 import org.koin.dsl.module
-
 
 val test_integration_app_module = module {
     single<IPersonDao> { JooqPersonDao(get()) }
