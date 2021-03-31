@@ -47,8 +47,9 @@ class JooqAllocationDao(val configuration: Configuration) : IAllocationDao {
     override fun getOwner(allocation: Allocation): Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(ACCOUNT).on(ACCOUNT.ID.eq(allocation.categoryId))
-                .join(BUDGET).on(BUDGET.ID.eq(ACCOUNT.BUDGET_ID))
+                .join(CATEGORY).on(CATEGORY.ID.eq(allocation.categoryId))
+                .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
+                .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
                 .fetchAny().into(PERSON)
             return JooqPersonDao.toPerson(owner)
