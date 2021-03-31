@@ -2,8 +2,7 @@ package open.tresorier.dao.jooq.test
 
 import open.tresorier.dao.ICategoryDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.generated.jooq.test.public_.Tables.BUDGET
-import open.tresorier.generated.jooq.test.public_.Tables.PERSON
+import open.tresorier.generated.jooq.test.public_.Tables.*
 import open.tresorier.generated.jooq.test.public_.tables.daos.CategoryDao
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.Category
@@ -11,6 +10,7 @@ import open.tresorier.model.Person
 import org.jooq.Configuration
 import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Category as JooqCategory
+
 
 class JooqTestCategoryDao(val configuration: Configuration) : ICategoryDao {
 
@@ -42,8 +42,8 @@ class JooqTestCategoryDao(val configuration: Configuration) : ICategoryDao {
         return this.toCategory(jooqCategory) ?: throw TresorierException("no category found for the following id : $id")
     }
 
-    override fun findByBudgetId(budgetId: String): List<Category> {
-        val jooqCategoryList = this.generatedDao.fetchByBudgetId(budgetId)
+    override fun findByMasterCategoryId(masterCategoryId: String): List<Category> {
+        val jooqCategoryList = this.generatedDao.fetchByMasterCategoryId(masterCategoryId)
         val categoryList: MutableList<Category> = mutableListOf()
         for (jooqCategory in jooqCategoryList) {
             val category = this.toCategory(jooqCategory)
@@ -55,7 +55,8 @@ class JooqTestCategoryDao(val configuration: Configuration) : ICategoryDao {
     override fun getOwner(category: Category): Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(BUDGET).on(BUDGET.ID.eq(category.budgetId))
+                .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(category.masterCategoryId))
+                .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
                 .fetchAny().into(PERSON)
             return JooqTestPersonDao.toPerson(owner)
@@ -67,7 +68,7 @@ class JooqTestCategoryDao(val configuration: Configuration) : ICategoryDao {
     private fun toJooqCategory(category: Category): JooqCategory {
         return JooqCategory(
             category.id,
-            category.budgetId,
+            category.masterCategoryId,
             category.name,
             category.archived,
             category.deleted
@@ -79,7 +80,7 @@ class JooqTestCategoryDao(val configuration: Configuration) : ICategoryDao {
             null
         else Category(
             jooqCategory.name,
-            jooqCategory.budgetId,
+            jooqCategory.masterCategoryId,
             jooqCategory.archived,
             jooqCategory.id,
             jooqCategory.deleted

@@ -16,10 +16,11 @@ val test_app_module = module {
     single<IBudgetDao> { JooqTestBudgetDao(get()) }
     single<IAccountDao> { JooqTestAccountDao(get()) }
     single<ICategoryDao> { JooqTestCategoryDao(get()) }
+    single<IMasterCategoryDao> { JooqTestMasterCategoryDao(get()) }
     single<IOperationDao> { JooqTestOperationDao(get()) }
     single<IAllocationDao> { JooqTestAllocationDao(get()) }
 
-    single { AuthorizationService(get(), get(), get(), get()) }
+    single { AuthorizationService(get(), get(), get(), get(), get()) }
     single { PersonService(get(), get()) }
     single { BudgetService(get(), get()) }
     single { AccountService(get(), get(), get()) }

@@ -1,9 +1,6 @@
 package open.tresorier.services
 
-import open.tresorier.dao.IAccountDao
-import open.tresorier.dao.IAllocationDao
-import open.tresorier.dao.ICategoryDao
-import open.tresorier.dao.IOperationDao
+import open.tresorier.dao.*
 import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.*
 
@@ -11,6 +8,7 @@ class AuthorizationService(
     private val accountDao: IAccountDao,
     private val allocationDao: IAllocationDao,
     private val categoryDao: ICategoryDao,
+    private val masterCategoryDao: IMasterCategoryDao,
     private val operationDao: IOperationDao
 
 ) {
@@ -39,6 +37,13 @@ class AuthorizationService(
         val owner = categoryDao.getOwner(category)
         if (owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + "isn't allowed to interact with category " + category.id)
+        }
+    }
+
+    fun cancelIfUserIsUnauthorized(person: Person, masterCategory: MasterCategory) {
+        val owner = masterCategoryDao.getOwner(masterCategory)
+        if (owner.id != person.id) {
+            throw TresorierIllegalException("user " + person.id + "isn't allowed to interact with category " + masterCategory.id)
         }
     }
 

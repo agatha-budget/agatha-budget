@@ -11,10 +11,11 @@ val app_module = module {
     single<IBudgetDao> { JooqBudgetDao((get())) }
     single<IAccountDao> { JooqAccountDao((get())) }
     single<ICategoryDao> { JooqCategoryDao((get())) }
+    single<IMasterCategoryDao> { JooqMasterCategoryDao((get())) }
     single<IOperationDao> { JooqOperationDao((get())) }
     single<IAllocationDao> { JooqAllocationDao(get()) }
 
-    single { AuthorizationService(get(), get(), get(), get()) }
+    single { AuthorizationService(get(), get(), get(), get(), get()) }
     single { PersonService(get(), get()) }
     single { BudgetService(get(), get()) }
     single { AccountService(get(), get(), get()) }
