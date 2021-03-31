@@ -9,6 +9,7 @@ import open.tresorier.generated.jooq.test.public_.tables.Allocation;
 import open.tresorier.generated.jooq.test.public_.tables.Budget;
 import open.tresorier.generated.jooq.test.public_.tables.Category;
 import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
+import open.tresorier.generated.jooq.test.public_.tables.MasterCategory;
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
 import open.tresorier.generated.jooq.test.public_.tables.Person;
 import open.tresorier.generated.jooq.test.public_.tables.records.AccountRecord;
@@ -16,6 +17,7 @@ import open.tresorier.generated.jooq.test.public_.tables.records.AllocationRecor
 import open.tresorier.generated.jooq.test.public_.tables.records.BudgetRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.CategoryRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.FlywaySchemaHistoryRecord;
+import open.tresorier.generated.jooq.test.public_.tables.records.MasterCategoryRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord;
 
@@ -47,6 +49,7 @@ public class Keys {
     public static final UniqueKey<BudgetRecord> CONSTRAINT_7 = UniqueKeys0.CONSTRAINT_7;
     public static final UniqueKey<CategoryRecord> CONSTRAINT_3 = UniqueKeys0.CONSTRAINT_3;
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = UniqueKeys0.FLYWAY_SCHEMA_HISTORY_PK;
+    public static final UniqueKey<MasterCategoryRecord> CONSTRAINT_D = UniqueKeys0.CONSTRAINT_D;
     public static final UniqueKey<OperationRecord> CONSTRAINT_9 = UniqueKeys0.CONSTRAINT_9;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8 = UniqueKeys0.CONSTRAINT_8;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8C = UniqueKeys0.CONSTRAINT_8C;
@@ -58,7 +61,8 @@ public class Keys {
     public static final ForeignKey<AccountRecord, BudgetRecord> CONSTRAINT_E4 = ForeignKeys0.CONSTRAINT_E4;
     public static final ForeignKey<AllocationRecord, CategoryRecord> CONSTRAINT_AA = ForeignKeys0.CONSTRAINT_AA;
     public static final ForeignKey<BudgetRecord, PersonRecord> CONSTRAINT_75 = ForeignKeys0.CONSTRAINT_75;
-    public static final ForeignKey<CategoryRecord, BudgetRecord> CONSTRAINT_31 = ForeignKeys0.CONSTRAINT_31;
+    public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CONSTRAINT_31 = ForeignKeys0.CONSTRAINT_31;
+    public static final ForeignKey<MasterCategoryRecord, BudgetRecord> CONSTRAINT_D3 = ForeignKeys0.CONSTRAINT_D3;
     public static final ForeignKey<OperationRecord, AccountRecord> CONSTRAINT_93 = ForeignKeys0.CONSTRAINT_93;
     public static final ForeignKey<OperationRecord, CategoryRecord> CONSTRAINT_932 = ForeignKeys0.CONSTRAINT_932;
 
@@ -73,6 +77,7 @@ public class Keys {
         public static final UniqueKey<BudgetRecord> CONSTRAINT_7 = Internal.createUniqueKey(Budget.BUDGET, "CONSTRAINT_7", new TableField[] { Budget.BUDGET.ID }, true);
         public static final UniqueKey<CategoryRecord> CONSTRAINT_3 = Internal.createUniqueKey(Category.CATEGORY, "CONSTRAINT_3", new TableField[] { Category.CATEGORY.ID }, true);
         public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "flyway_schema_history_pk", new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
+        public static final UniqueKey<MasterCategoryRecord> CONSTRAINT_D = Internal.createUniqueKey(MasterCategory.MASTER_CATEGORY, "CONSTRAINT_D", new TableField[] { MasterCategory.MASTER_CATEGORY.ID }, true);
         public static final UniqueKey<OperationRecord> CONSTRAINT_9 = Internal.createUniqueKey(Operation.OPERATION, "CONSTRAINT_9", new TableField[] { Operation.OPERATION.ID }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8 = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8C = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8C", new TableField[] { Person.PERSON.EMAIL }, true);
@@ -82,7 +87,8 @@ public class Keys {
         public static final ForeignKey<AccountRecord, BudgetRecord> CONSTRAINT_E4 = Internal.createForeignKey(Keys.CONSTRAINT_7, Account.ACCOUNT, "CONSTRAINT_E4", new TableField[] { Account.ACCOUNT.BUDGET_ID }, true);
         public static final ForeignKey<AllocationRecord, CategoryRecord> CONSTRAINT_AA = Internal.createForeignKey(Keys.CONSTRAINT_3, Allocation.ALLOCATION, "CONSTRAINT_AA", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID }, true);
         public static final ForeignKey<BudgetRecord, PersonRecord> CONSTRAINT_75 = Internal.createForeignKey(Keys.CONSTRAINT_8, Budget.BUDGET, "CONSTRAINT_75", new TableField[] { Budget.BUDGET.PERSON_ID }, true);
-        public static final ForeignKey<CategoryRecord, BudgetRecord> CONSTRAINT_31 = Internal.createForeignKey(Keys.CONSTRAINT_7, Category.CATEGORY, "CONSTRAINT_31", new TableField[] { Category.CATEGORY.BUDGET_ID }, true);
+        public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CONSTRAINT_31 = Internal.createForeignKey(Keys.CONSTRAINT_D, Category.CATEGORY, "CONSTRAINT_31", new TableField[] { Category.CATEGORY.MASTER_CATEGORY_ID }, true);
+        public static final ForeignKey<MasterCategoryRecord, BudgetRecord> CONSTRAINT_D3 = Internal.createForeignKey(Keys.CONSTRAINT_7, MasterCategory.MASTER_CATEGORY, "CONSTRAINT_D3", new TableField[] { MasterCategory.MASTER_CATEGORY.BUDGET_ID }, true);
         public static final ForeignKey<OperationRecord, AccountRecord> CONSTRAINT_93 = Internal.createForeignKey(Keys.CONSTRAINT_E, Operation.OPERATION, "CONSTRAINT_93", new TableField[] { Operation.OPERATION.ACCOUNT_ID }, true);
         public static final ForeignKey<OperationRecord, CategoryRecord> CONSTRAINT_932 = Internal.createForeignKey(Keys.CONSTRAINT_3, Operation.OPERATION, "CONSTRAINT_932", new TableField[] { Operation.OPERATION.CATEGORY_ID }, true);
     }

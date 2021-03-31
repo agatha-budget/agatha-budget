@@ -18,7 +18,7 @@ import org.jooq.impl.Internal;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AreCategoryAndAccountFromSameBudget extends AbstractRoutine<Boolean> {
 
-    private static final long serialVersionUID = 2030335958;
+    private static final long serialVersionUID = 167079926;
 
     /**
      * The parameter <code>public.are_category_and_account_from_same_budget.RETURN_VALUE</code>.
@@ -31,9 +31,9 @@ public class AreCategoryAndAccountFromSameBudget extends AbstractRoutine<Boolean
     public static final Parameter<String> _CATEGORY_ID = Internal.createParameter("_category_id", org.jooq.impl.SQLDataType.VARCHAR, false, false);
 
     /**
-     * The parameter <code>public.are_category_and_account_from_same_budget._accound_id</code>.
+     * The parameter <code>public.are_category_and_account_from_same_budget._account_id</code>.
      */
-    public static final Parameter<String> _ACCOUND_ID = Internal.createParameter("_accound_id", org.jooq.impl.SQLDataType.VARCHAR, false, false);
+    public static final Parameter<String> _ACCOUNT_ID = Internal.createParameter("_account_id", org.jooq.impl.SQLDataType.VARCHAR, false, false);
 
     /**
      * Create a new routine call instance
@@ -43,7 +43,7 @@ public class AreCategoryAndAccountFromSameBudget extends AbstractRoutine<Boolean
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_CATEGORY_ID);
-        addInParameter(_ACCOUND_ID);
+        addInParameter(_ACCOUNT_ID);
     }
 
     /**
@@ -62,17 +62,17 @@ public class AreCategoryAndAccountFromSameBudget extends AbstractRoutine<Boolean
     }
 
     /**
-     * Set the <code>_accound_id</code> parameter IN value to the routine
+     * Set the <code>_account_id</code> parameter IN value to the routine
      */
-    public void set_AccoundId(String value) {
-        setValue(_ACCOUND_ID, value);
+    public void set_AccountId(String value) {
+        setValue(_ACCOUNT_ID, value);
     }
 
     /**
-     * Set the <code>_accound_id</code> parameter to the function to be used with a {@link org.jooq.Select} statement
+     * Set the <code>_account_id</code> parameter to the function to be used with a {@link org.jooq.Select} statement
      */
-    public AreCategoryAndAccountFromSameBudget set_AccoundId(Field<String> field) {
-        setField(_ACCOUND_ID, field);
+    public AreCategoryAndAccountFromSameBudget set_AccountId(Field<String> field) {
+        setField(_ACCOUNT_ID, field);
         return this;
     }
 }

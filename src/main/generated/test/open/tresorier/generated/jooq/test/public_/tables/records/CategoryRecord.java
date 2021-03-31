@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implements Record5<String, String, String, Boolean, Boolean> {
 
-    private static final long serialVersionUID = 594922471;
+    private static final long serialVersionUID = -1537525944;
 
     /**
      * Setter for <code>PUBLIC.CATEGORY.ID</code>.
@@ -37,17 +37,17 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
     }
 
     /**
-     * Setter for <code>PUBLIC.CATEGORY.BUDGET_ID</code>.
+     * Setter for <code>PUBLIC.CATEGORY.MASTER_CATEGORY_ID</code>.
      */
-    public CategoryRecord setBudgetId(String value) {
+    public CategoryRecord setMasterCategoryId(String value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>PUBLIC.CATEGORY.BUDGET_ID</code>.
+     * Getter for <code>PUBLIC.CATEGORY.MASTER_CATEGORY_ID</code>.
      */
-    public String getBudgetId() {
+    public String getMasterCategoryId() {
         return (String) get(1);
     }
 
@@ -126,7 +126,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
 
     @Override
     public Field<String> field2() {
-        return Category.CATEGORY.BUDGET_ID;
+        return Category.CATEGORY.MASTER_CATEGORY_ID;
     }
 
     @Override
@@ -151,7 +151,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
 
     @Override
     public String component2() {
-        return getBudgetId();
+        return getMasterCategoryId();
     }
 
     @Override
@@ -176,7 +176,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
 
     @Override
     public String value2() {
-        return getBudgetId();
+        return getMasterCategoryId();
     }
 
     @Override
@@ -202,7 +202,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
 
     @Override
     public CategoryRecord value2(String value) {
-        setBudgetId(value);
+        setMasterCategoryId(value);
         return this;
     }
 
@@ -248,11 +248,11 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
     /**
      * Create a detached, initialised CategoryRecord
      */
-    public CategoryRecord(String id, String budgetId, String name, Boolean archived, Boolean deleted) {
+    public CategoryRecord(String id, String masterCategoryId, String name, Boolean archived, Boolean deleted) {
         super(Category.CATEGORY);
 
         set(0, id);
-        set(1, budgetId);
+        set(1, masterCategoryId);
         set(2, name);
         set(3, archived);
         set(4, deleted);

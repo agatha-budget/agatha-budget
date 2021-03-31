@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Category extends TableImpl<CategoryRecord> {
 
-    private static final long serialVersionUID = -1998587537;
+    private static final long serialVersionUID = -934261512;
 
     /**
      * The reference instance of <code>public.category</code>
@@ -52,9 +52,9 @@ public class Category extends TableImpl<CategoryRecord> {
     public final TableField<CategoryRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>public.category.budget_id</code>.
+     * The column <code>public.category.master_category_id</code>.
      */
-    public final TableField<CategoryRecord, String> BUDGET_ID = createField(DSL.name("budget_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<CategoryRecord, String> MASTER_CATEGORY_ID = createField(DSL.name("master_category_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>public.category.name</code>.
@@ -121,11 +121,11 @@ public class Category extends TableImpl<CategoryRecord> {
 
     @Override
     public List<ForeignKey<CategoryRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<CategoryRecord, ?>>asList(Keys.CATEGORY__CATEGORY_BUDGET_ID_FKEY);
+        return Arrays.<ForeignKey<CategoryRecord, ?>>asList(Keys.CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY);
     }
 
-    public Budget budget() {
-        return new Budget(this, Keys.CATEGORY__CATEGORY_BUDGET_ID_FKEY);
+    public MasterCategory masterCategory() {
+        return new MasterCategory(this, Keys.CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY);
     }
 
     @Override
