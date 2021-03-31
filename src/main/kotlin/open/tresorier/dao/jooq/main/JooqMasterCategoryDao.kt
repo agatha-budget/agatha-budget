@@ -6,6 +6,7 @@ import open.tresorier.generated.jooq.main.Tables.BUDGET
 import open.tresorier.generated.jooq.main.Tables.PERSON
 import open.tresorier.generated.jooq.main.tables.daos.MasterCategoryDao
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
+import open.tresorier.model.Budget
 import open.tresorier.model.MasterCategory
 import open.tresorier.model.Person
 import org.jooq.Configuration
@@ -43,8 +44,8 @@ class JooqMasterCategoryDao(val configuration: Configuration) : IMasterCategoryD
         return this.toCategory(jooqMasterCategory) ?: throw TresorierException("no category found for the following id : $id")
     }
 
-    override fun findByBudgetId(budgetId: String): List<MasterCategory> {
-        val jooqMasterCategoryList = this.generatedDao.fetchByBudgetId(budgetId)
+    override fun findByBudget(budget: Budget): List<MasterCategory> {
+        val jooqMasterCategoryList = this.generatedDao.fetchByBudgetId(budget.id)
         val categoryList: MutableList<MasterCategory> = mutableListOf()
         for (jooqMasterCategory in jooqMasterCategoryList) {
             val category = this.toCategory(jooqMasterCategory)

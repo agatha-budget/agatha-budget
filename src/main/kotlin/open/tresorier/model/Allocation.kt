@@ -1,8 +1,7 @@
 package open.tresorier.model
 
 class Allocation (
-    val year: Int,
-    val month: Int,
+    val month: Month,
     val categoryId: String,
     var amount: Double,
     id: String? = null,

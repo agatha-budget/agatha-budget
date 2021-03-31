@@ -4,6 +4,7 @@ package open.tresorier.dao
 import open.tresorier.dependenciesinjection.IIntegrationTest
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.Allocation
+import open.tresorier.model.Month
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
@@ -23,7 +24,7 @@ class AllocationDaoIntTest : IIntegrationTest {
 
     @Test
     fun getOwnerForUnstored() {
-        val allocation = Allocation(2020, 12, "251",-254.25)
+        val allocation = Allocation(Month(12,2020),"251",-254.25)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             allocationDao.getOwner(allocation)
         }
@@ -32,7 +33,7 @@ class AllocationDaoIntTest : IIntegrationTest {
 
     @Test
     fun cannotHaveAllocationForInvalidMonth() {
-        val allocation = Allocation(1225, 14, "category1", -254.25)
+        val allocation = Allocation(Month(14,1225), "category1", -254.25)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             allocationDao.insert(allocation)
         }
