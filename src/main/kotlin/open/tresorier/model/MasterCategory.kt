@@ -1,8 +1,8 @@
 package open.tresorier.model
 
-class Category (
+class MasterCategory (
     var name: String,
-    var masterCategoryId: String,
+    var budgetId: String,
     var archived: Boolean = false,
     id: String? = null,
     deleted: Boolean? = null
