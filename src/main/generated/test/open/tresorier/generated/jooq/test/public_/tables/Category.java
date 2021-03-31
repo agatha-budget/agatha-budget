@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Category extends TableImpl<CategoryRecord> {
 
-    private static final long serialVersionUID = 2041304634;
+    private static final long serialVersionUID = 1975023383;
 
     /**
      * The reference instance of <code>PUBLIC.CATEGORY</code>
@@ -52,9 +52,9 @@ public class Category extends TableImpl<CategoryRecord> {
     public final TableField<CategoryRecord, String> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.CATEGORY.BUDGET_ID</code>.
+     * The column <code>PUBLIC.CATEGORY.MASTER_CATEGORY_ID</code>.
      */
-    public final TableField<CategoryRecord, String> BUDGET_ID = createField(DSL.name("BUDGET_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<CategoryRecord, String> MASTER_CATEGORY_ID = createField(DSL.name("MASTER_CATEGORY_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.CATEGORY.NAME</code>.
@@ -124,8 +124,8 @@ public class Category extends TableImpl<CategoryRecord> {
         return Arrays.<ForeignKey<CategoryRecord, ?>>asList(Keys.CONSTRAINT_31);
     }
 
-    public Budget budget() {
-        return new Budget(this, Keys.CONSTRAINT_31);
+    public MasterCategory masterCategory() {
+        return new MasterCategory(this, Keys.CONSTRAINT_31);
     }
 
     @Override

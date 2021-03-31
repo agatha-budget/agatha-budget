@@ -15,8 +15,8 @@ class OperationDaoIntTest : IIntegrationTest {
 
     @Test
     fun getOwner() {
-        val operation = operationDao.getById("1")
-        val expectedOwner = personDao.getById("1")
+        val operation = operationDao.getById("operation1")
+        val expectedOwner = personDao.getById("person1")
         val owner = operationDao.getOwner(operation)
         Assertions.assertEquals(expectedOwner.email, owner.email)
     }
@@ -32,7 +32,7 @@ class OperationDaoIntTest : IIntegrationTest {
 
     @Test
     fun cannotCreateWithAccountAndCategoryFromDistinctBudget() {
-        val operation = Operation(1225, "1", "5", 8525.74)
+        val operation = Operation(1225, "account1", "category5", 8525.74)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             operationDao.insert(operation)
         }

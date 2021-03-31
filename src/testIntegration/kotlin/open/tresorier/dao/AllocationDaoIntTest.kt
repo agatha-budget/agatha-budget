@@ -15,8 +15,8 @@ class AllocationDaoIntTest : IIntegrationTest {
 
     @Test
     fun getOwner() {
-        val allocation = allocationDao.getById("1")
-        val expectedOwner = personDao.getById("1")
+        val allocation = allocationDao.getById("allocation1")
+        val expectedOwner = personDao.getById("person1")
         val owner = allocationDao.getOwner(allocation)
         Assertions.assertEquals(expectedOwner.email, owner.email)
     }
@@ -32,7 +32,7 @@ class AllocationDaoIntTest : IIntegrationTest {
 
     @Test
     fun cannotHaveAllocationForInvalidMonth() {
-        val allocation = Allocation(1225, 14, "1", -254.25)
+        val allocation = Allocation(1225, 14, "category1", -254.25)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             allocationDao.insert(allocation)
         }
@@ -41,7 +41,7 @@ class AllocationDaoIntTest : IIntegrationTest {
 
     @Test
     fun cannotHaveAllocationForInvalidMonth2() {
-        val allocation = Allocation(1225, -5, "1", -254.25)
+        val allocation = Allocation(1225, -5, "category1", -254.25)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             allocationDao.insert(allocation)
         }

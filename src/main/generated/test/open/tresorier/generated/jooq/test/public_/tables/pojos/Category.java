@@ -13,17 +13,17 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Category implements Serializable {
 
-    private static final long serialVersionUID = 357502849;
+    private static final long serialVersionUID = -1569802160;
 
     private final String  id;
-    private final String  budgetId;
+    private final String  masterCategoryId;
     private final String  name;
     private final Boolean archived;
     private final Boolean deleted;
 
     public Category(Category value) {
         this.id = value.id;
-        this.budgetId = value.budgetId;
+        this.masterCategoryId = value.masterCategoryId;
         this.name = value.name;
         this.archived = value.archived;
         this.deleted = value.deleted;
@@ -31,13 +31,13 @@ public class Category implements Serializable {
 
     public Category(
         String  id,
-        String  budgetId,
+        String  masterCategoryId,
         String  name,
         Boolean archived,
         Boolean deleted
     ) {
         this.id = id;
-        this.budgetId = budgetId;
+        this.masterCategoryId = masterCategoryId;
         this.name = name;
         this.archived = archived;
         this.deleted = deleted;
@@ -47,8 +47,8 @@ public class Category implements Serializable {
         return this.id;
     }
 
-    public String getBudgetId() {
-        return this.budgetId;
+    public String getMasterCategoryId() {
+        return this.masterCategoryId;
     }
 
     public String getName() {
@@ -68,7 +68,7 @@ public class Category implements Serializable {
         StringBuilder sb = new StringBuilder("Category (");
 
         sb.append(id);
-        sb.append(", ").append(budgetId);
+        sb.append(", ").append(masterCategoryId);
         sb.append(", ").append(name);
         sb.append(", ").append(archived);
         sb.append(", ").append(deleted);

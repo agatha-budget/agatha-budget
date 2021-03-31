@@ -25,14 +25,30 @@ CREATE TABLE account (
         FOREIGN KEY (budget_id) REFERENCES budget(id)
 );
 
-CREATE TABLE category (
+CREATE TABLE master_category (
         id VARCHAR(36) NOT NULL PRIMARY KEY,
-        budget_id VARCHAR(36) DEFAULT NULL,
+        budget_id VARCHAR(36) NOT NULL,
         name VARCHAR(100) NOT NULL,
         archived BOOLEAN DEFAULT false,
         deleted BOOLEAN DEFAULT false,
         FOREIGN KEY (budget_id) REFERENCES budget(id)
 );
+
+CREATE TABLE category (
+        id VARCHAR(36) NOT NULL PRIMARY KEY,
+        master_category_id VARCHAR(36) DEFAULT NULL,
+        name VARCHAR(100) NOT NULL,
+        archived BOOLEAN DEFAULT false,
+        deleted BOOLEAN DEFAULT false,
+        FOREIGN KEY (master_category_id) REFERENCES master_category(id)
+);
+
+INSERT INTO
+       category (id, name)
+VALUES
+        ('universal_income_category', 'I18N_INCOME'),
+        ('universal_transfert_category', 'I18N_TRANSFERT')
+;
 
 CREATE TABLE operation (
         id VARCHAR(36) NOT NULL PRIMARY KEY,

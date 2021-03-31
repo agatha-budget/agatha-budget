@@ -11,7 +11,7 @@ interface IIntegrationTest : KoinTest {
     @BeforeEach fun injectDependencies() {
         startKoin {
             printLogger()
-            modules(dbAccessTestIntegration_module, test_integration_app_module)
+            modules(dbAccessTestIntegration_module, test_integration_dao_module)
         }
     }
 

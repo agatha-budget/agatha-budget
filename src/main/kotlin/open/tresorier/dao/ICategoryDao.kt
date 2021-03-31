@@ -7,6 +7,6 @@ interface ICategoryDao {
     fun insert(category: Category) : Category
     fun update(category: Category) : Category
     fun getById(id: String): Category
-    fun findByBudgetId(budgetId: String) : List<Category>
+    fun findByMasterCategoryId(masterCategoryId: String) : List<Category>
     fun getOwner(category: Category) : Person
 }

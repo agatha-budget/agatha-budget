@@ -60,17 +60,17 @@ public class CategoryDao extends DAOImpl<CategoryRecord, open.tresorier.generate
     }
 
     /**
-     * Fetch records that have <code>budget_id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>master_category_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchRangeOfBudgetId(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Category.CATEGORY.BUDGET_ID, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchRangeOfMasterCategoryId(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Category.CATEGORY.MASTER_CATEGORY_ID, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>budget_id IN (values)</code>
+     * Fetch records that have <code>master_category_id IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchByBudgetId(String... values) {
-        return fetch(Category.CATEGORY.BUDGET_ID, values);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchByMasterCategoryId(String... values) {
+        return fetch(Category.CATEGORY.MASTER_CATEGORY_ID, values);
     }
 
     /**

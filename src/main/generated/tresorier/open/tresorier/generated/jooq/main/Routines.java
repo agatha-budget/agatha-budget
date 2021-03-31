@@ -19,10 +19,10 @@ public class Routines {
     /**
      * Call <code>public.are_category_and_account_from_same_budget</code>
      */
-    public static Boolean areCategoryAndAccountFromSameBudget(Configuration configuration, String _CategoryId, String _AccoundId) {
+    public static Boolean areCategoryAndAccountFromSameBudget(Configuration configuration, String _CategoryId, String _AccountId) {
         AreCategoryAndAccountFromSameBudget f = new AreCategoryAndAccountFromSameBudget();
         f.set_CategoryId(_CategoryId);
-        f.set_AccoundId(_AccoundId);
+        f.set_AccountId(_AccountId);
 
         f.execute(configuration);
         return f.getReturnValue();
@@ -31,10 +31,10 @@ public class Routines {
     /**
      * Get <code>public.are_category_and_account_from_same_budget</code> as a field.
      */
-    public static Field<Boolean> areCategoryAndAccountFromSameBudget(String _CategoryId, String _AccoundId) {
+    public static Field<Boolean> areCategoryAndAccountFromSameBudget(String _CategoryId, String _AccountId) {
         AreCategoryAndAccountFromSameBudget f = new AreCategoryAndAccountFromSameBudget();
         f.set_CategoryId(_CategoryId);
-        f.set_AccoundId(_AccoundId);
+        f.set_AccountId(_AccountId);
 
         return f.asField();
     }
@@ -42,10 +42,10 @@ public class Routines {
     /**
      * Get <code>public.are_category_and_account_from_same_budget</code> as a field.
      */
-    public static Field<Boolean> areCategoryAndAccountFromSameBudget(Field<String> _CategoryId, Field<String> _AccoundId) {
+    public static Field<Boolean> areCategoryAndAccountFromSameBudget(Field<String> _CategoryId, Field<String> _AccountId) {
         AreCategoryAndAccountFromSameBudget f = new AreCategoryAndAccountFromSameBudget();
         f.set_CategoryId(_CategoryId);
-        f.set_AccoundId(_AccoundId);
+        f.set_AccountId(_AccountId);
 
         return f.asField();
     }

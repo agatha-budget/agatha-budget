@@ -9,6 +9,7 @@ import open.tresorier.generated.jooq.test.public_.tables.Allocation;
 import open.tresorier.generated.jooq.test.public_.tables.Budget;
 import open.tresorier.generated.jooq.test.public_.tables.Category;
 import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
+import open.tresorier.generated.jooq.test.public_.tables.MasterCategory;
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
 import open.tresorier.generated.jooq.test.public_.tables.Person;
 
@@ -43,6 +44,11 @@ public class Tables {
      * The table <code>PUBLIC.flyway_schema_history</code>.
      */
     public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
+
+    /**
+     * The table <code>PUBLIC.MASTER_CATEGORY</code>.
+     */
+    public static final MasterCategory MASTER_CATEGORY = MasterCategory.MASTER_CATEGORY;
 
     /**
      * The table <code>PUBLIC.OPERATION</code>.

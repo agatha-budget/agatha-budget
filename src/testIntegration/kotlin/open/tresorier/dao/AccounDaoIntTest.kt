@@ -15,8 +15,8 @@ class AccountDaoIntTest : IIntegrationTest {
 
     @Test
     fun getAccountOwner() {
-        val account = accountDao.getById("1")
-        val expectedOwner = personDao.getById("1")
+        val account = accountDao.getById("account1")
+        val expectedOwner = personDao.getById("person1")
         val owner = accountDao.getOwner(account)
         Assertions.assertEquals(expectedOwner.email, owner.email)
     }

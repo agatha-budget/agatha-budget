@@ -11,13 +11,14 @@ object ServiceManager : KoinComponent {
     val budgetService : BudgetService by inject()
     val accountService : AccountService by inject()
     val categoryService : CategoryService by inject()
+    val masterCategoryService: MasterCategoryService by inject()
     val allocationService : AllocationService by inject()
     val operationService : OperationService by inject()
 
     fun start(){
         startKoin{
             printLogger()
-            modules(dbAccess_module, app_module)
+            modules(dbAccess_module, dao_module, service_module)
         }
     }
 
