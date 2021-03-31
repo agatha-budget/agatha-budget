@@ -2,12 +2,14 @@ package open.tresorier.services
 
 import open.tresorier.dao.ICategoryDao
 import open.tresorier.model.Category
+import open.tresorier.model.MasterCategory
 import open.tresorier.model.Person
 
 class CategoryService(private val categoryDao: ICategoryDao, private val authorizationService: AuthorizationService) {
 
-    fun create(person: Person, name: String): Category {
-        val category = Category(name, person.id)
+    fun create(person: Person, masterCategory: MasterCategory, name: String): Category {
+        authorizationService.cancelIfUserIsUnauthorized(person, masterCategory)
+        val category = Category(name, masterCategory.id)
         return categoryDao.insert(category)
     }
 
