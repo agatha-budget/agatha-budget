@@ -4,11 +4,14 @@ import open.tresorier.dao.IOperationDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.main.Tables.*
 import open.tresorier.generated.jooq.main.tables.daos.OperationDao
+import open.tresorier.generated.jooq.main.tables.records.OperationRecord
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
-import open.tresorier.model.Operation
-import open.tresorier.model.Person
+import open.tresorier.model.*
 import org.jooq.Configuration
+import org.jooq.*
+import org.jooq.impl.*
 import org.jooq.impl.DSL
+import org.jooq.impl.DSL.*
 import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Operation as JooqOperation
 
@@ -17,6 +20,11 @@ class JooqOperationDao(val configuration: Configuration) : IOperationDao {
 
     private val generatedDao: OperationDao = OperationDao(configuration)
     private val query = DSL.using(configuration)
+
+    // ready to use computed Field
+    private val month: Field<Int> = extractDatePartFromEpoch(OPERATION.OPERATION_DATE, DatePart.MONTH).`as`("month")
+    private val year: Field<Int> = extractDatePartFromEpoch(OPERATION.OPERATION_DATE, DatePart.YEAR).`as`("year")
+    private val spendingSum: Field<BigDecimal> = sum(OPERATION.AMOUNT).`as`("sum")
 
     override fun insert(operation: Operation): Operation {
         val jooqOperation = this.toJooqOperation(operation)
@@ -53,6 +61,29 @@ class JooqOperationDao(val configuration: Configuration) : IOperationDao {
             ?: throw TresorierException("no operation found for the following id : $id")
     }
 
+    override fun findTotalSpendingByMonth(budget: Budget, maxMonth: Month?) : List<Spending> {
+        val jooqSpendingList = this.query
+                .select(OPERATION.CATEGORY_ID, month , year, spendingSum )
+                .from(MASTER_CATEGORY)
+                .join(CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
+                .join(OPERATION).on(OPERATION.CATEGORY_ID.eq(CATEGORY.ID))
+                .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
+                .groupBy(OPERATION.CATEGORY_ID, month, year)
+                .fetch()
+        val spendingList: MutableList<Spending> = mutableListOf()
+        for (spendingRecord in jooqSpendingList) {
+            val allocation = this.toSpending(spendingRecord)
+            spendingList.add(allocation)
+        }
+        return spendingList
+    }
+
+    private fun extractDatePartFromEpoch(operationEpoch: TableField<OperationRecord, Long>, datePart: DatePart) : Field<Int> {
+        val epochStart = date("1970-01-01")
+        val operationDate = dateAdd(epochStart, operationEpoch, DatePart.SECOND)
+        return extract(operationDate, datePart)
+    }
+
     override fun getOwner(operation: Operation): Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
@@ -87,6 +118,14 @@ class JooqOperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.amount.toDouble(),
             jooqOperation.memo,
             jooqOperation.id,
+        )
+    }
+
+    private fun toSpending(jooqSpending: Record4<String, Int, Int, BigDecimal>) : Spending {
+        return Spending(
+                Month(jooqSpending.get(month), jooqSpending.get(year)),
+                jooqSpending.get(OPERATION.CATEGORY_ID),
+                jooqSpending.get(spendingSum).toDouble()
         )
     }
 }
