@@ -7,6 +7,7 @@ import open.tresorier.generated.jooq.main.tables.daos.OperationDao
 import open.tresorier.generated.jooq.main.tables.records.OperationRecord
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.model.*
+import open.tresorier.utils.Time
 import org.jooq.Configuration
 import org.jooq.*
 import org.jooq.impl.*
@@ -62,14 +63,16 @@ class JooqOperationDao(val configuration: Configuration) : IOperationDao {
     }
 
     override fun findTotalSpendingByMonth(budget: Budget, maxMonth: Month?) : List<Spending> {
-        val jooqSpendingList = this.query
+         val query = this.query
                 .select(OPERATION.CATEGORY_ID, month , year, spendingSum )
                 .from(MASTER_CATEGORY)
                 .join(CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
                 .join(OPERATION).on(OPERATION.CATEGORY_ID.eq(CATEGORY.ID))
                 .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
-                .groupBy(OPERATION.CATEGORY_ID, month, year)
-                .fetch()
+        maxMonth?.let{ query.and(OPERATION.OPERATION_DATE.lessOrEqual(Time.getMaxTimestamp(maxMonth)))}
+        query.groupBy(OPERATION.CATEGORY_ID, month, year)
+                .orderBy(year.asc(), month.asc())
+        val jooqSpendingList = query.fetch()
         val spendingList: MutableList<Spending> = mutableListOf()
         for (spendingRecord in jooqSpendingList) {
             val allocation = this.toSpending(spendingRecord)
