@@ -15,6 +15,7 @@ object TestData {
     val nov_2020: Month =  Month(11,2020)
     val dec_2020: Month =  Month(12,2020)
     val jan_2021: Month =  Month(1,2021)
+    val feb_2021: Month =  Month(2,2021)
     val feb_2022: Month =  Month(2,2022)
     val mar_2022: Month =  Month(3,2022)
 
