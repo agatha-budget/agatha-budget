@@ -71,16 +71,44 @@ class AllocationDaoIntTest : IIntegrationTest {
         for (allocation in allocationList) {
             allocationDao.insert(allocation)
         }
-        val result = allocationDao.findByBudgetUntilMonth(budget)
+        val result = allocationDao.findByBudget(budget)
         Assertions.assertEquals(2, result.size)
         Assertions.assertEquals(allocationList[0].id, result[0].id)
         Assertions.assertEquals(allocationList[1].id, result[1].id)
     }
 
+
+    @Test
+    fun getAllAllocationsOfBudgetUntilMonth() {
+        val budget = Budget("wellAllocatedBudget", "person1")
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("oftenAllocatedCategory", masterCategory.id)
+        categoryDao.insert(category)
+        val allocationList = listOf(
+                Allocation(Month(1,2020),category.id,40.00),
+                Allocation(Month(12,2020),category.id,20.00),
+                Allocation(Month(1,2021),category.id,20.00),
+                Allocation(Month(2,2022),category.id,20.00),
+                Allocation(Month(3,2022),category.id,20.00)
+
+        )
+        for (allocation in allocationList) {
+            allocationDao.insert(allocation)
+        }
+        val result = allocationDao.findByBudget(budget, Month(2,2022))
+        Assertions.assertEquals(4, result.size)
+        Assertions.assertEquals(allocationList[0].id, result[0].id)
+        Assertions.assertEquals(allocationList[1].id, result[1].id)
+        Assertions.assertEquals(allocationList[2].id, result[2].id)
+        Assertions.assertEquals(allocationList[3].id, result[3].id)
+    }
+
     @Test
     fun getAllAllocationsOfNonExistingBudget() {
         val budget = Budget("wellAllocatedBudget", "person1")
-        val result = allocationDao.findByBudgetUntilMonth(budget)
+        val result = allocationDao.findByBudget(budget)
         Assertions.assertEquals(0, result.size)
     }
 }

@@ -9,6 +9,6 @@ interface IAllocationDao {
     fun insert(allocation: Allocation) : Allocation
     fun update(allocation: Allocation) : Allocation
     fun getById(id: String): Allocation
-    fun findByBudgetUntilMonth(budget: Budget, maxMonth: Month? = null) : List<Allocation>
+    fun findByBudget(budget: Budget, maxMonth: Month? = null) : List<Allocation>
     fun getOwner(allocation: Allocation) : Person
 }
