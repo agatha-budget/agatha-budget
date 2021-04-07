@@ -2,6 +2,24 @@ package open.tresorier.model
 
 class BudgetData() : HashMap<Int, MonthData>() {
 
+    fun getSortedMonths() : List<Int>{
+        return this.keys.sortedWith(compareBy { it })
+    }
+
+    fun getFirstMonth() : Month? {
+        return if (this.keys.size > 0) {
+            val firstMonthComparable = getSortedMonths().first()
+            Month.createFromComparable(firstMonthComparable)
+        } else {
+            null
+        }
+    }
+
+    fun set(key : Int, value: MonthData) : BudgetData {
+        this[key] = value
+        return this
+    }
+
     override fun equals(other: Any?): Boolean {
         if (other is BudgetData) {
             var same = (this.size == other.size)

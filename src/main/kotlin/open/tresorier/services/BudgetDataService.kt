@@ -8,17 +8,65 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
                         private val operationDao: IOperationDao,
                         private val authorizationService: AuthorizationService) {
 
-    fun getBudgetData(person: Person, budget: Budget, startMonth: Month? = null, endMonth: Month? = null): BudgetData {
+    fun getBudgetData(person: Person, budget: Budget, startMonth: Month?= null, endMonth: Month? = null): BudgetData {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         val allocations = allocationDao.findByBudget(budget, endMonth)
         val spendings = operationDao.findTotalSpendingByMonth(budget, endMonth)
         var data = BudgetData()
         for (allocation in allocations){ data = addAllocation(allocation, data) }
         for (spending in spendings){ data = addSpending(spending, data) }
+        startMonth?.let {
+            data = initStartMonthIfNeeded(data, it)
+        }
         data = computeAvailable(data)
+        startMonth?.let {
+            data = extractDataForPeriod(data, it, endMonth)
+        }
         return data
     }
     companion object {
+
+        fun extractDataForPeriod(data: BudgetData, startMonth: Month, endMonth: Month? = null) : BudgetData{
+            endMonth?.let {Month.cancelIfEndLessThanStart(startMonth, endMonth)}
+            val end : Month = endMonth ?: startMonth
+            val extractedData = BudgetData()
+            var month = startMonth
+            while (month.comparable <= end.comparable){
+                data[month.comparable]?.let {
+                    extractedData[month.comparable] = it
+                }
+                month = month.getNext()
+            }
+            return extractedData
+        }
+
+        fun initStartMonthIfNeeded(data: BudgetData, startMonth: Month) : BudgetData {
+            val listOfKnownCategory = this.getAllKnownCategoriesUntilMonth(data, startMonth)
+            val monthData : MonthData = data[startMonth.comparable] ?: MonthData()
+            for (categoryId in listOfKnownCategory){
+                if (categoryId !in monthData.keys){
+                    monthData[categoryId] = CategoryData()
+                }
+            }
+            data[startMonth.comparable] = monthData
+            return data
+        }
+
+        fun getAllKnownCategoriesUntilMonth(data: BudgetData, maxMonth: Month) : List<String> {
+            val categoryList = mutableListOf<String>()
+            var month = data.getFirstMonth() ?: maxMonth
+            while (month.comparable < maxMonth.comparable){
+                data[month.comparable]?.let {
+                    for (categoryId in it.keys){
+                        if (categoryId !in categoryList){
+                            categoryList.add(categoryId)
+                        }
+                    }
+                }
+                month = month.getNext()
+            }
+            return categoryList
+        }
 
         fun addAllocation(allocation: Allocation, data: BudgetData): BudgetData {
             val categoryId = allocation.categoryId
@@ -53,7 +101,7 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
         }
 
         fun computeAvailable(data: BudgetData): BudgetData {
-            val sortedMonth = data.keys.sortedWith(compareBy { it })
+            val sortedMonth = data.getSortedMonths()
             val totalSpent: MutableMap<String, Double> = mutableMapOf()
             val totalAllocated: MutableMap<String, Double> = mutableMapOf()
             for (month in sortedMonth) {
