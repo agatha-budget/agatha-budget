@@ -6,6 +6,7 @@ import open.tresorier.generated.jooq.test.public_.Tables.*
 import open.tresorier.generated.jooq.test.public_.tables.daos.CategoryDao
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.Category
+import open.tresorier.model.MasterCategory
 import open.tresorier.model.Person
 import org.jooq.Configuration
 import org.jooq.impl.DSL
@@ -42,8 +43,8 @@ class JooqTestCategoryDao(val configuration: Configuration) : ICategoryDao {
         return this.toCategory(jooqCategory) ?: throw TresorierException("no category found for the following id : $id")
     }
 
-    override fun findByMasterCategoryId(masterCategoryId: String): List<Category> {
-        val jooqCategoryList = this.generatedDao.fetchByMasterCategoryId(masterCategoryId)
+    override fun findByMasterCategory(masterCategory: MasterCategory): List<Category> {
+        val jooqCategoryList = this.generatedDao.fetchByMasterCategoryId(masterCategory.id)
         val categoryList: MutableList<Category> = mutableListOf()
         for (jooqCategory in jooqCategoryList) {
             val category = this.toCategory(jooqCategory)

@@ -30,6 +30,4 @@ class CategoryService(private val categoryDao: ICategoryDao, private val authori
         category.deleted = true
         return categoryDao.update(category)
     }
-
-
 }

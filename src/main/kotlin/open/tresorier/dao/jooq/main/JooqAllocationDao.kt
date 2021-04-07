@@ -4,10 +4,11 @@ import open.tresorier.dao.IAllocationDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.main.Tables.*
 import open.tresorier.generated.jooq.main.tables.daos.AllocationDao
+import open.tresorier.generated.jooq.main.tables.records.AllocationRecord
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
-import open.tresorier.model.Allocation
-import open.tresorier.model.Person
+import open.tresorier.model.*
 import org.jooq.Configuration
+import org.jooq.Field
 import org.jooq.impl.DSL
 import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Allocation as JooqAllocation
@@ -17,6 +18,13 @@ class JooqAllocationDao(val configuration: Configuration) : IAllocationDao {
 
     private val generatedDao: AllocationDao = AllocationDao(configuration)
     private val query = DSL.using(configuration)
+
+    private val yearMonth: Field<Int> = ALLOCATION.YEAR.times(100).plus(ALLOCATION.MONTH)
+
+    private fun getYearMonth(month: Month?) : Int? {
+        month?.let {return month.year*100+month.month}
+        return null
+    }
 
     override fun insert(allocation: Allocation): Allocation {
         val jooqAllocation = this.toJooqAllocation(allocation)
@@ -58,12 +66,37 @@ class JooqAllocationDao(val configuration: Configuration) : IAllocationDao {
         }
     }
 
+    override fun findByBudget(budget: Budget, maxMonth: Month?): List<Allocation> {
+            val maxMonthDate = getYearMonth(maxMonth)
+             val query = this.query
+                    .select()
+                    .from(ALLOCATION)
+                    .join(CATEGORY).on(ALLOCATION.CATEGORY_ID.eq(CATEGORY.ID))
+                    .join(MASTER_CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
+                    .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
+            maxMonthDate?.let {
+                query.and(yearMonth.lessOrEqual(maxMonthDate))
+            }
+            query.orderBy(yearMonth.asc())
+
+            val jooqAllocationList = query.fetch().into(ALLOCATION)
+
+            val allocationList: MutableList<Allocation> = mutableListOf()
+            for (allocationRecord : AllocationRecord in jooqAllocationList) {
+                val allocation = this.toAllocation(allocationRecord)
+                allocationList.add(allocation)
+            }
+
+        return allocationList
+    }
+
+
     private fun toJooqAllocation(allocation: Allocation): JooqAllocation {
         return JooqAllocation(
             allocation.id,
             allocation.categoryId,
-            allocation.year,
-            allocation.month,
+            allocation.month.year,
+            allocation.month.month,
             BigDecimal(allocation.amount)
         )
     }
@@ -72,11 +105,19 @@ class JooqAllocationDao(val configuration: Configuration) : IAllocationDao {
         return if (jooqAllocation == null)
             null
         else Allocation(
-            jooqAllocation.year,
-            jooqAllocation.month,
+            Month(jooqAllocation.month,jooqAllocation.year),
             jooqAllocation.categoryId,
             jooqAllocation.amount.toDouble(),
             jooqAllocation.id
+        )
+    }
+
+    private fun toAllocation(allocationRecord: AllocationRecord): Allocation {
+        return Allocation(
+                Month(allocationRecord.month,allocationRecord.year),
+                allocationRecord.categoryId,
+                allocationRecord.amount.toDouble(),
+                allocationRecord.id
         )
     }
 }
