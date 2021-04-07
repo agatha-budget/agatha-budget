@@ -4,8 +4,6 @@ import open.tresorier.dao.IAllocationDao
 import open.tresorier.dao.IOperationDao
 import open.tresorier.model.*
 
-typealias BudgetData = MutableMap<Int, MutableMap<String, CategoryData>>
-
 class BudgetDataService(private val allocationDao: IAllocationDao,
                         private val operationDao: IOperationDao,
                         private val authorizationService: AuthorizationService) {
@@ -14,7 +12,7 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         val allocations = allocationDao.findByBudget(budget, endMonth)
         val spendings = operationDao.findTotalSpendingByMonth(budget, endMonth)
-        var data: BudgetData = mutableMapOf()
+        var data = BudgetData()
         for (allocation in allocations){ data = addAllocation(allocation, data) }
         for (spending in spendings){ data = addSpending(spending, data) }
         data = computeAvailable(data)
@@ -33,7 +31,7 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
                     mapByMonth[categoryId] = newCategoryData
                 }
             } ?: run {
-                data[allocation.month.comparable] = mutableMapOf(Pair(categoryId, newCategoryData))
+                data[allocation.month.comparable] = MonthData().set(categoryId, newCategoryData)
             }
             return data
         }
@@ -49,7 +47,7 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
                     mapByMonth[categoryId] = newCategoryData
                 }
             } ?: run {
-                data[spending.month.comparable] = mutableMapOf(Pair(categoryId, newCategoryData))
+                data[spending.month.comparable] = MonthData().set(categoryId, newCategoryData)
             }
             return data
         }
