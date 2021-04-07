@@ -209,7 +209,7 @@ class BudgetDataServiceTest : ITest {
         val expected = BudgetData()
         expected[TestData.nov_2020.comparable] = MonthData().set(category.id, CategoryData(40.00, 60.00, -20.00 ))
         expected[TestData.dec_2020.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 0.00 ))
-        expected[TestData.jan_2020.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 20.00 ))
+        expected[TestData.jan_2021.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 20.00 ))
         expected[TestData.feb_2021.comparable] = MonthData().set(category2.id, CategoryData(0.00, 10.00, -10.00 ))
         expected[TestData.mar_2021.comparable] = MonthData().set(category.id, CategoryData(0.00, 30.00, -10.00 ))
         expected[TestData.may_2021.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 10.00 ))
@@ -256,7 +256,7 @@ class BudgetDataServiceTest : ITest {
 
         val expected = BudgetData()
         expected[TestData.dec_2020.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 0.00 ))
-        expected[TestData.jan_2020.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 20.00 ))
+        expected[TestData.jan_2021.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 20.00 ))
         expected[TestData.feb_2021.comparable] = MonthData().set(category2.id, CategoryData(0.00, 10.00, -10.00 ))
         expected[TestData.mar_2021.comparable] = MonthData().set(category.id, CategoryData(0.00, 30.00, -10.00 ))
         expected[TestData.may_2021.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 10.00 ))
