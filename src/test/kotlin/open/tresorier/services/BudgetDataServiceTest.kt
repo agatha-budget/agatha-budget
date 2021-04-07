@@ -33,7 +33,15 @@ class BudgetDataServiceTest : ITest {
         for (allocation in allocationList) {
             budgetData = BudgetDataService.addAllocation(allocation, budgetData)
         }
-        Assertions.assertEquals(20.00, budgetData[TestData.jan_2021.comparable]?.get(categoryId)?.allocated)
+
+        val expected = BudgetData()
+        expected[TestData.jan_2020.comparable] = MonthData().set(categoryId, CategoryData(40.00, 0.00, 0.00 ))
+        expected[TestData.dec_2020.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, 0.00 ))
+        expected[TestData.jan_2021.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, 0.00 ))
+        expected[TestData.feb_2022.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, 0.00 ))
+        expected[TestData.mar_2022.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, 0.00 ))
+
+        Assertions.assertEquals(expected, budgetData)
     }
 
     @Test
@@ -48,7 +56,13 @@ class BudgetDataServiceTest : ITest {
         for (spending in spendingList) {
             budgetData = BudgetDataService.addSpending(spending, budgetData)
         }
-        Assertions.assertEquals(10.00, budgetData[TestData.dec_2020.comparable]?.get(categoryId)?.spent)
+
+        val expected = BudgetData()
+        expected[TestData.jan_2020.comparable] = MonthData().set(categoryId, CategoryData(0.00, 40.00, 0.00 ))
+        expected[TestData.dec_2020.comparable] = MonthData().set(categoryId, CategoryData(0.00, 10.00, 0.00 ))
+        expected[TestData.jan_2021.comparable] = MonthData().set(categoryId, CategoryData(0.00, 20.00, 0.00 ))
+
+        Assertions.assertEquals(expected, budgetData)
     }
 
     @Test
@@ -67,8 +81,14 @@ class BudgetDataServiceTest : ITest {
         }
         budgetData = BudgetDataService.computeAvailable(budgetData)
 
-        Assertions.assertEquals(60.00, budgetData[TestData.dec_2020.comparable]?.get(categoryId)?.available)
-        Assertions.assertEquals(120.00, budgetData[TestData.mar_2022.comparable]?.get(categoryId)?.available)
+        val expected = BudgetData()
+        expected[TestData.jan_2020.comparable] = MonthData().set(categoryId, CategoryData(40.00, 0.00, 40.00 ))
+        expected[TestData.dec_2020.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, 60.00 ))
+        expected[TestData.jan_2021.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, 80.00 ))
+        expected[TestData.feb_2022.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, 100.00 ))
+        expected[TestData.mar_2022.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, 120.00 ))
+
+        Assertions.assertEquals(expected, budgetData)
     }
 
     @Test
@@ -85,8 +105,12 @@ class BudgetDataServiceTest : ITest {
         }
         budgetData = BudgetDataService.computeAvailable(budgetData)
 
-        Assertions.assertEquals(-50.00, budgetData[TestData.dec_2020.comparable]?.get(categoryId)?.available)
-        Assertions.assertEquals(-70.00, budgetData[TestData.jan_2021.comparable]?.get(categoryId)?.available)
+        val expected = BudgetData()
+        expected[TestData.jan_2020.comparable] = MonthData().set(categoryId, CategoryData(0.00, 40.00, -40.00 ))
+        expected[TestData.dec_2020.comparable] = MonthData().set(categoryId, CategoryData(0.00, 10.00, -50.00 ))
+        expected[TestData.jan_2021.comparable] = MonthData().set(categoryId, CategoryData(0.00, 20.00, -70.00 ))
+
+        Assertions.assertEquals(expected, budgetData)
     }
 
     @Test
@@ -113,56 +137,18 @@ class BudgetDataServiceTest : ITest {
         }
         budgetData = BudgetDataService.computeAvailable(budgetData)
 
-        Assertions.assertEquals(10.00, budgetData[TestData.dec_2020.comparable]?.get(categoryId)?.available)
-        Assertions.assertEquals(0.00, budgetData[TestData.mar_2022.comparable]?.get(categoryId)?.available)
+        val expected = BudgetData()
+        expected[TestData.jan_2020.comparable] = MonthData().set(categoryId, CategoryData(40.00, 40.00, 0.00 ))
+        expected[TestData.dec_2020.comparable] = MonthData().set(categoryId, CategoryData(20.00, 10.00, 10.00 ))
+        expected[TestData.jan_2021.comparable] = MonthData().set(categoryId, CategoryData(20.00, 70.00, -40.00 ))
+        expected[TestData.feb_2022.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, -20.00 ))
+        expected[TestData.mar_2022.comparable] = MonthData().set(categoryId, CategoryData(20.00, 0.00, 0.00 ))
+
+        Assertions.assertEquals(expected, budgetData)
     }
 
     @Test
-    fun testFindCategoriesData() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
-        budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
-        masterCategoryDao.insert(masterCategory)
-        val category = Category("oftenAllocatedCategory", masterCategory.id)
-        categoryDao.insert(category)
-        val allocationList = listOf(
-                Allocation(TestData.jan_2020,category.id,40.00),
-                Allocation(TestData.dec_2020,category.id,20.00),
-                Allocation(TestData.jan_2021,category.id,20.00),
-                Allocation(TestData.feb_2022,category.id,20.00),
-                Allocation(TestData.mar_2022,category.id,20.00)
-
-        )
-        for (allocation in allocationList) {
-            allocationDao.insert(allocation)
-        }
-        val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
-        categoryDao.insert(category2)
-        val account = Account("my own account", budget.id)
-        accountDao.insert(account)
-        val operationList = listOf(
-                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
-                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
-                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
-
-                )
-        for (operation in operationList) {
-            operationDao.insert(operation)
-        }
-        val person: Person = personDao.getById(TestData.person1Id)
-        val budgetData = budgetDataService.getBudgetData(person, budget)
-
-        Assertions.assertEquals(40.00, budgetData[TestData.jan_2020.comparable]?.get(category.id)?.allocated)
-        Assertions.assertEquals(0.00, budgetData[TestData.nov_2020.comparable]?.get(category.id)?.allocated)
-        Assertions.assertEquals(60.00, budgetData[TestData.nov_2020.comparable]?.get(category.id)?.spent)
-        Assertions.assertEquals(-20.00, budgetData[TestData.nov_2020.comparable]?.get(category.id)?.available)
-        Assertions.assertEquals(-10.00, budgetData[TestData.feb_2021.comparable]?.get(category2.id)?.available)
-        Assertions.assertEquals(null, budgetData[TestData.feb_2022.comparable]?.get(category2.id)?.available)
-    }
-
-    @Test
-    fun testApplyForAllMonth() {
+    fun testFindBudgetData() {
         val budget = Budget("wellAllocatedBudget", TestData.person1Id)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
@@ -208,51 +194,17 @@ class BudgetDataServiceTest : ITest {
 
         expected[TestData.feb_2021.comparable] = MonthData().set(category2.id, CategoryData(0.00, 10.00, -10.00 ))
 
-
         Assertions.assertEquals(expected, budgetData)
     }
 
+    @Test
+    fun testApplyForAllMonth() {
+
+    }
 
     @Test
     fun testFindCategoriesDataForGivenMonthOnly() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
-        budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
-        masterCategoryDao.insert(masterCategory)
-        val category = Category("oftenAllocatedCategory", masterCategory.id)
-        categoryDao.insert(category)
-        val allocationList = listOf(
-                Allocation(TestData.jan_2020,category.id,40.00),
-                Allocation(TestData.dec_2020,category.id,20.00),
-                Allocation(TestData.jan_2021,category.id,20.00),
-                Allocation(TestData.feb_2022,category.id,20.00),
-                Allocation(TestData.mar_2022,category.id,20.00)
 
-        )
-        for (allocation in allocationList) {
-            allocationDao.insert(allocation)
-        }
-        val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
-        categoryDao.insert(category2)
-        val account = Account("my own account", budget.id)
-        accountDao.insert(account)
-        val operationList = listOf(
-                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
-                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
-                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
-
-                )
-        for (operation in operationList) {
-            operationDao.insert(operation)
-        }
-        val person: Person = personDao.getById(TestData.person1Id)
-        val budgetData = budgetDataService.getBudgetData(person, budget, TestData.feb_2021)
-
-        Assertions.assertEquals(1, budgetData.size)
-        Assertions.assertEquals(null, budgetData[TestData.feb_2021.comparable]?.get(category.id)?.allocated)
-        Assertions.assertEquals(null, budgetData[TestData.feb_2021.comparable]?.get(category2.id)?.spent)
-        Assertions.assertEquals(-10.00, budgetData[TestData.feb_2022.comparable]?.get(category2.id)?.available)
     }
 
     @Test
