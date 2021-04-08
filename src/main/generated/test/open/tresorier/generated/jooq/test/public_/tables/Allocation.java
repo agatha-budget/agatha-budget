@@ -17,7 +17,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row5;
+import org.jooq.Row4;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -34,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation extends TableImpl<AllocationRecord> {
 
-    private static final long serialVersionUID = 1697463956;
+    private static final long serialVersionUID = -687629808;
 
     /**
      * The reference instance of <code>PUBLIC.ALLOCATION</code>
@@ -58,11 +58,6 @@ public class Allocation extends TableImpl<AllocationRecord> {
      * The column <code>PUBLIC.ALLOCATION.CATEGORY_ID</code>.
      */
     public final TableField<AllocationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
-
-    /**
-     * The column <code>PUBLIC.ALLOCATION.YEAR</code>.
-     */
-    public final TableField<AllocationRecord, Integer> YEAR = createField(DSL.name("YEAR"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.ALLOCATION.MONTH</code>.
@@ -134,8 +129,8 @@ public class Allocation extends TableImpl<AllocationRecord> {
     @Override
     public List<Check<AllocationRecord>> getChecks() {
         return Arrays.<Check<AllocationRecord>>asList(
-              Internal.createCheck(this, DSL.name("NO_INVALID_MONTH"), "(\"MONTH\" < 13)", true)
-            , Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH"), "(\"MONTH\" > 0)", true)
+              Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_ALLOCATION"), "((\"MONTH\" % 100) < 13)", true)
+            , Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_ALLOCATION"), "((\"MONTH\" % 100) > 0)", true)
         );
     }
 
@@ -166,11 +161,11 @@ public class Allocation extends TableImpl<AllocationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row4 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<String, String, Integer, Integer, BigDecimal> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row4<String, String, Integer, BigDecimal> fieldsRow() {
+        return (Row4) super.fieldsRow();
     }
 }

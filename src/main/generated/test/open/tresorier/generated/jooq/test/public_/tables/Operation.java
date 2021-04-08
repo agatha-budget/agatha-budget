@@ -12,17 +12,19 @@ import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
 import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord;
 
+import org.jooq.Check;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row6;
+import org.jooq.Row7;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.Internal;
 import org.jooq.impl.TableImpl;
 
 
@@ -32,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = -468981622;
+    private static final long serialVersionUID = 723019173;
 
     /**
      * The reference instance of <code>PUBLIC.OPERATION</code>
@@ -53,9 +55,14 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, String> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.OPERATION.OPERATION_DATE</code>.
+     * The column <code>PUBLIC.OPERATION.MONTH</code>.
      */
-    public final TableField<OperationRecord, Long> OPERATION_DATE = createField(DSL.name("OPERATION_DATE"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<OperationRecord, Integer> MONTH = createField(DSL.name("MONTH"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
+     * The column <code>PUBLIC.OPERATION.DAY</code>.
+     */
+    public final TableField<OperationRecord, Integer> DAY = createField(DSL.name("DAY"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.ACCOUNT_ID</code>.
@@ -139,6 +146,16 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     @Override
+    public List<Check<OperationRecord>> getChecks() {
+        return Arrays.<Check<OperationRecord>>asList(
+              Internal.createCheck(this, DSL.name("NO_INVALID_DAY_OPERATION"), "(\"DAY\" < 32)", true)
+            , Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_OPERATION"), "((\"MONTH\" % 100) < 13)", true)
+            , Internal.createCheck(this, DSL.name("NO_NEGATIVE_DAY_OPERATION"), "(\"DAY\" > 0)", true)
+            , Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_OPERATION"), "((\"MONTH\" % 100) > 0)", true)
+        );
+    }
+
+    @Override
     public Operation as(String alias) {
         return new Operation(DSL.name(alias), this);
     }
@@ -165,11 +182,11 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row6 type methods
+    // Row7 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row6<String, Long, String, String, BigDecimal, String> fieldsRow() {
-        return (Row6) super.fieldsRow();
+    public Row7<String, Integer, Integer, String, String, BigDecimal, String> fieldsRow() {
+        return (Row7) super.fieldsRow();
     }
 }

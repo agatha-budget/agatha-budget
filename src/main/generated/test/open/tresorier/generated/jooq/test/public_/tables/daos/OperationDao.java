@@ -61,17 +61,31 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>OPERATION_DATE BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>MONTH BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfOperationDate(Long lowerInclusive, Long upperInclusive) {
-        return fetchRange(Operation.OPERATION.OPERATION_DATE, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMonth(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Operation.OPERATION.MONTH, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>OPERATION_DATE IN (values)</code>
+     * Fetch records that have <code>MONTH IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByOperationDate(Long... values) {
-        return fetch(Operation.OPERATION.OPERATION_DATE, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByMonth(Integer... values) {
+        return fetch(Operation.OPERATION.MONTH, values);
+    }
+
+    /**
+     * Fetch records that have <code>DAY BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfDay(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Operation.OPERATION.DAY, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>DAY IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByDay(Integer... values) {
+        return fetch(Operation.OPERATION.DAY, values);
     }
 
     /**
