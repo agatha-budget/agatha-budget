@@ -19,7 +19,7 @@ import { AxiosPromise, AxiosInstance } from 'axios';
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, superTokenAxios } from './base';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, superTokenAxios as globalAxios} from './base';
 
 /**
  * 
@@ -77,6 +77,31 @@ export interface Budget {
      */
     isDefault?: boolean;
 }
+/**
+ * 
+ * @export
+ * @interface CategoryData
+ */
+export interface CategoryData {
+    /**
+     * 
+     * @type {number}
+     * @memberof CategoryData
+     */
+    allocated: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CategoryData
+     */
+    spent: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CategoryData
+     */
+    available: number;
+}
 
 /**
  * AccountApi - axios parameter creator
@@ -90,16 +115,19 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
          * @param {string} budgetId 
          * @param {string} name 
          * @param {number} amount 
+         * @param {number} day day as seen by user in his/her timezone, format : 2 january 2021 &#x3D;&gt; 20210102
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addAccount: async (budgetId: string, name: string, amount: number, options: any = {}): Promise<RequestArgs> => {
+        addAccount: async (budgetId: string, name: string, amount: number, day: number, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'budgetId' is not null or undefined
             assertParamExists('addAccount', 'budgetId', budgetId)
             // verify required parameter 'name' is not null or undefined
             assertParamExists('addAccount', 'name', name)
             // verify required parameter 'amount' is not null or undefined
             assertParamExists('addAccount', 'amount', amount)
+            // verify required parameter 'day' is not null or undefined
+            assertParamExists('addAccount', 'day', day)
             const localVarPath = `/account`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -122,6 +150,10 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
 
             if (amount !== undefined) {
                 localVarQueryParameter['amount'] = amount;
+            }
+
+            if (day !== undefined) {
+                localVarQueryParameter['day'] = day;
             }
 
 
@@ -213,15 +245,15 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary Rename an account
          * @param {string} id 
-         * @param {string} name 
+         * @param {string} newName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateAccount: async (id: string, name: string, options: any = {}): Promise<RequestArgs> => {
+        updateAccount: async (id: string, newName: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateAccount', 'id', id)
-            // verify required parameter 'name' is not null or undefined
-            assertParamExists('updateAccount', 'name', name)
+            // verify required parameter 'newName' is not null or undefined
+            assertParamExists('updateAccount', 'newName', newName)
             const localVarPath = `/account`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -238,8 +270,8 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
                 localVarQueryParameter['id'] = id;
             }
 
-            if (name !== undefined) {
-                localVarQueryParameter['name'] = name;
+            if (newName !== undefined) {
+                localVarQueryParameter['new_name'] = newName;
             }
 
 
@@ -269,12 +301,13 @@ export const AccountApiFp = function(configuration?: Configuration) {
          * @param {string} budgetId 
          * @param {string} name 
          * @param {number} amount 
+         * @param {number} day day as seen by user in his/her timezone, format : 2 january 2021 &#x3D;&gt; 20210102
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addAccount(budgetId: string, name: string, amount: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addAccount(budgetId, name, amount, options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+        async addAccount(budgetId: string, name: string, amount: number, day: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addAccount(budgetId, name, amount, day, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
@@ -285,7 +318,7 @@ export const AccountApiFp = function(configuration?: Configuration) {
          */
         async deleteAccount(accountId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAccount(accountId, options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
@@ -296,19 +329,19 @@ export const AccountApiFp = function(configuration?: Configuration) {
          */
         async findAccountsByBudget(budgetId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Account>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findAccountsByBudget(budgetId, options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Rename an account
          * @param {string} id 
-         * @param {string} name 
+         * @param {string} newName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateAccount(id: string, name: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAccount(id, name, options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+        async updateAccount(id: string, newName: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAccount(id, newName, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
@@ -326,11 +359,12 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
          * @param {string} budgetId 
          * @param {string} name 
          * @param {number} amount 
+         * @param {number} day day as seen by user in his/her timezone, format : 2 january 2021 &#x3D;&gt; 20210102
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addAccount(budgetId: string, name: string, amount: number, options?: any): AxiosPromise<string> {
-            return localVarFp.addAccount(budgetId, name, amount, options).then((request) => request(axios, basePath));
+        addAccount(budgetId: string, name: string, amount: number, day: number, options?: any): AxiosPromise<string> {
+            return localVarFp.addAccount(budgetId, name, amount, day, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -356,12 +390,12 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
          * 
          * @summary Rename an account
          * @param {string} id 
-         * @param {string} name 
+         * @param {string} newName 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateAccount(id: string, name: string, options?: any): AxiosPromise<string> {
-            return localVarFp.updateAccount(id, name, options).then((request) => request(axios, basePath));
+        updateAccount(id: string, newName: string, options?: any): AxiosPromise<string> {
+            return localVarFp.updateAccount(id, newName, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -379,12 +413,13 @@ export class AccountApi extends BaseAPI {
      * @param {string} budgetId 
      * @param {string} name 
      * @param {number} amount 
+     * @param {number} day day as seen by user in his/her timezone, format : 2 january 2021 &#x3D;&gt; 20210102
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public addAccount(budgetId: string, name: string, amount: number, options?: any) {
-        return AccountApiFp(this.configuration).addAccount(budgetId, name, amount, options).then((request) => request(this.axios, this.basePath));
+    public addAccount(budgetId: string, name: string, amount: number, day: number, options?: any) {
+        return AccountApiFp(this.configuration).addAccount(budgetId, name, amount, day, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -415,13 +450,13 @@ export class AccountApi extends BaseAPI {
      * 
      * @summary Rename an account
      * @param {string} id 
-     * @param {string} name 
+     * @param {string} newName 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public updateAccount(id: string, name: string, options?: any) {
-        return AccountApiFp(this.configuration).updateAccount(id, name, options).then((request) => request(this.axios, this.basePath));
+    public updateAccount(id: string, newName: string, options?: any) {
+        return AccountApiFp(this.configuration).updateAccount(id, newName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -603,7 +638,7 @@ export const BudgetApiFp = function(configuration?: Configuration) {
          */
         async addBudget(name: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.addBudget(name, options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
@@ -614,7 +649,7 @@ export const BudgetApiFp = function(configuration?: Configuration) {
          */
         async deleteBudget(budgetId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteBudget(budgetId, options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
@@ -624,7 +659,7 @@ export const BudgetApiFp = function(configuration?: Configuration) {
          */
         async findBudgetsByUser(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Budget>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findBudgetsByUser(options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
@@ -636,7 +671,7 @@ export const BudgetApiFp = function(configuration?: Configuration) {
          */
         async updateBudget(budgetId: string, newName: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateBudget(budgetId, newName, options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
@@ -749,11 +784,186 @@ export class BudgetApi extends BaseAPI {
 
 
 /**
+ * BudgetDataApi - axios parameter creator
+ * @export
+ */
+export const BudgetDataApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Find data by budget
+         * @param {string} budgetId 
+         * @param {number} [startMonth] example : mars 2020 &#x3D; 202003
+         * @param {number} [endMonth] example : mars 2020 &#x3D; 202003
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findBudgetData: async (budgetId: string, startMonth?: number, endMonth?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('findBudgetData', 'budgetId', budgetId)
+            const localVarPath = `/budget/data`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budget_id'] = budgetId;
+            }
+
+            if (startMonth !== undefined) {
+                localVarQueryParameter['start_month'] = startMonth;
+            }
+
+            if (endMonth !== undefined) {
+                localVarQueryParameter['end_month'] = endMonth;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * BudgetDataApi - functional programming interface
+ * @export
+ */
+export const BudgetDataApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = BudgetDataApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Find data by budget
+         * @param {string} budgetId 
+         * @param {number} [startMonth] example : mars 2020 &#x3D; 202003
+         * @param {number} [endMonth] example : mars 2020 &#x3D; 202003
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findBudgetData(budgetId: string, startMonth?: number, endMonth?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: { [key: string]: CategoryData; }; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findBudgetData(budgetId, startMonth, endMonth, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * BudgetDataApi - factory interface
+ * @export
+ */
+export const BudgetDataApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = BudgetDataApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Find data by budget
+         * @param {string} budgetId 
+         * @param {number} [startMonth] example : mars 2020 &#x3D; 202003
+         * @param {number} [endMonth] example : mars 2020 &#x3D; 202003
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findBudgetData(budgetId: string, startMonth?: number, endMonth?: number, options?: any): AxiosPromise<{ [key: string]: { [key: string]: CategoryData; }; }> {
+            return localVarFp.findBudgetData(budgetId, startMonth, endMonth, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * BudgetDataApi - object-oriented interface
+ * @export
+ * @class BudgetDataApi
+ * @extends {BaseAPI}
+ */
+export class BudgetDataApi extends BaseAPI {
+    /**
+     * 
+     * @summary Find data by budget
+     * @param {string} budgetId 
+     * @param {number} [startMonth] example : mars 2020 &#x3D; 202003
+     * @param {number} [endMonth] example : mars 2020 &#x3D; 202003
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BudgetDataApi
+     */
+    public findBudgetData(budgetId: string, startMonth?: number, endMonth?: number, options?: any) {
+        return BudgetDataApiFp(this.configuration).findBudgetData(budgetId, startMonth, endMonth, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * PersonApi - axios parameter creator
  * @export
  */
 export const PersonApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * 
+         * @summary Create a person
+         * @param {string} name 
+         * @param {string} password 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPerson: async (name: string, password: string, email: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('createPerson', 'name', name)
+            // verify required parameter 'password' is not null or undefined
+            assertParamExists('createPerson', 'password', password)
+            // verify required parameter 'email' is not null or undefined
+            assertParamExists('createPerson', 'email', email)
+            const localVarPath = `/person`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (password !== undefined) {
+                localVarQueryParameter['password'] = password;
+            }
+
+            if (email !== undefined) {
+                localVarQueryParameter['email'] = email;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * 
          * @summary Login
@@ -844,6 +1054,19 @@ export const PersonApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
+         * @summary Create a person
+         * @param {string} name 
+         * @param {string} password 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createPerson(name: string, password: string, email: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPerson(name, password, email, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Login
          * @param {string} email 
          * @param {string} password 
@@ -852,7 +1075,7 @@ export const PersonApiFp = function(configuration?: Configuration) {
          */
         async createSession(email: string, password: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createSession(email, password, options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
@@ -862,7 +1085,7 @@ export const PersonApiFp = function(configuration?: Configuration) {
          */
         async deleteSession(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSession(options);
-            return createRequestFunction(localVarAxiosArgs, superTokenAxios, BASE_PATH, configuration);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
@@ -874,6 +1097,18 @@ export const PersonApiFp = function(configuration?: Configuration) {
 export const PersonApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = PersonApiFp(configuration)
     return {
+        /**
+         * 
+         * @summary Create a person
+         * @param {string} name 
+         * @param {string} password 
+         * @param {string} email 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPerson(name: string, password: string, email: string, options?: any): AxiosPromise<string> {
+            return localVarFp.createPerson(name, password, email, options).then((request) => request(axios, basePath));
+        },
         /**
          * 
          * @summary Login
@@ -904,6 +1139,20 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
  * @extends {BaseAPI}
  */
 export class PersonApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create a person
+     * @param {string} name 
+     * @param {string} password 
+     * @param {string} email 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonApi
+     */
+    public createPerson(name: string, password: string, email: string, options?: any) {
+        return PersonApiFp(this.configuration).createPerson(name, password, email, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @summary Login

@@ -19,6 +19,49 @@ servers:
 - url: http://localhost:7000/
   description: local
 paths:
+  /person:
+    post:
+      tags:
+      - Person
+      summary: Create a person
+      operationId: createPerson
+      parameters:
+      - name: name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: email
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Person created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: the submitted user has been created
+        "400":
+          description: an error occured
+          content:
+            application/json:
+              schema:
+                type: string
+                example: the email is already registered
   /login:
     post:
       tags:
@@ -223,6 +266,50 @@ paths:
               schema:
                 type: string
                 example: invalid user id
+  /budget/data:
+    get:
+      tags:
+      - Budget data
+      summary: Find data by budget
+      operationId: findBudgetData
+      parameters:
+      - name: budget_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: start_month
+        in: query
+        description: 'example : mars 2020 = 202003'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: end_month
+        in: query
+        description: 'example : mars 2020 = 202003'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetData'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid user id
   /account:
     put:
       tags:
@@ -237,7 +324,7 @@ paths:
         explode: true
         schema:
           type: string
-      - name: name
+      - name: new_name
         in: query
         required: true
         style: form
@@ -287,6 +374,14 @@ paths:
           type: string
       - name: amount
         in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: day
+        in: query
+        description: 'day as seen by user in his/her timezone, format : 2 january 2021 => 20210102'
         required: true
         style: form
         explode: true
@@ -381,6 +476,51 @@ components:
           type: string
         isDefault:
           type: boolean
+    BudgetData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/MonthData'
+      example:
+        "201502":
+          category1Id:
+            allocated: 20.0
+            spent: 0.0
+            available: 40.0
+          category2Id:
+            allocated: 30.0
+            spent: 50.0
+            available: -20.0
+        "201803":
+          category1Id:
+            allocated: -10.0
+            spent: 0.0
+            available: 20.0
+    MonthData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/CategoryData'
+      example:
+        category1Id:
+          allocated: 20.0
+          spent: 0.0
+          available: 40.0
+        category2Id:
+          allocated: 30.0
+          spent: 50.0
+          available: -20.0
+    CategoryData:
+      required:
+      - allocated
+      - available
+      - spent
+      type: object
+      properties:
+        allocated:
+          type: number
+        spent:
+          type: number
+        available:
+          type: number
     Account:
       required:
       - amount
