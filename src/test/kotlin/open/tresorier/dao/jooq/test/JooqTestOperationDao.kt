@@ -4,10 +4,8 @@ import open.tresorier.dao.IOperationDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.test.public_.Tables.*
 import open.tresorier.generated.jooq.test.public_.tables.daos.OperationDao
-import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.*
-import open.tresorier.utils.Time
 import org.jooq.Configuration
 import org.jooq.*
 import org.jooq.impl.*
@@ -23,8 +21,6 @@ class JooqTestOperationDao(val configuration: Configuration) : IOperationDao {
     private val query = DSL.using(configuration)
 
     // ready to use computed Field
-    private val month: Field<Int> = extractDatePartFromEpoch(OPERATION.OPERATION_DATE, DatePart.MONTH).`as`("month")
-    private val year: Field<Int> = extractDatePartFromEpoch(OPERATION.OPERATION_DATE, DatePart.YEAR).`as`("year")
     private val spendingSum: Field<BigDecimal> = sum(OPERATION.AMOUNT).`as`("sum")
 
     override fun insert(operation: Operation): Operation {
@@ -64,14 +60,14 @@ class JooqTestOperationDao(val configuration: Configuration) : IOperationDao {
 
     override fun findTotalSpendingByMonth(budget: Budget, maxMonth: Month?) : List<Spending> {
         val query = this.query
-                .select(OPERATION.CATEGORY_ID, month , year, spendingSum )
+                .select(OPERATION.CATEGORY_ID, OPERATION.MONTH , spendingSum )
                 .from(MASTER_CATEGORY)
                 .join(CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
                 .join(OPERATION).on(OPERATION.CATEGORY_ID.eq(CATEGORY.ID))
                 .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
-        maxMonth?.let{ query.and(OPERATION.OPERATION_DATE.lessOrEqual(Time.getMaxTimestamp(maxMonth)))}
-        query.groupBy(OPERATION.CATEGORY_ID, month, year)
-                .orderBy(year.asc(), month.asc())
+        maxMonth?.let{ query.and( OPERATION.MONTH.lessOrEqual(it.comparable))}
+        query.groupBy(OPERATION.CATEGORY_ID, OPERATION.MONTH)
+                .orderBy(OPERATION.MONTH.asc())
         val jooqSpendingList = query.fetch()
         val spendingList: MutableList<Spending> = mutableListOf()
         for (spendingRecord in jooqSpendingList) {
@@ -79,12 +75,6 @@ class JooqTestOperationDao(val configuration: Configuration) : IOperationDao {
             spendingList.add(allocation)
         }
         return spendingList
-    }
-
-    private fun extractDatePartFromEpoch(operationEpoch: TableField<OperationRecord, Long>, datePart: DatePart) : Field<Int> {
-        val epochStart = date("1970-01-01")
-        val operationDate = dateAdd(epochStart, operationEpoch, DatePart.SECOND)
-        return extract(operationDate, datePart)
     }
 
     override fun getOwner(operation: Operation): Person {
@@ -103,7 +93,8 @@ class JooqTestOperationDao(val configuration: Configuration) : IOperationDao {
     private fun toJooqOperation(operation: Operation): JooqOperation {
         return JooqOperation(
                 operation.id,
-                operation.date,
+                operation.day.month.comparable,
+                operation.day.day,
                 operation.accountId,
                 operation.categoryId,
                 BigDecimal(operation.amount),
@@ -115,7 +106,7 @@ class JooqTestOperationDao(val configuration: Configuration) : IOperationDao {
         return if (jooqOperation == null)
             null
         else Operation(
-                jooqOperation.operationDate,
+                Day(Month.createFromComparable(jooqOperation.month), jooqOperation.day),
                 jooqOperation.accountId,
                 jooqOperation.categoryId,
                 jooqOperation.amount.toDouble(),
@@ -124,9 +115,9 @@ class JooqTestOperationDao(val configuration: Configuration) : IOperationDao {
         )
     }
 
-    private fun toSpending(jooqSpending: Record4<String, Int, Int, BigDecimal>) : Spending {
+    private fun toSpending(jooqSpending: Record3<String, Int, BigDecimal>) : Spending {
         return Spending(
-                Month(jooqSpending.get(month), jooqSpending.get(year)),
+                Month.createFromComparable(jooqSpending.get(OPERATION.MONTH)),
                 jooqSpending.get(OPERATION.CATEGORY_ID),
                 jooqSpending.get(spendingSum).toDouble()
         )

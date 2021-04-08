@@ -4,6 +4,8 @@ package open.tresorier.dao
 import open.tresorier.dependenciesinjection.IIntegrationTest
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.*
+import open.tresorier.utils.TestData
+
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
@@ -17,11 +19,6 @@ class OperationDaoIntTest : IIntegrationTest {
     val masterCategoryDao by inject<IMasterCategoryDao>()
     val categoryDao by inject<ICategoryDao>()
 
-    val nov_02_2020: Long = 1604275200
-    val nov_03_2020: Long = 1604361600
-    val feb_02_2021: Long = 1612224000
-    val march_02_2021: Long = 1614643200
-
     @Test
     fun getOwner() {
         val operation = operationDao.getById("operation1")
@@ -32,7 +29,7 @@ class OperationDaoIntTest : IIntegrationTest {
 
     @Test
     fun getOwnerForUnstored() {
-        val operation = Operation(1225, "545", "56", -25.54, "achat")
+        val operation = Operation(TestData.feb_02_2021, "545", "56", -25.54, "achat")
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             operationDao.getOwner(operation)
         }
@@ -41,7 +38,7 @@ class OperationDaoIntTest : IIntegrationTest {
 
     @Test
     fun cannotCreateWithAccountAndCategoryFromDistinctBudget() {
-        val operation = Operation(1225, "account1", "category5", 8525.74)
+        val operation = Operation(TestData.feb_02_2021, "account1", "category5", 8525.74)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             operationDao.insert(operation)
         }
@@ -61,10 +58,10 @@ class OperationDaoIntTest : IIntegrationTest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( nov_02_2020 ,account.id, category.id,40.00),
-                Operation( nov_03_2020 ,account.id, category.id,20.00),
-                Operation( feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( march_02_2021 ,account.id, category.id,30.00),
+                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
+                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
+                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
+                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
 
                 )
         for (operation in operationList) {
@@ -101,10 +98,10 @@ class OperationDaoIntTest : IIntegrationTest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( nov_02_2020 ,account.id, category.id,40.00),
-                Operation( nov_03_2020 ,account.id, category.id,20.00),
-                Operation( feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( march_02_2021 ,account.id, category.id,30.00),
+                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
+                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
+                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
+                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
 
                 )
         for (operation in operationList) {
