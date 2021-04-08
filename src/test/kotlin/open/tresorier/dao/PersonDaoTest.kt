@@ -1,7 +1,7 @@
 package open.tresorier.dao
 
 
-import open.tresorier.dependenciesinjection.IIntegrationTest
+import open.tresorier.dependenciesinjection.ITest
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.Person
 import org.junit.jupiter.api.Assertions
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
 
-class PersonDaoIntTest : IIntegrationTest {
+open class PersonDaoTest : ITest {
 
     val personDao by inject<IPersonDao>()
 

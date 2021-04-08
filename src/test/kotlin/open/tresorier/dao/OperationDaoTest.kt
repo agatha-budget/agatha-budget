@@ -1,7 +1,7 @@
 package open.tresorier.dao
 
 
-import open.tresorier.dependenciesinjection.IIntegrationTest
+import open.tresorier.dependenciesinjection.ITest
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.*
 import open.tresorier.utils.TestData
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
 
-class OperationDaoIntTest : IIntegrationTest {
+open class OperationDaoTest : ITest {
 
     val operationDao by inject<IOperationDao>()
     val personDao by inject<IPersonDao>()
@@ -37,12 +37,8 @@ class OperationDaoIntTest : IIntegrationTest {
     }
 
     @Test
-    fun cannotCreateWithAccountAndCategoryFromDistinctBudget() {
-        val operation = Operation(TestData.feb_02_2021, "account1", "category5", 8525.74)
-        val exception = Assertions.assertThrows(TresorierException::class.java) {
-            operationDao.insert(operation)
-        }
-        Assertions.assertEquals("could not insert operation : $operation", exception.message)
+    open fun cannotCreateWithAccountAndCategoryFromDistinctBudget() {
+        // require postgresql implementation so is not available for unit test -> check OperationDaoIntTest
     }
 
     @Test
