@@ -2,14 +2,19 @@ package open.tresorier.dao.jooq.test
 
 import open.tresorier.dao.IBudgetDao
 import open.tresorier.exception.TresorierException
+import open.tresorier.generated.jooq.test.public_.Tables
+import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.generated.jooq.test.public_.tables.daos.BudgetDao
 import open.tresorier.model.Budget
+import open.tresorier.model.Person
 import org.jooq.Configuration
+import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Budget as JooqBudget
 
 class JooqTestBudgetDao (val configuration : Configuration) : IBudgetDao {
 
     private val generatedDao : BudgetDao = BudgetDao(configuration)
+    private val query = DSL.using(configuration)
 
     override fun insert(budget : Budget) : Budget {
         val jooqBudget = this.toJooqBudget(budget)
@@ -44,6 +49,18 @@ class JooqTestBudgetDao (val configuration : Configuration) : IBudgetDao {
             budget?.let{budgetList.add(budget)}
         }
         return budgetList
+    }
+
+    override fun getOwner(budget: Budget): Person {
+        try {
+            val owner: PersonRecord = this.query.select().from(Tables.PERSON)
+                    .join(Tables.BUDGET).on(Tables.BUDGET.PERSON_ID.eq(Tables.PERSON.ID))
+                    .where(Tables.BUDGET.ID.eq(budget.id))
+                    .fetchAny().into(Tables.PERSON)
+            return JooqTestPersonDao.toPerson(owner)
+        } catch (e : Exception) {
+            throw TresorierException("the given object appears to have no owner")
+        }
     }
 
     private fun toJooqBudget(budget : Budget) : JooqBudget {

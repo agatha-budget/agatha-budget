@@ -8,7 +8,6 @@ import open.tresorier.generated.jooq.test.public_.tables.records.AllocationRecor
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.*
 import org.jooq.Configuration
-import org.jooq.Field
 import org.jooq.impl.DSL
 import java.math.BigDecimal
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation as JooqAllocation
@@ -18,13 +17,6 @@ class JooqTestAllocationDao(val configuration: Configuration) : IAllocationDao {
 
     private val generatedDao: AllocationDao = AllocationDao(configuration)
     private val query = DSL.using(configuration)
-
-    private val yearMonth: Field<Int> = ALLOCATION.YEAR.times(100).plus(ALLOCATION.MONTH)
-
-    private fun getYearMonth(month: Month?) : Int? {
-        month?.let {return month.year*100+month.month}
-        return null
-    }
 
     override fun insert(allocation: Allocation): Allocation {
         val jooqAllocation = this.toJooqAllocation(allocation)
@@ -67,17 +59,16 @@ class JooqTestAllocationDao(val configuration: Configuration) : IAllocationDao {
     }
 
     override fun findByBudget(budget: Budget, maxMonth: Month?): List<Allocation> {
-        val maxMonthDate = getYearMonth(maxMonth)
         val query = this.query
                 .select()
                 .from(ALLOCATION)
                 .join(CATEGORY).on(ALLOCATION.CATEGORY_ID.eq(CATEGORY.ID))
                 .join(MASTER_CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
                 .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
-        maxMonthDate?.let {
-            query.and(yearMonth.lessOrEqual(maxMonthDate))
+        maxMonth?.let {
+            query.and(ALLOCATION.MONTH.lessOrEqual(it.comparable))
         }
-        query.orderBy(yearMonth.asc())
+        query.orderBy(ALLOCATION.MONTH.asc())
 
         val jooqAllocationList = query.fetch().into(ALLOCATION)
 
@@ -95,8 +86,7 @@ class JooqTestAllocationDao(val configuration: Configuration) : IAllocationDao {
         return JooqAllocation(
                 allocation.id,
                 allocation.categoryId,
-                allocation.month.year,
-                allocation.month.month,
+                allocation.month.comparable,
                 BigDecimal(allocation.amount)
         )
     }
@@ -105,7 +95,7 @@ class JooqTestAllocationDao(val configuration: Configuration) : IAllocationDao {
         return if (jooqAllocation == null)
             null
         else Allocation(
-                Month(jooqAllocation.month,jooqAllocation.year),
+                Month.createFromComparable(jooqAllocation.month),
                 jooqAllocation.categoryId,
                 jooqAllocation.amount.toDouble(),
                 jooqAllocation.id
@@ -114,7 +104,7 @@ class JooqTestAllocationDao(val configuration: Configuration) : IAllocationDao {
 
     private fun toAllocation(allocationRecord: AllocationRecord): Allocation {
         return Allocation(
-                Month(allocationRecord.month,allocationRecord.year),
+                Month.createFromComparable(allocationRecord.month),
                 allocationRecord.categoryId,
                 allocationRecord.amount.toDouble(),
                 allocationRecord.id

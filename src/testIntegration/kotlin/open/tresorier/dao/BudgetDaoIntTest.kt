@@ -4,6 +4,7 @@ import open.tresorier.dependenciesinjection.IIntegrationTest
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.Budget
 import open.tresorier.model.Person
+import open.tresorier.utils.TestData
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -13,6 +14,32 @@ class BudgetDaoIntTest : IIntegrationTest {
 
     val budgetDao by inject<IBudgetDao>()
     val personDao by inject<IPersonDao>()
+
+    @Test
+    fun getOwner() {
+        val budget = budgetDao.getById(TestData.budget1Id)
+        val expectedOwner = personDao.getById(TestData.person1Id)
+        val owner = budgetDao.getOwner(budget)
+        assertEquals(expectedOwner.email, owner.email)
+    }
+
+    @Test
+    fun getOwnerForJustAdded() {
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        budgetDao.insert(budget)
+        val expectedOwner = personDao.getById(TestData.person1Id)
+        val owner = budgetDao.getOwner(budget)
+        assertEquals(expectedOwner.email, owner.email)
+    }
+
+    @Test
+    fun getOwnerForUnstored() {
+        val budget = Budget("budget", TestData.person1Id)
+        val exception = Assertions.assertThrows(TresorierException::class.java) {
+            budgetDao.getOwner(budget)
+        }
+        assertEquals("the given object appears to have no owner", exception.message)
+    }
 
     @Test fun testFindByPersonId() {
         val anne = Person("anne", "ahahahahah", "anna@mail.eu")

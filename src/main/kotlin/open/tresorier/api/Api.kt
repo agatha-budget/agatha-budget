@@ -8,6 +8,7 @@ import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.Budget
+import open.tresorier.model.Day
 import open.tresorier.model.Person
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
@@ -109,7 +110,8 @@ fun main() {
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
         val name = getQueryStringParam(ctx, "name")
         val amount = getQueryDoubleParam(ctx, "amount")
-        val account = ServiceManager.accountService.create(user, budget, name, amount)
+        val day = Day.createFromComparable(getQueryIntParam(ctx, "day"))
+        val account = ServiceManager.accountService.create(user, budget, name, day, amount)
         ctx.json(account)
     }
     app.before("/account/budget", SuperTokens.middleware())
@@ -176,4 +178,8 @@ private fun getQueryStringParam(ctx: Context, name: String) : String {
 
 private fun getQueryDoubleParam(ctx: Context, amount: String) : Double {
     return ctx.queryParam<Double>(amount).get()
+}
+
+private fun getQueryIntParam(ctx: Context, number: String) : Int {
+    return ctx.queryParam<Int>(number).get()
 }

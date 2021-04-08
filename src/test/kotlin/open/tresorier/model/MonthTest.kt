@@ -5,8 +5,10 @@ import org.junit.jupiter.api.Test
 
 class MonthTest {
     @Test fun testCreateMonthFromComparable() {
-        val yearMonth = 201512
-        val month = Month.createFromComparable(yearMonth)
-        assertEquals(yearMonth, month.comparable)
+        val comparable = 201512
+        val month = Month.createFromComparable(comparable)
+        assertEquals(comparable, month.comparable)
+        assertEquals(2015, month.year)
+        assertEquals(12, month.month)
     }
 }

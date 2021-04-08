@@ -52,22 +52,22 @@ VALUES
 ;
 
 INSERT INTO
-       operation (id, operation_date, account_id, category_id, amount, memo)
+       operation (id, month, day, account_id, category_id, amount, memo)
 VALUES
-        ('operation0', 2541, 'account1', 'universal_income_category', 1000154, 'income'),
-        ('operation1', 2541, 'account1', 'category1', 9874466.45, 'saving 1 grocery'),
-        ('operation2', 2545, 'account1', 'category2', -8468456.45, 'saving 1 fun'),
-        ('operation3', 2546, 'account2', 'category3', 0.25, 'checking 1 gift'),
-        ('operation4', 2547, 'account4', 'category4', -0.25, 'checking 4 grocery'),
-        ('operation5', 2548, 'account3', 'category3', 4.45, 'credit 1 gift')
+        ('operation0', 202102, 3, 'account1', 'universal_income_category', 1000154, 'income'),
+        ('operation1', 202102, 3, 'account1', 'category1', 9874466.45, 'saving 1 grocery'),
+        ('operation2', 202103, 4, 'account1', 'category2', -8468456.45, 'saving 1 fun'),
+        ('operation3', 202103, 8, 'account2', 'category3', 0.25, 'checking 1 gift'),
+        ('operation4', 202105, 24, 'account4', 'category4', -0.25, 'checking 4 grocery'),
+        ('operation5', 202108, 31, 'account3', 'category3', 4.45, 'credit 1 gift')
 ;
 
 INSERT INTO
-       allocation (id, category_id, year, month, amount)
+       allocation (id, category_id, month, amount)
 VALUES
-        ('allocation1', 'category1', 2021, 2, 9874466.45),
-        ('allocation2', 'category2', 2021, 1, -8468456.45),
-        ('allocation3', 'category4', 2020, 12, 0.25),
-        ('allocation4', 'category5', 2020, 11, -0.25),
-        ('allocation5', 'category2', 2020, 10, 4.45)
+        ('allocation1', 'category1', 202102, 9874466.45),
+        ('allocation2', 'category2', 202101, -8468456.45),
+        ('allocation3', 'category4', 202012, 0.25),
+        ('allocation4', 'category5', 202011, -0.25),
+        ('allocation5', 'category2', 202010, 4.45)
 ;

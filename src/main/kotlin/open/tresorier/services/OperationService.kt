@@ -1,24 +1,20 @@
 package open.tresorier.services
 
 import open.tresorier.dao.IOperationDao
-import open.tresorier.model.Account
-import open.tresorier.model.Category
-import open.tresorier.model.Operation
-import open.tresorier.model.Person
-import open.tresorier.utils.Time
+import open.tresorier.model.*
 
 class OperationService(private val operationDao: IOperationDao, private val authorizationService: AuthorizationService) {
 
-    fun createInitialOperation(person: Person, account: Account, amount: Double){
+    fun createInitialOperation(person: Person, account: Account, day: Day, amount: Double){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(Time.now(), account.id, Category.INCOME_ID, amount, "INITIAL_AMOUNT")
+        val operation = Operation(day, account.id, Category.INCOME_ID, amount, "INITIAL_AMOUNT")
         operationDao.insert(operation)
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
     }
 
-    fun create(person: Person, account: Account, date: Long, category: Category, amount: Double, memo: String){
+    fun create(person: Person, account: Account, day:Day, category: Category, amount: Double, memo: String){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(date, account.id, category.id, amount, memo)
+        val operation = Operation(day, account.id, category.id, amount, memo)
         operationDao.insert(operation)
     }
 

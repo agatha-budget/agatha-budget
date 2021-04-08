@@ -75,20 +75,6 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
     }
 
     /**
-     * Fetch records that have <code>year BETWEEN lowerInclusive AND upperInclusive</code>
-     */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchRangeOfYear(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(Allocation.ALLOCATION.YEAR, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>year IN (values)</code>
-     */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchByYear(Integer... values) {
-        return fetch(Allocation.ALLOCATION.YEAR, values);
-    }
-
-    /**
      * Fetch records that have <code>month BETWEEN lowerInclusive AND upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchRangeOfMonth(Integer lowerInclusive, Integer upperInclusive) {
