@@ -9,6 +9,7 @@ import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.Budget
 import open.tresorier.model.Day
+import open.tresorier.model.Month
 import open.tresorier.model.Person
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
@@ -104,6 +105,16 @@ fun main() {
         ctx.json(budgetList)
     }
 
+    app.before("/budget/data", SuperTokens.middleware())
+    app.get("/budget/data") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
+        val startMonth: Month? = getQueryOptionnalIntParam(ctx, "start_month")?.let { Month.createFromComparable(it)}
+        val endMonth: Month? = getQueryOptionnalIntParam(ctx, "end_month")?.let { Month.createFromComparable(it)}
+        val budgetData = ServiceManager.budgetDataService.getBudgetData(user, budget, startMonth, endMonth)
+        ctx.json(budgetData)
+    }
+
     app.before("/account", SuperTokens.middleware())
     app.post("/account") { ctx ->
         val user = getUserFromAuth(ctx)
@@ -182,4 +193,12 @@ private fun getQueryDoubleParam(ctx: Context, amount: String) : Double {
 
 private fun getQueryIntParam(ctx: Context, number: String) : Int {
     return ctx.queryParam<Int>(number).get()
+}
+
+private fun getQueryOptionnalIntParam(ctx: Context, number: String) : Int? {
+    try {
+        return ctx.queryParam<Int>(number).get()
+    } catch (e: Exception){
+        return null
+    }
 }

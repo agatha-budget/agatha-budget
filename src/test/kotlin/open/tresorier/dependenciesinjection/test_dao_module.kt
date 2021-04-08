@@ -1,23 +1,18 @@
 package open.tresorier.dependenciesinjection
 
 
-import io.mockk.every
-import io.mockk.mockk
 import open.tresorier.dao.*
-import open.tresorier.dao.jooq.test.*
-import open.tresorier.exception.TresorierException
-import open.tresorier.services.*
-import org.koin.core.qualifier.named
+import open.tresorier.dao.jooq.h2.*
 import org.koin.dsl.module
 
 
 val test_dao_module = module {
-    single<IPersonDao> { JooqTestPersonDao(get()) }
-    single<IBudgetDao> { JooqTestBudgetDao(get()) }
-    single<IAccountDao> { JooqTestAccountDao(get()) }
-    single<ICategoryDao> { JooqTestCategoryDao(get()) }
-    single<IMasterCategoryDao> { JooqTestMasterCategoryDao(get()) }
-    single<IOperationDao> { JooqTestOperationDao(get()) }
-    single<IAllocationDao> { JooqTestAllocationDao(get()) }
+    single<IPersonDao> { H2PersonDao(get()) }
+    single<IBudgetDao> { H2BudgetDao(get()) }
+    single<IAccountDao> { H2AccountDao(get()) }
+    single<ICategoryDao> { H2CategoryDao(get()) }
+    single<IMasterCategoryDao> { H2MasterCategoryDao(get()) }
+    single<IOperationDao> { H2OperationDao(get()) }
+    single<IAllocationDao> { H2AllocationDao(get()) }
 }
 

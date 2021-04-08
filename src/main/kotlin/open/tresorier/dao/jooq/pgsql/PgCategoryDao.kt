@@ -1,4 +1,4 @@
-package open.tresorier.dao.jooq.main
+package open.tresorier.dao.jooq.pgsql
 
 import open.tresorier.dao.ICategoryDao
 import open.tresorier.exception.TresorierException
@@ -12,7 +12,7 @@ import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.main.tables.pojos.Category as JooqCategory
 
 
-class JooqCategoryDao(val configuration: Configuration) : ICategoryDao {
+class PgCategoryDao(val configuration: Configuration) : ICategoryDao {
 
     private val generatedDao: CategoryDao = CategoryDao(configuration)
     private val query = DSL.using(configuration)
@@ -59,7 +59,7 @@ class JooqCategoryDao(val configuration: Configuration) : ICategoryDao {
                 .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
                 .fetchAny().into(PERSON)
-            return JooqPersonDao.toPerson(owner)
+            return PgPersonDao.toPerson(owner)
         } catch (e : Exception) {
             throw TresorierException("the given object appears to have no owner")
         }

@@ -1,7 +1,7 @@
 package open.tresorier.dependenciesinjection
 
 import open.tresorier.dao.*
-import open.tresorier.dao.jooq.main.*
+import open.tresorier.dao.jooq.pgsql.*
 import open.tresorier.services.*
 import org.koin.dsl.module
 

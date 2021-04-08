@@ -1,4 +1,4 @@
-package open.tresorier.dao.jooq.main
+package open.tresorier.dao.jooq.pgsql
 
 import open.tresorier.dao.IOperationDao
 import open.tresorier.exception.TresorierException
@@ -15,7 +15,7 @@ import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Operation as JooqOperation
 
 
-class JooqOperationDao(val configuration: Configuration) : IOperationDao {
+class PgOperationDao(val configuration: Configuration) : IOperationDao {
 
     private val generatedDao: OperationDao = OperationDao(configuration)
     private val query = DSL.using(configuration)
@@ -84,7 +84,7 @@ class JooqOperationDao(val configuration: Configuration) : IOperationDao {
                 .join(BUDGET).on(BUDGET.ID.eq(ACCOUNT.BUDGET_ID))
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
                 .fetchAny().into(PERSON)
-            return JooqPersonDao.toPerson(owner)
+            return PgPersonDao.toPerson(owner)
         } catch (e: Exception) {
             throw TresorierException("the given object appears to have no owner")
         }

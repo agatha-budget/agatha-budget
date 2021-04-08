@@ -1,6 +1,6 @@
 package open.tresorier.dao
 
-import open.tresorier.dependenciesinjection.IIntegrationTest
+import open.tresorier.dependenciesinjection.ITest
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.Budget
 import open.tresorier.model.Person
@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
 
-class BudgetDaoIntTest : IIntegrationTest {
+open class BudgetDaoTest : ITest {
 
     val budgetDao by inject<IBudgetDao>()
     val personDao by inject<IPersonDao>()

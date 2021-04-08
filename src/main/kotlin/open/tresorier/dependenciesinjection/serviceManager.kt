@@ -10,6 +10,7 @@ object ServiceManager : KoinComponent {
     val personService : PersonService by inject()
     val budgetService : BudgetService by inject()
     val accountService : AccountService by inject()
+    val budgetDataService : BudgetDataService by inject()
     val categoryService : CategoryService by inject()
     val masterCategoryService: MasterCategoryService by inject()
     val allocationService : AllocationService by inject()

@@ -1,14 +1,14 @@
 package open.tresorier.dao
 
 
-import open.tresorier.dependenciesinjection.IIntegrationTest
+import open.tresorier.dependenciesinjection.ITest
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
 
-class AllocationDaoIntTest : IIntegrationTest {
+open class AllocationDaoTest : ITest {
 
     val allocationDao by inject<IAllocationDao>()
     val personDao by inject<IPersonDao>()

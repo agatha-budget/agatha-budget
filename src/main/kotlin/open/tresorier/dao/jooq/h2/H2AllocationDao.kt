@@ -1,4 +1,4 @@
-package open.tresorier.dao.jooq.test
+package open.tresorier.dao.jooq.h2
 
 import open.tresorier.dao.IAllocationDao
 import open.tresorier.exception.TresorierException
@@ -13,7 +13,7 @@ import java.math.BigDecimal
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation as JooqAllocation
 
 
-class JooqTestAllocationDao(val configuration: Configuration) : IAllocationDao {
+class H2AllocationDao(val configuration: Configuration) : IAllocationDao {
 
     private val generatedDao: AllocationDao = AllocationDao(configuration)
     private val query = DSL.using(configuration)
@@ -52,7 +52,7 @@ class JooqTestAllocationDao(val configuration: Configuration) : IAllocationDao {
                     .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
                     .where(PERSON.ID.eq(BUDGET.PERSON_ID))
                     .fetchAny().into(PERSON)
-            return JooqTestPersonDao.toPerson(owner)
+            return H2PersonDao.toPerson(owner)
         } catch (e: Exception) {
             throw TresorierException("the given object appears to have no owner")
         }

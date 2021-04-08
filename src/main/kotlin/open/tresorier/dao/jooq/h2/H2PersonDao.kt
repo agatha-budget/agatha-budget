@@ -1,14 +1,14 @@
-package open.tresorier.dao.jooq.main
+package open.tresorier.dao.jooq.h2
 
 import open.tresorier.dao.IPersonDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.generated.jooq.main.tables.daos.PersonDao
-import open.tresorier.generated.jooq.main.tables.records.PersonRecord
+import open.tresorier.generated.jooq.test.public_.tables.daos.PersonDao
+import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.Person
 import org.jooq.Configuration
-import open.tresorier.generated.jooq.main.tables.pojos.Person as JooqPerson
+import open.tresorier.generated.jooq.test.public_.tables.pojos.Person as JooqPerson
 
-class JooqPersonDao(val configuration: Configuration) : IPersonDao {
+class H2PersonDao(val configuration: Configuration) : IPersonDao {
 
     private val generatedDao: PersonDao = PersonDao(configuration)
 

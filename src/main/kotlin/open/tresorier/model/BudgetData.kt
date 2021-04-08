@@ -15,6 +15,15 @@ class BudgetData() : HashMap<Int, MonthData>() {
         }
     }
 
+    fun getLastMonth() : Month? {
+        return if (this.keys.size > 0) {
+            val lastMonthComparable = getSortedMonths().last()
+            Month.createFromComparable(lastMonthComparable)
+        } else {
+            null
+        }
+    }
+
     fun set(key : Int, value: MonthData) : BudgetData {
         this[key] = value
         return this
