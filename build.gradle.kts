@@ -1,5 +1,6 @@
 import org.jooq.meta.jaxb.ForcedType
 
+// Properties for DB access
 val tresorier_db_driver: String by project
 val tresorier_db_url_dflt: String by project
 val tresorier_db_usr_dflt: String by project
@@ -27,7 +28,6 @@ val integration_db_url = System.getenv(herokuIntegrationDB +"_URL") ?: integrati
 val integration_db_usr = System.getenv(herokuIntegrationDB + "_USERNAME") ?: integration_db_usr_dflt
 val integration_db_pwd = System.getenv(herokuIntegrationDB + "_PASSWORD") ?: integration_db_pwd_dflt
 
-
 buildscript {
     dependencies {
         classpath("org.postgresql:postgresql:42.2.12")
@@ -46,6 +46,7 @@ plugins {
 }
 
 repositories {
+    mavenCentral();
     jcenter()
 }
 
@@ -61,8 +62,8 @@ sourceSets {
     }
     create("intTest") {
         java {
-            compileClasspath += sourceSets.main.get().output
-            runtimeClasspath += sourceSets.main.get().output
+            compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+            runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
             setSrcDirs(listOf("src/testIntegration/kotlin"))
         }
     }
@@ -76,41 +77,72 @@ val intTestRuntimeOnly by configurations.getting {
     extendsFrom(configurations.runtimeOnly.get())
 }
 
+
+// Lib Versions
+val kotlin_version="1.4.10"
+val koin_version= "3.0.1-beta-2"
+val junit_version="5.1.1"
+val postgres_version="42.2.12"
+val h2_version="1.4.200"
+val jooq_version="3.13.4"
+val mock_version="1.10.5"
+val slf4j_version="1.7.30"
+val logback_version="1.2.3"
+val javalin_version="3.11.0"
+val jackson_version="2.10.3"
+val supertoken_version="1.4.+"
+val argon_version="2.7"
+
 dependencies {
+    // Kotlin
     implementation(kotlin("script-runtime"))
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.4.10")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.4.10")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10")
-    implementation("io.javalin:javalin:3.11.0")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.3")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.10.3")
-    implementation("org.koin:koin-core:2.2.1")
-    implementation("io.supertokens:javalin:1.4.+")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
 
-    implementation("de.mkammerer:argon2-jvm:2.7")
+    // API and Serialisation
+    implementation("io.javalin:javalin:$javalin_version")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
+    implementation("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
 
-    testImplementation("org.koin:koin-test:2.2.1")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.1.1")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.1.1")
-    testImplementation("io.mockk:mockk:1.10.5")
-    testImplementation("com.h2database:h2:1.4.200")
+    // Authentication
+    implementation("io.supertokens:javalin:$supertoken_version")
 
-    intTestImplementation("org.koin:koin-test:2.2.1")
-    intTestImplementation("org.junit.jupiter:junit-jupiter-api:5.1.1")
-    intTestImplementation("io.mockk:mockk:1.10.5")
-    intTestImplementation("org.postgresql:postgresql:42.2.12")
-    intTestRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.1.1")
+    // password encryption
+    implementation("de.mkammerer:argon2-jvm:$argon_version")
 
-    implementation("org.jooq:jooq:3.13.4")
-    implementation("org.jooq:jooq-meta:3.13.4")
-    implementation("org.jooq:jooq-codegen:3.13.4")
-    jooqGenerator("org.postgresql:postgresql:42.2.12")
-    jooqGenerator("com.h2database:h2:1.4.200")
-    implementation("org.postgresql:postgresql:42.2.12")
-    implementation("org.slf4j:slf4j-api:1.7.30")
-    implementation("org.slf4j:slf4j-simple:1.7.30")
-    implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("ch.qos.logback:logback-core:1.2.3")
+    // koin
+    intTestImplementation("io.insert-koin:koin-test-junit5:$koin_version")
+    testImplementation ("io.insert-koin:koin-test-junit5:$koin_version")
+    implementation ("io.insert-koin:koin-core-ext:$koin_version")
+
+    // DB
+    implementation("org.postgresql:postgresql:$postgres_version")
+    intTestImplementation("org.postgresql:postgresql:$postgres_version")
+    testImplementation("com.h2database:h2:$h2_version")
+    jooqGenerator("org.postgresql:postgresql:$postgres_version")
+    jooqGenerator("com.h2database:h2:$h2_version")
+
+    // Junit
+    intTestImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
+    intTestRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+
+    // Mock
+    testImplementation("io.mockk:mockk:$mock_version")
+    intTestImplementation("io.mockk:mockk:$mock_version")
+
+    // Jooq
+    implementation("org.jooq:jooq:$jooq_version")
+    implementation("org.jooq:jooq-meta:$jooq_version")
+    implementation("org.jooq:jooq-codegen:$jooq_version")
+
+    // Logging
+    implementation("org.slf4j:slf4j-api:$slf4j_version")
+    implementation("org.slf4j:slf4j-simple:$slf4j_version")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("ch.qos.logback:logback-core:$logback_version")
 }
 
 tasks.clean {
