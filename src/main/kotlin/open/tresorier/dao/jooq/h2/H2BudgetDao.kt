@@ -1,18 +1,17 @@
-package open.tresorier.dao.jooq.main
+package open.tresorier.dao.jooq.h2
 
 import open.tresorier.dao.IBudgetDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.generated.jooq.main.Tables.BUDGET
-import open.tresorier.generated.jooq.main.Tables.PERSON
-import open.tresorier.generated.jooq.main.tables.daos.BudgetDao
-import open.tresorier.generated.jooq.main.tables.records.PersonRecord
+import open.tresorier.generated.jooq.test.public_.Tables
+import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
+import open.tresorier.generated.jooq.test.public_.tables.daos.BudgetDao
 import open.tresorier.model.Budget
 import open.tresorier.model.Person
 import org.jooq.Configuration
 import org.jooq.impl.DSL
-import open.tresorier.generated.jooq.main.tables.pojos.Budget as JooqBudget
+import open.tresorier.generated.jooq.test.public_.tables.pojos.Budget as JooqBudget
 
-class JooqBudgetDao (val configuration : Configuration) : IBudgetDao {
+class H2BudgetDao (val configuration : Configuration) : IBudgetDao {
 
     private val generatedDao : BudgetDao = BudgetDao(configuration)
     private val query = DSL.using(configuration)
@@ -36,7 +35,7 @@ class JooqBudgetDao (val configuration : Configuration) : IBudgetDao {
         }
         return budget
     }
-
+    
     override fun getById(id: String) : Budget {
         val jooqBudget = this.generatedDao.fetchOneById(id)
         return this.toBudget(jooqBudget) ?: throw TresorierException("no budget found for the following id : $id")
@@ -54,16 +53,15 @@ class JooqBudgetDao (val configuration : Configuration) : IBudgetDao {
 
     override fun getOwner(budget: Budget): Person {
         try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                    .join(BUDGET).on(BUDGET.PERSON_ID.eq(PERSON.ID))
-                    .where(BUDGET.ID.eq(budget.id))
-                    .fetchAny().into(PERSON)
-            return JooqPersonDao.toPerson(owner)
+            val owner: PersonRecord = this.query.select().from(Tables.PERSON)
+                    .join(Tables.BUDGET).on(Tables.BUDGET.PERSON_ID.eq(Tables.PERSON.ID))
+                    .where(Tables.BUDGET.ID.eq(budget.id))
+                    .fetchAny().into(Tables.PERSON)
+            return H2PersonDao.toPerson(owner)
         } catch (e : Exception) {
             throw TresorierException("the given object appears to have no owner")
         }
     }
-
 
     private fun toJooqBudget(budget : Budget) : JooqBudget {
         return JooqBudget(budget.id,

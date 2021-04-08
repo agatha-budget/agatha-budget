@@ -1,4 +1,4 @@
-package open.tresorier.dao.jooq.test
+package open.tresorier.dao.jooq.h2
 
 import open.tresorier.dao.ICategoryDao
 import open.tresorier.exception.TresorierException
@@ -13,7 +13,7 @@ import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Category as JooqCategory
 
 
-class JooqTestCategoryDao(val configuration: Configuration) : ICategoryDao {
+class H2CategoryDao(val configuration: Configuration) : ICategoryDao {
 
     private val generatedDao: CategoryDao = CategoryDao(configuration)
     private val query = DSL.using(configuration)
@@ -60,7 +60,7 @@ class JooqTestCategoryDao(val configuration: Configuration) : ICategoryDao {
                 .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
                 .fetchAny().into(PERSON)
-            return JooqTestPersonDao.toPerson(owner)
+            return H2PersonDao.toPerson(owner)
         } catch (e : Exception) {
             throw TresorierException("the given object appears to have no owner")
         }

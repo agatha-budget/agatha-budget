@@ -1,4 +1,4 @@
-package open.tresorier.dao.jooq.test
+package open.tresorier.dao.jooq.h2
 
 import open.tresorier.dao.IAccountDao
 import open.tresorier.exception.TresorierException
@@ -12,7 +12,7 @@ import org.jooq.Configuration
 import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Account as JooqAccount
 
-class JooqTestAccountDao(val configuration: Configuration) : IAccountDao {
+class H2AccountDao(val configuration: Configuration) : IAccountDao {
 
     private val generatedDao: AccountDao = AccountDao(configuration)
     private val query = DSL.using(configuration)
@@ -58,7 +58,7 @@ class JooqTestAccountDao(val configuration: Configuration) : IAccountDao {
                 .join(BUDGET).on(BUDGET.ID.eq(account.budgetId))
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
                 .fetchAny().into(PERSON)
-            return JooqTestPersonDao.toPerson(owner)
+            return H2PersonDao.toPerson(owner)
         } catch (e : Exception) {
             throw TresorierException("the given object appears to have no owner")
         }

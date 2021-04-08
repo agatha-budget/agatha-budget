@@ -1,20 +1,20 @@
-package open.tresorier.dao.jooq.test
+package open.tresorier.dao.jooq.pgsql
 
 import open.tresorier.dao.IMasterCategoryDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.generated.jooq.test.public_.Tables.BUDGET
-import open.tresorier.generated.jooq.test.public_.Tables.PERSON
-import open.tresorier.generated.jooq.test.public_.tables.daos.MasterCategoryDao
-import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
+import open.tresorier.generated.jooq.main.Tables.BUDGET
+import open.tresorier.generated.jooq.main.Tables.PERSON
+import open.tresorier.generated.jooq.main.tables.daos.MasterCategoryDao
+import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.model.Budget
 import open.tresorier.model.MasterCategory
 import open.tresorier.model.Person
 import org.jooq.Configuration
 import org.jooq.impl.DSL
-import open.tresorier.generated.jooq.test.public_.tables.pojos.MasterCategory as JooqMasterCategory
+import open.tresorier.generated.jooq.main.tables.pojos.MasterCategory as JooqMasterCategory
 
 
-class JooqTestMasterCategoryDao(val configuration: Configuration) : IMasterCategoryDao {
+class PgMasterCategoryDao(val configuration: Configuration) : IMasterCategoryDao {
 
     private val generatedDao: MasterCategoryDao = MasterCategoryDao(configuration)
     private val query = DSL.using(configuration)
@@ -60,7 +60,7 @@ class JooqTestMasterCategoryDao(val configuration: Configuration) : IMasterCateg
                 .join(BUDGET).on(BUDGET.ID.eq(masterCategory.budgetId))
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
                 .fetchAny().into(PERSON)
-            return JooqTestPersonDao.toPerson(owner)
+            return PgPersonDao.toPerson(owner)
         } catch (e : Exception) {
             throw TresorierException("the given object appears to have no owner")
         }
