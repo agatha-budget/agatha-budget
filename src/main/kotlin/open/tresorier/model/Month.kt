@@ -16,6 +16,10 @@ class Month (
         return if (month != 12) Month(month + 1, year) else Month(1, year+1)
     }
 
+    fun getBefore() : Month {
+        return if (month != 1) Month(month - 1, year) else Month(12, year-1)
+    }
+
     companion object {
         fun cancelIfEndLessThanStart(start: Month, end: Month){
             this.cancelIfEndLessThanStart(start.comparable, end.comparable)

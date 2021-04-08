@@ -28,7 +28,10 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
 
         fun extractDataForPeriod(data: BudgetData, startMonth: Month, endMonth: Month? = null) : BudgetData{
             endMonth?.let {Month.cancelIfEndLessThanStart(startMonth, endMonth)}
-            val end : Month = endMonth ?: startMonth
+            // will get until endMonth or last month
+            // if last month is null meaning the data set is empty :
+            // will use month before startMonth to cut the loop short and return an empty map
+            val end : Month = endMonth ?: data.getLastMonth() ?: startMonth.getBefore()
             val extractedData = BudgetData()
             var month = startMonth
             while (month.comparable <= end.comparable){
