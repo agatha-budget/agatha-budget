@@ -289,7 +289,18 @@ tasks.jacocoTestReport {
     doLast {
         println("file://${project.rootDir}/build/reports/jacoco/test/html/index.html")
     }
+    classDirectories.setFrom(
+            files(classDirectories.files.map {
+                fileTree(it) {
+                    exclude("open/tresorier/generated/**",
+                            "open/tresorier/dependenciesinjection/**",
+                            "open/tresorier/api/**",
+                    )
+                }
+            })
+    )
 }
+
 tasks.test {
     useJUnitPlatform()
     testLogging {
@@ -298,6 +309,7 @@ tasks.test {
     failFast = true
     finalizedBy(tasks.jacocoTestReport)
 }
+
 
 val integrationTest = task<Test>("integrationTest") {
     description = "Runs integration tests."
