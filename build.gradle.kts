@@ -41,6 +41,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.4.0-rc"
     id("org.flywaydb.flyway") version "7.5.3"
     id("nu.studer.jooq") version "5.2"
+    jacoco
     application
 }
 
@@ -283,12 +284,19 @@ tasks.named("migrateTestDatabase") {
     dependsOn("cleanTestDatabase")
 }
 
+tasks.jacocoTestReport {
+    dependsOn(tasks.test) // tests are required to run before generating the report
+    doLast {
+        println("file://${project.rootDir}/build/reports/jacoco/test/html/index.html")
+    }
+}
 tasks.test {
     useJUnitPlatform()
     testLogging {
         events("passed", "skipped", "failed")
     }
     failFast = true
+    finalizedBy(tasks.jacocoTestReport)
 }
 
 val integrationTest = task<Test>("integrationTest") {
