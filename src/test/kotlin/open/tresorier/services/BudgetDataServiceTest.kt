@@ -2,6 +2,7 @@ package open.tresorier.services
 
 import open.tresorier.dao.*
 import open.tresorier.dependenciesinjection.ITest
+import open.tresorier.exception.TresorierException
 import open.tresorier.model.*
 import open.tresorier.utils.TestData
 import org.junit.jupiter.api.Assertions
@@ -309,27 +310,65 @@ class BudgetDataServiceTest : ITest {
     }
 
     @Test
-    fun testFindCategoriesDataWithNoSpending() {
-
-    }
-
-    @Test
-    fun testFindCategoriesDataWithNoAllocation() {
-
-    }
-
-    @Test
     fun testFindCategoriesDataForEmptyMonth() {
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("oftenAllocatedCategory", masterCategory.id)
+        categoryDao.insert(category)
+        val allocationList = listOf(
+                Allocation(TestData.nov_2020,category.id,40.00),
+                Allocation(TestData.dec_2020,category.id,20.00),
+                Allocation(TestData.jan_2021,category.id,10.00),
+                Allocation(TestData.may_2021,category.id,20.00),
+                Allocation(TestData.jun_2021,category.id,20.00)
 
+        )
+        for (allocation in allocationList) {
+            allocationDao.insert(allocation)
+        }
+        val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
+        categoryDao.insert(category2)
+        val account = Account("my own account", budget.id)
+        accountDao.insert(account)
+        val operationList = listOf(
+                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
+                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
+                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
+                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
+
+                )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        val person: Person = personDao.getById(TestData.person1Id)
+        val budgetData = budgetDataService.getBudgetData(person, budget, TestData.apr_2021, TestData.apr_2021)
+
+        val expected = BudgetData()
+        expected[TestData.apr_2021.comparable] = MonthData().set(category.id, CategoryData(0.00, 00.00, -20.00 ))
+                .set(category2.id, CategoryData(0.00, 00.00, -10.00 ))
+
+        Assertions.assertEquals(expected, budgetData)
     }
 
     @Test
     fun testFindCategoriesDataForEmptyBudget() {
-
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        budgetDao.insert(budget)
+        val person: Person = personDao.getById(TestData.person1Id)
+        val budgetData = budgetDataService.getBudgetData(person, budget)
+        val expected = BudgetData()
+        Assertions.assertEquals(expected, budgetData)
     }
 
     @Test
     fun testFindCategoriesDataForNonExistingBudget() {
-
+        val budget = Budget("NotStoredBudget", TestData.person1Id)
+        val person: Person = personDao.getById(TestData.person1Id)
+        val exception = Assertions.assertThrows(TresorierException::class.java) {
+            budgetDataService.getBudgetData(person, budget)
+        }
+        Assertions.assertEquals("the given object appears to have no owner", exception.message)
     }
 }
