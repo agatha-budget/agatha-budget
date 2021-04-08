@@ -295,6 +295,7 @@ tasks.jacocoTestReport {
                     exclude("open/tresorier/generated/**",
                             "open/tresorier/dependenciesinjection/**",
                             "open/tresorier/api/**",
+                            "open/tresorier/dao/jooq/pgsql/**"
                     )
                 }
             })
