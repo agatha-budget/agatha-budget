@@ -5,7 +5,7 @@
     </div>
     <ul>
       <li class="account" v-for="account, accountId in this.accounts" :key="accountId">
-        {{ account.name }} - {{account.amount}} €
+        <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} - {{account.amount}} €</button>
       </li>
       <li>
         <div v-if="!accountCreationFormIsDisplayed">
@@ -31,6 +31,7 @@ import { defineComponent } from 'vue'
 import { AccountList, Budget } from '@/model/model'
 import { accountService } from '@/services/AccountService'
 import AccountCreationForm from '@/components/forms/AccountCreationForm.vue'
+import router, { RouterPages } from '@/router'
 
 interface AccountsWidgetData {
     accountCreationFormIsDisplayed: boolean;
@@ -65,6 +66,9 @@ export default defineComponent({
           this.accounts = accounts
         }
       )
+    },
+    goToAccountPage (account: Account) {
+      router.push({ path: RouterPages.account, query: { accountId: account.id } })
     },
     changeAccountCreationFormDisplay () {
       this.$data.accountCreationFormIsDisplayed = !this.$data.accountCreationFormIsDisplayed

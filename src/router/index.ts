@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import AccountPage from '../views/AccountPage.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 
@@ -22,7 +23,10 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: RouterPages.account,
-    component: Login
+    component: AccountPage,
+    props: {
+      accountId: (route: { query: { accountId: String } })  => (route.query.accountId)  
+    }
   },
   {
     path: RouterPages.about,
