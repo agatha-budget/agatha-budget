@@ -13,7 +13,7 @@ class AccountService {
   }
 
   public async createAccount (budget: Budget, name: string, amount: number) {
-    const response = await accountApi.addAccount(budget.id, name, amount)
+    const response = await accountApi.addAccount(budget.id, name, amount, Time.getCurrentDay())
   }
 }
 
