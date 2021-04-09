@@ -7,10 +7,7 @@ import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
-import open.tresorier.model.Budget
-import open.tresorier.model.Day
-import open.tresorier.model.Month
-import open.tresorier.model.Person
+import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
 
@@ -27,6 +24,9 @@ fun main() {
     )
     // Dependencies injection
     ServiceManager.start()
+
+    app.before("/session/refresh", SuperTokens.middleware())
+    app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
 
     app.get("/") { ctx ->
         ctx.result("Hello Sunshine !")
@@ -49,12 +49,9 @@ fun main() {
         ctx.json(person.name + " was successfully created")
     }
 
-    app.before("/session/refresh", SuperTokens.middleware())
-    app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
-
     app.post("/login") { ctx ->
-        val email = getQueryStringParam(ctx, "email")
-        val password = getQueryStringParam(ctx, "password")
+        val email = getQueryParam<String>(ctx, "email")
+        val password = getQueryParam<String>(ctx, "password")
         val person: Person? = ServiceManager.personService.login(email, password)
         if (person == null) {
             val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
@@ -77,23 +74,23 @@ fun main() {
     app.before("/budget", SuperTokens.middleware())
     app.post("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
-        val name = getQueryStringParam(ctx, "name")
+        val name = getQueryParam<String>(ctx, "name")
         val budget: Budget = ServiceManager.budgetService.create(user, name)
         ctx.json(budget.id)
     }
 
     app.put("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val formerName = budget.name
-        val newName = getQueryStringParam(ctx, "new_name")
+        val newName = getQueryParam<String>(ctx, "new_name")
         ServiceManager.budgetService.update(user, budget, newName)
         ctx.json("updated from $formerName to $newName")
     }
 
     app.delete("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         ServiceManager.budgetService.delete(user, budget)
         ctx.json("budget ${budget.name} has been deleted")
     }
@@ -108,9 +105,9 @@ fun main() {
     app.before("/budget/data", SuperTokens.middleware())
     app.get("/budget/data") { ctx ->
         val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
-        val startMonth: Month? = getQueryOptionnalIntParam(ctx, "start_month")?.let { Month.createFromComparable(it)}
-        val endMonth: Month? = getQueryOptionnalIntParam(ctx, "end_month")?.let { Month.createFromComparable(it)}
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+        val startMonth: Month? = getOptionalQueryParam<Int>(ctx, "start_month")?.let { Month.createFromComparable(it)}
+        val endMonth: Month? = getOptionalQueryParam<Int>(ctx, "end_month")?.let { Month.createFromComparable(it)}
         val budgetData = ServiceManager.budgetDataService.getBudgetData(user, budget, startMonth, endMonth)
         ctx.json(budgetData)
     }
@@ -118,17 +115,17 @@ fun main() {
     app.before("/account", SuperTokens.middleware())
     app.post("/account") { ctx ->
         val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
-        val name = getQueryStringParam(ctx, "name")
-        val amount = getQueryDoubleParam(ctx, "amount")
-        val day = Day.createFromComparable(getQueryIntParam(ctx, "day"))
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+        val name = getQueryParam<String>(ctx, "name")
+        val amount = getQueryParam<Double>(ctx, "amount")
+        val day = Day.createFromComparable(getQueryParam<Int>(ctx, "day"))
         val account = ServiceManager.accountService.create(user, budget, name, day, amount)
         ctx.json(account)
     }
     app.before("/account/budget", SuperTokens.middleware())
     app.get("/account/budget") { ctx ->
         val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryStringParam(ctx, "budget_id"))
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val accounts = ServiceManager.accountService.findByBudget(user, budget)
         ctx.json(accounts)
     }
@@ -183,22 +180,10 @@ private fun getUserFromAuth(ctx: Context): Person {
     return ServiceManager.personService.getById(userId)
 }
 
-private fun getQueryStringParam(ctx: Context, name: String) : String {
-    return ctx.queryParam<String>(name).get()
+private inline fun <reified T: Any> getQueryParam(ctx: Context, paramName: String) : T {
+    return ctx.queryParam<T>(paramName).get()
 }
 
-private fun getQueryDoubleParam(ctx: Context, amount: String) : Double {
-    return ctx.queryParam<Double>(amount).get()
-}
-
-private fun getQueryIntParam(ctx: Context, number: String) : Int {
-    return ctx.queryParam<Int>(number).get()
-}
-
-private fun getQueryOptionnalIntParam(ctx: Context, number: String) : Int? {
-    try {
-        return ctx.queryParam<Int>(number).get()
-    } catch (e: Exception){
-        return null
-    }
+private inline fun <reified T: Any> getOptionalQueryParam(ctx: Context, paramName: String) : T? {
+    return ctx.queryParam<T>(paramName).getOrNull()
 }
