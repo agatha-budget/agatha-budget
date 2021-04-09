@@ -29,7 +29,7 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getOwnerForUnstored() {
-        val operation = Operation(TestData.feb_02_2021, "545", "56", -25.54, "achat")
+        val operation = Operation( "545", TestData.feb_02_2021,"56", -25.54, "achat")
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             operationDao.getOwner(operation)
         }
@@ -38,6 +38,11 @@ open class OperationDaoTest : ITest {
 
     @Test
     open fun cannotCreateWithAccountAndCategoryFromDistinctBudget() {
+        // require postgresql implementation so is not available for unit test -> check OperationDaoIntTest
+    }
+
+    @Test
+    open fun  cannotCreateWithNullCategoryIsOk() {
         // require postgresql implementation so is not available for unit test -> check OperationDaoIntTest
     }
 
@@ -54,10 +59,10 @@ open class OperationDaoTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
-                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
-                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
+                Operation( account.id, TestData.nov_02_2020 , category.id,40.00),
+                Operation(account.id, TestData.nov_03_2020 , category.id,20.00),
+                Operation(account.id, TestData.feb_02_2021 , category2.id,10.00),
+                Operation(account.id, TestData.march_02_2021 , category.id,30.00),
 
                 )
         for (operation in operationList) {
@@ -94,10 +99,10 @@ open class OperationDaoTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
-                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
-                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
+                Operation(account.id, TestData.nov_02_2020 , category.id,40.00),
+                Operation(account.id, TestData.nov_03_2020 , category.id,20.00),
+                Operation(account.id, TestData.feb_02_2021 , category2.id,10.00),
+                Operation(account.id, TestData.march_02_2021 , category.id,30.00),
 
                 )
         for (operation in operationList) {

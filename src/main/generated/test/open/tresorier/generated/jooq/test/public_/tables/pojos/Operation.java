@@ -14,21 +14,21 @@ import java.math.BigDecimal;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 826671862;
+    private static final long serialVersionUID = 301465978;
 
     private final String     id;
+    private final String     accountId;
     private final Integer    month;
     private final Integer    day;
-    private final String     accountId;
     private final String     categoryId;
     private final BigDecimal amount;
     private final String     memo;
 
     public Operation(Operation value) {
         this.id = value.id;
+        this.accountId = value.accountId;
         this.month = value.month;
         this.day = value.day;
-        this.accountId = value.accountId;
         this.categoryId = value.categoryId;
         this.amount = value.amount;
         this.memo = value.memo;
@@ -36,17 +36,17 @@ public class Operation implements Serializable {
 
     public Operation(
         String     id,
+        String     accountId,
         Integer    month,
         Integer    day,
-        String     accountId,
         String     categoryId,
         BigDecimal amount,
         String     memo
     ) {
         this.id = id;
+        this.accountId = accountId;
         this.month = month;
         this.day = day;
-        this.accountId = accountId;
         this.categoryId = categoryId;
         this.amount = amount;
         this.memo = memo;
@@ -56,16 +56,16 @@ public class Operation implements Serializable {
         return this.id;
     }
 
+    public String getAccountId() {
+        return this.accountId;
+    }
+
     public Integer getMonth() {
         return this.month;
     }
 
     public Integer getDay() {
         return this.day;
-    }
-
-    public String getAccountId() {
-        return this.accountId;
     }
 
     public String getCategoryId() {
@@ -85,9 +85,9 @@ public class Operation implements Serializable {
         StringBuilder sb = new StringBuilder("Operation (");
 
         sb.append(id);
+        sb.append(", ").append(accountId);
         sb.append(", ").append(month);
         sb.append(", ").append(day);
-        sb.append(", ").append(accountId);
         sb.append(", ").append(categoryId);
         sb.append(", ").append(amount);
         sb.append(", ").append(memo);

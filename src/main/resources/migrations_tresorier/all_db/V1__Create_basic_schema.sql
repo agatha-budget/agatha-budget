@@ -52,10 +52,10 @@ VALUES
 
 CREATE TABLE operation (
         id VARCHAR(36) NOT NULL PRIMARY KEY,
-        month INT NOT NULL,
-        day INT NOT NULL,
         account_id VARCHAR(36) NOT NULL,
-        category_id VARCHAR(36) NOT NULL,
+        month INT DEFAULT NULL,
+        day INT DEFAULT NULL,
+        category_id VARCHAR(36) DEFAULT NULL,
         amount DECIMAL(10,2) NOT NULL DEFAULT 0,
         memo VARCHAR(280) DEFAULT NULL,
         FOREIGN KEY (account_id) REFERENCES account(id),

@@ -1,10 +1,10 @@
 package open.tresorier.model
 
 class Operation (
-        var day: Day,
         var accountId: String,
-        var categoryId: String,
-        var amount: Double,
+        var day: Day? = null,
+        var categoryId: String? = null,
+        var amount: Double = 0.00,
         var memo: String? = null,
         id: String? = null,
         deleted: Boolean? = null

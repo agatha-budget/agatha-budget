@@ -61,6 +61,20 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
+     * Fetch records that have <code>ACCOUNT_ID BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfAccountId(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Operation.OPERATION.ACCOUNT_ID, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>ACCOUNT_ID IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByAccountId(String... values) {
+        return fetch(Operation.OPERATION.ACCOUNT_ID, values);
+    }
+
+    /**
      * Fetch records that have <code>MONTH BETWEEN lowerInclusive AND upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMonth(Integer lowerInclusive, Integer upperInclusive) {
@@ -86,20 +100,6 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByDay(Integer... values) {
         return fetch(Operation.OPERATION.DAY, values);
-    }
-
-    /**
-     * Fetch records that have <code>ACCOUNT_ID BETWEEN lowerInclusive AND upperInclusive</code>
-     */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfAccountId(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Operation.OPERATION.ACCOUNT_ID, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>ACCOUNT_ID IN (values)</code>
-     */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByAccountId(String... values) {
-        return fetch(Operation.OPERATION.ACCOUNT_ID, values);
     }
 
     /**

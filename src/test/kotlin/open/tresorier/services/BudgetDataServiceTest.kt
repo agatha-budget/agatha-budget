@@ -251,10 +251,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
-                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
-                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
+                Operation(account.id, TestData.nov_02_2020 , category.id,40.00),
+                Operation(account.id, TestData.nov_03_2020 , category.id,20.00),
+                Operation(account.id, TestData.feb_02_2021 , category2.id,10.00),
+                Operation(account.id, TestData.march_02_2021 , category.id,30.00),
 
                 )
         for (operation in operationList) {
@@ -299,10 +299,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
-                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
-                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
+                Operation(account.id, TestData.nov_02_2020 , category.id,40.00),
+                Operation(account.id, TestData.nov_03_2020 , category.id,20.00),
+                Operation(account.id, TestData.feb_02_2021 , category2.id,10.00),
+                Operation(account.id, TestData.march_02_2021 , category.id,30.00),
 
                 )
         for (operation in operationList) {
@@ -345,10 +345,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
-                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
-                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
+                Operation(account.id, TestData.nov_02_2020 , category.id,40.00),
+                Operation(account.id, TestData.nov_03_2020 , category.id,20.00),
+                Operation(account.id, TestData.feb_02_2021 , category2.id,10.00),
+                Operation(account.id, TestData.march_02_2021 , category.id,30.00),
 
                 )
         for (operation in operationList) {
@@ -389,10 +389,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
-                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
-                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
+                Operation(account.id, TestData.nov_02_2020 , category.id,40.00),
+                Operation(account.id, TestData.nov_03_2020 , category.id,20.00),
+                Operation(account.id, TestData.feb_02_2021 , category2.id,10.00),
+                Operation(account.id, TestData.march_02_2021 , category.id,30.00),
 
                 )
         for (operation in operationList) {
@@ -432,10 +432,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( TestData.nov_02_2020 ,account.id, category.id,40.00),
-                Operation( TestData.nov_03_2020 ,account.id, category.id,20.00),
-                Operation( TestData.feb_02_2021 ,account.id, category2.id,10.00),
-                Operation( TestData.march_02_2021 ,account.id, category.id,30.00),
+                Operation(account.id, TestData.nov_02_2020 , category.id,40.00),
+                Operation( account.id,TestData.nov_03_2020 , category.id,20.00),
+                Operation( account.id,TestData.feb_02_2021 , category2.id,10.00),
+                Operation( account.id,TestData.march_02_2021 , category.id,30.00),
 
                 )
         for (operation in operationList) {

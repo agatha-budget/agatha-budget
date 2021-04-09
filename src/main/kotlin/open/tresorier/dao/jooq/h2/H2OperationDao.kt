@@ -7,10 +7,10 @@ import open.tresorier.generated.jooq.test.public_.tables.daos.OperationDao
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.*
 import org.jooq.Configuration
-import org.jooq.*
-import org.jooq.impl.*
+import org.jooq.Field
+import org.jooq.Record3
 import org.jooq.impl.DSL
-import org.jooq.impl.DSL.*
+import org.jooq.impl.DSL.sum
 import java.math.BigDecimal
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Operation as JooqOperation
 
@@ -92,13 +92,13 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
 
     private fun toJooqOperation(operation: Operation): JooqOperation {
         return JooqOperation(
-                operation.id,
-                operation.day.month.comparable,
-                operation.day.day,
-                operation.accountId,
-                operation.categoryId,
-                BigDecimal(operation.amount),
-                operation.memo
+            operation.id,
+            operation.accountId,
+            operation.day?.month?.comparable,
+            operation.day?.day,
+            operation.categoryId,
+            BigDecimal(operation.amount),
+            operation.memo
         )
     }
 
@@ -106,12 +106,12 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         return if (jooqOperation == null)
             null
         else Operation(
-                Day(Month.createFromComparable(jooqOperation.month), jooqOperation.day),
-                jooqOperation.accountId,
-                jooqOperation.categoryId,
-                jooqOperation.amount.toDouble(),
-                jooqOperation.memo,
-                jooqOperation.id,
+            jooqOperation.accountId,
+            Day(Month.createFromComparable(jooqOperation.month), jooqOperation.day),
+            jooqOperation.categoryId,
+            jooqOperation.amount.toDouble(),
+            jooqOperation.memo,
+            jooqOperation.id,
         )
     }
 
