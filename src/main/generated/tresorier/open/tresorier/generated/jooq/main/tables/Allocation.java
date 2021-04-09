@@ -17,7 +17,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row4;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -34,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation extends TableImpl<AllocationRecord> {
 
-    private static final long serialVersionUID = 1886034348;
+    private static final long serialVersionUID = 107290386;
 
     /**
      * The reference instance of <code>public.allocation</code>
@@ -48,11 +48,6 @@ public class Allocation extends TableImpl<AllocationRecord> {
     public Class<AllocationRecord> getRecordType() {
         return AllocationRecord.class;
     }
-
-    /**
-     * The column <code>public.allocation.id</code>.
-     */
-    public final TableField<AllocationRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.allocation.category_id</code>.
@@ -109,12 +104,12 @@ public class Allocation extends TableImpl<AllocationRecord> {
 
     @Override
     public UniqueKey<AllocationRecord> getPrimaryKey() {
-        return Keys.ALLOCATION_PKEY;
+        return Keys.COMPOSITE_ID;
     }
 
     @Override
     public List<UniqueKey<AllocationRecord>> getKeys() {
-        return Arrays.<UniqueKey<AllocationRecord>>asList(Keys.ALLOCATION_PKEY, Keys.ONLY_ONE_ALLOCATION_PER_MONTH_AND_BUDGET);
+        return Arrays.<UniqueKey<AllocationRecord>>asList(Keys.COMPOSITE_ID);
     }
 
     @Override
@@ -161,11 +156,11 @@ public class Allocation extends TableImpl<AllocationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row4 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<String, String, Integer, BigDecimal> fieldsRow() {
-        return (Row4) super.fieldsRow();
+    public Row3<String, Integer, BigDecimal> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 }

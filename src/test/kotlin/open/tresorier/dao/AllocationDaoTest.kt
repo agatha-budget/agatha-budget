@@ -18,7 +18,9 @@ open class AllocationDaoTest : ITest {
 
     @Test
     fun getOwner() {
-        val allocation = allocationDao.getById("allocation1")
+        val category = categoryDao.getById("category1")
+        val month = Month.createFromComparable(202102)
+        val allocation = allocationDao.getByIdentifiers(category, month)
         val expectedOwner = personDao.getById("person1")
         val owner = allocationDao.getOwner(allocation)
         Assertions.assertEquals(expectedOwner.email, owner.email)
@@ -34,10 +36,22 @@ open class AllocationDaoTest : ITest {
     }
 
     @Test
+    fun updateAllocation() {
+        val month = Month(11,1225)
+        val category = categoryDao.getById("category1")
+        val allocation = Allocation(month, category.id, -254.25)
+        val allocationUpdated = Allocation(month, category.id, 300.00)
+        allocationDao.insertOrUpdate(allocation)
+        allocationDao.insertOrUpdate(allocationUpdated)
+        val allocationInDb = allocationDao.getByIdentifiers(category, month)
+        Assertions.assertEquals(300.00, allocationInDb.amount)
+    }
+
+    @Test
     fun cannotHaveAllocationForInvalidMonth() {
         val allocation = Allocation(Month(14,1225), "category1", -254.25)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         Assertions.assertEquals("could not insert allocation : $allocation", exception.message)
     }
@@ -46,14 +60,9 @@ open class AllocationDaoTest : ITest {
     fun cannotHaveAllocationForInvalidMonth2() {
         val allocation = Allocation(Month(-5, 1225), "category1", -254.25)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         Assertions.assertEquals("could not insert allocation : $allocation", exception.message)
-    }
-
-    @Test
-    fun cannotInsertMultipleAllocationForTheSameMonthAndCategory() {
-       // TO DO
     }
 
     @Test
@@ -69,12 +78,15 @@ open class AllocationDaoTest : ITest {
             Allocation(Month(12,2020),category.id,20.00)
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val result = allocationDao.findByBudget(budget)
         Assertions.assertEquals(2, result.size)
-        Assertions.assertEquals(allocationList[0].id, result[0].id)
-        Assertions.assertEquals(allocationList[1].id, result[1].id)
+        Assertions.assertEquals(allocationList[0].month.comparable, result[0].month.comparable)
+        Assertions.assertEquals(allocationList[0].categoryId, result[0].categoryId)
+        Assertions.assertEquals(allocationList[1].month.comparable, result[1].month.comparable)
+        Assertions.assertEquals(allocationList[1].categoryId, result[1].categoryId)
+
     }
 
 
@@ -95,14 +107,19 @@ open class AllocationDaoTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val result = allocationDao.findByBudget(budget, Month(2,2022))
         Assertions.assertEquals(4, result.size)
-        Assertions.assertEquals(allocationList[0].id, result[0].id)
-        Assertions.assertEquals(allocationList[1].id, result[1].id)
-        Assertions.assertEquals(allocationList[2].id, result[2].id)
-        Assertions.assertEquals(allocationList[3].id, result[3].id)
+        Assertions.assertEquals(allocationList[0].month.comparable, result[0].month.comparable)
+        Assertions.assertEquals(allocationList[1].month.comparable, result[1].month.comparable)
+        Assertions.assertEquals(allocationList[2].month.comparable, result[2].month.comparable)
+        Assertions.assertEquals(allocationList[3].month.comparable, result[3].month.comparable)
+
+        Assertions.assertEquals(allocationList[0].categoryId, result[0].categoryId)
+        Assertions.assertEquals(allocationList[1].categoryId, result[1].categoryId)
+        Assertions.assertEquals(allocationList[2].categoryId, result[2].categoryId)
+        Assertions.assertEquals(allocationList[3].categoryId, result[3].categoryId)
     }
 
     @Test

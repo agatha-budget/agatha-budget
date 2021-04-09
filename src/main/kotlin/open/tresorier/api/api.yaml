@@ -1,584 +1,843 @@
 ---
 openapi: 3.0.3
 info:
-    title: Tresorier
-    description: Trésorier api front to back
-    termsOfService: http://swagger.io/terms/
-    license:
-        name: Apache 2.0
-        url: http://www.apache.org/licenses/LICENSE-2.0.html
-    version: 2.0.0
+  title: Tresorier
+  description: Trésorier api front to back
+  termsOfService: http://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 2.0.0
 externalDocs:
-    description: Find out more about Tresorier
-    url: http://tresorier.me
+  description: Find out more about Tresorier
+  url: http://tresorier.me
 servers:
-    - url: https://tresorier-back.herokuapp.com/
-      description: heroku dev
-    - url: https://virtserver.swaggerhub.com/ermoca/Tresorier/2.0.0
-      description: SwaggerHub API Auto Mocking
-    - url: http://localhost:7000/
-      description: local
+  - url: https://tresorier-back.herokuapp.com/
+    description: heroku dev
+  - url: https://virtserver.swaggerhub.com/ermoca/Tresorier/2.0.0
+    description: SwaggerHub API Auto Mocking
+  - url: http://localhost:7000/
+    description: local
 paths:
-    /person:
-        post:
-            tags:
-                - Person
-            summary: Create a person
-            operationId: createPerson
-            parameters:
-                - name: name
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-                - name: password
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-                - name: email
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: Person created
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: the submitted user has been created
-                "400":
-                    description: an error occured
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: the email is already registered
-    /login:
-        post:
-            tags:
-                - Person
-            summary: Login
-            operationId: createSession
-            parameters:
-                - name: email
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-                - name: password
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: |
-                        login successfully this request will return three cookies. "sAccessToken" and "sIdRefreshToken" need to be included in subsequent requests. "sRefreshToken" need to be included when querying "/session/refresh"
-                    headers:
-                        Set-Cookie-1:
-                            style: simple
-                            explode: false
-                            schema:
-                                type: string
-                                example: sAccessToken=eyJhbGciOiJS5ZTKe6wWrz4zpe%2B5UCv07sdzTwrBn4gtPbppM%2BCTk7PwhBaQ%2Bi0wayui9VHfQ%3D%3D; Path=/; Expires=Thu, 14-Jan-2021 11:55:08 GMT; Max-Age=3600; HttpOnly; SameSite=Lax
-                        Set-Cookie-2:
-                            style: simple
-                            explode: false
-                            schema:
-                                type: string
-                                example: sIdRefreshToken=4a441a0a-f888-05dd4c6f14be; Path=/; Expires=Sat, 24-Apr-2021 10:55:08 GMT; Max-Age=8640000; HttpOnly; SameSite=Lax
-                        Set-Cookie-3:
-                            style: simple
-                            explode: false
-                            schema:
-                                type: string
-                                example: sRefreshToken=B290X8kOrDOnDIFJR%2FqLgHu1vHFKoU5d93fa5c58964916b014577f97a9022ea044.V2; Path=/session/refresh; Expires=Sat, 24-Apr-2021 10:55:08 GMT; Max-Age=8640000; HttpOnly; SameSite=Lax
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: user_id
-                "400":
-                    description: login failed
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: invalid password/login combination
-    /logout:
-        delete:
-            tags:
-                - Person
-            summary: Logout
-            operationId: deleteSession
-            responses:
-                "200":
-                    description: Logged out successfully
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: the submitted user has been unlogged
-                "400":
-                    description: an error occured
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: no session to revoke
-            security:
-                - accessToken: []
-                  refreshTokenId: []
-    /budget:
-        put:
-            tags:
-                - Budget
-            summary: Update a budget
-            operationId: updateBudget
-            parameters:
-                - name: budget_id
-                  in: query
-                  description: id of the updated budget
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-                - name: new_name
-                  in: query
-                  description: new name of the new budget
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: budget was successfully updated
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                            examples:
-                                a:
-                                    summary: invalid user
-                                    value: invalid user id
-        post:
-            tags:
-                - Budget
-            summary: Add a new budget
-            operationId: addBudget
-            parameters:
-                - name: name
-                  in: query
-                  description: name of the new budget
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: budget was successfully created
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                            example: invalid user id
-            security:
-                - accessToken: []
-                  refreshTokenId: []
-        delete:
-            tags:
-                - Budget
-            summary: Delete budget
-            operationId: deleteBudget
-            parameters:
-                - name: budget_id
-                  in: query
-                  description: id of the budget you want to delete
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: integer
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: budget was successfully deleted
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: invalid user id
-    /budget/user:
-        get:
-            tags:
-                - Budget
-            summary: Finds budgets by user
-            operationId: findBudgetsByUser
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Budget'
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: invalid user id
-    /budget/data:
-        get:
-            tags:
-                - Budget data
-            summary: Find data by budget
-            operationId: findBudgetData
-            parameters:
-                - name: budget_id
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-                - name: start_month
-                  in: query
-                  description: 'example : mars 2020 = 202003'
-                  required: false
-                  style: form
-                  explode: true
-                  schema:
-                      type: number
-                - name: end_month
-                  in: query
-                  description: 'example : mars 2020 = 202003'
-                  required: false
-                  style: form
-                  explode: true
-                  schema:
-                      type: number
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                $ref: '#/components/schemas/BudgetData'
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: invalid user id
-    /account:
-        get:
-            tags:
-                - Account
-            summary: Finds account by id
-            operationId: findAccountById
-            parameters:
-                - name: account_id
-                  in: query
-                  description: id of the account you want to retrieve
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Account'
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: invalid budget id
-        put:
-            tags:
-                - Account
-            summary: Rename an account
-            operationId: updateAccount
-            parameters:
-                - name: id
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-                - name: new_name
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: account was successfully updated
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                            examples:
-                                a:
-                                    summary: invalid account
-                                    value: invalid account id
-                                b:
-                                    summary: invalid budget
-                                    value: invalid budget id
-        post:
-            tags:
-                - Account
-            summary: Add a new account
-            operationId: addAccount
-            parameters:
-                - name: budget_id
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-                - name: name
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-                - name: amount
-                  in: query
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: number
-                - name: day
-                  in: query
-                  description: 'day as seen by user in his/her timezone, format : 2 january 2021 => 20210102'
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: number
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: account was successfully created
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                            example: invalid budget id
-        delete:
-            tags:
-                - Account
-            summary: Delete account
-            operationId: deleteAccount
-            parameters:
-                - name: account_id
-                  in: query
-                  description: id of the account you want to delete
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: integer
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: account was successfully deleted
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: invalid account id
-    /account/budget:
-        get:
-            tags:
-                - Account
-            summary: Finds accounts by budget
-            operationId: findAccountsByBudget
-            parameters:
-                - name: budget_id
-                  in: query
-                  description: id of the budget whose accounts you want to retrieve
-                  required: true
-                  style: form
-                  explode: true
-                  schema:
-                      type: string
-            responses:
-                "200":
-                    description: successful operation
-                    content:
-                        application/json:
-                            schema:
-                                type: array
-                                items:
-                                    $ref: '#/components/schemas/Account'
-                "400":
-                    description: Invalid request
-                    content:
-                        application/json:
-                            schema:
-                                type: string
-                                example: invalid budget id
+  /person:
+    post:
+      tags:
+        - Person
+      summary: Create a person
+      operationId: createPerson
+      parameters:
+        - name: name
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: email
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Person created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: the submitted user has been created
+        "400":
+          description: an error occured
+          content:
+            application/json:
+              schema:
+                type: string
+                example: the email is already registered
+  /login:
+    post:
+      tags:
+        - Person
+      summary: Login
+      operationId: createSession
+      parameters:
+        - name: email
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: password
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: |
+            login successfully this request will return three cookies. "sAccessToken" and "sIdRefreshToken" need to be included in subsequent requests. "sRefreshToken" need to be included when querying "/session/refresh"
+          headers:
+            Set-Cookie-1:
+              style: simple
+              explode: false
+              schema:
+                type: string
+                example: sAccessToken=eyJhbGciOiJS5ZTKe6wWrz4zpe%2B5UCv07sdzTwrBn4gtPbppM%2BCTk7PwhBaQ%2Bi0wayui9VHfQ%3D%3D; Path=/; Expires=Thu, 14-Jan-2021 11:55:08 GMT; Max-Age=3600; HttpOnly; SameSite=Lax
+            Set-Cookie-2:
+              style: simple
+              explode: false
+              schema:
+                type: string
+                example: sIdRefreshToken=4a441a0a-f888-05dd4c6f14be; Path=/; Expires=Sat, 24-Apr-2021 10:55:08 GMT; Max-Age=8640000; HttpOnly; SameSite=Lax
+            Set-Cookie-3:
+              style: simple
+              explode: false
+              schema:
+                type: string
+                example: sRefreshToken=B290X8kOrDOnDIFJR%2FqLgHu1vHFKoU5d93fa5c58964916b014577f97a9022ea044.V2; Path=/session/refresh; Expires=Sat, 24-Apr-2021 10:55:08 GMT; Max-Age=8640000; HttpOnly; SameSite=Lax
+          content:
+            application/json:
+              schema:
+                type: string
+                example: user_id
+        "400":
+          description: login failed
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid password/login combination
+  /logout:
+    delete:
+      tags:
+        - Person
+      summary: Logout
+      operationId: deleteSession
+      responses:
+        "200":
+          description: Logged out successfully
+          content:
+            application/json:
+              schema:
+                type: string
+                example: the submitted user has been unlogged
+        "400":
+          description: an error occured
+          content:
+            application/json:
+              schema:
+                type: string
+                example: no session to revoke
+      security:
+        - accessToken: []
+          refreshTokenId: []
+  /budget:
+    put:
+      tags:
+        - Budget
+      summary: Update a budget
+      operationId: updateBudget
+      parameters:
+        - name: budget_id
+          in: query
+          description: id of the updated budget
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: new_name
+          in: query
+          description: new name of the new budget
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: budget was successfully updated
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                a:
+                  summary: invalid user
+                  value: invalid user id
+    post:
+      tags:
+        - Budget
+      summary: Add a new budget
+      operationId: addBudget
+      parameters:
+        - name: name
+          in: query
+          description: name of the new budget
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: budget was successfully created
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid user id
+      security:
+        - accessToken: []
+          refreshTokenId: []
+    delete:
+      tags:
+        - Budget
+      summary: Delete budget
+      operationId: deleteBudget
+      parameters:
+        - name: budget_id
+          in: query
+          description: id of the budget you want to delete
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: budget was successfully deleted
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid user id
+  /budget/user:
+    get:
+      tags:
+        - Budget
+      summary: Finds budgets by user
+      operationId: findBudgetsByUser
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Budget'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid user id
+  /budget/data:
+    get:
+      tags:
+        - Budget data
+      summary: Find data by budget
+      operationId: findBudgetData
+      parameters:
+        - name: budget_id
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: start_month
+          in: query
+          description: 'example : mars 2020 = 202003'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: number
+        - name: end_month
+          in: query
+          description: 'example : mars 2020 = 202003'
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BudgetData'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid user id
+  /account:
+    put:
+      tags:
+        - Account
+      summary: Rename an account
+      operationId: updateAccount
+      parameters:
+        - name: id
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: new_name
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: account was successfully updated
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                a:
+                  summary: invalid account
+                  value: invalid account id
+                b:
+                  summary: invalid budget
+                  value: invalid budget id
+    post:
+      tags:
+        - Account
+      summary: Add a new account
+      operationId: addAccount
+      parameters:
+        - name: budget_id
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: number
+        - name: day
+          in: query
+          description: 'day as seen by user in his/her timezone, format : 2 january 2021 => 20210102'
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: account was successfully created
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid budget id
+    delete:
+      tags:
+        - Account
+      summary: Delete account
+      operationId: deleteAccount
+      parameters:
+        - name: account_id
+          in: query
+          description: id of the account you want to delete
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: account was successfully deleted
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid account id
+  /account/budget:
+    get:
+      tags:
+        - Account
+      summary: Finds accounts by budget
+      operationId: findAccountsByBudget
+      parameters:
+        - name: budget_id
+          in: query
+          description: id of the budget whose accounts you want to retrieve
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Account'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid budget id
+  /operation:
+    put:
+      tags:
+        - Operation
+      summary: Update an operation
+      operationId: updateOperation
+      parameters:
+        - name: operation_id
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: new_account_id
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: new_day
+          in: query
+          description: day of the operation (2 march 2010 => 20100302)
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: number
+        - name: new_category_id
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: new_amount
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: number
+        - name: new_memo
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid operation id
+    post:
+      tags:
+        - Operation
+      summary: Add a new operation
+      operationId: addOperation
+      parameters:
+        - name: account_id
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: day
+          in: query
+          description: day of the operation (2 march 2010 => 20100302)
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: number
+        - name: category_id
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: number
+        - name: memo
+          in: query
+          required: false
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Operation'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid account id
+    delete:
+      tags:
+        - Operation
+      summary: Delete operation
+      operationId: deleteOperation
+      parameters:
+        - name: operation_id
+          in: query
+          description: id of the operation you want to delete
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: operation was successfully deleted
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid operation id
+  /operation/account:
+    get:
+      tags:
+        - Operation
+      summary: Find operation by account
+      operationId: findOperationsByAccount
+      parameters:
+        - name: account_id
+          in: query
+          description: id of the account whose operations you want to retrieve
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Operation'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid account id
+  /operation/budget:
+    get:
+      tags:
+        - Operation
+      summary: Find operation by budget
+      operationId: findOperationsByBudget
+      parameters:
+        - name: account_id
+          in: query
+          description: id of the budget whose operations you want to retrieve
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Operation'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid budget id
+  /allocation:
+    post:
+      tags:
+        - Allocation
+      summary: Add a new allocation or update an existing one
+      operationId: addAllocation
+      parameters:
+        - name: month
+          in: query
+          description: day of the operation (march 2010 => 201003)
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: number
+        - name: category_id
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: number
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Allocation'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid category id
 components:
-    schemas:
-        Budget:
-            required:
-                - id
-                - name
-            type: object
-            properties:
-                id:
-                    type: string
-                name:
-                    type: string
-                isDefault:
-                    type: boolean
-        BudgetData:
-            type: object
-            additionalProperties:
-                $ref: '#/components/schemas/MonthData'
-            example:
-                "201502":
-                    category1Id:
-                        allocated: 20.0
-                        spent: 0.0
-                        available: 40.0
-                    category2Id:
-                        allocated: 30.0
-                        spent: 50.0
-                        available: -20.0
-                "201803":
-                    category1Id:
-                        allocated: -10.0
-                        spent: 0.0
-                        available: 20.0
-        MonthData:
-            type: object
-            additionalProperties:
-                $ref: '#/components/schemas/CategoryData'
-            example:
-                category1Id:
-                    allocated: 20.0
-                    spent: 0.0
-                    available: 40.0
-                category2Id:
-                    allocated: 30.0
-                    spent: 50.0
-                    available: -20.0
-        CategoryData:
-            required:
-                - allocated
-                - available
-                - spent
-            type: object
-            properties:
-                allocated:
-                    type: number
-                spent:
-                    type: number
-                available:
-                    type: number
-        Account:
-            required:
-                - amount
-                - archived
-                - id
-                - name
-            type: object
-            properties:
-                name:
-                    type: string
-                id:
-                    type: string
-                amount:
-                    type: number
-                archived:
-                    type: boolean
-            xml:
-                name: account
-    securitySchemes:
-        accessToken:
-            type: apiKey
-            name: sAccessToken
-            in: cookie
-        refreshToken:
-            type: apiKey
-            name: sRefreshToken
-            in: cookie
-        refreshTokenId:
-            type: apiKey
-            name: sIdRefreshToken
-            in: cookie
+  schemas:
+    Budget:
+      required:
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        isDefault:
+          type: boolean
+    BudgetData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/MonthData'
+      example:
+        "201502":
+          category1Id:
+            allocated: 20.0
+            spent: 0.0
+            available: 40.0
+          category2Id:
+            allocated: 30.0
+            spent: 50.0
+            available: -20.0
+        "201803":
+          category1Id:
+            allocated: -10.0
+            spent: 0.0
+            available: 20.0
+    MonthData:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/CategoryData'
+      example:
+        category1Id:
+          allocated: 20.0
+          spent: 0.0
+          available: 40.0
+        category2Id:
+          allocated: 30.0
+          spent: 50.0
+          available: -20.0
+    CategoryData:
+      required:
+        - allocated
+        - available
+        - spent
+      type: object
+      properties:
+        allocated:
+          type: number
+        spent:
+          type: number
+        available:
+          type: number
+    Account:
+      required:
+        - amount
+        - archived
+        - id
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        amount:
+          type: number
+        archived:
+          type: boolean
+    Operation:
+      required:
+        - accountId
+        - amount
+        - categoryId
+        - day
+        - id
+        - memo
+      type: object
+      properties:
+        id:
+          type: string
+        day:
+          type: number
+        accountId:
+          type: string
+        categoryId:
+          type: string
+        amount:
+          type: number
+        memo:
+          type: string
+    Allocation:
+      required:
+        - amount
+        - categoryId
+        - month
+      type: object
+      properties:
+        month:
+          type: number
+        categoryId:
+          type: string
+        amount:
+          type: number
+      xml:
+        name: account
+  securitySchemes:
+    accessToken:
+      type: apiKey
+      name: sAccessToken
+      in: cookie
+    refreshToken:
+      type: apiKey
+      name: sRefreshToken
+      in: cookie
+    refreshTokenId:
+      type: apiKey
+      name: sIdRefreshToken
+      in: cookie

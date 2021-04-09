@@ -244,7 +244,7 @@ class BudgetDataServiceTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
@@ -292,7 +292,7 @@ class BudgetDataServiceTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
@@ -338,7 +338,7 @@ class BudgetDataServiceTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
@@ -366,7 +366,7 @@ class BudgetDataServiceTest : ITest {
     }
 
     @Test
-    fun testFindCategoriesDataForOneEmptyMonth() {
+    fun testFindBudgetDataForOneEmptyMonth() {
         val budget = Budget("wellAllocatedBudget", TestData.person1Id)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
@@ -382,7 +382,7 @@ class BudgetDataServiceTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
@@ -409,7 +409,7 @@ class BudgetDataServiceTest : ITest {
     }
 
     @Test
-    fun testFindCategoriesDataFromMonthToEnd() {
+    fun testFindBudgetDataFromMonthToEnd() {
         val budget = Budget("wellAllocatedBudget", TestData.person1Id)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
@@ -422,10 +422,9 @@ class BudgetDataServiceTest : ITest {
                 Allocation(TestData.jan_2021,category.id,10.00),
                 Allocation(TestData.may_2021,category.id,20.00),
                 Allocation(TestData.jun_2021,category.id,20.00)
-
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
@@ -436,8 +435,7 @@ class BudgetDataServiceTest : ITest {
                 Operation( account.id,TestData.nov_03_2020 , category.id,20.00),
                 Operation( account.id,TestData.feb_02_2021 , category2.id,10.00),
                 Operation( account.id,TestData.march_02_2021 , category.id,30.00),
-
-                )
+        )
         for (operation in operationList) {
             operationDao.insert(operation)
         }
@@ -454,7 +452,7 @@ class BudgetDataServiceTest : ITest {
     }
 
     @Test
-    fun testFindCategoriesDataForEmptyBudget() {
+    fun testFindBudgetDataForEmptyBudget() {
         val budget = Budget("wellAllocatedBudget", TestData.person1Id)
         budgetDao.insert(budget)
         val person: Person = personDao.getById(TestData.person1Id)
@@ -464,7 +462,7 @@ class BudgetDataServiceTest : ITest {
     }
 
     @Test
-    fun testFindCategoriesDataForNonExistingBudget() {
+    fun testFindBudgetDataForNonExistingBudget() {
         val budget = Budget("NotStoredBudget", TestData.person1Id)
         val person: Person = personDao.getById(TestData.person1Id)
         val exception = Assertions.assertThrows(TresorierException::class.java) {

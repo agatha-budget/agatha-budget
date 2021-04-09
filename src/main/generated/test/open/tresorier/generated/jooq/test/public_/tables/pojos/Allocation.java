@@ -14,34 +14,26 @@ import java.math.BigDecimal;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation implements Serializable {
 
-    private static final long serialVersionUID = 1041758017;
+    private static final long serialVersionUID = 306436325;
 
-    private final String     id;
     private final String     categoryId;
     private final Integer    month;
     private final BigDecimal amount;
 
     public Allocation(Allocation value) {
-        this.id = value.id;
         this.categoryId = value.categoryId;
         this.month = value.month;
         this.amount = value.amount;
     }
 
     public Allocation(
-        String     id,
         String     categoryId,
         Integer    month,
         BigDecimal amount
     ) {
-        this.id = id;
         this.categoryId = categoryId;
         this.month = month;
         this.amount = amount;
-    }
-
-    public String getId() {
-        return this.id;
     }
 
     public String getCategoryId() {
@@ -60,8 +52,7 @@ public class Allocation implements Serializable {
     public String toString() {
         StringBuilder sb = new StringBuilder("Allocation (");
 
-        sb.append(id);
-        sb.append(", ").append(categoryId);
+        sb.append(categoryId);
         sb.append(", ").append(month);
         sb.append(", ").append(amount);
 

@@ -24,7 +24,7 @@ class AuthorizationService(
     fun cancelIfUserIsUnauthorized(person: Person, allocation: Allocation) {
         val owner = allocationDao.getOwner(allocation)
         if (owner.id != person.id) {
-            throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with allocation " + allocation.id)
+            throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with allocation " + allocation.toString())
         }
     }
 

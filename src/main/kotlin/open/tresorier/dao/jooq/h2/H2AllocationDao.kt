@@ -18,40 +18,40 @@ class H2AllocationDao(val configuration: Configuration) : IAllocationDao {
     private val generatedDao: AllocationDao = AllocationDao(configuration)
     private val query = DSL.using(configuration)
 
-    override fun insert(allocation: Allocation): Allocation {
+    override fun insertOrUpdate(allocation: Allocation): Allocation {
         val jooqAllocation = this.toJooqAllocation(allocation)
         try {
-            this.generatedDao.insert(jooqAllocation)
+            val existingAllocation : AllocationRecord? = this.getRecordByIdentifiers(allocation.categoryId, allocation.month)
+            existingAllocation?.let { this.generatedDao.update(jooqAllocation) } ?: this.generatedDao.insert(jooqAllocation)
         } catch (e: Exception) {
             throw TresorierException("could not insert allocation : $allocation", e)
         }
         return allocation
     }
 
-    override fun update(allocation: Allocation): Allocation {
-        val jooqAllocation = this.toJooqAllocation(allocation)
-        try {
-            this.generatedDao.update(jooqAllocation)
-        } catch (e: Exception) {
-            throw TresorierException("could not update allocation : $allocation", e)
-        }
-        return allocation
+    override fun getByIdentifiers(category: Category, month: Month): Allocation {
+        val allocationRecord : AllocationRecord ? = getRecordByIdentifiers(category.id, month)
+        return allocationRecord?.let {this.toAllocation(it)}
+            ?: throw TresorierException("no allocation found for the following identifiers : categoryId = ${category.id}, month = $month")
     }
 
-    override fun getById(id: String): Allocation {
-        val jooqAllocation = this.generatedDao.fetchOneById(id)
-        return this.toAllocation(jooqAllocation)
-                ?: throw TresorierException("no allocation found for the following id : $id")
+    private fun getRecordByIdentifiers(categoryId: String, month: Month): AllocationRecord ? {
+        return this.query
+            .select()
+            .from(ALLOCATION)
+            .where(ALLOCATION.CATEGORY_ID.eq(categoryId))
+            .and(ALLOCATION.MONTH.eq(month.comparable))
+            .fetchAny()?.into(ALLOCATION)
     }
 
     override fun getOwner(allocation: Allocation): Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
-                    .join(CATEGORY).on(CATEGORY.ID.eq(allocation.categoryId))
-                    .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
-                    .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
-                    .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                    .fetchAny().into(PERSON)
+                .join(CATEGORY).on(CATEGORY.ID.eq(allocation.categoryId))
+                .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
+                .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
+                .where(PERSON.ID.eq(BUDGET.PERSON_ID))
+                .fetchAny().into(PERSON)
             return H2PersonDao.toPerson(owner)
         } catch (e: Exception) {
             throw TresorierException("the given object appears to have no owner")
@@ -60,11 +60,11 @@ class H2AllocationDao(val configuration: Configuration) : IAllocationDao {
 
     override fun findByBudget(budget: Budget, maxMonth: Month?): List<Allocation> {
         val query = this.query
-                .select()
-                .from(ALLOCATION)
-                .join(CATEGORY).on(ALLOCATION.CATEGORY_ID.eq(CATEGORY.ID))
-                .join(MASTER_CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
-                .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
+            .select()
+            .from(ALLOCATION)
+            .join(CATEGORY).on(ALLOCATION.CATEGORY_ID.eq(CATEGORY.ID))
+            .join(MASTER_CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
+            .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
         maxMonth?.let {
             query.and(ALLOCATION.MONTH.lessOrEqual(it.comparable))
         }
@@ -84,30 +84,17 @@ class H2AllocationDao(val configuration: Configuration) : IAllocationDao {
 
     private fun toJooqAllocation(allocation: Allocation): JooqAllocation {
         return JooqAllocation(
-                allocation.id,
-                allocation.categoryId,
-                allocation.month.comparable,
-                BigDecimal(allocation.amount)
-        )
-    }
-
-    private fun toAllocation(jooqAllocation: JooqAllocation?): Allocation? {
-        return if (jooqAllocation == null)
-            null
-        else Allocation(
-                Month.createFromComparable(jooqAllocation.month),
-                jooqAllocation.categoryId,
-                jooqAllocation.amount.toDouble(),
-                jooqAllocation.id
+            allocation.categoryId,
+            allocation.month.comparable,
+            BigDecimal(allocation.amount)
         )
     }
 
     private fun toAllocation(allocationRecord: AllocationRecord): Allocation {
         return Allocation(
-                Month.createFromComparable(allocationRecord.month),
-                allocationRecord.categoryId,
-                allocationRecord.amount.toDouble(),
-                allocationRecord.id
+            Month.createFromComparable(allocationRecord.month),
+            allocationRecord.categoryId,
+            allocationRecord.amount.toDouble(),
         )
     }
 }

@@ -67,12 +67,11 @@ CREATE TABLE operation (
 );
 
 CREATE TABLE allocation (
-        id VARCHAR(36) NOT NULL PRIMARY KEY,
         category_id VARCHAR(36) NOT NULL,
         month INT NOT NULL,
         amount DECIMAL(10,2),
         FOREIGN KEY (category_id) REFERENCES category(id),
-        CONSTRAINT only_one_allocation_per_month_and_budget UNIQUE (category_id, month),
+        CONSTRAINT composite_id PRIMARY KEY (category_id, month),
         CONSTRAINT no_negative_month_allocation CHECK ( month%100 > 0),
         CONSTRAINT no_invalid_month_allocation CHECK ( month%100 < 13)
 );
