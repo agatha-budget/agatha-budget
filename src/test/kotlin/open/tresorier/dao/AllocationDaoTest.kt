@@ -54,11 +54,6 @@ open class AllocationDaoTest : ITest {
     }
 
     @Test
-    fun cannotInsertMultipleAllocationForTheSameMonthAndCategory() {
-       // TO DO
-    }
-
-    @Test
     fun getAllAllocationsOfBudget() {
         val budget = Budget("wellAllocatedBudget", "person1")
         budgetDao.insert(budget)
