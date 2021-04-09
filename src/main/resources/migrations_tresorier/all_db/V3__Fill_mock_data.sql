@@ -64,11 +64,11 @@ VALUES
 ;
 
 INSERT INTO
-       allocation (id, category_id, month, amount)
+       allocation (category_id, month, amount)
 VALUES
-        ('allocation1', 'category1', 202102, 9874466.45),
-        ('allocation2', 'category2', 202101, -8468456.45),
-        ('allocation3', 'category4', 202012, 0.25),
-        ('allocation4', 'category5', 202011, -0.25),
-        ('allocation5', 'category2', 202010, 4.45)
+        ('category1', 202102, 9874466.45),
+        ('category2', 202101, -8468456.45),
+        ('category4', 202012, 0.25),
+        ('category5', 202011, -0.25),
+        ('category2', 202010, 4.45)
 ;

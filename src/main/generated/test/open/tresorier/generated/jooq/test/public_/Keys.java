@@ -44,8 +44,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<AccountRecord> CONSTRAINT_E = UniqueKeys0.CONSTRAINT_E;
-    public static final UniqueKey<AllocationRecord> CONSTRAINT_A = UniqueKeys0.CONSTRAINT_A;
-    public static final UniqueKey<AllocationRecord> ONLY_ONE_ALLOCATION_PER_MONTH_AND_BUDGET = UniqueKeys0.ONLY_ONE_ALLOCATION_PER_MONTH_AND_BUDGET;
+    public static final UniqueKey<AllocationRecord> COMPOSITE_ID = UniqueKeys0.COMPOSITE_ID;
     public static final UniqueKey<BudgetRecord> CONSTRAINT_7 = UniqueKeys0.CONSTRAINT_7;
     public static final UniqueKey<CategoryRecord> CONSTRAINT_3 = UniqueKeys0.CONSTRAINT_3;
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = UniqueKeys0.FLYWAY_SCHEMA_HISTORY_PK;
@@ -59,7 +58,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final ForeignKey<AccountRecord, BudgetRecord> CONSTRAINT_E4 = ForeignKeys0.CONSTRAINT_E4;
-    public static final ForeignKey<AllocationRecord, CategoryRecord> CONSTRAINT_AA = ForeignKeys0.CONSTRAINT_AA;
+    public static final ForeignKey<AllocationRecord, CategoryRecord> CONSTRAINT_A = ForeignKeys0.CONSTRAINT_A;
     public static final ForeignKey<BudgetRecord, PersonRecord> CONSTRAINT_75 = ForeignKeys0.CONSTRAINT_75;
     public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CONSTRAINT_31 = ForeignKeys0.CONSTRAINT_31;
     public static final ForeignKey<MasterCategoryRecord, BudgetRecord> CONSTRAINT_D3 = ForeignKeys0.CONSTRAINT_D3;
@@ -72,8 +71,7 @@ public class Keys {
 
     private static class UniqueKeys0 {
         public static final UniqueKey<AccountRecord> CONSTRAINT_E = Internal.createUniqueKey(Account.ACCOUNT, "CONSTRAINT_E", new TableField[] { Account.ACCOUNT.ID }, true);
-        public static final UniqueKey<AllocationRecord> CONSTRAINT_A = Internal.createUniqueKey(Allocation.ALLOCATION, "CONSTRAINT_A", new TableField[] { Allocation.ALLOCATION.ID }, true);
-        public static final UniqueKey<AllocationRecord> ONLY_ONE_ALLOCATION_PER_MONTH_AND_BUDGET = Internal.createUniqueKey(Allocation.ALLOCATION, "ONLY_ONE_ALLOCATION_PER_MONTH_AND_BUDGET", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID, Allocation.ALLOCATION.MONTH }, true);
+        public static final UniqueKey<AllocationRecord> COMPOSITE_ID = Internal.createUniqueKey(Allocation.ALLOCATION, "COMPOSITE_ID", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID, Allocation.ALLOCATION.MONTH }, true);
         public static final UniqueKey<BudgetRecord> CONSTRAINT_7 = Internal.createUniqueKey(Budget.BUDGET, "CONSTRAINT_7", new TableField[] { Budget.BUDGET.ID }, true);
         public static final UniqueKey<CategoryRecord> CONSTRAINT_3 = Internal.createUniqueKey(Category.CATEGORY, "CONSTRAINT_3", new TableField[] { Category.CATEGORY.ID }, true);
         public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "flyway_schema_history_pk", new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
@@ -85,7 +83,7 @@ public class Keys {
 
     private static class ForeignKeys0 {
         public static final ForeignKey<AccountRecord, BudgetRecord> CONSTRAINT_E4 = Internal.createForeignKey(Keys.CONSTRAINT_7, Account.ACCOUNT, "CONSTRAINT_E4", new TableField[] { Account.ACCOUNT.BUDGET_ID }, true);
-        public static final ForeignKey<AllocationRecord, CategoryRecord> CONSTRAINT_AA = Internal.createForeignKey(Keys.CONSTRAINT_3, Allocation.ALLOCATION, "CONSTRAINT_AA", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID }, true);
+        public static final ForeignKey<AllocationRecord, CategoryRecord> CONSTRAINT_A = Internal.createForeignKey(Keys.CONSTRAINT_3, Allocation.ALLOCATION, "CONSTRAINT_A", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID }, true);
         public static final ForeignKey<BudgetRecord, PersonRecord> CONSTRAINT_75 = Internal.createForeignKey(Keys.CONSTRAINT_8, Budget.BUDGET, "CONSTRAINT_75", new TableField[] { Budget.BUDGET.PERSON_ID }, true);
         public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CONSTRAINT_31 = Internal.createForeignKey(Keys.CONSTRAINT_D, Category.CATEGORY, "CONSTRAINT_31", new TableField[] { Category.CATEGORY.MASTER_CATEGORY_ID }, true);
         public static final ForeignKey<MasterCategoryRecord, BudgetRecord> CONSTRAINT_D3 = Internal.createForeignKey(Keys.CONSTRAINT_7, MasterCategory.MASTER_CATEGORY, "CONSTRAINT_D3", new TableField[] { MasterCategory.MASTER_CATEGORY.BUDGET_ID }, true);
