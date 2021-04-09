@@ -17,7 +17,7 @@ interface Budget {
 }
 
 interface AccountList {
-    [accountId: string]: Account
+    [accountId: string]: Account;
 }
 
 interface BudgetData {
