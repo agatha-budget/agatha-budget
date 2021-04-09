@@ -36,6 +36,18 @@ open class AllocationDaoTest : ITest {
     }
 
     @Test
+    fun updateAllocation() {
+        val month = Month(11,1225)
+        val category = categoryDao.getById("category1")
+        val allocation = Allocation(month, category.id, -254.25)
+        val allocationUpdated = Allocation(month, category.id, 300.00)
+        allocationDao.insertOrUpdate(allocation)
+        allocationDao.insertOrUpdate(allocationUpdated)
+        val allocationInDb = allocationDao.getByIdentifiers(category, month)
+        Assertions.assertEquals(300.00, allocationInDb.amount)
+    }
+
+    @Test
     fun cannotHaveAllocationForInvalidMonth() {
         val allocation = Allocation(Month(14,1225), "category1", -254.25)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
@@ -70,9 +82,9 @@ open class AllocationDaoTest : ITest {
         }
         val result = allocationDao.findByBudget(budget)
         Assertions.assertEquals(2, result.size)
-        Assertions.assertEquals(allocationList[0].month, result[0].month)
+        Assertions.assertEquals(allocationList[0].month.comparable, result[0].month.comparable)
         Assertions.assertEquals(allocationList[0].categoryId, result[0].categoryId)
-        Assertions.assertEquals(allocationList[1].month, result[1].month)
+        Assertions.assertEquals(allocationList[1].month.comparable, result[1].month.comparable)
         Assertions.assertEquals(allocationList[1].categoryId, result[1].categoryId)
 
     }
@@ -99,10 +111,10 @@ open class AllocationDaoTest : ITest {
         }
         val result = allocationDao.findByBudget(budget, Month(2,2022))
         Assertions.assertEquals(4, result.size)
-        Assertions.assertEquals(allocationList[0].month, result[0].month)
-        Assertions.assertEquals(allocationList[1].month, result[1].month)
-        Assertions.assertEquals(allocationList[2].month, result[2].month)
-        Assertions.assertEquals(allocationList[3].month, result[3].month)
+        Assertions.assertEquals(allocationList[0].month.comparable, result[0].month.comparable)
+        Assertions.assertEquals(allocationList[1].month.comparable, result[1].month.comparable)
+        Assertions.assertEquals(allocationList[2].month.comparable, result[2].month.comparable)
+        Assertions.assertEquals(allocationList[3].month.comparable, result[3].month.comparable)
 
         Assertions.assertEquals(allocationList[0].categoryId, result[0].categoryId)
         Assertions.assertEquals(allocationList[1].categoryId, result[1].categoryId)

@@ -21,7 +21,8 @@ class PgAllocationDao(val configuration: Configuration) : IAllocationDao {
     override fun insertOrUpdate(allocation: Allocation): Allocation {
         val jooqAllocation = this.toJooqAllocation(allocation)
         try {
-            this.generatedDao.update(jooqAllocation)
+            val existingAllocation : AllocationRecord? = this.getRecordByIdentifiers(allocation.categoryId, allocation.month)
+            existingAllocation?.let { this.generatedDao.update(jooqAllocation) } ?: this.generatedDao.insert(jooqAllocation)
         } catch (e: Exception) {
             throw TresorierException("could not insert allocation : $allocation", e)
         }
@@ -29,17 +30,19 @@ class PgAllocationDao(val configuration: Configuration) : IAllocationDao {
     }
 
     override fun getByIdentifiers(category: Category, month: Month): Allocation {
-        val allocationRecord: AllocationRecord? = this.query
-            .select()
-            .from(ALLOCATION)
-            .where(ALLOCATION.CATEGORY_ID.eq(category.id))
-            .and(ALLOCATION.MONTH.eq(month.comparable))
-            .fetchAny().into(ALLOCATION)
-
-        return allocationRecord?.let {this.toAllocation(it)} ?:
-        throw TresorierException("no allocation found for the following identifiers : categoryId = ${category.id}, month = $month")
+        val allocationRecord : AllocationRecord ? = getRecordByIdentifiers(category.id, month)
+        return allocationRecord?.let {this.toAllocation(it)}
+            ?: throw TresorierException("no allocation found for the following identifiers : categoryId = ${category.id}, month = $month")
     }
 
+    private fun getRecordByIdentifiers(categoryId: String, month: Month): AllocationRecord ? {
+        return this.query
+            .select()
+            .from(ALLOCATION)
+            .where(ALLOCATION.CATEGORY_ID.eq(categoryId))
+            .and(ALLOCATION.MONTH.eq(month.comparable))
+            .fetchAny()?.into(ALLOCATION)
+    }
 
     override fun getOwner(allocation: Allocation): Person {
         try {

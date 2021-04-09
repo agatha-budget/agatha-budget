@@ -422,7 +422,6 @@ class BudgetDataServiceTest : ITest {
                 Allocation(TestData.jan_2021,category.id,10.00),
                 Allocation(TestData.may_2021,category.id,20.00),
                 Allocation(TestData.jun_2021,category.id,20.00)
-
         )
         for (allocation in allocationList) {
             allocationDao.insertOrUpdate(allocation)
@@ -436,8 +435,7 @@ class BudgetDataServiceTest : ITest {
                 Operation( account.id,TestData.nov_03_2020 , category.id,20.00),
                 Operation( account.id,TestData.feb_02_2021 , category2.id,10.00),
                 Operation( account.id,TestData.march_02_2021 , category.id,30.00),
-
-                )
+        )
         for (operation in operationList) {
             operationDao.insert(operation)
         }
