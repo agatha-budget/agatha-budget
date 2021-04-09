@@ -4,6 +4,7 @@ import open.tresorier.dao.IOperationDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.test.public_.Tables.*
 import open.tresorier.generated.jooq.test.public_.tables.daos.OperationDao
+import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.*
 import org.jooq.Configuration
@@ -77,6 +78,35 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         return spendingList
     }
 
+    override fun findByAccount(account: Account): List<Operation> {
+        val jooqOperationList = this.generatedDao.fetchByAccountId(account.id)
+        val accountList: MutableList<Operation> = mutableListOf()
+        for (jooqOperation in jooqOperationList) {
+            val operation = this.toOperation(jooqOperation)
+            operation?.let { accountList.add(it) }
+        }
+        return accountList
+    }
+
+    override fun findByBudget(budget: Budget): List<Operation> {
+        val query = this.query
+            .select()
+            .from(OPERATION)
+            .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
+            .where(ACCOUNT.BUDGET_ID.eq(budget.id))
+        query.orderBy(OPERATION.MONTH.asc(), OPERATION.DAY.asc())
+
+        val jooqOperationList = query.fetch().into(OPERATION)
+
+        val operationList: MutableList<Operation> = mutableListOf()
+        for (operationRecord : OperationRecord in jooqOperationList) {
+            val operation = this.toOperation(operationRecord)
+            operationList.add(operation)
+        }
+
+        return operationList
+    }
+
     override fun getOwner(operation: Operation): Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
@@ -120,6 +150,17 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
                 Month.createFromComparable(jooqSpending.get(OPERATION.MONTH)),
                 jooqSpending.get(OPERATION.CATEGORY_ID),
                 jooqSpending.get(spendingSum).toDouble()
+        )
+    }
+
+    private fun toOperation(operationRecord: OperationRecord): Operation {
+        return Operation(
+            operationRecord.accountId,
+            Day(Month.createFromComparable(operationRecord.month), operationRecord.day),
+            operationRecord.categoryId,
+            operationRecord.amount.toDouble(),
+            operationRecord.memo,
+            operationRecord.id,
         )
     }
 }

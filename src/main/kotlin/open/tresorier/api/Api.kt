@@ -194,6 +194,21 @@ fun main() {
         ctx.json("account ${operation.id} has been deleted")
     }
 
+    app.before("/operation/account", SuperTokens.middleware())
+    app.get("/operation/account") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        val operations = ServiceManager.operationService.findByAccount(user, account)
+        ctx.json(operations)
+    }
+
+    app.before("/operation/budget", SuperTokens.middleware())
+    app.get("/operation/budget") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+        val operations = ServiceManager.operationService.findByBudget(user, budget)
+        ctx.json(operations)
+    }
 }
 
 private fun setUpApp(properties: JavaProperties): Javalin {

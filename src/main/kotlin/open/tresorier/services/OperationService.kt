@@ -38,4 +38,14 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
         operationDao.delete(operation)
     }
+
+    fun findByAccount(person: Person, account: Account) : List<Operation> {
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        return operationDao.findByAccount(account)
+    }
+
+    fun findByBudget(person: Person, budget: Budget) : List<Operation> {
+        authorizationService.cancelIfUserIsUnauthorized(person, budget)
+        return operationDao.findByBudget(budget)
+    }
 }

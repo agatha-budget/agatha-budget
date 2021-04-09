@@ -8,5 +8,7 @@ interface IOperationDao {
     fun delete(operation: Operation)
     fun getById(id: String): Operation
     fun findTotalSpendingByMonth(budget: Budget, maxMonth: Month? = null) : List<Spending>
+    fun findByAccount(account: Account) : List<Operation>
+    fun findByBudget(budget: Budget) : List<Operation>
     fun getOwner(operation: Operation) : Person
 }
