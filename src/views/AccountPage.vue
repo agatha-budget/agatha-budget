@@ -9,10 +9,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { redirectToLoginPageIfNotLogged } from '@/router'
-import AccountsWidget from '@/components/AccountsWidget.vue'
-import { accountService } from '@/services/AccountService'
-import { Account, Budget } from '@/model/model'
-
+import { Account } from '@/model/model'
 
 interface AccountPageData {
     account: Account;
@@ -22,7 +19,7 @@ interface AccountPageData {
 export default defineComponent({
   name: 'AccountPage',
   components: {
-    AccountsWidget
+
   },
   created: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
@@ -40,7 +37,7 @@ export default defineComponent({
   },
   methods: {
     async getAccountOperation () {
-      accountService.getAccount(this.accountId)
+      // to do
     }
   }
 })
