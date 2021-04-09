@@ -49,7 +49,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { budgetService } from '@/services/BudgetService'
-import { MasterCategoriesData, BudgetData } from '@/model/model'
+import { MasterCategoriesData, BudgetData, Budget } from '@/model/model'
 
 interface BudgetCmptData {
     budgetData: BudgetData;
@@ -60,10 +60,12 @@ interface BudgetCmptData {
 
 export default defineComponent({
   name: 'BudgetCmpt',
-  created: async function () {
-    this.getCurrentBudget()
+  props: ['month'],
+  watch: {
+    budget: async function () {
+      this.getBudgetData()
+    }
   },
-  props: ['month', 'budget'],
   data (): BudgetCmptData {
     return {
       budgetData: {},
@@ -71,6 +73,9 @@ export default defineComponent({
     }
   },
   computed: {
+    budget (): Budget {
+      return this.$store.state.budget
+    },
     masterCategoriesData () {
       const masterCategoriesData: MasterCategoriesData = {}
       let category
@@ -105,8 +110,8 @@ export default defineComponent({
     }
   },
   methods: {
-    async getCurrentBudget () {
-      budgetService.getBudgetData(this.$props.budget).then(
+    async getBudgetData () {
+      budgetService.getBudgetData(this.budget).then(
         (budgetData) => {
           this.budgetData = budgetData
           this.initFormerAllocation()

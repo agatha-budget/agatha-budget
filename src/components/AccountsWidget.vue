@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { AccountList } from '@/model/model'
+import { AccountList, Budget } from '@/model/model'
 import { accountService } from '@/services/AccountService'
 import AccountCreationForm from '@/components/forms/AccountCreationForm.vue'
 
@@ -43,7 +43,7 @@ export default defineComponent({
     AccountCreationForm
   },
   watch: {
-    currentBudget: async function () {
+    budget: async function () {
       this.getAccounts()
     }
   },
@@ -54,13 +54,13 @@ export default defineComponent({
     }
   },
   computed: {
-    currentBudget () {
+    budget (): Budget {
       return this.$store.state.budget
     }
   },
   methods: {
     async getAccounts () {
-      return accountService.getAccounts(this.$store.state.budget).then(
+      return accountService.getAccounts(this.budget).then(
         (accounts) => {
           this.accounts = accounts
         }
