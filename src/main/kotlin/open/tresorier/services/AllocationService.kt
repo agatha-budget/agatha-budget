@@ -2,18 +2,20 @@ package open.tresorier.services
 
 import open.tresorier.dao.IAllocationDao
 import open.tresorier.model.Allocation
+import open.tresorier.model.Category
+import open.tresorier.model.Month
 import open.tresorier.model.Person
 
 class AllocationService(private val allocationDao: IAllocationDao, private val authorizationService: AuthorizationService) {
 
-    fun update(person: Person, allocation: Allocation, newAmount: Double): Allocation {
-        authorizationService.cancelIfUserIsUnauthorized(person, allocation)
-        allocation.amount = newAmount
-        return allocationDao.update(allocation)
+    fun insertOrUpdate(person: Person, month: Month, category: Category, amount: Double): Allocation {
+        authorizationService.cancelIfUserIsUnauthorized(person, category)
+        val allocation = Allocation(month, category.id, amount)
+        return allocationDao.insertOrUpdate(allocation)
     }
     
-    fun getById(person: Person, id: String): Allocation {
-        val allocation = allocationDao.getById(id)
+    fun getByIdentifier(person: Person, category: Category, month: Month): Allocation {
+        val allocation = allocationDao.getByIdentifiers(category, month)
         authorizationService.cancelIfUserIsUnauthorized(person, allocation)
         return allocation
     }

@@ -244,7 +244,7 @@ class BudgetDataServiceTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
@@ -292,7 +292,7 @@ class BudgetDataServiceTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
@@ -338,7 +338,7 @@ class BudgetDataServiceTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
@@ -382,7 +382,7 @@ class BudgetDataServiceTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
@@ -425,7 +425,7 @@ class BudgetDataServiceTest : ITest {
 
         )
         for (allocation in allocationList) {
-            allocationDao.insert(allocation)
+            allocationDao.insertOrUpdate(allocation)
         }
         val category2 = Category("lessoftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category2)
