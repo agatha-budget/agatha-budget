@@ -104,8 +104,10 @@ fun main() {
 
     app.before("/budget/data", SuperTokens.middleware())
     app.get("/budget/data") { ctx ->
+        // required
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+        // optional
         val startMonth: Month? = getOptionalQueryParam<Int>(ctx, "start_month")?.let { Month.createFromComparable(it)}
         val endMonth: Month? = getOptionalQueryParam<Int>(ctx, "end_month")?.let { Month.createFromComparable(it)}
         val budgetData = ServiceManager.budgetDataService.getBudgetData(user, budget, startMonth, endMonth)
@@ -122,6 +124,23 @@ fun main() {
         val account = ServiceManager.accountService.create(user, budget, name, day, amount)
         ctx.json(account)
     }
+
+    app.put("/account") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        val formerName = account.name
+        val newName = getQueryParam<String>(ctx, "new_name")
+        ServiceManager.accountService.update(user, account, newName)
+        ctx.json("updated from $formerName to $newName")
+    }
+
+    app.delete("/account") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        ServiceManager.accountService.delete(user, account)
+        ctx.json("account ${account.name} has been deleted")
+    }
+
     app.before("/account/budget", SuperTokens.middleware())
     app.get("/account/budget") { ctx ->
         val user = getUserFromAuth(ctx)
@@ -129,6 +148,52 @@ fun main() {
         val accounts = ServiceManager.accountService.findByBudget(user, budget)
         ctx.json(accounts)
     }
+
+    app.before("/operation", SuperTokens.middleware())
+    app.post("/operation") { ctx ->
+        //required
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+
+        //optional
+        val day : Day? = getOptionalQueryParam<Int>(ctx, "day")?.let {Day.createFromComparable(it)}
+        val category: Category? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
+            ServiceManager.categoryService.getById(user, it)
+        }
+        val amount : Double? = getOptionalQueryParam<Double>(ctx, "amount")
+        val memo : String? = getOptionalQueryParam<String>(ctx, "memo")
+
+        val operation: Operation = ServiceManager.operationService.create(user, account, day, category, amount, memo)
+        ctx.json(operation)
+    }
+
+    app.put("/operation") { ctx ->
+        //required
+        val user = getUserFromAuth(ctx)
+        val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
+
+        //optional
+        val account: Account? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
+            ServiceManager.accountService.getById(user, it)
+        }
+        val day : Day? = getOptionalQueryParam<Int>(ctx, "day")?.let {Day.createFromComparable(it)}
+        val category: Category? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
+            ServiceManager.categoryService.getById(user, it)
+        }
+        val amount : Double? = getOptionalQueryParam<Double>(ctx, "amount")
+        val memo : String? = getOptionalQueryParam<String>(ctx, "memo")
+
+        val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo)
+        ctx.json(updatedOperation)
+    }
+
+    app.delete("/operation") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
+        ServiceManager.operationService.delete(user, operation)
+        ctx.json("account ${operation.id} has been deleted")
+    }
+
 }
 
 private fun setUpApp(properties: JavaProperties): Javalin {
