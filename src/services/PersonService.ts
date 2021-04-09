@@ -1,7 +1,7 @@
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { personApi } from '@/services/api/apis'
-import router from '@/router'
+import router, { RouterPages } from '@/router'
 import axios from 'axios'
 
 interface LoginResponse {
@@ -17,7 +17,7 @@ class PersonService {
       response = await personApi.createSession(email, password)
       data = response.data
       store.dispatch('updateLogged')
-      router.push('/')
+      router.push(RouterPages.home)
     } catch (exception) {
       if (axios.isAxiosError(exception)) {
         response = exception.response
@@ -30,7 +30,7 @@ class PersonService {
   public async deleteSession (store: Store<StoreState>) {
     await personApi.deleteSession()
     store.dispatch('updateLogged')
-    router.push('/login')
+    router.push(RouterPages.login)
   }
 }
 
