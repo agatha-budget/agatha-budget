@@ -34,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 353912614;
+    private static final long serialVersionUID = -866964989;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -55,24 +55,24 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>public.operation.month</code>.
-     */
-    public final TableField<OperationRecord, Integer> MONTH = createField(DSL.name("month"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
-
-    /**
-     * The column <code>public.operation.day</code>.
-     */
-    public final TableField<OperationRecord, Integer> DAY = createField(DSL.name("day"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
-
-    /**
      * The column <code>public.operation.account_id</code>.
      */
     public final TableField<OperationRecord, String> ACCOUNT_ID = createField(DSL.name("account_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
+     * The column <code>public.operation.month</code>.
+     */
+    public final TableField<OperationRecord, Integer> MONTH = createField(DSL.name("month"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>public.operation.day</code>.
+     */
+    public final TableField<OperationRecord, Integer> DAY = createField(DSL.name("day"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+    /**
      * The column <code>public.operation.category_id</code>.
      */
-    public final TableField<OperationRecord, String> CATEGORY_ID = createField(DSL.name("category_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<OperationRecord, String> CATEGORY_ID = createField(DSL.name("category_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>public.operation.amount</code>.
@@ -187,7 +187,7 @@ public class Operation extends TableImpl<OperationRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, Integer, Integer, String, String, BigDecimal, String> fieldsRow() {
+    public Row7<String, String, Integer, Integer, String, BigDecimal, String> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 }

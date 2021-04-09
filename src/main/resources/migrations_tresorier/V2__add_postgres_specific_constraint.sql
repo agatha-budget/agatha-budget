@@ -5,22 +5,26 @@ declare
   	universal_category boolean;
 begin
     -- get the master category of the given category and assert its budget is the same than the given account's
-   	select count(*) = 1 into same_budget
-        from account acc
-        join master_category master_cat
-            on master_cat.budget_id = acc.budget_id
-        join category cat
-            on cat.master_category_id = master_cat.id
-        where cat.id = _category_id
-            and acc.id = _account_id;
+    if _category_id is null then
+        return true;
+    else
+        select count(*) = 1 into same_budget
+            from account acc
+            join master_category master_cat
+                on master_cat.budget_id = acc.budget_id
+            join category cat
+                on cat.master_category_id = master_cat.id
+            where cat.id = _category_id
+                and acc.id = _account_id;
 
-    -- if the master_category of the given category is null it means it is an universal category (like income or transfert)
-	select count(*) = 1 into universal_category
-        from category cat
-        where cat.id = _category_id
-            and cat.master_category_id is null;
+        -- if the master_category of the given category is null it means it is an universal category (like income or transfert)
+        select count(*) = 1 into universal_category
+            from category cat
+            where cat.id = _category_id
+                and cat.master_category_id is null;
 
-    return same_budget or universal_category;
+        return same_budget or universal_category;
+    end if;
 end;
 $$ language plpgsql;
 

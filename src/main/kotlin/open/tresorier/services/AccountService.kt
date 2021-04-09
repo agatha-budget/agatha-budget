@@ -36,6 +36,6 @@ class AccountService(private val accountDao: IAccountDao, private val authorizat
 
     fun findByBudget(person: Person, budget: Budget) : List<Account> {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
-        return accountDao.findByBudgetId(budget.id)
+        return accountDao.findByBudget(budget)
     }
 }

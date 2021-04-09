@@ -7,6 +7,7 @@ import open.tresorier.generated.jooq.test.public_.Tables.PERSON
 import open.tresorier.generated.jooq.test.public_.tables.daos.AccountDao
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.Account
+import open.tresorier.model.Budget
 import open.tresorier.model.Person
 import org.jooq.Configuration
 import org.jooq.impl.DSL
@@ -42,12 +43,12 @@ class H2AccountDao(val configuration: Configuration) : IAccountDao {
         return this.toAccount(jooqAccount) ?: throw TresorierException("no account found for the following id : $id")
     }
 
-    override fun findByBudgetId(budgetId: String): List<Account> {
-        val jooqAccountList = this.generatedDao.fetchByBudgetId(budgetId)
+    override fun findByBudget(budget: Budget): List<Account> {
+        val jooqAccountList = this.generatedDao.fetchByBudgetId(budget.id)
         val accountList: MutableList<Account> = mutableListOf()
         for (jooqAccount in jooqAccountList) {
             val account = this.toAccount(jooqAccount)
-            account?.let { accountList.add(account) }
+            account?.let { accountList.add(it) }
         }
         return accountList
     }

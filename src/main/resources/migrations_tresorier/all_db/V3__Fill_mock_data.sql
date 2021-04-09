@@ -59,7 +59,8 @@ VALUES
         ('operation2', 202103, 4, 'account1', 'category2', -8468456.45, 'saving 1 fun'),
         ('operation3', 202103, 8, 'account2', 'category3', 0.25, 'checking 1 gift'),
         ('operation4', 202105, 24, 'account4', 'category4', -0.25, 'checking 4 grocery'),
-        ('operation5', 202108, 31, 'account3', 'category3', 4.45, 'credit 1 gift')
+        ('operation5', 202108, 31, 'account3', 'category3', 4.45, 'credit 1 gift'),
+        ('operation6', null, null, 'account1', null, 12.00, null)
 ;
 
 INSERT INTO

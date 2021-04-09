@@ -4,13 +4,14 @@ import open.tresorier.dao.IOperationDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.main.Tables.*
 import open.tresorier.generated.jooq.main.tables.daos.OperationDao
+import open.tresorier.generated.jooq.main.tables.records.OperationRecord
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.model.*
 import org.jooq.Configuration
-import org.jooq.*
-import org.jooq.impl.*
+import org.jooq.Field
+import org.jooq.Record3
 import org.jooq.impl.DSL
-import org.jooq.impl.DSL.*
+import org.jooq.impl.DSL.sum
 import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Operation as JooqOperation
 
@@ -59,15 +60,15 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
     }
 
     override fun findTotalSpendingByMonth(budget: Budget, maxMonth: Month?) : List<Spending> {
-         val query = this.query
-                .select(OPERATION.CATEGORY_ID, OPERATION.MONTH , spendingSum )
-                .from(MASTER_CATEGORY)
-                .join(CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
-                .join(OPERATION).on(OPERATION.CATEGORY_ID.eq(CATEGORY.ID))
-                .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
+        val query = this.query
+            .select(OPERATION.CATEGORY_ID, OPERATION.MONTH , spendingSum )
+            .from(MASTER_CATEGORY)
+            .join(CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
+            .join(OPERATION).on(OPERATION.CATEGORY_ID.eq(CATEGORY.ID))
+            .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
         maxMonth?.let{ query.and( OPERATION.MONTH.lessOrEqual(it.comparable))}
         query.groupBy(OPERATION.CATEGORY_ID, OPERATION.MONTH)
-                .orderBy(OPERATION.MONTH.asc())
+            .orderBy(OPERATION.MONTH.asc())
         val jooqSpendingList = query.fetch()
         val spendingList: MutableList<Spending> = mutableListOf()
         for (spendingRecord in jooqSpendingList) {
@@ -75,6 +76,35 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             spendingList.add(allocation)
         }
         return spendingList
+    }
+
+    override fun findByAccount(account: Account): List<Operation> {
+        val jooqOperationList = this.generatedDao.fetchByAccountId(account.id)
+        val accountList: MutableList<Operation> = mutableListOf()
+        for (jooqOperation in jooqOperationList) {
+            val operation = this.toOperation(jooqOperation)
+            operation?.let { accountList.add(it) }
+        }
+        return accountList
+    }
+
+    override fun findByBudget(budget: Budget): List<Operation> {
+        val query = this.query
+            .select()
+            .from(OPERATION)
+            .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
+            .where(ACCOUNT.BUDGET_ID.eq(budget.id))
+        query.orderBy(OPERATION.MONTH.asc(), OPERATION.DAY.asc())
+
+        val jooqOperationList = query.fetch().into(OPERATION)
+
+        val operationList: MutableList<Operation> = mutableListOf()
+        for (operationRecord : OperationRecord in jooqOperationList) {
+            val operation = this.toOperation(operationRecord)
+            operationList.add(operation)
+        }
+
+        return operationList
     }
 
     override fun getOwner(operation: Operation): Person {
@@ -93,9 +123,9 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
     private fun toJooqOperation(operation: Operation): JooqOperation {
         return JooqOperation(
             operation.id,
-            operation.day.month.comparable,
-            operation.day.day,
             operation.accountId,
+            operation.day?.month?.comparable,
+            operation.day?.day,
             operation.categoryId,
             BigDecimal(operation.amount),
             operation.memo
@@ -106,8 +136,8 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
         return if (jooqOperation == null)
             null
         else Operation(
-            Day(Month.createFromComparable(jooqOperation.month), jooqOperation.day),
             jooqOperation.accountId,
+            Day(Month.createFromComparable(jooqOperation.month), jooqOperation.day),
             jooqOperation.categoryId,
             jooqOperation.amount.toDouble(),
             jooqOperation.memo,
@@ -117,9 +147,20 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
 
     private fun toSpending(jooqSpending: Record3<String, Int, BigDecimal>) : Spending {
         return Spending(
-                Month.createFromComparable(jooqSpending.get(OPERATION.MONTH)),
-                jooqSpending.get(OPERATION.CATEGORY_ID),
-                jooqSpending.get(spendingSum).toDouble()
+            Month.createFromComparable(jooqSpending.get(OPERATION.MONTH)),
+            jooqSpending.get(OPERATION.CATEGORY_ID),
+            jooqSpending.get(spendingSum).toDouble()
+        )
+    }
+
+    private fun toOperation(operationRecord: OperationRecord): Operation {
+        return Operation(
+            operationRecord.accountId,
+            Day(Month.createFromComparable(operationRecord.month), operationRecord.day),
+            operationRecord.categoryId,
+            operationRecord.amount.toDouble(),
+            operationRecord.memo,
+            operationRecord.id,
         )
     }
 }
