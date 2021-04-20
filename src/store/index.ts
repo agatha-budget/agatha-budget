@@ -1,31 +1,42 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import SuperTokensRequest from 'supertokens-website/axios'
+import { Budget } from '@/model/model'
 
-export interface State {
+export interface StoreState {
   logged: boolean;
+  budget: Budget;
 }
 
-export const key: InjectionKey<Store<State>> = Symbol('injectionKey')
+export const key: InjectionKey<Store<StoreState>> = Symbol('injectionKey')
 
-export const store = createStore<State>({
+export const store = createStore<StoreState>({
   state: {
-    logged: SuperTokensRequest.doesSessionExist()
+    logged: SuperTokensRequest.doesSessionExist(),
+    budget: { id: '', name: '' }
   },
   mutations: {
     updateLogged (state) {
       state.logged = SuperTokensRequest.doesSessionExist()
+    },
+    updateBudget (state, budget: Budget) {
+      state.budget = budget
     }
   },
   actions: {
     updateLogged (context) {
       context.commit('updateLogged')
+      console.log(this.state)
+    },
+    updateBudget (context, budget: Budget) {
+      context.commit('updateBudget', budget)
+      console.log(this.state)
     }
   },
   modules: {
   }
 })
 
-export function useStore (): Store<State> {
+export function useStore (): Store<StoreState> {
   return baseUseStore(key)
 }

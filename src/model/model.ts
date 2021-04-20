@@ -9,11 +9,18 @@ interface Account {
     id: string;
     name: string;
     amount: number;
-    currency: Currency;
 }
 
+interface Budget {
+    id: string;
+    name: string;
+}
 
-interface MasterCategoryArray {
+interface AccountList {
+    [accountId: string]: Account;
+}
+
+interface BudgetData {
     [masterCategoryId: string]: {
         name: string;
         categories: {
@@ -26,9 +33,4 @@ interface MasterCategoriesData {
     [masterCategoryId: string]: Category;
 }
 
-interface Currency {
-    name: string,
-    symbol: string
-}
-
-export { Category, MasterCategoriesData, MasterCategoryArray, Account, Currency }
+export { Category, MasterCategoriesData, BudgetData, Account, AccountList, Budget }

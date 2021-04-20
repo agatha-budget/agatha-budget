@@ -18,7 +18,7 @@
           </tr>
         </tbody>
       </table>
-      <table class="budgetTable table" v-for="masterCategory, masterCategoryId in budget" :key="masterCategory">
+      <table class="budgetTable table" v-for="masterCategory, masterCategoryId in budgetData" :key="masterCategory">
           <tr class="masterCategory">
             <th class="col-6 name"><div>{{ masterCategoriesData[masterCategoryId].name }}</div></th>
             <th class="col-2 allocated">{{ masterCategoriesData[masterCategoryId].allocated }}</th>
@@ -49,40 +49,45 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { budgetService } from '@/services/BudgetService'
-import { MasterCategoriesData, MasterCategoryArray } from '@/model/model'
+import { MasterCategoriesData, BudgetData, Budget } from '@/model/model'
 
-interface BudgetData {
-    budget: MasterCategoryArray;
+interface BudgetCmptData {
+    budgetData: BudgetData;
     formerAllocations: {
         [categoryId: string]: number;
     };
 }
 
 export default defineComponent({
-  name: 'Budget',
-  created: async function () {
-    this.getCurrentBudget()
-  },
+  name: 'BudgetCmpt',
   props: ['month'],
-  data (): BudgetData {
+  watch: {
+    budget: async function () {
+      this.getBudgetData()
+    }
+  },
+  data (): BudgetCmptData {
     return {
-      budget: {},
+      budgetData: {},
       formerAllocations: {} // use former budget to compute the "available" value from -formerBudget.available + budget.available without asking the back-end to compute
     }
   },
   computed: {
+    budget (): Budget {
+      return this.$store.state.budget
+    },
     masterCategoriesData () {
       const masterCategoriesData: MasterCategoriesData = {}
       let category
-      for (const masterCategoryId in this.budget) {
+      for (const masterCategoryId in this.budgetData) {
         masterCategoriesData[masterCategoryId] = {
-          name: this.budget[masterCategoryId].name,
+          name: this.budgetData[masterCategoryId].name,
           allocated: 0,
           spent: 0,
           available: 0
         }
-        for (const categoryId in this.budget[masterCategoryId].categories) {
-          category = this.budget[masterCategoryId].categories[categoryId]
+        for (const categoryId in this.budgetData[masterCategoryId].categories) {
+          category = this.budgetData[masterCategoryId].categories[categoryId]
           masterCategoriesData[masterCategoryId].allocated += category.allocated
           masterCategoriesData[masterCategoryId].spent += category.spent
           masterCategoriesData[masterCategoryId].available += category.available
@@ -105,26 +110,26 @@ export default defineComponent({
     }
   },
   methods: {
-    async getCurrentBudget () {
-      budgetService.getBudget().then(
-        (budget) => {
-          this.budget = budget
+    async getBudgetData () {
+      budgetService.getBudgetData(this.budget).then(
+        (budgetData) => {
+          this.budgetData = budgetData
           this.initFormerAllocation()
         }
       )
     },
     initFormerAllocation () {
       let category
-      for (const masterCategoryId in this.budget) {
-        for (const categoryId in this.budget[masterCategoryId].categories) {
-          category = this.budget[masterCategoryId].categories[categoryId]
+      for (const masterCategoryId in this.budgetData) {
+        for (const categoryId in this.budgetData[masterCategoryId].categories) {
+          category = this.budgetData[masterCategoryId].categories[categoryId]
           this.formerAllocations[categoryId] = category.allocated
         }
       }
     },
     updateAllocation (masterCategoryId: string, categoryId: string, newAllocation: number) {
       console.log('new alloc for ' + categoryId + ' of ' + masterCategoryId + ' : ' + newAllocation)
-      this.budget[masterCategoryId].categories[categoryId].available += (newAllocation - this.formerAllocations[categoryId])
+      this.budgetData[masterCategoryId].categories[categoryId].available += (newAllocation - this.formerAllocations[categoryId])
       this.formerAllocations[categoryId] = newAllocation
     }
   }

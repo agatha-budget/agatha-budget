@@ -14,5 +14,4 @@ const messages = {
 }
 
 const i18n = createI18n({ locale: 'fr', fallbackLocale: 'en', messages })
-
 createApp(App).use(store, key).use(router).use(i18n).mount('#app')

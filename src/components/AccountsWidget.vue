@@ -4,8 +4,8 @@
     <h3 class="col-10">{{$t('MY_ACCOUNTS')}}</h3>
     </div>
     <ul>
-      <li class="account" v-for="account, accountId in this.accountsList" :key="accountId">
-        {{ account.name }} - {{account.amount}} {{account.currency.symbol}}
+      <li class="account" v-for="account, accountId in this.accounts" :key="accountId">
+        <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} - {{account.amount}} €</button>
       </li>
       <li>
         <div v-if="!accountCreationFormIsDisplayed">
@@ -19,7 +19,7 @@
           </button>
         </div>
         <div class="formContainer" v-if="accountCreationFormIsDisplayed">
-          <AccountCreationForm />
+          <AccountCreationForm @update-account-list="getAccounts" @close-form="changeAccountCreationFormDisplay" />
         </div>
       </li>
     </ul>
@@ -28,15 +28,14 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Account } from '@/model/model'
-import { currencies } from '@/model/enum'
+import { AccountList, Budget } from '@/model/model'
+import { accountService } from '@/services/AccountService'
 import AccountCreationForm from '@/components/forms/AccountCreationForm.vue'
+import router, { RouterPages } from '@/router'
 
 interface AccountsWidgetData {
     accountCreationFormIsDisplayed: boolean;
-    accountsList: {
-        [accountId: string]: Account;
-    };
+    accounts: AccountList;
 }
 
 export default defineComponent({
@@ -44,31 +43,32 @@ export default defineComponent({
   components: {
     AccountCreationForm
   },
-  created: async function () {
-    this.getAccounts()
+  watch: {
+    budget: async function () {
+      this.getAccounts()
+    }
   },
   data (): AccountsWidgetData {
     return {
       accountCreationFormIsDisplayed: false,
-      accountsList: {
-        idaccount1: {
-          id: 'id',
-          name: 'courrant',
-          amount: 125.25,
-          currency: currencies.EUROS
-        },
-        idaccount2: {
-          id: 'id2',
-          name: 'epargne',
-          amount: 1250,
-          currency: currencies.EUROS
-        }
-      }
+      accounts: {}
+    }
+  },
+  computed: {
+    budget (): Budget {
+      return this.$store.state.budget
     }
   },
   methods: {
     async getAccounts () {
-      console.log('get accounts')
+      return accountService.getAccounts(this.budget).then(
+        (accounts) => {
+          this.accounts = accounts
+        }
+      )
+    },
+    goToAccountPage (account: Account) {
+      router.push({ path: RouterPages.account, query: { accountId: account.id } })
     },
     changeAccountCreationFormDisplay () {
       this.$data.accountCreationFormIsDisplayed = !this.$data.accountCreationFormIsDisplayed

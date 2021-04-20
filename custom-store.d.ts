@@ -1,15 +1,10 @@
 import { ComponentCustomProperties } from 'vue'
 import { Store } from 'vuex'
+import { StoreState } from '@/store/index'
 
 declare module '@vue/runtime-core' {
-  // declare your own store states
-  interface State {
-    logged: boolean
-    userId: string
-  }
-
   // provide typings for `this.$store`
   interface ComponentCustomProperties {
-    $store: Store<State>
+    $store: Store<StoreState>
   }
 }
