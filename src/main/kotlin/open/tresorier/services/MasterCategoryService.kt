@@ -30,4 +30,9 @@ class MasterCategoryService(private val masterCategoryDao: IMasterCategoryDao, p
         masterCategory.deleted = true
         return masterCategoryDao.update(masterCategory)
     }
+
+    fun findByBudget(person: Person, budget: Budget): List<MasterCategory> {
+        authorizationService.cancelIfUserIsUnauthorized(person, budget)
+        return masterCategoryDao.findByBudget(budget)
+    }
 }
