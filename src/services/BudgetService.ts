@@ -1,14 +1,10 @@
-import { StoreState } from '@/store/index'
-import { Store } from 'vuex'
 import { Budget, BudgetData } from '@/model/model'
 import { budgetApi } from './api/apis'
 
 export default class BudgetService {
-  public static async getDefaultBudget (store: Store<StoreState>) {
+  public static async getDefaultBudget (): Promise<Budget> {
     const response = await budgetApi.findBudgetsByUser()
-    const data = response.data[0]
-    const budget: Budget = { id: data.id, name: data.name }
-    store.dispatch('updateBudget', budget)
+    return response.data[0]
   }
 
   public static async getBudgetData (budget: Budget): Promise<BudgetData> {

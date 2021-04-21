@@ -61,6 +61,9 @@ interface BudgetCmptData {
 export default defineComponent({
   name: 'BudgetCmpt',
   props: ['month'],
+  created: async function () {
+    this.getBudgetData()
+  },
   watch: {
     budget: async function () {
       this.getBudgetData()

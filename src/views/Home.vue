@@ -17,16 +17,16 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from '@/store/index'
+import StoreHandler from '@/store/StoreHandler'
 import router from '@/router'
 import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
 import PersonService from '@/services/PersonService'
-import BudgetService from '@/services/BudgetService'
 
 export default defineComponent({
   name: 'Home',
   created: async function () {
-    this.getDefaultBudget()
+    StoreHandler.initStore(this.$store)
   },
   components: {
     BudgetCmpt,
@@ -40,9 +40,6 @@ export default defineComponent({
   methods: {
     logout () {
       PersonService.deleteSession(this.$store)
-    },
-    async getDefaultBudget () {
-      BudgetService.getDefaultBudget(this.$store)
     }
   }
 })
