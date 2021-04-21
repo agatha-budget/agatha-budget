@@ -24,7 +24,7 @@ open class TresorierException (
                      + Utils.newLine() +
                      "catched_exception_msg : " + this.catchedException?.message
                      + Utils.newLine() +
-                     "catched_exception_trace : " + this.catchedException?.stackTrace
+                     "catched_exception_trace : " + this.catchedException?.stackTrace.toString()
         )
     }
 
