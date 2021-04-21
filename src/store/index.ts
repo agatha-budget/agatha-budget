@@ -6,6 +6,7 @@ import { Budget } from '@/model/model'
 export interface StoreState {
   logged: boolean;
   budget: Budget;
+  css: string;
 }
 
 export const key: InjectionKey<Store<StoreState>> = Symbol('injectionKey')
@@ -13,7 +14,8 @@ export const key: InjectionKey<Store<StoreState>> = Symbol('injectionKey')
 export const store = createStore<StoreState>({
   state: {
     logged: SuperTokensRequest.doesSessionExist(),
-    budget: { id: '', name: '' }
+    budget: { id: '', name: '' },
+    css: 'blue'
   },
   mutations: {
     updateLogged (state) {

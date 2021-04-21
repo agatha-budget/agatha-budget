@@ -1,5 +1,5 @@
 <template >
-  <div :class="this.css">
+  <div :class="this.$store.state.css">
     <div class="home row">
       <BudgetCmpt month="FEBRUARY" class="col-md-4 offset-md-2"/>
       <div class="col-md-2 offset-md-2">
@@ -23,10 +23,6 @@ import AccountsWidget from '@/components/AccountsWidget.vue'
 import { personService } from '@/services/PersonService'
 import { budgetService } from '@/services/BudgetService'
 
-interface HomeData {
-    css: string;
-}
-
 export default defineComponent({
   name: 'Home',
   created: async function () {
@@ -35,11 +31,6 @@ export default defineComponent({
   components: {
     BudgetCmpt,
     AccountsWidget
-  },
-  data (): HomeData {
-    return {
-      css: 'blue'
-    }
   },
   setup () {
     if (!useStore().state.logged) {

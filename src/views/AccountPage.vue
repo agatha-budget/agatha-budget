@@ -1,5 +1,5 @@
 <template >
-  <div :class="this.css">
+  <div :class="this.$store.state.css">
     <div class="home row">
       <h1>test - </h1>
     </div>
