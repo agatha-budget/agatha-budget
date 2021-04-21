@@ -1,13 +1,16 @@
-import { Account, Budget } from '@/model/model'
+import { Budget, AccountList } from '@/model/model'
 import { accountApi } from '@/services/api/apis'
 import Time from '@/utils/Time'
 
 export default class AccountService {
-  public static async getAccounts (budget: Budget): Promise<Account[]> {
-    let data: Account[] = []
+  public static async getAccounts (budget: Budget): Promise<AccountList> {
+    const data: AccountList = {}
     if (budget.id) {
       const response = await accountApi.findAccountsByBudget(budget.id)
-      data = response.data
+      const accounts = response.data
+      for (const account of accounts) {
+        data[account.id] = account
+      }
     }
     return data
   }

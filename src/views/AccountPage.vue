@@ -46,11 +46,7 @@ export default defineComponent({
   props: ['accountId'],
   data (): AccountPageData {
     return {
-      account: {
-        id: this.accountId,
-        name: 'the account name',
-        amount: 0
-      },
+      account: this.$store.state.accounts[this.accountId],
       operations: {}
     }
   },

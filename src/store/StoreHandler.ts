@@ -1,4 +1,4 @@
-import { Account, Budget } from '@/model/model'
+import { Budget, AccountList } from '@/model/model'
 import AccountService from '@/services/AccountService'
 import BudgetService from '@/services/BudgetService'
 import { StoreState } from '@/store/index'
@@ -13,7 +13,7 @@ export default class StoreHandler {
   public static async updateAccounts (store: Store<StoreState>) {
     if (store.state.budget.id) {
       AccountService.getAccounts(store.state.budget).then(
-        (accounts: Account[]) => {
+        (accounts: AccountList) => {
           store.dispatch('updateAccounts', accounts)
         }
       )
