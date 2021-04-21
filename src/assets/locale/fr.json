@@ -29,5 +29,9 @@
     "ACCOUNT_NAME": "nom du compte",
     "INITIAL_AMOUNT": "montant initial",
     "CREATE_ACCOUNT": "ajouter ce compte",
-    "CANCEL": "annuler"
+    "CANCEL": "annuler",
+    "DATE": "date",
+    "CATEGORY": "categorie",
+    "MEMO": "mémo",
+    "AMOUNT": "montant"
 }
