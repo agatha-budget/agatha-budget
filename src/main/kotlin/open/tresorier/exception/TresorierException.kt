@@ -1,7 +1,10 @@
 package open.tresorier.exception
 
 import open.tresorier.utils.Utils
+import java.io.PrintWriter
+import java.io.StringWriter
 import java.util.*
+
 
 open class TresorierException (
     private val p_message: String,
@@ -24,9 +27,17 @@ open class TresorierException (
                      + Utils.newLine() +
                      "catched_exception_msg : " + this.catchedException?.message
                      + Utils.newLine() +
-                     "catched_exception_trace : " + this.catchedException?.stackTrace.toString()
+                     "catched_exception_trace : " + this.catchedException?.let {getStackTrace(it)}
         )
     }
+
+    private fun getStackTrace(e: Exception): String {
+        val sw = StringWriter()
+        val pw = PrintWriter(sw)
+        e.printStackTrace(pw)
+        return sw.toString()
+    }
+
 
 
 }
