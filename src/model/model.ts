@@ -1,3 +1,5 @@
+import { Operation, Account, Budget } from '@/services/api/openApi/api'
+
 interface Category {
     name: string;
     allocated: number;
@@ -21,7 +23,5 @@ interface BudgetData {
 interface MasterCategoriesData {
     [masterCategoryId: string]: Category;
 }
-
-import { Operation, Account, Budget } from '@/services/api/openApi/api'
 
 export { Operation, Category, MasterCategoriesData, BudgetData, Account, AccountList, Budget }
