@@ -5,17 +5,6 @@ interface Category {
     available: number;
 }
 
-interface Account {
-    id: string;
-    name: string;
-    amount: number;
-}
-
-interface Budget {
-    id: string;
-    name: string;
-}
-
 interface AccountList {
     [accountId: string]: Account;
 }
@@ -33,4 +22,6 @@ interface MasterCategoriesData {
     [masterCategoryId: string]: Category;
 }
 
-export { Category, MasterCategoriesData, BudgetData, Account, AccountList, Budget }
+import { Operation, Account, Budget } from '@/services/api/openApi/api'
+
+export { Operation, Category, MasterCategoriesData, BudgetData, Account, AccountList, Budget }

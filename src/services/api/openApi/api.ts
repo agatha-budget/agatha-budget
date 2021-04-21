@@ -45,12 +45,6 @@ export interface Account {
      * @memberof Account
      */
     amount: number;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof Account
-     */
-    archived: boolean;
 }
 /**
  * 
