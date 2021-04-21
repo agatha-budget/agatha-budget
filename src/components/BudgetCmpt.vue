@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { budgetService } from '@/services/BudgetService'
+import BudgetService from '@/services/BudgetService'
 import { MasterCategoriesData, BudgetData, Budget } from '@/model/model'
 
 interface BudgetCmptData {
@@ -111,7 +111,7 @@ export default defineComponent({
   },
   methods: {
     async getBudgetData () {
-      budgetService.getBudgetData(this.budget).then(
+      BudgetService.getBudgetData(this.budget).then(
         (budgetData) => {
           this.budgetData = budgetData
           this.initFormerAllocation()

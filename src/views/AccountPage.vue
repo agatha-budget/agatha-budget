@@ -27,7 +27,7 @@ import { defineComponent } from 'vue'
 import { redirectToLoginPageIfNotLogged } from '@/router'
 import { Account } from '@/model/model'
 import Time from '@/utils/Time'
-import { operationService } from '@/services/OperationService'
+import OperationService from '@/services/OperationService'
 
 interface AccountPageData {
     account: Account;
@@ -56,7 +56,7 @@ export default defineComponent({
   },
   methods: {
     async getAccountOperation () {
-      return operationService.getOperations(this.account).then(
+      return OperationService.getOperations(this.account).then(
         (operations) => {
           this.operations = operations
         }

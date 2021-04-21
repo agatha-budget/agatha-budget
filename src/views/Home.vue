@@ -20,8 +20,8 @@ import { useStore } from '@/store/index'
 import router from '@/router'
 import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
-import { personService } from '@/services/PersonService'
-import { budgetService } from '@/services/BudgetService'
+import PersonService from '@/services/PersonService'
+import BudgetService from '@/services/BudgetService'
 
 export default defineComponent({
   name: 'Home',
@@ -39,10 +39,10 @@ export default defineComponent({
   },
   methods: {
     logout () {
-      personService.deleteSession(this.$store)
+      PersonService.deleteSession(this.$store)
     },
     async getDefaultBudget () {
-      budgetService.getDefaultBudget(this.$store)
+      BudgetService.getDefaultBudget(this.$store)
     }
   }
 })

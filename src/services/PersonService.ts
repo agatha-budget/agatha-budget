@@ -9,8 +9,8 @@ interface LoginResponse {
     unlockingDate: number;
 }
 
-class PersonService {
-  public async createSession (store: Store<StoreState>, email: string, password: string): Promise<LoginResponse> {
+export default class PersonService {
+  public static async createSession (store: Store<StoreState>, email: string, password: string): Promise<LoginResponse> {
     let data
     let response
     try {
@@ -27,11 +27,9 @@ class PersonService {
     return JSON.parse(data)
   }
 
-  public async deleteSession (store: Store<StoreState>) {
+  public static async deleteSession (store: Store<StoreState>) {
     await personApi.deleteSession()
     store.dispatch('updateLogged')
     router.push(RouterPages.login)
   }
 }
-
-export const personService = new PersonService()
