@@ -24,9 +24,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.account,
     component: AccountPage,
-    props: {
-      accountId: (route: { query: { accountId: string } }) => (route.query.accountId)
-    }
+    props: route => ({ accountId: route.query.accountId })
   },
   {
     path: RouterPages.about,
