@@ -12,11 +12,11 @@ class Month (
         return "$month-$year"
     }
 
-    fun getNext() : Month {
+    fun findNext() : Month {
         return if (month != 12) Month(month + 1, year) else Month(1, year+1)
     }
 
-    fun getBefore() : Month {
+    fun findBefore() : Month {
         return if (month != 1) Month(month - 1, year) else Month(12, year-1)
     }
 

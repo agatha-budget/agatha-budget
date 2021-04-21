@@ -31,14 +31,14 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
             // will get until endMonth or last month
             // if last month is null meaning the data set is empty :
             // will use month before startMonth to cut the loop short and return an empty map
-            val end : Month = endMonth ?: data.getLastMonth() ?: startMonth.getBefore()
+            val end : Month = endMonth ?: data.getLastMonth() ?: startMonth.findBefore()
             val extractedData = BudgetData()
             var month = startMonth
             while (month.comparable <= end.comparable){
                 data[month.comparable]?.let {
                     extractedData[month.comparable] = it
                 }
-                month = month.getNext()
+                month = month.findNext()
             }
             return extractedData
         }
@@ -66,7 +66,7 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
                         }
                     }
                 }
-                month = month.getNext()
+                month = month.findNext()
             }
             return categoryList
         }
