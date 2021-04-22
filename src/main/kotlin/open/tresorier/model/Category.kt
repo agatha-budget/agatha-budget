@@ -2,7 +2,7 @@ package open.tresorier.model
 
 class Category (
     var name: String,
-    var masterCategoryId: String,
+    var masterCategoryId: String?,
     var archived: Boolean = false,
     id: String? = null,
     deleted: Boolean? = null

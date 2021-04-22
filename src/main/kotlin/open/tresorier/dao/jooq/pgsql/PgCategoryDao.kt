@@ -56,8 +56,9 @@ class PgCategoryDao(val configuration: Configuration) : ICategoryDao {
         val query = this.query
             .select()
             .from(CATEGORY)
-            .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
+            .leftJoin(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
             .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
+            .or(CATEGORY.MASTER_CATEGORY_ID.isNull)
 
         val jooqCategoryList = query.fetch().into(CATEGORY)
 

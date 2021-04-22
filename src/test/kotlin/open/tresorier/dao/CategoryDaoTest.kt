@@ -16,8 +16,6 @@ open class CategoryDaoTest : ITest {
     val budgetDao by inject<IBudgetDao>()
     val masterCategoryDao by inject<IMasterCategoryDao>()
 
-
-
     @Test fun testGetAllCategoriesFromBudget() {
         val budget = Budget("lucie-B1", TestData.person1Id)
         budgetDao.insert(budget)
@@ -36,20 +34,33 @@ open class CategoryDaoTest : ITest {
             categoryDao.insert(category)
         }
 
+        val universalCategoryList = listOf(
+            categoryDao.getById(Category.INCOME_ID),
+            categoryDao.getById(Category.TRANSFERT_ID)
+        )
+        val all = universalCategoryList + categoryList
         val foundCategoryList = categoryDao.findByBudget(budget)
-        Assertions.assertEquals(categoryList.toString(), foundCategoryList.toString())
+        Assertions.assertEquals(all.toString(), foundCategoryList.toString())
     }
 
     @Test fun testGetAllCategoriesFromEmptyBudget() {
         val budget = Budget("lucie-B1", TestData.person1Id)
         budgetDao.insert(budget)
         val foundCategoryList = categoryDao.findByBudget(budget)
-        Assertions.assertEquals(0, foundCategoryList.size)
+        val universalCategoryList = listOf(
+            categoryDao.getById(Category.INCOME_ID),
+            categoryDao.getById(Category.TRANSFERT_ID)
+        )
+        Assertions.assertEquals(universalCategoryList.toString(), foundCategoryList.toString())
     }
 
     @Test fun testGetAllCategoriesFromUnknownBudget() {
         val budget = Budget("lucie-B1", TestData.person1Id)
         val foundCategoryList = categoryDao.findByBudget(budget)
-        Assertions.assertEquals(0, foundCategoryList.size)
+        val universalCategoryList = listOf(
+            categoryDao.getById(Category.INCOME_ID),
+            categoryDao.getById(Category.TRANSFERT_ID)
+        )
+        Assertions.assertEquals(universalCategoryList.toString(), foundCategoryList.toString())
     }
 }

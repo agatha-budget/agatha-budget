@@ -2,7 +2,6 @@ package open.tresorier.dao.jooq.h2
 
 import open.tresorier.dao.ICategoryDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.generated.jooq.test.public_.Tables
 import open.tresorier.generated.jooq.test.public_.Tables.*
 import open.tresorier.generated.jooq.test.public_.tables.daos.CategoryDao
 import open.tresorier.generated.jooq.test.public_.tables.records.CategoryRecord
@@ -59,11 +58,12 @@ class H2CategoryDao(val configuration: Configuration) : ICategoryDao {
     override fun findByBudget(budget: Budget): List<Category> {
         val query = this.query
             .select()
-            .from(Tables.CATEGORY)
-            .join(Tables.MASTER_CATEGORY).on(Tables.MASTER_CATEGORY.ID.eq(Tables.CATEGORY.MASTER_CATEGORY_ID))
-            .where(Tables.MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
+            .from(CATEGORY)
+            .leftJoin(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
+            .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
+            .or(CATEGORY.MASTER_CATEGORY_ID.isNull)
 
-        val jooqCategoryList = query.fetch().into(Tables.CATEGORY)
+        val jooqCategoryList = query.fetch().into(CATEGORY)
 
         val categoryList: MutableList<Category> = mutableListOf()
         for (categoryRecord : CategoryRecord in jooqCategoryList) {
