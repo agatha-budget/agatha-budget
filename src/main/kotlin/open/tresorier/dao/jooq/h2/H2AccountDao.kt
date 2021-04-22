@@ -44,13 +44,13 @@ class H2AccountDao(val configuration: Configuration) : IAccountDao {
         return this.toAccount(jooqAccount) ?: throw TresorierException("no account found for the following id : $id")
     }
 
-    private val amountSum: Field<BigDecimal> = DSL.sum(OPERATION.AMOUNT).`as`("sum")
+    private val amountSum: Field<BigDecimal> = DSL.coalesce(DSL.sum(OPERATION.AMOUNT),0.00.toBigDecimal()).`as`("sum")
 
     override fun findByBudget(budget: Budget): List<AccountWithAmount> {
         val query = this.query
             .select(ACCOUNT.ID, ACCOUNT.NAME, ACCOUNT.BUDGET_ID, amountSum, ACCOUNT.ARCHIVED, ACCOUNT.DELETED)
             .from(ACCOUNT)
-            .join(OPERATION).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
+            .leftJoin(OPERATION).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
             .groupBy(ACCOUNT.ID)
             .orderBy(ACCOUNT.NAME)

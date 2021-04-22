@@ -2,10 +2,7 @@ package open.tresorier.dao
 
 import open.tresorier.dependenciesinjection.ITest
 import open.tresorier.exception.TresorierException
-import open.tresorier.model.Account
-import open.tresorier.model.AccountWithAmount
-import open.tresorier.model.Category
-import open.tresorier.model.Operation
+import open.tresorier.model.*
 import open.tresorier.utils.TestData
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -38,7 +35,8 @@ open class AccountDaoTest : ITest {
 
     @Test
     fun getAccountWithAmountForBudget() {
-        val budget = budgetDao.getById(TestData.budget5Id)
+        val budget = Budget("how much ?", TestData.person1Id)
+        budgetDao.insert(budget)
         val account = Account("account", budget.id)
         accountDao.insert(account)
         val operation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 150.65, "mémo")
@@ -62,14 +60,54 @@ open class AccountDaoTest : ITest {
 
     @Test
     fun getAccountWithNullAmountForBudget() {
+        val budget = Budget("0 in account", TestData.person1Id)
+        budgetDao.insert(budget)
+        val account = Account("account", budget.id)
+        accountDao.insert(account)
+        val operation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 100.00, "mémo")
+        val operation2 = Operation(account.id, TestData.march_02_2021, Category.INCOME_ID, -100.00, "reimbursement")
+        operationDao.insert(operation1)
+        operationDao.insert(operation2)
+
+        val accountList = accountDao.findByBudget(budget)
+        val expectedList = listOf(
+            AccountWithAmount.createFromAccount(account, 0.0)
+        )
+
+        Assertions.assertEquals(expectedList.toString(), accountList.toString())
     }
 
     @Test
     fun getAccountWithNoOperationForBudget() {
+        val budget = Budget("nothing in account", TestData.person1Id)
+        budgetDao.insert(budget)
+        val account = Account("account", budget.id)
+        accountDao.insert(account)
 
+        val accountList = accountDao.findByBudget(budget)
+        val expectedList = listOf(
+            AccountWithAmount.createFromAccount(account, 0.0)
+        )
+
+        Assertions.assertEquals(expectedList.toString(), accountList.toString())
     }
 
     @Test
     fun getAccountWithNegativeAmountForBudget() {
+        val budget = Budget("minus in account", TestData.person1Id)
+        budgetDao.insert(budget)
+        val account = Account("account", budget.id)
+        accountDao.insert(account)
+        val operation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 100.00, "mémo")
+        val operation2 = Operation(account.id, TestData.march_02_2021, Category.INCOME_ID, -150.00, "reimbursement")
+        operationDao.insert(operation1)
+        operationDao.insert(operation2)
+
+        val accountList = accountDao.findByBudget(budget)
+        val expectedList = listOf(
+            AccountWithAmount.createFromAccount(account, -50.0)
+        )
+
+        Assertions.assertEquals(expectedList.toString(), accountList.toString())
     }
 }
