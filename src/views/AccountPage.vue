@@ -1,7 +1,7 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="home row">
-      <h1>test - {{ this.account.name }}</h1>
+      <h1>test - {{ (this.account) ? this.account.name : ''}}</h1>
       <table class="operationTable table" >
           <tr class="">
             <th class="date"><div>{{ $t("DATE") }}</div></th>
@@ -12,8 +12,8 @@
           <tbody>
           <tr class="operation" v-for="operation in this.operations" :key="operation">
             <td class="date"><div>{{ $d(this.getDayAsDate(operation.day.comparable), 'day') }}</div></td>
-            <td class="category">{{ operation.categoryId }}</td>
-            <td class="memo">{{ operation.memo }}</td>
+            <td class="category">{{ $t(this.$store.state.categories[operation.categoryId].name) }}</td>
+            <td class="memo">{{ $t(operation.memo) }}</td>
             <td class="amount">{{ operation.amount }}</td>
           </tr>
           </tbody>
@@ -31,7 +31,6 @@ import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
 
 interface AccountPageData {
-    account: Account;
     operations: any;
 }
 
@@ -45,20 +44,31 @@ export default defineComponent({
     StoreHandler.initStore(this.$store)
     this.getAccountOperation()
   },
+  watch: {
+    account: async function () {
+      this.getAccountOperation()
+    }
+  },
   props: ['accountId'],
   data (): AccountPageData {
     return {
-      account: this.$store.state.accounts[this.accountId],
       operations: {}
+    }
+  },
+  computed: {
+    account (): Account | null {
+      return this.$store.state.accounts[this.accountId]
     }
   },
   methods: {
     async getAccountOperation () {
-      return OperationService.getOperations(this.account).then(
-        (operations) => {
-          this.operations = operations
-        }
-      )
+      if (this.account) {
+        return OperationService.getOperations(this.account).then(
+          (operations) => {
+            this.operations = operations
+          }
+        )
+      }
     },
     getDayAsDate (dayAsInt: number): Date {
       return Time.getDayAsDate(dayAsInt)

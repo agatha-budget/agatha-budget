@@ -33,5 +33,6 @@
     "DATE": "date",
     "CATEGORY": "categorie",
     "MEMO": "mémo",
-    "AMOUNT": "montant"
+    "AMOUNT": "montant",
+    "I18N_INCOME": "Entrée d'argent"
 }
