@@ -12,41 +12,41 @@ externalDocs:
   description: Find out more about Tresorier
   url: http://tresorier.me
 servers:
-  - url: https://tresorier-back.herokuapp.com/
-    description: heroku dev
-  - url: https://virtserver.swaggerhub.com/ermoca/Tresorier/2.0.0
-    description: SwaggerHub API Auto Mocking
-  - url: http://localhost:7000/
-    description: local
+- url: https://tresorier-back.herokuapp.com/
+  description: heroku dev
+- url: https://virtserver.swaggerhub.com/ermoca/Tresorier/2.0.0
+  description: SwaggerHub API Auto Mocking
+- url: http://localhost:7000/
+  description: local
 paths:
   /person:
     post:
       tags:
-        - Person
+      - Person
       summary: Create a person
       operationId: createPerson
       parameters:
-        - name: name
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: password
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: email
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: email
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: Person created
@@ -65,24 +65,24 @@ paths:
   /login:
     post:
       tags:
-        - Person
+      - Person
       summary: Login
       operationId: createSession
       parameters:
-        - name: email
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: password
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: email
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: password
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: |
@@ -121,7 +121,7 @@ paths:
   /logout:
     delete:
       tags:
-        - Person
+      - Person
       summary: Logout
       operationId: deleteSession
       responses:
@@ -140,31 +140,31 @@ paths:
                 type: string
                 example: no session to revoke
       security:
-        - accessToken: []
-          refreshTokenId: []
+      - accessToken: []
+        refreshTokenId: []
   /budget:
     put:
       tags:
-        - Budget
+      - Budget
       summary: Update a budget
       operationId: updateBudget
       parameters:
-        - name: budget_id
-          in: query
-          description: id of the updated budget
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: new_name
-          in: query
-          description: new name of the new budget
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: budget_id
+        in: query
+        description: id of the updated budget
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: new_name
+        in: query
+        description: new name of the new budget
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -185,18 +185,18 @@ paths:
                   value: invalid user id
     post:
       tags:
-        - Budget
+      - Budget
       summary: Add a new budget
       operationId: addBudget
       parameters:
-        - name: name
-          in: query
-          description: name of the new budget
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: name
+        in: query
+        description: name of the new budget
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -213,22 +213,22 @@ paths:
                 type: string
               example: invalid user id
       security:
-        - accessToken: []
-          refreshTokenId: []
+      - accessToken: []
+        refreshTokenId: []
     delete:
       tags:
-        - Budget
+      - Budget
       summary: Delete budget
       operationId: deleteBudget
       parameters:
-        - name: budget_id
-          in: query
-          description: id of the budget you want to delete
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: integer
+      - name: budget_id
+        in: query
+        description: id of the budget you want to delete
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: integer
       responses:
         "200":
           description: successful operation
@@ -247,7 +247,7 @@ paths:
   /budget/user:
     get:
       tags:
-        - Budget
+      - Budget
       summary: Finds budgets by user
       operationId: findBudgetsByUser
       responses:
@@ -269,33 +269,33 @@ paths:
   /budget/data:
     get:
       tags:
-        - Budget data
+      - Budget data
       summary: Find data by budget
       operationId: findBudgetData
       parameters:
-        - name: budget_id
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: start_month
-          in: query
-          description: 'example : mars 2020 = 202003'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: number
-        - name: end_month
-          in: query
-          description: 'example : mars 2020 = 202003'
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: number
+      - name: budget_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: start_month
+        in: query
+        description: 'example : mars 2020 = 202003'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: end_month
+        in: query
+        description: 'example : mars 2020 = 202003'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
       responses:
         "200":
           description: successful operation
@@ -313,24 +313,24 @@ paths:
   /account:
     put:
       tags:
-        - Account
+      - Account
       summary: Rename an account
       operationId: updateAccount
       parameters:
-        - name: id
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: new_name
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: new_name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -354,39 +354,39 @@ paths:
                   value: invalid budget id
     post:
       tags:
-        - Account
+      - Account
       summary: Add a new account
       operationId: addAccount
       parameters:
-        - name: budget_id
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: name
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: amount
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: number
-        - name: day
-          in: query
-          description: 'day as seen by user in his/her timezone, format : 2 january 2021 => 20210102'
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: number
+      - name: budget_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: day
+        in: query
+        description: 'day as seen by user in his/her timezone, format : 2 january 2021 => 20210102'
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
       responses:
         "200":
           description: successful operation
@@ -404,18 +404,18 @@ paths:
               example: invalid budget id
     delete:
       tags:
-        - Account
+      - Account
       summary: Delete account
       operationId: deleteAccount
       parameters:
-        - name: account_id
-          in: query
-          description: id of the account you want to delete
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: account_id
+        in: query
+        description: id of the account you want to delete
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -434,18 +434,18 @@ paths:
   /account/budget:
     get:
       tags:
-        - Account
+      - Account
       summary: Finds accounts by budget
       operationId: findAccountsByBudget
       parameters:
-        - name: budget_id
-          in: query
-          description: id of the budget whose accounts you want to retrieve
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: budget_id
+        in: query
+        description: id of the budget whose accounts you want to retrieve
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -462,56 +462,265 @@ paths:
               schema:
                 type: string
                 example: invalid budget id
+  /mcategory:
+    put:
+      tags:
+      - Master category
+      summary: Update master category
+      operationId: updateMasterCategory
+      parameters:
+      - name: id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: new_name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: master category was successfully created
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid budget id
+    post:
+      tags:
+      - Master category
+      summary: Add a new master category
+      operationId: addMasterCategory
+      parameters:
+      - name: name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: budget_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: master category was successfully created
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid budget id
+  /mcategory/budget:
+    get:
+      tags:
+      - Master category
+      summary: get master categories by budget
+      operationId: getMasterCategoriesByBudget
+      parameters:
+      - name: budget_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MasterCategory'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid budget id
+  /category:
+    put:
+      tags:
+      - Category
+      summary: Update a category
+      operationId: updateCategory
+      parameters:
+      - name: id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: new_name
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: new_master_category_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: category was successfully updated
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid category id
+    post:
+      tags:
+      - Category
+      summary: Add a new category
+      operationId: addCategory
+      parameters:
+      - name: name
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: master_category_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: category was successfully created
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid master category id
+  /category/budget:
+    get:
+      tags:
+      - Category
+      summary: get categories by budget
+      operationId: getCategoriesByBudget
+      parameters:
+      - name: budget_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MasterCategory'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid budget id
   /operation:
     put:
       tags:
-        - Operation
+      - Operation
       summary: Update an operation
       operationId: updateOperation
       parameters:
-        - name: operation_id
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: new_account_id
-          in: query
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: new_day
-          in: query
-          description: day of the operation (2 march 2010 => 20100302)
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: number
-        - name: new_category_id
-          in: query
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: new_amount
-          in: query
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: number
-        - name: new_memo
-          in: query
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: operation_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: new_account_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: new_day
+        in: query
+        description: day of the operation (2 march 2010 => 20100302)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: new_category_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: new_amount
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: new_memo
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -528,46 +737,46 @@ paths:
                 example: invalid operation id
     post:
       tags:
-        - Operation
+      - Operation
       summary: Add a new operation
       operationId: addOperation
       parameters:
-        - name: account_id
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: day
-          in: query
-          description: day of the operation (2 march 2010 => 20100302)
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: number
-        - name: category_id
-          in: query
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: amount
-          in: query
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: number
-        - name: memo
-          in: query
-          required: false
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: account_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: day
+        in: query
+        description: day of the operation (2 march 2010 => 20100302)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: category_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: memo
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -584,18 +793,18 @@ paths:
                 example: invalid account id
     delete:
       tags:
-        - Operation
+      - Operation
       summary: Delete operation
       operationId: deleteOperation
       parameters:
-        - name: operation_id
-          in: query
-          description: id of the operation you want to delete
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: operation_id
+        in: query
+        description: id of the operation you want to delete
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -614,18 +823,18 @@ paths:
   /operation/account:
     get:
       tags:
-        - Operation
+      - Operation
       summary: Find operation by account
       operationId: findOperationsByAccount
       parameters:
-        - name: account_id
-          in: query
-          description: id of the account whose operations you want to retrieve
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: account_id
+        in: query
+        description: id of the account whose operations you want to retrieve
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -645,18 +854,18 @@ paths:
   /operation/budget:
     get:
       tags:
-        - Operation
+      - Operation
       summary: Find operation by budget
       operationId: findOperationsByBudget
       parameters:
-        - name: account_id
-          in: query
-          description: id of the budget whose operations you want to retrieve
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
+      - name: account_id
+        in: query
+        description: id of the budget whose operations you want to retrieve
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -676,32 +885,32 @@ paths:
   /allocation:
     post:
       tags:
-        - Allocation
+      - Allocation
       summary: Add a new allocation or update an existing one
       operationId: addAllocation
       parameters:
-        - name: month
-          in: query
-          description: day of the operation (march 2010 => 201003)
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: number
-        - name: category_id
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: string
-        - name: amount
-          in: query
-          required: true
-          style: form
-          explode: true
-          schema:
-            type: number
+      - name: month
+        in: query
+        description: day of the operation (march 2010 => 201003)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: category_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: amount
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
       responses:
         "200":
           description: successful operation
@@ -720,8 +929,8 @@ components:
   schemas:
     Budget:
       required:
-        - id
-        - name
+      - id
+      - name
       type: object
       properties:
         id:
@@ -764,9 +973,9 @@ components:
           available: -20.0
     CategoryData:
       required:
-        - allocated
-        - available
-        - spent
+      - allocated
+      - available
+      - spent
       type: object
       properties:
         allocated:
@@ -777,10 +986,9 @@ components:
           type: number
     Account:
       required:
-        - amount
-        - archived
-        - id
-        - name
+      - amount
+      - id
+      - name
       type: object
       properties:
         name:
@@ -789,16 +997,40 @@ components:
           type: string
         amount:
           type: number
-        archived:
-          type: boolean
+    MasterCategory:
+      required:
+      - budget_id
+      - id
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        budget_id:
+          type: string
+    Category:
+      required:
+      - id
+      - master_category_id
+      - name
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        master_category_id:
+          type: string
     Operation:
       required:
-        - accountId
-        - amount
-        - categoryId
-        - day
-        - id
-        - memo
+      - accountId
+      - amount
+      - categoryId
+      - day
+      - id
+      - memo
       type: object
       properties:
         id:
@@ -815,9 +1047,9 @@ components:
           type: string
     Allocation:
       required:
-        - amount
-        - categoryId
-        - month
+      - amount
+      - categoryId
+      - month
       type: object
       properties:
         month:

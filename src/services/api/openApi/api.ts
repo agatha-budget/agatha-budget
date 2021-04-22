@@ -99,6 +99,31 @@ export interface Budget {
 /**
  * 
  * @export
+ * @interface Category
+ */
+export interface Category {
+    /**
+     * 
+     * @type {string}
+     * @memberof Category
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Category
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Category
+     */
+    master_category_id: string;
+}
+/**
+ * 
+ * @export
  * @interface CategoryData
  */
 export interface CategoryData {
@@ -120,6 +145,31 @@ export interface CategoryData {
      * @memberof CategoryData
      */
     available: number;
+}
+/**
+ * 
+ * @export
+ * @interface MasterCategory
+ */
+export interface MasterCategory {
+    /**
+     * 
+     * @type {string}
+     * @memberof MasterCategory
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MasterCategory
+     */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MasterCategory
+     */
+    budget_id: string;
 }
 /**
  * 
@@ -1093,6 +1143,548 @@ export class BudgetDataApi extends BaseAPI {
      */
     public findBudgetData(budgetId: string, startMonth?: number, endMonth?: number, options?: any) {
         return BudgetDataApiFp(this.configuration).findBudgetData(budgetId, startMonth, endMonth, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * CategoryApi - axios parameter creator
+ * @export
+ */
+export const CategoryApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Add a new category
+         * @param {string} name 
+         * @param {string} masterCategoryId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addCategory: async (name: string, masterCategoryId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('addCategory', 'name', name)
+            // verify required parameter 'masterCategoryId' is not null or undefined
+            assertParamExists('addCategory', 'masterCategoryId', masterCategoryId)
+            const localVarPath = `/category`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (masterCategoryId !== undefined) {
+                localVarQueryParameter['master_category_id'] = masterCategoryId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary get categories by budget
+         * @param {string} budgetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCategoriesByBudget: async (budgetId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('getCategoriesByBudget', 'budgetId', budgetId)
+            const localVarPath = `/category/budget`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budget_id'] = budgetId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update a category
+         * @param {string} id 
+         * @param {string} [newName] 
+         * @param {number} [newMasterCategoryId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCategory: async (id: string, newName?: string, newMasterCategoryId?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateCategory', 'id', id)
+            const localVarPath = `/category`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (newName !== undefined) {
+                localVarQueryParameter['new_name'] = newName;
+            }
+
+            if (newMasterCategoryId !== undefined) {
+                localVarQueryParameter['new_master_category_id'] = newMasterCategoryId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * CategoryApi - functional programming interface
+ * @export
+ */
+export const CategoryApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CategoryApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Add a new category
+         * @param {string} name 
+         * @param {string} masterCategoryId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addCategory(name: string, masterCategoryId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addCategory(name, masterCategoryId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary get categories by budget
+         * @param {string} budgetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCategoriesByBudget(budgetId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MasterCategory>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCategoriesByBudget(budgetId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update a category
+         * @param {string} id 
+         * @param {string} [newName] 
+         * @param {number} [newMasterCategoryId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateCategory(id: string, newName?: string, newMasterCategoryId?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCategory(id, newName, newMasterCategoryId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * CategoryApi - factory interface
+ * @export
+ */
+export const CategoryApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CategoryApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Add a new category
+         * @param {string} name 
+         * @param {string} masterCategoryId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addCategory(name: string, masterCategoryId: string, options?: any): AxiosPromise<string> {
+            return localVarFp.addCategory(name, masterCategoryId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary get categories by budget
+         * @param {string} budgetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCategoriesByBudget(budgetId: string, options?: any): AxiosPromise<Array<MasterCategory>> {
+            return localVarFp.getCategoriesByBudget(budgetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update a category
+         * @param {string} id 
+         * @param {string} [newName] 
+         * @param {number} [newMasterCategoryId] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCategory(id: string, newName?: string, newMasterCategoryId?: number, options?: any): AxiosPromise<string> {
+            return localVarFp.updateCategory(id, newName, newMasterCategoryId, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * CategoryApi - object-oriented interface
+ * @export
+ * @class CategoryApi
+ * @extends {BaseAPI}
+ */
+export class CategoryApi extends BaseAPI {
+    /**
+     * 
+     * @summary Add a new category
+     * @param {string} name 
+     * @param {string} masterCategoryId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CategoryApi
+     */
+    public addCategory(name: string, masterCategoryId: string, options?: any) {
+        return CategoryApiFp(this.configuration).addCategory(name, masterCategoryId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary get categories by budget
+     * @param {string} budgetId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CategoryApi
+     */
+    public getCategoriesByBudget(budgetId: string, options?: any) {
+        return CategoryApiFp(this.configuration).getCategoriesByBudget(budgetId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update a category
+     * @param {string} id 
+     * @param {string} [newName] 
+     * @param {number} [newMasterCategoryId] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CategoryApi
+     */
+    public updateCategory(id: string, newName?: string, newMasterCategoryId?: number, options?: any) {
+        return CategoryApiFp(this.configuration).updateCategory(id, newName, newMasterCategoryId, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * MasterCategoryApi - axios parameter creator
+ * @export
+ */
+export const MasterCategoryApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Add a new master category
+         * @param {string} name 
+         * @param {string} budgetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addMasterCategory: async (name: string, budgetId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('addMasterCategory', 'name', name)
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('addMasterCategory', 'budgetId', budgetId)
+            const localVarPath = `/mcategory`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (name !== undefined) {
+                localVarQueryParameter['name'] = name;
+            }
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budget_id'] = budgetId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary get master categories by budget
+         * @param {string} budgetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMasterCategoriesByBudget: async (budgetId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('getMasterCategoriesByBudget', 'budgetId', budgetId)
+            const localVarPath = `/mcategory/budget`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budget_id'] = budgetId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update master category
+         * @param {string} id 
+         * @param {string} newName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateMasterCategory: async (id: string, newName: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('updateMasterCategory', 'id', id)
+            // verify required parameter 'newName' is not null or undefined
+            assertParamExists('updateMasterCategory', 'newName', newName)
+            const localVarPath = `/mcategory`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (id !== undefined) {
+                localVarQueryParameter['id'] = id;
+            }
+
+            if (newName !== undefined) {
+                localVarQueryParameter['new_name'] = newName;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * MasterCategoryApi - functional programming interface
+ * @export
+ */
+export const MasterCategoryApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = MasterCategoryApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Add a new master category
+         * @param {string} name 
+         * @param {string} budgetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addMasterCategory(name: string, budgetId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addMasterCategory(name, budgetId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary get master categories by budget
+         * @param {string} budgetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMasterCategoriesByBudget(budgetId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<MasterCategory>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMasterCategoriesByBudget(budgetId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update master category
+         * @param {string} id 
+         * @param {string} newName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateMasterCategory(id: string, newName: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateMasterCategory(id, newName, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * MasterCategoryApi - factory interface
+ * @export
+ */
+export const MasterCategoryApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = MasterCategoryApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Add a new master category
+         * @param {string} name 
+         * @param {string} budgetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addMasterCategory(name: string, budgetId: string, options?: any): AxiosPromise<string> {
+            return localVarFp.addMasterCategory(name, budgetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary get master categories by budget
+         * @param {string} budgetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMasterCategoriesByBudget(budgetId: string, options?: any): AxiosPromise<Array<MasterCategory>> {
+            return localVarFp.getMasterCategoriesByBudget(budgetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update master category
+         * @param {string} id 
+         * @param {string} newName 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateMasterCategory(id: string, newName: string, options?: any): AxiosPromise<string> {
+            return localVarFp.updateMasterCategory(id, newName, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * MasterCategoryApi - object-oriented interface
+ * @export
+ * @class MasterCategoryApi
+ * @extends {BaseAPI}
+ */
+export class MasterCategoryApi extends BaseAPI {
+    /**
+     * 
+     * @summary Add a new master category
+     * @param {string} name 
+     * @param {string} budgetId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MasterCategoryApi
+     */
+    public addMasterCategory(name: string, budgetId: string, options?: any) {
+        return MasterCategoryApiFp(this.configuration).addMasterCategory(name, budgetId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary get master categories by budget
+     * @param {string} budgetId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MasterCategoryApi
+     */
+    public getMasterCategoriesByBudget(budgetId: string, options?: any) {
+        return MasterCategoryApiFp(this.configuration).getMasterCategoriesByBudget(budgetId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update master category
+     * @param {string} id 
+     * @param {string} newName 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MasterCategoryApi
+     */
+    public updateMasterCategory(id: string, newName: string, options?: any) {
+        return MasterCategoryApiFp(this.configuration).updateMasterCategory(id, newName, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
