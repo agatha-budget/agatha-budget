@@ -76,7 +76,7 @@ export default defineComponent({
     }
   },
   computed: {
-    budget (): Budget {
+    budget (): Budget | null {
       return this.$store.state.budget
     },
     masterCategoriesData () {
@@ -114,12 +114,14 @@ export default defineComponent({
   },
   methods: {
     async getBudgetData () {
-      BudgetService.getBudgetData(this.budget).then(
-        (budgetData) => {
-          this.budgetData = budgetData
-          this.initFormerAllocation()
-        }
-      )
+      if (this.budget) {
+        BudgetService.getBudgetData(this.budget).then(
+          (budgetData) => {
+            this.budgetData = budgetData
+            this.initFormerAllocation()
+          }
+        )
+      }
     },
     initFormerAllocation () {
       let category

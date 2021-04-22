@@ -22,12 +22,14 @@ export default defineComponent({
   emits: ['updateAccountList', 'closeForm'],
   methods: {
     createAccount () {
-      AccountService.createAccount(this.$store.state.budget, this.name, this.amount).then(
-        () => {
-          this.$emit('updateAccountList')
-          this.$emit('closeForm')
-        }
-      )
+      if (this.$store.state.budget) {
+        AccountService.createAccount(this.$store.state.budget, this.name, this.amount).then(
+          () => {
+            this.$emit('updateAccountList')
+            this.$emit('closeForm')
+          }
+        )
+      }
     }
   }
 })

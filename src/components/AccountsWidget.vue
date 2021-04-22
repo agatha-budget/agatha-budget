@@ -5,7 +5,7 @@
     </div>
     <ul>
       <li class="account" v-for="account, accountId in this.$store.state.accounts" :key="accountId">
-        <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} - {{account.amount}} €</button>
+        <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{account.amount}} €</button>
       </li>
       <li>
         <div v-if="!accountCreationFormIsDisplayed">

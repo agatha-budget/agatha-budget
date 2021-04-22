@@ -1,5 +1,7 @@
 import { Budget, AccountList } from '@/model/model'
 import { accountApi } from '@/services/api/apis'
+import { store } from '@/store'
+import StoreHandler from '@/store/StoreHandler'
 import Time from '@/utils/Time'
 
 export default class AccountService {
@@ -16,6 +18,8 @@ export default class AccountService {
   }
 
   public static async createAccount (budget: Budget, name: string, amount: number) {
-    await accountApi.addAccount(budget.id, name, amount, Time.getCurrentDay())
+    await accountApi.addAccount(budget.id, name, amount, Time.getCurrentDay()).then(
+      () => StoreHandler.updateAccounts(store)
+    )
   }
 }
