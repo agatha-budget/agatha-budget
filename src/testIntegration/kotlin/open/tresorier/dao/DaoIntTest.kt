@@ -14,6 +14,8 @@ class AllocationDaoIntTest : AllocationDaoTest(), IIntegrationTest {}
 
 class BudgetDaoIntTest : BudgetDaoTest(), IIntegrationTest {}
 
+class CategoryDaoIntTest : CategoryDaoTest(), IIntegrationTest {}
+
 class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
     @Test
     override fun  cannotCreateWithAccountAndCategoryFromDistinctBudget() {

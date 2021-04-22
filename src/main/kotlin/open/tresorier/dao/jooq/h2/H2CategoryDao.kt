@@ -2,9 +2,12 @@ package open.tresorier.dao.jooq.h2
 
 import open.tresorier.dao.ICategoryDao
 import open.tresorier.exception.TresorierException
+import open.tresorier.generated.jooq.test.public_.Tables
 import open.tresorier.generated.jooq.test.public_.Tables.*
 import open.tresorier.generated.jooq.test.public_.tables.daos.CategoryDao
+import open.tresorier.generated.jooq.test.public_.tables.records.CategoryRecord
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
+import open.tresorier.model.Budget
 import open.tresorier.model.Category
 import open.tresorier.model.MasterCategory
 import open.tresorier.model.Person
@@ -53,6 +56,23 @@ class H2CategoryDao(val configuration: Configuration) : ICategoryDao {
         return categoryList
     }
 
+    override fun findByBudget(budget: Budget): List<Category> {
+        val query = this.query
+            .select()
+            .from(Tables.CATEGORY)
+            .join(Tables.MASTER_CATEGORY).on(Tables.MASTER_CATEGORY.ID.eq(Tables.CATEGORY.MASTER_CATEGORY_ID))
+            .where(Tables.MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
+
+        val jooqCategoryList = query.fetch().into(Tables.CATEGORY)
+
+        val categoryList: MutableList<Category> = mutableListOf()
+        for (categoryRecord : CategoryRecord in jooqCategoryList) {
+            val category = this.toCategory(categoryRecord)
+            categoryList.add(category)
+        }
+        return categoryList
+    }
+
     override fun getOwner(category: Category): Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
@@ -85,6 +105,16 @@ class H2CategoryDao(val configuration: Configuration) : ICategoryDao {
             jooqCategory.archived,
             jooqCategory.id,
             jooqCategory.deleted
+        )
+    }
+
+    private fun toCategory(categoryRecord: CategoryRecord): Category {
+        return Category(
+            categoryRecord.name,
+            categoryRecord.masterCategoryId,
+            categoryRecord.archived,
+            categoryRecord.id,
+            categoryRecord.deleted
         )
     }
 }

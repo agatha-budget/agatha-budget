@@ -4,9 +4,9 @@ import open.tresorier.dao.ICategoryDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.main.Tables.*
 import open.tresorier.generated.jooq.main.tables.daos.CategoryDao
+import open.tresorier.generated.jooq.main.tables.records.CategoryRecord
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.model.*
-import open.tresorier.model.Person
 import org.jooq.Configuration
 import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.main.tables.pojos.Category as JooqCategory
@@ -52,6 +52,23 @@ class PgCategoryDao(val configuration: Configuration) : ICategoryDao {
         return categoryList
     }
 
+    override fun findByBudget(budget: Budget): List<Category> {
+        val query = this.query
+            .select()
+            .from(CATEGORY)
+            .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
+            .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
+
+        val jooqCategoryList = query.fetch().into(CATEGORY)
+
+        val categoryList: MutableList<Category> = mutableListOf()
+        for (categoryRecord : CategoryRecord in jooqCategoryList) {
+            val category = this.toCategory(categoryRecord)
+            categoryList.add(category)
+        }
+        return categoryList
+    }
+
     override fun getOwner(category: Category): Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
@@ -84,6 +101,16 @@ class PgCategoryDao(val configuration: Configuration) : ICategoryDao {
             jooqCategory.archived,
             jooqCategory.id,
             jooqCategory.deleted
+        )
+    }
+
+    private fun toCategory(categoryRecord: CategoryRecord): Category {
+        return Category(
+            categoryRecord.name,
+            categoryRecord.masterCategoryId,
+            categoryRecord.archived,
+            categoryRecord.id,
+            categoryRecord.deleted
         )
     }
 }
