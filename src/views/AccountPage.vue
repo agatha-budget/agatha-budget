@@ -27,6 +27,7 @@ import { defineComponent } from 'vue'
 import { redirectToLoginPageIfNotLogged } from '@/router'
 import { Account } from '@/model/model'
 import Time from '@/utils/Time'
+import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
 
 interface AccountPageData {
@@ -41,6 +42,7 @@ export default defineComponent({
   },
   created: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
+    StoreHandler.initStore(this.$store)
     this.getAccountOperation()
   },
   props: ['accountId'],

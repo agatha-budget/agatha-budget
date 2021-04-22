@@ -6,7 +6,7 @@ import StoreHandler from './StoreHandler'
 
 export interface StoreState {
   logged: boolean;
-  budget: Budget;
+  budget: Budget | null;
   accounts: AccountList;
   categories: CategoryList;
   css: string;
@@ -17,7 +17,7 @@ export const key: InjectionKey<Store<StoreState>> = Symbol('injectionKey')
 export const store = createStore<StoreState>({
   state: {
     logged: SuperTokensRequest.doesSessionExist(),
-    budget: { id: '', name: '' },
+    budget: null,
     accounts: {},
     categories: {},
     css: 'blue'

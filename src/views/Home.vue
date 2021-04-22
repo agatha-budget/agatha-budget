@@ -18,7 +18,7 @@
 import { defineComponent } from 'vue'
 import { useStore } from '@/store/index'
 import StoreHandler from '@/store/StoreHandler'
-import router from '@/router'
+import router, { redirectToLoginPageIfNotLogged } from '@/router'
 import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
 import PersonService from '@/services/PersonService'
@@ -26,6 +26,7 @@ import PersonService from '@/services/PersonService'
 export default defineComponent({
   name: 'Home',
   created: async function () {
+    redirectToLoginPageIfNotLogged(this.$store)
     StoreHandler.initStore(this.$store)
   },
   components: {

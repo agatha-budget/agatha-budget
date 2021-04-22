@@ -7,12 +7,11 @@ import { Store } from 'vuex'
 
 export default class StoreHandler {
   public static async initStore (store: Store<StoreState>) {
-    console.log('came here to init')
     await StoreHandler.initBudget(store)
   }
 
   public static async updateAccounts (store: Store<StoreState>) {
-    if (store.state.budget.id) {
+    if (store.state.budget) {
       AccountService.getAccounts(store.state.budget).then(
         (accounts: AccountList) => {
           store.dispatch('updateAccounts', accounts)
@@ -22,8 +21,7 @@ export default class StoreHandler {
   }
 
   public static async updateCategories (store: Store<StoreState>) {
-    console.log('called')
-    if (store.state.budget.id) {
+    if (store.state.budget) {
       CategoryService.getCategories(store.state.budget).then(
         (categories: CategoryList) => {
           store.dispatch('updateCategories', categories)
@@ -33,7 +31,7 @@ export default class StoreHandler {
   }
 
   public static async initBudget (store: Store<StoreState>) {
-    if (!store.state.budget.id) {
+    if (!store.state.budget) {
       BudgetService.getDefaultBudget().then(
         (budget: Budget) => {
           store.dispatch('updateBudget', budget)
