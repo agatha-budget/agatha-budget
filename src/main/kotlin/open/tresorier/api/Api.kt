@@ -169,7 +169,7 @@ fun main() {
     }
 
     app.before("/mcategory/budget", SuperTokens.middleware())
-    app.put("/mcategory/budget") { ctx ->
+    app.get("/mcategory/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
 
@@ -202,7 +202,7 @@ fun main() {
     }
 
     app.before("/category/budget", SuperTokens.middleware())
-    app.put("/category/budget") { ctx ->
+    app.get("/category/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
 
