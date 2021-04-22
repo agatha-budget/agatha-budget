@@ -1,23 +1,25 @@
-import { Account, Budget, AccountList } from '@/model/model'
+import { Budget, AccountList } from '@/model/model'
 import { accountApi } from '@/services/api/apis'
+import { store } from '@/store'
+import StoreHandler from '@/store/StoreHandler'
 import Time from '@/utils/Time'
 
-class AccountService {
-  public async getAccounts (budget: Budget): Promise<AccountList> {
+export default class AccountService {
+  public static async getAccounts (budget: Budget): Promise<AccountList> {
     const data: AccountList = {}
     if (budget.id) {
       const response = await accountApi.findAccountsByBudget(budget.id)
-      const accounts: Account[] = response.data
+      const accounts = response.data
       for (const account of accounts) {
-        data[account.id] = { id: account.id, name: account.name, amount: 0 }
+        data[account.id] = account
       }
     }
     return data
   }
 
-  public async createAccount (budget: Budget, name: string, amount: number) {
-    const response = await accountApi.addAccount(budget.id, name, amount, Time.getCurrentDay())
+  public static async createAccount (budget: Budget, name: string, amount: number) {
+    await accountApi.addAccount(budget.id, name, amount, Time.getCurrentDay()).then(
+      () => StoreHandler.updateAccounts(store)
+    )
   }
 }
-
-export const accountService = new AccountService()

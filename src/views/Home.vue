@@ -1,5 +1,5 @@
 <template >
-  <div :class="this.css">
+  <div :class="this.$store.state.css">
     <div class="home row">
       <BudgetCmpt month="FEBRUARY" class="col-md-4 offset-md-2"/>
       <div class="col-md-2 offset-md-2">
@@ -17,29 +17,21 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from '@/store/index'
-import router from '@/router'
+import StoreHandler from '@/store/StoreHandler'
+import router, { redirectToLoginPageIfNotLogged } from '@/router'
 import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
-import { personService } from '@/services/PersonService'
-import { budgetService } from '@/services/BudgetService'
-
-interface HomeData {
-    css: string;
-}
+import PersonService from '@/services/PersonService'
 
 export default defineComponent({
   name: 'Home',
   created: async function () {
-    this.getDefaultBudget()
+    redirectToLoginPageIfNotLogged(this.$store)
+    StoreHandler.initStore(this.$store)
   },
   components: {
     BudgetCmpt,
     AccountsWidget
-  },
-  data (): HomeData {
-    return {
-      css: 'blue'
-    }
   },
   setup () {
     if (!useStore().state.logged) {
@@ -48,10 +40,7 @@ export default defineComponent({
   },
   methods: {
     logout () {
-      personService.deleteSession(this.$store)
-    },
-    async getDefaultBudget () {
-      budgetService.getDefaultBudget(this.$store)
+      PersonService.deleteSession(this.$store)
     }
   }
 })

@@ -48,7 +48,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { budgetService } from '@/services/BudgetService'
+import BudgetService from '@/services/BudgetService'
 import { MasterCategoriesData, BudgetData, Budget } from '@/model/model'
 
 interface BudgetCmptData {
@@ -61,6 +61,9 @@ interface BudgetCmptData {
 export default defineComponent({
   name: 'BudgetCmpt',
   props: ['month'],
+  created: async function () {
+    this.getBudgetData()
+  },
   watch: {
     budget: async function () {
       this.getBudgetData()
@@ -73,7 +76,7 @@ export default defineComponent({
     }
   },
   computed: {
-    budget (): Budget {
+    budget (): Budget | null {
       return this.$store.state.budget
     },
     masterCategoriesData () {
@@ -111,12 +114,14 @@ export default defineComponent({
   },
   methods: {
     async getBudgetData () {
-      budgetService.getBudgetData(this.budget).then(
-        (budgetData) => {
-          this.budgetData = budgetData
-          this.initFormerAllocation()
-        }
-      )
+      if (this.budget) {
+        BudgetService.getBudgetData(this.budget).then(
+          (budgetData) => {
+            this.budgetData = budgetData
+            this.initFormerAllocation()
+          }
+        )
+      }
     },
     initFormerAllocation () {
       let category

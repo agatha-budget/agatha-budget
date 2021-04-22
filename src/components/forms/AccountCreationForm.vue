@@ -9,7 +9,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { accountService } from '@/services/AccountService'
+import AccountService from '@/services/AccountService'
 
 export default defineComponent({
   name: 'AccountCreationForm',
@@ -22,12 +22,14 @@ export default defineComponent({
   emits: ['updateAccountList', 'closeForm'],
   methods: {
     createAccount () {
-      accountService.createAccount(this.$store.state.budget, this.name, this.amount).then(
-        () => {
-          this.$emit('updateAccountList')
-          this.$emit('closeForm')
-        }
-      )
+      if (this.$store.state.budget) {
+        AccountService.createAccount(this.$store.state.budget, this.name, this.amount).then(
+          () => {
+            this.$emit('updateAccountList')
+            this.$emit('closeForm')
+          }
+        )
+      }
     }
   }
 })
