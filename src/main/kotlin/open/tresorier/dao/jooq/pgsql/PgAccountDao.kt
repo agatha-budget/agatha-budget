@@ -52,7 +52,8 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
             .from(ACCOUNT)
             .join(OPERATION).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
-            .groupBy(ACCOUNT.ID, ACCOUNT.BUDGET_ID, ACCOUNT.ARCHIVED, ACCOUNT.DELETED )
+            .groupBy(ACCOUNT.ID)
+            .orderBy(ACCOUNT.NAME)
         val jooqAccountList = query.fetch()
         val accountList: MutableList<AccountWithAmount> = mutableListOf()
         for (accountRecord in jooqAccountList) {
