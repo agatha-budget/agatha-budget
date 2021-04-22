@@ -46,11 +46,6 @@ export default defineComponent({
       accountCreationFormIsDisplayed: false
     }
   },
-  computed: {
-    budget (): Budget {
-      return this.$store.state.budget
-    }
-  },
   methods: {
     goToAccountPage (account: Account) {
       router.push({ path: RouterPages.account, query: { accountId: account.id } })
