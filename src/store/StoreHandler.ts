@@ -7,9 +7,8 @@ import { Store } from 'vuex'
 
 export default class StoreHandler {
   public static async initStore (store: Store<StoreState>) {
+    console.log('came here to init')
     await StoreHandler.initBudget(store)
-    StoreHandler.updateAccounts(store)
-    StoreHandler.updateCategories(store)
   }
 
   public static async updateAccounts (store: Store<StoreState>) {
@@ -23,6 +22,7 @@ export default class StoreHandler {
   }
 
   public static async updateCategories (store: Store<StoreState>) {
+    console.log('called')
     if (store.state.budget.id) {
       CategoryService.getCategories(store.state.budget).then(
         (categories: CategoryList) => {

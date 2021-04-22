@@ -29,7 +29,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { Budget } from '@/model/model'
-import StoreHandler from '@/store/StoreHandler'
 import AccountCreationForm from '@/components/forms/AccountCreationForm.vue'
 import router, { RouterPages } from '@/router'
 
@@ -41,11 +40,6 @@ export default defineComponent({
   name: 'AccountsWidget',
   components: {
     AccountCreationForm
-  },
-  watch: {
-    budget: async function () {
-      StoreHandler.updateAccounts(this.$store)
-    }
   },
   data (): AccountsWidgetData {
     return {
