@@ -149,6 +149,67 @@ fun main() {
         ctx.json(accounts)
     }
 
+    app.before("/mcategory", SuperTokens.middleware())
+    app.post("/mcategory") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+        val name = getQueryParam<String>(ctx, "name")
+
+        val mcategory = ServiceManager.masterCategoryService.create(user, budget, name)
+        ctx.json(mcategory)
+    }
+
+    app.put("/mcategory") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "id"))
+        val newName = getQueryParam<String>(ctx, "new_name")
+
+        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName)
+        ctx.json(updatedMasterCategory)
+    }
+
+    app.before("/mcategory/budget", SuperTokens.middleware())
+    app.put("/mcategory/budget") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+
+        val masterCategories = ServiceManager.masterCategoryService.findByBudget(user, budget)
+        ctx.json(masterCategories)
+    }
+
+    app.before("/category", SuperTokens.middleware())
+    app.post("/category") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "id"))
+        val name = getQueryParam<String>(ctx, "name")
+
+        val category = ServiceManager.categoryService.create(user, masterCategory, name)
+        ctx.json(category)
+    }
+
+    app.put("/category") { ctx ->
+        // required
+        val user = getUserFromAuth(ctx)
+        val category: Category = ServiceManager.categoryService.getById(user, getQueryParam<String>(ctx, "id"))
+
+        //optional
+        val newName = getOptionalQueryParam<String>(ctx, "new_name")
+        val newMasterCategory: MasterCategory? = getOptionalQueryParam<String>(ctx, "new_master_category_id")?.let{
+            ServiceManager.masterCategoryService.getById(user, it)
+        }
+        val updatedCategory = ServiceManager.categoryService.update(user, category, newName, newMasterCategory)
+        ctx.json(updatedCategory)
+    }
+
+    app.before("/category/budget", SuperTokens.middleware())
+    app.put("/category/budget") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+
+        val categories = ServiceManager.categoryService.findByBudget(user, budget)
+        ctx.json(categories)
+    }
+
     app.before("/operation", SuperTokens.middleware())
     app.post("/operation") { ctx ->
         //required
