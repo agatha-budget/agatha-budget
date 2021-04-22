@@ -15,12 +15,14 @@ interface CategoryList {
     [categoryId: string]: Category;
 }
 
+interface CategoryDataList {
+    [categoryId: string]: CategoryData;
+}
+
 interface BudgetData {
     [masterCategoryId: string]: {
         name: string;
-        categories: {
-            [categoryId: string]: CategoryData;
-        };
+        categories: CategoryDataList;
     };
 }
 
@@ -28,4 +30,4 @@ interface MasterCategoriesData {
     [masterCategoryId: string]: CategoryData;
 }
 
-export { Operation, CategoryData, MasterCategoriesData, BudgetData, Account, AccountList, CategoryList, Budget, Category, MasterCategory }
+export { Operation, CategoryData, MasterCategoriesData, BudgetData, Account, AccountList, CategoryList, Budget, Category, MasterCategory, CategoryDataList }
