@@ -1,6 +1,7 @@
 package open.tresorier.services
 
 import open.tresorier.dao.ICategoryDao
+import open.tresorier.model.Budget
 import open.tresorier.model.Category
 import open.tresorier.model.MasterCategory
 import open.tresorier.model.Person
@@ -13,9 +14,10 @@ class CategoryService(private val categoryDao: ICategoryDao, private val authori
         return categoryDao.insert(category)
     }
 
-    fun update(person: Person, category: Category, newName: String): Category {
+    fun update(person: Person, category: Category, newName: String?, newMasterCategory: MasterCategory?): Category {
         authorizationService.cancelIfUserIsUnauthorized(person, category)
-        category.name = newName
+        newName?.let {category.name = it}
+        newMasterCategory?.let {category.masterCategoryId = it.id}
         return categoryDao.update(category)
     }
 
@@ -29,5 +31,10 @@ class CategoryService(private val categoryDao: ICategoryDao, private val authori
         authorizationService.cancelIfUserIsUnauthorized(person, category)
         category.deleted = true
         return categoryDao.update(category)
+    }
+
+    fun findByBudget(person: Person, budget: Budget): List<Category> {
+        authorizationService.cancelIfUserIsUnauthorized(person, budget)
+        return categoryDao.findByBudget(budget)
     }
 }
