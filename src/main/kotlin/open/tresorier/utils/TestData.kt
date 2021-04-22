@@ -6,7 +6,9 @@ import open.tresorier.model.Month
 object TestData {
 
     val person1Id: String = "person1"
-    var budget1Id: String = "budget1"
+    val budget1Id: String = "budget1"
+    val budget5Id: String = "budget5"
+    val account1Id: String = "account1"
 
     val jan_2020: Month =  Month(1,2020)
     val feb_2020: Month =  Month(2,2020)

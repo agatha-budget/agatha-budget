@@ -1,6 +1,6 @@
 package open.tresorier.model
 
-class Account (
+open class Account (
     var name: String,
     var budgetId: String,
     var archived: Boolean = false,

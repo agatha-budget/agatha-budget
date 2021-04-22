@@ -2,15 +2,15 @@ package open.tresorier.dao.jooq.pgsql
 
 import open.tresorier.dao.IAccountDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.generated.jooq.main.Tables.BUDGET
-import open.tresorier.generated.jooq.main.Tables.PERSON
+import open.tresorier.generated.jooq.main.Tables.*
 import open.tresorier.generated.jooq.main.tables.daos.AccountDao
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
-import open.tresorier.model.Account
-import open.tresorier.model.Budget
-import open.tresorier.model.Person
+import open.tresorier.model.*
 import org.jooq.Configuration
+import org.jooq.Field
+import org.jooq.Record6
 import org.jooq.impl.DSL
+import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Account as JooqAccount
 
 
@@ -44,12 +44,20 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
         return this.toAccount(jooqAccount) ?: throw TresorierException("no account found for the following id : $id")
     }
 
-    override fun findByBudget(budget: Budget): List<Account> {
-        val jooqAccountList = this.generatedDao.fetchByBudgetId(budget.id)
-        val accountList: MutableList<Account> = mutableListOf()
-        for (jooqAccount in jooqAccountList) {
-            val account = this.toAccount(jooqAccount)
-            account?.let { accountList.add(it) }
+    private val amountSum: Field<BigDecimal> = DSL.sum(OPERATION.AMOUNT).`as`("sum")
+
+    override fun findByBudget(budget: Budget): List<AccountWithAmount> {
+        val query = this.query
+            .select(ACCOUNT.ID, ACCOUNT.NAME, ACCOUNT.BUDGET_ID, amountSum, ACCOUNT.ARCHIVED, ACCOUNT.DELETED)
+            .from(ACCOUNT)
+            .join(OPERATION).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
+            .where(ACCOUNT.BUDGET_ID.eq(budget.id))
+            .groupBy(ACCOUNT.ID, ACCOUNT.BUDGET_ID, ACCOUNT.ARCHIVED, ACCOUNT.DELETED )
+        val jooqAccountList = query.fetch()
+        val accountList: MutableList<AccountWithAmount> = mutableListOf()
+        for (accountRecord in jooqAccountList) {
+            val account = this.toAccountWithAmount(accountRecord)
+            accountList.add(account)
         }
         return accountList
     }
@@ -85,6 +93,17 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
             jooqAccount.archived,
             jooqAccount.id,
             jooqAccount.deleted
+        )
+    }
+
+    private fun toAccountWithAmount(jooqAccountWithAmount: Record6<String, String, String, BigDecimal, Boolean, Boolean>): AccountWithAmount {
+        return AccountWithAmount(
+            jooqAccountWithAmount.get(ACCOUNT.NAME),
+            jooqAccountWithAmount.get(ACCOUNT.BUDGET_ID),
+            jooqAccountWithAmount.get(amountSum).toDouble(),
+            jooqAccountWithAmount.get(ACCOUNT.ARCHIVED),
+            jooqAccountWithAmount.get(ACCOUNT.ID),
+            jooqAccountWithAmount.get(ACCOUNT.DELETED)
         )
     }
 }

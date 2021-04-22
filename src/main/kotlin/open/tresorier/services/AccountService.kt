@@ -1,10 +1,7 @@
 package open.tresorier.services
 
 import open.tresorier.dao.IAccountDao
-import open.tresorier.model.Account
-import open.tresorier.model.Budget
-import open.tresorier.model.Day
-import open.tresorier.model.Person
+import open.tresorier.model.*
 
 class AccountService(private val accountDao: IAccountDao, private val authorizationService: AuthorizationService, private val operationService: OperationService) {
 
@@ -34,7 +31,7 @@ class AccountService(private val accountDao: IAccountDao, private val authorizat
         return accountDao.update(account)
     }
 
-    fun findByBudget(person: Person, budget: Budget) : List<Account> {
+    fun findByBudget(person: Person, budget: Budget) : List<AccountWithAmount> {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         return accountDao.findByBudget(budget)
     }

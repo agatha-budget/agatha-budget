@@ -72,8 +72,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         val jooqSpendingList = query.fetch()
         val spendingList: MutableList<Spending> = mutableListOf()
         for (spendingRecord in jooqSpendingList) {
-            val allocation = this.toSpending(spendingRecord)
-            spendingList.add(allocation)
+            val spending = this.toSpending(spendingRecord)
+            spendingList.add(spending)
         }
         return spendingList
     }
