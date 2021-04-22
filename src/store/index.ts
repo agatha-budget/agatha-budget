@@ -1,12 +1,13 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import SuperTokensRequest from 'supertokens-website/axios'
-import { Budget, AccountList } from '@/model/model'
+import { Budget, AccountList, CategoryList } from '@/model/model'
 
 export interface StoreState {
   logged: boolean;
   budget: Budget;
   accounts: AccountList;
+  categories: CategoryList;
   css: string;
 }
 
@@ -17,6 +18,7 @@ export const store = createStore<StoreState>({
     logged: SuperTokensRequest.doesSessionExist(),
     budget: { id: '', name: '' },
     accounts: {},
+    categories: {},
     css: 'blue'
   },
   mutations: {
@@ -28,6 +30,9 @@ export const store = createStore<StoreState>({
     },
     updateAccounts (state, accounts: AccountList) {
       state.accounts = accounts
+    },
+    updateCategories (state, categories: CategoryList) {
+      state.categories = categories
     }
   },
   actions: {
@@ -41,6 +46,10 @@ export const store = createStore<StoreState>({
     },
     updateAccounts (context, accounts: AccountList) {
       context.commit('updateAccounts', accounts)
+      console.log(this.state)
+    },
+    updateCategories (context, categories: CategoryList) {
+      context.commit('updateCategories', categories)
       console.log(this.state)
     }
   },
