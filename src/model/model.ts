@@ -1,6 +1,6 @@
-import { Operation, Account, Budget } from '@/services/api/openApi/api'
+import { Operation, Account, Budget, Category, MasterCategory } from '@/services/api/openApi/api'
 
-interface Category {
+interface CategoryData {
     name: string;
     allocated: number;
     spent: number;
@@ -11,17 +11,21 @@ interface AccountList {
     [accountId: string]: Account;
 }
 
+interface CategoryList {
+    [categoryId: string]: Category;
+}
+
 interface BudgetData {
     [masterCategoryId: string]: {
         name: string;
         categories: {
-            [categoryId: string]: Category;
+            [categoryId: string]: CategoryData;
         };
     };
 }
 
 interface MasterCategoriesData {
-    [masterCategoryId: string]: Category;
+    [masterCategoryId: string]: CategoryData;
 }
 
-export { Operation, Category, MasterCategoriesData, BudgetData, Account, AccountList, Budget }
+export { Operation, CategoryData, MasterCategoriesData, BudgetData, Account, AccountList, CategoryList, Budget, Category, MasterCategory }
