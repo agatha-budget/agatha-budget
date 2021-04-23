@@ -1,44 +1,42 @@
 <template>
   <tr class="masterCategory">
-    <th class="col-6 name"><div>{{ masterCategoryData.name }}</div></th>
-    <th class="col-2 allocated">{{ masterCategoryData.allocated }}</th>
-    <th class="col-2 spent">{{ masterCategoryData.spent }}</th>
-    <th class="col-2 available">{{ masterCategoryData.available }}</th>
+    <th class="col-6 name"><div>{{ masterCategory?.name }}</div></th>
+    <th class="col-2 allocated">{{ 0 }}</th>
+    <th class="col-2 spent">{{ 0 }}</th>
+    <th class="col-2 available">{{ 0 }}</th>
   </tr>
   <tbody>
-  <tr class="category" v-for="category, categoryId in categories" :key="category">
-    <td class="name"><div>{{ category.name }}</div></td>
-    <td class="allocated">
-      <input
-        class="form-control"
-        v-model.number=category.allocated
-        type="number"
-        v-on:change="updateAllocation(masterCategoryId, categoryId, category.allocated)"
-        :placeholder=category.allocated
-      >
-    </td>
-    <td class="spent">{{ category.spent }}</td>
-    <td class="available">{{ category.available }}</td>
+  <tr class="category" v-for="categoryId in this.categoriesId" :key="categoryId">
+    <td class="name"><div>{{ this.$store.state.categories[categoryId]?.name}}</div></td>
+    <td class="allocated">{{ 0 }}</td>
+    <td class="spent">{{ 0 }}</td>
+    <td class="available">{{ 0 }}</td>
   </tr>
   </tbody>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { CategoryData, CategoryDataList } from '@/model/model'
+import { MasterCategory } from '@/model/model'
 
 export default defineComponent({
-  name: 'BudgetCmpt',
+  name: 'MasterCategoryCmpt',
+  emits: ['updateAllocation'],
   props: {
-    masterCategoryData: {
-      type: Object as () => CategoryData
-    },
-    categories: {
-      type: Object as () => CategoryDataList
+    masterCategoryId: {
+      type: String,
+      required: true
     }
-
   },
-  computed: {},
+  computed: {
+    masterCategory (): MasterCategory {
+      console.log()
+      return this.$store.state.masterCategories[this.masterCategoryId]
+    },
+    categoriesId (): string[] {
+      return this.$store.state.categoriesIdByMasterCategoriesId[this.masterCategoryId]
+    }
+  },
   methods: {}
 })
 </script>

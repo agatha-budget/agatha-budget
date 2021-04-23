@@ -18,8 +18,10 @@
           </tr>
         </tbody>
       </table>
-      <table class="budgetTable table" v-for="masterCategory, masterCategoryId in budgetData" :key="masterCategory">
-          <master-category-cmpt :masterCategoryData="masterCategoriesData[masterCategoryId]" :categories="masterCategory.categories"/>
+      <table class="budgetTable table" v-for="masterCategoryId in Object.keys(this.$store.state.categoriesIdByMasterCategoriesId)" :key="masterCategoryId">
+          <master-category-cmpt
+            :masterCategoryId="masterCategoryId"
+          />
       </table>
     </div>
   </div>
