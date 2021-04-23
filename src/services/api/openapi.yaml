@@ -999,7 +999,7 @@ components:
           type: number
     MasterCategory:
       required:
-      - budget_id
+      - budgetId
       - id
       - name
       type: object
@@ -1008,12 +1008,12 @@ components:
           type: string
         id:
           type: string
-        budget_id:
+        budgetId:
           type: string
     Category:
       required:
       - id
-      - master_category_id
+      - masterCategoryId
       - name
       type: object
       properties:
@@ -1021,7 +1021,7 @@ components:
           type: string
         id:
           type: string
-        master_category_id:
+        masterCategoryId:
           type: string
     Operation:
       required:
