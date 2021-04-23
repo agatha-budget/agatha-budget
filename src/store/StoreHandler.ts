@@ -61,10 +61,12 @@ export default class StoreHandler {
     const data: CategoryByMasterCategoryList = {}
     for (const categoryId of Object.keys(categoriesList)) {
       const masterCategoryId = categoriesList[categoryId].masterCategoryId
-      if (!data[masterCategoryId]) {
-        data[masterCategoryId] = []
+      if (masterCategoryId) {
+        if (!data[masterCategoryId]) {
+          data[masterCategoryId] = []
+        }
+        data[masterCategoryId].push(categoryId)
       }
-      data[masterCategoryId].push(categoryId)
     }
     return data
   }
