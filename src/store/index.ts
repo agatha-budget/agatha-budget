@@ -1,7 +1,7 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import SuperTokensRequest from 'supertokens-website/axios'
-import { Budget, AccountList, CategoryList } from '@/model/model'
+import { Budget, AccountList, CategoryList, MasterCategoryList, CategoryByMasterCategoryList } from '@/model/model'
 import StoreHandler from './StoreHandler'
 
 export interface StoreState {
@@ -9,6 +9,8 @@ export interface StoreState {
   budget: Budget | null;
   accounts: AccountList;
   categories: CategoryList;
+  masterCategories: MasterCategoryList;
+  categoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
   css: string;
 }
 
@@ -20,6 +22,8 @@ export const store = createStore<StoreState>({
     budget: null,
     accounts: {},
     categories: {},
+    masterCategories: {},
+    categoriesIdByMasterCategoriesId: {},
     css: 'blue'
   },
   mutations: {
@@ -28,14 +32,17 @@ export const store = createStore<StoreState>({
     },
     updateBudget (state, budget: Budget) {
       state.budget = budget
-      StoreHandler.updateAccounts(store)
-      StoreHandler.updateCategories(store)
+      StoreHandler.updateOnBudgetChange(store)
     },
     updateAccounts (state, accounts: AccountList) {
       state.accounts = accounts
     },
     updateCategories (state, categories: CategoryList) {
       state.categories = categories
+      state.categoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(categories)
+    },
+    updateMasterCategories (state, masterCategories: MasterCategoryList) {
+      state.masterCategories = masterCategories
     }
   },
   actions: {
@@ -54,7 +61,12 @@ export const store = createStore<StoreState>({
     updateCategories (context, categories: CategoryList) {
       context.commit('updateCategories', categories)
       console.log(this.state)
+    },
+    updateMasterCategories (context, masterCategories: MasterCategoryList) {
+      context.commit('updateMasterCategories', masterCategories)
+      console.log(this.state)
     }
+
   },
   modules: {
   }
