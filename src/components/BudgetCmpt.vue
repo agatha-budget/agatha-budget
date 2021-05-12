@@ -21,6 +21,7 @@
       <table class="budgetTable table" v-for="masterCategoryId in Object.keys(this.$store.state.categoriesIdByMasterCategoriesId)" :key="masterCategoryId">
           <master-category-cmpt
             :masterCategoryId="masterCategoryId"
+            :masterCategoryData="masterCategoriesData[masterCategoryId]"
           />
       </table>
     </div>

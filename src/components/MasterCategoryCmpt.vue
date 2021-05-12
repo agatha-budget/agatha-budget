@@ -1,7 +1,7 @@
 <template>
   <tr class="masterCategory">
     <th class="col-6 name"><div>{{ masterCategory?.name }}</div></th>
-    <th class="col-2 allocated">{{ 0 }}</th>
+    <th class="col-2 allocated">{{ masterCategoryData?.allocated }}</th>
     <th class="col-2 spent">{{ 0 }}</th>
     <th class="col-2 available">{{ 0 }}</th>
   </tr>
@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { MasterCategory } from '@/model/model'
+import { MasterCategory, CategoryData } from '@/model/model'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
@@ -25,6 +25,10 @@ export default defineComponent({
   props: {
     masterCategoryId: {
       type: String,
+      required: true
+    },
+    masterCategoryData: {
+      type: Object as () => CategoryData,
       required: true
     }
   },
