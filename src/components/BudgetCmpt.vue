@@ -30,7 +30,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import BudgetService from '@/services/BudgetService'
+import BudgetDataService from '@/services/BudgetDataService'
 import { MasterCategoriesData, BudgetData, Budget } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 
@@ -68,9 +68,8 @@ export default defineComponent({
     masterCategoriesData () {
       const masterCategoriesData: MasterCategoriesData = {}
       let category
-      for (const masterCategoryId in this.budgetData) {
+      /* for (const masterCategoryId in this.budgetData) {
         masterCategoriesData[masterCategoryId] = {
-          name: this.budgetData[masterCategoryId].name,
           allocated: 0,
           spent: 0,
           available: 0
@@ -81,7 +80,7 @@ export default defineComponent({
           masterCategoriesData[masterCategoryId].spent += category.spent
           masterCategoriesData[masterCategoryId].available += category.available
         }
-      }
+      } */
       return masterCategoriesData
     },
     totalBudgetData () {
@@ -101,7 +100,7 @@ export default defineComponent({
   methods: {
     async getBudgetData () {
       if (this.budget) {
-        BudgetService.getBudgetData(this.budget).then(
+        BudgetDataService.getBudgetData(this.budget).then(
           (budgetData) => {
             this.budgetData = budgetData
             this.initFormerAllocation()
@@ -113,14 +112,14 @@ export default defineComponent({
       let category
       for (const masterCategoryId in this.budgetData) {
         for (const categoryId in this.budgetData[masterCategoryId].categories) {
-          category = this.budgetData[masterCategoryId].categories[categoryId]
-          this.formerAllocations[categoryId] = category.allocated
+          /* category = this.budgetData[masterCategoryId].categories[categoryId]
+          this.formerAllocations[categoryId] = category.allocated */
         }
       }
     },
     updateAllocation (masterCategoryId: string, categoryId: string, newAllocation: number) {
       console.log('new alloc for ' + categoryId + ' of ' + masterCategoryId + ' : ' + newAllocation)
-      this.budgetData[masterCategoryId].categories[categoryId].available += (newAllocation - this.formerAllocations[categoryId])
+      /* this.budgetData[masterCategoryId].categories[categoryId].available += (newAllocation - this.formerAllocations[categoryId]) */
       this.formerAllocations[categoryId] = newAllocation
     }
   }
