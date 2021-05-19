@@ -8,13 +8,16 @@
             <th class="category">{{ $t("CATEGORY") }}</th>
             <th class="memo">{{ $t("MEMO") }}</th>
             <th class="amount">{{ $t("AMOUNT") }}</th>
+            <th class="validation">{{ $t("ACTION") }}</th>
           </tr>
           <tbody>
+          <OperationForm @update-operation-list="getAccountOperation" :accountId="this.accountId" />
           <tr class="operation" v-for="operation in this.operations" :key="operation">
             <td class="date"><div>{{ $d(this.getDayAsDate(operation.day.comparable), 'day') }}</div></td>
             <td class="category">{{ $t(this.$store.state.categories[operation.categoryId].name) }}</td>
             <td class="memo">{{ $t(operation.memo) }}</td>
             <td class="amount">{{ operation.amount }}</td>
+            <td class="validation">{{ $t("ACTION") }}</td>
           </tr>
           </tbody>
       </table>
@@ -29,6 +32,7 @@ import { Account } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
+import OperationForm from '@/components/forms/OperationForm.vue'
 
 interface AccountPageData {
     operations: any;
@@ -37,7 +41,7 @@ interface AccountPageData {
 export default defineComponent({
   name: 'AccountPage',
   components: {
-
+    OperationForm
   },
   created: async function () {
     redirectToLoginPageIfNotLogged(this.$store)

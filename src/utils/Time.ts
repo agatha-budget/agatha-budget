@@ -8,10 +8,7 @@ export default class Time {
 
   public static getCurrentDay (): number {
     const dateTime = new Date()
-    const year = dateTime.getFullYear()
-    const month = dateTime.getMonth() + 1 // by default from 0 to 11
-    const day = dateTime.getDate()
-    return year * 10000 + month * 100 + day
+    return this.getDayFromDate(dateTime)
   }
 
   public static getMonthAsDate (monthAsInt: number): Date {
@@ -21,6 +18,18 @@ export default class Time {
     date.setMonth(month)
     date.setFullYear(year)
     return date
+  }
+
+  public static getDayFromDate (dateTime: Date): number {
+    const year = dateTime.getFullYear()
+    const month = dateTime.getMonth() + 1 // by default from 0 to 11
+    const day = dateTime.getDate()
+    return year * 10000 + month * 100 + day
+  }
+
+  public static getDayFromDateString (dateString: string): number {
+    const date = new Date(dateString)
+    return this.getDayFromDate(date)
   }
 
   public static getDayAsDate (dayAsInt: number): Date {
