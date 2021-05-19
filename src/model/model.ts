@@ -1,10 +1,7 @@
-import { Operation, Account, Budget, Category, MasterCategory } from '@/services/api/openApi/api'
+import { Operation, Account, Budget, Category, CategoryData, MasterCategory } from '@/services/api/openApi/api'
 
-interface CategoryData {
-    name: string;
-    allocated: number;
-    spent: number;
-    available: number;
+interface BudgetData {
+    [monthComparable: number]: CategoryDataList;
 }
 
 interface AccountList {
@@ -25,13 +22,6 @@ interface CategoryDataList {
 
 interface CategoryByMasterCategoryList {
     [masterCategoryId: string]: string[];
-}
-
-interface BudgetData {
-    [masterCategoryId: string]: {
-        name: string;
-        categories: CategoryDataList;
-    };
 }
 
 interface MasterCategoriesData {

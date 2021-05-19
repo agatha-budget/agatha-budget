@@ -1,7 +1,7 @@
 <template>
   <tr class="masterCategory">
     <th class="col-6 name"><div>{{ masterCategory?.name }}</div></th>
-    <th class="col-2 allocated">{{ masterCategoryData?.allocated }}</th>
+    <th class="col-2 allocated">{{ (masterCategoryData?.allocated ? masterCategoryData?.allocated : 0)}}</th>
     <th class="col-2 spent">{{ 0 }}</th>
     <th class="col-2 available">{{ 0 }}</th>
   </tr>
