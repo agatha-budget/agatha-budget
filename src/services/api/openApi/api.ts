@@ -119,7 +119,7 @@ export interface Category {
      * @type {string}
      * @memberof Category
      */
-    master_category_id: string;
+    masterCategoryId: string;
 }
 /**
  * 
@@ -169,7 +169,7 @@ export interface MasterCategory {
      * @type {string}
      * @memberof MasterCategory
      */
-    budget_id: string;
+    budgetId: string;
 }
 /**
  * 

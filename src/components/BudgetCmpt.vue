@@ -18,29 +18,11 @@
           </tr>
         </tbody>
       </table>
-      <table class="budgetTable table" v-for="masterCategory, masterCategoryId in budgetData" :key="masterCategory">
-          <tr class="masterCategory">
-            <th class="col-6 name"><div>{{ masterCategoriesData[masterCategoryId].name }}</div></th>
-            <th class="col-2 allocated">{{ masterCategoriesData[masterCategoryId].allocated }}</th>
-            <th class="col-2 spent">{{ masterCategoriesData[masterCategoryId].spent }}</th>
-            <th class="col-2 available">{{ masterCategoriesData[masterCategoryId].available }}</th>
-          </tr>
-          <tbody>
-          <tr class="category" v-for="category, categoryId in masterCategory.categories" :key="category">
-            <td class="name"><div>{{ category.name }}</div></td>
-            <td class="allocated">
-              <input
-                class="form-control"
-                v-model.number=category.allocated
-                type="number"
-                v-on:change="updateAllocation(masterCategoryId, categoryId, category.allocated)"
-                :placeholder=category.allocated
-              >
-            </td>
-            <td class="spent">{{ category.spent }}</td>
-            <td class="available">{{ category.available }}</td>
-          </tr>
-          </tbody>
+      <table class="budgetTable table" v-for="masterCategoryId in Object.keys(this.$store.state.categoriesIdByMasterCategoriesId)" :key="masterCategoryId">
+          <master-category-cmpt
+            :masterCategoryId="masterCategoryId"
+            :masterCategoryData="masterCategoriesData[masterCategoryId]"
+          />
       </table>
     </div>
   </div>
@@ -50,6 +32,7 @@
 import { defineComponent } from 'vue'
 import BudgetService from '@/services/BudgetService'
 import { MasterCategoriesData, BudgetData, Budget } from '@/model/model'
+import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 
 interface BudgetCmptData {
     budgetData: BudgetData;
@@ -60,6 +43,9 @@ interface BudgetCmptData {
 
 export default defineComponent({
   name: 'BudgetCmpt',
+  components: {
+    MasterCategoryCmpt
+  },
   props: ['month'],
   created: async function () {
     this.getBudgetData()
