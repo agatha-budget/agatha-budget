@@ -14,8 +14,8 @@
           <OperationForm @update-operation-list="getAccountOperation" :accountId="this.accountId" />
           <tr class="operation" v-for="operation in this.operations" :key="operation">
             <td class="date"><div>{{ $d(this.getDayAsDate(operation.day.comparable), 'day') }}</div></td>
-            <td class="category">{{ $t(this.$store.state.categories[operation.categoryId].name) }}</td>
-            <td class="memo">{{ $t(operation.memo) }}</td>
+            <td class="category">{{ this.$store.state.categories[operation.categoryId].name }}</td>
+            <td class="memo">{{ operation.memo }}</td>
             <td class="amount">{{ operation.amount }}</td>
             <td class="validation">{{ $t("ACTION") }}</td>
           </tr>

@@ -22,7 +22,7 @@ export default class Time {
 
   public static getDayFromDate (dateTime: Date): number {
     const year = dateTime.getFullYear()
-    const month = dateTime.getMonth() + 1 // by default from 0 to 11
+    const month = dateTime.getMonth()
     const day = dateTime.getDate()
     return year * 10000 + month * 100 + day
   }
