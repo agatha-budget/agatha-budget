@@ -1,4 +1,4 @@
-import { Budget, BudgetData } from '@/model/model'
+import { Budget, BudgetData, CategoryDataList } from '@/model/model'
 import { budgetApi, budgetDataApi } from './api/apis'
 
 export default class BudgetDataService {
@@ -9,9 +9,11 @@ export default class BudgetDataService {
 
   public static async getBudgetData (budget: Budget): Promise<BudgetData> {
     const response = await budgetDataApi.findBudgetData(budget.id)
-    for (const monthString in response) {
-      console.log(monthString)
-    }
-    return {}
+    return response.data
+  }
+
+  public static async getBudgetDataForMonth (budget: Budget, month: number): Promise<CategoryDataList> {
+    const response = await budgetDataApi.findBudgetData(budget.id, month, month)
+    return response.data[month]
   }
 }
