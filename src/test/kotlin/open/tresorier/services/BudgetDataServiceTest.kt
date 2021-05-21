@@ -470,4 +470,32 @@ class BudgetDataServiceTest : ITest {
         }
         Assertions.assertEquals("the given object appears to have no owner", exception.message)
     }
+
+    @Test
+    fun testFindBudgetDataWithCents() {
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("oftenAllocatedCategory", masterCategory.id)
+        categoryDao.insert(category)
+        val account = Account("my own account", budget.id)
+        accountDao.insert(account)
+        val operationList = listOf(
+                Operation(account.id, TestData.oct_02_2020 , category.id, 45.54),
+                Operation(account.id, TestData.nov_03_2020 , category.id, 20.00),
+        )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        val person: Person = personDao.getById(TestData.person1Id)
+        val budgetData = budgetDataService.getBudgetData(person, budget)
+
+        val expected = BudgetData()
+        expected[TestData.oct_2020.comparable] = MonthData().set(category.id, CategoryData(0.00, 45.54, 45.54 ))
+        expected[TestData.nov_2020.comparable] = MonthData().set(category.id, CategoryData(0.00, 20.00, 65.54 )) // not 65.53999999999
+
+        Assertions.assertEquals(expected, budgetData)
+    }
+
 }
