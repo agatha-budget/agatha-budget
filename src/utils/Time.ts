@@ -39,4 +39,10 @@ export default class Time {
     date.setDate(day)
     return date
   }
+
+  public static monthIsThisYear (monthAsInt: number): boolean {
+    const year = this.getMonthAsDate(monthAsInt).getFullYear()
+    const currentYear = new Date().getFullYear()
+    return year === currentYear
+  }
 }

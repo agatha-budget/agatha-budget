@@ -1,7 +1,7 @@
 <template>
   <div>
     <div id="budgetTables">
-      <h1>{{ month }}</h1>
+      <h1>{{ $d(this.getMonthAsDate(month), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(month), 'year') }}</span></h1>
       <table id="totalTable"  class="table">
           <tr>
             <th class="col-6 name"></th>
@@ -38,6 +38,7 @@ import BudgetDataService from '@/services/BudgetDataService'
 import AllocationService from '@/services/AllocationService'
 import { Budget, CategoryData, CategoryDataList } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
+import Time from '@/utils/Time'
 
 interface BudgetCmptData {
     categoryDataList: CategoryDataList;
@@ -86,6 +87,9 @@ export default defineComponent({
         totalBudgetData.available += this.categoryDataList[categoryId].available
       }
       return totalBudgetData
+    },
+    isThisYear (): boolean {
+      return Time.monthIsThisYear(this.month)
     }
   },
   methods: {
@@ -115,6 +119,9 @@ export default defineComponent({
       this.categoryDataList[categoryId].allocated = newAllocation
       this.formerAllocations[categoryId] = newAllocation
       AllocationService.updateAllocation(this.month, categoryId, newAllocation)
+    },
+    getMonthAsDate (monthAsInt: number): Date {
+      return Time.getMonthAsDate(monthAsInt)
     }
   }
 })
