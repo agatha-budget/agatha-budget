@@ -63,4 +63,10 @@ open class CategoryDaoTest : ITest {
         )
         Assertions.assertEquals(universalCategoryList.toString(), foundCategoryList.toString())
     }
+
+    @Test fun testGetOwnerOfUniversalCategory() {
+        val universalCategory = categoryDao.getById(Category.INCOME_ID)
+        val owner = categoryDao.getOwner(universalCategory)
+        Assertions.assertNull(owner)
+    }
 }

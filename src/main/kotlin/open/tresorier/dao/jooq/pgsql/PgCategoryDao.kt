@@ -70,7 +70,7 @@ class PgCategoryDao(val configuration: Configuration) : ICategoryDao {
         return categoryList
     }
 
-    override fun getOwner(category: Category): Person {
+    override fun getOwner(category: Category): Person? {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
                 .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(category.masterCategoryId))
@@ -79,8 +79,11 @@ class PgCategoryDao(val configuration: Configuration) : ICategoryDao {
                 .fetchAny().into(PERSON)
             return PgPersonDao.toPerson(owner)
         } catch (e : Exception) {
-            throw TresorierException("the given object appears to have no owner")
-        }
+            if (e is NullPointerException){
+                return null
+            } else {
+                throw TresorierException("an error occurred while retriving the owner")
+            }        }
     }
 
     private fun toJooqCategory(category: Category): JooqCategory {
