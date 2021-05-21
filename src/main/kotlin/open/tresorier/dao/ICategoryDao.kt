@@ -1,9 +1,9 @@
 package open.tresorier.dao
 
+import open.tresorier.model.Budget
 import open.tresorier.model.Category
 import open.tresorier.model.MasterCategory
 import open.tresorier.model.Person
-import open.tresorier.model.Budget
 
 interface ICategoryDao {
     fun insert(category: Category) : Category
@@ -11,5 +11,5 @@ interface ICategoryDao {
     fun getById(id: String): Category
     fun findByMasterCategory(masterCategory: MasterCategory): List<Category>
     fun findByBudget(budget: Budget): List<Category>
-    fun getOwner(category: Category) : Person
+    fun getOwner(category: Category) : Person?
 }
