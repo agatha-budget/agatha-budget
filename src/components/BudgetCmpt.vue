@@ -36,7 +36,7 @@
 import { defineComponent } from 'vue'
 import BudgetDataService from '@/services/BudgetDataService'
 import AllocationService from '@/services/AllocationService'
-import { Budget, CategoryDataList, emptyCategoryData } from '@/model/model'
+import { Budget, CategoryData, CategoryDataList } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 
 interface BudgetCmptData {
@@ -79,7 +79,7 @@ export default defineComponent({
       return this.$store.state.budget
     },
     totalBudgetData () {
-      const totalBudgetData = emptyCategoryData
+      const totalBudgetData = new CategoryData()
       for (const categoryId in this.categoryDataList) {
         totalBudgetData.allocated += this.categoryDataList[categoryId].allocated
         totalBudgetData.spent += this.categoryDataList[categoryId].spent
@@ -108,10 +108,10 @@ export default defineComponent({
     },
     updateAllocation (categoryId: string, newAllocation: number) {
       if (!this.categoryDataList[categoryId]) {
-        this.categoryDataList[categoryId] = emptyCategoryData
+        this.categoryDataList[categoryId] = new CategoryData()
       }
       this.categoryDataList[categoryId].available +=
-        newAllocation - this.formerAllocations[categoryId]
+        newAllocation - (this.formerAllocations[categoryId] || 0)
       this.categoryDataList[categoryId].allocated = newAllocation
       this.formerAllocations[categoryId] = newAllocation
       AllocationService.updateAllocation(this.month, categoryId, newAllocation)

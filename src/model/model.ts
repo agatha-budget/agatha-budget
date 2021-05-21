@@ -1,4 +1,4 @@
-import { Operation, Account, Budget, Category, CategoryData, MasterCategory } from '@/services/api/openApi/api'
+import { Operation, Account, Budget, Category, CategoryData as ICategoryData, MasterCategory } from '@/services/api/openApi/api'
 
 interface BudgetData {
     [monthComparable: number]: CategoryDataList;
@@ -28,14 +28,14 @@ interface MasterCategoriesData {
     [masterCategoryId: string]: CategoryData;
 }
 
-const emptyCategoryData = {
-  allocated: 0,
-  spent: 0,
-  available: 0
+class CategoryData implements ICategoryData {
+    allocated = 0;
+    spent = 0;
+    available = 0;
 }
 
 export {
   Operation, CategoryData, MasterCategoriesData, BudgetData, Account, AccountList,
   CategoryList, Budget, Category, MasterCategory, CategoryDataList, MasterCategoryList,
-  CategoryByMasterCategoryList, emptyCategoryData
+  CategoryByMasterCategoryList
 }
