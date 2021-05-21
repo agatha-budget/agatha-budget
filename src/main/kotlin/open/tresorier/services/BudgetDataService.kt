@@ -112,7 +112,7 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
                     for ((categoryId, categoryData) in mapByMonth) {
                         totalSpent[categoryId] = categoryData.spent + (totalSpent[categoryId] ?: 0.00)
                         totalAllocated[categoryId] = categoryData.allocated + (totalAllocated[categoryId] ?: 0.00)
-                        categoryData.available = (totalAllocated[categoryId] ?: 0.00) - (totalSpent[categoryId] ?: 0.00)
+                        categoryData.available = (totalAllocated[categoryId] ?: 0.00) + (totalSpent[categoryId] ?: 0.00)
                     }
                 }
             }
