@@ -253,7 +253,7 @@ class BudgetDataServiceTest : ITest {
         val operationList = listOf(
                 Operation(account.id, TestData.nov_02_2020 , category.id, -40.00),
                 Operation(account.id, TestData.nov_03_2020 , category.id, -20.00),
-                Operation(account.id, TestData.feb_02_2021 , category2.id, -10.00),
+                Operation(account.id, TestData.feb_02_2021 , category2.id, 10.00),
                 Operation(account.id, TestData.march_02_2021 , category.id, -30.00),
 
                 )
@@ -267,7 +267,7 @@ class BudgetDataServiceTest : ITest {
         expected[TestData.nov_2020.comparable] = MonthData().set(category.id, CategoryData(40.00, -60.00, -20.00 ))
         expected[TestData.dec_2020.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 0.00 ))
         expected[TestData.jan_2021.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 20.00 ))
-        expected[TestData.feb_2021.comparable] = MonthData().set(category2.id, CategoryData(0.00, -10.00, -10.00 ))
+        expected[TestData.feb_2021.comparable] = MonthData().set(category2.id, CategoryData(0.00, 10.00, 10.00 ))
         expected[TestData.mar_2021.comparable] = MonthData().set(category.id, CategoryData(0.00, -30.00, -10.00 ))
         expected[TestData.may_2021.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 10.00 ))
         expected[TestData.jun_2021.comparable] = MonthData().set(category.id, CategoryData(20.00, 0.00, 30.00 ))
