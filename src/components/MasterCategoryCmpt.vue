@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { MasterCategory, CategoryDataList } from '@/model/model'
+import { MasterCategory, CategoryDataList, emptyCategoryData } from '@/model/model'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
@@ -40,11 +40,7 @@ export default defineComponent({
       return this.$store.state.categoriesIdByMasterCategoriesId[this.masterCategoryId]
     },
     masterCategoryData () {
-      const masterCategoryData = {
-        allocated: 0,
-        spent: 0,
-        available: 0
-      }
+      const masterCategoryData = emptyCategoryData
       for (const categoryId in this.categoryDataList) {
         if (this.categoriesId.includes(categoryId)) {
           masterCategoryData.allocated += this.categoryDataList[categoryId].allocated

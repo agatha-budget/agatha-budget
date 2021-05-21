@@ -31,7 +31,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import BudgetDataService from '@/services/BudgetDataService'
-import { Budget, CategoryDataList } from '@/model/model'
+import AllocationService from '@/services/AllocationService'
+import { Budget, CategoryDataList, emptyCategoryData } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 
 interface BudgetCmptData {
@@ -46,7 +47,12 @@ export default defineComponent({
   components: {
     MasterCategoryCmpt
   },
-  props: ['month'],
+  props: {
+    month: {
+      type: Number,
+      required: true
+    }
+  },
   created: async function () {
     this.getBudgetData()
   },
@@ -58,7 +64,10 @@ export default defineComponent({
   data (): BudgetCmptData {
     return {
       categoryDataList: {},
-      formerAllocations: {} // use former budget to compute the "available" value from -formerBudget.available + budget.available without asking the back-end to compute
+      /* use former allocation to compute the new "available" value
+        newAvailable = available + newAllocation - formerAllocation
+        without asking the back-end to compute */
+      formerAllocations: {}
     }
   },
   computed: {
@@ -66,11 +75,7 @@ export default defineComponent({
       return this.$store.state.budget
     },
     totalBudgetData () {
-      const totalBudgetData = {
-        allocated: 0,
-        spent: 0,
-        available: 0
-      }
+      const totalBudgetData = emptyCategoryData
       for (const categoryId in this.categoryDataList) {
         totalBudgetData.allocated += this.categoryDataList[categoryId].allocated
         totalBudgetData.spent += this.categoryDataList[categoryId].spent
