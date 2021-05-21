@@ -22,7 +22,7 @@ export default class Time {
 
   public static getDayFromDate (dateTime: Date): number {
     const year = dateTime.getFullYear()
-    const month = dateTime.getMonth()
+    const month = dateTime.getMonth() + 1 // by default from 0 to 11
     const day = dateTime.getDate()
     return year * 10000 + month * 100 + day
   }
@@ -34,7 +34,7 @@ export default class Time {
 
   public static getDayAsDate (dayAsInt: number): Date {
     const day = dayAsInt % 100
-    const monthAsInt = (dayAsInt - day) / 100
+    const monthAsInt = ((dayAsInt - day) / 100) - 1
     const date = this.getMonthAsDate(monthAsInt)
     date.setDate(day)
     return date
