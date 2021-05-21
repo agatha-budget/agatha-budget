@@ -8,7 +8,12 @@
   <tbody>
   <tr class="category" v-for="categoryId in this.categoriesId" :key="categoryId">
     <td class="name"><div>{{ this.$store.state.categories[categoryId]?.name}}</div></td>
-    <td class="allocated">{{ this.categoryDataList[categoryId]?.allocated || 0 }}</td>
+    <td class="allocated">
+      <input type="number" class="allocationInput"
+      :value="this.categoryDataList[categoryId]?.allocated || 0"
+      v-on:change="updateAllocationOnChange(categoryId, $event.target.value)"
+      >
+      </td>
     <td class="spent">{{ this.categoryDataList[categoryId]?.spent || 0 }}</td>
     <td class="available">{{ this.categoryDataList[categoryId]?.available || 0 }}</td>
   </tr>
@@ -51,6 +56,10 @@ export default defineComponent({
       return masterCategoryData
     }
   },
-  methods: {}
+  methods: {
+    updateAllocationOnChange (categoryId: string, value: string) {
+      this.$emit('updateAllocation', categoryId, +value)
+    }
+  }
 })
 </script>

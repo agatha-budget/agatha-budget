@@ -18,8 +18,12 @@
           </tr>
         </tbody>
       </table>
-      <table class="budgetTable table" v-for="masterCategoryId in Object.keys(this.$store.state.categoriesIdByMasterCategoriesId)" :key="masterCategoryId">
+      <table class="budgetTable table"
+       v-for="masterCategoryId in Object.keys(this.$store.state.categoriesIdByMasterCategoriesId)"
+       :key="masterCategoryId"
+      >
           <master-category-cmpt
+            @update-allocation="updateAllocation"
             :masterCategoryId="masterCategoryId"
             :categoryDataList="this.categoryDataList"
           />
@@ -103,9 +107,14 @@ export default defineComponent({
       }
     },
     updateAllocation (categoryId: string, newAllocation: number) {
-      console.log('new alloc for ' + categoryId + ' : ' + newAllocation)
-      this.categoryDataList[categoryId].available += (newAllocation - this.formerAllocations[categoryId])
+      if (!this.categoryDataList[categoryId]) {
+        this.categoryDataList[categoryId] = emptyCategoryData
+      }
+      this.categoryDataList[categoryId].available +=
+        newAllocation - this.formerAllocations[categoryId]
+      this.categoryDataList[categoryId].allocated = newAllocation
       this.formerAllocations[categoryId] = newAllocation
+      AllocationService.updateAllocation(this.month, categoryId, newAllocation)
     }
   }
 })
