@@ -1,7 +1,6 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="home row">
-      <BudgetCmpt month="FEBRUARY" class="col-md-4 offset-md-2"/>
       <BudgetCmpt :month="this.currentMonth" class="col-md-4 offset-md-2"/>
       <div class="col-md-2 offset-md-2">
       <AccountsWidget/>

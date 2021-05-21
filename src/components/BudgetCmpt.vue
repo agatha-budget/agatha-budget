@@ -84,7 +84,6 @@ export default defineComponent({
       if (this.budget) {
         BudgetDataService.getBudgetDataForMonth(this.budget, this.month).then(
           (categoryDataList) => {
-            console.log(categoryDataList)
             this.categoryDataList = categoryDataList
             this.initFormerAllocation()
           }

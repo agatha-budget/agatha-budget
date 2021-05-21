@@ -8,9 +8,9 @@
   <tbody>
   <tr class="category" v-for="categoryId in this.categoriesId" :key="categoryId">
     <td class="name"><div>{{ this.$store.state.categories[categoryId]?.name}}</div></td>
-    <td class="allocated">{{ this.categoryDataList[categoryId]?.allocated }}</td>
-    <td class="spent">{{ this.categoryDataList[categoryId]?.spent }}</td>
-    <td class="available">{{ this.categoryDataList[categoryId]?.available }}</td>
+    <td class="allocated">{{ this.categoryDataList[categoryId]?.allocated || 0 }}</td>
+    <td class="spent">{{ this.categoryDataList[categoryId]?.spent || 0 }}</td>
+    <td class="available">{{ this.categoryDataList[categoryId]?.available || 0 }}</td>
   </tr>
   </tbody>
 </template>
@@ -45,11 +45,8 @@ export default defineComponent({
         spent: 0,
         available: 0
       }
-      console.log(this.categoryDataList)
       for (const categoryId in this.categoryDataList) {
-        console.log(categoryId)
         if (this.categoriesId.includes(categoryId)) {
-          console.log('in')
           masterCategoryData.allocated += this.categoryDataList[categoryId].allocated
           masterCategoryData.spent += this.categoryDataList[categoryId].spent
           masterCategoryData.available += this.categoryDataList[categoryId].available
