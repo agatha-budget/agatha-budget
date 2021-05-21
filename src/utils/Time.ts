@@ -15,7 +15,7 @@ export default class Time {
     const date = new Date()
     const month = monthAsInt % 100
     const year = (monthAsInt - month) / 100
-    date.setMonth(month)
+    date.setMonth(month - 1)
     date.setFullYear(year)
     return date
   }
