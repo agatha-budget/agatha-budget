@@ -1,7 +1,11 @@
 <template>
   <div>
     <div id="budgetTables">
-      <h1>{{ $d(this.getMonthAsDate(month), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(month), 'year') }}</span></h1>
+      <div class="row">
+        <div class="col-2" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"></button></div>
+        <h1 class="col-8">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></h1>
+        <div class="col-2" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"></button></div>
+      </div>
       <table id="totalTable"  class="table">
           <tr>
             <th class="col-6 name"></th>
@@ -45,6 +49,7 @@ interface BudgetCmptData {
     formerAllocations: {
         [categoryId: string]: number;
     };
+    budgetMonth: number;
 }
 
 export default defineComponent({
@@ -64,6 +69,9 @@ export default defineComponent({
   watch: {
     budget: async function () {
       this.getBudgetData()
+    },
+    budgetMonth: async function () {
+      this.getBudgetData()
     }
   },
   data (): BudgetCmptData {
@@ -72,7 +80,8 @@ export default defineComponent({
       /* use former allocation to compute the new "available" value
         newAvailable = available + newAllocation - formerAllocation
         without asking the back-end to compute */
-      formerAllocations: {}
+      formerAllocations: {},
+      budgetMonth: this.$props.month
     }
   },
   computed: {
@@ -89,13 +98,13 @@ export default defineComponent({
       return totalBudgetData
     },
     isThisYear (): boolean {
-      return Time.monthIsThisYear(this.month)
+      return Time.monthIsThisYear(this.budgetMonth)
     }
   },
   methods: {
     async getBudgetData () {
       if (this.budget) {
-        BudgetDataService.getBudgetDataForMonth(this.budget, this.month).then(
+        BudgetDataService.getBudgetDataForMonth(this.budget, this.budgetMonth).then(
           (categoryDataList) => {
             this.categoryDataList = categoryDataList
             this.initFormerAllocation()
@@ -118,10 +127,16 @@ export default defineComponent({
         newAllocation - (this.formerAllocations[categoryId] || 0)
       this.categoryDataList[categoryId].allocated = newAllocation
       this.formerAllocations[categoryId] = newAllocation
-      AllocationService.updateAllocation(this.month, categoryId, newAllocation)
+      AllocationService.updateAllocation(this.budgetMonth, categoryId, newAllocation)
     },
     getMonthAsDate (monthAsInt: number): Date {
       return Time.getMonthAsDate(monthAsInt)
+    },
+    goToNextMonth () {
+      this.budgetMonth = Time.getNextMonth(this.budgetMonth)
+    },
+    goToLastMonth () {
+      this.budgetMonth = Time.getLastMonth(this.budgetMonth)
     }
   }
 })

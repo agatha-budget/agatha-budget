@@ -6,6 +6,30 @@ export default class Time {
     return year * 100 + month
   }
 
+  public static getNextMonth (monthAsInt: number): number {
+    let month = monthAsInt % 100
+    let year = (monthAsInt - month) / 100
+    if (month < 12) {
+      month += 1
+    } else {
+      year += 1
+      month = 1
+    }
+    return year * 100 + month
+  }
+
+  public static getLastMonth (monthAsInt: number): number {
+    let month = monthAsInt % 100
+    let year = (monthAsInt - month) / 100
+    if (month > 1) {
+      month -= 1
+    } else {
+      year -= 1
+      month = 12
+    }
+    return year * 100 + month
+  }
+
   public static getCurrentDay (): number {
     const dateTime = new Date()
     return this.getDayFromDate(dateTime)
