@@ -5,6 +5,12 @@
         },
         "month": {
             "year": "numeric", "month":"2-digit"
+        },
+        "monthString": {
+            "month":"long"
+        },
+        "year": {
+            "year": "numeric"
         }
     }
 }

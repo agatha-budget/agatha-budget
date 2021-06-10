@@ -1,7 +1,11 @@
 <template>
   <div>
     <div id="budgetTables">
-      <h1>{{ $t(month) }}</h1>
+      <div class="row">
+        <div class="col-2" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"></button></div>
+        <h1 class="col-8">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></h1>
+        <div class="col-2" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"></button></div>
+      </div>
       <table id="totalTable"  class="table">
           <tr>
             <th class="col-6 name"></th>
@@ -18,10 +22,14 @@
           </tr>
         </tbody>
       </table>
-      <table class="budgetTable table" v-for="masterCategoryId in Object.keys(this.$store.state.categoriesIdByMasterCategoriesId)" :key="masterCategoryId">
+      <table class="budgetTable table"
+       v-for="masterCategoryId in Object.keys(this.$store.state.categoriesIdByMasterCategoriesId)"
+       :key="masterCategoryId"
+      >
           <master-category-cmpt
+            @update-allocation="updateAllocation"
             :masterCategoryId="masterCategoryId"
-            :masterCategoryData="masterCategoriesData[masterCategoryId]"
+            :categoryDataList="this.categoryDataList"
           />
       </table>
     </div>
@@ -30,15 +38,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import BudgetService from '@/services/BudgetService'
-import { MasterCategoriesData, BudgetData, Budget } from '@/model/model'
+import BudgetDataService from '@/services/BudgetDataService'
+import AllocationService from '@/services/AllocationService'
+import { Budget, CategoryData, CategoryDataList } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
+import Time from '@/utils/Time'
 
 interface BudgetCmptData {
-    budgetData: BudgetData;
+    categoryDataList: CategoryDataList;
     formerAllocations: {
         [categoryId: string]: number;
     };
+    budgetMonth: number;
 }
 
 export default defineComponent({
@@ -46,64 +57,56 @@ export default defineComponent({
   components: {
     MasterCategoryCmpt
   },
-  props: ['month'],
+  props: {
+    month: {
+      type: Number,
+      required: true
+    }
+  },
   created: async function () {
     this.getBudgetData()
   },
   watch: {
     budget: async function () {
       this.getBudgetData()
+    },
+    budgetMonth: async function () {
+      this.getBudgetData()
     }
   },
   data (): BudgetCmptData {
     return {
-      budgetData: {},
-      formerAllocations: {} // use former budget to compute the "available" value from -formerBudget.available + budget.available without asking the back-end to compute
+      categoryDataList: {},
+      /* use former allocation to compute the new "available" value
+        newAvailable = available + newAllocation - formerAllocation
+        without asking the back-end to compute */
+      formerAllocations: {},
+      budgetMonth: this.$props.month
     }
   },
   computed: {
     budget (): Budget | null {
       return this.$store.state.budget
     },
-    masterCategoriesData () {
-      const masterCategoriesData: MasterCategoriesData = {}
-      let category
-      for (const masterCategoryId in this.budgetData) {
-        masterCategoriesData[masterCategoryId] = {
-          name: this.budgetData[masterCategoryId].name,
-          allocated: 0,
-          spent: 0,
-          available: 0
-        }
-        for (const categoryId in this.budgetData[masterCategoryId].categories) {
-          category = this.budgetData[masterCategoryId].categories[categoryId]
-          masterCategoriesData[masterCategoryId].allocated += category.allocated
-          masterCategoriesData[masterCategoryId].spent += category.spent
-          masterCategoriesData[masterCategoryId].available += category.available
-        }
-      }
-      return masterCategoriesData
-    },
     totalBudgetData () {
-      const totalBudgetData = {
-        allocated: 0,
-        spent: 0,
-        available: 0
-      }
-      for (const masterCategoryId in this.masterCategoriesData) {
-        totalBudgetData.allocated += this.masterCategoriesData[masterCategoryId].allocated
-        totalBudgetData.spent += this.masterCategoriesData[masterCategoryId].spent
-        totalBudgetData.available += this.masterCategoriesData[masterCategoryId].available
+      const totalBudgetData = new CategoryData()
+      for (const categoryId in this.categoryDataList) {
+        totalBudgetData.allocated += this.categoryDataList[categoryId].allocated
+        totalBudgetData.spent += this.categoryDataList[categoryId].spent
+        totalBudgetData.available += this.categoryDataList[categoryId].available
       }
       return totalBudgetData
+    },
+    isThisYear (): boolean {
+      return Time.monthIsThisYear(this.budgetMonth)
     }
   },
   methods: {
     async getBudgetData () {
       if (this.budget) {
-        BudgetService.getBudgetData(this.budget).then(
-          (budgetData) => {
-            this.budgetData = budgetData
+        BudgetDataService.getBudgetDataForMonth(this.budget, this.budgetMonth).then(
+          (categoryDataList) => {
+            this.categoryDataList = categoryDataList
             this.initFormerAllocation()
           }
         )
@@ -111,17 +114,29 @@ export default defineComponent({
     },
     initFormerAllocation () {
       let category
-      for (const masterCategoryId in this.budgetData) {
-        for (const categoryId in this.budgetData[masterCategoryId].categories) {
-          category = this.budgetData[masterCategoryId].categories[categoryId]
-          this.formerAllocations[categoryId] = category.allocated
-        }
+      for (const categoryId in this.categoryDataList) {
+        category = this.categoryDataList[categoryId]
+        this.formerAllocations[categoryId] = category.allocated
       }
     },
-    updateAllocation (masterCategoryId: string, categoryId: string, newAllocation: number) {
-      console.log('new alloc for ' + categoryId + ' of ' + masterCategoryId + ' : ' + newAllocation)
-      this.budgetData[masterCategoryId].categories[categoryId].available += (newAllocation - this.formerAllocations[categoryId])
+    updateAllocation (categoryId: string, newAllocation: number) {
+      if (!this.categoryDataList[categoryId]) {
+        this.categoryDataList[categoryId] = new CategoryData()
+      }
+      this.categoryDataList[categoryId].available +=
+        newAllocation - (this.formerAllocations[categoryId] || 0)
+      this.categoryDataList[categoryId].allocated = newAllocation
       this.formerAllocations[categoryId] = newAllocation
+      AllocationService.updateAllocation(this.budgetMonth, categoryId, newAllocation)
+    },
+    getMonthAsDate (monthAsInt: number): Date {
+      return Time.getMonthAsDate(monthAsInt)
+    },
+    goToNextMonth () {
+      this.budgetMonth = Time.getNextMonth(this.budgetMonth)
+    },
+    goToLastMonth () {
+      this.budgetMonth = Time.getLastMonth(this.budgetMonth)
     }
   }
 })

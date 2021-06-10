@@ -48,23 +48,18 @@ export const store = createStore<StoreState>({
   actions: {
     updateLogged (context) {
       context.commit('updateLogged')
-      console.log(this.state)
     },
     updateBudget (context, budget: Budget) {
       context.commit('updateBudget', budget)
-      console.log(this.state)
     },
     updateAccounts (context, accounts: AccountList) {
       context.commit('updateAccounts', accounts)
-      console.log(this.state)
     },
     updateCategories (context, categories: CategoryList) {
       context.commit('updateCategories', categories)
-      console.log(this.state)
     },
     updateMasterCategories (context, masterCategories: MasterCategoryList) {
       context.commit('updateMasterCategories', masterCategories)
-      console.log(this.state)
     }
 
   },

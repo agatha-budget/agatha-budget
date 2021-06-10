@@ -1,7 +1,7 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="home row">
-      <BudgetCmpt month="FEBRUARY" class="col-md-4 offset-md-2"/>
+      <BudgetCmpt :month="this.currentMonth" class="col-md-4 offset-md-2"/>
       <div class="col-md-2 offset-md-2">
       <AccountsWidget/>
       <ul id="actionsList">
@@ -22,6 +22,7 @@ import router, { redirectToLoginPageIfNotLogged } from '@/router'
 import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
 import PersonService from '@/services/PersonService'
+import Time from '@/utils/Time'
 
 export default defineComponent({
   name: 'Home',
@@ -32,6 +33,11 @@ export default defineComponent({
   components: {
     BudgetCmpt,
     AccountsWidget
+  },
+  data () {
+    return {
+      currentMonth: Time.getCurrentMonth()
+    }
   },
   setup () {
     if (!useStore().state.logged) {

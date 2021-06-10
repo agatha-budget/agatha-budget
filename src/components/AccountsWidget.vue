@@ -28,7 +28,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Budget } from '@/model/model'
 import AccountCreationForm from '@/components/forms/AccountCreationForm.vue'
 import router, { RouterPages } from '@/router'
 
