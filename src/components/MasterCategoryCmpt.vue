@@ -1,9 +1,9 @@
 <template>
   <tr class="masterCategory">
     <th class="col-6 name"><div>{{ masterCategory?.name }}</div></th>
-    <th class="col-2 allocated">{{ masterCategoryData.allocated}}</th>
-    <th class="col-2 spent">{{ masterCategoryData.spent }}</th>
-    <th class="col-2 available">{{ masterCategoryData.available }}</th>
+    <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
+    <th class="col-2 spent">{{ getRoundedAmount(masterCategoryData.spent) }}</th>
+    <th class="col-2 available">{{ getRoundedAmount(masterCategoryData.available) }}</th>
   </tr>
   <tbody>
   <tr class="category" v-for="categoryId in this.categoriesId" :key="categoryId">
@@ -14,8 +14,8 @@
       v-on:change="updateAllocationOnChange(categoryId, $event.target.value)"
       >
       </td>
-    <td class="spent">{{ this.categoryDataList[categoryId]?.spent || 0 }}</td>
-    <td class="available">{{ (this.categoryDataList[categoryId]?.available || 0) }}</td>
+    <td class="spent">{{ getRoundedAmount(this.categoryDataList[categoryId]?.spent || 0) }}</td>
+    <td class="available">{{ getRoundedAmount(this.categoryDataList[categoryId]?.available || 0) }}</td>
   </tr>
   </tbody>
 </template>
@@ -54,16 +54,15 @@ export default defineComponent({
           masterCategoryData.available += this.categoryDataList[categoryId].available
         }
       }
-      // use round number in case
-      masterCategoryData.allocated = Utils.getRoundedAmount(masterCategoryData.allocated)
-      masterCategoryData.spent = Utils.getRoundedAmount(masterCategoryData.spent)
-      masterCategoryData.available = Utils.getRoundedAmount(masterCategoryData.available)
       return masterCategoryData
     }
   },
   methods: {
     updateAllocationOnChange (categoryId: string, value: string) {
       this.$emit('updateAllocation', categoryId, +value)
+    },
+    getRoundedAmount (amount: number): number {
+      return Utils.getRoundedAmount(amount)
     }
   }
 })

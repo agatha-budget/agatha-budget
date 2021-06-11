@@ -19,9 +19,9 @@
           <tbody>
           <tr>
             <td class="name"><div>{{ $t("TOTAL") }}</div></td>
-            <td class="allocated">{{ this.totalBudgetData.allocated}}</td>
-            <td class="spent">{{this.totalBudgetData.spent}}</td>
-            <td class="available">{{this.totalBudgetData.available}}</td>
+            <td class="allocated">{{ getRoundedAmount(this.totalBudgetData.allocated) }}</td>
+            <td class="spent">{{ getRoundedAmount(this.totalBudgetData.spent) }}</td>
+            <td class="available">{{ getRoundedAmount(this.totalBudgetData.available) }}</td>
           </tr>
         </tbody>
       </table>
@@ -99,10 +99,6 @@ export default defineComponent({
         totalBudgetData.spent += this.categoryDataList[categoryId].spent
         totalBudgetData.available += this.categoryDataList[categoryId].available
       }
-      // use round number in case
-      totalBudgetData.allocated = Utils.getRoundedAmount(totalBudgetData.allocated)
-      totalBudgetData.spent = Utils.getRoundedAmount(totalBudgetData.spent)
-      totalBudgetData.available = Utils.getRoundedAmount(totalBudgetData.available)
       return totalBudgetData
     },
     isThisYear (): boolean {
@@ -153,6 +149,9 @@ export default defineComponent({
     },
     goToLastMonth () {
       this.budgetMonth = Time.getLastMonth(this.budgetMonth)
+    },
+    getRoundedAmount (amount: number): number {
+      return Utils.getRoundedAmount(amount)
     }
   }
 })
