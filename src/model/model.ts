@@ -34,8 +34,10 @@ class CategoryData implements ICategoryData {
     available = 0;
 }
 
+const incomeCategoryId = 'universal_income_category'
+
 export {
   Operation, CategoryData, MasterCategoriesData, BudgetData, Account, AccountList,
   CategoryList, Budget, Category, MasterCategory, CategoryDataList, MasterCategoryList,
-  CategoryByMasterCategoryList
+  CategoryByMasterCategoryList, incomeCategoryId
 }

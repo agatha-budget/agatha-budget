@@ -6,6 +6,9 @@
         <h1 class="col-8">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></h1>
         <div class="col-2" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"></button></div>
       </div>
+      <div class="row">
+        <h2 class="col-8"> {{$t('TO_BE_BUDGETED')}} : {{ this.toBeBudgeted }} </h2>
+      </div>
       <table id="totalTable"  class="table">
           <tr>
             <th class="col-6 name"></th>
@@ -16,7 +19,7 @@
           <tbody>
           <tr>
             <td class="name"><div>{{ $t("TOTAL") }}</div></td>
-            <td class="allocated">{{this.totalBudgetData.allocated}}</td>
+            <td class="allocated">{{ this.totalBudgetData.allocated}}</td>
             <td class="spent">{{this.totalBudgetData.spent}}</td>
             <td class="available">{{this.totalBudgetData.available}}</td>
           </tr>
@@ -40,9 +43,10 @@
 import { defineComponent } from 'vue'
 import BudgetDataService from '@/services/BudgetDataService'
 import AllocationService from '@/services/AllocationService'
-import { Budget, CategoryData, CategoryDataList } from '@/model/model'
+import { Budget, CategoryData, CategoryDataList, incomeCategoryId } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 import Time from '@/utils/Time'
+import Utils from '@/utils/Utils'
 
 interface BudgetCmptData {
     categoryDataList: CategoryDataList;
@@ -95,10 +99,22 @@ export default defineComponent({
         totalBudgetData.spent += this.categoryDataList[categoryId].spent
         totalBudgetData.available += this.categoryDataList[categoryId].available
       }
+      // use round number in case
+      totalBudgetData.allocated = Utils.getRoundedAmount(totalBudgetData.allocated)
+      totalBudgetData.spent = Utils.getRoundedAmount(totalBudgetData.spent)
+      totalBudgetData.available = Utils.getRoundedAmount(totalBudgetData.available)
       return totalBudgetData
     },
     isThisYear (): boolean {
       return Time.monthIsThisYear(this.budgetMonth)
+    },
+    toBeBudgeted (): number {
+      const incomeForMonth = this.categoryDataList[incomeCategoryId]?.spent
+      let toBeBudgeted = incomeForMonth
+      for (const categoryId in this.categoryDataList) {
+        toBeBudgeted -= this.categoryDataList[categoryId].allocated
+      }
+      return Utils.getRoundedAmount(toBeBudgeted)
     }
   },
   methods: {

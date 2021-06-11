@@ -15,7 +15,7 @@
       >
       </td>
     <td class="spent">{{ this.categoryDataList[categoryId]?.spent || 0 }}</td>
-    <td class="available">{{ this.categoryDataList[categoryId]?.available || 0 }}</td>
+    <td class="available">{{ (this.categoryDataList[categoryId]?.available || 0) }}</td>
   </tr>
   </tbody>
 </template>
@@ -23,6 +23,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { MasterCategory, CategoryDataList, CategoryData } from '@/model/model'
+import Utils from '@/utils/Utils'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
@@ -53,6 +54,10 @@ export default defineComponent({
           masterCategoryData.available += this.categoryDataList[categoryId].available
         }
       }
+      // use round number in case
+      masterCategoryData.allocated = Utils.getRoundedAmount(masterCategoryData.allocated)
+      masterCategoryData.spent = Utils.getRoundedAmount(masterCategoryData.spent)
+      masterCategoryData.available = Utils.getRoundedAmount(masterCategoryData.available)
       return masterCategoryData
     }
   },
