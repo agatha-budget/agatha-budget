@@ -3,7 +3,7 @@
     <div class="row">
     <h3 class="col-10">{{$t('MY_ACCOUNTS')}}</h3>
     </div>
-    <span> total : {{this.totalInAccounts}} €</span>
+    <span> total : {{this.$store.state.totalOnAccounts}} €</span>
     <ul>
       <li class="account" v-for="account, accountId in this.$store.state.accounts" :key="accountId">
         <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{account.amount}} €</button>
@@ -44,15 +44,6 @@ export default defineComponent({
   data (): AccountsWidgetData {
     return {
       accountCreationFormIsDisplayed: false
-    }
-  },
-  computed: {
-    totalInAccounts (): number {
-      let total = 0
-      for (const accountId in this.$store.state.accounts) {
-        total += this.$store.state.accounts[accountId].amount
-      }
-      return total
     }
   },
   methods: {
