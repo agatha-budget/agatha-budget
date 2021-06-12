@@ -12,13 +12,19 @@
           </tr>
           <tbody>
           <OperationForm @update-operation-list="getAccountOperation" :accountId="this.accountId" />
-          <tr class="operation" v-for="operation in this.operations" :key="operation">
-            <td class="date"><div>{{ $d(this.getDayAsDate(operation.day.comparable), 'day') }}</div></td>
-            <td class="category">{{ this.$store.state.categories[operation.categoryId].name }}</td>
-            <td class="memo">{{ operation.memo }}</td>
-            <td class="amount">{{ operation.amount }}</td>
-            <td class="action"><button class="btn btn-outline-info" v-on:click="deleteOperation(operation)">{{$t('DELETE')}}</button></td>
-          </tr>
+          <template v-for="operation in this.operations" :key="operation">
+            <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
+            <tr class="operation" v-else>
+              <td class="date"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></td>
+              <td class="category">{{ this.$store.state.categories[operation.categoryId].name }}</td>
+              <td class="memo">{{ operation.memo }}</td>
+              <td class="amount">{{ operation.amount }}</td>
+              <td class="action">
+                <button class="btn btn-outline-info" v-on:click="setAsEditing(operation)">{{$t('EDIT')}}</button>
+                <button class="btn btn-outline-info" v-on:click="deleteOperation(operation)">{{$t('DELETE')}}</button>
+              </td>
+            </tr>
+          </template>
           </tbody>
       </table>
     </div>
@@ -35,7 +41,11 @@ import OperationService from '@/services/OperationService'
 import OperationForm from '@/components/forms/OperationForm.vue'
 
 interface AccountPageData {
-    operations: any;
+    operations: EditableOperation[];
+}
+
+interface EditableOperation extends Operation {
+    editing: boolean;
 }
 
 export default defineComponent({
@@ -56,7 +66,7 @@ export default defineComponent({
   props: ['accountId'],
   data (): AccountPageData {
     return {
-      operations: {}
+      operations: []
     }
   },
   computed: {
@@ -69,13 +79,13 @@ export default defineComponent({
       if (this.account) {
         return OperationService.getOperations(this.account).then(
           (operations) => {
-            this.operations = operations
+            this.operations = this.operationToEditableOperation(operations)
           }
         )
       }
     },
     getDayAsDate (dayAsInt: number): Date {
-      return Time.getDayAsDate(dayAsInt)
+      return Time.getDateFromDay(dayAsInt)
     },
     deleteOperation (operation: Operation) {
       OperationService.deleteOperation(operation).then(
@@ -83,6 +93,26 @@ export default defineComponent({
           this.getAccountOperation()
         }
       )
+    },
+    setAsEditing (operation: EditableOperation) {
+      operation.editing = true
+    },
+    operationToEditableOperation (operations: Operation[]): EditableOperation[] {
+      const editableOperations: EditableOperation[] = []
+      operations.forEach((operation) =>
+        editableOperations.push(
+          {
+            id: operation.id,
+            day: operation.day,
+            accountId: operation.accountId,
+            categoryId: operation.categoryId,
+            amount: operation.amount,
+            memo: operation.memo,
+            editing: false
+          }
+        )
+      )
+      return editableOperations
     }
   }
 })
