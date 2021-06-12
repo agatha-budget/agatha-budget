@@ -245,15 +245,15 @@ fun main() {
         val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
 
         //optional
-        val account: Account? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
+        val account: Account? = getOptionalQueryParam<String>(ctx, "new_account_id")?.let{
             ServiceManager.accountService.getById(user, it)
         }
-        val day : Day? = getOptionalQueryParam<Int>(ctx, "day")?.let {Day.createFromComparable(it)}
-        val category: Category? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
+        val day : Day? = getOptionalQueryParam<Int>(ctx, "new_day")?.let {Day.createFromComparable(it)}
+        val category: Category? = getOptionalQueryParam<String>(ctx, "new_category_id")?.let{
             ServiceManager.categoryService.getById(user, it)
         }
-        val amount : Double? = getOptionalQueryParam<Double>(ctx, "amount")
-        val memo : String? = getOptionalQueryParam<String>(ctx, "memo")
+        val amount : Double? = getOptionalQueryParam<Double>(ctx, "new_amount")
+        val memo : String? = getOptionalQueryParam<String>(ctx, "new_memo")
 
         val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo)
         ctx.json(updatedOperation)
