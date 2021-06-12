@@ -16,4 +16,8 @@ export default class OperationService {
     const dayAsInt = day ? Time.getDayFromDateString(day) : undefined
     await operationApi.addOperation(accountId, dayAsInt, categoryId, amount, memo)
   }
+
+  public static async deleteOperation (operation: Operation) {
+    await operationApi.deleteOperation(operation.id)
+  }
 }

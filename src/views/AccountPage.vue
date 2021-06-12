@@ -8,7 +8,7 @@
             <th class="category">{{ $t("CATEGORY") }}</th>
             <th class="memo">{{ $t("MEMO") }}</th>
             <th class="amount">{{ $t("AMOUNT") }}</th>
-            <th class="validation">{{ $t("ACTION") }}</th>
+            <th class="action">{{ $t("ACTION") }}</th>
           </tr>
           <tbody>
           <OperationForm @update-operation-list="getAccountOperation" :accountId="this.accountId" />
@@ -17,7 +17,7 @@
             <td class="category">{{ this.$store.state.categories[operation.categoryId].name }}</td>
             <td class="memo">{{ operation.memo }}</td>
             <td class="amount">{{ operation.amount }}</td>
-            <td class="validation">{{ $t("ACTION") }}</td>
+            <td class="action"><button class="btn btn-outline-info" v-on:click="deleteOperation(operation)">{{$t('DELETE')}}</button></td>
           </tr>
           </tbody>
       </table>
@@ -28,7 +28,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { redirectToLoginPageIfNotLogged } from '@/router'
-import { Account } from '@/model/model'
+import { Account, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
@@ -76,6 +76,13 @@ export default defineComponent({
     },
     getDayAsDate (dayAsInt: number): Date {
       return Time.getDayAsDate(dayAsInt)
+    },
+    deleteOperation (operation: Operation) {
+      OperationService.deleteOperation(operation).then(
+        () => {
+          this.getAccountOperation()
+        }
+      )
     }
   }
 })
