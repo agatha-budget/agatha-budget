@@ -78,6 +78,16 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         return spendingList
     }
 
+    override fun findAmountByBudget(budget: Budget, month: Month?): Double {
+        val query = this.query
+            .select(spendingSum)
+            .from(OPERATION)
+            .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
+            .where(ACCOUNT.BUDGET_ID.eq(budget.id))
+        month?.let{ query.and( OPERATION.MONTH.lessOrEqual(it.comparable))}
+        return query.fetchOne().get(spendingSum).toDouble()
+    }
+
     override fun findByAccount(account: Account): List<Operation> {
         val jooqOperationList = this.generatedDao.fetchByAccountId(account.id)
         val accountList: MutableList<Operation> = mutableListOf()
