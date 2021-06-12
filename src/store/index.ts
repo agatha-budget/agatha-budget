@@ -8,6 +8,7 @@ export interface StoreState {
   logged: boolean;
   budget: Budget | null;
   accounts: AccountList;
+  totalOnAccounts: number;
   categories: CategoryList;
   masterCategories: MasterCategoryList;
   categoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
@@ -21,6 +22,7 @@ export const store = createStore<StoreState>({
     logged: SuperTokensRequest.doesSessionExist(),
     budget: null,
     accounts: {},
+    totalOnAccounts: 0,
     categories: {},
     masterCategories: {},
     categoriesIdByMasterCategoriesId: {},
@@ -36,6 +38,11 @@ export const store = createStore<StoreState>({
     },
     updateAccounts (state, accounts: AccountList) {
       state.accounts = accounts
+      let total = 0
+      for (const accountId in accounts) {
+        total += accounts[accountId].amount
+      }
+      state.totalOnAccounts = total
     },
     updateCategories (state, categories: CategoryList) {
       state.categories = categories

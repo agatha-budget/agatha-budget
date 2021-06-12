@@ -3,6 +3,7 @@
     <div class="row">
     <h3 class="col-10">{{$t('MY_ACCOUNTS')}}</h3>
     </div>
+    <span> total : {{this.$store.state.totalOnAccounts}} €</span>
     <ul>
       <li class="account" v-for="account, accountId in this.$store.state.accounts" :key="accountId">
         <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{account.amount}} €</button>

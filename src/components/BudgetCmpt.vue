@@ -6,6 +6,9 @@
         <h1 class="col-8">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></h1>
         <div class="col-2" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"></button></div>
       </div>
+      <div class="row">
+        <h2 class="col-8"> {{$t('TO_BE_BUDGETED')}} : {{ this.toBeBudgeted }} </h2>
+      </div>
       <table id="totalTable"  class="table">
           <tr>
             <th class="col-6 name"></th>
@@ -16,9 +19,9 @@
           <tbody>
           <tr>
             <td class="name"><div>{{ $t("TOTAL") }}</div></td>
-            <td class="allocated">{{this.totalBudgetData.allocated}}</td>
-            <td class="spent">{{this.totalBudgetData.spent}}</td>
-            <td class="available">{{this.totalBudgetData.available}}</td>
+            <td class="allocated">{{ getRoundedAmount(this.totalBudgetData.allocated) }}</td>
+            <td class="spent">{{ getRoundedAmount(this.totalBudgetData.spent) }}</td>
+            <td class="available">{{ getRoundedAmount(this.totalBudgetData.available) }}</td>
           </tr>
         </tbody>
       </table>
@@ -40,9 +43,10 @@
 import { defineComponent } from 'vue'
 import BudgetDataService from '@/services/BudgetDataService'
 import AllocationService from '@/services/AllocationService'
-import { Budget, CategoryData, CategoryDataList } from '@/model/model'
+import { Budget, CategoryData, CategoryDataList, incomeCategoryId } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 import Time from '@/utils/Time'
+import Utils from '@/utils/Utils'
 
 interface BudgetCmptData {
     categoryDataList: CategoryDataList;
@@ -50,6 +54,7 @@ interface BudgetCmptData {
         [categoryId: string]: number;
     };
     budgetMonth: number;
+    amountInBudget: number;
 }
 
 export default defineComponent({
@@ -81,7 +86,8 @@ export default defineComponent({
         newAvailable = available + newAllocation - formerAllocation
         without asking the back-end to compute */
       formerAllocations: {},
-      budgetMonth: this.$props.month
+      budgetMonth: this.$props.month,
+      amountInBudget: 0
     }
   },
   computed: {
@@ -99,6 +105,13 @@ export default defineComponent({
     },
     isThisYear (): boolean {
       return Time.monthIsThisYear(this.budgetMonth)
+    },
+    toBeBudgeted (): number {
+      let toBeBudgeted = this.amountInBudget
+      for (const categoryId in this.categoryDataList) {
+        toBeBudgeted -= this.categoryDataList[categoryId].available
+      }
+      return Utils.getRoundedAmount(toBeBudgeted)
     }
   },
   methods: {
@@ -108,6 +121,11 @@ export default defineComponent({
           (categoryDataList) => {
             this.categoryDataList = categoryDataList
             this.initFormerAllocation()
+          }
+        )
+        BudgetDataService.getBudgetAmount(this.budget, this.budgetMonth).then(
+          (amount) => {
+            this.amountInBudget = amount
           }
         )
       }
@@ -137,6 +155,9 @@ export default defineComponent({
     },
     goToLastMonth () {
       this.budgetMonth = Time.getLastMonth(this.budgetMonth)
+    },
+    getRoundedAmount (amount: number): number {
+      return Utils.getRoundedAmount(amount)
     }
   }
 })

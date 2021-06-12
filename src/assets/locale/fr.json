@@ -22,5 +22,6 @@
     "CATEGORY": "categorie",
     "MEMO": "mémo",
     "AMOUNT": "montant",
-    "I18N_INCOME": "Entrée d'argent"
+    "I18N_INCOME": "Entrée d'argent",
+    "TO_BE_BUDGETED": "à distribuer"
 }

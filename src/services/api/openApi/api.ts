@@ -1076,6 +1076,48 @@ export const BudgetDataApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Find amount on accounts by budget
+         * @param {string} budgetId 
+         * @param {number} [month] example : mars 2020 &#x3D; 202003
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findTotalBudgetAmount: async (budgetId: string, month?: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('findTotalBudgetAmount', 'budgetId', budgetId)
+            const localVarPath = `/budget/amount`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budget_id'] = budgetId;
+            }
+
+            if (month !== undefined) {
+                localVarQueryParameter['month'] = month;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1097,6 +1139,18 @@ export const BudgetDataApiFp = function(configuration?: Configuration) {
          */
         async findBudgetData(budgetId: string, startMonth?: number, endMonth?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: { [key: string]: CategoryData; }; }>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findBudgetData(budgetId, startMonth, endMonth, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Find amount on accounts by budget
+         * @param {string} budgetId 
+         * @param {number} [month] example : mars 2020 &#x3D; 202003
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async findTotalBudgetAmount(budgetId: string, month?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<number>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findTotalBudgetAmount(budgetId, month, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1121,6 +1175,17 @@ export const BudgetDataApiFactory = function (configuration?: Configuration, bas
         findBudgetData(budgetId: string, startMonth?: number, endMonth?: number, options?: any): AxiosPromise<{ [key: string]: { [key: string]: CategoryData; }; }> {
             return localVarFp.findBudgetData(budgetId, startMonth, endMonth, options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary Find amount on accounts by budget
+         * @param {string} budgetId 
+         * @param {number} [month] example : mars 2020 &#x3D; 202003
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        findTotalBudgetAmount(budgetId: string, month?: number, options?: any): AxiosPromise<number> {
+            return localVarFp.findTotalBudgetAmount(budgetId, month, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -1143,6 +1208,19 @@ export class BudgetDataApi extends BaseAPI {
      */
     public findBudgetData(budgetId: string, startMonth?: number, endMonth?: number, options?: any) {
         return BudgetDataApiFp(this.configuration).findBudgetData(budgetId, startMonth, endMonth, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Find amount on accounts by budget
+     * @param {string} budgetId 
+     * @param {number} [month] example : mars 2020 &#x3D; 202003
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BudgetDataApi
+     */
+    public findTotalBudgetAmount(budgetId: string, month?: number, options?: any) {
+        return BudgetDataApiFp(this.configuration).findTotalBudgetAmount(budgetId, month, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
