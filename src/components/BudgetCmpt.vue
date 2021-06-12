@@ -54,6 +54,7 @@ interface BudgetCmptData {
         [categoryId: string]: number;
     };
     budgetMonth: number;
+    amountInBudget: number;
 }
 
 export default defineComponent({
@@ -85,7 +86,8 @@ export default defineComponent({
         newAvailable = available + newAllocation - formerAllocation
         without asking the back-end to compute */
       formerAllocations: {},
-      budgetMonth: this.$props.month
+      budgetMonth: this.$props.month,
+      amountInBudget: 0
     }
   },
   computed: {
@@ -105,10 +107,9 @@ export default defineComponent({
       return Time.monthIsThisYear(this.budgetMonth)
     },
     toBeBudgeted (): number {
-      const incomeForMonth = this.categoryDataList[incomeCategoryId]?.spent
-      let toBeBudgeted = incomeForMonth
+      let toBeBudgeted = this.amountInBudget
       for (const categoryId in this.categoryDataList) {
-        toBeBudgeted -= this.categoryDataList[categoryId].allocated
+        toBeBudgeted -= this.categoryDataList[categoryId].available
       }
       return Utils.getRoundedAmount(toBeBudgeted)
     }
@@ -120,6 +121,11 @@ export default defineComponent({
           (categoryDataList) => {
             this.categoryDataList = categoryDataList
             this.initFormerAllocation()
+          }
+        )
+        BudgetDataService.getBudgetAmount(this.budget, this.budgetMonth).then(
+          (amount) => {
+            this.amountInBudget = amount
           }
         )
       }

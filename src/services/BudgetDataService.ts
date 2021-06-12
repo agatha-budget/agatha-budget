@@ -16,4 +16,9 @@ export default class BudgetDataService {
     const response = await budgetDataApi.findBudgetData(budget.id, month, month)
     return response.data[month]
   }
+
+  public static async getBudgetAmount (budget: Budget, month: number): Promise<number> {
+    const response = await budgetDataApi.findTotalBudgetAmount(budget.id, month)
+    return response.data
+  }
 }
