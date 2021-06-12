@@ -1,10 +1,11 @@
 package open.tresorier.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import open.tresorier.exception.TresorierException
 
 class Month (
-    var month: Int,
-    var year: Int
+    @get:JsonIgnore var month: Int,
+    @get:JsonIgnore var year: Int
 ){
     var comparable: Int = year*100+month
 
