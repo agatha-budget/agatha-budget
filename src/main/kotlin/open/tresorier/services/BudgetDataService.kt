@@ -24,6 +24,13 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
         }
         return data
     }
+
+    fun getBudgetAmount(person: Person, budget: Budget, month: Month?= null): Double {
+        authorizationService.cancelIfUserIsUnauthorized(person, budget)
+        return operationDao.findAmountByBudget(budget, month)
+    }
+
+
     companion object {
 
         fun extractDataForPeriod(data: BudgetData, startMonth: Month, endMonth: Month? = null) : BudgetData{

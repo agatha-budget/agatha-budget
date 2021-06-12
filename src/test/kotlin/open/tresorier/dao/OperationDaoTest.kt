@@ -174,4 +174,43 @@ open class OperationDaoTest : ITest {
         Assertions.assertEquals(0, result.size)
     }
 
+    @Test
+    fun getAmountForBudget() {
+        val budget = Budget("professional budget", "person1")
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("oftenAllocatedCategory", masterCategory.id)
+        categoryDao.insert(category)
+        val accountA = Account("my own account", budget.id)
+        accountDao.insert(accountA)
+        val accountB = Account("my own account", budget.id)
+        accountDao.insert(accountB)
+
+        val budget2= Budget("personal budget", "person1")
+        budgetDao.insert(budget2)
+        val masterCategory2 = MasterCategory("Fixed expense", budget2.id)
+        masterCategoryDao.insert(masterCategory2)
+        val category2 = Category("oftenAllocatedCategory", masterCategory2.id)
+        categoryDao.insert(category2)
+        val account2 = Account("my own account", budget2.id)
+        accountDao.insert(account2)
+
+        val operationList = listOf(
+            Operation(accountA.id, TestData.nov_02_2020 , category.id,40.00),
+            Operation(accountB.id, TestData.nov_03_2020 , Category.INCOME_ID,20.00, "income"),
+            Operation(accountA.id, TestData.nov_03_2020 , Category.TRANSFERT_ID,- 30.00, "transfert to B"),
+            Operation(accountB.id, TestData.nov_03_2020 , Category.TRANSFERT_ID,30.00, "transfert from A"),
+            Operation(accountB.id, TestData.march_02_2021 , category.id,56.00, "again"),
+            Operation(account2.id, TestData.nov_02_2020 , category2.id,40.00, "not in the right budget"),
+        )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        val amountInNovember = operationDao.findAmountByBudget(budget, TestData.nov_2020)
+        Assertions.assertEquals(60.00, amountInNovember)
+
+        val amountNow = operationDao.findAmountByBudget(budget)
+        Assertions.assertEquals(116.00, amountNow)
+    }
 }

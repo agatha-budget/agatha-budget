@@ -114,6 +114,17 @@ fun main() {
         ctx.json(budgetData)
     }
 
+    app.before("/budget/amount", SuperTokens.middleware())
+    app.get("/budget/amount") { ctx ->
+        // required
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+        // optional
+        val month: Month? = getOptionalQueryParam<Int>(ctx, "month")?.let { Month.createFromComparable(it)}
+        val budgetData = ServiceManager.budgetDataService.getBudgetAmount(user, budget, month)
+        ctx.json(budgetData)
+    }
+
     app.before("/account", SuperTokens.middleware())
     app.post("/account") { ctx ->
         val user = getUserFromAuth(ctx)
