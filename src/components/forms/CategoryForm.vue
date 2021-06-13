@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.archived" id="operationForm" class="operation">
+  <div v-if="this.category.archived" id="operationForm" class="operation">
     <span class="name">{{ this.name }}</span>
     <span class="validation">
       <button class="btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
@@ -37,11 +37,6 @@ export default defineComponent({
     category: {
       type: Object as () => Category,
       required: true
-    }
-  },
-  computed: {
-    archived (): boolean {
-      return this.$store.state.masterCategories[this.category.masterCategoryId].archived || this.category.archived
     }
   },
   emits: ['loosesFocus'],
