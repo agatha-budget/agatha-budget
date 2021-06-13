@@ -29,7 +29,6 @@ CREATE TABLE master_category (
         id VARCHAR(36) NOT NULL PRIMARY KEY,
         budget_id VARCHAR(36) NOT NULL,
         name VARCHAR(100) NOT NULL,
-        archived BOOLEAN DEFAULT false,
         deleted BOOLEAN DEFAULT false,
         FOREIGN KEY (budget_id) REFERENCES budget(id)
 );

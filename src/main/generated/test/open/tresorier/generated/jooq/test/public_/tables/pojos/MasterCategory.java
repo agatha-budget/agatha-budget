@@ -13,19 +13,17 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MasterCategory implements Serializable {
 
-    private static final long serialVersionUID = -1640683201;
+    private static final long serialVersionUID = -976061433;
 
     private final String  id;
     private final String  budgetId;
     private final String  name;
-    private final Boolean archived;
     private final Boolean deleted;
 
     public MasterCategory(MasterCategory value) {
         this.id = value.id;
         this.budgetId = value.budgetId;
         this.name = value.name;
-        this.archived = value.archived;
         this.deleted = value.deleted;
     }
 
@@ -33,13 +31,11 @@ public class MasterCategory implements Serializable {
         String  id,
         String  budgetId,
         String  name,
-        Boolean archived,
         Boolean deleted
     ) {
         this.id = id;
         this.budgetId = budgetId;
         this.name = name;
-        this.archived = archived;
         this.deleted = deleted;
     }
 
@@ -55,10 +51,6 @@ public class MasterCategory implements Serializable {
         return this.name;
     }
 
-    public Boolean getArchived() {
-        return this.archived;
-    }
-
     public Boolean getDeleted() {
         return this.deleted;
     }
@@ -70,7 +62,6 @@ public class MasterCategory implements Serializable {
         sb.append(id);
         sb.append(", ").append(budgetId);
         sb.append(", ").append(name);
-        sb.append(", ").append(archived);
         sb.append(", ").append(deleted);
 
         sb.append(")");

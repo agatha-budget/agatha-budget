@@ -88,20 +88,6 @@ public class MasterCategoryDao extends DAOImpl<MasterCategoryRecord, open.tresor
     }
 
     /**
-     * Fetch records that have <code>archived BETWEEN lowerInclusive AND upperInclusive</code>
-     */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.MasterCategory> fetchRangeOfArchived(Boolean lowerInclusive, Boolean upperInclusive) {
-        return fetchRange(MasterCategory.MASTER_CATEGORY.ARCHIVED, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>archived IN (values)</code>
-     */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.MasterCategory> fetchByArchived(Boolean... values) {
-        return fetch(MasterCategory.MASTER_CATEGORY.ARCHIVED, values);
-    }
-
-    /**
      * Fetch records that have <code>deleted BETWEEN lowerInclusive AND upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.MasterCategory> fetchRangeOfDeleted(Boolean lowerInclusive, Boolean upperInclusive) {
