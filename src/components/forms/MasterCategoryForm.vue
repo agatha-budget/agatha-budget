@@ -5,6 +5,7 @@
       <button class="btn fas fa-check" v-on:click="updateMasterCategory"/>
       <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
       <button class="btn fas fa-archive" v-on:click="archiveMasterCategory"/>
+      <button class="btn fas fa-plus" v-on:click="createCategory"/>
     </span>
   </div>
 </template>
@@ -31,7 +32,7 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['loosesFocus'],
+  emits: ['loosesFocus', 'createCategory'],
   methods: {
     updateMasterCategory () {
       MasterCategoryService.renameMasterCategory(this.masterCategoryId, this.name).then(
@@ -48,6 +49,10 @@ export default defineComponent({
           this.$emit('loosesFocus')
         }
       )
+    },
+    createCategory () {
+      this.$emit('createCategory')
+      this.$emit('loosesFocus')
     }
   }
 })
