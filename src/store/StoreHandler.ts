@@ -57,11 +57,16 @@ export default class StoreHandler {
     }
   }
 
-  public static createCategoryIdListByMasterCategoryId (categoriesList: CategoryList, wantedArchiveStatus = false): CategoryByMasterCategoryList {
+  public static createCategoryIdListByMasterCategoryId (categoriesList: CategoryList, masterCategoriesList: MasterCategoryList, wantedArchiveStatus = false): CategoryByMasterCategoryList {
     const data: CategoryByMasterCategoryList = {}
     for (const categoryId of Object.keys(categoriesList)) {
       const masterCategoryId = categoriesList[categoryId].masterCategoryId
-      if (masterCategoryId && categoriesList[categoryId].archived === wantedArchiveStatus) {
+      /* check :
+        - isn't a universal category without masterCategory (like income or transfert)
+        - is or isn't archived depending of the wanted status
+        - the masterCategories list is up to date (to prevent "is undefined" when rendering a masterCategoryCmpt )
+      */
+      if (masterCategoryId && categoriesList[categoryId].archived === wantedArchiveStatus && Object.keys(masterCategoriesList).includes(masterCategoryId)) {
         if (!data[masterCategoryId]) {
           data[masterCategoryId] = []
         }
