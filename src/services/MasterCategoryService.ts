@@ -1,8 +1,8 @@
 import { Budget, MasterCategoryList } from '@/model/model'
 import { masterCategoryApi } from '@/services/api/apis'
 
-export default class CategoryService {
-  public static async createCategory (name: string, budget: Budget) {
+export default class MasterCategoryService {
+  public static async createMasterCategory (name: string, budget: Budget) {
     await masterCategoryApi.addMasterCategory(name, budget.id)
   }
 
