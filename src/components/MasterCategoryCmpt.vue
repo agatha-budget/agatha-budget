@@ -19,7 +19,8 @@
       </div>
     </td>
     <td class="allocated">
-      <input type="number" class="allocationInput"
+      <span v-if="archived">{{ this.categoryDataList[categoryId]?.allocated || 0 }}</span>
+      <input v-else type="number" class="allocationInput"
       :value="this.categoryDataList[categoryId]?.allocated || 0"
       v-on:change="updateAllocationOnChange(categoryId, $event.target.value)"
       >
