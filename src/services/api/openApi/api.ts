@@ -187,12 +187,6 @@ export interface MasterCategory {
      * @type {boolean}
      * @memberof MasterCategory
      */
-    archived: boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof MasterCategory
-     */
     deleted: boolean;
 }
 /**
