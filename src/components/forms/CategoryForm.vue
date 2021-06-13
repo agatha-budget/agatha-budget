@@ -4,6 +4,7 @@
     <span class="validation">
       <button class="btn fas fa-check" v-on:click="updateCategory"/>
       <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+      <button class="btn fas fa-archive" v-on:click="archiveCategory"/>
     </span>
   </div>
 </template>
@@ -34,6 +35,14 @@ export default defineComponent({
   methods: {
     updateCategory () {
       CategoryService.updateCategory(this.categoryId, this.name).then(
+        () => {
+          StoreHandler.updateCategories(this.$store)
+          this.$emit('loosesFocus')
+        }
+      )
+    },
+    archiveCategory () {
+      CategoryService.archiveCategory(this.categoryId).then(
         () => {
           StoreHandler.updateCategories(this.$store)
           this.$emit('loosesFocus')

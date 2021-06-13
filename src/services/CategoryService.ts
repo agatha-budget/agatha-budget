@@ -10,6 +10,14 @@ export default class CategoryService {
     const response = await categoryApi.updateCategory(categoryId, newName)
   }
 
+  public static async archiveCategory (categoryId: string) {
+    const response = await categoryApi.updateCategory(categoryId, undefined, undefined, true)
+  }
+
+  public static async unarchiveCategory (categoryId: string) {
+    const response = await categoryApi.updateCategory(categoryId, undefined, undefined, false)
+  }
+
   public static async getCategories (budget: Budget): Promise<CategoryList> {
     const data: CategoryList = {}
     if (budget.id) {
