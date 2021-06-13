@@ -46,6 +46,7 @@
             :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
             :categoriesId="this.$store.state.archivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
             :categoryDataList="this.categoryDataList"
+            :archived="true"
           />
       </table>
     </div>

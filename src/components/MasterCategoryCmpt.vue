@@ -2,7 +2,7 @@
   <tr class="masterCategory">
     <th class="col-6 name">
       <div>
-        <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" @looses-focus="loosesFocus" @create-category="createCategory"/>
+        <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
         <a v-else v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}</a>
       </div>
     </th>
@@ -58,6 +58,10 @@ export default defineComponent({
     categoryDataList: {
       type: Object as () => CategoryDataList,
       required: true
+    },
+    archived: {
+      type: Object as () => boolean,
+      required: false
     }
   },
   data () {
