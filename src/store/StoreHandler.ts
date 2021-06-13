@@ -13,8 +13,8 @@ export default class StoreHandler {
 
   public static async updateOnBudgetChange (store: Store<StoreState>) {
     this.updateAccounts(store)
-    this.updateCategories(store)
     this.updateMasterCategories(store)
+    this.updateCategories(store)
   }
 
   public static async updateAccounts (store: Store<StoreState>) {
@@ -57,11 +57,11 @@ export default class StoreHandler {
     }
   }
 
-  public static createCategoryIdListByMasterCategoryId (categoriesList: CategoryList): CategoryByMasterCategoryList {
+  public static createCategoryIdListByMasterCategoryId (categoriesList: CategoryList, wantedArchiveStatus = false): CategoryByMasterCategoryList {
     const data: CategoryByMasterCategoryList = {}
     for (const categoryId of Object.keys(categoriesList)) {
       const masterCategoryId = categoriesList[categoryId].masterCategoryId
-      if (masterCategoryId) {
+      if (masterCategoryId && categoriesList[categoryId].archived === wantedArchiveStatus) {
         if (!data[masterCategoryId]) {
           data[masterCategoryId] = []
         }

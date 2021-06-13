@@ -1,6 +1,5 @@
-import { Account, Category, Operation } from '@/model/model'
+import { Account, Operation } from '@/model/model'
 import { operationApi } from '@/services/api/apis'
-import Time from '@/utils/Time'
 
 export default class OperationService {
   public static async getOperations (account: Account): Promise<Operation[]> {
@@ -12,8 +11,15 @@ export default class OperationService {
     return data
   }
 
-  public static async addOperation (accountId: string, day?: string, categoryId?: string, amount?: number, memo?: string) {
-    const dayAsInt = day ? Time.getDayFromDateString(day) : undefined
-    await operationApi.addOperation(accountId, dayAsInt, categoryId, amount, memo)
+  public static async addOperation (accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string) {
+    await operationApi.addOperation(accountId, day, categoryId, amount, memo)
+  }
+
+  public static async deleteOperation (operation: Operation) {
+    await operationApi.deleteOperation(operation.id)
+  }
+
+  public static async updateOperation (operation: Operation, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string) {
+    await operationApi.updateOperation(operation.id, accountId, day, categoryId, amount, memo)
   }
 }

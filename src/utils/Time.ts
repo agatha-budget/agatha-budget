@@ -31,8 +31,15 @@ export default class Time {
   }
 
   public static getCurrentDay (): number {
-    const dateTime = new Date()
-    return this.getDayFromDate(dateTime)
+    return this.getDayFromDate(this.getCurrentDate())
+  }
+
+  public static getCurrentDate (): Date {
+    return new Date()
+  }
+
+  public static getCurrentDateString (): string {
+    return this.formatDate(this.getCurrentDate())
   }
 
   public static getMonthAsDate (monthAsInt: number): Date {
@@ -56,7 +63,7 @@ export default class Time {
     return this.getDayFromDate(date)
   }
 
-  public static getDayAsDate (dayAsInt: number): Date {
+  public static getDateFromDay (dayAsInt: number): Date {
     const day = dayAsInt % 100
     const monthAsInt = ((dayAsInt - day) / 100) - 1
     const date = this.getMonthAsDate(monthAsInt)
@@ -64,9 +71,18 @@ export default class Time {
     return date
   }
 
+  public static getDateStringFromDay (dayAsInt: number): string {
+    const date = this.getDateFromDay(dayAsInt)
+    return this.formatDate(date)
+  }
+
   public static monthIsThisYear (monthAsInt: number): boolean {
     const year = this.getMonthAsDate(monthAsInt).getFullYear()
     const currentYear = new Date().getFullYear()
     return year === currentYear
+  }
+
+  private static formatDate (date: Date): string {
+    return date.toISOString().split('T')[0]
   }
 }

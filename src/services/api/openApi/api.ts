@@ -120,6 +120,18 @@ export interface Category {
      * @memberof Category
      */
     masterCategoryId: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Category
+     */
+    archived: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Category
+     */
+    deleted: boolean;
 }
 /**
  * 
@@ -170,6 +182,12 @@ export interface MasterCategory {
      * @memberof MasterCategory
      */
     budgetId: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof MasterCategory
+     */
+    deleted: boolean;
 }
 /**
  * 
@@ -1318,10 +1336,12 @@ export const CategoryApiAxiosParamCreator = function (configuration?: Configurat
          * @param {string} id 
          * @param {string} [newName] 
          * @param {number} [newMasterCategoryId] 
+         * @param {boolean} [newArchived] 
+         * @param {boolean} [newDeleted] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateCategory: async (id: string, newName?: string, newMasterCategoryId?: number, options: any = {}): Promise<RequestArgs> => {
+        updateCategory: async (id: string, newName?: string, newMasterCategoryId?: number, newArchived?: boolean, newDeleted?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateCategory', 'id', id)
             const localVarPath = `/category`;
@@ -1346,6 +1366,14 @@ export const CategoryApiAxiosParamCreator = function (configuration?: Configurat
 
             if (newMasterCategoryId !== undefined) {
                 localVarQueryParameter['new_master_category_id'] = newMasterCategoryId;
+            }
+
+            if (newArchived !== undefined) {
+                localVarQueryParameter['new_archived'] = newArchived;
+            }
+
+            if (newDeleted !== undefined) {
+                localVarQueryParameter['new_deleted'] = newDeleted;
             }
 
 
@@ -1398,11 +1426,13 @@ export const CategoryApiFp = function(configuration?: Configuration) {
          * @param {string} id 
          * @param {string} [newName] 
          * @param {number} [newMasterCategoryId] 
+         * @param {boolean} [newArchived] 
+         * @param {boolean} [newDeleted] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateCategory(id: string, newName?: string, newMasterCategoryId?: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCategory(id, newName, newMasterCategoryId, options);
+        async updateCategory(id: string, newName?: string, newMasterCategoryId?: number, newArchived?: boolean, newDeleted?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCategory(id, newName, newMasterCategoryId, newArchived, newDeleted, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1442,11 +1472,13 @@ export const CategoryApiFactory = function (configuration?: Configuration, baseP
          * @param {string} id 
          * @param {string} [newName] 
          * @param {number} [newMasterCategoryId] 
+         * @param {boolean} [newArchived] 
+         * @param {boolean} [newDeleted] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateCategory(id: string, newName?: string, newMasterCategoryId?: number, options?: any): AxiosPromise<string> {
-            return localVarFp.updateCategory(id, newName, newMasterCategoryId, options).then((request) => request(axios, basePath));
+        updateCategory(id: string, newName?: string, newMasterCategoryId?: number, newArchived?: boolean, newDeleted?: boolean, options?: any): AxiosPromise<string> {
+            return localVarFp.updateCategory(id, newName, newMasterCategoryId, newArchived, newDeleted, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1489,12 +1521,14 @@ export class CategoryApi extends BaseAPI {
      * @param {string} id 
      * @param {string} [newName] 
      * @param {number} [newMasterCategoryId] 
+     * @param {boolean} [newArchived] 
+     * @param {boolean} [newDeleted] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof CategoryApi
      */
-    public updateCategory(id: string, newName?: string, newMasterCategoryId?: number, options?: any) {
-        return CategoryApiFp(this.configuration).updateCategory(id, newName, newMasterCategoryId, options).then((request) => request(this.axios, this.basePath));
+    public updateCategory(id: string, newName?: string, newMasterCategoryId?: number, newArchived?: boolean, newDeleted?: boolean, options?: any) {
+        return CategoryApiFp(this.configuration).updateCategory(id, newName, newMasterCategoryId, newArchived, newDeleted, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -1590,15 +1624,15 @@ export const MasterCategoryApiAxiosParamCreator = function (configuration?: Conf
          * 
          * @summary Update master category
          * @param {string} id 
-         * @param {string} newName 
+         * @param {string} [newName] 
+         * @param {boolean} [newArchived] 
+         * @param {boolean} [newDeleted] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateMasterCategory: async (id: string, newName: string, options: any = {}): Promise<RequestArgs> => {
+        updateMasterCategory: async (id: string, newName?: string, newArchived?: boolean, newDeleted?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateMasterCategory', 'id', id)
-            // verify required parameter 'newName' is not null or undefined
-            assertParamExists('updateMasterCategory', 'newName', newName)
             const localVarPath = `/mcategory`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1617,6 +1651,14 @@ export const MasterCategoryApiAxiosParamCreator = function (configuration?: Conf
 
             if (newName !== undefined) {
                 localVarQueryParameter['new_name'] = newName;
+            }
+
+            if (newArchived !== undefined) {
+                localVarQueryParameter['new_archived'] = newArchived;
+            }
+
+            if (newDeleted !== undefined) {
+                localVarQueryParameter['new_deleted'] = newDeleted;
             }
 
 
@@ -1667,12 +1709,14 @@ export const MasterCategoryApiFp = function(configuration?: Configuration) {
          * 
          * @summary Update master category
          * @param {string} id 
-         * @param {string} newName 
+         * @param {string} [newName] 
+         * @param {boolean} [newArchived] 
+         * @param {boolean} [newDeleted] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateMasterCategory(id: string, newName: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateMasterCategory(id, newName, options);
+        async updateMasterCategory(id: string, newName?: string, newArchived?: boolean, newDeleted?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateMasterCategory(id, newName, newArchived, newDeleted, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -1710,12 +1754,14 @@ export const MasterCategoryApiFactory = function (configuration?: Configuration,
          * 
          * @summary Update master category
          * @param {string} id 
-         * @param {string} newName 
+         * @param {string} [newName] 
+         * @param {boolean} [newArchived] 
+         * @param {boolean} [newDeleted] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateMasterCategory(id: string, newName: string, options?: any): AxiosPromise<string> {
-            return localVarFp.updateMasterCategory(id, newName, options).then((request) => request(axios, basePath));
+        updateMasterCategory(id: string, newName?: string, newArchived?: boolean, newDeleted?: boolean, options?: any): AxiosPromise<string> {
+            return localVarFp.updateMasterCategory(id, newName, newArchived, newDeleted, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1756,13 +1802,15 @@ export class MasterCategoryApi extends BaseAPI {
      * 
      * @summary Update master category
      * @param {string} id 
-     * @param {string} newName 
+     * @param {string} [newName] 
+     * @param {boolean} [newArchived] 
+     * @param {boolean} [newDeleted] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MasterCategoryApi
      */
-    public updateMasterCategory(id: string, newName: string, options?: any) {
-        return MasterCategoryApiFp(this.configuration).updateMasterCategory(id, newName, options).then((request) => request(this.axios, this.basePath));
+    public updateMasterCategory(id: string, newName?: string, newArchived?: boolean, newDeleted?: boolean, options?: any) {
+        return MasterCategoryApiFp(this.configuration).updateMasterCategory(id, newName, newArchived, newDeleted, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

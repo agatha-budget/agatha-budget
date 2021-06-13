@@ -514,11 +514,25 @@ paths:
           type: string
       - name: new_name
         in: query
-        required: true
+        required: false
         style: form
         explode: true
         schema:
           type: string
+      - name: new_archived
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      - name: new_deleted
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
       responses:
         "200":
           description: successful operation
@@ -627,6 +641,20 @@ paths:
         explode: true
         schema:
           type: number
+      - name: new_archived
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
+      - name: new_deleted
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
       responses:
         "200":
           description: successful operation
@@ -1036,6 +1064,7 @@ components:
     MasterCategory:
       required:
       - budgetId
+      - deleted
       - id
       - name
       type: object
@@ -1046,8 +1075,12 @@ components:
           type: string
         budgetId:
           type: string
+        deleted:
+          type: boolean
     Category:
       required:
+      - archived
+      - deleted
       - id
       - masterCategoryId
       - name
@@ -1059,6 +1092,10 @@ components:
           type: string
         masterCategoryId:
           type: string
+        archived:
+          type: boolean
+        deleted:
+          type: boolean
     Operation:
       required:
       - accountId

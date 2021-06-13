@@ -9,29 +9,47 @@
     </td>
     <td class="memo"><input id="newOperationMemo" class="form-control" v-model="memo"></td>
     <td class="amount"><input id="newOperationAmount" class="form-control" v-model.number="amount"></td>
-    <td class="validation"><button class="btn btn-outline-info" v-on:click="addOperation">{{$t('ADD_OPERATION')}}</button></td>
+    <td class="validation">
+      <button v-if="this.operation" class="btn btn-outline-info" v-on:click="updateOperation">
+      {{$t('UPDATE_OPERATION')}}
+      </button>
+      <button v-else class="btn btn-outline-info" v-on:click="addOperation">
+      {{$t('ADD_OPERATION')}}
+      </button>
+      </td>
   </tr>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
-import { CategoryList } from '@/model/model'
+import { CategoryList, Operation } from '@/model/model'
+import Time from '@/utils/Time'
+
+interface OperationFormData {
+  date: string;
+  categoryId: string;
+  memo: string;
+  amount: number;
+}
 
 export default defineComponent({
   name: 'OperationForm',
-  data () {
+  data (): OperationFormData {
     return {
-      date: '',
-      categoryId: '',
-      memo: '',
-      amount: 0
+      date: this.operation ? Time.getDateStringFromDay(this.operation.day) : Time.getCurrentDateString(),
+      categoryId: this.operation?.categoryId || '',
+      memo: this.operation?.memo || '',
+      amount: this.operation?.amount || 0
     }
   },
   props: {
     accountId: {
       type: String,
       required: true
+    },
+    operation: {
+      type: Object as () => Operation
     }
   },
   computed: {
@@ -41,8 +59,19 @@ export default defineComponent({
   },
   emits: ['updateOperationList'],
   methods: {
+    updateOperation () {
+      if (this.operation) {
+        OperationService.updateOperation(this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.amount, this.memo).then(
+          () => {
+            this.$emit('updateOperationList')
+          }
+        )
+      } else {
+        console.log('warning: tried to update without operation to update')
+      }
+    },
     addOperation () {
-      OperationService.addOperation(this.accountId, this.date, this.categoryId, this.amount, this.memo).then(
+      OperationService.addOperation(this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.amount, this.memo).then(
         () => {
           this.$emit('updateOperationList')
         }
