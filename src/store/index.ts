@@ -48,13 +48,11 @@ export const store = createStore<StoreState>({
     },
     updateCategories (state, categories: CategoryList) {
       state.categories = categories
-      state.nonArchivedCategoriesIdByMasterCategoriesId = StoreHandler.createNonArchivedCategoryIdListByMasterCategoryId(categories, state.masterCategories)
-      state.archivedCategoriesIdByMasterCategoriesId = StoreHandler.createArchivedCategoryIdListByMasterCategoryId(categories, state.masterCategories)
+      state.nonArchivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(categories)
+      state.archivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(categories, true)
     },
     updateMasterCategories (state, masterCategories: MasterCategoryList) {
       state.masterCategories = masterCategories
-      state.nonArchivedCategoriesIdByMasterCategoriesId = StoreHandler.createNonArchivedCategoryIdListByMasterCategoryId(state.categories, masterCategories)
-      state.archivedCategoriesIdByMasterCategoriesId = StoreHandler.createArchivedCategoryIdListByMasterCategoryId(state.categories, masterCategories)
     }
   },
   actions: {

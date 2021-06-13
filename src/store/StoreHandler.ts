@@ -57,27 +57,11 @@ export default class StoreHandler {
     }
   }
 
-  public static createNonArchivedCategoryIdListByMasterCategoryId (categoriesList: CategoryList, masterCategoriesList: MasterCategoryList): CategoryByMasterCategoryList {
+  public static createCategoryIdListByMasterCategoryId (categoriesList: CategoryList, wantedArchiveStatus = false): CategoryByMasterCategoryList {
     const data: CategoryByMasterCategoryList = {}
     for (const categoryId of Object.keys(categoriesList)) {
       const masterCategoryId = categoriesList[categoryId].masterCategoryId
-      if (masterCategoryId && !masterCategoriesList[masterCategoryId].archived) {
-        if (!data[masterCategoryId]) {
-          data[masterCategoryId] = []
-        }
-        if (!categoriesList[categoryId].archived) {
-          data[masterCategoryId].push(categoryId)
-        }
-      }
-    }
-    return data
-  }
-
-  public static createArchivedCategoryIdListByMasterCategoryId (categoriesList: CategoryList, masterCategoriesList: MasterCategoryList): CategoryByMasterCategoryList {
-    const data: CategoryByMasterCategoryList = {}
-    for (const categoryId of Object.keys(categoriesList)) {
-      const masterCategoryId = categoriesList[categoryId].masterCategoryId
-      if (masterCategoryId && (masterCategoriesList[masterCategoryId].archived || categoriesList[categoryId].archived)) {
+      if (masterCategoryId && categoriesList[categoryId].archived === wantedArchiveStatus) {
         if (!data[masterCategoryId]) {
           data[masterCategoryId] = []
         }
