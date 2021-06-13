@@ -14,10 +14,12 @@ class CategoryService(private val categoryDao: ICategoryDao, private val authori
         return categoryDao.insert(category)
     }
 
-    fun update(person: Person, category: Category, newName: String?, newMasterCategory: MasterCategory?): Category {
+    fun update(person: Person, category: Category, newName: String?, newMasterCategory: MasterCategory?, newArchived: Boolean?, newDeleted: Boolean?): Category {
         authorizationService.cancelIfUserIsUnauthorized(person, category)
         newName?.let {category.name = it}
         newMasterCategory?.let {category.masterCategoryId = it.id}
+        newArchived?.let{category.archived = it}
+        newDeleted?.let{category.deleted = it}
         return categoryDao.update(category)
     }
 
@@ -25,12 +27,6 @@ class CategoryService(private val categoryDao: ICategoryDao, private val authori
         val category = categoryDao.getById(id)
         authorizationService.cancelIfUserIsUnauthorized(person, category)
         return category
-    }
-
-    fun delete(person: Person, category: Category) : Category {
-        authorizationService.cancelIfUserIsUnauthorized(person, category)
-        category.deleted = true
-        return categoryDao.update(category)
     }
 
     fun findByBudget(person: Person, budget: Budget): List<Category> {
