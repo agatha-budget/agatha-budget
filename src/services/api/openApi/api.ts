@@ -1630,17 +1630,15 @@ export const MasterCategoryApiAxiosParamCreator = function (configuration?: Conf
          * 
          * @summary Update master category
          * @param {string} id 
-         * @param {string} newName 
+         * @param {string} [newName] 
          * @param {boolean} [newArchived] 
          * @param {boolean} [newDeleted] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateMasterCategory: async (id: string, newName: string, newArchived?: boolean, newDeleted?: boolean, options: any = {}): Promise<RequestArgs> => {
+        updateMasterCategory: async (id: string, newName?: string, newArchived?: boolean, newDeleted?: boolean, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('updateMasterCategory', 'id', id)
-            // verify required parameter 'newName' is not null or undefined
-            assertParamExists('updateMasterCategory', 'newName', newName)
             const localVarPath = `/mcategory`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1717,13 +1715,13 @@ export const MasterCategoryApiFp = function(configuration?: Configuration) {
          * 
          * @summary Update master category
          * @param {string} id 
-         * @param {string} newName 
+         * @param {string} [newName] 
          * @param {boolean} [newArchived] 
          * @param {boolean} [newDeleted] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateMasterCategory(id: string, newName: string, newArchived?: boolean, newDeleted?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async updateMasterCategory(id: string, newName?: string, newArchived?: boolean, newDeleted?: boolean, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateMasterCategory(id, newName, newArchived, newDeleted, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1762,13 +1760,13 @@ export const MasterCategoryApiFactory = function (configuration?: Configuration,
          * 
          * @summary Update master category
          * @param {string} id 
-         * @param {string} newName 
+         * @param {string} [newName] 
          * @param {boolean} [newArchived] 
          * @param {boolean} [newDeleted] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateMasterCategory(id: string, newName: string, newArchived?: boolean, newDeleted?: boolean, options?: any): AxiosPromise<string> {
+        updateMasterCategory(id: string, newName?: string, newArchived?: boolean, newDeleted?: boolean, options?: any): AxiosPromise<string> {
             return localVarFp.updateMasterCategory(id, newName, newArchived, newDeleted, options).then((request) => request(axios, basePath));
         },
     };
@@ -1810,14 +1808,14 @@ export class MasterCategoryApi extends BaseAPI {
      * 
      * @summary Update master category
      * @param {string} id 
-     * @param {string} newName 
+     * @param {string} [newName] 
      * @param {boolean} [newArchived] 
      * @param {boolean} [newDeleted] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof MasterCategoryApi
      */
-    public updateMasterCategory(id: string, newName: string, newArchived?: boolean, newDeleted?: boolean, options?: any) {
+    public updateMasterCategory(id: string, newName?: string, newArchived?: boolean, newDeleted?: boolean, options?: any) {
         return MasterCategoryApiFp(this.configuration).updateMasterCategory(id, newName, newArchived, newDeleted, options).then((request) => request(this.axios, this.basePath));
     }
 }

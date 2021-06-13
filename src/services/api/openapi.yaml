@@ -514,7 +514,7 @@ paths:
           type: string
       - name: new_name
         in: query
-        required: true
+        required: false
         style: form
         explode: true
         schema:
