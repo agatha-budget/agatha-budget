@@ -173,9 +173,13 @@ fun main() {
     app.put("/mcategory") { ctx ->
         val user = getUserFromAuth(ctx)
         val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "id"))
-        val newName = getQueryParam<String>(ctx, "new_name")
 
-        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName)
+        //optional
+        val newName = getOptionalQueryParam<String>(ctx, "new_name")
+        val newArchived = getOptionalQueryParam<Boolean>(ctx, "new_archived")
+        val newDeleted = getOptionalQueryParam<Boolean>(ctx, "new_deleted")
+
+        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName, newArchived, newDeleted)
         ctx.json(updatedMasterCategory)
     }
 
@@ -191,7 +195,7 @@ fun main() {
     app.before("/category", SuperTokens.middleware())
     app.post("/category") { ctx ->
         val user = getUserFromAuth(ctx)
-        val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "id"))
+        val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "master_category_id"))
         val name = getQueryParam<String>(ctx, "name")
 
         val category = ServiceManager.categoryService.create(user, masterCategory, name)
@@ -208,7 +212,9 @@ fun main() {
         val newMasterCategory: MasterCategory? = getOptionalQueryParam<String>(ctx, "new_master_category_id")?.let{
             ServiceManager.masterCategoryService.getById(user, it)
         }
-        val updatedCategory = ServiceManager.categoryService.update(user, category, newName, newMasterCategory)
+        val newArchived = getOptionalQueryParam<Boolean>(ctx, "new_archived")
+        val newDeleted = getOptionalQueryParam<Boolean>(ctx, "new_deleted")
+        val updatedCategory = ServiceManager.categoryService.update(user, category, newName, newMasterCategory, newArchived, newDeleted)
         ctx.json(updatedCategory)
     }
 
@@ -245,15 +251,15 @@ fun main() {
         val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
 
         //optional
-        val account: Account? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
+        val account: Account? = getOptionalQueryParam<String>(ctx, "new_account_id")?.let{
             ServiceManager.accountService.getById(user, it)
         }
-        val day : Day? = getOptionalQueryParam<Int>(ctx, "day")?.let {Day.createFromComparable(it)}
-        val category: Category? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
+        val day : Day? = getOptionalQueryParam<Int>(ctx, "new_day")?.let {Day.createFromComparable(it)}
+        val category: Category? = getOptionalQueryParam<String>(ctx, "new_category_id")?.let{
             ServiceManager.categoryService.getById(user, it)
         }
-        val amount : Double? = getOptionalQueryParam<Double>(ctx, "amount")
-        val memo : String? = getOptionalQueryParam<String>(ctx, "memo")
+        val amount : Double? = getOptionalQueryParam<Double>(ctx, "new_amount")
+        val memo : String? = getOptionalQueryParam<String>(ctx, "new_memo")
 
         val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo)
         ctx.json(updatedOperation)
