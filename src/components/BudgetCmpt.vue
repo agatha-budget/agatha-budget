@@ -25,30 +25,32 @@
           </tr>
         </tbody>
       </table>
-      <table class="budgetTable table"
-       v-for="masterCategoryId in Object.keys(this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId)"
-       :key="masterCategoryId"
-      >
-          <master-category-cmpt
-            @update-allocation="updateAllocation"
-            :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
-            :categoriesId="this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
-            :categoryDataList="this.categoryDataList"
-          />
-      </table>
-      Archived
-      <table class="budgetArchiveTable table"
-       v-for="masterCategoryId in Object.keys(this.$store.state.archivedCategoriesIdByMasterCategoriesId)"
-       :key="masterCategoryId"
-      >
-          <master-category-cmpt
-            @update-allocation="updateAllocation"
-            :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
-            :categoriesId="this.$store.state.archivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
-            :categoryDataList="this.categoryDataList"
-            :archived="true"
-          />
-      </table>
+      <div>
+        <table class="budgetTable table"
+        v-for="masterCategoryId in Object.keys(this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId)"
+        :key="masterCategoryId"
+        >
+            <master-category-cmpt
+              @update-allocation="updateAllocation"
+              :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
+              :categoriesId="this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
+              :categoryDataList="this.categoryDataList"
+            />
+        </table>
+        Archived
+        <table class="budgetArchiveTable table"
+        v-for="masterCategoryId in Object.keys(this.$store.state.archivedCategoriesIdByMasterCategoriesId)"
+        :key="masterCategoryId"
+        >
+            <master-category-cmpt
+              @update-allocation="updateAllocation"
+              :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
+              :categoriesId="this.$store.state.archivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
+              :categoryDataList="this.categoryDataList"
+              :archived="true"
+            />
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -57,7 +59,7 @@
 import { defineComponent } from 'vue'
 import BudgetDataService from '@/services/BudgetDataService'
 import AllocationService from '@/services/AllocationService'
-import { Budget, CategoryData, CategoryDataList, CategoryList } from '@/model/model'
+import { Budget, CategoryData, CategoryDataList } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
@@ -91,9 +93,6 @@ export default defineComponent({
     budget: async function () {
       this.getBudgetData()
     },
-    categories: async function () {
-      this.getBudgetData()
-    },
     budgetMonth: async function () {
       this.getBudgetData()
     }
@@ -112,9 +111,6 @@ export default defineComponent({
   computed: {
     budget (): Budget | null {
       return this.$store.state.budget
-    },
-    categories (): CategoryList | null {
-      return this.$store.state.categories
     },
     totalBudgetData () {
       const totalBudgetData = new CategoryData()

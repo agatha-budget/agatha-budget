@@ -61,7 +61,7 @@ export default defineComponent({
       required: true
     },
     archived: {
-      type: Object as () => boolean,
+      type: Boolean as () => boolean,
       required: false
     }
   },
