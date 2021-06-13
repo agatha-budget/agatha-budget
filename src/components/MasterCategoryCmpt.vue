@@ -2,8 +2,8 @@
   <tr class="masterCategory">
     <th class="col-6 name">
       <div>
-        <MasterCategoryForm v-if="focusOn === masterCategoryId" :masterCategoryId="masterCategoryId" @looses-focus="loosesFocus" @create-category="createCategory"/>
-        <a v-else v-on:click="this.putFocusOn(masterCategoryId)">{{ masterCategory?.name }}</a>
+        <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategoryId="masterCategory.id" @looses-focus="loosesFocus" @create-category="createCategory"/>
+        <a v-else v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}</a>
       </div>
     </th>
     <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
@@ -47,8 +47,12 @@ export default defineComponent({
   },
   emits: ['updateAllocation'],
   props: {
-    masterCategoryId: {
-      type: String,
+    masterCategory: {
+      type: Object as () => MasterCategory,
+      required: true
+    },
+    categoriesId: {
+      type: Object as () => string[],
       required: true
     },
     categoryDataList: {
@@ -62,12 +66,6 @@ export default defineComponent({
     }
   },
   computed: {
-    masterCategory (): MasterCategory {
-      return this.$store.state.masterCategories[this.masterCategoryId]
-    },
-    categoriesId (): string[] {
-      return this.$store.state.categoriesIdByMasterCategoriesId[this.masterCategoryId]
-    },
     masterCategoryData () {
       const masterCategoryData = new CategoryData()
       for (const categoryId in this.categoryDataList) {

@@ -26,12 +26,25 @@
         </tbody>
       </table>
       <table class="budgetTable table"
-       v-for="masterCategoryId in Object.keys(this.$store.state.categoriesIdByMasterCategoriesId)"
+       v-for="masterCategoryId in Object.keys(this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId)"
        :key="masterCategoryId"
       >
           <master-category-cmpt
             @update-allocation="updateAllocation"
-            :masterCategoryId="masterCategoryId"
+            :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
+            :categoriesId="this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
+            :categoryDataList="this.categoryDataList"
+          />
+      </table>
+      Archived
+      <table class="budgetArchiveTable table"
+       v-for="masterCategoryId in Object.keys(this.$store.state.archivedCategoriesIdByMasterCategoriesId)"
+       :key="masterCategoryId"
+      >
+          <master-category-cmpt
+            @update-allocation="updateAllocation"
+            :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
+            :categoriesId="this.$store.state.archivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
             :categoryDataList="this.categoryDataList"
           />
       </table>
