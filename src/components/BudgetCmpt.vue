@@ -25,26 +25,26 @@
           </tr>
         </tbody>
       </table>
-      <div :key="rerenderTableKey" >
+      <div>
         <table class="budgetTable table"
-        v-for="masterCategoryId in Object.keys(this.nonArchivedCategories)"
+        v-for="masterCategoryId in Object.keys(this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId)"
         :key="masterCategoryId"
         >
             <master-category-cmpt
               @update-allocation="updateAllocation"
-              :masterCategory="this.masterCategories[masterCategoryId]"
+              :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
               :categoriesId="this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
               :categoryDataList="this.categoryDataList"
             />
         </table>
         Archived
         <table class="budgetArchiveTable table"
-        v-for="masterCategoryId in Object.keys(this.archivedCategories)"
+        v-for="masterCategoryId in Object.keys(this.$store.state.archivedCategoriesIdByMasterCategoriesId)"
         :key="masterCategoryId"
         >
             <master-category-cmpt
               @update-allocation="updateAllocation"
-              :masterCategory="this.masterCategories[masterCategoryId]"
+              :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
               :categoriesId="this.$store.state.archivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
               :categoryDataList="this.categoryDataList"
               :archived="true"
@@ -59,7 +59,7 @@
 import { defineComponent } from 'vue'
 import BudgetDataService from '@/services/BudgetDataService'
 import AllocationService from '@/services/AllocationService'
-import { Budget, CategoryByMasterCategoryList, CategoryData, CategoryDataList, CategoryList, MasterCategoryList } from '@/model/model'
+import { Budget, CategoryData, CategoryDataList } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
@@ -73,7 +73,6 @@ interface BudgetCmptData {
     };
     budgetMonth: number;
     amountInBudget: number;
-    rerenderTableKey: number;
 }
 
 export default defineComponent({
@@ -94,18 +93,6 @@ export default defineComponent({
     budget: async function () {
       this.getBudgetData()
     },
-    categories: async function () {
-      this.rerenderTable()
-    },
-    masterCategories: async function () {
-      this.rerenderTable()
-    },
-    nonArchivedCategories: async function () {
-      this.rerenderTable()
-    },
-    archivedCategories: async function () {
-      this.rerenderTable()
-    },
     budgetMonth: async function () {
       this.getBudgetData()
     }
@@ -118,25 +105,12 @@ export default defineComponent({
         without asking the back-end to compute */
       formerAllocations: {},
       budgetMonth: this.$props.month,
-      amountInBudget: 0,
-      rerenderTableKey: 0
+      amountInBudget: 0
     }
   },
   computed: {
     budget (): Budget | null {
       return this.$store.state.budget
-    },
-    categories (): CategoryList | null {
-      return this.$store.state.categories
-    },
-    masterCategories (): MasterCategoryList | null {
-      return this.$store.state.masterCategories
-    },
-    nonArchivedCategories (): CategoryByMasterCategoryList {
-      return this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId
-    },
-    archivedCategories (): CategoryByMasterCategoryList {
-      return this.$store.state.archivedCategoriesIdByMasterCategoriesId
     },
     totalBudgetData () {
       const totalBudgetData = new CategoryData()
@@ -160,7 +134,7 @@ export default defineComponent({
   },
   methods: {
     async getBudgetData () {
-      if (this.budget && this.masterCategories && this.categories) {
+      if (this.budget) {
         BudgetDataService.getBudgetDataForMonth(this.budget, this.budgetMonth).then(
           (categoryDataList) => {
             this.categoryDataList = categoryDataList
@@ -212,9 +186,6 @@ export default defineComponent({
           }
         )
       }
-    },
-    rerenderTable () {
-      this.rerenderTableKey += 1
     }
   }
 })
