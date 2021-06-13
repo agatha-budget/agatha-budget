@@ -69,4 +69,144 @@ open class CategoryDaoTest : ITest {
         val owner = categoryDao.getOwner(universalCategory)
         Assertions.assertNull(owner)
     }
+
+    @Test fun archiveAllDependingCategories() {
+        val budget = Budget("lucie-B1", TestData.person1Id)
+        budgetDao.insert(budget)
+        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        masterCategoryDao.insert(masterCategoryDream)
+        val masterCategoryHouse = MasterCategory("house", budget.id)
+        masterCategoryDao.insert(masterCategoryHouse)
+
+        val categoryList = listOf(
+            Category("boat", masterCategoryDream.id),
+            Category("harp", masterCategoryDream.id),
+            Category("oven", masterCategoryHouse.id)
+        )
+
+        for (category in categoryList) {
+            categoryDao.insert(category)
+        }
+
+        var dreamCategoryList = categoryDao.findByMasterCategory(masterCategoryDream)
+        for (category in dreamCategoryList) {
+            Assertions.assertEquals(false, category.archived)
+        }
+
+        categoryDao.updateArchivedStatusByMasterCategory(masterCategoryDream, true)
+        dreamCategoryList = categoryDao.findByMasterCategory(masterCategoryDream)
+        for (category in dreamCategoryList) {
+            Assertions.assertEquals(true, category.archived)
+        }
+
+        val houseCategoryList = categoryDao.findByMasterCategory(masterCategoryHouse)
+        for (category in houseCategoryList) {
+            Assertions.assertEquals(false, category.archived)
+        }
+    }
+
+    @Test fun unarchiveAllDependingCategories() {
+        val budget = Budget("lucie-B1", TestData.person1Id)
+        budgetDao.insert(budget)
+        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        masterCategoryDao.insert(masterCategoryDream)
+        val masterCategoryHouse = MasterCategory("house", budget.id)
+        masterCategoryDao.insert(masterCategoryHouse)
+
+        val categoryList = listOf(
+            Category("boat", masterCategoryDream.id),
+            Category("harp", masterCategoryDream.id),
+            Category("oven", masterCategoryHouse.id)
+        )
+
+        for (category in categoryList) {
+            category.archived = true
+            categoryDao.insert(category)
+        }
+
+        var dreamCategoryList = categoryDao.findByMasterCategory(masterCategoryDream)
+        for (category in dreamCategoryList) {
+            Assertions.assertEquals(true, category.archived)
+        }
+
+        categoryDao.updateArchivedStatusByMasterCategory(masterCategoryDream, false)
+        dreamCategoryList = categoryDao.findByMasterCategory(masterCategoryDream)
+        for (category in dreamCategoryList) {
+            Assertions.assertEquals(false, category.archived)
+        }
+
+    }
+
+    @Test fun unarchiveAllDependingCategoriesSomeWereNotArchived() {
+        val budget = Budget("lucie-B1", TestData.person1Id)
+        budgetDao.insert(budget)
+        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        masterCategoryDao.insert(masterCategoryDream)
+        val masterCategoryHouse = MasterCategory("house", budget.id)
+        masterCategoryDao.insert(masterCategoryHouse)
+
+        val categoryList = listOf(
+            Category("boat", masterCategoryDream.id),
+            Category("harp", masterCategoryDream.id),
+            Category("oven", masterCategoryHouse.id)
+        )
+
+        categoryList[1].archived = true
+
+        for (category in categoryList) {
+            categoryDao.insert(category)
+        }
+
+        val harpCategory = categoryDao.getById(categoryList[1].id)
+        Assertions.assertEquals(true, harpCategory.archived)
+
+        categoryDao.updateArchivedStatusByMasterCategory(masterCategoryDream, false)
+        val dreamCategoryList = categoryDao.findByMasterCategory(masterCategoryDream)
+        for (category in dreamCategoryList) {
+            Assertions.assertEquals(false, category.archived)
+        }
+    }
+
+    @Test fun archiveAllDependingCategoriesSomeWereAlreadyArchived() {
+        val budget = Budget("lucie-B1", TestData.person1Id)
+        budgetDao.insert(budget)
+        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        masterCategoryDao.insert(masterCategoryDream)
+        val masterCategoryHouse = MasterCategory("house", budget.id)
+        masterCategoryDao.insert(masterCategoryHouse)
+
+        val categoryList = listOf(
+            Category("boat", masterCategoryDream.id),
+            Category("harp", masterCategoryDream.id),
+            Category("oven", masterCategoryHouse.id)
+        )
+
+        categoryList[1].archived = true
+
+        for (category in categoryList) {
+            categoryDao.insert(category)
+        }
+
+        val harpCategory = categoryDao.getById(categoryList[2].id)
+        Assertions.assertEquals(false, harpCategory.archived)
+
+        categoryDao.updateArchivedStatusByMasterCategory(masterCategoryDream, true)
+        val dreamCategoryList = categoryDao.findByMasterCategory(masterCategoryDream)
+        for (category in dreamCategoryList) {
+            Assertions.assertEquals(true, category.archived)
+        }
+    }
+
+    @Test fun archiveAllDependingCategoriesWhenThereIsNone() {
+        val budget = Budget("lucie-B1", TestData.person1Id)
+        budgetDao.insert(budget)
+        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        masterCategoryDao.insert(masterCategoryDream)
+        val masterCategoryHouse = MasterCategory("house", budget.id)
+        masterCategoryDao.insert(masterCategoryHouse)
+
+        categoryDao.updateArchivedStatusByMasterCategory(masterCategoryDream, true)
+        val dreamCategoryList = categoryDao.findByMasterCategory(masterCategoryDream)
+        Assertions.assertEquals(0, dreamCategoryList.size)
+    }
 }

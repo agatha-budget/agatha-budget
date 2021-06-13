@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row5;
+import org.jooq.Row4;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MasterCategory extends TableImpl<MasterCategoryRecord> {
 
-    private static final long serialVersionUID = -1915862494;
+    private static final long serialVersionUID = 1743006609;
 
     /**
      * The reference instance of <code>public.master_category</code>
@@ -60,11 +60,6 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
      * The column <code>public.master_category.name</code>.
      */
     public final TableField<MasterCategoryRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
-
-    /**
-     * The column <code>public.master_category.archived</code>.
-     */
-    public final TableField<MasterCategoryRecord, Boolean> ARCHIVED = createField(DSL.name("archived"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.master_category.deleted</code>.
@@ -155,11 +150,11 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row4 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<String, String, String, Boolean, Boolean> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row4<String, String, String, Boolean> fieldsRow() {
+        return (Row4) super.fieldsRow();
     }
 }

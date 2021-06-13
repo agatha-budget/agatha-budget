@@ -90,6 +90,14 @@ class H2CategoryDao(val configuration: Configuration) : ICategoryDao {
         }
     }
 
+    override fun updateArchivedStatusByMasterCategory(masterCategory: MasterCategory, newArchivedStatus: Boolean) {
+        this.query
+            .update(CATEGORY)
+            .set(CATEGORY.ARCHIVED, newArchivedStatus)
+            .where(CATEGORY.MASTER_CATEGORY_ID.eq(masterCategory.id))
+            .execute()
+    }
+
     private fun toJooqCategory(category: Category): JooqCategory {
         return JooqCategory(
             category.id,
