@@ -1,9 +1,13 @@
-import { Budget, CategoryList, MasterCategory } from '@/model/model'
+import { Budget, Category, CategoryList, MasterCategory } from '@/model/model'
 import { categoryApi } from '@/services/api/apis'
 
 export default class CategoryService {
   public static async createCategory (name: string, masterCategory: MasterCategory) {
-    await categoryApi.addCategory(name, masterCategory.id)
+    const response = await categoryApi.addCategory(name, masterCategory.id)
+  }
+
+  public static async updateCategory (categoryId: string, newName: string) {
+    const response = await categoryApi.updateCategory(categoryId, newName)
   }
 
   public static async getCategories (budget: Budget): Promise<CategoryList> {

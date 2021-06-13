@@ -7,7 +7,12 @@
   </tr>
   <tbody>
   <tr class="category" v-for="categoryId in this.categoriesId" :key="categoryId">
-    <td class="name"><div>{{ this.$store.state.categories[categoryId]?.name}}</div></td>
+    <td class="name">
+      <div>
+        <CategoryForm v-if="focusOn === categoryId" :categoryId="categoryId" @looses-focus="loosesFocus"/>
+        <a v-else v-on:click="this.putFocusOn(categoryId)">{{ this.$store.state.categories[categoryId]?.name}}</a>
+      </div>
+    </td>
     <td class="allocated">
       <input type="number" class="allocationInput"
       :value="this.categoryDataList[categoryId]?.allocated || 0"
@@ -26,9 +31,13 @@ import { MasterCategory, CategoryDataList, CategoryData } from '@/model/model'
 import Utils from '@/utils/Utils'
 import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
+import CategoryForm from '@/components/forms/CategoryForm.vue'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
+  components: {
+    CategoryForm
+  },
   emits: ['updateAllocation'],
   props: {
     masterCategoryId: {
@@ -38,6 +47,11 @@ export default defineComponent({
     categoryDataList: {
       type: Object as () => CategoryDataList,
       required: true
+    }
+  },
+  data () {
+    return {
+      focusOn: ''
     }
   },
   computed: {
@@ -72,6 +86,15 @@ export default defineComponent({
           StoreHandler.updateCategories(this.$store)
         }
       )
+    },
+    putFocusOn (categoryId: string) {
+      this.focusOn = categoryId
+    },
+    loosesFocus () {
+      this.focusOn = ''
+    },
+    deleteCategory () {
+      console.log('rfez')
     }
   }
 })
