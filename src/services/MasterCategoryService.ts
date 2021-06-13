@@ -6,7 +6,7 @@ export default class MasterCategoryService {
     await masterCategoryApi.addMasterCategory(name, budget.id)
   }
 
-  public static async updateMasterCategory (masterCategoryId: string, newName: string) {
+  public static async renameMasterCategory (masterCategoryId: string, newName: string) {
     const response = await masterCategoryApi.updateMasterCategory(masterCategoryId, newName)
   }
 

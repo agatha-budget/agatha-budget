@@ -2,17 +2,17 @@
   <div id="operationForm" class="operation">
     <span class="name"><input id="newName" class="form-control" v-model="name"></span>
     <span class="validation">
-      <button class="btn fas fa-check" v-on:click="updateCategory"/>
+      <button class="btn fas fa-check" v-on:click="updateMasterCategory"/>
       <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-      <button class="btn fas fa-archive" v-on:click="archiveCategory"/>
+      <button class="btn fas fa-archive" v-on:click="archiveMasterCategory"/>
     </span>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
+import MasterCategoryService from '@/services/MasterCategoryService'
 
 interface CategoryFormData {
   name: string;
@@ -22,29 +22,29 @@ export default defineComponent({
   name: 'CategoryForm',
   data (): CategoryFormData {
     return {
-      name: this.$store.state.categories[this.categoryId].name
+      name: this.$store.state.masterCategories[this.masterCategoryId].name
     }
   },
   props: {
-    categoryId: {
+    masterCategoryId: {
       type: String,
       required: true
     }
   },
   emits: ['loosesFocus'],
   methods: {
-    updateCategory () {
-      CategoryService.updateCategory(this.categoryId, this.name).then(
+    updateMasterCategory () {
+      MasterCategoryService.renameMasterCategory(this.masterCategoryId, this.name).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          StoreHandler.updateMasterCategories(this.$store)
           this.$emit('loosesFocus')
         }
       )
     },
-    archiveCategory () {
-      CategoryService.archiveCategory(this.categoryId).then(
+    archiveMasterCategory () {
+      MasterCategoryService.archiveMasterCategory(this.masterCategoryId).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          StoreHandler.updateMasterCategories(this.$store)
           this.$emit('loosesFocus')
         }
       )

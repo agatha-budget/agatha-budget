@@ -1,6 +1,11 @@
 <template>
   <tr class="masterCategory">
-    <th class="col-6 name"><div>{{ masterCategory?.name }} <button type="button" class="btn fas fa-plus" v-on:click="this.createCategory()"/></div></th>
+    <th class="col-6 name">
+      <div>
+        <MasterCategoryForm v-if="focusOn === masterCategoryId" :masterCategoryId="masterCategoryId" @looses-focus="loosesFocus"/>
+        <a v-else v-on:click="this.putFocusOn(masterCategoryId)">{{ masterCategory?.name }} <button type="button" class="btn fas fa-plus" v-on:click="this.createCategory()"/></a>
+      </div>
+    </th>
     <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
     <th class="col-2 spent">{{ getRoundedAmount(masterCategoryData.spent) }}</th>
     <th class="col-2 available">{{ getRoundedAmount(masterCategoryData.available) }}</th>
@@ -32,11 +37,13 @@ import Utils from '@/utils/Utils'
 import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
+import MasterCategoryForm from '@/components/forms/MasterCategoryForm.vue'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
   components: {
-    CategoryForm
+    CategoryForm,
+    MasterCategoryForm
   },
   emits: ['updateAllocation'],
   props: {
