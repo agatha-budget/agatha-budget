@@ -1,6 +1,6 @@
 <template>
   <tr class="masterCategory">
-    <th class="col-6 name"><div>{{ masterCategory?.name }}</div></th>
+    <th class="col-6 name"><div>{{ masterCategory?.name }} <button type="button" class="btn fas fa-plus" v-on:click="this.createCategory()"/></div></th>
     <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
     <th class="col-2 spent">{{ getRoundedAmount(masterCategoryData.spent) }}</th>
     <th class="col-2 available">{{ getRoundedAmount(masterCategoryData.available) }}</th>
@@ -24,6 +24,8 @@
 import { defineComponent } from 'vue'
 import { MasterCategory, CategoryDataList, CategoryData } from '@/model/model'
 import Utils from '@/utils/Utils'
+import CategoryService from '@/services/CategoryService'
+import StoreHandler from '@/store/StoreHandler'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
@@ -63,6 +65,13 @@ export default defineComponent({
     },
     getRoundedAmount (amount: number): number {
       return Utils.getRoundedAmount(amount)
+    },
+    createCategory () {
+      CategoryService.createCategory('New Category', this.masterCategory).then(
+        () => {
+          StoreHandler.updateCategories(this.$store)
+        }
+      )
     }
   }
 })
