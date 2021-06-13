@@ -1,5 +1,12 @@
 <template>
-  <div id="operationForm" class="operation">
+  <div v-if="this.archived" id="operationForm" class="operation">
+    <span class="name">{{ this.name }}</span>
+    <span class="validation">
+      <button class="btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
+      <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+    </span>
+  </div>
+  <div v-else id="operationForm" class="operation">
     <span class="name"><input id="newName" class="form-control" v-model="name"></span>
     <span class="validation">
       <button class="btn fas fa-check" v-on:click="updateCategory"/>
@@ -32,6 +39,11 @@ export default defineComponent({
       required: true
     }
   },
+  computed: {
+    archived (): boolean {
+      return this.$store.state.masterCategories[this.category.masterCategoryId].archived || this.category.archived
+    }
+  },
   emits: ['loosesFocus'],
   methods: {
     updateCategory () {
@@ -44,6 +56,14 @@ export default defineComponent({
     },
     archiveCategory () {
       CategoryService.archiveCategory(this.category.id).then(
+        () => {
+          StoreHandler.updateCategories(this.$store)
+          this.$emit('loosesFocus')
+        }
+      )
+    },
+    unarchiveCategory () {
+      CategoryService.unarchiveCategory(this.category.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
           this.$emit('loosesFocus')
