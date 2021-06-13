@@ -12,4 +12,6 @@ interface ICategoryDao {
     fun findByMasterCategory(masterCategory: MasterCategory): List<Category>
     fun findByBudget(budget: Budget): List<Category>
     fun getOwner(category: Category) : Person?
+    fun updateArchivedStatusByMasterCategory(masterCategory: MasterCategory, newArchivedStatus: Boolean)
+
 }
