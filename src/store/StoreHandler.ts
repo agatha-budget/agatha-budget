@@ -13,8 +13,8 @@ export default class StoreHandler {
 
   public static async updateOnBudgetChange (store: Store<StoreState>) {
     this.updateAccounts(store)
-    this.updateCategories(store)
     this.updateMasterCategories(store)
+    this.updateCategories(store)
   }
 
   public static async updateAccounts (store: Store<StoreState>) {
