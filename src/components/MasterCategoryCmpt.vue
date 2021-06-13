@@ -2,7 +2,7 @@
   <tr class="masterCategory">
     <th class="col-6 name">
       <div>
-        <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategoryId="masterCategory.id" @looses-focus="loosesFocus" @create-category="createCategory"/>
+        <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" @looses-focus="loosesFocus" @create-category="createCategory"/>
         <a v-else v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}</a>
       </div>
     </th>
@@ -14,7 +14,7 @@
   <tr class="category" v-for="categoryId in this.categoriesId" :key="categoryId">
     <td class="name">
       <div>
-        <CategoryForm v-if="focusOn === categoryId" :categoryId="categoryId" @looses-focus="loosesFocus"/>
+        <CategoryForm v-if="focusOn === categoryId" :category="this.$store.state.categories[categoryId]" @looses-focus="loosesFocus"/>
         <a v-else v-on:click="this.putFocusOn(categoryId)">{{ this.$store.state.categories[categoryId]?.name}}</a>
       </div>
     </td>

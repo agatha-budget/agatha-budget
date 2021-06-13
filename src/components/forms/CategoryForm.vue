@@ -13,6 +13,7 @@
 import { defineComponent } from 'vue'
 import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
+import { Category } from '@/model/model'
 
 interface CategoryFormData {
   name: string;
@@ -22,19 +23,19 @@ export default defineComponent({
   name: 'CategoryForm',
   data (): CategoryFormData {
     return {
-      name: this.$store.state.categories[this.categoryId].name
+      name: this.category.name
     }
   },
   props: {
-    categoryId: {
-      type: String,
+    category: {
+      type: Object as () => Category,
       required: true
     }
   },
   emits: ['loosesFocus'],
   methods: {
     updateCategory () {
-      CategoryService.updateCategory(this.categoryId, this.name).then(
+      CategoryService.updateCategory(this.category.id, this.name).then(
         () => {
           StoreHandler.updateCategories(this.$store)
           this.$emit('loosesFocus')
@@ -42,7 +43,7 @@ export default defineComponent({
       )
     },
     archiveCategory () {
-      CategoryService.archiveCategory(this.categoryId).then(
+      CategoryService.archiveCategory(this.category.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
           this.$emit('loosesFocus')

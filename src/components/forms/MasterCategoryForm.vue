@@ -14,6 +14,7 @@
 import { defineComponent } from 'vue'
 import StoreHandler from '@/store/StoreHandler'
 import MasterCategoryService from '@/services/MasterCategoryService'
+import { MasterCategory } from '@/model/model'
 
 interface CategoryFormData {
   name: string;
@@ -23,19 +24,19 @@ export default defineComponent({
   name: 'CategoryForm',
   data (): CategoryFormData {
     return {
-      name: this.$store.state.masterCategories[this.masterCategoryId].name
+      name: this.masterCategory.name
     }
   },
   props: {
-    masterCategoryId: {
-      type: String,
+    masterCategory: {
+      type: Object as () => MasterCategory,
       required: true
     }
   },
   emits: ['loosesFocus', 'createCategory'],
   methods: {
     updateMasterCategory () {
-      MasterCategoryService.renameMasterCategory(this.masterCategoryId, this.name).then(
+      MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
         () => {
           StoreHandler.updateMasterCategories(this.$store)
           this.$emit('loosesFocus')
@@ -43,7 +44,7 @@ export default defineComponent({
       )
     },
     archiveMasterCategory () {
-      MasterCategoryService.archiveMasterCategory(this.masterCategoryId).then(
+      MasterCategoryService.archiveMasterCategory(this.masterCategory.id).then(
         () => {
           StoreHandler.updateMasterCategories(this.$store)
           this.$emit('loosesFocus')
