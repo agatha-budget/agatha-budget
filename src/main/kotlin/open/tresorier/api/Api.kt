@@ -173,9 +173,13 @@ fun main() {
     app.put("/mcategory") { ctx ->
         val user = getUserFromAuth(ctx)
         val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "id"))
-        val newName = getQueryParam<String>(ctx, "new_name")
 
-        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName)
+        //optional
+        val newName = getOptionalQueryParam<String>(ctx, "new_name")
+        val newArchived = getOptionalQueryParam<Boolean>(ctx, "new_archived")
+        val newDeleted = getOptionalQueryParam<Boolean>(ctx, "new_deleted")
+
+        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName, newArchived, newDeleted)
         ctx.json(updatedMasterCategory)
     }
 

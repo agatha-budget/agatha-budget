@@ -18,9 +18,11 @@ class MasterCategoryService(private val masterCategoryDao: IMasterCategoryDao, p
         return inserted
     }
 
-    fun update(person: Person, masterCategory: MasterCategory, newName: String): MasterCategory {
+    fun update(person: Person, masterCategory: MasterCategory, newName: String?, newArchived: Boolean?, newDeleted: Boolean?): MasterCategory {
         authorizationService.cancelIfUserIsUnauthorized(person, masterCategory)
-        masterCategory.name = newName
+        newName?.let{masterCategory.name = it}
+        newArchived?.let{masterCategory.archived = it}
+        newDeleted?.let{masterCategory.deleted = it}
         return masterCategoryDao.update(masterCategory)
     }
 
