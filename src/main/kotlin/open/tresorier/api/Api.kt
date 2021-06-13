@@ -191,7 +191,7 @@ fun main() {
     app.before("/category", SuperTokens.middleware())
     app.post("/category") { ctx ->
         val user = getUserFromAuth(ctx)
-        val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "id"))
+        val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "master_category_id"))
         val name = getQueryParam<String>(ctx, "name")
 
         val category = ServiceManager.categoryService.create(user, masterCategory, name)
