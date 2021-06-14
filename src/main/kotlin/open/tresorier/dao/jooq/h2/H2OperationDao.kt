@@ -85,7 +85,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
         month?.let{ query.and( OPERATION.MONTH.lessOrEqual(it.comparable))}
-        return query.fetchOne().get(spendingSum).toDouble()
+        val rawResult = query.fetchOne().get(spendingSum)
+        return rawResult?.toDouble() ?: 0.00
     }
 
     override fun findByAccount(account: Account): List<Operation> {

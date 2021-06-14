@@ -207,10 +207,22 @@ open class OperationDaoTest : ITest {
         for (operation in operationList) {
             operationDao.insert(operation)
         }
+
+        val amountBeforeEverything = operationDao.findAmountByBudget(budget, TestData.jan_2020)
+        Assertions.assertEquals(0.00, amountBeforeEverything)
+
         val amountInNovember = operationDao.findAmountByBudget(budget, TestData.nov_2020)
         Assertions.assertEquals(60.00, amountInNovember)
 
         val amountNow = operationDao.findAmountByBudget(budget)
         Assertions.assertEquals(116.00, amountNow)
+    }
+
+    @Test
+    fun getAmountForEmptyBudget() {
+        val budget = Budget("professional budget", "person1")
+        budgetDao.insert(budget)
+        val amountNow = operationDao.findAmountByBudget(budget)
+        Assertions.assertEquals(0.00, amountNow)
     }
 }
