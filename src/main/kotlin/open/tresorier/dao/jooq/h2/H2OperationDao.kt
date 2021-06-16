@@ -90,24 +90,30 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
     }
 
     override fun findByAccount(account: Account): List<Operation> {
-        val jooqOperationList = this.generatedDao.fetchByAccountId(account.id)
-        val accountList: MutableList<Operation> = mutableListOf()
-        for (jooqOperation in jooqOperationList) {
-            val operation = this.toOperation(jooqOperation)
-            operation?.let { accountList.add(it) }
+        val jooqOperationList = this.query
+            .select()
+            .from(OPERATION)
+            .where(OPERATION.ACCOUNT_ID.eq(account.id))
+            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc())
+            .fetch().into(OPERATION)
+
+        val operationList: MutableList<Operation> = mutableListOf()
+        for (operationRecord : OperationRecord in jooqOperationList) {
+            val operation = this.toOperation(operationRecord)
+            operationList.add(operation)
         }
-        return accountList
+
+        return operationList
     }
 
     override fun findByBudget(budget: Budget): List<Operation> {
-        val query = this.query
+        val jooqOperationList = this.query
             .select()
             .from(OPERATION)
             .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
-        query.orderBy(OPERATION.MONTH.asc(), OPERATION.DAY.asc())
-
-        val jooqOperationList = query.fetch().into(OPERATION)
+            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc())
+            .fetch().into(OPERATION)
 
         val operationList: MutableList<Operation> = mutableListOf()
         for (operationRecord : OperationRecord in jooqOperationList) {
