@@ -56,4 +56,25 @@ export default class StoreHandler {
       )
     }
   }
+
+  public static getCategoryById (store: Store<StoreState>, categoryId: string): Category | null {
+    console.log(categoryId)
+    console.log(store.state.categories)
+    for (const category of store.state.categories) {
+      if (category.id === categoryId) {
+        return category
+      }
+    }
+    return null
+  }
+
+  public static getCategoriesByMasterCategory (store: Store<StoreState>, masterCategory: MasterCategory, archived: boolean): Category[] {
+    const categories: Category[] = []
+    for (const category of store.state.categories) {
+      if (category.masterCategoryId === masterCategory.id && category.archived === archived) {
+        categories.push(category)
+      }
+    }
+    return categories.sort((a, b) => (a.name.toLowerCase() <= b.name.toLowerCase() ? -1 : 1))
+  }
 }

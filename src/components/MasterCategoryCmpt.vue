@@ -71,13 +71,7 @@ export default defineComponent({
   },
   computed: {
     categories (): Category[] {
-      const categories: Category[] = []
-      for (const category of this.$store.state.categories) {
-        if (category.masterCategoryId === this.masterCategory.id && category.archived === this.archived) {
-          categories.push(category)
-        }
-      }
-      return categories.sort((a, b) => (a.name.toLowerCase() <= b.name.toLowerCase() ? -1 : 1))
+      return StoreHandler.getCategoriesByMasterCategory(this.$store, this.masterCategory, this.archived)
     },
     masterCategoryData () {
       const masterCategoryData = new CategoryData()
