@@ -1,13 +1,13 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import SuperTokensRequest from 'supertokens-website/axios'
-import { Budget, AccountList, CategoryList, MasterCategoryList, CategoryByMasterCategoryList } from '@/model/model'
+import { Budget, Account, CategoryList, MasterCategoryList, CategoryByMasterCategoryList } from '@/model/model'
 import StoreHandler from './StoreHandler'
 
 export interface StoreState {
   logged: boolean;
   budget: Budget | null;
-  accounts: AccountList;
+  accounts: Account[];
   categories: CategoryList;
   masterCategories: MasterCategoryList;
   orderedMasterCategoriesId: string[];
@@ -18,11 +18,15 @@ export interface StoreState {
 
 export const key: InjectionKey<Store<StoreState>> = Symbol('injectionKey')
 
+/**
+ * REPLACE all indexed by id by good old lists
+ *
+ * **/
 export const store = createStore<StoreState>({
   state: {
     logged: SuperTokensRequest.doesSessionExist(),
     budget: null,
-    accounts: {},
+    accounts: [],
     categories: {},
     masterCategories: {},
     orderedMasterCategoriesId: [],
@@ -38,7 +42,7 @@ export const store = createStore<StoreState>({
       state.budget = budget
       StoreHandler.updateOnBudgetChange(store)
     },
-    updateAccounts (state, accounts: AccountList) {
+    updateAccounts (state, accounts: Account[]) {
       state.accounts = accounts
     },
     updateCategories (state, categories: CategoryList) {
@@ -60,7 +64,7 @@ export const store = createStore<StoreState>({
     updateBudget (context, budget: Budget) {
       context.commit('updateBudget', budget)
     },
-    updateAccounts (context, accounts: AccountList) {
+    updateAccounts (context, accounts: Account[]) {
       context.commit('updateAccounts', accounts)
     },
     updateCategories (context, categories: CategoryList) {

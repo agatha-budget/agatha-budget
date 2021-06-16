@@ -5,7 +5,7 @@
     </div>
     <span> total : {{this.totalOnAccounts}} €</span>
     <ul>
-      <li class="account" v-for="account, accountId in this.$store.state.accounts" :key="accountId">
+      <li class="account" v-for="account of this.$store.state.accounts" :key="account">
         <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{account.amount}} €</button>
       </li>
       <li>
@@ -50,8 +50,8 @@ export default defineComponent({
   computed: {
     totalOnAccounts (): number {
       let total = 0
-      for (const accountId in this.$store.state.accounts) {
-        total += this.$store.state.accounts[accountId].amount
+      for (const account of this.$store.state.accounts) {
+        total += account.amount
       }
       return total
     }
