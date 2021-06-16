@@ -1,14 +1,16 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="home row">
-      <BudgetCmpt :month="this.currentMonth" class="col-md-4 offset-md-2"/>
-      <div class="col-md-2 offset-md-2">
+      <div class="col-md-5 offset-md-2">
+        <ul id="actionsList" class="list-group list-group-horizontal">
+          <li><button class="btn fas fa-chart-pie" :title="$t('GRAPH_AND_REPORT')"/></li>
+          <li><button class="btn fas fa-cog" :title="$t('PREFERENCES')"/></li>
+          <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
+        </ul>
+        <BudgetCmpt :month="this.currentMonth" />
+      </div>
+      <div class="col-md-2 offset-md-1">
       <AccountsWidget/>
-      <ul id="actionsList">
-        <li><button>{{ $t("GRAPH_AND_REPORT") }}</button></li>
-        <li><button>{{ $t("PREFERENCES") }}</button></li>
-        <li><button v-on:click="logout">{{ $t("LOGOUT") }}</button></li>
-      </ul>
       </div>
     </div>
   </div>

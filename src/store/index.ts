@@ -11,6 +11,7 @@ export interface StoreState {
   totalOnAccounts: number;
   categories: CategoryList;
   masterCategories: MasterCategoryList;
+  orderedMasterCategoriesId: string[];
   nonArchivedCategoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
   archivedCategoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
   css: string;
@@ -26,6 +27,7 @@ export const store = createStore<StoreState>({
     totalOnAccounts: 0,
     categories: {},
     masterCategories: {},
+    orderedMasterCategoriesId: [],
     nonArchivedCategoriesIdByMasterCategoriesId: {},
     archivedCategoriesIdByMasterCategoriesId: {},
     css: 'blue'
@@ -53,6 +55,7 @@ export const store = createStore<StoreState>({
     },
     updateMasterCategories (state, masterCategories: MasterCategoryList) {
       state.masterCategories = masterCategories
+      state.orderedMasterCategoriesId = StoreHandler.orderMasterCategories(masterCategories)
       state.nonArchivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(state.categories, masterCategories)
       state.archivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(state.categories, masterCategories, true)
     }

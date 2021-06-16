@@ -73,6 +73,18 @@ export default class StoreHandler {
         data[masterCategoryId].push(categoryId)
       }
     }
-    return data
+    return this.orderCategories(data, categoriesList)
+  }
+
+  public static orderCategories (categoryByMasterCategoryList: CategoryByMasterCategoryList, categoriesList: CategoryList) {
+    for (const masterCategoryId in categoryByMasterCategoryList) {
+      const sorted = categoryByMasterCategoryList[masterCategoryId].sort((a, b) => (categoriesList[a].name.toLowerCase() <= categoriesList[b].name.toLowerCase()) ? -1 : 1)
+      categoryByMasterCategoryList[masterCategoryId] = sorted
+    }
+    return categoryByMasterCategoryList
+  }
+
+  public static orderMasterCategories (masterCategoriesList: MasterCategoryList): string[] {
+    return Object.keys(masterCategoriesList).sort((a, b) => (masterCategoriesList[a].name.toLowerCase() <= masterCategoriesList[b].name.toLowerCase()) ? -1 : 1)
   }
 }

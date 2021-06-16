@@ -27,29 +27,37 @@
       </table>
       <div>
         <table class="budgetTable table"
-        v-for="masterCategoryId in Object.keys(this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId)"
+        v-for="masterCategoryId in this.$store.state.orderedMasterCategoriesId"
         :key="masterCategoryId"
         >
             <master-category-cmpt
+              v-if="Object.keys(this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId).includes(masterCategoryId)"
               @update-allocation="updateAllocation"
               :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
               :categoriesId="this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
               :categoryDataList="this.categoryDataList"
             />
         </table>
-        Archived
-        <table class="budgetArchiveTable table"
-        v-for="masterCategoryId in Object.keys(this.$store.state.archivedCategoriesIdByMasterCategoriesId)"
-        :key="masterCategoryId"
-        >
-            <master-category-cmpt
-              @update-allocation="updateAllocation"
-              :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
-              :categoriesId="this.$store.state.archivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
-              :categoryDataList="this.categoryDataList"
-              :archived="true"
-            />
-        </table>
+        <div v-on:click="this.archiveVisible = !this.archiveVisible">
+          <button v-if="this.archiveVisible" class="btn fas fa-chevron-down"/>
+          <button v-else class="btn fas fa-chevron-right"/>
+          <a>{{$t('ARCHIVE')}}</a>
+        </div>
+        <div v-if="this.archiveVisible" id="archive section" >
+          <table class="budgetArchiveTable table"
+          v-for="masterCategoryId in this.$store.state.orderedMasterCategoriesId"
+          :key="masterCategoryId"
+          >
+              <master-category-cmpt
+                v-if="Object.keys(this.$store.state.archivedCategoriesIdByMasterCategoriesId).includes(masterCategoryId)"
+                @update-allocation="updateAllocation"
+                :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
+                :categoriesId="this.$store.state.archivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
+                :categoryDataList="this.categoryDataList"
+                :archived="true"
+              />
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -73,6 +81,7 @@ interface BudgetCmptData {
     };
     budgetMonth: number;
     amountInBudget: number;
+    archiveVisible: boolean;
 }
 
 export default defineComponent({
@@ -105,7 +114,8 @@ export default defineComponent({
         without asking the back-end to compute */
       formerAllocations: {},
       budgetMonth: this.$props.month,
-      amountInBudget: 0
+      amountInBudget: 0,
+      archiveVisible: false
     }
   },
   computed: {
