@@ -36,10 +36,10 @@ export const store = createStore<StoreState>({
       state.accounts = accounts
     },
     updateCategories (state, categories: Category[]) {
-      state.categories = categories
+      state.categories = categories.sort((a, b) => (a.name.toLowerCase() <= b.name.toLowerCase() ? -1 : 1))
     },
     updateMasterCategories (state, masterCategories: MasterCategory[]) {
-      state.masterCategories = masterCategories
+      state.masterCategories = masterCategories.sort((a, b) => (a.name.toLowerCase() <= b.name.toLowerCase() ? -1 : 1))
     }
   },
   actions: {
