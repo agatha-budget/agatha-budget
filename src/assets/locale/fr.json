@@ -23,5 +23,12 @@
     "MEMO": "mémo",
     "AMOUNT": "montant",
     "I18N_INCOME": "Entrée d'argent",
-    "TO_BE_BUDGETED": "à distribuer"
+    "TO_BE_BUDGETED": "à distribuer",
+    "ARCHIVE": "archive",
+    "EDIT": "éditer",
+    "ADD": "ajouter",
+    "DELETE": "supprimer",
+    "UNKNOWN_CATEGORY": "catégorie inconnue",
+    "SELECT_CATEGORY": "sélectionner catégorie"
+
 }

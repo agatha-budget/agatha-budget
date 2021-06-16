@@ -20,8 +20,8 @@
               <td class="memo">{{ operation.memo }}</td>
               <td class="amount">{{ operation.amount }}</td>
               <td class="action">
-                <button class="btn btn-outline-info fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT_OPERATION')"/>
-                <button class="btn btn-outline-info fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE_OPERATION')"/>
+                <button class="btn btn-outline-info fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
+                <button class="btn btn-outline-info fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
               </td>
             </tr>
           </template>
