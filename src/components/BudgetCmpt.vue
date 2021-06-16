@@ -27,10 +27,11 @@
       </table>
       <div>
         <table class="budgetTable table"
-        v-for="masterCategoryId in Object.keys(this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId)"
+        v-for="masterCategoryId in this.$store.state.orderedMasterCategoriesId"
         :key="masterCategoryId"
         >
             <master-category-cmpt
+              v-if="Object.keys(this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId).includes(masterCategoryId)"
               @update-allocation="updateAllocation"
               :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
               :categoriesId="this.$store.state.nonArchivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
@@ -44,10 +45,11 @@
         </div>
         <div v-if="this.archiveVisible" id="archive section" >
           <table class="budgetArchiveTable table"
-          v-for="masterCategoryId in Object.keys(this.$store.state.archivedCategoriesIdByMasterCategoriesId)"
+          v-for="masterCategoryId in this.$store.state.orderedMasterCategoriesId"
           :key="masterCategoryId"
           >
               <master-category-cmpt
+                v-if="Object.keys(this.$store.state.archivedCategoriesIdByMasterCategoriesId).includes(masterCategoryId)"
                 @update-allocation="updateAllocation"
                 :masterCategory="this.$store.state.masterCategories[masterCategoryId]"
                 :categoriesId="this.$store.state.archivedCategoriesIdByMasterCategoriesId[masterCategoryId]"
