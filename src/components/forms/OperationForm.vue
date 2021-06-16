@@ -4,18 +4,14 @@
     <td class="category">
       <select id="newOperationCategory" class="form-control" v-model="categoryId" >
         <option disabled value="">{{$t('SELECT_CATEGORY')}}</option>
-        <option v-for="category in this.$store.state.categories" :key="category" v-bind:value="category.id">{{category.name}}</option>
+        <option v-for="category of this.$store.state.categories" :key="category" v-bind:value="category.id">{{category.name}}</option>
       </select>
     </td>
     <td class="memo"><input id="newOperationMemo" class="form-control" v-model="memo"></td>
     <td class="amount"><input id="newOperationAmount" class="form-control" v-model.number="amount"></td>
     <td class="validation">
-      <button v-if="this.operation" class="btn btn-outline-info" v-on:click="updateOperation">
-      {{$t('UPDATE_OPERATION')}}
-      </button>
-      <button v-else class="btn btn-outline-info" v-on:click="addOperation">
-      {{$t('ADD_OPERATION')}}
-      </button>
+      <button v-if="this.operation" class="btn btn-outline-info fas fa-check" v-on:click="updateOperation" :title="$t('UPDATE')"/>
+      <button v-else class="btn btn-outline-info fas fa-check" v-on:click="addOperation" :title="$t('ADD')"/>
       </td>
   </tr>
 </template>
@@ -23,7 +19,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
-import { CategoryList, Operation } from '@/model/model'
+import { Operation } from '@/model/model'
 import Time from '@/utils/Time'
 
 interface OperationFormData {
@@ -50,11 +46,6 @@ export default defineComponent({
     },
     operation: {
       type: Object as () => Operation
-    }
-  },
-  computed: {
-    categories (): CategoryList {
-      return this.$store.state.categories
     }
   },
   emits: ['updateOperationList'],

@@ -3,9 +3,9 @@
     <div class="row">
     <h3 class="col-10">{{$t('MY_ACCOUNTS')}}</h3>
     </div>
-    <span> total : {{this.$store.state.totalOnAccounts}} €</span>
+    <span> total : {{this.totalOnAccounts}} €</span>
     <ul>
-      <li class="account" v-for="account, accountId in this.$store.state.accounts" :key="accountId">
+      <li class="account" v-for="account of this.$store.state.accounts" :key="account">
         <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{account.amount}} €</button>
       </li>
       <li>
@@ -31,6 +31,7 @@
 import { defineComponent } from 'vue'
 import AccountCreationForm from '@/components/forms/AccountCreationForm.vue'
 import router, { RouterPages } from '@/router'
+import { Account } from '@/model/model'
 
 interface AccountsWidgetData {
     accountCreationFormIsDisplayed: boolean;
@@ -44,6 +45,15 @@ export default defineComponent({
   data (): AccountsWidgetData {
     return {
       accountCreationFormIsDisplayed: false
+    }
+  },
+  computed: {
+    totalOnAccounts (): number {
+      let total = 0
+      for (const account of this.$store.state.accounts) {
+        total += account.amount
+      }
+      return total
     }
   },
   methods: {

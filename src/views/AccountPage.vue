@@ -1,7 +1,7 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="home row">
-      <h1>test - {{ (this.account) ? this.account.name : ''}}</h1>
+      <h1> Compte {{ (this.account) ? this.account.name : ''}}</h1>
       <table class="operationTable table" >
           <tr class="">
             <th class="date"><div>{{ $t("DATE") }}</div></th>
@@ -16,12 +16,12 @@
             <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
             <tr class="operation" v-else>
               <td class="date"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></td>
-              <td class="category">{{ this.$store.state.categories[operation.categoryId].name }}</td>
+              <td class="category">{{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}</td>
               <td class="memo">{{ operation.memo }}</td>
               <td class="amount">{{ operation.amount }}</td>
               <td class="action">
-                <button class="btn btn-outline-info" v-on:click="setAsEditing(operation)">{{$t('EDIT')}}</button>
-                <button class="btn btn-outline-info" v-on:click="deleteOperation(operation)">{{$t('DELETE')}}</button>
+                <button class="btn btn-outline-info fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
+                <button class="btn btn-outline-info fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
               </td>
             </tr>
           </template>
@@ -34,7 +34,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { redirectToLoginPageIfNotLogged } from '@/router'
-import { Account, Operation } from '@/model/model'
+import { Account, Category, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
@@ -63,7 +63,12 @@ export default defineComponent({
       this.getAccountOperation()
     }
   },
-  props: ['accountId'],
+  props: {
+    accountId: {
+      type: String,
+      required: true
+    }
+  },
   data (): AccountPageData {
     return {
       operations: []
@@ -71,7 +76,12 @@ export default defineComponent({
   },
   computed: {
     account (): Account | null {
-      return this.$store.state.accounts[this.accountId]
+      for (const account of this.$store.state.accounts) {
+        if (account.id === this.accountId) {
+          return account
+        }
+      }
+      return null
     }
   },
   methods: {
@@ -113,6 +123,9 @@ export default defineComponent({
         )
       )
       return editableOperations
+    },
+    getCategoryById (categoryId: string): Category | null {
+      return StoreHandler.getCategoryById(this.$store, categoryId)
     }
   }
 })

@@ -1,4 +1,4 @@
-import { Budget, MasterCategoryList } from '@/model/model'
+import { Budget, MasterCategory } from '@/model/model'
 import { masterCategoryApi } from '@/services/api/apis'
 
 export default class MasterCategoryService {
@@ -18,14 +18,11 @@ export default class MasterCategoryService {
     const response = await masterCategoryApi.updateMasterCategory(masterCategoryId, undefined, false)
   }
 
-  public static async getMasterCategories (budget: Budget): Promise<MasterCategoryList> {
-    const data: MasterCategoryList = {}
+  public static async getMasterCategories (budget: Budget): Promise<MasterCategory[]> {
+    const data: MasterCategory[] = []
     if (budget.id) {
       const response = await masterCategoryApi.getMasterCategoriesByBudget(budget.id)
-      const masterCategories = response.data
-      for (const masterCategory of masterCategories) {
-        data[masterCategory.id] = masterCategory
-      }
+      return response.data
     }
     return data
   }

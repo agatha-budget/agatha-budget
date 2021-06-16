@@ -1,19 +1,15 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import SuperTokensRequest from 'supertokens-website/axios'
-import { Budget, AccountList, CategoryList, MasterCategoryList, CategoryByMasterCategoryList } from '@/model/model'
+import { Budget, Account, Category, MasterCategory } from '@/model/model'
 import StoreHandler from './StoreHandler'
 
 export interface StoreState {
   logged: boolean;
   budget: Budget | null;
-  accounts: AccountList;
-  totalOnAccounts: number;
-  categories: CategoryList;
-  masterCategories: MasterCategoryList;
-  orderedMasterCategoriesId: string[];
-  nonArchivedCategoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
-  archivedCategoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
+  accounts: Account[];
+  categories: Category[];
+  masterCategories: MasterCategory[];
   css: string;
 }
 
@@ -23,13 +19,9 @@ export const store = createStore<StoreState>({
   state: {
     logged: SuperTokensRequest.doesSessionExist(),
     budget: null,
-    accounts: {},
-    totalOnAccounts: 0,
-    categories: {},
-    masterCategories: {},
-    orderedMasterCategoriesId: [],
-    nonArchivedCategoriesIdByMasterCategoriesId: {},
-    archivedCategoriesIdByMasterCategoriesId: {},
+    accounts: [],
+    categories: [],
+    masterCategories: [],
     css: 'blue'
   },
   mutations: {
@@ -40,24 +32,14 @@ export const store = createStore<StoreState>({
       state.budget = budget
       StoreHandler.updateOnBudgetChange(store)
     },
-    updateAccounts (state, accounts: AccountList) {
+    updateAccounts (state, accounts: Account[]) {
       state.accounts = accounts
-      let total = 0
-      for (const accountId in accounts) {
-        total += accounts[accountId].amount
-      }
-      state.totalOnAccounts = total
     },
-    updateCategories (state, categories: CategoryList) {
-      state.categories = categories
-      state.nonArchivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(categories, state.masterCategories)
-      state.archivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(categories, state.masterCategories, true)
+    updateCategories (state, categories: Category[]) {
+      state.categories = categories.sort((a, b) => (a.name.toLowerCase() <= b.name.toLowerCase() ? -1 : 1))
     },
-    updateMasterCategories (state, masterCategories: MasterCategoryList) {
-      state.masterCategories = masterCategories
-      state.orderedMasterCategoriesId = StoreHandler.orderMasterCategories(masterCategories)
-      state.nonArchivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(state.categories, masterCategories)
-      state.archivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(state.categories, masterCategories, true)
+    updateMasterCategories (state, masterCategories: MasterCategory[]) {
+      state.masterCategories = masterCategories.sort((a, b) => (a.name.toLowerCase() <= b.name.toLowerCase() ? -1 : 1))
     }
   },
   actions: {
@@ -67,13 +49,13 @@ export const store = createStore<StoreState>({
     updateBudget (context, budget: Budget) {
       context.commit('updateBudget', budget)
     },
-    updateAccounts (context, accounts: AccountList) {
+    updateAccounts (context, accounts: Account[]) {
       context.commit('updateAccounts', accounts)
     },
-    updateCategories (context, categories: CategoryList) {
+    updateCategories (context, categories: Category[]) {
       context.commit('updateCategories', categories)
     },
-    updateMasterCategories (context, masterCategories: MasterCategoryList) {
+    updateMasterCategories (context, masterCategories: MasterCategory[]) {
       context.commit('updateMasterCategories', masterCategories)
     }
 
