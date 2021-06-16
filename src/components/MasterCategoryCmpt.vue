@@ -77,7 +77,7 @@ export default defineComponent({
           categories.push(category)
         }
       }
-      return categories
+      return categories.sort((a, b) => (a.name.toLowerCase() <= b.name.toLowerCase() ? -1 : 1))
     },
     masterCategoryData () {
       const masterCategoryData = new CategoryData()
