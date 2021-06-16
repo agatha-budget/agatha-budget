@@ -1,7 +1,7 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import SuperTokensRequest from 'supertokens-website/axios'
-import { Budget, Account, Category, MasterCategory, CategoryByMasterCategoryList } from '@/model/model'
+import { Budget, Account, Category, MasterCategory } from '@/model/model'
 import StoreHandler from './StoreHandler'
 
 export interface StoreState {
@@ -10,9 +10,6 @@ export interface StoreState {
   accounts: Account[];
   categories: Category[];
   masterCategories: MasterCategory[];
-  orderedMasterCategoriesId: string[];
-  nonArchivedCategoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
-  archivedCategoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
   css: string;
 }
 
@@ -25,9 +22,6 @@ export const store = createStore<StoreState>({
     accounts: [],
     categories: [],
     masterCategories: [],
-    orderedMasterCategoriesId: [],
-    nonArchivedCategoriesIdByMasterCategoriesId: {},
-    archivedCategoriesIdByMasterCategoriesId: {},
     css: 'blue'
   },
   mutations: {

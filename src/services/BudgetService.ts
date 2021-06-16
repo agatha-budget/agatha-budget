@@ -1,4 +1,4 @@
-import { Budget, BudgetData } from '@/model/model'
+import { Budget } from '@/model/model'
 import { budgetApi } from './api/apis'
 
 export default class BudgetService {
