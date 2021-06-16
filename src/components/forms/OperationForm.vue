@@ -4,7 +4,7 @@
     <td class="category">
       <select id="newOperationCategory" class="form-control" v-model="categoryId" >
         <option disabled value="">{{$t('SELECT_CATEGORY')}}</option>
-        <option v-for="category in this.$store.state.categories" :key="category" v-bind:value="category.id">{{category.name}}</option>
+        <option v-for="category of this.$store.state.categories" :key="category" v-bind:value="category.id">{{category.name}}</option>
       </select>
     </td>
     <td class="memo"><input id="newOperationMemo" class="form-control" v-model="memo"></td>
@@ -23,7 +23,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
-import { CategoryList, Operation } from '@/model/model'
+import { Operation } from '@/model/model'
 import Time from '@/utils/Time'
 
 interface OperationFormData {
@@ -50,11 +50,6 @@ export default defineComponent({
     },
     operation: {
       type: Object as () => Operation
-    }
-  },
-  computed: {
-    categories (): CategoryList {
-      return this.$store.state.categories
     }
   },
   emits: ['updateOperationList'],

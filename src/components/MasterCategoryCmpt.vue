@@ -1,39 +1,41 @@
 <template>
-  <tr class="masterCategory">
-    <th class="col-6 name">
-      <div>
-        <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
-        <a v-else v-on:click="this.putFocusOn(masterCategory.id)"><button class="btn fas fa-pen"/>{{ masterCategory?.name }}</a>
-      </div>
-    </th>
-    <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
-    <th class="col-2 spent">{{ getRoundedAmount(masterCategoryData.spent) }}</th>
-    <th class="col-2 available">{{ getRoundedAmount(masterCategoryData.available) }}</th>
-  </tr>
-  <tbody>
-  <tr class="category" v-for="categoryId in this.categoriesId" :key="categoryId">
-    <td class="name">
-      <div>
-        <CategoryForm v-if="focusOn === categoryId" :category="this.$store.state.categories[categoryId]" @looses-focus="loosesFocus"/>
-        <a v-else v-on:click="this.putFocusOn(categoryId)"><button class="btn fas fa-pen"/>{{ this.$store.state.categories[categoryId]?.name}} </a>
-      </div>
-    </td>
-    <td class="allocated">
-      <span v-if="archived">{{ this.categoryDataList[categoryId]?.allocated || 0 }}</span>
-      <input v-else type="number" class="allocationInput"
-      :value="this.categoryDataList[categoryId]?.allocated || 0"
-      v-on:change="updateAllocationOnChange(categoryId, $event.target.value)"
-      >
+  <template v-if="this.categories.length > 0">
+    <tr class="masterCategory">
+      <th class="col-6 name">
+        <div>
+          <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
+          <a v-else v-on:click="this.putFocusOn(masterCategory.id)"><button class="btn fas fa-pen"/>{{ masterCategory?.name }}</a>
+        </div>
+      </th>
+      <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
+      <th class="col-2 spent">{{ getRoundedAmount(masterCategoryData.spent) }}</th>
+      <th class="col-2 available">{{ getRoundedAmount(masterCategoryData.available) }}</th>
+    </tr>
+    <tbody>
+    <tr class="category" v-for="category of this.categories" :key="category">
+      <td class="name">
+        <div>
+          <CategoryForm v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus"/>
+          <a v-else v-on:click="this.putFocusOn(category.id)"><button class="btn fas fa-pen"/>{{ category.name}} </a>
+        </div>
       </td>
-    <td class="spent">{{ getRoundedAmount(this.categoryDataList[categoryId]?.spent || 0) }}</td>
-    <td class="available">{{ getRoundedAmount(this.categoryDataList[categoryId]?.available || 0) }}</td>
-  </tr>
-  </tbody>
+      <td class="allocated">
+        <span v-if="archived">{{ this.categoryDataList[category.id]?.allocated ?? "" }}</span>
+        <input v-else type="number" class="allocationInput"
+        :value="this.categoryDataList[category.id]?.allocated ?? 0"
+        v-on:change="updateAllocationOnChange(category.id, $event.target.value)"
+        >
+        </td>
+      <td class="spent">{{ getRoundedAmount(this.categoryDataList[category.id]?.spent ?? "") }}</td>
+      <td class="available">{{ getRoundedAmount(this.categoryDataList[category.id]?.available ?? "") }}</td>
+    </tr>
+    </tbody>
+  </template>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { MasterCategory, CategoryDataList, CategoryData } from '@/model/model'
+import { MasterCategory, CategoryDataList, CategoryData, Category } from '@/model/model'
 import Utils from '@/utils/Utils'
 import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
@@ -52,17 +54,14 @@ export default defineComponent({
       type: Object as () => MasterCategory,
       required: true
     },
-    categoriesId: {
-      type: Object as () => string[],
-      required: true
-    },
     categoryDataList: {
       type: Object as () => CategoryDataList,
       required: true
     },
     archived: {
       type: Boolean as () => boolean,
-      required: false
+      required: false,
+      default: false
     }
   },
   data () {
@@ -71,14 +70,21 @@ export default defineComponent({
     }
   },
   computed: {
+    categories (): Category[] {
+      const categories: Category[] = []
+      for (const category of this.$store.state.categories) {
+        if (category.masterCategoryId === this.masterCategory.id && category.archived === this.archived) {
+          categories.push(category)
+        }
+      }
+      return categories
+    },
     masterCategoryData () {
       const masterCategoryData = new CategoryData()
-      for (const categoryId in this.categoryDataList) {
-        if (this.categoriesId.includes(categoryId)) {
-          masterCategoryData.allocated += this.categoryDataList[categoryId].allocated
-          masterCategoryData.spent += this.categoryDataList[categoryId].spent
-          masterCategoryData.available += this.categoryDataList[categoryId].available
-        }
+      for (const category of this.categories) {
+        masterCategoryData.allocated += this.categoryDataList[category.id]?.allocated ?? 0
+        masterCategoryData.spent += this.categoryDataList[category.id]?.spent ?? 0
+        masterCategoryData.available += this.categoryDataList[category.id]?.available ?? 0
       }
       return masterCategoryData
     }
@@ -102,9 +108,6 @@ export default defineComponent({
     },
     loosesFocus () {
       this.focusOn = ''
-    },
-    deleteCategory () {
-      console.log('rfez')
     }
   }
 })

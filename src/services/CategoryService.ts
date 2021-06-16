@@ -1,4 +1,4 @@
-import { Budget, Category, CategoryList, MasterCategory } from '@/model/model'
+import { Budget, Category, MasterCategory } from '@/model/model'
 import { categoryApi } from '@/services/api/apis'
 
 export default class CategoryService {
@@ -18,14 +18,11 @@ export default class CategoryService {
     const response = await categoryApi.updateCategory(categoryId, undefined, undefined, false)
   }
 
-  public static async getCategories (budget: Budget): Promise<CategoryList> {
-    const data: CategoryList = {}
+  public static async getCategories (budget: Budget): Promise<Category[]> {
+    const data: Category[] = []
     if (budget.id) {
       const response = await categoryApi.getCategoriesByBudget(budget.id)
-      const categories = response.data
-      for (const category of categories) {
-        data[category.id] = category
-      }
+      return response.data
     }
     return data
   }

@@ -4,14 +4,6 @@ interface BudgetData {
     [monthComparable: number]: CategoryDataList;
 }
 
-interface CategoryList {
-    [categoryId: string]: Category;
-}
-
-interface MasterCategoryList {
-    [masterCategoryId: string]: MasterCategory;
-}
-
 interface CategoryDataList {
     [categoryId: string]: CategoryData;
 }
@@ -33,7 +25,6 @@ class CategoryData implements ICategoryData {
 const incomeCategoryId = 'universal_income_category'
 
 export {
-  Operation, CategoryData, MasterCategoriesData, BudgetData, Account,
-  CategoryList, Budget, Category, MasterCategory, CategoryDataList, MasterCategoryList,
+  Operation, CategoryData, MasterCategoriesData, BudgetData, Account, Budget, Category, MasterCategory, CategoryDataList,
   CategoryByMasterCategoryList, incomeCategoryId
 }

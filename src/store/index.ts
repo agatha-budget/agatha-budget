@@ -1,15 +1,15 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import SuperTokensRequest from 'supertokens-website/axios'
-import { Budget, Account, CategoryList, MasterCategoryList, CategoryByMasterCategoryList } from '@/model/model'
+import { Budget, Account, Category, MasterCategory, CategoryByMasterCategoryList } from '@/model/model'
 import StoreHandler from './StoreHandler'
 
 export interface StoreState {
   logged: boolean;
   budget: Budget | null;
   accounts: Account[];
-  categories: CategoryList;
-  masterCategories: MasterCategoryList;
+  categories: Category[];
+  masterCategories: MasterCategory[];
   orderedMasterCategoriesId: string[];
   nonArchivedCategoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
   archivedCategoriesIdByMasterCategoriesId: CategoryByMasterCategoryList;
@@ -18,17 +18,13 @@ export interface StoreState {
 
 export const key: InjectionKey<Store<StoreState>> = Symbol('injectionKey')
 
-/**
- * REPLACE all indexed by id by good old lists
- *
- * **/
 export const store = createStore<StoreState>({
   state: {
     logged: SuperTokensRequest.doesSessionExist(),
     budget: null,
     accounts: [],
-    categories: {},
-    masterCategories: {},
+    categories: [],
+    masterCategories: [],
     orderedMasterCategoriesId: [],
     nonArchivedCategoriesIdByMasterCategoriesId: {},
     archivedCategoriesIdByMasterCategoriesId: {},
@@ -45,16 +41,11 @@ export const store = createStore<StoreState>({
     updateAccounts (state, accounts: Account[]) {
       state.accounts = accounts
     },
-    updateCategories (state, categories: CategoryList) {
+    updateCategories (state, categories: Category[]) {
       state.categories = categories
-      state.nonArchivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(categories, state.masterCategories)
-      state.archivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(categories, state.masterCategories, true)
     },
-    updateMasterCategories (state, masterCategories: MasterCategoryList) {
+    updateMasterCategories (state, masterCategories: MasterCategory[]) {
       state.masterCategories = masterCategories
-      state.orderedMasterCategoriesId = StoreHandler.orderMasterCategories(masterCategories)
-      state.nonArchivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(state.categories, masterCategories)
-      state.archivedCategoriesIdByMasterCategoriesId = StoreHandler.createCategoryIdListByMasterCategoryId(state.categories, masterCategories, true)
     }
   },
   actions: {
@@ -67,10 +58,10 @@ export const store = createStore<StoreState>({
     updateAccounts (context, accounts: Account[]) {
       context.commit('updateAccounts', accounts)
     },
-    updateCategories (context, categories: CategoryList) {
+    updateCategories (context, categories: Category[]) {
       context.commit('updateCategories', categories)
     },
-    updateMasterCategories (context, masterCategories: MasterCategoryList) {
+    updateMasterCategories (context, masterCategories: MasterCategory[]) {
       context.commit('updateMasterCategories', masterCategories)
     }
 
