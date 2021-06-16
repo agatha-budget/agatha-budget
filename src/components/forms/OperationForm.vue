@@ -10,12 +10,8 @@
     <td class="memo"><input id="newOperationMemo" class="form-control" v-model="memo"></td>
     <td class="amount"><input id="newOperationAmount" class="form-control" v-model.number="amount"></td>
     <td class="validation">
-      <button v-if="this.operation" class="btn btn-outline-info" v-on:click="updateOperation">
-      {{$t('UPDATE_OPERATION')}}
-      </button>
-      <button v-else class="btn btn-outline-info" v-on:click="addOperation">
-      {{$t('ADD_OPERATION')}}
-      </button>
+      <button v-if="this.operation" class="btn btn-outline-info fas fa-check" v-on:click="updateOperation" :title="$t('UPDATE_OPERATION')"/>
+      <button v-else class="btn btn-outline-info fas fa-check" v-on:click="addOperation" :title="$t('ADD_OPERATION')"/>
       </td>
   </tr>
 </template>

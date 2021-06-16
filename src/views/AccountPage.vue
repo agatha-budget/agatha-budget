@@ -1,7 +1,7 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="home row">
-      <h1>test - {{ (this.account) ? this.account.name : ''}}</h1>
+      <h1> Compte {{ (this.account) ? this.account.name : ''}}</h1>
       <table class="operationTable table" >
           <tr class="">
             <th class="date"><div>{{ $t("DATE") }}</div></th>
@@ -20,8 +20,8 @@
               <td class="memo">{{ operation.memo }}</td>
               <td class="amount">{{ operation.amount }}</td>
               <td class="action">
-                <button class="btn btn-outline-info" v-on:click="setAsEditing(operation)">{{$t('EDIT')}}</button>
-                <button class="btn btn-outline-info" v-on:click="deleteOperation(operation)">{{$t('DELETE')}}</button>
+                <button class="btn btn-outline-info fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT_OPERATION')"/>
+                <button class="btn btn-outline-info fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE_OPERATION')"/>
               </td>
             </tr>
           </template>
