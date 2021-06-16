@@ -29,6 +29,7 @@
     "ADD": "ajouter",
     "DELETE": "supprimer",
     "UNKNOWN_CATEGORY": "catégorie inconnue",
-    "SELECT_CATEGORY": "sélectionner catégorie"
+    "SELECT_CATEGORY": "sélectionner catégorie",
+    "ACTION": "action"
 
 }

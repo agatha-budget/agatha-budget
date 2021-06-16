@@ -58,8 +58,6 @@ export default class StoreHandler {
   }
 
   public static getCategoryById (store: Store<StoreState>, categoryId: string): Category | null {
-    console.log(categoryId)
-    console.log(store.state.categories)
     for (const category of store.state.categories) {
       if (category.id === categoryId) {
         return category
