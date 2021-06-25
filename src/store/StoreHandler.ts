@@ -75,4 +75,14 @@ export default class StoreHandler {
     }
     return categories
   }
+
+  public static getCategoriesByArchivedStatus (store: Store<StoreState>, archived: boolean): Category[] {
+    const categories: Category[] = []
+    for (const category of store.state.categories) {
+      if (category.archived === archived) {
+        categories.push(category)
+      }
+    }
+    return categories
+  }
 }

@@ -9,7 +9,11 @@
       </th>
       <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
       <th class="col-2 spent">{{ getRoundedAmount(masterCategoryData.spent) }}</th>
-      <th class="col-2 available">{{ getRoundedAmount(masterCategoryData.available) }}</th>
+      <th class="col-2 available">
+        <span :class="masterCategoryData.available < 0 ? 'negative' : 'positive'">
+          {{ getRoundedAmount(masterCategoryData.available) }}
+        </span>
+      </th>
     </tr>
     <tbody>
     <tr class="category" v-for="category of this.categories" :key="category">
@@ -26,8 +30,14 @@
         v-on:change="updateAllocationOnChange(category.id, $event.target.value)"
         >
         </td>
-      <td class="spent">{{ getRoundedAmount(this.categoryDataList[category.id]?.spent ?? "") }}</td>
-      <td class="available">{{ getRoundedAmount(this.categoryDataList[category.id]?.available ?? "") }}</td>
+      <td class="spent">
+          {{ getRoundedAmount(this.categoryDataList[category.id]?.spent ?? "") }}
+      </td>
+      <td class="available">
+        <span v-if="this.categoryDataList[category.id] && this.categoryDataList[category.id].available != 0" :class="this.categoryDataList[category.id]?.available < 0 ? 'negative' : 'positive'">
+          {{ getRoundedAmount(this.categoryDataList[category.id]?.available) }}
+        </span>
+      </td>
     </tr>
     </tbody>
   </template>
