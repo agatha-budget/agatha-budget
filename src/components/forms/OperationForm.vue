@@ -7,6 +7,9 @@
         <optgroup v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" v-bind:value="masterCategory.id" :label="masterCategory.name">
           <option v-for="category of this.getCategoriesByMasterCategory(masterCategory)" :key="category" v-bind:value="category.id">{{category.name}}</option>
         </optgroup>
+        <optgroup :label="$t('ARCHIVED_CATEGORIES')">
+          <option v-for="category of this.getArchivedCategories()" :key="category" v-bind:value="category.id">{{category.name}}</option>
+        </optgroup>
       </select>
     </td>
     <td class="memo"><input id="newOperationMemo" class="form-control" v-model="memo"></td>
@@ -73,6 +76,9 @@ export default defineComponent({
     },
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
       return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+    },
+    getArchivedCategories (): Category[] {
+      return StoreHandler.getCategoriesByArchivedStatus(this.$store, true)
     }
   }
 })

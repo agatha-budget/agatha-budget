@@ -30,6 +30,7 @@
     "DELETE": "supprimer",
     "UNKNOWN_CATEGORY": "catégorie inconnue",
     "SELECT_CATEGORY": "sélectionner catégorie",
-    "ACTION": "action"
+    "ACTION": "action",
+    "ARCHIVED_CATEGORIES": "Catégories archivées"
 
 }
