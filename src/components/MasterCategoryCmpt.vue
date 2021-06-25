@@ -9,7 +9,11 @@
       </th>
       <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
       <th class="col-2 spent">{{ getRoundedAmount(masterCategoryData.spent) }}</th>
-      <th class="col-2 available">{{ getRoundedAmount(masterCategoryData.available) }}</th>
+      <th class="col-2 available">
+        <span :class="masterCategoryData.available < 0 ? 'negative' : 'positive'">
+          {{ getRoundedAmount(masterCategoryData.available) }}
+        </span>
+      </th>
     </tr>
     <tbody>
     <tr class="category" v-for="category of this.categories" :key="category">
