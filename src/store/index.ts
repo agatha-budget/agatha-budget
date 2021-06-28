@@ -22,7 +22,7 @@ export const store = createStore<StoreState>({
     accounts: [],
     categories: [],
     masterCategories: [],
-    css: 'blue'
+    css: 'default'
   },
   mutations: {
     updateLogged (state) {

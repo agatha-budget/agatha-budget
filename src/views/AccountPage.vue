@@ -1,7 +1,7 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="home row">
-      <h1> Compte {{ (this.account) ? this.account.name : ''}}</h1>
+    <div class="accountPage row col-md-10 offset-md-1">
+      <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? this.account.amount : ''}}€</h1>
       <table class="operationTable table" >
           <tr class="">
             <th class="date"><div>{{ $t("DATE") }}</div></th>
