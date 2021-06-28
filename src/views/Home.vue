@@ -2,15 +2,19 @@
   <div :class="this.$store.state.css">
     <div class="home row">
       <div class="col-md-5 offset-md-2">
-        <ul id="actionsList" class="list-group list-group-horizontal">
+        <ul id="actionsList" class="list-group list-group-horizontal d-flex justify-content-center">
           <li><button class="btn fas fa-chart-pie" :title="$t('GRAPH_AND_REPORT')"/></li>
           <li><button class="btn fas fa-cog" :title="$t('PREFERENCES')"/></li>
           <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
         </ul>
-        <BudgetCmpt :month="this.currentMonth" />
       </div>
-      <div class="col-md-2 offset-md-1">
-      <AccountsWidget/>
+      <div class="row">
+        <div class="col-md-5 offset-md-2">
+          <BudgetCmpt :month="this.currentMonth" />
+        </div>
+        <div class="col-md-2 offset-md-1">
+          <AccountsWidget/>
+        </div>
       </div>
     </div>
   </div>

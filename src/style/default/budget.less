@@ -1,0 +1,116 @@
+#budgetTables, #totalTable  {
+    tbody, td, tfoot, th, thead, tr {
+        border-style: none;
+    }
+}
+
+#totalTable {
+    tr {
+
+        th.allocated, th.available, th.spent{
+            padding: 0 0 10px 0;
+            div {
+                min-height: 40px;
+                background : @masterBlue;
+                text-align: center;
+                color: whitesmoke
+
+            }
+        }
+
+        td.allocated, td.available, td.spent {
+            background : @masterBlue;
+            border-spacing : 0px;
+            text-align: center;
+        }
+
+        td.allocated, td.available {
+            font-weight: bold;
+        }
+
+        td.allocated, th.allocated div {
+            border-radius: 6px 0 0 6px;
+        }
+
+        td.available, th.available div {
+            border-radius: 0 6px 6px 0;
+        }
+
+        td.name {
+            padding: 0 10px 0 0;
+            div {
+                font-weight: bold;
+                min-height: 40px;
+                border-radius: 6px;
+                background :  @masterBlue;;
+                text-align: center;
+                line-height: 40px;
+            }
+        }
+    }
+    
+}
+
+#budgetTables {
+    background: @transparentBlue;
+    border-radius: 28px;
+    padding: 20px;
+    table {
+        margin-bottom: 10px;
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    tr.masterCategory {
+        th.name {
+            padding: 0 10px 0 0;
+            div {
+                min-height: 26px;
+                border-radius: 6px 6px 0 0;
+                background : @masterBlue;;
+                text-align: center;
+            }
+        }
+        th.allocated {
+            border-radius: 6px 0px 0px 0px;
+        }
+        th.available {
+            border-radius: 0px 6px 0px 0px;
+        }
+        th.allocated, th.available, th.spent {
+            background : @masterBlue;;
+            border-spacing : 0px;
+            text-align: center;
+        }
+    }
+
+    tr.category {
+        td.name {
+            padding: 0 10px 0 0;
+            div {
+                min-height: 54px;
+                background : @lightBlue;
+                padding: 0 0 0 10px;
+                line-height: 54px;
+            }
+        }
+        td.allocated {
+            input {
+                text-align: center;
+            }
+        }
+        td.allocated, td.available, td.spent {
+            text-align: center;
+            background : @lightBlue;
+        }
+    }
+}
+
+.spent {
+    font-weight: lighter;
+}
+
+td {
+    vertical-align: middle;
+}

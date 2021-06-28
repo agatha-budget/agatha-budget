@@ -1,3 +1,31 @@
 .default {
-    
+
+  background: rgb(33,152,166);
+  background: linear-gradient(231deg, rgba(33,152,166,1) 0%, rgba(18,77,116,1) 40%); 
+
+  @greenblue: #2198A6;
+  @majorBlue: #124D74;
+
+  @darkBlue: #2F5662;
+    @masterBlue: #88a6b9;
+    @lightBlue: #d2eaed;
+  @transparentBlue: rgba(144, 217,233, 0.4);
+
+  #actionsList {
+    text-align: center;
+    .btn {
+      font-size: 45px;
+      background-color: #88a6b9;
+      margin: 40px;
+      padding: 20px;
+      border-radius: 45px;
+    }
+
+    list-style-type: none;
+
+  }
+
+  @import url(default/accountWidget.less);
+  @import url(default/budget.less);
+  @import url(default/accountPage.less);
 }

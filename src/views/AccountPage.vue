@@ -1,6 +1,6 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="home row">
+    <div class="accountPage row col-md-10 offset-md-1">
       <h1> Compte {{ (this.account) ? this.account.name : ''}}</h1>
       <table class="operationTable table" >
           <tr class="">
