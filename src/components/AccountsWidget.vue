@@ -1,14 +1,14 @@
 <template>
   <div id="accountWidget">
     <div class="row">
-    <h3 class="col-10">{{$t('MY_ACCOUNTS')}}</h3>
+    <h1>{{$t('MY_ACCOUNTS')}}</h1>
     </div>
-    <span> total : {{this.totalOnAccounts}} €</span>
+    <span class="total"> total : {{this.totalOnAccounts}} €</span>
     <ul>
       <li class="account" v-for="account of this.$store.state.accounts" :key="account">
         <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{account.amount}} €</button>
       </li>
-      <li>
+      <li class="accountForm">
         <div v-if="!accountCreationFormIsDisplayed">
           <button class="btn displayFormBtn" v-on:click="changeAccountCreationFormDisplay" >
             <span >{{$t('ADD_ACCOUNT')}}</span>
