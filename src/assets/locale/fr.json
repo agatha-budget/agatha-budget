@@ -22,7 +22,7 @@
     "CATEGORY": "categorie",
     "MEMO": "mémo",
     "AMOUNT": "montant",
-    "I18N_INCOME": "Entrée d'argent",
+    "I18N_INCOME": "Argent à répartir",
     "TO_BE_BUDGETED": "à distribuer",
     "ARCHIVE": "archive",
     "EDIT": "éditer",
@@ -31,6 +31,8 @@
     "UNKNOWN_CATEGORY": "catégorie inconnue",
     "SELECT_CATEGORY": "sélectionner catégorie",
     "ACTION": "action",
-    "ARCHIVED_CATEGORIES": "Catégories archivées"
+    "ARCHIVED_CATEGORIES": "Catégories archivées",
+    "DEFAULT": "Par défaut",
+    "I18N_TRASNFERT": "Transfert vers/depuis un autre compte"
 
 }
