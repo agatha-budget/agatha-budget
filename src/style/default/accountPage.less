@@ -5,7 +5,32 @@
     margin-top: 80px;
     h1 {
         text-align: center;
-        font-size: 70px ;
+        font-size: xx-large ;
         margin-bottom: 30px;
     }
+
+    .storedOperation:nth-child(even) {
+        background-color: @lightBlue;
+        .btn{
+            color: @lightBlue2;
+        } 
+    }
+    .storedOperation:nth-child(odd) {
+        background-color: @lightBlue2;
+        .btn{
+            color: @lightBlue;
+        } 
+    }
+
+    .operation {
+        font-size: small;
+        .btn {
+            font-size: small;
+            padding-left: 10px;
+        }
+        .date {
+            text-align: center;
+        }
+    }
+
 }
