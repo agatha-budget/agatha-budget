@@ -1,27 +1,27 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="accountPage row col-md-10 offset-md-1">
+    <div class="accountPage row col-md-8 offset-md-2">
       <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? this.account.amount : ''}}€</h1>
-      <table class="operationTable table" >
+      <table class="operationTable table table-hover" >
           <tr class="">
-            <th class="date"><div>{{ $t("DATE") }}</div></th>
-            <th class="category">{{ $t("CATEGORY") }}</th>
-            <th class="memo">{{ $t("MEMO") }}</th>
-            <th class="amount">{{ $t("AMOUNT") }}</th>
-            <th class="action">{{ $t("ACTION") }}</th>
+            <th class="date col-md-1"><div>{{ $t("DATE") }}</div></th>
+            <th class="category col-md-4">{{ $t("CATEGORY") }}</th>
+            <th class="memo col-md-4">{{ $t("MEMO") }}</th>
+            <th class="amount col-md-2">{{ $t("AMOUNT") }}</th>
+            <th class="action col-md-1">{{ $t("ACTION") }}</th>
           </tr>
           <tbody>
           <OperationForm @update-operation-list="getAccountOperation" :accountId="this.accountId" />
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
-            <tr class="operation" v-else>
+            <tr class="operation storedOperation" v-else>
               <td class="date"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></td>
               <td class="category">{{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}</td>
               <td class="memo">{{ operation.memo }}</td>
               <td class="amount">{{ operation.amount }}</td>
               <td class="action">
-                <button class="btn btn-outline-info fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
-                <button class="btn btn-outline-info fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
+                <button class="btn fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
+                <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
               </td>
             </tr>
           </template>
