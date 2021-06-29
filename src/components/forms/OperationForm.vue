@@ -4,6 +4,8 @@
     <td class="category">
       <select id="newOperationCategory" class="form-control" v-model="categoryId" >
         <option disabled value="">{{$t('SELECT_CATEGORY')}}</option>
+        <option v-bind:value="incomeCategoryId">{{$t('I18N_INCOME')}}</option>
+        <option v-bind:value="transfertCategoryId">{{$t('I18N_TRASNFERT')}}</option>
         <optgroup v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" v-bind:value="masterCategory.id" :label="masterCategory.name">
           <option v-for="category of this.getCategoriesByMasterCategory(masterCategory)" :key="category" v-bind:value="category.id">{{category.name}}</option>
         </optgroup>
@@ -24,7 +26,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
-import { Category, MasterCategory, Operation } from '@/model/model'
+import { Category, MasterCategory, Operation, incomeCategoryId, transfertCategoryId } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 
@@ -52,6 +54,14 @@ export default defineComponent({
     },
     operation: {
       type: Object as () => Operation
+    }
+  },
+  computed: {
+    incomeCategoryId (): string {
+      return incomeCategoryId
+    },
+    transfertCategoryId (): string {
+      return transfertCategoryId
     }
   },
   emits: ['updateOperationList'],
