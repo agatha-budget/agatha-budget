@@ -19,7 +19,7 @@
       <div class="input-group flex-nowrap">
         <label class="switch">
           <input class="switch-input" type="checkbox" v-model="incoming"/>
-          <span class="switch-label" data-on="+" data-off="-"></span>
+          <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px"></span>
           <span class="switch-handle"></span>
         </label>
         <input id="newOperationAmount" class="form-control" v-model.number="amount">
@@ -54,7 +54,7 @@ export default defineComponent({
       date: this.operation ? Time.getDateStringFromDay(this.operation.day) : Time.getCurrentDateString(),
       categoryId: this.operation?.categoryId || '',
       memo: this.operation?.memo || '',
-      incoming: this.operation?.amount ? this.operation?.amount < 0 : false,
+      incoming: this.operation?.amount ? this.operation.amount > 0 : false,
       amount: this.operation?.amount || 0
     }
   },
