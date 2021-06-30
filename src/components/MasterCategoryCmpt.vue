@@ -4,7 +4,12 @@
       <th class="col-6 name">
         <div>
           <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
-          <a v-else v-on:click="this.putFocusOn(masterCategory.id)"><button class="btn fas fa-pen"/>{{ masterCategory?.name }}</a>
+          <div v-else>
+            <button class="btn fas fa-plus" v-on:click="createCategory"/>
+            <a  v-on:click="this.putFocusOn(masterCategory.id)">
+              <button class="btn fas fa-pen"/>{{ masterCategory?.name }}
+            </a>
+          </div>
         </div>
       </th>
       <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
