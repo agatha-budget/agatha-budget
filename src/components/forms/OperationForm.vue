@@ -15,7 +15,16 @@
       </select>
     </td>
     <td class="memo"><input id="newOperationMemo" class="form-control" v-model="memo"></td>
-    <td class="amount"><input id="newOperationAmount" class="form-control" v-model.number="amount"></td>
+    <td class="amount">
+      <div class="input-group flex-nowrap">
+        <label class="switch">
+          <input class="switch-input" type="checkbox" v-model="incoming"/>
+          <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px"></span>
+          <span class="switch-handle"></span>
+        </label>
+        <input id="newOperationAmount" class="form-control" v-model.number="amount">
+      </div>
+    </td>
     <td class="validation">
       <button v-if="this.operation" class="btn fas fa-check" v-on:click="updateOperation" :title="$t('UPDATE')"/>
       <button v-else class="btn fas fa-check" v-on:click="addOperation" :title="$t('ADD')"/>
@@ -34,6 +43,7 @@ interface OperationFormData {
   date: string;
   categoryId: string;
   memo: string;
+  incoming: boolean;
   amount: number;
 }
 
@@ -44,6 +54,7 @@ export default defineComponent({
       date: this.operation ? Time.getDateStringFromDay(this.operation.day) : Time.getCurrentDateString(),
       categoryId: this.operation?.categoryId || '',
       memo: this.operation?.memo || '',
+      incoming: this.operation?.amount ? this.operation.amount > 0 : false,
       amount: this.operation?.amount || 0
     }
   },
@@ -62,13 +73,16 @@ export default defineComponent({
     },
     transfertCategoryId (): string {
       return transfertCategoryId
+    },
+    signedAmount (): number {
+      return (this.incoming) ? this.amount : this.amount * -1
     }
   },
   emits: ['updateOperationList'],
   methods: {
     updateOperation () {
       if (this.operation) {
-        OperationService.updateOperation(this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.amount, this.memo).then(
+        OperationService.updateOperation(this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
           () => {
             this.$emit('updateOperationList')
           }
@@ -78,7 +92,7 @@ export default defineComponent({
       }
     },
     addOperation () {
-      OperationService.addOperation(this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.amount, this.memo).then(
+      OperationService.addOperation(this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
         () => {
           this.$emit('updateOperationList')
         }
