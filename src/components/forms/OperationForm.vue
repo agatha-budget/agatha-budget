@@ -18,7 +18,7 @@
     <td class="amount">
       <div class="input-group flex-nowrap">
         <label class="switch">
-          <input class="switch-input" type="checkbox" />
+          <input class="switch-input" type="checkbox" v-model="incoming"/>
           <span class="switch-label" data-on="+" data-off="-"></span>
           <span class="switch-handle"></span>
         </label>
@@ -73,13 +73,16 @@ export default defineComponent({
     },
     transfertCategoryId (): string {
       return transfertCategoryId
+    },
+    signedAmount (): number {
+      return (this.incoming) ? this.amount : this.amount * -1
     }
   },
   emits: ['updateOperationList'],
   methods: {
     updateOperation () {
       if (this.operation) {
-        OperationService.updateOperation(this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.amount, this.memo).then(
+        OperationService.updateOperation(this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
           () => {
             this.$emit('updateOperationList')
           }
@@ -89,7 +92,7 @@ export default defineComponent({
       }
     },
     addOperation () {
-      OperationService.addOperation(this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.amount, this.memo).then(
+      OperationService.addOperation(this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
         () => {
           this.$emit('updateOperationList')
         }
