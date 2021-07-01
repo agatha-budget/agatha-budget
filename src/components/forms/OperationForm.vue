@@ -75,7 +75,7 @@ export default defineComponent({
       return transfertCategoryId
     },
     signedAmount (): number {
-      return (this.incoming) ? this.amount : this.amount * -1
+      return (this.incoming) ? Math.abs(this.amount) : Math.abs(this.amount) * -1
     }
   },
   emits: ['updateOperationList'],
