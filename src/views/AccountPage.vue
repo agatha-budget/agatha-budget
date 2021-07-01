@@ -98,7 +98,7 @@ export default defineComponent({
       return Time.getDateFromDay(dayAsInt)
     },
     deleteOperation (operation: Operation) {
-      OperationService.deleteOperation(operation).then(
+      OperationService.deleteOperation(this.$store, operation).then(
         () => {
           this.getAccountOperation()
         }
