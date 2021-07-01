@@ -82,7 +82,7 @@ export default defineComponent({
   methods: {
     updateOperation () {
       if (this.operation) {
-        OperationService.updateOperation(this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
+        OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
           () => {
             this.$emit('updateOperationList')
           }
@@ -92,7 +92,7 @@ export default defineComponent({
       }
     },
     addOperation () {
-      OperationService.addOperation(this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
+      OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
         () => {
           this.$emit('updateOperationList')
         }
