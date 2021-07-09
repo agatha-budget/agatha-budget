@@ -9,13 +9,12 @@
         border-radius: 25px;
         background: @red;
         font-weight: bold;
-        padding: 8px  15px 8px 15px;
+        padding: 2px  15px 2px 15px;
     }
 }
 
 #totalTable {
     tr {
-
         th.allocated, th.available, th.spent{
             padding: 0 0 10px 0;
             div {
@@ -98,10 +97,15 @@
     }
    
     tr.masterCategory {
+        th {
+            div {
+                vertical-align: middle;
+                padding: 0;
+            }
+        }
         th.name {
             padding: 0 10px 0 0;
             div {
-                min-height: 26px;
                 border-radius: 6px 6px 0 0;
                 background : @masterBlue;;
                 text-align: center;
@@ -125,13 +129,15 @@
     }
 
     tr.category {
+        td {
+            vertical-align: middle;
+            padding: 0;
+        }
         td.name {
             padding: 0 10px 0 0;
             div {
-                min-height: 45px;
                 background : @background;
                 padding: 0 0 0 10px;
-                line-height: 45px;
                 .btn {
                     color: @masterBlue;
                     font-size: small;
@@ -148,12 +154,12 @@
             background : @background;
         }
     }
-}
 
-.spent {
-    font-weight: lighter;
-}
+    input[type=number] {
+        -moz-appearance:textfield;
+    }
 
-td {
-    vertical-align: middle;
+    .spent {
+        font-weight: lighter;
+    }
 }
