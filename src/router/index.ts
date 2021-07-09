@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import AccountPage from '../views/AccountPage.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
+import { AxiosResponse } from 'axios'
 
 export enum RouterPages {
   home = '/',
@@ -42,6 +43,12 @@ const router = createRouter({
 
 export function redirectToLoginPageIfNotLogged (store: Store<StoreState>) {
   if (!store.state.logged) {
+    router.push(RouterPages.login)
+  }
+}
+
+export function redirectToLoginPageIfUnauthorizedError (response: AxiosResponse) {
+  if (response.status === 401) {
     router.push(RouterPages.login)
   }
 }

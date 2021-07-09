@@ -1,9 +1,9 @@
 <template>
-  <div id="login_page" class="col-2 offset-5">
+  <div id="login_page">
     <img id="logo" alt="Vue logo" src="../assets/logo.png" />
     <input class="form-control" v-model="email" :placeholder="$t('EMAIL')">
-    <input class="form-control" v-model="password" :placeholder="$t('PASSWORD')">
-    <button class="btn btn-outline-info" v-on:click="login">{{$t('LOGIN')}}</button>
+    <input class="form-control" type="password" v-model="password" :placeholder="$t('PASSWORD')">
+    <button class="btn btn-info" v-on:click="login">{{$t('LOGIN')}}</button>
     <p id="login_error_msg">{{errorMsg}}</p>
   </div>
 </template>

@@ -8,17 +8,23 @@
         font-size: xx-large ;
         margin-bottom: 30px;
     }
+    #operationForm {
+        background: @majorLightBlue;
+        .btn{
+            color: @background;
+        } 
+    }
 
     .storedOperation:nth-child(even) {
-        background-color: @lightBlue;
+        background-color: @background;
         .btn{
-            color: @lightBlue2;
+            color: @majorLightBlue;
         } 
     }
     .storedOperation:nth-child(odd) {
-        background-color: @lightBlue2;
+        background-color: @darkerBackground;
         .btn{
-            color: @lightBlue;
+            color: @majorLightBlue;
         } 
     }
 

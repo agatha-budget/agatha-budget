@@ -3,7 +3,7 @@
     <div class="home row">
       <div class="col-md-5 offset-md-2">
         <ul id="actionsList" class="list-group list-group-horizontal d-flex justify-content-center">
-          <li><button class="btn fas fa-chart-pie" :title="$t('GRAPH_AND_REPORT')"/></li>
+          <li><button class="btn fas fa-chart-line" :title="$t('GRAPH_AND_REPORT')"/></li>
           <li><button class="btn fas fa-cog" :title="$t('PREFERENCES')"/></li>
           <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
         </ul>

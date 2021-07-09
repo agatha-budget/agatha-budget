@@ -1,7 +1,5 @@
 .default {
 
-  background: rgb(33,152,166);
-  background: linear-gradient(231deg, rgba(33,152,166,1) 0%, rgba(18,77,116,1) 40%); 
 
   @greenblue: #2198A6;
   @majorBlue: #124D74;
@@ -15,11 +13,24 @@
   @green: #c5e6a6;
   @red: #E77471;
 
+
+  @majorLightBlue: #8bd1d9;
+  @background: #f2f2f2;
+  @darkerBackground: #e8e8e8;
+
+  background: @background; 
+
+
+  .month {
+    text-transform: capitalize;
+  }
+
   #actionsList {
     text-align: center;
     .btn {
       font-size: 30px;
       background-color: @masterBlue;
+      color: @background;
       margin: 20px;
       padding: 10px;
       border-radius: 45px;
