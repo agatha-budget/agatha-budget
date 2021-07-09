@@ -3,7 +3,7 @@
     <div id="budgetTables">
       <div class="row date">
         <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
-        <div class="col-8 " :class="this.toBeBudgetedClass">
+        <div class="col-8 date-label" :class="this.toBeBudgetedClass">
           <span class="month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></span>
           <span class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> : {{ this.toBeBudgeted }} € {{$t('TO_BE_BUDGETED')}}</span>
           <span class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> : {{ -1*this.toBeBudgeted }} € {{$t('TO_BE_PULLED_OUT')}}</span>

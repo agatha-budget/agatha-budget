@@ -66,13 +66,9 @@
     padding: 20px;
     font-size: small;
 
-    display: flex;
-    flex-flow: column;
-    height: 100%;
-
     .scrollable {
         overflow-y:scroll;
-        flex: 1 1 auto;
+        max-height: 75vh;
     }
 
     table {
@@ -85,23 +81,19 @@
         .btn {
             font-size: xx-large;
         }
-        .negative {
+        .date-label {
             border-radius: 25px;
-            background: @red;
             font-weight: bold;
             padding: 8px  15px 8px 15px;
+        }
+        .negative {
+            background: @red;
         }
         .positive {
-            border-radius: 25px;
             background: @orange;
-            font-weight: bold;
-            padding: 8px  15px 8px 15px;
         }
         .null {
-            border-radius: 25px;
             background: @green;
-            font-weight: bold;
-            padding: 8px  15px 8px 15px;
         }
     }
    
