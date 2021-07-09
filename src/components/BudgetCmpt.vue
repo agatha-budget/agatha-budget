@@ -3,11 +3,12 @@
     <div id="budgetTables">
       <div class="row date">
         <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
-        <h1 class="col-8 month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></h1>
+        <div class="col-8 date-label" :class="this.toBeBudgetedClass">
+          <span class="month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></span>
+          <span class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> : {{ this.toBeBudgeted }} € {{$t('TO_BE_BUDGETED')}}</span>
+          <span class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> : {{ -1*this.toBeBudgeted }} € {{$t('TO_BE_PULLED_OUT')}}</span>
+        </div>
         <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
-      </div>
-      <div class="row toBeBudgeted">
-        <h2> {{$t('TO_BE_BUDGETED')}} : {{ this.toBeBudgeted }} </h2>
       </div>
       <table id="totalTable"  class="table">
           <tr>
@@ -25,7 +26,7 @@
           </tr>
         </tbody>
       </table>
-      <div>
+      <div class="scrollable">
         <table class="budgetTable table"
         v-for="masterCategory of this.$store.state.masterCategories"
         :key="masterCategory"
@@ -136,6 +137,15 @@ export default defineComponent({
         toBeBudgeted -= this.categoryDataList[categoryId].available
       }
       return Utils.getRoundedAmount(toBeBudgeted)
+    },
+    toBeBudgetedClass (): string {
+      if (this.toBeBudgeted > 0) {
+        return 'positive'
+      } else if (this.toBeBudgeted < 0) {
+        return 'negative'
+      } else {
+        return 'null'
+      }
     }
   },
   methods: {
