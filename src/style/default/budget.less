@@ -65,28 +65,28 @@
     border-radius: 28px;
     padding: 20px;
     font-size: small;
+
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+
+    .scrollable {
+        overflow-y:scroll;
+        flex: 1 1 auto;
+    }
+
     table {
         margin-bottom: 10px;
     }
     .date {
+        margin-bottom: 20px;
         text-align: center;
-        h1 {
-            font-size:  xx-large;
-            margin-bottom: 30px;
-        }
+        font-size:  xx-large;
         .btn {
             font-size: xx-large;
         }
     }
-    .toBeBudgeted {
-        text-align: center;
-        margin-top: 5px;
-        h2 {
-            font-size: large;
-        }
-        margin-bottom: 20px;
-
-    }
+   
     tr.masterCategory {
         th.name {
             padding: 0 10px 0 0;
