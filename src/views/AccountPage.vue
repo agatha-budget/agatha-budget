@@ -18,7 +18,7 @@
               <td class="date"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></td>
               <td class="category">{{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}</td>
               <td class="memo">{{ operation.memo }}</td>
-              <td class="amount">{{ operation.amount }}</td>
+              <td class="amount">{{ this.getEurosAmount(operation.amount) }}</td>
               <td class="action">
                 <button class="btn fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
                 <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
@@ -39,6 +39,7 @@ import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
 import OperationForm from '@/components/forms/OperationForm.vue'
+import Utils from '@/utils/Utils'
 
 interface AccountPageData {
     operations: EditableOperation[];
@@ -126,6 +127,9 @@ export default defineComponent({
     },
     getCategoryById (categoryId: string): Category | null {
       return StoreHandler.getCategoryById(this.$store, categoryId)
+    },
+    getEurosAmount (amount: number): number {
+      return Utils.getEurosAmount(amount)
     }
   }
 })

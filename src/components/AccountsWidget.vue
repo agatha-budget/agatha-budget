@@ -3,10 +3,10 @@
     <div class="row">
     <h1>{{$t('MY_ACCOUNTS')}}</h1>
     </div>
-    <span class="total"> total : {{this.totalOnAccounts}} €</span>
+    <span class="total"> total : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>
     <ul>
       <li class="account" v-for="account of this.$store.state.accounts" :key="account">
-        <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{account.amount}} €</button>
+        <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{this.getEurosAmount(account.amount)}} €</button>
       </li>
       <li class="accountForm">
         <div v-if="!accountCreationFormIsDisplayed">
@@ -32,6 +32,7 @@ import { defineComponent } from 'vue'
 import AccountCreationForm from '@/components/forms/AccountCreationForm.vue'
 import router, { RouterPages } from '@/router'
 import { Account } from '@/model/model'
+import Utils from '@/utils/Utils'
 
 interface AccountsWidgetData {
     accountCreationFormIsDisplayed: boolean;
@@ -62,6 +63,9 @@ export default defineComponent({
     },
     changeAccountCreationFormDisplay () {
       this.$data.accountCreationFormIsDisplayed = !this.$data.accountCreationFormIsDisplayed
+    },
+    getEurosAmount (amount: number): number {
+      return Utils.getEurosAmount(amount)
     }
   }
 })

@@ -5,12 +5,12 @@
         <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
         <div class="col-8 date-label" :class="this.toBeBudgetedClass">
           <span class="month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></span>
-          <span class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> : {{ this.toBeBudgeted }} € {{$t('TO_BE_BUDGETED')}}</span>
-          <span class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> : {{ -1*this.toBeBudgeted }} € {{$t('TO_BE_PULLED_OUT')}}</span>
+          <span class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> : {{ getEurosAmount(this.toBeBudgeted) }} € {{$t('TO_BE_BUDGETED')}}</span>
+          <span class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> : {{ getEurosAmount(-1*this.toBeBudgeted) }} € {{$t('TO_BE_PULLED_OUT')}}</span>
         </div>
         <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
       </div>
-      <table id="totalTable"  class="table">
+      <table id="totalTable" class="table">
           <tr>
             <th class="col-6 name"></th>
             <th class="col-2 allocated"><div>{{ $t("ALLOCATED") }}</div></th>
@@ -20,9 +20,9 @@
           <tbody>
           <tr>
             <td class="name"><div>{{ $t("TOTAL") }} <button type="button" class="btn fas fa-plus" v-on:click="this.createMasterCategory()"/></div></td>
-            <td class="allocated">{{ getRoundedAmount(this.totalBudgetData.allocated) }}</td>
-            <td class="spent">{{ getRoundedAmount(this.totalBudgetData.spent) }}</td>
-            <td class="available">{{ getRoundedAmount(this.totalBudgetData.available) }}</td>
+            <td class="allocated">{{ getEurosAmount(this.totalBudgetData.allocated) }}</td>
+            <td class="spent">{{ getEurosAmount(this.totalBudgetData.spent) }}</td>
+            <td class="available">{{ getEurosAmount(this.totalBudgetData.available) }}</td>
           </tr>
         </tbody>
       </table>
@@ -136,7 +136,7 @@ export default defineComponent({
       for (const categoryId in this.categoryDataList) {
         toBeBudgeted -= this.categoryDataList[categoryId].available
       }
-      return Utils.getRoundedAmount(toBeBudgeted)
+      return toBeBudgeted
     },
     toBeBudgetedClass (): string {
       if (this.toBeBudgeted > 0) {
@@ -190,8 +190,8 @@ export default defineComponent({
     goToLastMonth () {
       this.budgetMonth = Time.getLastMonth(this.budgetMonth)
     },
-    getRoundedAmount (amount: number): number {
-      return Utils.getRoundedAmount(amount)
+    getEurosAmount (amount: number): number {
+      return Utils.getEurosAmount(amount)
     },
     createMasterCategory () {
       if (this.budget) {

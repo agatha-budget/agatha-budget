@@ -1,5 +1,9 @@
 export default class Utils {
-  public static getRoundedAmount (number: number): number {
-    return Math.round(100 * number) / 100
+  public static getEurosAmount (centsAmount: number): number {
+    return (centsAmount / 100)
+  }
+
+  public static getCentsAmount (eurosAmount: number): number {
+    return +eurosAmount * 100
   }
 }
