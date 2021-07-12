@@ -12,11 +12,11 @@
           </div>
         </div>
       </th>
-      <th class="col-2 allocated">{{ getRoundedAmount(masterCategoryData.allocated)}}</th>
-      <th class="col-2 spent">{{ getRoundedAmount(masterCategoryData.spent) }}</th>
+      <th class="col-2 allocated">{{ getEurosAmount(masterCategoryData.allocated)}}</th>
+      <th class="col-2 spent">{{ getEurosAmount(masterCategoryData.spent) }}</th>
       <th class="col-2 available">
         <span :class="masterCategoryData.available < 0 ? 'negative' : 'positive'">
-          {{ getRoundedAmount(masterCategoryData.available) }}
+          {{ getEurosAmount(masterCategoryData.available) }}
         </span>
       </th>
     </tr>
@@ -36,11 +36,11 @@
         >
         </td>
       <td class="spent">
-          {{ getRoundedAmount(this.categoryDataList[category.id]?.spent ?? "") }}
+          {{ getEurosAmount(this.categoryDataList[category.id]?.spent ?? "") }}
       </td>
       <td class="available">
         <span v-if="this.categoryDataList[category.id] && this.categoryDataList[category.id].available != 0" :class="this.categoryDataList[category.id]?.available < 0 ? 'negative' : 'positive'">
-          {{ getRoundedAmount(this.categoryDataList[category.id]?.available) }}
+          {{ getEurosAmount(this.categoryDataList[category.id]?.available) }}
         </span>
       </td>
     </tr>
@@ -102,8 +102,8 @@ export default defineComponent({
     updateAllocationOnChange (categoryId: string, value: string) {
       this.$emit('updateAllocation', categoryId, +value)
     },
-    getRoundedAmount (amount: number): number {
-      return Utils.getRoundedAmount(amount)
+    getEurosAmount (amount: number): string {
+      return Utils.getEurosAmount(amount)
     },
     createCategory () {
       CategoryService.createCategory('New Category', this.masterCategory).then(
