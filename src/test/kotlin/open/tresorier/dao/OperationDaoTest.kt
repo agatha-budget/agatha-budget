@@ -29,7 +29,7 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getOwnerForUnstored() {
-        val operation = Operation( "545", TestData.feb_02_2021,"56", -25.54, "achat")
+        val operation = Operation( "545", TestData.feb_02_2021,"56", -2554, "achat")
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             operationDao.getOwner(operation)
         }
@@ -59,10 +59,10 @@ open class OperationDaoTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( account.id, TestData.nov_02_2020 , category.id,40.00),
-                Operation(account.id, TestData.nov_03_2020 , category.id,20.00),
-                Operation(account.id, TestData.feb_02_2021 , category2.id,10.00),
-                Operation(account.id, TestData.march_02_2021 , category.id,30.00),
+                Operation( account.id, TestData.nov_02_2020 , category.id,4000),
+                Operation(account.id, TestData.nov_03_2020 , category.id,2000),
+                Operation(account.id, TestData.feb_02_2021 , category2.id,1000),
+                Operation(account.id, TestData.march_02_2021 , category.id,3000),
 
                 )
         for (operation in operationList) {
@@ -73,17 +73,17 @@ open class OperationDaoTest : ITest {
         Assertions.assertEquals(11, result[0].month.month)
         Assertions.assertEquals(2020, result[0].month.year)
         Assertions.assertEquals(category.id, result[0].categoryId)
-        Assertions.assertEquals(60.00, result[0].amount)
+        Assertions.assertEquals(6000, result[0].amount)
 
         Assertions.assertEquals(2, result[1].month.month)
         Assertions.assertEquals(2021, result[1].month.year)
         Assertions.assertEquals(category2.id, result[1].categoryId)
-        Assertions.assertEquals(10.00, result[1].amount)
+        Assertions.assertEquals(1000, result[1].amount)
 
         Assertions.assertEquals(3, result[2].month.month)
         Assertions.assertEquals(2021, result[2].month.year)
         Assertions.assertEquals(category.id, result[2].categoryId)
-        Assertions.assertEquals(30.00, result[2].amount)
+        Assertions.assertEquals(3000, result[2].amount)
     }
 
     @Test
@@ -99,10 +99,10 @@ open class OperationDaoTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation(account.id, TestData.nov_02_2020 , category.id,40.00),
-                Operation(account.id, TestData.nov_03_2020 , category.id,20.00),
-                Operation(account.id, TestData.feb_02_2021 , category2.id,10.00),
-                Operation(account.id, TestData.march_02_2021 , category.id,30.00),
+                Operation(account.id, TestData.nov_02_2020 , category.id,4000),
+                Operation(account.id, TestData.nov_03_2020 , category.id,2000),
+                Operation(account.id, TestData.feb_02_2021 , category2.id,1000),
+                Operation(account.id, TestData.march_02_2021 , category.id,3000),
 
                 )
         for (operation in operationList) {
@@ -113,12 +113,12 @@ open class OperationDaoTest : ITest {
         Assertions.assertEquals(11, result[0].month.month)
         Assertions.assertEquals(2020, result[0].month.year)
         Assertions.assertEquals(category.id, result[0].categoryId)
-        Assertions.assertEquals(60.00, result[0].amount)
+        Assertions.assertEquals(6000, result[0].amount)
 
         Assertions.assertEquals(2, result[1].month.month)
         Assertions.assertEquals(2021, result[1].month.year)
         Assertions.assertEquals(category2.id, result[1].categoryId)
-        Assertions.assertEquals(10.00, result[1].amount)
+        Assertions.assertEquals(1000, result[1].amount)
     }
 
     @Test
@@ -151,11 +151,11 @@ open class OperationDaoTest : ITest {
         accountDao.insert(account2)
 
         val operationList = listOf(
-            Operation(accountA.id, TestData.nov_02_2020 , category.id,40.00),
-            Operation(accountA.id, TestData.march_15_2021 , category.id,21.00),
-            Operation(accountB.id, TestData.nov_03_2020 , category.id,20.00, "in another account"),
-            Operation(accountA.id, TestData.march_02_2021 , category.id,30.00),
-            Operation(account2.id, TestData.nov_02_2020 , category2.id,40.00, "not in the right budget"),
+            Operation(accountA.id, TestData.nov_02_2020 , category.id,4000),
+            Operation(accountA.id, TestData.march_15_2021 , category.id,2100),
+            Operation(accountB.id, TestData.nov_03_2020 , category.id,2000, "in another account"),
+            Operation(accountA.id, TestData.march_02_2021 , category.id,3000),
+            Operation(account2.id, TestData.nov_02_2020 , category2.id,4000, "not in the right budget"),
         )
         for (operation in operationList) {
             operationDao.insert(operation)
@@ -163,9 +163,9 @@ open class OperationDaoTest : ITest {
 
         val result = operationDao.findByAccount(accountA)
         Assertions.assertEquals(3, result.size)
-        Assertions.assertEquals(21.00, result[0].amount)
-        Assertions.assertEquals(30.00, result[1].amount)
-        Assertions.assertEquals(40.00, result[2].amount)
+        Assertions.assertEquals(2100, result[0].amount)
+        Assertions.assertEquals(3000, result[1].amount)
+        Assertions.assertEquals(4000, result[2].amount)
     }
 
     @Test
@@ -191,19 +191,19 @@ open class OperationDaoTest : ITest {
         accountDao.insert(account2)
 
         val operationList = listOf(
-            Operation(accountA.id, TestData.nov_02_2020 , category.id,40.00),
-            Operation(accountB.id, TestData.nov_03_2020 , category.id,20.00, "in another account"),
-            Operation(accountA.id, TestData.march_02_2021 , category.id,30.00),
-            Operation(account2.id, TestData.nov_02_2020 , category2.id,40.00, "not in the right budget"),
+            Operation(accountA.id, TestData.nov_02_2020 , category.id,4000),
+            Operation(accountB.id, TestData.nov_03_2020 , category.id,2000, "in another account"),
+            Operation(accountA.id, TestData.march_02_2021 , category.id,3000),
+            Operation(account2.id, TestData.nov_02_2020 , category2.id,4000, "not in the right budget"),
         )
         for (operation in operationList) {
             operationDao.insert(operation)
         }
         val result = operationDao.findByBudget(budget)
         Assertions.assertEquals(3, result.size)
-        Assertions.assertEquals(30.00, result[0].amount)
-        Assertions.assertEquals(20.00, result[1].amount)
-        Assertions.assertEquals(40.00, result[2].amount)
+        Assertions.assertEquals(3000, result[0].amount)
+        Assertions.assertEquals(2000, result[1].amount)
+        Assertions.assertEquals(4000, result[2].amount)
     }
 
     @Test
@@ -236,25 +236,25 @@ open class OperationDaoTest : ITest {
         accountDao.insert(account2)
 
         val operationList = listOf(
-            Operation(accountA.id, TestData.nov_02_2020 , category.id,40.00),
-            Operation(accountB.id, TestData.nov_03_2020 , Category.INCOME_ID,20.00, "income"),
-            Operation(accountA.id, TestData.nov_03_2020 , Category.TRANSFERT_ID,- 30.00, "transfert to B"),
-            Operation(accountB.id, TestData.nov_03_2020 , Category.TRANSFERT_ID,30.00, "transfert from A"),
-            Operation(accountB.id, TestData.march_02_2021 , category.id,56.00, "again"),
-            Operation(account2.id, TestData.nov_02_2020 , category2.id,40.00, "not in the right budget"),
+            Operation(accountA.id, TestData.nov_02_2020 , category.id,4000),
+            Operation(accountB.id, TestData.nov_03_2020 , Category.INCOME_ID,2000, "income"),
+            Operation(accountA.id, TestData.nov_03_2020 , Category.TRANSFERT_ID,- 3000, "transfert to B"),
+            Operation(accountB.id, TestData.nov_03_2020 , Category.TRANSFERT_ID,3000, "transfert from A"),
+            Operation(accountB.id, TestData.march_02_2021 , category.id,5600, "again"),
+            Operation(account2.id, TestData.nov_02_2020 , category2.id,4000, "not in the right budget"),
         )
         for (operation in operationList) {
             operationDao.insert(operation)
         }
 
         val amountBeforeEverything = operationDao.findAmountByBudget(budget, TestData.jan_2020)
-        Assertions.assertEquals(0.00, amountBeforeEverything)
+        Assertions.assertEquals(0, amountBeforeEverything)
 
         val amountInNovember = operationDao.findAmountByBudget(budget, TestData.nov_2020)
-        Assertions.assertEquals(60.00, amountInNovember)
+        Assertions.assertEquals(6000, amountInNovember)
 
         val amountNow = operationDao.findAmountByBudget(budget)
-        Assertions.assertEquals(116.00, amountNow)
+        Assertions.assertEquals(11600, amountNow)
     }
 
     @Test
@@ -262,6 +262,6 @@ open class OperationDaoTest : ITest {
         val budget = Budget("professional budget", "person1")
         budgetDao.insert(budget)
         val amountNow = operationDao.findAmountByBudget(budget)
-        Assertions.assertEquals(0.00, amountNow)
+        Assertions.assertEquals(0, amountNow)
     }
 }

@@ -28,7 +28,7 @@ open class AllocationDaoTest : ITest {
 
     @Test
     fun getOwnerForUnstored() {
-        val allocation = Allocation(Month(12,2020),"251",-254.25)
+        val allocation = Allocation(Month(12,2020),"251",-25425)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             allocationDao.getOwner(allocation)
         }
@@ -39,17 +39,17 @@ open class AllocationDaoTest : ITest {
     fun updateAllocation() {
         val month = Month(11,1225)
         val category = categoryDao.getById("category1")
-        val allocation = Allocation(month, category.id, -254.25)
-        val allocationUpdated = Allocation(month, category.id, 300.00)
+        val allocation = Allocation(month, category.id, -25425)
+        val allocationUpdated = Allocation(month, category.id, 30000)
         allocationDao.insertOrUpdate(allocation)
         allocationDao.insertOrUpdate(allocationUpdated)
         val allocationInDb = allocationDao.getByIdentifiers(category, month)
-        Assertions.assertEquals(300.00, allocationInDb.amount)
+        Assertions.assertEquals(30000, allocationInDb.amount)
     }
 
     @Test
     fun cannotHaveAllocationForInvalidMonth() {
-        val allocation = Allocation(Month(14,1225), "category1", -254.25)
+        val allocation = Allocation(Month(14,1225), "category1", -25425)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             allocationDao.insertOrUpdate(allocation)
         }
@@ -58,7 +58,7 @@ open class AllocationDaoTest : ITest {
 
     @Test
     fun cannotHaveAllocationForInvalidMonth2() {
-        val allocation = Allocation(Month(-5, 1225), "category1", -254.25)
+        val allocation = Allocation(Month(-5, 1225), "category1", -25425)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             allocationDao.insertOrUpdate(allocation)
         }
@@ -74,8 +74,8 @@ open class AllocationDaoTest : ITest {
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
         val allocationList = listOf(
-            Allocation(Month(1,2020),category.id,40.00),
-            Allocation(Month(12,2020),category.id,20.00)
+            Allocation(Month(1,2020),category.id,4000),
+            Allocation(Month(12,2020),category.id,2000)
         )
         for (allocation in allocationList) {
             allocationDao.insertOrUpdate(allocation)
@@ -99,11 +99,11 @@ open class AllocationDaoTest : ITest {
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
         val allocationList = listOf(
-                Allocation(Month(1,2020),category.id,40.00),
-                Allocation(Month(12,2020),category.id,20.00),
-                Allocation(Month(1,2021),category.id,20.00),
-                Allocation(Month(2,2022),category.id,20.00),
-                Allocation(Month(3,2022),category.id,20.00)
+                Allocation(Month(1,2020),category.id,4000),
+                Allocation(Month(12,2020),category.id,2000),
+                Allocation(Month(1,2021),category.id,2000),
+                Allocation(Month(2,2022),category.id,2000),
+                Allocation(Month(3,2022),category.id,2000)
 
         )
         for (allocation in allocationList) {

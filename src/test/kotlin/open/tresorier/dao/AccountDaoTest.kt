@@ -39,20 +39,20 @@ open class AccountDaoTest : ITest {
         budgetDao.insert(budget)
         val account = Account("account", budget.id)
         accountDao.insert(account)
-        val operation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 150.65, "mémo")
-        val operation2 = Operation(account.id, TestData.march_02_2021, Category.INCOME_ID, -100.00, "reimbursement")
+        val operation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 15065, "mémo")
+        val operation2 = Operation(account.id, TestData.march_02_2021, Category.INCOME_ID, -10000, "reimbursement")
         operationDao.insert(operation1)
         operationDao.insert(operation2)
 
         val account2 = Account("account2", budget.id)
         accountDao.insert(account2)
-        val operation3 = Operation(account2.id, TestData.feb_02_2021, Category.INCOME_ID, 77.77, "mémo")
+        val operation3 = Operation(account2.id, TestData.feb_02_2021, Category.INCOME_ID, 7777, "mémo")
         operationDao.insert(operation3)
 
         val accountList = accountDao.findByBudget(budget)
         val expectedList = listOf(
-            AccountWithAmount.createFromAccount(account, 50.65),
-            AccountWithAmount.createFromAccount(account2, 77.77)
+            AccountWithAmount.createFromAccount(account, 5065),
+            AccountWithAmount.createFromAccount(account2, 7777)
         )
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())
@@ -64,14 +64,14 @@ open class AccountDaoTest : ITest {
         budgetDao.insert(budget)
         val account = Account("account", budget.id)
         accountDao.insert(account)
-        val operation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 100.00, "mémo")
-        val operation2 = Operation(account.id, TestData.march_02_2021, Category.INCOME_ID, -100.00, "reimbursement")
+        val operation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 10000, "mémo")
+        val operation2 = Operation(account.id, TestData.march_02_2021, Category.INCOME_ID, -10000, "reimbursement")
         operationDao.insert(operation1)
         operationDao.insert(operation2)
 
         val accountList = accountDao.findByBudget(budget)
         val expectedList = listOf(
-            AccountWithAmount.createFromAccount(account, 0.0)
+            AccountWithAmount.createFromAccount(account, 0)
         )
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())
@@ -86,7 +86,7 @@ open class AccountDaoTest : ITest {
 
         val accountList = accountDao.findByBudget(budget)
         val expectedList = listOf(
-            AccountWithAmount.createFromAccount(account, 0.0)
+            AccountWithAmount.createFromAccount(account, 0)
         )
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())
@@ -98,14 +98,14 @@ open class AccountDaoTest : ITest {
         budgetDao.insert(budget)
         val account = Account("account", budget.id)
         accountDao.insert(account)
-        val operation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 100.00, "mémo")
-        val operation2 = Operation(account.id, TestData.march_02_2021, Category.INCOME_ID, -150.00, "reimbursement")
+        val operation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 10000, "mémo")
+        val operation2 = Operation(account.id, TestData.march_02_2021, Category.INCOME_ID, -15000, "reimbursement")
         operationDao.insert(operation1)
         operationDao.insert(operation2)
 
         val accountList = accountDao.findByBudget(budget)
         val expectedList = listOf(
-            AccountWithAmount.createFromAccount(account, -50.0)
+            AccountWithAmount.createFromAccount(account, -5000)
         )
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())

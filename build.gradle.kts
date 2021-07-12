@@ -69,6 +69,10 @@ sourceSets {
     }
 }
 
+tasks.named("compileJava") {mustRunAfter("generateTestJooq")}
+tasks.named("compileKotlin") {mustRunAfter("generateTestJooq")}
+
+
 val intTestImplementation by configurations.getting {
     extendsFrom(configurations.implementation.get())
 }
