@@ -31,7 +31,7 @@
       <td class="allocated">
         <span v-if="archived">{{ this.categoryDataList[category.id]?.allocated ?? "" }}</span>
         <input v-else type="number" class="allocationInput"
-        :value="this.categoryDataList[category.id]?.allocated ?? 0"
+        :value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
         v-on:change="updateAllocationOnChange(category.id, $event.target.value)"
         >
         </td>
@@ -100,7 +100,7 @@ export default defineComponent({
   },
   methods: {
     updateAllocationOnChange (categoryId: string, value: string) {
-      this.$emit('updateAllocation', categoryId, +value)
+      this.$emit('updateAllocation', categoryId, Utils.getCentsAmount(value))
     },
     getEurosAmount (amount: number): string {
       return Utils.getEurosAmount(amount)
