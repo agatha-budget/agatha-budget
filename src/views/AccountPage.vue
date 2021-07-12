@@ -1,7 +1,7 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="accountPage row col-md-8 offset-md-2">
-      <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? this.account.amount : ''}}€</h1>
+      <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? getEurosAmount(this.account.amount) : ''}}€</h1>
       <table class="operationTable table table-hover" >
           <tr class="">
             <th class="date col-md-1"><div>{{ $t("DATE") }}</div></th>
