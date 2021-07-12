@@ -44,7 +44,7 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
         return this.toAccount(jooqAccount) ?: throw TresorierException("no account found for the following id : $id")
     }
 
-    private val amountSum: Field<BigDecimal> = DSL.coalesce(DSL.sum(OPERATION.AMOUNT),0.00.toBigDecimal()).`as`("sum")
+    private val amountSum: Field<BigDecimal> = DSL.coalesce(DSL.sum(OPERATION.AMOUNT), 0.00.toBigDecimal()).`as`("sum")
 
     override fun findByBudget(budget: Budget): List<AccountWithAmount> {
         val query = this.query
@@ -101,7 +101,7 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
         return AccountWithAmount(
             jooqAccountWithAmount.get(ACCOUNT.NAME),
             jooqAccountWithAmount.get(ACCOUNT.BUDGET_ID),
-            jooqAccountWithAmount.get(amountSum).toDouble(),
+            jooqAccountWithAmount.get(amountSum).toInt(),
             jooqAccountWithAmount.get(ACCOUNT.ARCHIVED),
             jooqAccountWithAmount.get(ACCOUNT.ID),
             jooqAccountWithAmount.get(ACCOUNT.DELETED)

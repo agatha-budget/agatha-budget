@@ -3,7 +3,7 @@ package open.tresorier.model
 class AccountWithAmount (
     name: String,
     budgetId: String,
-    var amount: Double,
+    var amount: Int,
     archived: Boolean = false,
     id: String? = null,
     deleted: Boolean? = null
@@ -15,7 +15,7 @@ class AccountWithAmount (
 
     companion object {
 
-        fun createFromAccount(account: Account, amount: Double) : AccountWithAmount {
+        fun createFromAccount(account: Account, amount: Int) : AccountWithAmount {
             return AccountWithAmount(account.name, account.budgetId, amount, account.archived, account.id, account.deleted)
         }
     }

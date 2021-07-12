@@ -22,7 +22,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
     private val query = DSL.using(configuration)
 
     // ready to use computed Field
-    private val spendingSum: Field<BigDecimal> = sum(OPERATION.AMOUNT).`as`("sum")
+    private val spendingSum: Field<BigDecimal>? = sum(OPERATION.AMOUNT).`as`("sum")
 
     override fun insert(operation: Operation): Operation {
         val jooqOperation = this.toJooqOperation(operation)
@@ -78,7 +78,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         return spendingList
     }
 
-    override fun findAmountByBudget(budget: Budget, month: Month?): Double {
+    override fun findAmountByBudget(budget: Budget, month: Month?): Int {
         val query = this.query
             .select(spendingSum)
             .from(OPERATION)
@@ -86,7 +86,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
         month?.let{ query.and( OPERATION.MONTH.lessOrEqual(it.comparable))}
         val rawResult = query.fetchOne().get(spendingSum)
-        return rawResult?.toDouble() ?: 0.00
+        return rawResult?.toInt() ?: 0
     }
 
     override fun findByAccount(account: Account): List<Operation> {
@@ -144,9 +144,9 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             operation.day?.month?.comparable,
             operation.day?.day,
             operation.categoryId,
-            BigDecimal(operation.amount),
-            operation.memo
-        )
+            operation.memo,
+            operation.amount
+            )
     }
 
     private fun toOperation(jooqOperation: JooqOperation?): Operation? {
@@ -156,7 +156,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.accountId,
             Day(Month.createFromComparable(jooqOperation.month), jooqOperation.day),
             jooqOperation.categoryId,
-            jooqOperation.amount.toDouble(),
+            jooqOperation.amount,
             jooqOperation.memo,
             jooqOperation.id,
         )
@@ -166,7 +166,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         return Spending(
                 Month.createFromComparable(jooqSpending.get(OPERATION.MONTH)),
                 jooqSpending.get(OPERATION.CATEGORY_ID),
-                jooqSpending.get(spendingSum).toDouble()
+                jooqSpending.get(spendingSum).toInt()
         )
     }
 
@@ -175,7 +175,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             operationRecord.accountId,
             Day(Month.createFromComparable(operationRecord.month), operationRecord.day),
             operationRecord.categoryId,
-            operationRecord.amount.toDouble(),
+            operationRecord.amount,
             operationRecord.memo,
             operationRecord.id,
         )

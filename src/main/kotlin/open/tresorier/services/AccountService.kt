@@ -5,7 +5,7 @@ import open.tresorier.model.*
 
 class AccountService(private val accountDao: IAccountDao, private val authorizationService: AuthorizationService, private val operationService: OperationService) {
 
-    fun create(person: Person, budget: Budget, name: String, day: Day, amount: Double): Account {
+    fun create(person: Person, budget: Budget, name: String, day: Day, amount: Int): Account {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         val account = Account(name, budget.id)
         accountDao.insert(account)

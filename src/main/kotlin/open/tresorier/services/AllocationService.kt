@@ -8,7 +8,7 @@ import open.tresorier.model.Person
 
 class AllocationService(private val allocationDao: IAllocationDao, private val authorizationService: AuthorizationService) {
 
-    fun insertOrUpdate(person: Person, month: Month, category: Category, amount: Double): Allocation {
+    fun insertOrUpdate(person: Person, month: Month, category: Category, amount: Int): Allocation {
         authorizationService.cancelIfUserIsUnauthorized(person, category)
         val allocation = Allocation(month, category.id, amount)
         return allocationDao.insertOrUpdate(allocation)

@@ -4,7 +4,6 @@
 package open.tresorier.generated.jooq.test.public_.tables.daos;
 
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
@@ -117,20 +116,6 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>AMOUNT BETWEEN lowerInclusive AND upperInclusive</code>
-     */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfAmount(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
-        return fetchRange(Operation.OPERATION.AMOUNT, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>AMOUNT IN (values)</code>
-     */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByAmount(BigDecimal... values) {
-        return fetch(Operation.OPERATION.AMOUNT, values);
-    }
-
-    /**
      * Fetch records that have <code>MEMO BETWEEN lowerInclusive AND upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMemo(String lowerInclusive, String upperInclusive) {
@@ -142,5 +127,19 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByMemo(String... values) {
         return fetch(Operation.OPERATION.MEMO, values);
+    }
+
+    /**
+     * Fetch records that have <code>AMOUNT BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfAmount(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Operation.OPERATION.AMOUNT, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>AMOUNT IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByAmount(Integer... values) {
+        return fetch(Operation.OPERATION.AMOUNT, values);
     }
 }

@@ -4,7 +4,6 @@
 package open.tresorier.generated.jooq.main.tables;
 
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation extends TableImpl<AllocationRecord> {
 
-    private static final long serialVersionUID = 107290386;
+    private static final long serialVersionUID = 931280306;
 
     /**
      * The reference instance of <code>public.allocation</code>
@@ -62,7 +61,7 @@ public class Allocation extends TableImpl<AllocationRecord> {
     /**
      * The column <code>public.allocation.amount</code>.
      */
-    public final TableField<AllocationRecord, BigDecimal> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.NUMERIC(10, 2), this, "");
+    public final TableField<AllocationRecord, Integer> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * Create a <code>public.allocation</code> table reference
@@ -160,7 +159,7 @@ public class Allocation extends TableImpl<AllocationRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<String, Integer, BigDecimal> fieldsRow() {
+    public Row3<String, Integer, Integer> fieldsRow() {
         return (Row3) super.fieldsRow();
     }
 }

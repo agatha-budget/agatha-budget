@@ -9,7 +9,6 @@ import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.model.*
 import org.jooq.Configuration
 import org.jooq.impl.DSL
-import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Allocation as JooqAllocation
 
 
@@ -86,7 +85,7 @@ class PgAllocationDao(val configuration: Configuration) : IAllocationDao {
         return JooqAllocation(
             allocation.categoryId,
             allocation.month.comparable,
-            BigDecimal(allocation.amount)
+            allocation.amount
         )
     }
 
@@ -94,7 +93,7 @@ class PgAllocationDao(val configuration: Configuration) : IAllocationDao {
         return Allocation(
             Month.createFromComparable(allocationRecord.month),
             allocationRecord.categoryId,
-            allocationRecord.amount.toDouble(),
+            allocationRecord.amount,
         )
     }
 }

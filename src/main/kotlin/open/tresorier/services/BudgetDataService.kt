@@ -25,7 +25,7 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
         return data
     }
 
-    fun getBudgetAmount(person: Person, budget: Budget, month: Month?= null): Double {
+    fun getBudgetAmount(person: Person, budget: Budget, month: Month?= null): Int {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         return operationDao.findAmountByBudget(budget, month)
     }
@@ -96,7 +96,7 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
 
         fun addSpending(spending: Spending, data: BudgetData): BudgetData {
             val categoryId = spending.categoryId
-            val newCategoryData = CategoryData(allocated = 0.00, spending.amount)
+            val newCategoryData = CategoryData(allocated = 0, spending.amount)
 
             data[spending.month.comparable]?.let { mapByMonth ->
                 mapByMonth[categoryId]?.let { categoryData ->
@@ -112,15 +112,14 @@ class BudgetDataService(private val allocationDao: IAllocationDao,
 
         fun computeAvailable(data: BudgetData): BudgetData {
             val sortedMonth = data.getSortedMonths()
-            val totalSpent: MutableMap<String, Double> = mutableMapOf()
-            val totalAllocated: MutableMap<String, Double> = mutableMapOf()
+            val totalSpent: MutableMap<String, Int> = mutableMapOf()
+            val totalAllocated: MutableMap<String, Int> = mutableMapOf()
             for (month in sortedMonth) {
                 data[month]?.let { mapByMonth ->
                     for ((categoryId, categoryData) in mapByMonth) {
-                        totalSpent[categoryId] = categoryData.spent + (totalSpent[categoryId] ?: 0.00)
-                        totalAllocated[categoryId] = categoryData.allocated + (totalAllocated[categoryId] ?: 0.00)
-                        val notRoundedAvailable = (totalAllocated[categoryId] ?: 0.00) + (totalSpent[categoryId] ?: 0.00)
-                        categoryData.available = "%.2f".format(notRoundedAvailable).toDouble()
+                        totalSpent[categoryId] = categoryData.spent + (totalSpent[categoryId] ?: 0)
+                        totalAllocated[categoryId] = categoryData.allocated + (totalAllocated[categoryId] ?: 0)
+                        categoryData.available = (totalAllocated[categoryId] ?: 0) + (totalSpent[categoryId] ?: 0)
                     }
                 }
             }
