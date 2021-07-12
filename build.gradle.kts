@@ -69,17 +69,6 @@ sourceSets {
     }
 }
 
-tasks.named("compileJava") {
-    dependsOn("generateTestJooq")
-    dependsOn("generateJooq")
-
-}
-tasks.named("compileKotlin") {
-    dependsOn("generateTestJooq")
-    dependsOn("generateJooq")
-}
-
-
 val intTestImplementation by configurations.getting {
     extendsFrom(configurations.implementation.get())
 }
