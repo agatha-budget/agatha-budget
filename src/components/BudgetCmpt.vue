@@ -190,7 +190,7 @@ export default defineComponent({
     goToLastMonth () {
       this.budgetMonth = Time.getLastMonth(this.budgetMonth)
     },
-    getEurosAmount (amount: number): string {
+    getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)
     },
     createMasterCategory () {

@@ -38,6 +38,7 @@ import OperationService from '@/services/OperationService'
 import { Category, MasterCategory, Operation, incomeCategoryId, transfertCategoryId } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
+import Utils from '@/utils/Utils'
 
 interface OperationFormData {
   date: string;
@@ -55,7 +56,7 @@ export default defineComponent({
       categoryId: this.operation?.categoryId || '',
       memo: this.operation?.memo || '',
       incoming: this.operation?.amount ? this.operation.amount > 0 : false,
-      amount: this.operation?.amount || 0
+      amount: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0))
     }
   },
   props: {
@@ -74,15 +75,15 @@ export default defineComponent({
     transfertCategoryId (): string {
       return transfertCategoryId
     },
-    signedAmount (): number {
-      return (this.incoming) ? Math.abs(this.amount) : Math.abs(this.amount) * -1
+    signedCentsAmount (): number {
+      return Utils.getCentsAmount((this.incoming) ? Math.abs(this.amount) : Math.abs(this.amount) * -1)
     }
   },
   emits: ['updateOperationList'],
   methods: {
     updateOperation () {
       if (this.operation) {
-        OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
+        OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
           () => {
             this.$emit('updateOperationList')
           }
@@ -92,7 +93,7 @@ export default defineComponent({
       }
     },
     addOperation () {
-      OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedAmount, this.memo).then(
+      OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
         () => {
           this.$emit('updateOperationList')
         }

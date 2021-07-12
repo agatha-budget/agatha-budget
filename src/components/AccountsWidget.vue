@@ -64,7 +64,7 @@ export default defineComponent({
     changeAccountCreationFormDisplay () {
       this.$data.accountCreationFormIsDisplayed = !this.$data.accountCreationFormIsDisplayed
     },
-    getEurosAmount (amount: number): string {
+    getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)
     }
   }

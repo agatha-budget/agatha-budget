@@ -128,7 +128,7 @@ export default defineComponent({
     getCategoryById (categoryId: string): Category | null {
       return StoreHandler.getCategoryById(this.$store, categoryId)
     },
-    getEurosAmount (amount: number): string {
+    getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)
     }
   }

@@ -10,6 +10,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
+import Utils from '@/utils/Utils'
 
 export default defineComponent({
   name: 'AccountCreationForm',
@@ -23,7 +24,7 @@ export default defineComponent({
   methods: {
     createAccount () {
       if (this.$store.state.budget) {
-        AccountService.createAccount(this.$store.state.budget, this.name, this.amount).then(
+        AccountService.createAccount(this.$store.state.budget, this.name, Utils.getCentsAmount(this.amount)).then(
           () => {
             this.$emit('updateAccountList')
             this.$emit('closeForm')

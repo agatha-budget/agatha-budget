@@ -100,9 +100,9 @@ export default defineComponent({
   },
   methods: {
     updateAllocationOnChange (categoryId: string, value: string) {
-      this.$emit('updateAllocation', categoryId, Utils.getCentsAmount(value))
+      this.$emit('updateAllocation', categoryId, Utils.getCentsAmount(+value))
     },
-    getEurosAmount (amount: number): string {
+    getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)
     },
     createCategory () {
