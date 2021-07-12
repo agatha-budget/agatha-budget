@@ -130,7 +130,7 @@ fun main() {
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val name = getQueryParam<String>(ctx, "name")
-        val amount = getQueryParam<Double>(ctx, "amount")
+        val amount = getQueryParam<Int>(ctx, "amount")
         val day = Day.createFromComparable(getQueryParam<Int>(ctx, "day"))
         val account = ServiceManager.accountService.create(user, budget, name, day, amount)
         ctx.json(account)
@@ -238,7 +238,7 @@ fun main() {
         val category: Category? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
             ServiceManager.categoryService.getById(user, it)
         }
-        val amount : Double? = getOptionalQueryParam<Double>(ctx, "amount")
+        val amount : Int? = getOptionalQueryParam<Int>(ctx, "amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "memo")
 
         val operation: Operation = ServiceManager.operationService.create(user, account, day, category, amount, memo)
@@ -258,7 +258,7 @@ fun main() {
         val category: Category? = getOptionalQueryParam<String>(ctx, "new_category_id")?.let{
             ServiceManager.categoryService.getById(user, it)
         }
-        val amount : Double? = getOptionalQueryParam<Double>(ctx, "new_amount")
+        val amount : Int? = getOptionalQueryParam<Int>(ctx, "new_amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "new_memo")
 
         val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo)
@@ -293,7 +293,7 @@ fun main() {
         val user = getUserFromAuth(ctx)
         val month : Month = Month.createFromComparable(getQueryParam<Int>(ctx, "month"))
         val category: Category = ServiceManager.categoryService.getById(user, getQueryParam<String>(ctx, "category_id"))
-        val amount : Double = getQueryParam<Double>(ctx, "amount")
+        val amount : Int = getQueryParam<Int>(ctx, "amount")
         val allocation = ServiceManager.allocationService.insertOrUpdate(user, month, category, amount)
         ctx.json(allocation)
     }

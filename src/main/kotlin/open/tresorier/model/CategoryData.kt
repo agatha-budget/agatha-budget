@@ -1,9 +1,9 @@
 package open.tresorier.model
 
 class CategoryData (
-    var allocated: Double = 0.00,
-    var spent: Double = 0.00,
-    var available: Double = 0.00
+    var allocated: Int = 0,
+    var spent: Int = 0,
+    var available: Int = 0
 ){
 
     override fun toString(): String {

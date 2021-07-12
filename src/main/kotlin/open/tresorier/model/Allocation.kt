@@ -3,7 +3,7 @@ package open.tresorier.model
 class Allocation (
     val month: Month,
     val categoryId: String,
-    var amount: Double,
+    var amount: Int,
 ) {
 
     override fun toString(): String {

@@ -5,16 +5,16 @@ import open.tresorier.model.*
 
 class OperationService(private val operationDao: IOperationDao, private val authorizationService: AuthorizationService) {
 
-    fun createInitialOperation(person: Person, account: Account, day: Day, amount: Double){
+    fun createInitialOperation(person: Person, account: Account, day: Day, amount: Int){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         val operation = Operation(account.id, day, Category.INCOME_ID, amount, "INITIAL_AMOUNT")
         operationDao.insert(operation)
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
     }
 
-    fun create(person: Person, account: Account, day:Day?, category: Category?, amount: Double?, memo: String?) : Operation{
+    fun create(person: Person, account: Account, day:Day?, category: Category?, amount: Int?, memo: String?) : Operation{
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(account.id, day, category?.id, amount ?: 0.0, memo)
+        val operation = Operation(account.id, day, category?.id, amount ?: 0, memo)
         return operationDao.insert(operation)
     }
 
@@ -24,7 +24,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         return operation
     }
 
-    fun update(person: Person, operation: Operation, account: Account?, day:Day?, category: Category?, amount: Double?, memo: String?) : Operation{
+    fun update(person: Person, operation: Operation, account: Account?, day:Day?, category: Category?, amount: Int?, memo: String?) : Operation{
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
         account?.let { operation.accountId = it.id }
         day?.let { operation.day = it }
