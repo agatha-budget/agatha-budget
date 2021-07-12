@@ -5,7 +5,6 @@ package open.tresorier.generated.jooq.main.tables.pojos;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 
 /**
@@ -14,15 +13,15 @@ import java.math.BigDecimal;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 640836473;
+    private static final long serialVersionUID = -658183351;
 
-    private final String     id;
-    private final String     accountId;
-    private final Integer    month;
-    private final Integer    day;
-    private final String     categoryId;
-    private final BigDecimal amount;
-    private final String     memo;
+    private final String  id;
+    private final String  accountId;
+    private final Integer month;
+    private final Integer day;
+    private final String  categoryId;
+    private final String  memo;
+    private final Integer amount;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -30,26 +29,26 @@ public class Operation implements Serializable {
         this.month = value.month;
         this.day = value.day;
         this.categoryId = value.categoryId;
-        this.amount = value.amount;
         this.memo = value.memo;
+        this.amount = value.amount;
     }
 
     public Operation(
-        String     id,
-        String     accountId,
-        Integer    month,
-        Integer    day,
-        String     categoryId,
-        BigDecimal amount,
-        String     memo
+        String  id,
+        String  accountId,
+        Integer month,
+        Integer day,
+        String  categoryId,
+        String  memo,
+        Integer amount
     ) {
         this.id = id;
         this.accountId = accountId;
         this.month = month;
         this.day = day;
         this.categoryId = categoryId;
-        this.amount = amount;
         this.memo = memo;
+        this.amount = amount;
     }
 
     public String getId() {
@@ -72,12 +71,12 @@ public class Operation implements Serializable {
         return this.categoryId;
     }
 
-    public BigDecimal getAmount() {
-        return this.amount;
-    }
-
     public String getMemo() {
         return this.memo;
+    }
+
+    public Integer getAmount() {
+        return this.amount;
     }
 
     @Override
@@ -89,8 +88,8 @@ public class Operation implements Serializable {
         sb.append(", ").append(month);
         sb.append(", ").append(day);
         sb.append(", ").append(categoryId);
-        sb.append(", ").append(amount);
         sb.append(", ").append(memo);
+        sb.append(", ").append(amount);
 
         sb.append(")");
         return sb.toString();

@@ -4,7 +4,6 @@
 package open.tresorier.generated.jooq.main.tables.daos;
 
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import open.tresorier.generated.jooq.main.tables.Allocation;
@@ -71,14 +70,14 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
     /**
      * Fetch records that have <code>amount BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchRangeOfAmount(BigDecimal lowerInclusive, BigDecimal upperInclusive) {
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchRangeOfAmount(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(Allocation.ALLOCATION.AMOUNT, lowerInclusive, upperInclusive);
     }
 
     /**
      * Fetch records that have <code>amount IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchByAmount(BigDecimal... values) {
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchByAmount(Integer... values) {
         return fetch(Allocation.ALLOCATION.AMOUNT, values);
     }
 }

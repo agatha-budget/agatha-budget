@@ -5,7 +5,6 @@ package open.tresorier.generated.jooq.test.public_.tables.pojos;
 
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 
 /**
@@ -14,11 +13,11 @@ import java.math.BigDecimal;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation implements Serializable {
 
-    private static final long serialVersionUID = 306436325;
+    private static final long serialVersionUID = 1377942493;
 
-    private final String     categoryId;
-    private final Integer    month;
-    private final BigDecimal amount;
+    private final String  categoryId;
+    private final Integer month;
+    private final Integer amount;
 
     public Allocation(Allocation value) {
         this.categoryId = value.categoryId;
@@ -27,9 +26,9 @@ public class Allocation implements Serializable {
     }
 
     public Allocation(
-        String     categoryId,
-        Integer    month,
-        BigDecimal amount
+        String  categoryId,
+        Integer month,
+        Integer amount
     ) {
         this.categoryId = categoryId;
         this.month = month;
@@ -44,7 +43,7 @@ public class Allocation implements Serializable {
         return this.month;
     }
 
-    public BigDecimal getAmount() {
+    public Integer getAmount() {
         return this.amount;
     }
 

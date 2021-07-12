@@ -4,7 +4,6 @@
 package open.tresorier.generated.jooq.test.public_.tables;
 
 
-import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 961482233;
+    private static final long serialVersionUID = 1487961504;
 
     /**
      * The reference instance of <code>PUBLIC.OPERATION</code>
@@ -75,14 +74,14 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
-     * The column <code>PUBLIC.OPERATION.AMOUNT</code>.
-     */
-    public final TableField<OperationRecord, BigDecimal> AMOUNT = createField(DSL.name("AMOUNT"), org.jooq.impl.SQLDataType.DECIMAL(10, 2).nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.DECIMAL)), this, "");
-
-    /**
      * The column <code>PUBLIC.OPERATION.MEMO</code>.
      */
     public final TableField<OperationRecord, String> MEMO = createField(DSL.name("MEMO"), org.jooq.impl.SQLDataType.VARCHAR(280).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>PUBLIC.OPERATION.AMOUNT</code>.
+     */
+    public final TableField<OperationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * Create a <code>PUBLIC.OPERATION</code> table reference
@@ -186,7 +185,7 @@ public class Operation extends TableImpl<OperationRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, String, Integer, Integer, String, BigDecimal, String> fieldsRow() {
+    public Row7<String, String, Integer, Integer, String, String, Integer> fieldsRow() {
         return (Row7) super.fieldsRow();
     }
 }
