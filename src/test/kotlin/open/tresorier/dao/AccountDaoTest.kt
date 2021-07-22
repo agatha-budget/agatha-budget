@@ -60,7 +60,7 @@ open class AccountDaoTest : ITest {
 
     @Test
     fun getAccountWithNullAmountForBudget() {
-        val budget = Budget("0 in account", TestData.person1Id)
+        val budget = Budget("0 in an account", TestData.person1Id)
         budgetDao.insert(budget)
         val account = Account("account", budget.id)
         accountDao.insert(account)
