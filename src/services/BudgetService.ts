@@ -4,8 +4,12 @@ import { redirectToLoginPageIfUnauthorizedError } from '@/router'
 
 export default class BudgetService {
   public static async getDefaultBudget (): Promise<Budget> {
-    const response = await budgetApi.findBudgetsByUser()
-    redirectToLoginPageIfUnauthorizedError(response)
-    return response.data[0]
+    try {
+      const response = await budgetApi.findBudgetsByUser()
+      return response.data[0]
+    } catch (exception) {
+      redirectToLoginPageIfUnauthorizedError(exception.response)
+      return exception.response
+    }
   }
 }
