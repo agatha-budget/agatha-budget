@@ -8,8 +8,8 @@
         <div class="col-md-2 offset-md-1">
           <AccountsWidget/>
           <ul id="actionsList" class="list-group list-group-horizontal d-flex justify-content-center">
-          <li><button class="btn fas fa-chart-line" :title="$t('GRAPH_AND_REPORT')"/></li>
-          <li><button class="btn fas fa-cog" :title="$t('PREFERENCES')"/></li>
+          <li><button class="btn fas fa-chart-line disabled" :title="$t('GRAPH_AND_REPORT')"/></li>
+          <li><button class="btn fas fa-cog disabled" :title="$t('PREFERENCES')"/></li>
           <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
         </ul>
         </div>
@@ -20,9 +20,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from '@/store/index'
 import StoreHandler from '@/store/StoreHandler'
-import router, { redirectToLoginPageIfNotLogged } from '@/router'
+import { redirectToLoginPageIfNotLogged } from '@/router'
 import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
 import PersonService from '@/services/PersonService'
@@ -41,11 +40,6 @@ export default defineComponent({
   data () {
     return {
       currentMonth: Time.getCurrentMonth()
-    }
-  },
-  setup () {
-    if (!useStore().state.logged) {
-      router.push('/login')
     }
   },
   methods: {

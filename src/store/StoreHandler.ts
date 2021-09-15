@@ -8,7 +8,14 @@ import { Store } from 'vuex'
 
 export default class StoreHandler {
   public static async initStore (store: Store<StoreState>) {
-    await StoreHandler.initBudget(store)
+    await this.initBudget(store)
+  }
+
+  public static resetStore (store: Store<StoreState>) {
+    store.dispatch('updateBudget', null)
+    store.dispatch('updateAccounts', [])
+    store.dispatch('updateCategories', [])
+    store.dispatch('updateMasterCategories', [])
   }
 
   public static async updateOnBudgetChange (store: Store<StoreState>) {
@@ -48,13 +55,11 @@ export default class StoreHandler {
   }
 
   public static async initBudget (store: Store<StoreState>) {
-    if (!store.state.budget) {
-      BudgetService.getDefaultBudget().then(
-        (budget: Budget) => {
-          store.dispatch('updateBudget', budget)
-        }
-      )
-    }
+    BudgetService.getDefaultBudget().then(
+      (budget: Budget) => {
+        store.dispatch('updateBudget', budget)
+      }
+    )
   }
 
   public static getCategoryById (store: Store<StoreState>, categoryId: string): Category | null {
