@@ -1,7 +1,7 @@
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { personApi } from '@/services/api/apis'
-import router, { RouterPages, redirectToLoginPageIfUnauthorizedError } from '@/router'
+import router, { RouterPages, redirectToLoginPageIfUnauthorizedError, redirectToLoginPageIfNotLogged } from '@/router'
 import axios from 'axios'
 
 interface LoginResponse {
@@ -31,6 +31,6 @@ export default class PersonService {
     const response = await personApi.deleteSession()
     redirectToLoginPageIfUnauthorizedError(response)
     store.dispatch('updateLogged')
-    router.push(RouterPages.login)
+    redirectToLoginPageIfNotLogged(store)
   }
 }
