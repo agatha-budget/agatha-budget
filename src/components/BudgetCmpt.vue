@@ -64,7 +64,7 @@
 import { defineComponent } from 'vue'
 import BudgetDataService from '@/services/BudgetDataService'
 import AllocationService from '@/services/AllocationService'
-import { Budget, CategoryData, CategoryDataList } from '@/model/model'
+import { Account, Budget, CategoryData, CategoryDataList } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
@@ -96,6 +96,9 @@ export default defineComponent({
     this.getBudgetData()
   },
   watch: {
+    account: async function () {
+      this.getBudgetData()
+    },
     budget: async function () {
       this.getBudgetData()
     },
@@ -118,6 +121,9 @@ export default defineComponent({
   computed: {
     budget (): Budget | null {
       return this.$store.state.budget
+    },
+    accounts (): Account[] | null {
+      return this.$store.state.accounts
     },
     totalBudgetData () {
       const totalBudgetData = new CategoryData()

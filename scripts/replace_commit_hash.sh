@@ -1,0 +1,1 @@
+sed -i "s/commitHash = '.*'/commitHash = '$1'/g" properties.ts
