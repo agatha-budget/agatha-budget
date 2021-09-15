@@ -29,9 +29,8 @@ import Time from '@/utils/Time'
 
 export default defineComponent({
   name: 'Home',
-  created: async function () {
+  beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
-    StoreHandler.initStore(this.$store)
   },
   components: {
     BudgetCmpt,

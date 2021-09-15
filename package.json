@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "serve": "sh scripts/add_commithash_to_properties.sh ; vue-cli-service serve",
+    "build": "sh scripts/add_commithash_to_properties.sh ; vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint"
   },
