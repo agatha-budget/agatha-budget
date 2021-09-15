@@ -8,7 +8,11 @@ import { Store } from 'vuex'
 
 export default class StoreHandler {
   public static async initStore (store: Store<StoreState>) {
-    await StoreHandler.initBudget(store)
+    if (!store.state.budget) {
+      await this.initBudget(store)
+    } else {
+      await this.updateOnBudgetChange(store)
+    }
   }
 
   public static async updateOnBudgetChange (store: Store<StoreState>) {
