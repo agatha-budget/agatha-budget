@@ -11,6 +11,13 @@ export default class StoreHandler {
     await this.initBudget(store)
   }
 
+  public static resetStore (store: Store<StoreState>) {
+    store.dispatch('updateBudget', null)
+    store.dispatch('updateAccounts', [])
+    store.dispatch('updateCategories', [])
+    store.dispatch('updateMasterCategories', [])
+  }
+
   public static async updateOnBudgetChange (store: Store<StoreState>) {
     this.updateAccounts(store)
     this.updateMasterCategories(store)

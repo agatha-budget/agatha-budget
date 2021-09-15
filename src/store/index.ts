@@ -27,6 +27,11 @@ export const store = createStore<StoreState>({
   mutations: {
     updateLogged (state) {
       state.logged = SuperTokensRequest.doesSessionExist()
+      if (state.logged) {
+        StoreHandler.initStore(store)
+      } else {
+        StoreHandler.resetStore(store)
+      }
     },
     updateBudget (state, budget: Budget) {
       state.budget = budget
