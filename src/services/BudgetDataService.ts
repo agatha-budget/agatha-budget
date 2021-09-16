@@ -10,21 +10,21 @@ export default class BudgetDataService {
   }
 
   public static async getBudgetData (budget: Budget): Promise<BudgetData> {
-    if (budget == null) { return [] }
+    if (budget.id == null) { return [] }
     const response = await budgetDataApi.findBudgetData(budget.id)
     redirectToLoginPageIfUnauthorizedError(response)
     return response.data
   }
 
   public static async getBudgetDataForMonth (budget: Budget, month: number): Promise<CategoryDataList> {
-    if (budget == null) { return {} }
+    if (budget.id == null) { return {} }
     const response = await budgetDataApi.findBudgetData(budget.id, month, month)
     redirectToLoginPageIfUnauthorizedError(response)
     return response.data[month]
   }
 
   public static async getBudgetAmount (budget: Budget, month: number): Promise<number> {
-    if (budget == null) { return 0 }
+    if (budget.id == null) { return 0 }
     const response = await budgetDataApi.findTotalBudgetAmount(budget.id, month)
     redirectToLoginPageIfUnauthorizedError(response)
     return response.data
