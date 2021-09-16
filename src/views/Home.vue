@@ -32,6 +32,9 @@ export default defineComponent({
   beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
   },
+  created: async function () {
+    StoreHandler.initStore(this.$store)
+  }, 
   components: {
     BudgetCmpt,
     AccountsWidget
