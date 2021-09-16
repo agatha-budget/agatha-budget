@@ -34,8 +34,10 @@ export const store = createStore<StoreState>({
       }
     },
     updateBudget (state, budget: Budget) {
-      state.budget = budget
-      StoreHandler.updateOnBudgetChange(store)
+      if (budget !== state.budget) {
+        state.budget = budget
+        StoreHandler.updateOnBudgetChange(store)
+      }
     },
     updateAccounts (state, accounts: Account[]) {
       state.accounts = accounts
