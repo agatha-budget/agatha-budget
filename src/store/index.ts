@@ -11,6 +11,7 @@ export interface StoreState {
   categories: Category[];
   masterCategories: MasterCategory[];
   css: string;
+  storeLoaded: boolean;
 }
 
 export const key: InjectionKey<Store<StoreState>> = Symbol('injectionKey')
@@ -22,7 +23,8 @@ export const store = createStore<StoreState>({
     accounts: [],
     categories: [],
     masterCategories: [],
-    css: 'default'
+    css: 'default',
+    storeLoaded: false
   },
   mutations: {
     updateLogged (state) {
@@ -47,6 +49,9 @@ export const store = createStore<StoreState>({
     },
     updateMasterCategories (state, masterCategories: MasterCategory[]) {
       state.masterCategories = masterCategories.sort((a, b) => (a.name.toLowerCase() <= b.name.toLowerCase() ? -1 : 1))
+    },
+    updateStoreLoaded (state, storeLoaded: boolean) {
+      state.storeLoaded = storeLoaded
     }
   },
   actions: {
@@ -64,8 +69,10 @@ export const store = createStore<StoreState>({
     },
     updateMasterCategories (context, masterCategories: MasterCategory[]) {
       context.commit('updateMasterCategories', masterCategories)
+    },
+    updateStoreLoaded (context, storeLoaded: boolean) {
+      context.commit('updateStoreLoaded', storeLoaded)
     }
-
   },
   modules: {
   }

@@ -1,7 +1,7 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="home row" style="margin-top: 20px">
-      <div class="row">
+      <div v-if="this.$store.state.storeLoaded" class="row">
         <div class="col-md-5 offset-md-2">
           <BudgetCmpt :month="this.currentMonth" />
         </div>
@@ -14,6 +14,9 @@
         </ul>
         </div>
       </div>
+    <div v-else>
+        <Loader class="loader"/>
+    </div>
     </div>
   </div>
 </template>
@@ -26,6 +29,7 @@ import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
 import PersonService from '@/services/PersonService'
 import Time from '@/utils/Time'
+import Loader from '@/components/utils/Loader.vue'
 
 export default defineComponent({
   name: 'Home',
@@ -34,10 +38,11 @@ export default defineComponent({
   },
   created: async function () {
     StoreHandler.initStore(this.$store)
-  }, 
+  },
   components: {
     BudgetCmpt,
-    AccountsWidget
+    AccountsWidget,
+    Loader
   },
   data () {
     return {

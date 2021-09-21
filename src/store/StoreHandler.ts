@@ -16,12 +16,14 @@ export default class StoreHandler {
     store.dispatch('updateAccounts', [])
     store.dispatch('updateCategories', [])
     store.dispatch('updateMasterCategories', [])
+    store.dispatch('updateStoreLoaded', false)
   }
 
   public static async updateOnBudgetChange (store: Store<StoreState>) {
     this.updateAccounts(store)
     this.updateMasterCategories(store)
     this.updateCategories(store)
+    store.dispatch('updateStoreLoaded', true)
   }
 
   public static async updateAccounts (store: Store<StoreState>) {
