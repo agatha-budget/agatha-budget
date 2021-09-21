@@ -54,8 +54,10 @@ export default defineComponent({
   components: {
     OperationForm
   },
-  created: async function () {
+  beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
+  },
+  created: async function () {
     StoreHandler.initStore(this.$store)
     this.getAccountOperation()
   },

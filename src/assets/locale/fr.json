@@ -34,5 +34,6 @@
     "ARCHIVED_CATEGORIES": "Catégories archivées",
     "DEFAULT": "Par défaut",
     "I18N_TRASNFERT": "Transfert vers/depuis un autre compte",
-    "TO_BE_PULLED_OUT": "à retirer"
+    "TO_BE_PULLED_OUT": "à retirer",
+    "LOADING": "chargement"
 }
