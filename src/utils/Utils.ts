@@ -4,6 +4,6 @@ export default class Utils {
   }
 
   public static getCentsAmount (eurosAmount: number): number {
-    return +eurosAmount * 100
+    return Math.round(+eurosAmount * 100)
   }
 }
