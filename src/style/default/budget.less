@@ -105,14 +105,24 @@
         }
         th.name {
             padding: 0 10px 0 0;
-            div {
+            .editable-master-category {
                 border-radius: 6px 6px 0 0;
                 background : @masterBlue;;
-                text-align: center;
+                text-align: left;
+                padding-left: 10%;
+                text-decoration: none;
+                color: black;
+                .btn {
+                    visibility: hidden;
+                    color: @lightBlue;
+                    font-size: small;
+                    padding: 6px 0px 6px 12px;
+                }
             }
-            .btn {
-                color: @lightBlue;
-                font-size: small;
+            .editable-master-category:hover{
+                .btn {
+                    visibility: visible;
+                }
             }
         }
         th.allocated {
