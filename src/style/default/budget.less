@@ -19,7 +19,7 @@
             padding: 0 0 10px 0;
             div {
                 min-height: 40px;
-                background : @masterBlue;
+                background : @headerColor;
                 text-align: center;
                 color: whitesmoke
 
@@ -27,7 +27,8 @@
         }
 
         td.allocated, td.available, td.spent {
-            background : @masterBlue;
+            background : @headerColor;
+            color: white;
             border-spacing : 0px;
             text-align: center;
         }
@@ -50,7 +51,8 @@
                 font-weight: bold;
                 min-height: 40px;
                 border-radius: 6px;
-                background :  @masterBlue;;
+                background :  @headerColor;
+                color: white;
                 text-align: center;
                 line-height: 40px;
             }
@@ -60,8 +62,10 @@
 }
 
 #budgetTables {
-    background: @transparentBlue;
+    background: white;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
     border-radius: 28px;
+    margin-top: 10px;
     padding: 20px;
     font-size: small;
 
@@ -92,7 +96,7 @@
             background: @orange;
         }
         .null {
-            background: @green;
+            background: @dateColor;
         }
     }
    
@@ -105,14 +109,24 @@
         }
         th.name {
             padding: 0 10px 0 0;
-            div {
+            .editable-master-category {
                 border-radius: 6px 6px 0 0;
-                background : @masterBlue;;
-                text-align: center;
+                background : @headerColor;;
+                text-align: left;
+                padding-left: 10%;
+                text-decoration: none;
+                color: white;
+                .btn {
+                    visibility: hidden;
+                    color: @lightBlue;
+                    font-size: small;
+                    padding: 6px 0px 6px 12px;
+                }
             }
-            .btn {
-                color: @lightBlue;
-                font-size: small;
+            .editable-master-category:hover{
+                .btn {
+                    visibility: visible;
+                }
             }
         }
         th.allocated {
@@ -122,7 +136,8 @@
             border-radius: 0px 6px 0px 0px;
         }
         th.allocated, th.available, th.spent {
-            background : @masterBlue;;
+            background : @headerColor;
+            color: white;
             border-spacing : 0px;
             text-align: center;
         }
@@ -134,13 +149,28 @@
             padding: 0;
         }
         td.name {
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
             padding: 0 10px 0 0;
             div {
                 background : @background;
                 padding: 0 0 0 10px;
                 .btn {
-                    color: @masterBlue;
+                    color: @headerColor;
                     font-size: small;
+                }
+            }
+            .editable-category{
+                cursor: pointer;
+                color: darkslategray;
+                text-decoration: none;
+                text-align: right;
+                .btn {
+                    visibility: hidden;
+                }
+            }
+            .editable-category:hover{
+                .btn {
+                    visibility: visible;
                 }
             }
         }
@@ -162,4 +192,16 @@
     .spent {
         font-weight: lighter;
     }
+
+    #archive_section {
+        .title {
+            text-align: center;
+            padding: 20px;
+            text-transform: capitalize;
+            font-weight: bold;
+            font-size: larger;
+        } 
+    }
+
+
 }

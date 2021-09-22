@@ -4,11 +4,12 @@
       <th class="col-6 name">
         <div>
           <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
-          <div v-else>
-            <button class="btn fas fa-plus" v-on:click="createCategory"/>
-            <a  v-on:click="this.putFocusOn(masterCategory.id)">
-              <button class="btn fas fa-pen"/>{{ masterCategory?.name }}
+          <div v-else class="editable-master-category">
+            <a v-on:click="this.putFocusOn(masterCategory.id)">
+              {{ masterCategory?.name }}
+              <button class="btn fas fa-pen"/>
             </a>
+              <button class="btn fas fa-plus" v-on:click="createCategory"/>
           </div>
         </div>
       </th>
@@ -25,7 +26,7 @@
       <td class="name">
         <div>
           <CategoryForm v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus"/>
-          <a v-else v-on:click="this.putFocusOn(category.id)"><button class="btn fas fa-pen"/>{{ category.name}} </a>
+          <a class="editable-category" v-else v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="btn fas fa-pen"/></a>
         </div>
       </td>
       <td class="allocated">

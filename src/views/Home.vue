@@ -1,6 +1,6 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="home row" style="margin-top: 20px">
+    <div class="home row">
       <div v-if="this.$store.state.storeLoaded" class="row">
         <div class="col-md-5 offset-md-2">
           <BudgetCmpt :month="this.currentMonth" />
