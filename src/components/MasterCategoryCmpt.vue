@@ -25,7 +25,7 @@
       <td class="name">
         <div>
           <CategoryForm v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus"/>
-          <a v-else v-on:click="this.putFocusOn(category.id)"><button class="btn fas fa-pen"/>{{ category.name}} </a>
+          <a class="editable-category" v-else v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="btn fas fa-pen"/></a>
         </div>
       </td>
       <td class="allocated">
