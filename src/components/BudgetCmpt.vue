@@ -45,8 +45,8 @@
             <span v-else type="button"> > {{ $t("SHOW_ARCHIVE") }}</span>
           </div>
         </div>
-        <div v-if="this.archiveVisible" id="archive section" >
-          {{ $t("ARCHIVE") }}
+        <div v-if="this.archiveVisible" id="archive_section" >
+          <div class="title">{{ $t("ARCHIVE") }}</div>
           <table class="budgetArchiveTable table"
           v-for="masterCategory in this.$store.state.masterCategories"
           :key="masterCategory"
