@@ -19,7 +19,7 @@
           </tr>
           <tbody>
           <tr>
-            <td class="name"><div>{{ $t("TOTAL") }} <button type="button" class="btn fas fa-plus" v-on:click="this.createMasterCategory()"/></div></td>
+            <td class="name"><div>{{ $t("TOTAL") }}</div></td>
             <td class="allocated">{{ getEurosAmount(this.totalBudgetData.allocated) }}</td>
             <td class="spent">{{ getEurosAmount(this.totalBudgetData.spent) }}</td>
             <td class="available">{{ getEurosAmount(this.totalBudgetData.available) }}</td>
@@ -37,12 +37,16 @@
               :categoryDataList="this.categoryDataList"
             />
         </table>
-        <div v-on:click="this.archiveVisible = !this.archiveVisible">
-          <button v-if="this.archiveVisible" class="btn fas fa-chevron-down"/>
-          <button v-else class="btn fas fa-chevron-right"/>
-          <a>{{$t('ARCHIVE')}}</a>
+        <div class="budget-tools">
+          <div><span type="button" v-on:click="this.createMasterCategory()"> > {{ $t("ADD_MASTER_CATEGORY") }}</span></div>
+          <div><span class="tooltiped" > > {{ $t("ADD_CATEGORY") }}<span class="tooltiptext">{{ $t("CLICK_ON_THE_MASTER_CATEGORY") }}</span></span></div>
+          <div v-on:click="this.archiveVisible = !this.archiveVisible">
+            <span v-if="this.archiveVisible" type="button" > > {{ $t("HIDE_ARCHIVE") }}</span>
+            <span v-else type="button"> > {{ $t("SHOW_ARCHIVE") }}</span>
+          </div>
         </div>
         <div v-if="this.archiveVisible" id="archive section" >
+          {{ $t("ARCHIVE") }}
           <table class="budgetArchiveTable table"
           v-for="masterCategory in this.$store.state.masterCategories"
           :key="masterCategory"
