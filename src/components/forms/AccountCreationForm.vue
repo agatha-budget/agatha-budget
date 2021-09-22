@@ -1,9 +1,10 @@
 <template>
   <div id="accountCreationForm">
-    <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('ACCOUNT_NAME')">
+    <label for="newAccountName">{{ $t('ACCOUNT_NAME') }}</label>
+    <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('CHECKING_ACCOUNT')">
     <label for="newAccountAmount">{{ $t('INITIAL_AMOUNT') }}</label>
     <input id="newAccountAmount" class="form-control" v-model.number="amount">
-    <button class="btn btn-outline-info" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</button>
+    <button class="btn" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</button>
   </div>
 </template>
 
