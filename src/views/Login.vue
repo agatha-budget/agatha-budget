@@ -4,8 +4,8 @@
     <input class="form-control" v-model="email" :placeholder="$t('EMAIL')">
     <input class="form-control" type="password" v-model="password" :placeholder="$t('PASSWORD')">
     <button class="btn btn-info" v-on:click="login">{{$t('LOGIN')}}</button>
-    <button class="btn btn-info" v-on:click="goToSignUp">{{$t('SIGN UP')}}</button>
     <p id="login_error_msg">{{errorMsg}}</p>
+    <p><a class="teamSelector" v-on:click="goToSignUp">{{$t('CREATE_ACCOUNT_HERE')}}</a></p>
   </div>
 </template>
 
