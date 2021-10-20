@@ -1,10 +1,11 @@
 <template>
-  <div id="login_page">
+  <div id="sign_up_page">
     <img id="logo" alt="Vue logo" src="../assets/logo.png" />
+    <input class="for;-control" type="text" v-model="name" :placeholder="$t('NAME')">
     <input class="form-control" v-model="email" :placeholder="$t('EMAIL')">
     <input class="form-control" type="password" v-model="password" :placeholder="$t('PASSWORD')">
-    <button class="btn btn-info" v-on:click="login">{{$t('LOGIN')}}</button>
-    <button class="btn btn-info" v-on:click="goToSignUp">{{$t('SIGN UP')}}</button>
+    <input class="form-control" type="password" v-model="password" :placeholder="$t('PASSWORD')">
+    <button class="btn btn-info" v-on:click="create">{{$t('CREATE')}}></button>
     <p id="login_error_msg">{{errorMsg}}</p>
   </div>
 </template>
@@ -12,10 +13,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import PersonService from '@/services/PersonService'
-import router, { RouterPages } from '@/router'
 
 export default defineComponent({
-  name: 'Login',
+  name: 'Signup',
   components: {},
   data () {
     return {
@@ -30,6 +30,10 @@ export default defineComponent({
     }
   },
   methods: {
+    /* async signup () {
+    }
+*/
+    /*
     async login () {
       const responseData = await PersonService.createSession(this.$store, this.email, this.password)
       if (responseData.unlockingDate !== null) {
@@ -43,10 +47,7 @@ export default defineComponent({
       } else {
         this.$data.errorMsg = this.$t('SORRY_WRONG_LOGIN')
       }
-    },
-    async goToSignUp (): Promise<void> {
-      router.push(RouterPages.signup)
-    }
+    } */
   }
 
 })
