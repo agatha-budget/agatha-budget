@@ -9,7 +9,7 @@
       <label for="password">{{$t('PASSWORD')}}</label>
       <input class="form-control" type="password" id="password" v-model="password" :placeholder="$t('PASSWORD')">
       <label for="password">{{$t('CONFIRM_PASSWORD')}}</label>
-      <input class="form-control" type="password" id="passwordConf" v-model="passwordConf" :placeholder="$t('PASSWORD')">
+      <input class="form-control" type="password" id="passwordConfirm" v-model="passwordConfirm" :placeholder="$t('PASSWORD')">
       <button class="btn btn-info" v-on:click="create">{{$t('CREATE')}}</button>
       <p id="login_error_msg">{{errorMsg}}</p>
       <p><a class="teamSelector" v-on:click="goToLogin">{{$t('RETURN_TO_LOGIN')}}</a></p>
@@ -30,10 +30,8 @@ export default defineComponent({
       name: '',
       email: '',
       password: '',
-      passwordConf: '',
-      passwordLow: '',
-      errorMsg: '',
-      caractere: ''
+      passwordConfirm: '',
+      errorMsg: ''
     }
   },
   computed: {
@@ -48,8 +46,9 @@ export default defineComponent({
       }
     },
     testForm (): boolean {
+      // regex verify email have an email form
       const regex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
-      if (this.password !== this.passwordConf) {
+      if (this.password !== this.passwordConfirm) {
         this.$data.errorMsg = this.$t('DIFFERENT_PASSWORDS')
         return false
       }
@@ -68,6 +67,7 @@ export default defineComponent({
       return true
     },
     passwordCheckSecurity (password: string): boolean {
+      // regExp verify password is enought complex (more than 8 caracters, with lower and capital letter and with special caracter !@#$%&*())
       const regExp = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()]).{8,}/
       const validPassword = regExp.test(password)
       return validPassword
