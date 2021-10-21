@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Signup from '../views/Signup.vue'
 import AccountPage from '../views/AccountPage.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
@@ -9,6 +10,7 @@ import { AxiosResponse } from 'axios'
 export enum RouterPages {
   home = '/',
   login = '/login',
+  signup = '/signup',
   account = '/account',
   about = '/about'
 }
@@ -21,6 +23,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.login,
     component: Login
+  },
+  {
+    path: RouterPages.signup,
+    component: Signup
   },
   {
     path: RouterPages.account,

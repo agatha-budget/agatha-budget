@@ -41,5 +41,14 @@
     "CLICK_ON_THE_MASTER_CATEGORY" : "pour ajouter une enveloppe, cliquer sur la catégorie concernée puis sur le +",
     "HIDE_ARCHIVE": "cacher les archives",
     "SHOW_ARCHIVE": "afficher les archives",
-    "CHECKING_ACCOUNT": "compte courant"
+    "CHECKING_ACCOUNT": "compte courant",
+    "CREATE_ACCOUNT_HERE": "creer un compte",
+    "CREATE": "creer",
+    "NAME": "nom",
+    "CONFIRM_PASSWORD": "confirmer le mot de passe",
+    "EMPTY_NAME": "nom vide",
+    "INVALID_EMAIL": "email invalide",
+    "LESS_SECURITY": "trop faible securite",
+    "DIFFERENT_PASSWORDS": "mots de passe differents",
+    "RETURN_TO_LOGIN": "retourner a la page de connexion"
 }
