@@ -25,7 +25,7 @@ export default defineComponent({
   methods: {
     createAccount () {
       if (this.$store.state.budget) {
-        AccountService.createAccount(this.$store.state.budget, this.name, Utils.getCentsAmount(this.amount)).then(
+        AccountService.createAccount(this.$store, this.$store.state.budget, this.name, Utils.getCentsAmount(this.amount)).then(
           () => {
             this.$emit('updateAccountList')
             this.$emit('closeForm')

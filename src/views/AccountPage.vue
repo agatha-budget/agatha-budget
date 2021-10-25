@@ -1,7 +1,13 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="accountPage row col-md-8 offset-md-2">
-      <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? getEurosAmount(this.account.amount) : ''}}€</h1>
+      <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? getEurosAmount(this.account.amount) : ''}}€
+        <span class="name"><input id="accountName" class="form-control" v-model="name"></span>
+        <span class="validation">
+           <button class="btn fas fa-check" v-on:click="newName()"/>
+           <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+        </span>
+      </h1>
       <table class="operationTable table table-hover" >
           <tr class="">
             <th class="date col-md-1"><div>{{ $t("DATE") }}</div></th>
@@ -38,11 +44,13 @@ import { Account, Category, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
+import AccountService from '@/services/AccountService'
 import OperationForm from '@/components/forms/OperationForm.vue'
 import Utils from '@/utils/Utils'
 
 interface AccountPageData {
     operations: EditableOperation[];
+    name: string;
 }
 
 interface EditableOperation extends Operation {
@@ -74,7 +82,8 @@ export default defineComponent({
   },
   data (): AccountPageData {
     return {
-      operations: []
+      operations: [],
+      name: ''
     }
   },
   computed: {
@@ -87,6 +96,7 @@ export default defineComponent({
       return null
     }
   },
+  emits: ['loosesFocus'],
   methods: {
     async getAccountOperation () {
       if (this.account) {
@@ -132,6 +142,9 @@ export default defineComponent({
     },
     getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)
+    },
+    newName () {
+      AccountService.updateAccount(this.$store, this.accountId, this.name)
     }
   }
 })
