@@ -8,6 +8,17 @@
         text-align: center;
         font-size: xx-large ;
         margin-bottom: 30px;
+        .btn {
+            visibility: hidden;
+            color: @darkBlue;
+            font-size: small;
+            padding: 6px 0px 6px 12px;
+        }
+    }
+    h1:hover{
+        .btn {
+            visibility: visible;
+        }
     }
     #operationForm {
         background: @headerColor;

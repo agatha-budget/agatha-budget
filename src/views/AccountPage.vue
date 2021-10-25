@@ -1,13 +1,22 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="accountPage row col-md-8 offset-md-2">
-      <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? getEurosAmount(this.account.amount) : ''}}€
-        <span class="name"><input id="accountName" class="form-control" v-model="name"></span>
+        <div v-if="this.editingTitle">
+          <span class="name">
+          <input id="accountName" class="form-control" v-model="name">
+        </span>
         <span class="validation">
            <button class="btn fas fa-check" v-on:click="newName()"/>
-           <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+           <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
         </span>
-      </h1>
+        </div>
+          <div v-else class="editableNameAccount">
+        <a v-on:click="this.displayTitleEditing()">
+          <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? getEurosAmount(this.account.amount) : ''}}€
+              <button class="btn fas fa-pen"/>
+        </h1>
+        </a>
+      </div>
       <table class="operationTable table table-hover" >
           <tr class="">
             <th class="date col-md-1"><div>{{ $t("DATE") }}</div></th>
@@ -51,6 +60,7 @@ import Utils from '@/utils/Utils'
 interface AccountPageData {
     operations: EditableOperation[];
     name: string;
+    editingTitle: boolean;
 }
 
 interface EditableOperation extends Operation {
@@ -83,7 +93,8 @@ export default defineComponent({
   data (): AccountPageData {
     return {
       operations: [],
-      name: ''
+      name: '',
+      editingTitle: false
     }
   },
   computed: {
@@ -145,6 +156,13 @@ export default defineComponent({
     },
     newName () {
       AccountService.updateAccount(this.$store, this.accountId, this.name)
+      this.editingTitle = false
+    },
+    displayTitleEditing () {
+      this.editingTitle = true
+    },
+    cancelEditing () {
+      this.editingTitle = false
     }
   }
 })
