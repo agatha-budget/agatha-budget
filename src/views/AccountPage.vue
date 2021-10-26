@@ -1,11 +1,11 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="accountPage row col-md-8 offset-md-2">
-        <div v-if="this.editingTitle">
-          <span class="name">
-          <input id="accountName" class="form-control" v-model="name">
-        </span>
-        <span class="validation">
+        <div v-if="this.editingTitle" class="row">
+          <span class="name col-4 offset-4">
+            <input id="accountName" class="form-control" v-model="nameComputed">
+          </span>
+        <span class="validation col">
            <button class="btn fas fa-check" v-on:click="newName()"/>
            <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
         </span>
@@ -13,8 +13,8 @@
           <div v-else class="editableNameAccount">
         <a v-on:click="this.displayTitleEditing()">
           <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? getEurosAmount(this.account.amount) : ''}}€
-              <button class="btn fas fa-pen"/>
-        </h1>
+            <button class="btn fas fa-pen"/>
+          </h1>
         </a>
       </div>
       <table class="operationTable table table-hover" >
@@ -105,6 +105,9 @@ export default defineComponent({
         }
       }
       return null
+    },
+    nameComputed (): string {
+      return this.account?.name || ''
     }
   },
   emits: ['loosesFocus'],
