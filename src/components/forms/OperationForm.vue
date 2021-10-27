@@ -1,7 +1,9 @@
 <template>
-  <tr id="operationForm" class="operation">
-    <td class="date"><input id="newOperationDate" type="date" class="form-control" v-model="date"></td>
-    <td class="category">
+<div id="operationForm" class="operation">
+    <div class="dateTitle col-1 offset-2">{{ $t("DATE") }}</div>
+    <div class="dateElement col-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
+    <div class="categoryTitle col-1 offset-1">{{ $t("CATEGORY") }}</div>
+    <div class="categoryElement col-3">
       <select id="newOperationCategory" class="form-control" v-model="categoryId" >
         <option disabled value="">{{$t('SELECT_CATEGORY')}}</option>
         <option v-bind:value="incomeCategoryId">{{$t('I18N_INCOME')}}</option>
@@ -13,23 +15,24 @@
           <option v-for="category of this.getArchivedCategories()" :key="category" v-bind:value="category.id">{{category.name}}</option>
         </optgroup>
       </select>
-    </td>
-    <td class="memo"><input id="newOperationMemo" class="form-control" v-model="memo"></td>
-    <td class="amount">
-      <div class="input-group flex-nowrap">
-        <label class="switch">
-          <input class="switch-input" type="checkbox" v-model="incoming"/>
+    </div>
+    <div class="memoTitle col-1 offset-2">{{ $t("MEMO") }}</div>
+    <div class="memoElement col-2"><input id="newOperationMemo" class="form-control" v-model="memo"></div>
+    <div class="amountTitle col-1 offset-1">{{ $t("AMOUNT") }}</div>
+    <div class="amountElement col-3"><div class="input-group flex-nowrap">
+      <label class="switch">
+        <input class="switch-input" type="checkbox" v-model="incoming"/>
           <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px"></span>
           <span class="switch-handle"></span>
-        </label>
+      </label>
         <input id="newOperationAmount" class="form-control" v-model.number="amount">
-      </div>
-    </td>
-    <td class="validation">
-      <button v-if="this.operation" class="btn fas fa-check" v-on:click="updateOperation" :title="$t('UPDATE')"/>
-      <button v-else class="btn fas fa-check" v-on:click="addOperation" :title="$t('ADD')"/>
-      </td>
-  </tr>
+    </div>
+    </div>
+  <div class="action col-1 offset-6">
+    <button v-if="this.operation" class="btn fas fa-check" v-on:click="updateOperation" :title="$t('UPDATE')"/>
+    <button v-else class="btn fas fa-check" v-on:click="addOperation" :title="$t('ADD')"/>
+  </div>
+</div>
 </template>
 
 <script lang="ts">

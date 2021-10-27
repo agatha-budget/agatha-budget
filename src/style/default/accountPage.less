@@ -11,9 +11,19 @@
     }
     #operationForm {
         background: @headerColor;
+        padding: 30px 0 20px 0;
+        display: flex;
+        flex-wrap: wrap;
         .btn{
             color: @background;
-        } 
+            font-size: large;
+        }
+        .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
+            color: white;
+            font-size: large;
+            font-weight: bold;
+            text-align: middle;
+        }
     }
 
     .storedOperation:nth-child(even) {
