@@ -1,9 +1,9 @@
 <template>
 <div id="operationForm" class="operation">
-    <div class="dateTitle col-1 offset-2">{{ $t("DATE") }}</div>
-    <div class="dateElement col-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
-    <div class="categoryTitle col-1 offset-1">{{ $t("CATEGORY") }}</div>
-    <div class="categoryElement col-3">
+    <div class="dateTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("DATE") }}</div>
+    <div class="dateElement col-6 col-sm-5 col-md-3 col-lg-3 col-xl-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
+    <div class="categoryTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1 col-lg-2 offset-lg-1 col-xl-2 offset-xl-1 col-xxl-2 offset-xxl-1">{{ $t("CATEGORY") }}</div>
+    <div class="categoryElement col-6 col-sm-5 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
       <select id="newOperationCategory" class="form-control" v-model="categoryId" >
         <option disabled value="">{{$t('SELECT_CATEGORY')}}</option>
         <option v-bind:value="incomeCategoryId">{{$t('I18N_INCOME')}}</option>
@@ -16,10 +16,10 @@
         </optgroup>
       </select>
     </div>
-    <div class="memoTitle col-1 offset-2">{{ $t("MEMO") }}</div>
-    <div class="memoElement col-2"><input id="newOperationMemo" class="form-control" v-model="memo"></div>
-    <div class="amountTitle col-1 offset-1">{{ $t("AMOUNT") }}</div>
-    <div class="amountElement col-3"><div class="input-group flex-nowrap">
+    <div class="memoTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("MEMO") }}</div>
+    <div class="memoElement col-6 col-sm-5 col-md-3 col-lg-3 col-xl-3 col-xxl-2"><input id="newOperationMemo" class="form-control" v-model="memo"></div>
+    <div class="amountTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1 col-lg-2 offset-lg-1 col-xl-2 offset-xl-1 col-xxl-2 offset-xxl-1">{{ $t("AMOUNT") }}</div>
+    <div class="amountElement col-6 col-sm-5 col-md-3 col-lg-3 col-xl-3 col-xxl-4"><div class="input-group flex-nowrap">
       <label class="switch">
         <input class="switch-input" type="checkbox" v-model="incoming"/>
           <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px"></span>
