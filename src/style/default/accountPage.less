@@ -24,19 +24,30 @@
             font-weight: bold;
             text-align: middle;
         }
+        .dateTitle, .categoryTitle, .memoTitle, .amountTitle, .dateElement, .categoryElement, .memoElement, .amountElement {
+            padding: 8px 0 0 0;
+        }
     }
-
+    .storedOperation {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 8px 0 8px 0;
+        .category {
+            font-size: medium;
+            font-weight: bold;
+        }
+        .amount {
+            font-size: large;
+        }
+        .btn {
+            color: @headerColor;
+        }
+    }
     .storedOperation:nth-child(even) {
         background-color: @background;
-        .btn{
-            color: @headerColor;
-        } 
     }
     .storedOperation:nth-child(odd) {
         background-color: @darkerBackground;
-        .btn{
-            color: @headerColor;
-        } 
     }
 
     .operation {
@@ -44,9 +55,6 @@
         .btn {
             font-size: small;
             padding-left: 10px;
-        }
-        .date {
-            text-align: center;
         }
     }
 

@@ -17,51 +17,25 @@
           </h1>
         </a>
       </div>
-      <table class="operationTable table table-hover" >
-          <tr class="">
-            <th class="date col-1 "><div>{{ $t("DATE") }}</div></th>
-            <th class="category col-10 col-sm-6 col-md-5 col-lg-4">{{ $t("CATEGORY") }}</th>
-            <th class="memo col-6 col-sm-1 col-md-2 col-lg-4">{{ $t("MEMO") }}</th>
-            <th class="amount col-5 col-sm-3 col-md-3 col-lg-2">{{ $t("AMOUNT") }}</th>
-            <th class="action col-1">{{ $t("ACTION") }}</th>
-          </tr>
+      <div class="operationTable table-hover" >
           <tbody>
           <OperationForm @update-operation-list="getAccountOperation" :accountId="this.accountId" />
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
-            <tr class="operation storedOperation" v-else>
-              <td class="date"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></td>
-              <td class="category">{{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}</td>
-              <td class="memo">{{ operation.memo }}</td>
-              <td class="amount">{{ this.getEurosAmount(operation.amount) }}</td>
-              <td class="action">
+            <div class="operation storedOperation v-else">
+              <div class="date col-2 offset-2"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></div>
+              <div class="col-8"></div>
+              <div class="category col-3 offset-2">{{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}</div>
+              <div class="amount col-2 offset-2">{{ this.getEurosAmount(operation.amount) }} €</div>
+              <div class="action col-1">
                 <button class="btn fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
                 <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
-              </td>
-            </tr>
+              </div>
+              <div class="memo col-3 offset-2">{{ operation.memo }}</div>
+           </div>
           </template>
           </tbody>
-      </table>
-      <table class="operationTable table table-hover" >
-          <tbody>
-          <OperationForm @update-operation-list="getAccountOperation" :accountId="this.accountId" />
-          <template v-for="operation in this.operations" :key="operation">
-            <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
-            <div class="operation storedOperation" v-else>
-            <tr>
-              <td class="date"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></td>
-              <td class="category">{{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}</td>
-              <td rowspan="2" class="action">
-                <button class="btn fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
-                <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
-              </td>
-              <td class="memo">{{ operation.memo }}</td>
-              <td class="amount">{{ this.getEurosAmount(operation.amount) }}</td>
-            </tr>
-            </div>
-          </template>
-          </tbody>
-      </table>
+      </div>
     </div>
   </div>
 </template>
