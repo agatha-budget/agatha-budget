@@ -19,19 +19,19 @@
       </div>
       <div class="operationTable table-hover" >
           <tbody>
-          <OperationForm @update-operation-list="getAccountOperation" :accountId="this.accountId" />
+          <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId" />
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
             <div class="operation storedOperation v-else">
-              <div class="date col-2 offset-2"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></div>
+              <div class="date col-2 offset-1"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></div>
               <div class="col-8"></div>
-              <div class="category col-3 offset-2">{{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}</div>
+              <div class="category col-3 offset-1">{{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}</div>
               <div class="amount col-2 offset-2">{{ this.getEurosAmount(operation.amount) }} €</div>
-              <div class="action col-1">
+              <div class="action col-1 offset-1">
                 <button class="btn fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
                 <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
               </div>
-              <div class="memo col-3 offset-2">{{ operation.memo }}</div>
+              <div class="memo col-3 offset-1">{{ operation.memo }}</div>
            </div>
           </template>
           </tbody>
