@@ -26,7 +26,7 @@ open class AccountDaoTest : ITest {
 
     @Test
     fun getOwnerForUnstoredAccount() {
-        val account = Account("courant", "id_of_an_inexisting_budget")
+        val account = Account("courant", "id_of_an_inexisting_budget_test")
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             accountDao.getOwner(account)
         }

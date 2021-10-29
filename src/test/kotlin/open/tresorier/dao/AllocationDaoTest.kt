@@ -69,7 +69,7 @@ open class AllocationDaoTest : ITest {
     fun getAllAllocationsOfBudget() {
         val budget = Budget("wellAllocatedBudget", "person1")
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expenses", budget.id)
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)

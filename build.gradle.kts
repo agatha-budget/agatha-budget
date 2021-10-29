@@ -297,6 +297,13 @@ jooq {
 }
 
 
+tasks.named("compileJava") {
+    dependsOn("compileKotlin")
+}
+
+tasks.named("compileKotlin") {
+    dependsOn("generateJooq")
+}
 
 tasks.register("generateJooq") {
     dependsOn("generateTresorierJooq")
@@ -370,7 +377,8 @@ tasks.register<Jar>("uberJar") {
             "Main-Class" to "open.tresorier.api.ApiKt"
         )
     }
-
+    
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     archiveClassifier.set("uber")
 
     from(sourceSets.main.get().output)
