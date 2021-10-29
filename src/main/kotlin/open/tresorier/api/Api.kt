@@ -54,11 +54,12 @@ fun main() {
         val name = ctx.queryParam<String>("name").get()
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
+        val person = Person(name, password, email)
         //val person: Person = ServiceManager.personService.createPerson(name, password, email)
-        val priceId: String = "price_1Jq0dmGjNzWUNv4eVFjamemc"
+        val priceId: String = properties.getProperty("price_id")
         val succesUrl: String = "http://agatha-budget.fr/about/"
         val cancelUrl: String = "http://agatha-budget.fr/individual/"
-        val billingSession: StripeSession = ApiUtils.createStripeSession(priceId, succesUrl, cancelUrl)
+        val billingSession: String = ApiUtils.createStripeSession(person, priceId, succesUrl, cancelUrl)
         ctx.json("{\"name\" : $name, \"billingSession\" : $billingSession }")
     }
 
