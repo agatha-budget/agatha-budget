@@ -2,10 +2,10 @@
   <div :class="this.$store.state.css">
     <div class="home row">
       <div v-if="this.$store.state.storeLoaded" class="row">
-        <div class="col-md-5 offset-md-2">
+        <div class="col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-xl-5 offset-xl-2">
           <BudgetCmpt :month="this.currentMonth" />
         </div>
-        <div class="col-md-2 offset-md-1">
+        <div class="col-8 offset-2 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-xl-2 offset-xl-1">
           <AccountsWidget/>
           <ul id="actionsList" class="list-group list-group-horizontal d-flex justify-content-center">
           <li><button class="btn fas fa-chart-line disabled" :title="$t('GRAPH_AND_REPORT')"/></li>

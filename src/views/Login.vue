@@ -5,12 +5,14 @@
     <input class="form-control" type="password" v-model="password" :placeholder="$t('PASSWORD')">
     <button class="btn btn-info" v-on:click="login">{{$t('LOGIN')}}</button>
     <p id="login_error_msg">{{errorMsg}}</p>
+    <p><a class="teamSelector" v-on:click="goToSignUp">{{$t('CREATE_ACCOUNT_HERE')}}</a></p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import PersonService from '@/services/PersonService'
+import router, { RouterPages } from '@/router'
 
 export default defineComponent({
   name: 'Login',
@@ -41,6 +43,9 @@ export default defineComponent({
       } else {
         this.$data.errorMsg = this.$t('SORRY_WRONG_LOGIN')
       }
+    },
+    async goToSignUp (): Promise<void> {
+      router.push(RouterPages.signup)
     }
   }
 
