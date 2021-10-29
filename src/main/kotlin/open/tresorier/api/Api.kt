@@ -12,6 +12,15 @@ import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
 
 
+import com.stripe.Stripe
+import com.stripe.model.Event
+import com.stripe.exception.*
+import com.stripe.net.Webhook
+import com.stripe.model.checkout.Session as StripeSession
+import com.stripe.param.checkout.SessionCreateParams
+
+
+
 fun main() {
 
     val properties = Properties.getProperties()
@@ -45,8 +54,51 @@ fun main() {
         val name = ctx.queryParam<String>("name").get()
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
-        val person: Person = ServiceManager.personService.createPerson(name, password, email)
-        ctx.json(person.name + " was successfully created")
+        //val person: Person = ServiceManager.personService.createPerson(name, password, email)
+        val priceId: String = "price_1Jq0dmGjNzWUNv4eVFjamemc"
+        val succesUrl: String = "http://agatha-budget.fr/about/"
+        val cancelUrl: String = "http://agatha-budget.fr/individual/"
+        val billingSession: StripeSession = ApiUtils.createStripeSession(priceId, succesUrl, cancelUrl)
+        ctx.json("{\"name\" : $name, \"billingSession\" : $billingSession }")
+    }
+
+
+    Stripe.apiKey = properties.getProperty("stripe_api_key")
+
+    app.post("/webhook") { ctx -> 
+        val payload = ctx.body()
+        val sigHeader = ctx.header("Stripe-Signature")
+        val endpointSecret = properties.getProperty("stripe_webhook")
+
+        var event : Event? = null
+
+        try {
+            event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
+        } catch (e : Exception) {
+            // Invalid signature
+            ctx.status(400)
+            ctx.json("")
+        }
+
+        when (event?.type) {
+            "checkout.session.completed" ->  println("completed")
+            // Payment is successful and the subscription is created.
+            // You should provision the subscription and save the customer ID to your database.
+                
+            "invoice.paid" ->  println("paid")
+            // Continue to provision the subscription as payments continue to be made.
+            // Store the status in your database and check when a user accesses your service.
+            // This approach helps you avoid hitting rate limits.
+                
+            "invoice.payment_failed" ->  println("payment_failed")
+            // The payment failed or the customer does not have a valid payment method.
+            // The subscription becomes past_due. Notify your customer and send them to the
+            // customer portal to update their payment information.
+
+            else -> println("Unhandled event type: " + event?.type)
+        }
+
+        ctx.json("")
     }
 
     app.post("/login") { ctx ->
