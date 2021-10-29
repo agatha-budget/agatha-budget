@@ -21,7 +21,6 @@
       </div>
       <div class="operationTable table-hover">
           <OperationForm
-        <tbody>
             class="operationCreate"
             @update-operation-list="getAccountOperation"
             :accountId="this.accountId"
@@ -62,7 +61,6 @@
               <div class="memo col-3 offset-1">{{ operation.memo }}</div>
             </div>
           </template>
-        </tbody>
       </div>
     </div>
   </div>
@@ -81,6 +79,8 @@ import Utils from '@/utils/Utils'
 
 interface AccountPageData {
     operations: EditableOperation[];
+    name: string;
+    editingTitle: boolean;
 }
 
 interface EditableOperation extends Operation {
