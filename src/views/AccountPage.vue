@@ -3,7 +3,7 @@
     <div class="accountPage row col-md-8 offset-md-2">
         <div v-if="this.editingTitle" class="row">
           <span class="name col-4 offset-4">
-            <input id="accountName" class="form-control" v-model="nameComputed">
+            <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
           </span>
         <span class="validation col">
            <button class="btn fas fa-check" v-on:click="newName()"/>
@@ -106,7 +106,7 @@ export default defineComponent({
       }
       return null
     },
-    nameComputed (): string {
+    currentName (): string {
       return this.account?.name || ''
     }
   },
