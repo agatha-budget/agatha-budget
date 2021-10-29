@@ -82,20 +82,30 @@ fun main() {
         }
 
         when (event?.type) {
-            "checkout.session.completed" ->  println("completed")
-            // Payment is successful and the subscription is created.
-            // You should provision the subscription and save the customer ID to your database.
-                
-            "invoice.paid" ->  println("paid")
-            // Continue to provision the subscription as payments continue to be made.
-            // Store the status in your database and check when a user accesses your service.
-            // This approach helps you avoid hitting rate limits.
-                
-            "invoice.payment_failed" ->  println("payment_failed")
-            // The payment failed or the customer does not have a valid payment method.
-            // The subscription becomes past_due. Notify your customer and send them to the
-            // customer portal to update their payment information.
-
+            "checkout.session.completed" -> {
+                val person : Person =  ServiceManager.personService.getById("eeee")
+                person.billingId = "fzuifez"
+                person.billingStatus = true
+                ServiceManager.personService.update(person) 
+                // Payment is successful and the subscription is created.
+                // You should provision the subscription and save the customer ID to your database.
+            }   
+            "invoice.paid" -> {
+                val person : Person =  ServiceManager.personService.getById("eeee")
+                person.billingStatus = true
+                ServiceManager.personService.update(person) 
+                // Continue to provision the subscription as payments continue to be made.
+                // Store the status in your database and check when a user accesses your service.
+                // This approach helps you avoid hitting rate limits.
+            }    
+            "invoice.payment_failed" ->  {
+                val person : Person =  ServiceManager.personService.getById("eeee")
+                person.billingStatus = false
+                ServiceManager.personService.update(person)
+                // The payment failed or the customer does not have a valid payment method.
+                // The subscription becomes past_due. Notify your customer and send them to the
+                // customer portal to update their payment information.
+            }
             else -> println("Unhandled event type: " + event?.type)
         }
 
