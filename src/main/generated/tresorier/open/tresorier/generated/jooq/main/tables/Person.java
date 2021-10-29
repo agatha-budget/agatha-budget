@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row9;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = -1739939730;
+    private static final long serialVersionUID = -278053072;
 
     /**
      * The reference instance of <code>public.person</code>
@@ -80,6 +80,16 @@ public class Person extends TableImpl<PersonRecord> {
      * The column <code>public.person.deleted</code>.
      */
     public final TableField<PersonRecord, Boolean> DELETED = createField(DSL.name("deleted"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>public.person.billing_id</code>.
+     */
+    public final TableField<PersonRecord, String> BILLING_ID = createField(DSL.name("billing_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>public.person.billing_status</code>.
+     */
+    public final TableField<PersonRecord, Boolean> BILLING_STATUS = createField(DSL.name("billing_status"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
      * Create a <code>public.person</code> table reference
@@ -156,11 +166,11 @@ public class Person extends TableImpl<PersonRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row9 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, String, String, String, Long, Integer, Boolean> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row9<String, String, String, String, Long, Integer, Boolean, String, Boolean> fieldsRow() {
+        return (Row9) super.fieldsRow();
     }
 }

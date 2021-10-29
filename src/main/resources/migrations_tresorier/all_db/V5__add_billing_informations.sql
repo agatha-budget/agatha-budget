@@ -1,0 +1,5 @@
+ALTER TABLE person
+ADD COLUMN billing_id VARCHAR(36) DEFAULT NULL;
+
+ALTER TABLE person
+ADD COLUMN billing_status BOOLEAN DEFAULT false;

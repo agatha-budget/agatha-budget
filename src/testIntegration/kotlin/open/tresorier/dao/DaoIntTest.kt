@@ -16,23 +16,6 @@ class BudgetDaoIntTest : BudgetDaoTest(), IIntegrationTest {}
 
 class CategoryDaoIntTest : CategoryDaoTest(), IIntegrationTest {}
 
-class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
-    @Test
-    override fun  cannotCreateWithAccountAndCategoryFromDistinctBudget() {
-        val operation = Operation( "account1", TestData.feb_02_2021,"category5", 852574)
-        val exception = assertThrows(TresorierException::class.java) {
-            operationDao.insert(operation)
-        }
-        assertEquals("could not insert operation : $operation", exception.message)
-    }
-
-    @Test
-    override fun  cannotCreateWithNullCategoryIsOk() {
-        val operation = Operation( "account1", TestData.feb_02_2021,null, 852574)
-        operationDao.insert(operation)
-        val storedOperation = operationDao.getById(operation.id)
-        assertEquals(storedOperation.amount, operation.amount)
-    }
-}
+class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {}
 
 class PersonDaoIntTest : PersonDaoTest(), IIntegrationTest {}

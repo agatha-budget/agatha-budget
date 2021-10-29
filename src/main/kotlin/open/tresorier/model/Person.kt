@@ -4,6 +4,8 @@ class Person (
     var name: String,
     var hashedPassword: String,
     var email: String,
+    var billingId: String? = null,
+    var billingStatus: Boolean = false,
     var unlockingDate: Long = 0,
     var loginAttemptCount: Int = 0,
     id: String? = null,

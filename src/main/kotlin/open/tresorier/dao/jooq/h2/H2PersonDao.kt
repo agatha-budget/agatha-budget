@@ -48,7 +48,9 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
             person.hashedPassword,
             person.unlockingDate,
             person.loginAttemptCount,
-            person.deleted
+            person.deleted,
+            person.billingId,
+            person.billingStatus
         )
     }
 
@@ -60,6 +62,8 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
                 jooqPerson.name,
                 jooqPerson.password,
                 jooqPerson.email,
+                jooqPerson.billingId,
+                jooqPerson.billingStatus,
                 jooqPerson.unlockingdate,
                 jooqPerson.loginattemptcount,
                 jooqPerson.id,
@@ -72,6 +76,8 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
                 recordPerson.name,
                 recordPerson.password,
                 recordPerson.email,
+                recordPerson.billingId,
+                recordPerson.billingStatus,
                 recordPerson.unlockingdate,
                 recordPerson.loginattemptcount,
                 recordPerson.id,
