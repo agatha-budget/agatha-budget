@@ -27,11 +27,7 @@ object ApiUtils {
             .setPrice(priceId)
             .build()
         )
-        .addDiscount(
-            SessionCreateParams.Discount.builder()
-            .setCoupon(properties.getProperty("coupon_contributeur"))
-            .build()
-        )
+        .putExtraParam("allow_promotion_codes", "true")
         .build()
         val session: Session = Session.create(params)
         return session.getUrl()
