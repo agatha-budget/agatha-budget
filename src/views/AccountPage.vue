@@ -6,7 +6,7 @@
             <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
           </span>
         <span class="validation col">
-           <button class="btn fas fa-check" v-on:click="newName()"/>
+           <button class="btn fas fa-check" v-on:click="updateName()"/>
            <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
         </span>
         </div>
@@ -157,7 +157,7 @@ export default defineComponent({
     getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)
     },
-    newName () {
+    updateName () {
       AccountService.updateAccount(this.$store, this.accountId, this.name)
       this.editingTitle = false
     },
