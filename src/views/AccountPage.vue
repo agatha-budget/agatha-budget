@@ -1,47 +1,67 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="accountPage row col-md-8 offset-md-2">
-        <div v-if="this.editingTitle" class="row">
-          <span class="name col-4 offset-4">
+    <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+      <div v-if="this.editingTitle" class="row">
+        <span class="name col-4 offset-4">
             <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
-          </span>
+        </span>
         <span class="validation col">
            <button class="btn fas fa-check" v-on:click="updateName()"/>
            <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
         </span>
-        </div>
-          <div v-else class="editableNameAccount">
+      </div>
+      <div v-else class="editableNameAccount">
         <a v-on:click="this.displayTitleEditing()">
-          <h1> {{ (this.account) ? this.account.name : ''}} : {{ (this.account) ? getEurosAmount(this.account.amount) : ''}}€
-            <button class="btn fas fa-pen"/>
+          <h1>
+            {{ this.account ? this.account.name : "" }} :
+            {{ this.account ? getEurosAmount(this.account.amount) : "" }}€
           </h1>
+            <button class="btn fas fa-pen" />
         </a>
       </div>
-      <table class="operationTable table table-hover" >
-          <tr class="">
-            <th class="date col-md-1"><div>{{ $t("DATE") }}</div></th>
-            <th class="category col-md-4">{{ $t("CATEGORY") }}</th>
-            <th class="memo col-md-4">{{ $t("MEMO") }}</th>
-            <th class="amount col-md-2">{{ $t("AMOUNT") }}</th>
-            <th class="action col-md-1">{{ $t("ACTION") }}</th>
-          </tr>
-          <tbody>
-          <OperationForm @update-operation-list="getAccountOperation" :accountId="this.accountId" />
+      <div class="operationTable table-hover">
+          <OperationForm
+            class="operationCreate"
+            @update-operation-list="getAccountOperation"
+            :accountId="this.accountId"
+          />
           <template v-for="operation in this.operations" :key="operation">
-            <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
-            <tr class="operation storedOperation" v-else>
-              <td class="date"><div>{{ $d(this.getDayAsDate(operation.day), 'day') }}</div></td>
-              <td class="category">{{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}</td>
-              <td class="memo">{{ operation.memo }}</td>
-              <td class="amount">{{ this.getEurosAmount(operation.amount) }}</td>
-              <td class="action">
-                <button class="btn fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
-                <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
-              </td>
-            </tr>
+            <OperationForm
+              v-if="operation.editing"
+              @update-operation-list="getAccountOperation"
+              :accountId="this.accountId"
+              :operation="operation"
+            />
+            <div class="operation storedOperation v-else">
+              <div class="date col-2 offset-1">
+                <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+              </div>
+              <div class="col-8"></div>
+              <div class="category col-3 offset-1">
+                {{
+                  this.getCategoryById(operation.categoryId)?.name ??
+                  $t("UNKNOWN_CATEGORY")
+                }}
+              </div>
+              <div class="amount col-2 offset-2">
+                {{ this.getEurosAmount(operation.amount) }} €
+              </div>
+              <div class="action col-1 offset-1">
+                <button
+                  class="btn fas fa-pen"
+                  v-on:click="setAsEditing(operation)"
+                  :title="$t('EDIT')"
+                />
+                <button
+                  class="btn fas fa-trash"
+                  v-on:click="deleteOperation(operation)"
+                  :title="$t('DELETE')"
+                />
+              </div>
+              <div class="memo col-3 offset-1">{{ operation.memo }}</div>
+            </div>
           </template>
-          </tbody>
-      </table>
+      </div>
     </div>
   </div>
 </template>
@@ -64,7 +84,7 @@ interface AccountPageData {
 }
 
 interface EditableOperation extends Operation {
-    editing: boolean;
+  editing: boolean;
 }
 
 export default defineComponent({
@@ -125,11 +145,9 @@ export default defineComponent({
       return Time.getDateFromDay(dayAsInt)
     },
     deleteOperation (operation: Operation) {
-      OperationService.deleteOperation(this.$store, operation).then(
-        () => {
-          this.getAccountOperation()
-        }
-      )
+      OperationService.deleteOperation(this.$store, operation).then(() => {
+        this.getAccountOperation()
+      })
     },
     setAsEditing (operation: EditableOperation) {
       operation.editing = true
@@ -137,17 +155,15 @@ export default defineComponent({
     operationToEditableOperation (operations: Operation[]): EditableOperation[] {
       const editableOperations: EditableOperation[] = []
       operations.forEach((operation) =>
-        editableOperations.push(
-          {
-            id: operation.id,
-            day: operation.day,
-            accountId: operation.accountId,
-            categoryId: operation.categoryId,
-            amount: operation.amount,
-            memo: operation.memo,
-            editing: false
-          }
-        )
+        editableOperations.push({
+          id: operation.id,
+          day: operation.day,
+          accountId: operation.accountId,
+          categoryId: operation.categoryId,
+          amount: operation.amount,
+          memo: operation.memo,
+          editing: false
+        })
       )
       return editableOperations
     },

@@ -1,7 +1,9 @@
 <template>
-  <tr id="operationForm" class="operation">
-    <td class="date"><input id="newOperationDate" type="date" class="form-control" v-model="date"></td>
-    <td class="category">
+<div id="operationForm" class="operation">
+    <div class="dateTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("DATE") }}</div>
+    <div class="dateElement col-6 col-sm-5 col-md-3 col-lg-3 col-xl-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
+    <div class="categoryTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1 col-lg-2 offset-lg-1 col-xl-2 offset-xl-1 col-xxl-2 offset-xxl-1">{{ $t("CATEGORY") }}</div>
+    <div class="categoryElement col-6 col-sm-5 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
       <select id="newOperationCategory" class="form-control" v-model="categoryId" >
         <option disabled value="">{{$t('SELECT_CATEGORY')}}</option>
         <option v-bind:value="incomeCategoryId">{{$t('I18N_INCOME')}}</option>
@@ -13,23 +15,24 @@
           <option v-for="category of this.getArchivedCategories()" :key="category" v-bind:value="category.id">{{category.name}}</option>
         </optgroup>
       </select>
-    </td>
-    <td class="memo"><input id="newOperationMemo" class="form-control" v-model="memo"></td>
-    <td class="amount">
-      <div class="input-group flex-nowrap">
-        <label class="switch">
-          <input class="switch-input" type="checkbox" v-model="incoming"/>
+    </div>
+    <div class="memoTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("MEMO") }}</div>
+    <div class="memoElement col-6 col-sm-5 col-md-3 col-lg-3 col-xl-3 col-xxl-2"><input id="newOperationMemo" class="form-control" v-model="memo"></div>
+    <div class="amountTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1 col-lg-2 offset-lg-1 col-xl-2 offset-xl-1 col-xxl-2 offset-xxl-1">{{ $t("AMOUNT") }}</div>
+    <div class="amountElement col-6 col-sm-5 col-md-3 col-lg-3 col-xl-3 col-xxl-4"><div class="input-group flex-nowrap">
+      <label class="switch">
+        <input class="switch-input" type="checkbox" v-model="incoming"/>
           <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px"></span>
           <span class="switch-handle"></span>
-        </label>
+      </label>
         <input id="newOperationAmount" class="form-control" v-model.number="amount">
-      </div>
-    </td>
-    <td class="validation">
-      <button v-if="this.operation" class="btn fas fa-check" v-on:click="updateOperation" :title="$t('UPDATE')"/>
-      <button v-else class="btn fas fa-check" v-on:click="addOperation" :title="$t('ADD')"/>
-      </td>
-  </tr>
+    </div>
+    </div>
+  <div class="action col-1 offset-6">
+    <button v-if="this.operation" class="btn fas fa-check" v-on:click="updateOperation" :title="$t('UPDATE')"/>
+    <button v-else class="btn fas fa-check" v-on:click="addOperation" :title="$t('ADD')"/>
+  </div>
+</div>
 </template>
 
 <script lang="ts">
