@@ -3,11 +3,11 @@
     <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
       <div v-if="this.editingTitle" class="row">
         <span class="name col-4 offset-4">
-          <input id="accountName" class="form-control" v-model="nameComputed" />
+            <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
         </span>
         <span class="validation col">
-          <button class="btn fas fa-check" v-on:click="newName()" />
-          <button class="btn fas fa-times" v-on:click="this.cancelEditing()" />
+           <button class="btn fas fa-check" v-on:click="updateName()"/>
+           <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
         </span>
       </div>
       <div v-else class="editableNameAccount">
@@ -15,13 +15,13 @@
           <h1>
             {{ this.account ? this.account.name : "" }} :
             {{ this.account ? getEurosAmount(this.account.amount) : "" }}€
-            <button class="btn fas fa-pen" />
           </h1>
+            <button class="btn fas fa-pen" />
         </a>
       </div>
       <div class="operationTable table-hover">
-        <tbody>
           <OperationForm
+        <tbody>
             class="operationCreate"
             @update-operation-list="getAccountOperation"
             :accountId="this.accountId"
@@ -75,11 +75,12 @@ import { Account, Category, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
+import AccountService from '@/services/AccountService'
 import OperationForm from '@/components/forms/OperationForm.vue'
 import Utils from '@/utils/Utils'
 
 interface AccountPageData {
-  operations: EditableOperation[];
+    operations: EditableOperation[];
 }
 
 interface EditableOperation extends Operation {
@@ -111,7 +112,9 @@ export default defineComponent({
   },
   data (): AccountPageData {
     return {
-      operations: []
+      operations: [],
+      name: '',
+      editingTitle: false
     }
   },
   computed: {
@@ -122,8 +125,12 @@ export default defineComponent({
         }
       }
       return null
+    },
+    currentName (): string {
+      return this.account?.name || ''
     }
   },
+  emits: ['loosesFocus'],
   methods: {
     async getAccountOperation () {
       if (this.account) {
@@ -165,6 +172,16 @@ export default defineComponent({
     },
     getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)
+    },
+    updateName () {
+      AccountService.updateAccount(this.$store, this.accountId, this.name)
+      this.editingTitle = false
+    },
+    displayTitleEditing () {
+      this.editingTitle = true
+    },
+    cancelEditing () {
+      this.editingTitle = false
     }
   }
 })
