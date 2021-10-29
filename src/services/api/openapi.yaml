@@ -353,7 +353,7 @@ paths:
       summary: Rename an account
       operationId: updateAccount
       parameters:
-      - name: id
+      - name: account_id
         in: query
         required: true
         style: form
