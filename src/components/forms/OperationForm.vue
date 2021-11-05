@@ -101,6 +101,10 @@ export default defineComponent({
           this.$emit('updateOperationList')
         }
       )
+      this.memo = ''
+      this.amount = 0
+      this.categoryId = ''
+      this.incoming = false
     },
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
       return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)

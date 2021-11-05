@@ -19,7 +19,7 @@
     "CREATE_ACCOUNT": "ajouter ce compte",
     "CANCEL": "annuler",
     "DATE": "date",
-    "CATEGORY": "categorie",
+    "CATEGORY": "catégorie",
     "MEMO": "mémo",
     "AMOUNT": "montant",
     "I18N_INCOME": "Argent à répartir",
@@ -42,13 +42,14 @@
     "HIDE_ARCHIVE": "cacher les archives",
     "SHOW_ARCHIVE": "afficher les archives",
     "CHECKING_ACCOUNT": "compte courant",
-    "CREATE_ACCOUNT_HERE": "creer un compte",
-    "CREATE": "creer",
+    "CREATE_ACCOUNT_HERE": "créer un compte",
+    "CREATE": "créer",
     "NAME": "nom",
     "CONFIRM_PASSWORD": "confirmer le mot de passe",
     "EMPTY_NAME": "nom vide",
     "INVALID_EMAIL": "email invalide",
-    "LESS_SECURITY": "trop faible securite",
-    "DIFFERENT_PASSWORDS": "mots de passe differents",
-    "RETURN_TO_LOGIN": "retourner a la page de connexion"
+    "LESS_SECURITY": "trop faible sécurité",
+    "DIFFERENT_PASSWORDS": "mots de passe différents",
+    "RETURN_TO_LOGIN": "retourner à la page de connexion",
+    "HOME": "accueil"
 }
