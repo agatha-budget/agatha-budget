@@ -33,3 +33,5 @@ session_mngt/
 .env
 
 db/
+
+logs/app.log
