@@ -30,7 +30,7 @@
     </div>
   <div class="action col-1 offset-6">
     <button v-if="this.operation" class="btn fas fa-check" v-on:click="updateOperation" :title="$t('UPDATE')"/>
-    <button v-else class="btn fas fa-check" v-on:click="addOperation" :title="$t('ADD')"/>
+    <button v-else class="btn fas fa-check" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')"/>
   </div>
 </div>
 </template>
@@ -101,16 +101,18 @@ export default defineComponent({
           this.$emit('updateOperationList')
         }
       )
-      this.memo = ''
-      this.amount = 0
-      this.categoryId = ''
-      this.incoming = false
     },
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
       return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
     },
     getArchivedCategories (): Category[] {
       return StoreHandler.getCategoriesByArchivedStatus(this.$store, true)
+    },
+    rebootAddOperationForm () {
+      this.memo = ''
+      this.amount = 0
+      this.categoryId = ''
+      this.incoming = false
     }
   }
 })

@@ -1,6 +1,6 @@
 <template>
   <div id="accountCreationForm">
-    <div class="createAccountForm">
+    <div class="accountCreationInput">
       <label for="newAccountName">{{ $t('ACCOUNT_NAME') }}</label>
       <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('CHECKING_ACCOUNT')">
       <label for="newAccountAmount">{{ $t('INITIAL_AMOUNT') }}</label>
