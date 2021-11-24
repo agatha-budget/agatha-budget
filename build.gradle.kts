@@ -141,7 +141,6 @@ dependencies {
 
     // Logging
     implementation("org.slf4j:slf4j-api:$slf4j_version")
-    implementation("org.slf4j:slf4j-simple:$slf4j_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("ch.qos.logback:logback-core:$logback_version")
 
@@ -393,6 +392,7 @@ tasks.register<Jar>("uberJar") {
         configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
     })
 }
+
 
 tasks.register("stage") {
     dependsOn("uberJar")
