@@ -17,6 +17,8 @@ import com.stripe.model.Event
 import com.stripe.exception.*
 import com.stripe.net.Webhook
 import com.stripe.model.checkout.Session as StripeSession
+import com.stripe.model.StripeObject
+import com.stripe.model.EventDataObjectDeserializer
 import com.stripe.param.checkout.SessionCreateParams
 
 
@@ -54,8 +56,7 @@ fun main() {
         val name = ctx.queryParam<String>("name").get()
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
-        val person = Person(name, password, email)
-        //val person: Person = ServiceManager.personService.createPerson(name, password, email)
+        val person: Person = ServiceManager.personService.createPerson(name, password, email)
         val priceId: String = properties.getProperty("price_id")
         val succesUrl: String = "http://agatha-budget.fr/about/"
         val cancelUrl: String = "http://agatha-budget.fr/individual/"
@@ -70,42 +71,51 @@ fun main() {
         val payload = ctx.body()
         val sigHeader = ctx.header("Stripe-Signature")
         val endpointSecret = properties.getProperty("stripe_webhook")
-
-        var event : Event? = null
-
         try {
-            event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
+            val event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
+            // Deserialize the nested object inside the event
+            val dataObjectDeserializer : EventDataObjectDeserializer = event.getDataObjectDeserializer();
+            if (dataObjectDeserializer.getObject().isPresent()) {
+                val stripeObject : StripeObject = dataObjectDeserializer.getObject().get();
+                // list type of event and object structure : https://stripe.com/docs/api/events/types
+                when (event?.type) {
+                    "checkout.session.completed" -> {
+                        val sessionCheckout = stripeObject as StripeSession
+                        val person : Person =  ServiceManager.personService.getById(sessionCheckout.clientReferenceId)
+                        person.billingId = sessionCheckout.customer
+                        person.billingStatus = true
+                        ServiceManager.personService.update(person)
+                        // Payment is successful and the subscription is created.
+                        // You should provision the subscription and save the customer ID to your database.
+                    }   
+                    "invoice.paid" -> {
+                    
+                        // Continue to provision the subscription as payments continue to be made.
+                        // Store the status in your database and check when a user accesses your service.
+                        // This approach helps you avoid hitting rate limits.
+                    }    
+                    "invoice.payment_failed" ->  {
+                    
+                        // The payment failed or the customer does not have a valid payment method.
+                        // The subscription becomes past_due. Notify your customer and send them to the
+                        // customer portal to update their payment information.
+                    }
+                    else -> {} //println("Unhandled event type: " + event?.type)
+                }
+                ctx.json("")
+            } else {
+                    ctx.status(400)
+                    ctx.json("")
+                // Deserialization failed, probably due to an API version mismatch.
+                // Refer to the Javadoc documentation on `EventDataObjectDeserializer` for
+                // instructions on how to handle this case, or return an error here.
+            }
         } catch (e : Exception) {
             // Invalid signature
+            val exception = TresorierException("catched by API", e)
             ctx.status(400)
             ctx.json("")
         }
-
-        when (event?.type) {
-            "checkout.session.completed" -> {
-                println("Unhandled event type: " + event.data.getObject().getClientReferenceId()))
-                /*val person : Person =  ServiceManager.personService.getById(event.getClientReferenceId())
-                person.billingId = event.getCustomer()
-                person.billingStatus = true
-                ServiceManager.personService.update(person) */
-                // Payment is successful and the subscription is created.
-                // You should provision the subscription and save the customer ID to your database.
-            }   
-            "invoice.paid" -> {
-               
-                // Continue to provision the subscription as payments continue to be made.
-                // Store the status in your database and check when a user accesses your service.
-                // This approach helps you avoid hitting rate limits.
-            }    
-            "invoice.payment_failed" ->  {
-              
-                // The payment failed or the customer does not have a valid payment method.
-                // The subscription becomes past_due. Notify your customer and send them to the
-                // customer portal to update their payment information.
-            }
-            else -> println("Unhandled event type: " + event?.type)
-        }
-        ctx.json("")
     }
 
     app.post("/login") { ctx ->

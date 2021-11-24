@@ -12,7 +12,23 @@ sudo service postgresql stop
 ''
 outside of the shell
 
-*how often* : 1
+*how often* : 3
+
+--------------
+## Stripe webhook doesn't call the API
+
+*how long* : 1h
+
+*what happened* : 
+
+*why* :
+
+*what did i do to fix it* : restart the local 
+''
+stripe listen --forward-to localhost:7000/webhook
+''
+
+*how often* : 2
 
 --------------
 ## Bug description
