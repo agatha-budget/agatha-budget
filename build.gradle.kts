@@ -300,15 +300,6 @@ jooq {
     }
 }
 
-tasks.named("compileJava") {
-    dependsOn("compileKotlin")
-}
-
-tasks.named("compileKotlin") {
-    dependsOn("generateJooq")
-}
-
-
 tasks.register("generateJooq") {
     dependsOn("generateTresorierJooq")
     dependsOn("generateTestJooq")
