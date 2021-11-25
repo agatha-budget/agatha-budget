@@ -11,16 +11,7 @@ import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
 import com.stripe.Stripe
-import com.stripe.model.Event
-import com.stripe.exception.*
-import com.stripe.net.Webhook
-import com.stripe.model.checkout.Session as StripeSession
-import com.stripe.model.StripeObject
-import com.stripe.model.Invoice
-import com.stripe.model.EventDataObjectDeserializer
-import com.stripe.param.checkout.SessionCreateParams
-
-
+import open.tresorier.services.BillingService
 
 fun main() {
 
@@ -56,67 +47,15 @@ fun main() {
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
         val person: Person = ServiceManager.personService.createPerson(name, password, email)
-        val priceId: String = properties.getProperty("price_id")
-        val succesUrl: String = "http://agatha-budget.fr/about/"
-        val cancelUrl: String = "http://agatha-budget.fr/individual/"
-        val billingSession: String = ApiUtils.createStripeSession(person, priceId, succesUrl, cancelUrl)
+        val billingSession = BillingService.createBillingSession(person)
         ctx.json("{\"name\" : $name, \"billingSession\" : $billingSession }")
     }
 
-
-    Stripe.apiKey = properties.getProperty("stripe_api_key")
-
-    app.post("/webhook") { ctx -> 
+    // handle webhook sent by stripe
+    app.post("/from_stripe") { ctx -> 
         val payload = ctx.body()
         val sigHeader = ctx.header("Stripe-Signature")
-        val endpointSecret = properties.getProperty("stripe_webhook")
-        try {
-            val event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
-            // Deserialize the nested object inside the event
-            val dataObjectDeserializer : EventDataObjectDeserializer = event.getDataObjectDeserializer();
-            if (dataObjectDeserializer.getObject().isPresent()) {
-                val stripeObject : StripeObject = dataObjectDeserializer.getObject().get();
-                // list type of event and object structure : https://stripe.com/docs/api/events/types
-                when (event?.type) {
-                    "checkout.session.completed" -> {
-                        // Payment is successful and the subscription is created.
-                        val sessionCheckout = stripeObject as StripeSession
-                        val person : Person =  ServiceManager.personService.getById(sessionCheckout.clientReferenceId)
-                        person.billingId = sessionCheckout.customer
-                        person.billingStatus = true
-                        ServiceManager.personService.update(person)
-                    }   
-                    "invoice.paid" -> {
-                        // Continue to provision the subscription as payments continue to be made.
-                        val invoice = stripeObject as Invoice
-                        val person : Person =  ServiceManager.personService.getByBillingId(invoice.customer)
-                        person.billingStatus = true
-                        ServiceManager.personService.update(person)
-                    }    
-                    "invoice.payment_failed" ->  {
-                        // The payment failed or the customer does not have a valid payment method.
-                        val invoice = stripeObject as Invoice
-                        val person : Person =  ServiceManager.personService.getByBillingId(invoice.customer)
-                        // if the billing status is already false, set it to null to suspend the access to the app
-                        person.billingStatus = (person.billingStatus) ? false : null
-                        ServiceManager.personService.update(person)
-                    }
-                    else -> {} //println("Unhandled event type: " + event?.type)
-                }
-                ctx.json("")
-            } else {
-                    ctx.status(400)
-                    ctx.json("")
-                // Deserialization failed, probably due to an API version mismatch.
-                // Refer to the Javadoc documentation on `EventDataObjectDeserializer` for
-                // instructions on how to handle this case, or return an error here.
-            }
-        } catch (e : Exception) {
-            // Invalid signature
-            val exception = TresorierException("catched by API", e)
-            ctx.status(400)
-            ctx.json("")
-        }
+        ServiceManager.billingService.handleWebhook(payload, sigHeader)
     }
 
     app.post("/login") { ctx ->

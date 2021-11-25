@@ -4,6 +4,8 @@ import open.tresorier.dao.IPersonDao
 import open.tresorier.model.Budget
 import open.tresorier.model.Person
 import open.tresorier.utils.Time
+import open.tresorier.exception.TresorierException
+
 
 class PersonService(private val personDao: IPersonDao, private val budgetService: BudgetService) {
 
@@ -65,8 +67,9 @@ class PersonService(private val personDao: IPersonDao, private val budgetService
     }
 
     fun getUnlockingDateForEmail(email : String) : Long? {
+        var potentialPerson: Person?
         try {
-            val potentialPerson = personDao.getByEmail(email)
+            potentialPerson = personDao.getByEmail(email)
         } catch (e: TresorierException) {
             potentialPerson = null
         }

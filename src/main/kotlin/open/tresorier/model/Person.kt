@@ -5,7 +5,7 @@ class Person (
     var hashedPassword: String,
     var email: String,
     var billingId: String? = null,
-    var billingStatus: Boolean = false,
+    var billingStatus: Boolean? = null,
     var unlockingDate: Long = 0,
     var loginAttemptCount: Int = 0,
     id: String? = null,
