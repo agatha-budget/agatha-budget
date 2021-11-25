@@ -41,25 +41,35 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
     }
 
     private fun initCategoryForBudget(budget: Budget){
-        val masterCategoryVIP = MasterCategory("I18N_vip", budget.id)
-        val masterCategoryFixed = MasterCategory("I18N_fixed_expenses", budget.id)
-        val masterCategoryVariable = MasterCategory("I18N_variable_expenses", budget.id)
-        val masterCategoryProvision = MasterCategory("I18N_provisions", budget.id)
+        val masterCategoryGoal = MasterCategory("_Objectifs", budget.id)
+        val masterCategoryVIP = MasterCategory("_Priorités au quotidien", budget.id)
+        val masterCategoryFixed = MasterCategory("Frais Fixes", budget.id)
+        val masterCategoryVariable = MasterCategory("Frais Variables", budget.id)
+        val masterCategoryProvision = MasterCategory("Provisions", budget.id)
 
-        val masterCategories = listOf(masterCategoryVIP, masterCategoryFixed, masterCategoryVariable, masterCategoryProvision)
+        val masterCategories = listOf(masterCategoryGoal, masterCategoryVIP, masterCategoryFixed, masterCategoryVariable, masterCategoryProvision)
         for (masterCategory in masterCategories) {
             masterCategoryDao.insert(masterCategory)
         }
 
         val categories = listOf(
-            Category("I18N_6_month", masterCategoryVIP.id),
-            Category("I18N_rent", masterCategoryFixed.id),
-            Category("I18N_internet", masterCategoryFixed.id),
-            Category("I18N_electricity", masterCategoryFixed.id),
-            Category("I18N_groceries", masterCategoryVariable.id),
-            Category("I18N_leisure", masterCategoryVariable.id),
-            Category("I18N_computer", masterCategoryProvision.id),
-            Category("I18N_cell_phone", masterCategoryProvision.id)
+            Category("Filet de sécurité", masterCategoryGoal.id),
+            Category("Vacances", masterCategoryGoal.id),
+            Category("Sortie entre amis", masterCategoryVIP.id),
+            Category("Loyer", masterCategoryFixed.id),
+            Category("Internet", masterCategoryFixed.id),
+            Category("Forfait téléphone", masterCategoryFixed.id),
+            Category("Électricité", masterCategoryFixed.id),
+            Category("Assurances", masterCategoryFixed.id),
+            Category("Gaz", masterCategoryFixed.id),
+            Category("Eau", masterCategoryFixed.id),
+            Category("Alimentation/Courses", masterCategoryVariable.id),
+            Category("Divers loisirs", masterCategoryVariable.id),
+            Category("Tabac", masterCategoryVariable.id),
+            Category("Essence", masterCategoryVariable.id),
+            Category("Voiture", masterCategoryProvision.id),
+            Category("Téléphone", masterCategoryProvision.id),
+            Category("Noël", masterCategoryProvision.id)
         )
         for (category in categories) {
             categoryDao.insert(category)
