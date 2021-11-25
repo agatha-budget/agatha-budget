@@ -15,7 +15,7 @@ class AuthorizationServiceTest : ITest {
     @Test
     fun testCheckUniversalCategory() {
         val universalCategory = categoryDao.getById(Category.INCOME_ID)
-        val person = Person("a","a","a")
+        val person = Person("a","a","a","a", true)
         // no exception is thrown
         authorizationService.cancelIfUserIsUnauthorized(person, universalCategory)
     }

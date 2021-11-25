@@ -19,6 +19,7 @@ class AuthorizationService(
         if (owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with account " + account.id)
         }
+        BillingService.checkIfUserSubscriptionIsActive(person)
     }
 
     fun cancelIfUserIsUnauthorized(person: Person, allocation: Allocation) {
@@ -26,6 +27,7 @@ class AuthorizationService(
         if (owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with allocation " + allocation.toString())
         }
+        BillingService.checkIfUserSubscriptionIsActive(person)
     }
 
     fun cancelIfUserIsUnauthorized(person: Person, budget: Budget) {
@@ -33,6 +35,7 @@ class AuthorizationService(
         if (owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with budget " + budget.id)
         }
+        BillingService.checkIfUserSubscriptionIsActive(person)
     }
 
     fun cancelIfUserIsUnauthorized(person: Person, category: Category) {
@@ -40,6 +43,7 @@ class AuthorizationService(
         if (owner != null && owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with category " + category.id)
         }
+        BillingService.checkIfUserSubscriptionIsActive(person)
     }
 
     fun cancelIfUserIsUnauthorized(person: Person, masterCategory: MasterCategory) {
@@ -47,6 +51,7 @@ class AuthorizationService(
         if (owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with category " + masterCategory.id)
         }
+        BillingService.checkIfUserSubscriptionIsActive(person)
     }
 
     fun cancelIfUserIsUnauthorized(person: Person, operation: Operation) {
@@ -54,5 +59,6 @@ class AuthorizationService(
         if (owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with operation " + operation.id)
         }
+        BillingService.checkIfUserSubscriptionIsActive(person)
     }
 }
