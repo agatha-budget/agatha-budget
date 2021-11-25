@@ -56,12 +56,20 @@ class PersonService(private val personDao: IPersonDao, private val budgetService
         return personDao.getById(id)
     }
 
+    fun getByBillingId(billingId: String) : Person {
+        return personDao.getByBillingId(billingId)
+    }
+
     fun update(person: Person) {
         return personDao.update(person)
     }
 
     fun getUnlockingDateForEmail(email : String) : Long? {
-        val potentialPerson = personDao.getByEmail(email)
+        try {
+            val potentialPerson = personDao.getByEmail(email)
+        } catch (e: TresorierException) {
+            potentialPerson = null
+        }
         return potentialPerson?.unlockingDate
     }
 

@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = -278053072;
+    private static final long serialVersionUID = 434835827;
 
     /**
      * The reference instance of <code>public.person</code>
@@ -89,7 +89,7 @@ public class Person extends TableImpl<PersonRecord> {
     /**
      * The column <code>public.person.billing_status</code>.
      */
-    public final TableField<PersonRecord, Boolean> BILLING_STATUS = createField(DSL.name("billing_status"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<PersonRecord, Boolean> BILLING_STATUS = createField(DSL.name("billing_status"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
 
     /**
      * Create a <code>public.person</code> table reference
@@ -136,7 +136,7 @@ public class Person extends TableImpl<PersonRecord> {
 
     @Override
     public List<UniqueKey<PersonRecord>> getKeys() {
-        return Arrays.<UniqueKey<PersonRecord>>asList(Keys.PERSON_PKEY, Keys.PERSON_EMAIL_KEY);
+        return Arrays.<UniqueKey<PersonRecord>>asList(Keys.PERSON_PKEY, Keys.PERSON_EMAIL_KEY, Keys.PERSON_BILLING_ID_KEY);
     }
 
     @Override

@@ -29,9 +29,14 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
         this.generatedDao.update(jooqPerson)
     }
 
-    override fun getByEmail(email: String): Person? {
+    override fun getByEmail(email: String): Person {
         val jooqPerson = this.generatedDao.fetchOneByEmail(email)
-        return toPerson(jooqPerson)
+        return toPerson(jooqPerson)?: throw TresorierException("no person found for the following email : $email")
+    }
+
+    override fun getByBillingId(billingId: String): Person {
+        val jooqPerson = this.generatedDao.fetchOneByBillingId(billingId)
+        return toPerson(jooqPerson)?: throw TresorierException("no person found for the following billing id : $billingId")
     }
 
     override fun getById(id: String): Person {

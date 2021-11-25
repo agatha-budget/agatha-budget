@@ -52,6 +52,7 @@ public class Keys {
     public static final UniqueKey<OperationRecord> CONSTRAINT_9 = UniqueKeys0.CONSTRAINT_9;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8 = UniqueKeys0.CONSTRAINT_8;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8C = UniqueKeys0.CONSTRAINT_8C;
+    public static final UniqueKey<PersonRecord> CONSTRAINT_8C7 = UniqueKeys0.CONSTRAINT_8C7;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -79,6 +80,7 @@ public class Keys {
         public static final UniqueKey<OperationRecord> CONSTRAINT_9 = Internal.createUniqueKey(Operation.OPERATION, "CONSTRAINT_9", new TableField[] { Operation.OPERATION.ID }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8 = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8C = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8C", new TableField[] { Person.PERSON.EMAIL }, true);
+        public static final UniqueKey<PersonRecord> CONSTRAINT_8C7 = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8C7", new TableField[] { Person.PERSON.BILLING_ID }, true);
     }
 
     private static class ForeignKeys0 {

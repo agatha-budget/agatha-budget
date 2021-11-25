@@ -165,6 +165,13 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
+     * Fetch a unique record that has <code>billing_id = value</code>
+     */
+    public open.tresorier.generated.jooq.main.tables.pojos.Person fetchOneByBillingId(String value) {
+        return fetchOne(Person.PERSON.BILLING_ID, value);
+    }
+
+    /**
      * Fetch records that have <code>billing_status BETWEEN lowerInclusive AND upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfBillingStatus(Boolean lowerInclusive, Boolean upperInclusive) {

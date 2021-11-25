@@ -52,6 +52,7 @@ public class Keys {
     public static final UniqueKey<OperationRecord> OPERATION_PKEY = UniqueKeys0.OPERATION_PKEY;
     public static final UniqueKey<PersonRecord> PERSON_PKEY = UniqueKeys0.PERSON_PKEY;
     public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = UniqueKeys0.PERSON_EMAIL_KEY;
+    public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = UniqueKeys0.PERSON_BILLING_ID_KEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -79,6 +80,7 @@ public class Keys {
         public static final UniqueKey<OperationRecord> OPERATION_PKEY = Internal.createUniqueKey(Operation.OPERATION, "operation_pkey", new TableField[] { Operation.OPERATION.ID }, true);
         public static final UniqueKey<PersonRecord> PERSON_PKEY = Internal.createUniqueKey(Person.PERSON, "person_pkey", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = Internal.createUniqueKey(Person.PERSON, "person_email_key", new TableField[] { Person.PERSON.EMAIL }, true);
+        public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = Internal.createUniqueKey(Person.PERSON, "person_billing_id_key", new TableField[] { Person.PERSON.BILLING_ID }, true);
     }
 
     private static class ForeignKeys0 {
