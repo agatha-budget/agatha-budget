@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row9;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = 1533451267;
+    private static final long serialVersionUID = -907895400;
 
     /**
      * The reference instance of <code>PUBLIC.PERSON</code>
@@ -82,6 +82,16 @@ public class Person extends TableImpl<PersonRecord> {
     public final TableField<PersonRecord, Boolean> DELETED = createField(DSL.name("DELETED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
+     * The column <code>PUBLIC.PERSON.BILLING_ID</code>.
+     */
+    public final TableField<PersonRecord, String> BILLING_ID = createField(DSL.name("BILLING_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>PUBLIC.PERSON.BILLING_STATUS</code>.
+     */
+    public final TableField<PersonRecord, Boolean> BILLING_STATUS = createField(DSL.name("BILLING_STATUS"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+
+    /**
      * Create a <code>PUBLIC.PERSON</code> table reference
      */
     public Person() {
@@ -126,7 +136,7 @@ public class Person extends TableImpl<PersonRecord> {
 
     @Override
     public List<UniqueKey<PersonRecord>> getKeys() {
-        return Arrays.<UniqueKey<PersonRecord>>asList(Keys.CONSTRAINT_8, Keys.CONSTRAINT_8C);
+        return Arrays.<UniqueKey<PersonRecord>>asList(Keys.CONSTRAINT_8, Keys.CONSTRAINT_8C, Keys.CONSTRAINT_8C7);
     }
 
     @Override
@@ -156,11 +166,11 @@ public class Person extends TableImpl<PersonRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row9 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, String, String, String, Long, Integer, Boolean> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row9<String, String, String, String, Long, Integer, Boolean, String, Boolean> fieldsRow() {
+        return (Row9) super.fieldsRow();
     }
 }

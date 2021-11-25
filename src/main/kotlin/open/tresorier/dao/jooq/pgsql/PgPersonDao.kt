@@ -29,9 +29,14 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
         this.generatedDao.update(jooqPerson)
     }
 
-    override fun getByEmail(email: String): Person? {
+    override fun getByEmail(email: String): Person {
         val jooqPerson = this.generatedDao.fetchOneByEmail(email)
-        return toPerson(jooqPerson)
+        return toPerson(jooqPerson)?: throw TresorierException("no person found for the following email : $email")
+    }
+
+    override fun getByBillingId(billingId: String): Person {
+        val jooqPerson = this.generatedDao.fetchOneByBillingId(billingId)
+        return toPerson(jooqPerson)?: throw TresorierException("no person found for the following billing id : $billingId")
     }
 
     override fun getById(id: String): Person {
@@ -48,7 +53,9 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
             person.hashedPassword,
             person.unlockingDate,
             person.loginAttemptCount,
-            person.deleted
+            person.deleted,
+            person.billingId,
+            person.billingStatus
         )
     }
 
@@ -60,6 +67,8 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
                 jooqPerson.name,
                 jooqPerson.password,
                 jooqPerson.email,
+                jooqPerson.billingId,
+                jooqPerson.billingStatus,
                 jooqPerson.unlockingdate,
                 jooqPerson.loginattemptcount,
                 jooqPerson.id,
@@ -72,6 +81,8 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
                 recordPerson.name,
                 recordPerson.password,
                 recordPerson.email,
+                recordPerson.billingId,
+                recordPerson.billingStatus,
                 recordPerson.unlockingdate,
                 recordPerson.loginattemptcount,
                 recordPerson.id,

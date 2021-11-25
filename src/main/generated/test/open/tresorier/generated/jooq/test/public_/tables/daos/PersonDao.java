@@ -149,4 +149,39 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Person> fetchByDeleted(Boolean... values) {
         return fetch(Person.PERSON.DELETED, values);
     }
+
+    /**
+     * Fetch records that have <code>BILLING_ID BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Person> fetchRangeOfBillingId(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Person.PERSON.BILLING_ID, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>BILLING_ID IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Person> fetchByBillingId(String... values) {
+        return fetch(Person.PERSON.BILLING_ID, values);
+    }
+
+    /**
+     * Fetch a unique record that has <code>BILLING_ID = value</code>
+     */
+    public open.tresorier.generated.jooq.test.public_.tables.pojos.Person fetchOneByBillingId(String value) {
+        return fetchOne(Person.PERSON.BILLING_ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>BILLING_STATUS BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Person> fetchRangeOfBillingStatus(Boolean lowerInclusive, Boolean upperInclusive) {
+        return fetchRange(Person.PERSON.BILLING_STATUS, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>BILLING_STATUS IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Person> fetchByBillingStatus(Boolean... values) {
+        return fetch(Person.PERSON.BILLING_STATUS, values);
+    }
 }

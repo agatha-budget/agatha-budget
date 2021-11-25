@@ -10,7 +10,8 @@ import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
-
+import com.stripe.Stripe
+import open.tresorier.services.BillingService
 
 fun main() {
 
@@ -46,7 +47,15 @@ fun main() {
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
         val person: Person = ServiceManager.personService.createPerson(name, password, email)
-        ctx.json(person.name + " was successfully created")
+        val billingSession = BillingService.createBillingSession(person)
+        ctx.json("{\"name\" : $name, \"billingSession\" : $billingSession }")
+    }
+
+    // handle webhook sent by stripe
+    app.post("/from_stripe") { ctx -> 
+        val payload = ctx.body()
+        val sigHeader = ctx.header("Stripe-Signature")
+        ServiceManager.billingService.handleWebhook(payload, sigHeader)
     }
 
     app.post("/login") { ctx ->

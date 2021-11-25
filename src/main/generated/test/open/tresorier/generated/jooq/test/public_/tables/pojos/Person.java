@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person implements Serializable {
 
-    private static final long serialVersionUID = -1317302639;
+    private static final long serialVersionUID = -1601752673;
 
     private final String  id;
     private final String  email;
@@ -22,6 +22,8 @@ public class Person implements Serializable {
     private final Long    unlockingdate;
     private final Integer loginattemptcount;
     private final Boolean deleted;
+    private final String  billingId;
+    private final Boolean billingStatus;
 
     public Person(Person value) {
         this.id = value.id;
@@ -31,6 +33,8 @@ public class Person implements Serializable {
         this.unlockingdate = value.unlockingdate;
         this.loginattemptcount = value.loginattemptcount;
         this.deleted = value.deleted;
+        this.billingId = value.billingId;
+        this.billingStatus = value.billingStatus;
     }
 
     public Person(
@@ -40,7 +44,9 @@ public class Person implements Serializable {
         String  password,
         Long    unlockingdate,
         Integer loginattemptcount,
-        Boolean deleted
+        Boolean deleted,
+        String  billingId,
+        Boolean billingStatus
     ) {
         this.id = id;
         this.email = email;
@@ -49,6 +55,8 @@ public class Person implements Serializable {
         this.unlockingdate = unlockingdate;
         this.loginattemptcount = loginattemptcount;
         this.deleted = deleted;
+        this.billingId = billingId;
+        this.billingStatus = billingStatus;
     }
 
     public String getId() {
@@ -79,6 +87,14 @@ public class Person implements Serializable {
         return this.deleted;
     }
 
+    public String getBillingId() {
+        return this.billingId;
+    }
+
+    public Boolean getBillingStatus() {
+        return this.billingStatus;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Person (");
@@ -90,6 +106,8 @@ public class Person implements Serializable {
         sb.append(", ").append(unlockingdate);
         sb.append(", ").append(loginattemptcount);
         sb.append(", ").append(deleted);
+        sb.append(", ").append(billingId);
+        sb.append(", ").append(billingStatus);
 
         sb.append(")");
         return sb.toString();

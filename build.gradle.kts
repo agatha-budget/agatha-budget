@@ -92,6 +92,7 @@ val javalin_version="3.11.0"
 val jackson_version="2.10.3"
 val supertoken_version="1.4.+"
 val argon_version="2.7"
+val stripe_version="20.85.0"
 
 dependencies {
     // Kotlin
@@ -142,6 +143,10 @@ dependencies {
     implementation("org.slf4j:slf4j-api:$slf4j_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("ch.qos.logback:logback-core:$logback_version")
+
+    // Billing
+    implementation("com.stripe:stripe-java:$stripe_version")
+
 }
 
 tasks.clean {
@@ -295,6 +300,13 @@ jooq {
     }
 }
 
+tasks.named("compileJava") {
+    dependsOn("compileKotlin")
+}
+
+tasks.named("compileKotlin") {
+    dependsOn("generateJooq")
+}
 
 
 tasks.register("generateJooq") {
@@ -371,7 +383,6 @@ tasks.register<Jar>("uberJar") {
     }
 
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
     archiveClassifier.set("uber")
 
     from(sourceSets.main.get().output)
