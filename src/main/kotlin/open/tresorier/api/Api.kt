@@ -10,14 +10,13 @@ import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
-
-
 import com.stripe.Stripe
 import com.stripe.model.Event
 import com.stripe.exception.*
 import com.stripe.net.Webhook
 import com.stripe.model.checkout.Session as StripeSession
 import com.stripe.model.StripeObject
+import com.stripe.model.Invoice
 import com.stripe.model.EventDataObjectDeserializer
 import com.stripe.param.checkout.SessionCreateParams
 
@@ -80,25 +79,27 @@ fun main() {
                 // list type of event and object structure : https://stripe.com/docs/api/events/types
                 when (event?.type) {
                     "checkout.session.completed" -> {
+                        // Payment is successful and the subscription is created.
                         val sessionCheckout = stripeObject as StripeSession
                         val person : Person =  ServiceManager.personService.getById(sessionCheckout.clientReferenceId)
                         person.billingId = sessionCheckout.customer
                         person.billingStatus = true
                         ServiceManager.personService.update(person)
-                        // Payment is successful and the subscription is created.
-                        // You should provision the subscription and save the customer ID to your database.
                     }   
                     "invoice.paid" -> {
-                    
                         // Continue to provision the subscription as payments continue to be made.
-                        // Store the status in your database and check when a user accesses your service.
-                        // This approach helps you avoid hitting rate limits.
+                        val invoice = stripeObject as Invoice
+                        val person : Person =  ServiceManager.personService.getByBillingId(invoice.customer)
+                        person.billingStatus = true
+                        ServiceManager.personService.update(person)
                     }    
                     "invoice.payment_failed" ->  {
-                    
                         // The payment failed or the customer does not have a valid payment method.
-                        // The subscription becomes past_due. Notify your customer and send them to the
-                        // customer portal to update their payment information.
+                        val invoice = stripeObject as Invoice
+                        val person : Person =  ServiceManager.personService.getByBillingId(invoice.customer)
+                        // if the billing status is already false, set it to null to suspend the access to the app
+                        person.billingStatus = (person.billingStatus) ? false : null
+                        ServiceManager.personService.update(person)
                     }
                     else -> {} //println("Unhandled event type: " + event?.type)
                 }
