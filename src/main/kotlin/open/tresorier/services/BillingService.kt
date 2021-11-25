@@ -12,7 +12,7 @@ import com.stripe.Stripe
 
 import open.tresorier.utils.Properties
 import open.tresorier.model.Person
-import open.tresorier.exception.TresorierException
+import open.tresorier.exception.*
 
 
 class BillingService(private val personService: PersonService) {
@@ -108,6 +108,12 @@ class BillingService(private val personService: PersonService) {
 
         fun checkClientIdentifierIsNotNull(stripeObject: StripeObject, id : String?) {
             id ?: throw TresorierException("no customer attached to this operation : $stripeObject")
+        }
+
+        fun checkIfUserSubscriptionIsActive(person: Person) {
+            if (person.billingStatus == null) {
+                throw SuspendedUserException("this user subscription is not up to date")
+            }
         }
 
     }
