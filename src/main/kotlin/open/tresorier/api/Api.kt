@@ -47,8 +47,8 @@ fun main() {
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
         val person: Person = ServiceManager.personService.createPerson(name, password, email)
-        val billingSession = BillingService.createBillingSession(person)
-        ctx.json("{\"name\" : $name, \"billingSession\" : $billingSession }")
+        val billingUrl = BillingService.createBillingSession(person)
+        ctx.json(billingUrl)
     }
 
     // handle webhook sent by stripe
