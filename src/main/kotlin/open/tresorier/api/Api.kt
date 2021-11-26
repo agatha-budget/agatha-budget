@@ -309,8 +309,9 @@ fun main() {
 }
 
 private fun setUpApp(properties: JavaProperties): Javalin {
+    val environmentStatus = properties.getProperty("environment")
     val app = Javalin.create { config ->
-            if (properties.getProperty("environment") == "dev") {
+            if (environmentStatus == "dev") {
                 config.enableCorsForAllOrigins()
             } else {
                 config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
@@ -321,19 +322,32 @@ private fun setUpApp(properties: JavaProperties): Javalin {
 
     app.exception(TresorierException::class.java) { e, ctx ->
         ctx.status(400)
-        ctx.result("an exception occured" + sendToAdminMessage(e.id))
+        if (environmentStatus == "dev") {
+            ctx.json(e)
+        } else {
+            ctx.result("an exception occured" + sendToAdminMessage(e.id))
+        }
     }
 
     app.exception(TresorierIllegalException::class.java) { e, ctx ->
         ctx.status(403)
-        ctx.result("this transaction is not authorised for the authentified user" + sendToAdminMessage(e.id))
+        ctx.status(400)
+        if (environmentStatus == "dev") {
+            ctx.json(e)
+        } else {
+            ctx.result("this transaction is not authorised for the authentified user" + sendToAdminMessage(e.id))
+        }
     }
 
     app.exception(Exception::class.java) { e, ctx ->
         ctx.status(500)
         // is not thrown so that only an id code will be send to the client side, the handling is done inside TresorierException class
         val exception = TresorierException("catched by API", e)
-        ctx.result("an unexpected error occured on our side." + sendToAdminMessage(exception.id))
+        if (environmentStatus == "dev") {
+            ctx.json(e)
+        } else {
+            ctx.result("an unexpected error occured on our side." + sendToAdminMessage(exception.id))
+        }
     }
 
     return app
