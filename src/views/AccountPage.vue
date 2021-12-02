@@ -23,7 +23,7 @@
         <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
-          <div class="operation storedOperation v-else">
+          <div v-else class="operation storedOperation">
             <div class="date col-2 offset-1">
               <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
             </div>
