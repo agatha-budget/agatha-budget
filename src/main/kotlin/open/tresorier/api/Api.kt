@@ -323,7 +323,7 @@ private fun setUpApp(properties: JavaProperties): Javalin {
     app.exception(TresorierException::class.java) { e, ctx ->
         ctx.status(400)
         if (environmentStatus == "dev") {
-            ctx.json(e)
+            ctx.json(e.toMap())
         } else {
             ctx.result("an exception occured" + sendToAdminMessage(e.id))
         }
@@ -332,7 +332,7 @@ private fun setUpApp(properties: JavaProperties): Javalin {
     app.exception(TresorierIllegalException::class.java) { e, ctx ->
         ctx.status(403)
         if (environmentStatus == "dev") {
-            ctx.json(e)
+            ctx.json(e.toMap())
         } else {
             ctx.result("this transaction is not authorised for the authentified user" + sendToAdminMessage(e.id))
         }
@@ -343,7 +343,7 @@ private fun setUpApp(properties: JavaProperties): Javalin {
         // is not thrown so that only an id code will be send to the client side, the handling is done inside TresorierException class
         val exception = TresorierException("catched by API", e)
         if (environmentStatus == "dev") {
-            ctx.json(exception)
+            ctx.json(exception.toMap())
         } else {
             ctx.result("an unexpected error occured on our side." + sendToAdminMessage(exception.id))
         }

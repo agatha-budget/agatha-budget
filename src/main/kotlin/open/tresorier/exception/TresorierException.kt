@@ -25,10 +25,19 @@ open class TresorierException (
                      + Utils.newLine() +
                      "exception_message : " + this.message
                      + Utils.newLine() +
-                     "catched_exception_msg : " + this.catchedException?.message
-                     + Utils.newLine() +
-                     "catched_exception_trace : " + this.catchedException?.let {getStackTrace(it)}
+            "catched_exception_msg : " + this.catchedException?.message
+            + Utils.newLine() +
+            "catched_exception_trace : " + this.catchedException?.let {getStackTrace(it)}
         )
+    }
+
+    fun toMap() : Map <String, String?>{
+        return mapOf(
+            "exception_code" to this.id,
+             "exception_message" to this.message,
+              "catched_exception_msg" to this.catchedException?.message,
+               "catched_exception_trace" to this.catchedException?.let {getStackTrace(it)}
+               );
     }
 
     private fun getStackTrace(e: Exception): String {
