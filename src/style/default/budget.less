@@ -108,7 +108,25 @@
             }
         }
         th.name {
+            cursor: pointer;
             padding: 0 10px 0 0;
+            #operationForm {
+                padding-left: initial;
+                display: flex;
+                background: @headerColor;
+                border-radius: 5px 5px 0 0;
+                height: 27px;
+                #newName {
+                    width: 200px;
+                    padding: 0 12px 0 12px;
+                    background: @headerColor;
+                    color: @lightBlue;
+                    border: none;
+                }
+                .btn {
+                    color: @lightBlue;
+                }
+            }
             .editable-master-category {
                 border-radius: 6px 6px 0 0;
                 background : @headerColor;;
@@ -125,8 +143,7 @@
             }
             .editable-master-category:hover{
                 .btn {
-                    visibility: visible;
-                }
+                    visibility: visible;}
             }
         }
         th.allocated {
@@ -157,6 +174,14 @@
                 .btn {
                     color: @headerColor;
                     font-size: small;
+                }
+                #operationForm {
+                    padding-left: initial;
+                    display: flex;
+                    #newName {
+                        width: 200px;
+                        padding: 0 12px 0 12px;
+                    }
                 }
             }
             .editable-category{
