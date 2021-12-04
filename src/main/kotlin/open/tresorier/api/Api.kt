@@ -47,7 +47,7 @@ fun main() {
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
         val person: Person = ServiceManager.personService.createPerson(name, password, email)
-        val billingUrl = BillingService.createBillingSession(person)
+        val billingUrl = BillingService.createNewUserBillingSession(person)
         ctx.result(billingUrl)
     }
 
@@ -56,6 +56,16 @@ fun main() {
         val payload = ctx.body()
         val sigHeader = ctx.header("Stripe-Signature")
         ServiceManager.billingService.handleWebhook(payload, sigHeader)
+    }
+
+    app.before("/billing", SuperTokens.middleware())
+    app.get("/billing") { ctx ->
+        val person = getUserFromAuth(ctx)
+        if (person.billingId != null) {
+            ctx.result(BillingService.createBillingManagementSession(person))
+        } else {
+            ctx.result(BillingService.createNewUserBillingSession(person))
+        }
     }
 
     app.post("/login") { ctx ->

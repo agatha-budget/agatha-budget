@@ -75,7 +75,7 @@ class BillingService(private val personService: PersonService) {
     }
 
     companion object {
-        fun createBillingSession(person: Person): String {
+        fun createNewUserBillingSession(person: Person): String {
             setStripeApiKey()
             val properties = Properties.getProperties()
             val priceId: String = properties.getProperty("price_id")
@@ -83,21 +83,35 @@ class BillingService(private val personService: PersonService) {
             val cancelUrl: String = properties.getProperty("cancelUrl")
 
             val params : SessionCreateParams = SessionCreateParams.Builder()
-            .setSuccessUrl(succesUrl)
-            .setCancelUrl(cancelUrl)
-            .setClientReferenceId(person.id)
-            .setCustomerEmail(person.email)
-            .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
-            .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
-            .addLineItem(SessionCreateParams.LineItem.Builder()
-                // For metered billing, do not pass quantity
-                .setQuantity(1L)
-                .setPrice(priceId)
+                .setSuccessUrl(succesUrl)
+                .setCancelUrl(cancelUrl)
+                .setClientReferenceId(person.id)
+                .setCustomerEmail(person.email)
+                .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
+                .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
+                .addLineItem(SessionCreateParams.LineItem.Builder()
+                    // For metered billing, do not pass quantity
+                    .setQuantity(1L)
+                    .setPrice(priceId)
+                    .build()
+                )
+                .putExtraParam("allow_promotion_codes", "true")
                 .build()
-            )
-            .putExtraParam("allow_promotion_codes", "true")
-            .build()
             val session: StripeSession = StripeSession.create(params)
+            return session.getUrl()
+        }
+
+        fun createBillingManagementSession(person: Person): String {
+            setStripeApiKey()
+            val properties = Properties.getProperties()
+            val succesUrl: String = properties.getProperty("succesUrl")
+            
+            val params : SessionCreateParams = SessionCreateParams.Builder()
+                .setCustomer(person.billingId)
+                .setSuccessUrl(succesUrl)
+                .build();
+        
+            val session: StripeSession = StripeSession.create(params)        
             return session.getUrl()
         }
        
