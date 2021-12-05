@@ -7,6 +7,7 @@ import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
+import open.tresorier.exception.SuspendedUserException
 import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
@@ -344,6 +345,15 @@ private fun setUpApp(properties: JavaProperties): Javalin {
             ctx.json(e.toMap())
         } else {
             ctx.result("this transaction is not authorised for the authentified user" + sendToAdminMessage(e.id))
+        }
+    }
+
+    app.exception(SuspendedUserException::class.java) { e, ctx ->
+        ctx.status(402)
+        if (environmentStatus == "dev") {
+            ctx.json(e.toMap())
+        } else {
+            ctx.result("User needs to update its subscription" + sendToAdminMessage(e.id))
         }
     }
 
