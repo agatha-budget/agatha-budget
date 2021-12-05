@@ -1,15 +1,16 @@
 import { Budget } from '@/model/model'
 import { budgetApi } from './api/apis'
-import { redirectToLoginPageIfUnauthorizedError } from '@/router'
+import { redirectOnApiError } from '@/router'
+import { AxiosError, AxiosResponse } from 'axios'
 
 export default class BudgetService {
   public static async getDefaultBudget (): Promise<Budget> {
-    try {
-      const response = await budgetApi.findBudgetsByUser()
-      return response.data[0]
-    } catch (exception) {
-      redirectToLoginPageIfUnauthorizedError(exception.response)
-      return exception.response
-    }
+    return budgetApi.findBudgetsByUser()
+      .then((r: AxiosResponse) => {
+        return r.data[0]
+      })
+      .catch((e: AxiosError) => {
+        redirectOnApiError(e)
+      })
   }
 }
