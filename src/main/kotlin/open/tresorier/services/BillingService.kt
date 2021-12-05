@@ -105,9 +105,11 @@ class BillingService(private val personService: PersonService) {
             setStripeApiKey()
             val properties = Properties.getProperties()
             val succesUrl: String = properties.getProperty("succesUrl")
-            
+            val cancelUrl: String = properties.getProperty("cancelUrl")
+
             val params : SessionCreateParams = SessionCreateParams.Builder()
                 .setCustomer(person.billingId)
+                .setCancelUrl(cancelUrl)
                 .setSuccessUrl(succesUrl)
                 .build();
         
