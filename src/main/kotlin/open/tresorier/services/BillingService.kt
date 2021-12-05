@@ -83,6 +83,7 @@ class BillingService(private val personService: PersonService) {
             setStripeApiKey()
             val properties = Properties.getProperties()
             val priceId: String = properties.getProperty("price_id")
+            val taxId: String = properties.getProperty("tax_id")
             val succesUrl: String = properties.getProperty("succesUrl")
             val cancelUrl: String = properties.getProperty("cancelUrl")
 
@@ -97,6 +98,7 @@ class BillingService(private val personService: PersonService) {
                     // For metered billing, do not pass quantity
                     .setQuantity(1L)
                     .setPrice(priceId)
+                    .addTaxRate(taxId)
                     .build()
                 )
                 .putExtraParam("allow_promotion_codes", "true")
