@@ -2,12 +2,16 @@ package open.tresorier.services
 
 import com.stripe.exception.*
 import com.stripe.net.Webhook
-import com.stripe.model.checkout.Session as StripeSession
+import com.stripe.model.checkout.Session as StripeCheckoutSession
+import com.stripe.model.billingportal.Session as StripePortalSession
+
 import com.stripe.model.Event
 import com.stripe.model.EventDataObjectDeserializer
 import com.stripe.model.Invoice
 import com.stripe.model.StripeObject
-import com.stripe.param.checkout.SessionCreateParams
+import com.stripe.param.checkout.SessionCreateParams as CheckoutSessionCreateParam
+import com.stripe.param.billingportal.SessionCreateParams as PortalSessionCreateParam
+
 import com.stripe.Stripe
 
 import open.tresorier.utils.Properties
@@ -17,7 +21,7 @@ import open.tresorier.exception.*
 
 class BillingService(private val personService: PersonService) {
 
-    fun onSubscriptionValidation(session: StripeSession) {
+    fun onSubscriptionValidation(session: StripeCheckoutSession) {
         checkClientIdentifierIsNotNull(session, session.clientReferenceId)
         val person : Person =  personService.getById(session.clientReferenceId)
         person.billingId = session.customer
@@ -53,7 +57,7 @@ class BillingService(private val personService: PersonService) {
             when (event?.type) {
                 "checkout.session.completed" -> {
                     // Payment is successful and the subscription is created.
-                    onSubscriptionValidation(stripeObject as StripeSession)
+                    onSubscriptionValidation(stripeObject as StripeCheckoutSession)
                 }   
                 "invoice.paid" -> {
                     // Continue to provision the subscription as payments continue to be made.
@@ -82,14 +86,14 @@ class BillingService(private val personService: PersonService) {
             val succesUrl: String = properties.getProperty("succesUrl")
             val cancelUrl: String = properties.getProperty("cancelUrl")
 
-            val params : SessionCreateParams = SessionCreateParams.Builder()
+            val params : CheckoutSessionCreateParam = CheckoutSessionCreateParam.Builder()
                 .setSuccessUrl(succesUrl)
                 .setCancelUrl(cancelUrl)
                 .setClientReferenceId(person.id)
                 .setCustomerEmail(person.email)
-                .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
-                .setMode(SessionCreateParams.Mode.SUBSCRIPTION)
-                .addLineItem(SessionCreateParams.LineItem.Builder()
+                .addPaymentMethodType(CheckoutSessionCreateParam.PaymentMethodType.CARD)
+                .setMode(CheckoutSessionCreateParam.Mode.SUBSCRIPTION)
+                .addLineItem(CheckoutSessionCreateParam.LineItem.Builder()
                     // For metered billing, do not pass quantity
                     .setQuantity(1L)
                     .setPrice(priceId)
@@ -97,7 +101,7 @@ class BillingService(private val personService: PersonService) {
                 )
                 .putExtraParam("allow_promotion_codes", "true")
                 .build()
-            val session: StripeSession = StripeSession.create(params)
+            val session: StripeCheckoutSession = StripeCheckoutSession.create(params)
             return session.getUrl()
         }
 
@@ -105,15 +109,13 @@ class BillingService(private val personService: PersonService) {
             setStripeApiKey()
             val properties = Properties.getProperties()
             val succesUrl: String = properties.getProperty("succesUrl")
-            val cancelUrl: String = properties.getProperty("cancelUrl")
 
-            val params : SessionCreateParams = SessionCreateParams.Builder()
+            val params : PortalSessionCreateParam = PortalSessionCreateParam.Builder()
                 .setCustomer(person.billingId)
-                .setCancelUrl(cancelUrl)
-                .setSuccessUrl(succesUrl)
+                .setReturnUrl(succesUrl)
                 .build();
         
-            val session: StripeSession = StripeSession.create(params)        
+            val session: StripePortalSession = StripePortalSession.create(params)        
             return session.getUrl()
         }
        

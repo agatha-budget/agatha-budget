@@ -10,7 +10,6 @@ import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
-import com.stripe.Stripe
 import open.tresorier.services.BillingService
 
 fun main() {
