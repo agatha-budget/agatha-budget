@@ -1,6 +1,7 @@
 <template>
   <div id="profile_page">
-    Temporary profile
+    <h1>Profil utilisateur</h1>
+    <h3>Cette page est encore en construction</h3>
     <p><a class="teamSelector" v-on:click="goToBillingPortal">{{$t('BILLING_MANAGEMENT')}}</a></p>
   </div>
 </template>
