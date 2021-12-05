@@ -7,10 +7,10 @@ import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
+import open.tresorier.exception.SuspendedUserException
 import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
-import com.stripe.Stripe
 import open.tresorier.services.BillingService
 
 fun main() {
@@ -39,7 +39,7 @@ fun main() {
     }
 
     app.get("/ping") { ctx ->
-        ctx.json(properties.getProperty("environment"))
+        ctx.result(properties.getProperty("environment"))
     }
 
     app.post("/person") { ctx ->
@@ -47,8 +47,8 @@ fun main() {
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
         val person: Person = ServiceManager.personService.createPerson(name, password, email)
-        val billingUrl = BillingService.createBillingSession(person)
-        ctx.json(billingUrl)
+        val billingUrl = BillingService.createNewUserBillingSession(person)
+        ctx.result(billingUrl)
     }
 
     // handle webhook sent by stripe
@@ -56,6 +56,16 @@ fun main() {
         val payload = ctx.body()
         val sigHeader = ctx.header("Stripe-Signature")
         ServiceManager.billingService.handleWebhook(payload, sigHeader)
+    }
+
+    app.before("/billing", SuperTokens.middleware())
+    app.get("/billing") { ctx ->
+        val person = getUserFromAuth(ctx)
+        if (person.billingId != null) {
+            ctx.result(BillingService.createBillingManagementSession(person))
+        } else {
+            ctx.result(BillingService.createNewUserBillingSession(person))
+        }
     }
 
     app.post("/login") { ctx ->
@@ -77,7 +87,7 @@ fun main() {
     app.delete("/logout") { ctx ->
         val session = SuperTokens.getFromContext(ctx)
         session.revokeSession()
-        ctx.json("you've been logged out")
+        ctx.result("you've been logged out")
     }
 
     app.before("/budget", SuperTokens.middleware())
@@ -85,7 +95,7 @@ fun main() {
         val user = getUserFromAuth(ctx)
         val name = getQueryParam<String>(ctx, "name")
         val budget: Budget = ServiceManager.budgetService.create(user, name)
-        ctx.json(budget.id)
+        ctx.result(budget.id)
     }
 
     app.put("/budget") { ctx ->
@@ -94,14 +104,14 @@ fun main() {
         val formerName = budget.name
         val newName = getQueryParam<String>(ctx, "new_name")
         ServiceManager.budgetService.update(user, budget, newName)
-        ctx.json("updated from $formerName to $newName")
+        ctx.result("updated from $formerName to $newName")
     }
 
     app.delete("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         ServiceManager.budgetService.delete(user, budget)
-        ctx.json("budget ${budget.name} has been deleted")
+        ctx.result("budget ${budget.name} has been deleted")
     }
 
     app.before("/budget/user", SuperTokens.middleware())
@@ -151,14 +161,14 @@ fun main() {
         val formerName = account.name
         val newName = getQueryParam<String>(ctx, "new_name")
         ServiceManager.accountService.update(user, account, newName)
-        ctx.json("updated from $formerName to $newName")
+        ctx.result("updated from $formerName to $newName")
     }
 
     app.delete("/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         ServiceManager.accountService.delete(user, account)
-        ctx.json("account ${account.name} has been deleted")
+        ctx.result("account ${account.name} has been deleted")
     }
 
     app.before("/account/budget", SuperTokens.middleware())
@@ -278,7 +288,7 @@ fun main() {
         val user = getUserFromAuth(ctx)
         val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
         ServiceManager.operationService.delete(user, operation)
-        ctx.json("account ${operation.id} has been deleted")
+        ctx.result("account ${operation.id} has been deleted")
     }
 
     app.before("/operation/account", SuperTokens.middleware())
@@ -309,8 +319,9 @@ fun main() {
 }
 
 private fun setUpApp(properties: JavaProperties): Javalin {
+    val environmentStatus = properties.getProperty("environment")
     val app = Javalin.create { config ->
-            if (properties.getProperty("environment") == "dev") {
+            if (environmentStatus == "dev") {
                 config.enableCorsForAllOrigins()
             } else {
                 config.enableCorsForOrigin(properties.getProperty("allowed_origin"))
@@ -321,19 +332,40 @@ private fun setUpApp(properties: JavaProperties): Javalin {
 
     app.exception(TresorierException::class.java) { e, ctx ->
         ctx.status(400)
-        ctx.json("an exception occured" + sendToAdminMessage(e.id))
+        if (environmentStatus == "dev") {
+            ctx.json(e.toMap())
+        } else {
+            ctx.result("an exception occured" + sendToAdminMessage(e.id))
+        }
     }
 
     app.exception(TresorierIllegalException::class.java) { e, ctx ->
         ctx.status(403)
-        ctx.json("this transaction is not authorised for the authentified user" + sendToAdminMessage(e.id))
+        if (environmentStatus == "dev") {
+            ctx.json(e.toMap())
+        } else {
+            ctx.result("this transaction is not authorised for the authentified user" + sendToAdminMessage(e.id))
+        }
+    }
+
+    app.exception(SuspendedUserException::class.java) { e, ctx ->
+        ctx.status(402)
+        if (environmentStatus == "dev") {
+            ctx.json(e.toMap())
+        } else {
+            ctx.result("User needs to update its subscription" + sendToAdminMessage(e.id))
+        }
     }
 
     app.exception(Exception::class.java) { e, ctx ->
         ctx.status(500)
         // is not thrown so that only an id code will be send to the client side, the handling is done inside TresorierException class
         val exception = TresorierException("catched by API", e)
-        ctx.json("an unexpected error occured on our side." + sendToAdminMessage(exception.id))
+        if (environmentStatus == "dev") {
+            ctx.json(exception.toMap())
+        } else {
+            ctx.result("an unexpected error occured on our side." + sendToAdminMessage(exception.id))
+        }
     }
 
     return app
