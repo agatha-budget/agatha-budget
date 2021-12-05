@@ -38,6 +38,17 @@ export default class PersonService {
     }
   }
 
+  public static async redirectToBillingPortalUrl (store: Store<StoreState>) {
+    try {
+      const billingPortalUrl = (await (personApi.createBillingPortalSession())).data
+      window.location.href = billingPortalUrl
+    } catch (exception) {
+      if (axios.isAxiosError(exception)) {
+        alert(exception.response?.data)
+      }
+    }
+  }
+
   public static async deleteSession (store: Store<StoreState>) {
     const response = await personApi.deleteSession()
     redirectToLoginPageIfUnauthorizedError(response)
