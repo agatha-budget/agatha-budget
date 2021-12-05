@@ -1,6 +1,7 @@
 {
     "EMAIL": "email",
     "PASSWORD": "mot de passe",
+    "PASSWORD_CONFIRMATION": "confirmation",
     "LOGIN": "se connecter",
     "SORRY_WRONG_LOGIN": "Aucun utilisateur n'a été trouvé pour cette adresse",
     "SORRY_WRONG_PASSWORD": "Mot de passe invalide",
@@ -19,7 +20,7 @@
     "CREATE_ACCOUNT": "ajouter ce compte",
     "CANCEL": "annuler",
     "DATE": "date",
-    "CATEGORY": "categorie",
+    "CATEGORY": "catégorie",
     "MEMO": "mémo",
     "AMOUNT": "montant",
     "I18N_INCOME": "Argent à répartir",
@@ -42,13 +43,14 @@
     "HIDE_ARCHIVE": "cacher les archives",
     "SHOW_ARCHIVE": "afficher les archives",
     "CHECKING_ACCOUNT": "compte courant",
-    "CREATE_ACCOUNT_HERE": "creer un compte",
-    "CREATE": "creer",
+    "CREATE_ACCOUNT_HERE": "créer un compte",
+    "CREATE_MY_ACCOUNT": "Créer mon compte",
     "NAME": "nom",
     "CONFIRM_PASSWORD": "confirmer le mot de passe",
-    "EMPTY_NAME": "nom vide",
-    "INVALID_EMAIL": "email invalide",
-    "LESS_SECURITY": "trop faible securite",
-    "DIFFERENT_PASSWORDS": "mots de passe differents",
-    "RETURN_TO_LOGIN": "retourner a la page de connexion"
+    "EMPTY_NAME": "Veuillez renseigner votre nom",
+    "INVALID_EMAIL": "Veuillez renseigner une adresse email valide",
+    "INSUFFICIENT_SECURITY": "Votre mot de passe n'est pas assez sécurisé (minimun 8 caractéres, incluant minuscule, majuscule et caractére spéciaux)",
+    "DIFFERENT_PASSWORDS": "Le mot de passe et sa confirmation sont différents",
+    "RETURN_TO_LOGIN": "Retourner à la page de connexion",
+    "BILLING_MANAGEMENT": "Gérer votre abonnement"
 }

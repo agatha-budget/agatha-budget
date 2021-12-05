@@ -1,7 +1,7 @@
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { personApi } from '@/services/api/apis'
-import router, { RouterPages, redirectToLoginPageIfUnauthorizedError, redirectToLoginPageIfNotLogged } from '@/router'
+import router, { RouterPages, redirectOnApiError, redirectToLoginPageIfNotLogged } from '@/router'
 import axios from 'axios'
 
 interface LoginResponse {
@@ -27,25 +27,30 @@ export default class PersonService {
     return JSON.parse(data)
   }
 
-  public static async createPerson (store: Store<StoreState>, name: string, email: string, password: string): Promise<LoginResponse> {
-    let data
-    let response
+  public static async createPerson (store: Store<StoreState>, name: string, email: string, password: string) {
     try {
-      response = await personApi.createPerson(name, password, email)
-      response = await personApi.createSession(email, password)
-      data = response.data
+      const billingUrl = (await (personApi.createPerson(name, password, email))).data
+      window.location.href = billingUrl
     } catch (exception) {
       if (axios.isAxiosError(exception)) {
-        response = exception.response
-        data = (response) ? response.data : {}
+        alert(exception.response?.data)
       }
     }
-    return JSON.parse(data)
+  }
+
+  public static async redirectToBillingPortalUrl (store: Store<StoreState>) {
+    try {
+      const billingPortalUrl = (await (personApi.createBillingPortalSession())).data
+      window.location.href = billingPortalUrl
+    } catch (exception) {
+      if (axios.isAxiosError(exception)) {
+        alert(exception.response?.data)
+      }
+    }
   }
 
   public static async deleteSession (store: Store<StoreState>) {
     const response = await personApi.deleteSession()
-    redirectToLoginPageIfUnauthorizedError(response)
     store.dispatch('updateLogged')
     redirectToLoginPageIfNotLogged(store)
   }

@@ -1,18 +1,20 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Profile from '../views/Profile.vue'
 import Signup from '../views/Signup.vue'
 import AccountPage from '../views/AccountPage.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
-import { AxiosResponse } from 'axios'
+import { AxiosError, AxiosResponse } from 'axios'
 
 export enum RouterPages {
   home = '/',
   login = '/login',
   signup = '/signup',
   account = '/account',
-  about = '/about'
+  about = '/about',
+  profile = '/profile'
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -27,6 +29,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.signup,
     component: Signup
+  },
+  {
+    path: RouterPages.profile,
+    component: Profile
   },
   {
     path: RouterPages.account,
@@ -53,8 +59,10 @@ export function redirectToLoginPageIfNotLogged (store: Store<StoreState>) {
   }
 }
 
-export function redirectToLoginPageIfUnauthorizedError (response: AxiosResponse) {
-  if (response.status === 401) {
+export function redirectOnApiError (error: AxiosError) {
+  if (error.response!.status === 402) {
+    router.push(RouterPages.profile)
+  } else {
     router.push(RouterPages.login)
   }
 }
