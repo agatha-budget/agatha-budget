@@ -7,7 +7,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
 
     fun createInitialOperation(person: Person, account: Account, day: Day, amount: Int){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(account.id, day, Category.INCOME_ID, amount, "INITIAL_AMOUNT")
+        val operation = Operation(account.id, day, Category.INCOME_ID, amount, "Montant initial")
         operationDao.insert(operation)
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
     }
