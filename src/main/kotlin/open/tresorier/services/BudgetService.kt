@@ -37,6 +37,7 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
     }
 
     fun findByUser(person: Person) : List<Budget> {
+        authorizationService.cancelIfUserIsUnauthorized(person)
         return budgetDao.findByPersonId(person.id)
     }
 

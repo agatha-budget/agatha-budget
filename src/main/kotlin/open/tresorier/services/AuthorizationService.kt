@@ -14,6 +14,10 @@ class AuthorizationService(
 
 ) {
 
+    fun cancelIfUserIsUnauthorized(person: Person) {
+        BillingService.checkIfUserSubscriptionIsActive(person)
+    }
+
     fun cancelIfUserIsUnauthorized(person: Person, account: Account) {
         val owner = accountDao.getOwner(account)
         if (owner.id != person.id) {
