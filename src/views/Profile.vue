@@ -1,7 +1,10 @@
 <template>
   <div id="profile_page">
-    Temporary profile
+    <h1>Profil utilisateur</h1>
+    <h3>Cette page est encore en construction</h3>
+    <p>Si vous avez été redirigé automatiquement ici, c'est que votre abonnement n'est pas à jour</p>
     <p><a class="teamSelector" v-on:click="goToBillingPortal">{{$t('BILLING_MANAGEMENT')}}</a></p>
+    <button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/>
   </div>
 </template>
 
@@ -18,6 +21,9 @@ export default defineComponent({
   methods: {
     async goToBillingPortal (): Promise<void> {
       PersonService.redirectToBillingPortalUrl(this.$store)
+    },
+    logout () {
+      PersonService.deleteSession(this.$store)
     }
   }
 

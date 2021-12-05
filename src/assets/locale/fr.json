@@ -51,5 +51,6 @@
     "INVALID_EMAIL": "Veuillez renseigner une adresse email valide",
     "INSUFFICIENT_SECURITY": "Votre mot de passe n'est pas assez sécurisé (minimun 8 caractéres, incluant minuscule, majuscule et caractére spéciaux)",
     "DIFFERENT_PASSWORDS": "Le mot de passe et sa confirmation sont différents",
-    "RETURN_TO_LOGIN": "Retourner à la page de connexion"
+    "RETURN_TO_LOGIN": "Retourner à la page de connexion",
+    "BILLING_MANAGEMENT": "Gérer votre abonnement"
 }
