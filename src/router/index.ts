@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
+import Profile from '../views/Profile.vue'
 import Signup from '../views/Signup.vue'
 import AccountPage from '../views/AccountPage.vue'
 import { StoreState } from '@/store/index'
@@ -12,7 +13,8 @@ export enum RouterPages {
   login = '/login',
   signup = '/signup',
   account = '/account',
-  about = '/about'
+  about = '/about',
+  profile = '/profile'
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -27,6 +29,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.signup,
     component: Signup
+  },
+  {
+    path: RouterPages.profile,
+    component: Profile
   },
   {
     path: RouterPages.account,

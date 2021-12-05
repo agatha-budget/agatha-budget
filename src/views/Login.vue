@@ -24,11 +24,6 @@ export default defineComponent({
       errorMsg: ''
     }
   },
-  computed: {
-    logged (): boolean {
-      return this.$store.state.logged
-    }
-  },
   methods: {
     async login () {
       const responseData = await PersonService.createSession(this.$store, this.email, this.password)

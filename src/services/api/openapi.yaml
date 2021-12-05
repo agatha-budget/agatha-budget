@@ -142,6 +142,30 @@ paths:
       security:
       - accessToken: []
         refreshTokenId: []
+  /billing:
+    get:
+      tags:
+        - Person
+      summary: get billing portal URL, new subscription if not subscribed, billing management if already subscribed
+      operationId: createBillingPortalSession
+      responses:
+        "200":
+          description: Billing Session created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: url of the portal
+        "400":
+          description: unknown user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: no billing to manage
+      security:
+        - accessToken: []
+          refreshTokenId: []
   /budget:
     put:
       tags:

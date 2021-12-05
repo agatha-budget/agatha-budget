@@ -2,15 +2,11 @@
   <div id="sign_up_page">
     <img id="logo" alt="Vue logo" src="../assets/logo.png" />
     <div>
-      <label for="name">{{$t('NAME')}}</label>
       <input class="form-control" type="text" id="name" v-model="name" :placeholder="$t('NAME')">
-      <label for="email">{{$t('EMAIL')}}</label>
       <input class="form-control" id="email" v-model="email" :placeholder="$t('EMAIL')">
-      <label for="password">{{$t('PASSWORD')}}</label>
       <input class="form-control" type="password" id="password" v-model="password" :placeholder="$t('PASSWORD')">
-      <label for="password">{{$t('CONFIRM_PASSWORD')}}</label>
-      <input class="form-control" type="password" id="passwordConfirm" v-model="passwordConfirm" :placeholder="$t('PASSWORD')">
-      <button class="btn btn-info" v-on:click="create">{{$t('CREATE')}}</button>
+      <input class="form-control" type="password" id="passwordConfirm" v-model="passwordConfirm" :placeholder="$t('PASSWORD_CONFIRMATION')">
+      <button class="btn btn-info" v-on:click="create">{{$t('CREATE_MY_ACCOUNT')}}</button>
       <p id="login_error_msg">{{errorMsg}}</p>
       <p><a class="teamSelector" v-on:click="goToLogin">{{$t('RETURN_TO_LOGIN')}}</a></p>
     </div>
@@ -42,7 +38,7 @@ export default defineComponent({
   methods: {
     async create () {
       if (this.testForm()) {
-        const responseData = PersonService.createPerson(this.$store, this.name, this.email, this.password)
+        PersonService.createPerson(this.$store, this.name, this.email, this.password)
       }
     },
     testForm (): boolean {
@@ -53,7 +49,7 @@ export default defineComponent({
         return false
       }
       if (!this.passwordCheckSecurity(this.password)) {
-        this.$data.errorMsg = this.$t('LESS_SECURITY')
+        this.$data.errorMsg = this.$t('INSUFFICIENT_SECURITY')
         return false
       }
       if (!this.email.match(regex)) {
@@ -68,7 +64,7 @@ export default defineComponent({
     },
     passwordCheckSecurity (password: string): boolean {
       // regExp verify password is enought complex (more than 8 caracters, with lower and capital letter and with special caracter !@#$%&*())
-      const regExp = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()]).{8,}/
+      const regExp = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()-_<>/\\]).{8,}/
       const validPassword = regExp.test(password)
       return validPassword
     },

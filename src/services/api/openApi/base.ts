@@ -48,7 +48,7 @@ export const COLLECTION_FORMATS = {
  */
 export interface RequestArgs {
     url: string;
-    options: AxiosRequestConfig;
+    options: any;
 }
 
 /**
