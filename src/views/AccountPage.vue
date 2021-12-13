@@ -1,27 +1,27 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-      <div v-if="this.editingTitle" class="row">
-        <span class="name col-4 offset-4">
-            <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
-        </span>
-        <span class="validation col">
-           <button class="btn fas fa-check" v-on:click="updateName()"/>
-           <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
-        </span>
-      </div>
-      <div v-else class="editableNameAccount">
-        <a v-on:click="this.displayTitleEditing()">
-          <h1>
-            {{ this.account ? this.account.name : "" }} :
-            {{ this.account ? getEurosAmount(this.account.amount) : "" }}€
-            <button class="btn fas fa-pen" />
-          </h1>
-        </a>
-      </div>
-      <div class="operationTable table-hover">
-        <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
-        <div class="scrollable">
+    <div class="accountPage">
+      <div class="accountPageBody row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+        <div v-if="this.editingTitle" class="row">
+          <span class="name col-4 offset-4">
+              <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
+          </span>
+          <span class="validation col">
+            <button class="btn fas fa-check" v-on:click="updateName()"/>
+            <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
+          </span>
+        </div>
+        <div v-else class="editableNameAccount">
+          <a v-on:click="this.displayTitleEditing()">
+            <h1>
+              {{ this.account ? this.account.name : "" }} :
+              {{ this.account ? getEurosAmount(this.account.amount) : "" }}€
+              <button class="btn fas fa-pen" />
+            </h1>
+          </a>
+        </div>
+        <div class="operationTable table-hover">
+          <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
             <div v-else class="operation storedOperation">

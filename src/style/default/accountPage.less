@@ -1,95 +1,104 @@
 .accountPage {
-    background: white;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
-    border-radius: 28px;
-    padding: 20px;
-    margin-top: 10px;
-    .name {
-        padding-left: auto;
-        padding-right: auto;
-        margin-bottom: 8.4px;
-        input {
-            width: 400px;
-        }
-        .btn {
-            text-align: right;
-        }
-    }
-    h1 {
-        text-align: center;
-        font-size: xx-large;
-        margin-bottom: 20px;
-        .btn {
-            visibility: hidden;
-            color: @darkBlue;
-            font-size: small;
-            padding: 6px 0px 6px 12px;
-            margin-bottom: 4px;
-        }
-    }
-    h1:hover{
-        .btn {
-            visibility: visible;
-        }
-    }
-    .operationCreate {
-        border-radius: 28px 28px 0 0;
-    }
-    #operationForm {
-        background: @headerColor;
-        padding: 30px 0 20px 0;
-        display: flex;
-        flex-wrap: wrap;
-        .btn{
-            color: @background;
-            font-size: large;
-        }
-        .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
-            color: white;
-            font-size: large;
-            font-weight: bold;
-            text-align: middle;
-        }
-        .dateTitle, .categoryTitle, .memoTitle, .amountTitle, .dateElement, .categoryElement, .memoElement, .amountElement {
-            padding: 8px 0 0 0;
-        }
-    }
-    .scrollable {
-        overflow-y:scroll;
-        max-height: 60vh;
-    }
-    .storedOperation {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 8px 0 8px 0;
-        .category {
-            font-size: medium;
-            font-weight: bold;
-        }
-        .amount {
-            font-size: large;
-        }
-        .action {
-            display: flex;
+    .accountPageBody {
+        background: white;
+        box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
+        border-radius: 28px;
+        padding: 20px;
+        margin-top: 10px;
+        .name {
+            padding-left: auto;
+            padding-right: auto;
+            margin-bottom: 8.4px;
+            input {
+                width: 400px;
+            }
             .btn {
-                color: @headerColor;
+                text-align: right;
             }
         }
-    }
-    .storedOperation:nth-child(even) {
-        background-color: @background;
-    }
-    .storedOperation:nth-child(odd) {
-        background-color: @darkerBackground;
-    }
-
-    .operation {
-        font-size: small;
-        .btn {
-            font-size: small;
-            padding-left: 10px;
+        h1 {
+            text-align: center;
+            font-size: xx-large;
+            margin-bottom: 20px;
+            .btn {
+                visibility: hidden;
+                color: @darkBlue;
+                font-size: small;
+                padding: 6px 0px 6px 12px;
+                margin-bottom: 4px;
+            }
         }
+        h1:hover{
+            .btn {
+                visibility: visible;
+            }
+        }
+        .operationTable {
+            overflow-y:scroll;
+            max-height: 75vh;
+            margin-bottom: 80px;
+        }
+        .operationCreate {
+            border-radius: 28px 28px 0 0;
+        }
+        #operationForm {
+            background: @headerColor;
+            padding: 30px 0 20px 0;
+            display: flex;
+            flex-wrap: wrap;
+            .btn{
+                color: @background;
+                font-size: large;
+            }
+            .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
+                color: white;
+                font-size: large;
+                font-weight: bold;
+                text-align: middle;
+            }
+            .dateTitle, .categoryTitle, .memoTitle, .amountTitle, .dateElement, .categoryElement, .memoElement, .amountElement {
+                padding: 8px 0 0 0;
+            }
+        }
+        .storedOperation {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 8px 0 8px 0;
+            .category {
+                font-size: medium;
+                font-weight: bold;
+            }
+            .amount {
+                font-size: large;
+            }
+            .action {
+                display: flex;
+                .btn {
+                    color: @headerColor;
+                }
+            }
+        }
+        .storedOperation:nth-child(even) {
+            background-color: @background;
+        }
+        .storedOperation:nth-child(odd) {
+            background-color: @darkerBackground;
+        }
+
+        .operation {
+            font-size: small;
+            .btn {
+                font-size: small;
+                padding-left: 10px;
+            }
+        }
+        
     }
+    .buttonMenu {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
 
     @import url(../utils/switch.less);
 
