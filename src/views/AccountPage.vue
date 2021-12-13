@@ -1,7 +1,7 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="accountPage">
-      <div class="accountPageBody row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+    <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+      <div class="accountPageBody">
         <div v-if="this.editingTitle" class="row">
           <span class="name col-4 offset-4">
               <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
@@ -20,7 +20,7 @@
             </h1>
           </a>
         </div>
-        <div class="operationTable table-hover">
+        <div class="scrollable operationTable table-hover">
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
@@ -32,10 +32,10 @@
               <div class="category col-3 offset-1">
                 {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
               </div>
-              <div class="amount col-2 offset-2">
+              <div class="amount col-3 offset-2">
                 {{ this.getEurosAmount(operation.amount) }} €
               </div>
-              <div class="action col-1 offset-1">
+              <div class="action col-1">
                 <button class="btn fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
                 <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
               </div>
@@ -44,7 +44,7 @@
           </template>
         </div>
       </div>
-      <BtnMenu/>
+      <BtnMenu />
     </div>
   </div>
 </template>
