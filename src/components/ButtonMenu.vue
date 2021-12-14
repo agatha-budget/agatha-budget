@@ -11,8 +11,18 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import PersonService from '@/services/PersonService'
+import router, { RouterPages } from '@/router'
 
 export default defineComponent({
-  name: 'BtnMenu'
+  name: 'BtnMenu',
+  methods: {
+    logout () {
+      PersonService.deleteSession(this.$store)
+    },
+    async goHomePage (): Promise<void> {
+      router.push(RouterPages.home)
+    }
+  }
 })
 </script>
