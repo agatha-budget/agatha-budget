@@ -25,6 +25,14 @@
 
             }
         }
+        @media (max-width: 500px) {
+            th.spent{
+                display: none;
+            }
+            td.spent {
+                display: none;
+            }
+        }
 
         td.allocated, td.available, td.spent {
             background : @headerColor;
@@ -110,6 +118,14 @@
                 padding: 0;
             }
         }
+
+
+        @media (max-width: 500px) {
+            th.spent{
+                display: none;
+            }
+        }
+
         th.name {
             cursor: pointer;
             padding: 0 10px 0 0;
@@ -168,6 +184,12 @@
             vertical-align: middle;
             padding: 0;
         }
+        @media (max-width: 500px) {
+            td.spent{
+                display: none;
+            }
+        }
+
         td.name {
             box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
             padding: 0 10px 0 0;
