@@ -39,6 +39,7 @@
       color: @background;
       padding: 10px;
       border-radius: 45px;
+      width: 52px;
     }
     .btn.disables {
       color: gray;
@@ -57,13 +58,24 @@
   @media (max-width: 479px) {
     #actionsList {
       .btn {
-      margin-top: 20px;
-      margin-left: 10px;
-      margin-right: 10px;
+        margin: 20px 10px;
       }
+    }
   }
 
+  @media (max-width: 992px) {
+    .buttonsAtHome {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: white;
+      border-top: solid whitesmoke;
+    }
   }
+  
+
+  
   @import url(default/accountWidget.less);
   @import url(default/budget.less);
   @import url(default/accountPage.less);

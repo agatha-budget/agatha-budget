@@ -7,11 +7,9 @@
         </div>
         <div class="col-8 offset-2 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1 col-xxl-2 offset-xxl-1">
           <AccountsWidget/>
-          <ul id="actionsList" class="list-group list-group-horizontal d-flex justify-content-center">
-          <li><button class="btn fas fa-chart-line disabled" :title="$t('GRAPH_AND_REPORT')"/></li>
-          <li><button v-on:click="goToProfile" class="btn fas fa-cog" :title="$t('PREFERENCES')"/></li>
-          <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
-        </ul>
+          <div class="buttonsAtHome">
+            <BtnMenu/>
+          </div>
         </div>
       </div>
     <div v-else>
@@ -30,6 +28,7 @@ import AccountsWidget from '@/components/AccountsWidget.vue'
 import PersonService from '@/services/PersonService'
 import Time from '@/utils/Time'
 import Loader from '@/components/utils/Loader.vue'
+import BtnMenu from '@/components/ButtonMenu.vue'
 
 export default defineComponent({
   name: 'Home',
@@ -42,7 +41,8 @@ export default defineComponent({
   components: {
     BudgetCmpt,
     AccountsWidget,
-    Loader
+    Loader,
+    BtnMenu
   },
   data () {
     return {
