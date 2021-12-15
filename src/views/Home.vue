@@ -6,7 +6,9 @@
           <BudgetCmpt :month="this.currentMonth" />
         </div>
         <div class="col-8 offset-2 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1 col-xxl-2 offset-xxl-1">
-          <AccountsWidget/>
+          <div class="accountWidgetAtHome">
+            <AccountsWidget/>
+          </div>
           <div class="buttonsAtHome">
             <BtnMenu/>
           </div>
