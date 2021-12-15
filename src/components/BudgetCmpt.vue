@@ -1,32 +1,37 @@
 <template>
-  <div>
-    <div id="budgetTables">
-      <div class="row date">
-        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
-        <div class="col-8 date-label" :class="this.toBeBudgetedClass">
-          <p class="month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
-          <p class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> {{ getEurosAmount(this.toBeBudgeted) }} € {{$t('TO_BE_BUDGETED')}}</p>
-          <p class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> {{ getEurosAmount(-1*this.toBeBudgeted) }} € {{$t('TO_BE_PULLED_OUT')}}</p>
+  <div id="budgetCmpt">
+    <div class="fixed container-fluid col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2 col-xxl-5 offset-xxl-2">
+      <div id="budgetHeader">
+        <div class="row date">
+          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
+          <div class="col-8 date-label" :class="this.toBeBudgetedClass">
+            <p class="month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
+            <p class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> {{ getEurosAmount(this.toBeBudgeted) }} € {{$t('TO_BE_BUDGETED')}}</p>
+            <p class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> {{ getEurosAmount(-1*this.toBeBudgeted) }} € {{$t('TO_BE_PULLED_OUT')}}</p>
+          </div>
+          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
         </div>
-        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
+        <table id="totalTable" class="table">
+            <tr>
+              <th class="col-6 name"></th>
+              <th class="col-2 allocated"><div>{{ $t("ALLOCATED") }}</div></th>
+              <th class="col-2 spent"><div>{{ $t("SPENT") }}</div></th>
+              <th class="col-2 available"><div>{{ $t("AVAILABLE") }}</div></th>
+            </tr>
+            <tbody>
+            <tr>
+              <td class="name"><div>{{ $t("TOTAL") }}</div></td>
+              <td class="allocated">{{ getEurosAmount(this.totalBudgetData.allocated) }}</td>
+              <td class="spent">{{ getEurosAmount(this.totalBudgetData.spent) }}</td>
+              <td class="available">{{ getEurosAmount(this.totalBudgetData.available) }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <table id="totalTable" class="table">
-          <tr>
-            <th class="col-6 name"></th>
-            <th class="col-2 allocated"><div>{{ $t("ALLOCATED") }}</div></th>
-            <th class="col-2 spent"><div>{{ $t("SPENT") }}</div></th>
-            <th class="col-2 available"><div>{{ $t("AVAILABLE") }}</div></th>
-          </tr>
-          <tbody>
-          <tr>
-            <td class="name"><div>{{ $t("TOTAL") }}</div></td>
-            <td class="allocated">{{ getEurosAmount(this.totalBudgetData.allocated) }}</td>
-            <td class="spent">{{ getEurosAmount(this.totalBudgetData.spent) }}</td>
-            <td class="available">{{ getEurosAmount(this.totalBudgetData.available) }}</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="scrollable">
+    </div>
+    <div class="rectangle2"></div>
+    <div class="scrollable col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2 col-xxl-5 offset-xxl-2 ">
+    <div id="budgetTables">
         <table class="budgetTable table"
         v-for="masterCategory of this.$store.state.masterCategories"
         :key="masterCategory"
