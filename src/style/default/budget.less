@@ -79,7 +79,8 @@
 
     .scrollable {
         overflow-y:scroll;
-        max-height: 75vh;
+        overflow-x: hidden;
+        max-height: 70vh;
     }
 
     table {
@@ -252,6 +253,10 @@
             font-size: larger;
         } 
     }
-
+    @media (max-width: 992px) {
+        .rectangle {
+            height: 93px;
+        }
+    }
 
 }
