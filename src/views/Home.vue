@@ -8,7 +8,7 @@
             <AccountsWidget/>
           </div>
           <div class="buttonsAtHome">
-            <BtnMenu/>
+            <BtnMenu :page="'home'" />
           </div>
         </div>
       </div>
