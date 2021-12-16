@@ -29,9 +29,9 @@
         </table>
       </div>
     </div>
-    <div class="rectangleTop"></div>
     <div class="scrollable col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2 col-xxl-5 offset-xxl-2 ">
-    <div id="budgetTables">
+      <div id="budgetTables">
+        <div class="rectangleTop"></div>
         <table class="budgetTable table"
         v-for="masterCategory of this.$store.state.masterCategories"
         :key="masterCategory"
