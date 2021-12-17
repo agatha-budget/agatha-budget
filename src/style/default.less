@@ -4,7 +4,6 @@
 }
 .default {
 
-
   @greenblue: #2198A6;
   @majorBlue: #124D74;
 
@@ -25,10 +24,6 @@
   @buttonBackColor: #85c7de;
   @dateColor: #c6dbf0;
 
-  .month {
-    text-transform: capitalize;
-  }
-
   .loader {
     margin-top: 5%;
     margin-left: 45%;
@@ -39,38 +34,6 @@
     flex-wrap: wrap;
   }
 
-  #actionsList {
-    text-align: center;
-    justify-content: center;
-    .btn {
-      font-size: 30px;
-      background-color: @actionColor;
-      color: @background;
-      padding: 10px;
-      border-radius: 45px;
-      width: 52px;
-    }
-    .btn.disables {
-      color: gray;
-    }
-    list-style-type: none;
-  }
-
-  @media (min-width: 479px) {
-    #actionsList{
-      .btn {
-        margin: 20px;
-      }
-    }
-  }
-
-  @media (max-width: 479px) {
-    #actionsList {
-      .btn {
-        margin: 20px 10px;
-      }
-    }
-  }
   @media (min-width: 992px) {
     .accountWidgetAtHome {
       position: fixed;
@@ -84,7 +47,6 @@
   }
   @media (max-width: 992px) {
     .accountWidgetAtHome{
-
       #accountWidget {
         display: none;
       }
@@ -104,4 +66,5 @@
   @import url(default/accountWidget.less);
   @import url(default/budget.less);
   @import url(default/accountPage.less);
+  @import url(default/ButtonMenu.less);
 }
