@@ -3,93 +3,118 @@
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
     border-radius: 28px;
     padding: 20px;
-    margin-top: 10px;
+
     .accountPageBody {
-        overflow-y:scroll;
-        max-height: 75vh;
-        .name {
-            padding-left: auto;
-            padding-right: auto;
-            margin-bottom: 8.4px;
-            input {
-                width: 400px;
-            }
-            .btn {
-                text-align: right;
+        .editingNameAccount, .editableNameAccount {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: solid 1px whitesmoke;
+            padding-top: 20px;
+            z-index: 100;
+        }
+        .editingNameAccount {
+            padding-bottom: 12.35px;
+            .name {
+                padding-left: auto;
+                padding-right: auto;
+                margin-bottom: 8.4px;
             }
         }
-        h1 {
-            text-align: center;
-            font-size: xx-large;
-            margin-bottom: 20px;
-            .btn {
-                visibility: hidden;
-                color: @darkBlue;
-                font-size: small;
-                padding: 6px 0px 6px 12px;
-                margin-bottom: 4px;
-            }
-        }
-        h1:hover{
-            .btn {
-                visibility: visible;
-            }
-        }
-        
-        .operationCreate {
-            border-radius: 28px 28px 0 0;
-        }
-        #operationForm {
-            background: @headerColor;
-            padding: 30px 0 20px 0;
-            display: flex;
-            flex-wrap: wrap;
-            .btn{
-                color: @background;
-                font-size: large;
-            }
-            .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
-                color: white;
-                font-size: large;
-                font-weight: bold;
-                text-align: middle;
-            }
-            .dateTitle, .categoryTitle, .memoTitle, .amountTitle, .dateElement, .categoryElement, .memoElement, .amountElement {
-                padding: 8px 0 0 0;
-            }
-        }
-        .storedOperation {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 8px 0 8px 0;
-            .category {
-                font-size: medium;
-                font-weight: bold;
-            }
-            .amount {
-                font-size: large;
-            }
-            .action {
-                display: flex;
+        .editableNameAccount {
+            h1 {
+                text-align: center;
+                font-size: xx-large;
+                margin-bottom: 20px;
                 .btn {
-                    color: @headerColor;
+                    visibility: hidden;
+                    color: @darkBlue;
+                    font-size: small;
+                    padding: 6px 0px 6px 12px;
+                    margin-bottom: 4px;
+                }
+            }
+            h1:hover{
+                .btn {
+                    visibility: visible;
                 }
             }
         }
-        .storedOperation:nth-child(even) {
-            background-color: @background;
-        }
-        .storedOperation:nth-child(odd) {
-            background-color: @darkerBackground;
-        }
-        .operation {
-            font-size: small;
-            .btn {
+        .operationTable {
+            /* overflow-y:scroll;
+            max-height: 75vh; */
+            .operationCreate {
+                border-radius: 28px 28px 0 0;
+            }
+            #operationForm {
+                background: @headerColor;
+                padding: 30px 0 20px 0;
+                display: flex;
+                flex-wrap: wrap;
+                .btn{
+                    color: @background;
+                    font-size: large;
+                }
+                .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
+                    color: white;
+                    font-size: large;
+                    font-weight: bold;
+                    text-align: middle;
+                }
+                .dateTitle, .categoryTitle, .memoTitle, .amountTitle, .dateElement, .categoryElement, .memoElement, .amountElement {
+                    padding: 8px 0 0 0;
+                }
+            }
+            .storedOperation {
+                display: flex;
+                flex-wrap: wrap;
+                padding: 8px 0 8px 0;
+                .category {
+                    font-size: medium;
+                    font-weight: bold;
+                }
+                .amount {
+                    font-size: large;
+                }
+                .action {
+                    display: flex;
+                    .btn {
+                        color: @headerColor;
+                    }
+                }
+            }
+            .storedOperation:nth-child(even) {
+                background-color: @background;
+            }
+            .storedOperation:nth-child(odd) {
+                background-color: @darkerBackground;
+            }
+            .operation {
                 font-size: small;
-                padding-left: 10px;
+                .btn {
+                    font-size: small;
+                    padding-left: 10px;
+                }
+            }
+            .rectangleTop {
+                height: 69.75px;
+            }
+            .rectangleBottom {
+                height: 82px;
             }
         }
     }
+    .btnInAccountPage {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        border-top: solid 1px whitesmoke;
+    }
+
     
     @import url(../utils/switch.less);
 

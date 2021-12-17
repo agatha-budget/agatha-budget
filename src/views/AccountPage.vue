@@ -2,8 +2,8 @@
   <div :class="this.$store.state.css">
     <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
       <div class="accountPageBody">
-        <div v-if="this.editingTitle" class="row">
-          <span class="name col-4 offset-4">
+        <div v-if="this.editingTitle" class="editingNameAccount row">
+          <span class="name col-9 offset-0 col-sm-8 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4 col-xxl-4 offset-xxl-4">
               <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
           </span>
           <span class="validation col">
@@ -21,6 +21,7 @@
           </a>
         </div>
         <div class="scrollable operationTable table-hover">
+          <div class="rectangleTop"/>
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
@@ -42,9 +43,12 @@
               <div class="memo col-3 offset-1">{{ operation.memo }}</div>
             </div>
           </template>
+          <div class="rectangleBottom"/>
         </div>
       </div>
-      <BtnMenu />
+      <div class="btnInAccountPage">
+        <BtnMenu />
+      </div>
     </div>
   </div>
 </template>
