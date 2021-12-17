@@ -1,20 +1,22 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="home">
+    <div class="home row">
       <div v-if="this.$store.state.storeLoaded">
+        <div class="widgetsAtHome">
           <BudgetCmpt :month="this.currentMonth" />
-        <div class="col-8 offset-2 col-sm-6 offset-sm-3 col-md-4 offset-md-4 col-lg-3 offset-lg-1 col-xl-3 offset-xl-1 col-xxl-2 offset-xxl-1">
-          <div class="accountWidgetAtHome">
-            <AccountsWidget/>
-          </div>
-          <div class="buttonsAtHome">
-            <BtnMenu :page="'home'" />
+          <div class="col-3 offset-0 col-xl-3 offset-xl-1 col-xxl-2 offset-xxl-1">
+            <div class="accountWidgetAtHome">
+              <AccountsWidget/>
+            </div>
+            <div class="buttonsAtHome">
+              <BtnMenu :page="'home'" />
+            </div>
           </div>
         </div>
       </div>
-    <div v-else>
-        <Loader class="loader"/>
-    </div>
+      <div v-else>
+          <Loader class="loader"/>
+      </div>
     </div>
   </div>
 </template>

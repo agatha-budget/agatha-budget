@@ -1,6 +1,6 @@
 <template>
-  <div id="budgetCmpt">
-    <div class="fixed container-fluid col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2 col-xxl-5 offset-xxl-2">
+  <div id="budgetCmpt" class="container-fluid col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2">
+    <div class="fixed">
       <div id="budgetHeader">
         <div class="row date">
           <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
@@ -29,7 +29,7 @@
         </table>
       </div>
     </div>
-    <div class="scrollable col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2 col-xxl-5 offset-xxl-2 ">
+    <div class="scrollable">
       <div id="budgetTables">
         <div class="rectangleTop"></div>
         <table class="budgetTable table"

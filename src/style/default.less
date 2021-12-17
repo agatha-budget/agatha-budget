@@ -30,6 +30,11 @@
     margin-left: 45%;
   }
 
+  .widgetsAtHome {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   #actionsList {
     text-align: center;
     justify-content: center;
@@ -62,7 +67,17 @@
       }
     }
   }
-
+  @media (min-width: 992px) {
+    .accountWidgetAtHome {
+      position: fixed;
+      top: 50px;
+      margin-left: 53.1px;
+    }
+    .buttonsAtHome {
+      position: fixed;
+      top: 320px;
+    }
+  }
   @media (max-width: 992px) {
     .accountWidgetAtHome{
 
