@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import router, { RouterPages, redirectToLoginPageIfNotLogged } from '@/router'
+import { redirectToLoginPageIfNotLogged } from '@/router'
 import { Account, Category, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
@@ -59,7 +59,6 @@ import OperationService from '@/services/OperationService'
 import AccountService from '@/services/AccountService'
 import OperationForm from '@/components/forms/OperationForm.vue'
 import Utils from '@/utils/Utils'
-import PersonService from '@/services/PersonService'
 import BtnMenu from '@/components/ButtonMenu.vue'
 
 interface AccountPageData {
@@ -168,12 +167,6 @@ export default defineComponent({
     },
     cancelEditing () {
       this.editingTitle = false
-    },
-    logout () {
-      PersonService.deleteSession(this.$store)
-    },
-    async goHomePage (): Promise<void> {
-      router.push(RouterPages.home)
     }
   }
 })
