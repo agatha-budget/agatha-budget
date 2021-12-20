@@ -239,22 +239,45 @@
     }
 
     // version ordinateur
+    @media (min-width: 1500px) {
+        .fixed {
+            width: 38%;
+        }
+    }
+
+    @media (min-width: 1200px) and (max-width: 1500px) {
+        .fixed {
+            width: 37%;
+        }
+    }
+
+    @media (min-width: 992px) and (max-width: 1200px) {
+        .fixed {
+            width: 44%;
+        }
+    }
+
     @media (min-width: 992px) {
         padding-top: 8px;
         margin-right: 0;
         .fixed {
-            padding-bottom: 1px;
+            position: fixed;
+            top: 0;
+            justify-content: center;
             #budgetHeader {
-                margin-top: 10px;
-                border-radius: 28px 28px 0 0;
+                border-radius: 20px 5px 0 0;
+                height: 200px;
             }
         }
     
         .scrollable {
-            margin-top: -15px;
             #budgetTables {
-                border-radius: 0 0 28px 28px;
+                border-radius: 28px 20px 28px 28px;
                 padding-top: 0;
+                margin-top: -8px;
+                .rectangleTop {
+                    height: 205px;
+                }
                 table .budgetTable {
                     overflow-y: scroll;
                     overflow-x: hidden;
@@ -272,7 +295,7 @@
             width: inherit;
             #budgetHeader {
                 margin-right: 72px;
-                #totalTable 
+                height: 200px;
             }
         }
     
