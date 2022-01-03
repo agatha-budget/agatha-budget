@@ -1,3 +1,7 @@
+
+#app {
+  background-color: @background;
+}
 .default {
 
 
@@ -30,24 +34,73 @@
     margin-left: 45%;
   }
 
+  .homePageComponents {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   #actionsList {
     text-align: center;
+    justify-content: center;
     .btn {
       font-size: 30px;
       background-color: @actionColor;
       color: @background;
-      margin: 20px;
       padding: 10px;
       border-radius: 45px;
+      width: 52px;
     }
     .btn.disables {
       color: gray;
     }
-
     list-style-type: none;
-
   }
 
+  @media (min-width: 479px) {
+    #actionsList{
+      .btn {
+        margin: 20px;
+      }
+    }
+  }
+
+  @media (max-width: 479px) {
+    #actionsList {
+      .btn {
+        margin: 20px 10px;
+      }
+    }
+  }
+  @media (min-width: 992px) {
+    .accountWidgetAtHome {
+      position: fixed;
+      top: 50px;
+      margin-left: 53.1px;
+    }
+    .buttonsAtHome {
+      position: fixed;
+      top: 320px;
+    }
+  }
+  @media (max-width: 992px) {
+    .accountWidgetAtHome{
+
+      #accountWidget {
+        display: none;
+      }
+    }
+    .buttonsAtHome {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: white;
+      border-top: solid whitesmoke;
+    }
+  }
+  
+
+  
   @import url(default/accountWidget.less);
   @import url(default/budget.less);
   @import url(default/accountPage.less);
