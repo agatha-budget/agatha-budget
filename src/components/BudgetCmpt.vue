@@ -31,7 +31,7 @@
     </div>
     <div class="scrollable">
       <div id="budgetTables">
-        <div class="rectangleTop"></div>
+        <div class="placeholderTop" ></div>
         <table class="budgetTable table"
         v-for="masterCategory of this.$store.state.masterCategories"
         :key="masterCategory"
@@ -64,7 +64,7 @@
               />
           </table>
         </div>
-        <div class="rectangleBottom"></div>
+        <div class="placeholderBottom"></div>
       </div>
     </div>
   </div>

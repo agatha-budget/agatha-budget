@@ -21,7 +21,7 @@
           </a>
         </div>
         <div class="scrollable operationTable table-hover">
-          <div class="rectangleTop"/>
+          <div class="placeholderTop"/>
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
@@ -43,11 +43,11 @@
               <div class="memo col-3 offset-1">{{ operation.memo }}</div>
             </div>
           </template>
-          <div class="rectangleBottom"/>
+          <div class="placeholderBottom"/>
         </div>
       </div>
       <div class="btnInAccountPage">
-        <BtnMenu />
+        <NavMenu />
       </div>
     </div>
   </div>
@@ -63,7 +63,7 @@ import OperationService from '@/services/OperationService'
 import AccountService from '@/services/AccountService'
 import OperationForm from '@/components/forms/OperationForm.vue'
 import Utils from '@/utils/Utils'
-import BtnMenu from '@/components/ButtonMenu.vue'
+import NavMenu from '@/components/NavigationMenu.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
@@ -79,7 +79,7 @@ export default defineComponent({
   name: 'AccountPage',
   components: {
     OperationForm,
-    BtnMenu
+    NavMenu
   },
   beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)

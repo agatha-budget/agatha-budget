@@ -3,7 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
 import Signup from '../views/Signup.vue'
-import RedirectAtAccountPage from '../views/RedirectAtAccountPage.vue'
+import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
 import AccountPage from '../views/AccountPage.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
@@ -16,7 +16,7 @@ export enum RouterPages {
   account = '/account',
   about = '/about',
   profile = '/profile',
-  redirectAtAccountPage = '/redirectAtAccountPage'
+  redirectToAccountPage = '/redirectToAccountPage'
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -37,8 +37,8 @@ const routes: Array<RouteRecordRaw> = [
     component: Profile
   },
   {
-    path: RouterPages.redirectAtAccountPage,
-    component: RedirectAtAccountPage
+    path: RouterPages.redirectToAccountPage,
+    component: RedirectToAccountPage
   },
   {
     path: RouterPages.account,

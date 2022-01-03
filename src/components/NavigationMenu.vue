@@ -1,5 +1,5 @@
 <template>
-    <div class="buttonMenu">
+    <div class="navigationMenu">
       <ul id="actionsList" class="list-group list-group-horizontal d-flex">
         <li v-if="this.fromPage == 'home' "><button class="btn fas fa-home disabled" :title="$t('HOME')"/></li>
         <li v-else><button v-on:click="goHomePage" class="btn fas fa-home" :title="$t('HOME')"/></li>
@@ -21,7 +21,7 @@ interface MenuData {
 }
 
 export default defineComponent({
-  name: 'BtnMenu',
+  name: 'NavMenu',
   props: {
     page: {
       type: String,
@@ -41,7 +41,7 @@ export default defineComponent({
       router.push(RouterPages.home)
     },
     async goChooseAccount () {
-      router.push(RouterPages.redirectAtAccountPage)
+      router.push(RouterPages.redirectToAccountPage)
     }
   }
 })

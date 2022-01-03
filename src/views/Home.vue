@@ -2,14 +2,14 @@
   <div :class="this.$store.state.css">
     <div class="home row">
       <div v-if="this.$store.state.storeLoaded">
-        <div class="widgetsAtHome">
+        <div class="homePageComponents">
           <BudgetCmpt :month="this.currentMonth" />
           <div class="col-3 offset-0 col-xl-3 offset-xl-1 col-xxl-2 offset-xxl-1">
             <div class="accountWidgetAtHome">
               <AccountsWidget/>
             </div>
             <div class="buttonsAtHome">
-              <BtnMenu :page="'home'" />
+              <NavMenu :page="'home'" />
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@ import AccountsWidget from '@/components/AccountsWidget.vue'
 import PersonService from '@/services/PersonService'
 import Time from '@/utils/Time'
 import Loader from '@/components/utils/Loader.vue'
-import BtnMenu from '@/components/ButtonMenu.vue'
+import NavMenu from '@/components/NavigationMenu.vue'
 
 export default defineComponent({
   name: 'Home',
@@ -44,7 +44,7 @@ export default defineComponent({
     BudgetCmpt,
     AccountsWidget,
     Loader,
-    BtnMenu
+    NavMenu
   },
   data () {
     return {
