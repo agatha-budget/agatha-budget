@@ -4,7 +4,7 @@
       <div v-if="this.$store.state.storeLoaded">
         <div class="homePageComponents">
           <BudgetCmpt :month="this.currentMonth" />
-          <div class="col-3 offset-0 col-xl-3 offset-xl-1 col-xxl-2 offset-xxl-1">
+          <div class="col-3 offset-1 col-xl-3 offset-xl-1 col-xxl-3 offset-xxl-1">
             <div class="accountWidgetAtHome">
               <AccountsWidget/>
             </div>
