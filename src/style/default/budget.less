@@ -88,14 +88,6 @@
                             line-height: 40px;
                         }
                     }
-                    .available {
-                        .negative {
-                            border-radius: 25px;
-                            background: @red;
-                            font-weight: bold;
-                            padding: 2px  15px 2px 15px;
-                        }
-                    }
                 }
             }
         }
@@ -269,6 +261,14 @@
                 td.allocated, td.available, td.spent {
                     text-align: center;
                     background : @background;
+                }
+                td.available {
+                    .negative {
+                        border-radius: 25px;
+                        background: @red;
+                        font-weight: bold;
+                        padding: 2px  15px 2px 15px;
+                    }
                 }
             }
             input[type=number] {
