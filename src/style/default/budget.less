@@ -18,11 +18,10 @@
     .fixed {
         position: fixed;
         top: 0;
-        padding-bottom: 46px;
         background: white;
         border-bottom: solid 1px whitesmoke;
         #budgetHeader {
-            padding: 20px 20px 0;
+            padding: 20px 10px 0 20px;
             border-radius: 0;
             .date {
                 margin-bottom: 20px;
@@ -107,7 +106,7 @@
             .placeholderTop {
                 #budgetHeader {
                     .date {
-                        margin-bottom: 20px;
+                        margin-bottom: 40px;
                         text-align: center;
                         font-size:  xx-large;
                         .btn {
@@ -299,7 +298,7 @@
 
     @media (min-width: 992px) and (max-width: 1200px) {
         .fixed {
-            width: 50%;
+            width: 49%;
         }
     }
 
@@ -310,7 +309,6 @@
             justify-content: center;
             #budgetHeader {
                 border-radius: 20px 20px 0 0;
-                height: 200px;
             }
         }
         .scrollable {
@@ -328,13 +326,29 @@
     }
 
     // version mobile
-    @media (max-width: 992px) {
+    @media (min-width: 768px) and (max-width: 992px) {
         .fixed {
-            width: inherit;
+            width: 65%;
+        }
+    }
+    @media (min-width: 576px) and (max-width: 768px) {
+        .fixed {
+            width: 83%;
             #budgetHeader {
-                height: 200px;
+                padding-right: 15px;
             }
         }
+    }
+    @media (max-width: 576px) {
+        .fixed {
+            width: 100%;
+            #budgetHeader {
+                padding-right: 20px;
+            }
+        }
+    }
+
+    @media (max-width: 992px) {
         .scrollable {
             #budgetTables {
                 .placeholderBottom {
