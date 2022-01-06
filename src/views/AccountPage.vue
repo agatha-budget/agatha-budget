@@ -41,10 +41,10 @@
               <div class="category col-3 offset-1">
                 {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
               </div>
-              <div class="amount col-3 offset-2">
+              <div class="amount col-3 offset-2 col-sm-2" :class="this.incomingOutgoingFlowClass(operation)">
                 {{ this.getEurosAmount(operation.amount) }} €
               </div>
-              <div class="action col-1">
+              <div class="action col-1 offset-1 offset-sm-2">
                 <button class="btn fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
                 <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
               </div>
@@ -77,6 +77,7 @@ interface AccountPageData {
     operations: EditableOperation[];
     name: string;
     editingTitle: boolean;
+    amountInOperation: number;
 }
 
 interface EditableOperation extends Operation {
@@ -111,7 +112,8 @@ export default defineComponent({
     return {
       operations: [],
       name: '',
-      editingTitle: false
+      editingTitle: false,
+      amountInOperation: 0
     }
   },
   computed: {
@@ -179,6 +181,13 @@ export default defineComponent({
     },
     cancelEditing () {
       this.editingTitle = false
+    },
+    incomingOutgoingFlowClass (operation: Operation): string {
+      if (operation.amount > 0) {
+        return 'positive'
+      } else {
+        return 'negative'
+      }
     }
   }
 })
