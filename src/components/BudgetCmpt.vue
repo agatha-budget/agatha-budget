@@ -74,7 +74,7 @@
 import { defineComponent } from 'vue'
 import BudgetDataService from '@/services/BudgetDataService'
 import AllocationService from '@/services/AllocationService'
-import { Account, Budget, CategoryData, CategoryDataList } from '@/model/model'
+import { Account, Budget, CategoryData, CategoryDataList, newMasterCategoryName } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
@@ -211,7 +211,7 @@ export default defineComponent({
     },
     createMasterCategory () {
       if (this.budget) {
-        MasterCategoryService.createMasterCategory('New Master Category', this.budget).then(
+        MasterCategoryService.createMasterCategory(newMasterCategoryName, this.budget).then(
           () => {
             StoreHandler.updateMasterCategories(this.$store)
             StoreHandler.updateCategories(this.$store)

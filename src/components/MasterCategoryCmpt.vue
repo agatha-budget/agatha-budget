@@ -51,7 +51,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { MasterCategory, CategoryDataList, CategoryData, Category } from '@/model/model'
+import { MasterCategory, CategoryDataList, CategoryData, Category, newCategoryName } from '@/model/model'
 import Utils from '@/utils/Utils'
 import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
@@ -107,7 +107,7 @@ export default defineComponent({
       return Utils.getEurosAmount(amount)
     },
     createCategory () {
-      CategoryService.createCategory('New Category', this.masterCategory).then(
+      CategoryService.createCategory(newCategoryName, this.masterCategory).then(
         () => {
           StoreHandler.updateCategories(this.$store)
         }
