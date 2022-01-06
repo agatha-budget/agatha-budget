@@ -5,6 +5,23 @@
     background: white;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
     .accountPageBody {
+        h1 {
+            text-align: center;
+            font-size: xx-large;
+            margin-bottom: 20px;
+            .btn {
+                visibility: hidden;
+                color: @darkBlue;
+                font-size: small;
+                padding: 6px 0px 6px 12px;
+                margin-bottom: 4px;
+            }
+        }
+        h1:hover{
+            .btn {
+                visibility: visible;
+            }
+        }
         .fixed {
             position: fixed;
             top: 0;
@@ -21,27 +38,6 @@
                     padding-left: auto;
                     padding-right: auto;
                     margin-bottom: 8.4px;
-                }
-            }
-            .editableNameAccount {
-                a {
-                    h1 {
-                        text-align: center;
-                        font-size: xx-large;
-                        margin-bottom: 20px;
-                        .btn {
-                            visibility: hidden;
-                            color: @darkBlue;
-                            font-size: small;
-                            padding: 6px 0px 6px 12px;
-                            margin-bottom: 4px;
-                        }
-                    }
-                    h1:hover{
-                        .btn {
-                            visibility: visible;
-                        }
-                    }
                 }
             }
         }   
@@ -116,20 +112,6 @@
             }
             .storedOperation:nth-child(odd) {
                 background-color: @darkerBackground;
-            }
-            .placeholderTop {
-                h1 {
-                    text-align: center;
-                    font-size: xx-large;
-                    margin-bottom: 20px;
-                    .btn {
-                        visibility: hidden;
-                        color: @darkBlue;
-                        font-size: small;
-                        padding: 6px 0px 6px 12px;
-                        margin-bottom: 4px;
-                    }
-                }
             }
         }
     }
