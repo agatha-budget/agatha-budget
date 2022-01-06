@@ -324,7 +324,7 @@ private fun setUpApp(properties: JavaProperties): Javalin {
             if (environmentStatus == "dev") {
                 config.enableCorsForAllOrigins()
             } else {
-                config.enableCorsForOrigin(properties.getProperty("allowed_origin"), properties.getProperty("allowed_origin_stripe"))
+                config.enableCorsForOrigin(properties.getProperty("allowed_origin_front"),properties.getProperty("allowed_origin_beta_front"), properties.getProperty("allowed_origin_stripe"))
             }
     }.start(getHerokuAssignedOrDefaultPort())
 
