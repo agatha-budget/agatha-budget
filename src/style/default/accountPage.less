@@ -83,6 +83,18 @@
                     }
                 }
             }
+            @media (pointer: fine) {
+                .storedOperation {
+                    .btn {
+                        visibility: hidden;
+                    }
+                }
+                .storedOperation:hover{
+                    .btn {
+                        visibility: visible;
+                    }
+                }
+            }
             .storedOperation:nth-child(even) {
                 background-color: @background;
             }

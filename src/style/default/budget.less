@@ -138,25 +138,29 @@
                         .btn {
                             color: @lightBlue;
                         }
-                    }
-                    .editable-master-category {
+                    }.editable-master-category {
                         border-radius: 6px 6px 0 0;
-                        background: red;
                         background : @headerColor;
                         text-align: left;
                         padding-left: 10%;
                         text-decoration: none;
                         color: white;
                         .btn {
-                            visibility: hidden;
                             color: @lightBlue;
                             font-size: small;
                             padding: 6px 0px 6px 12px;
                         }
                     }
-                    .editable-master-category:hover{
-                        .btn {
-                            visibility: visible;
+                    @media (pointer: fine) {
+                        .editable-master-category {
+                            .btn {
+                                visibility: hidden;
+                            }
+                        }
+                        .editable-master-category:hover{
+                            .btn {
+                                visibility: visible;
+                            }
                         }
                     }
                 }
