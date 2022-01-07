@@ -25,7 +25,7 @@
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
-            <div v-else class="operation storedOperation">
+            <a v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation storedOperation">
               <div class="date col-2 offset-1">
                 <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
               </div>
@@ -37,11 +37,11 @@
                 {{ this.getEurosAmount(operation.amount) }} €
               </div>
               <div class="action col-1">
-                <button class="btn fas fa-pen" v-on:click="setAsEditing(operation)" :title="$t('EDIT')"/>
+                <button class="btn fas fa-pen"/>
                 <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
               </div>
               <div class="memo col-3 offset-1">{{ operation.memo }}</div>
-            </div>
+            </a>
           </template>
           <div class="rectangleBottom"/>
         </div>
