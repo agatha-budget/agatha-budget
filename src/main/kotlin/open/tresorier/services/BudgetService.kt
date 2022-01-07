@@ -12,7 +12,7 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
                     private val categoryDao: ICategoryDao, private val authorizationService: AuthorizationService) {
 
     fun create(person: Person, name: String): Budget {
-        val budget = Budget(name, person.id)
+        val budget = Budget(name, person.id, profile)
         budgetDao.insert(budget)
         this.initCategoryForBudget(budget)
         return budget
@@ -42,19 +42,26 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
     }
 
     private fun initCategoryForBudget(budget: Budget){
+        when {
+            budget.profile == PROFILE_USER -> this.initCategoriesUserProfile(budget)
+            budget.profile == PROFILE_COMPAGNY -> this.initCategoriesCompagnyProfile(budget)
+        }
+    }
+
+    private fun initCategoriesUserProfile(budget: Budget) {
         val masterCategoryGoal = MasterCategory("_Objectifs", budget.id)
         val masterCategoryVIP = MasterCategory("_Priorités au quotidien", budget.id)
         val masterCategoryFixed = MasterCategory("Frais Fixes", budget.id)
         val masterCategoryVariable = MasterCategory("Frais Variables", budget.id)
         val masterCategoryProvision = MasterCategory("Provisions", budget.id)
-
+        
         val masterCategories = listOf(masterCategoryGoal, masterCategoryVIP, masterCategoryFixed, masterCategoryVariable, masterCategoryProvision)
         for (masterCategory in masterCategories) {
             masterCategoryDao.insert(masterCategory)
         }
-
+        
         val categories = listOf(
-            Category("Filet de sécurité", masterCategoryGoal.id),
+            Category("Coup d'avance - 1 mois", masterCategoryGoal.id),
             Category("Vacances", masterCategoryGoal.id),
             Category("Sortie entre amis", masterCategoryVIP.id),
             Category("Loyer", masterCategoryFixed.id),
@@ -73,6 +80,58 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
             Category("Voiture", masterCategoryProvision.id),
             Category("Téléphone", masterCategoryProvision.id),
             Category("Noël", masterCategoryProvision.id)
+        )
+        for (category in categories) {
+            categoryDao.insert(category)
+        }
+    }
+
+    private fun initCategoriesCompagnyProfile(budget: Budget) {
+        val masterCategoryIncoming = MasterCategory("1 - Entrées", budget.id)
+        val masterCategoryGoal = MasterCategory("2 - Projets d'avenir", budget.id)
+        val masterCategoryProvision = MasterCategory("3 - Provisions", budget.id)
+        val masterCategoryVariable = MasterCategory("4 - Frais variables", budget.id)
+        val masterCategoryFixed = MasterCategory("5 - Frais fixes", budget.id)
+        val masterCategoryHumanRessources = MasterCategory("6 - Ressources humaines", budget.id)
+        val masterCategoryTaxes = MasterCategory("7 - TVA", budget.id)
+        
+        val masterCategories = listOf(masterCategoryGoal, masterCategoryFixed, masterCategoryVariable, masterCategoryProvision)
+        for (masterCategory in masterCategories) {
+            masterCategoryDao.insert(masterCategory)
+        }
+        
+        val categories = listOf(
+            Category("1 - Facturé", masterCategoryIncoming.id),
+            Category("2 - Payé", masterCategoryIncoming.id),
+            Category("3 - Subventions", masterCategoryIncoming.id),
+            Category("4 - Autres", masterCategoryIncoming.id),
+            Category("Nouvelle branche d'activité", masterCategoryGoal.id),
+            Category("Coup d'avance - 1 mois", masterCategoryProvision.id),
+            Category("Fournitures", masterCategoryProvision.id),
+            Category("Matériel", masterCategoryProvision.id),
+            Category("Site Web", masterCategoryProvision.id),
+            Category("Voiture", masterCategoryProvision.id),
+            Category("Communication", masterCategoryVariable.id),
+            Category("Déplacements", masterCategoryVariable.id),
+            Category("Impôts", masterCategoryVariable.id),
+            Category("Livraisons", masterCategoryVariable.id),
+            Category("Matières premières", masterCategoryVariable.id),
+            Category("Abonnements/Cotisations", masterCategoryFixed.id),
+            Category("Agatha-Budget (8€/mois)", masterCategoryFixed.id),
+            Category("Comptables", masterCategoryFixed.id),
+            Category("Divers", masterCategoryFixed.id),
+            Category("Eau/Gaz/Electricité", masterCategoryFixed.id),
+            Category("Internet/Forfait tel", masterCategoryFixed.id),
+            Category("Loyer", masterCategoryFixed.id),
+            Category("Dirigeant charges sociales", masterCategoryHumanRessources.id),
+            Category("Dirigeant rémunérations", masterCategoryHumanRessources.id),
+            Category("Médecine du travail", masterCategoryHumanRessources.id),
+            Category("Prime/Intéressement", masterCategoryHumanRessources.id),
+            Category("Salariés charges sociales", masterCategoryHumanRessources.id),
+            Category("Salariés rémunérations", masterCategoryHumanRessources.id),
+            Category("Matelas TVA", masterCategoryTaxes.id),
+            Category("TVA dûe à l'Etat", masterCategoryTaxes.id),
+            Category("TVA dûe par l'Etat", masterCategoryTaxes.id)
         )
         for (category in categories) {
             categoryDao.insert(category)

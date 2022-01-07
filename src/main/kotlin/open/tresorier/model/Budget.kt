@@ -3,6 +3,7 @@ package open.tresorier.model
 class Budget (
     var name: String,
     var personId: String,
+    var profile: String,
     id: String? = null,
     deleted: Boolean? = null
 ) : DbObject(id, deleted) {
@@ -13,5 +14,7 @@ class Budget (
 
     companion object {
         const val DEFAULT_BUDGET_NAME = "I18N_DEFAULT_BUDGET"
+        const val PROFILE_USER = "PROFILE_USER"
+        const val PROFILE_COMPAGNY = "PROFILE_COMPAGNY"
     }
 }
