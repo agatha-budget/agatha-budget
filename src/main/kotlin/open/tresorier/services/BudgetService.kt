@@ -7,11 +7,12 @@ import open.tresorier.model.Budget
 import open.tresorier.model.Category
 import open.tresorier.model.MasterCategory
 import open.tresorier.model.Person
+import open.tresorier.model.enum.ProfileEnum
 
 class BudgetService(private val budgetDao: IBudgetDao, private val masterCategoryDao: IMasterCategoryDao,
                     private val categoryDao: ICategoryDao, private val authorizationService: AuthorizationService) {
 
-    fun create(person: Person, name: String): Budget {
+    fun create(person: Person, name: String, profile: ProfileEnum): Budget {
         val budget = Budget(name, person.id, profile)
         budgetDao.insert(budget)
         this.initCategoryForBudget(budget)
@@ -43,8 +44,8 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
 
     private fun initCategoryForBudget(budget: Budget){
         when {
-            budget.profile == PROFILE_USER -> this.initCategoriesUserProfile(budget)
-            budget.profile == PROFILE_COMPAGNY -> this.initCategoriesCompagnyProfile(budget)
+            budget.profile == ProfileEnum.PROFILE_USER -> this.initCategoriesUserProfile(budget)
+            budget.profile == ProfileEnum.PROFILE_COMPANY -> this.initCategoriesCompanyProfile(budget)
         }
     }
 
@@ -86,7 +87,7 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
         }
     }
 
-    private fun initCategoriesCompagnyProfile(budget: Budget) {
+    private fun initCategoriesCompanyProfile(budget: Budget) {
         val masterCategoryIncoming = MasterCategory("1 - Entrées", budget.id)
         val masterCategoryGoal = MasterCategory("2 - Projets d'avenir", budget.id)
         val masterCategoryProvision = MasterCategory("3 - Provisions", budget.id)
@@ -120,7 +121,7 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
             Category("Agatha-Budget (8€/mois)", masterCategoryFixed.id),
             Category("Comptables", masterCategoryFixed.id),
             Category("Divers", masterCategoryFixed.id),
-            Category("Eau/Gaz/Electricité", masterCategoryFixed.id),
+            Category("Eau/Gaz/Électricité", masterCategoryFixed.id),
             Category("Internet/Forfait tel", masterCategoryFixed.id),
             Category("Loyer", masterCategoryFixed.id),
             Category("Dirigeant charges sociales", masterCategoryHumanRessources.id),
@@ -130,8 +131,8 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
             Category("Salariés charges sociales", masterCategoryHumanRessources.id),
             Category("Salariés rémunérations", masterCategoryHumanRessources.id),
             Category("Matelas TVA", masterCategoryTaxes.id),
-            Category("TVA dûe à l'Etat", masterCategoryTaxes.id),
-            Category("TVA dûe par l'Etat", masterCategoryTaxes.id)
+            Category("TVA due à l'Etat", masterCategoryTaxes.id),
+            Category("TVA due par l'Etat", masterCategoryTaxes.id)
         )
         for (category in categories) {
             categoryDao.insert(category)

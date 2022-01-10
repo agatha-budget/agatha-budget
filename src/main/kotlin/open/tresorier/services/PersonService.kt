@@ -5,6 +5,7 @@ import open.tresorier.model.Budget
 import open.tresorier.model.Person
 import open.tresorier.utils.Time
 import open.tresorier.exception.TresorierException
+import open.tresorier.model.enum.ProfileEnum
 
 
 class PersonService(private val personDao: IPersonDao, private val budgetService: BudgetService) {
@@ -13,7 +14,7 @@ class PersonService(private val personDao: IPersonDao, private val budgetService
         val hashedPassword = AuthenticationService.hashPassword(password)
         var person = Person(name, hashedPassword, email)
         person = personDao.insert(person)
-        budgetService.create(person, Budget.DEFAULT_BUDGET_NAME)
+        budgetService.create(person, Budget.DEFAULT_BUDGET_NAME, ProfileEnum.PROFILE_USER)
         return person
     }
 

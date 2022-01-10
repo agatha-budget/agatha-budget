@@ -12,6 +12,7 @@ import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
 import open.tresorier.services.BillingService
+import open.tresorier.model.enum.ProfileEnum
 
 fun main() {
 
@@ -94,7 +95,8 @@ fun main() {
     app.post("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val name = getQueryParam<String>(ctx, "name")
-        val budget: Budget = ServiceManager.budgetService.create(user, name)
+        val profile = getQueryParam<ProfileEnum>(ctx, "profile")
+        val budget: Budget = ServiceManager.budgetService.create(user, name, profile)
         ctx.result(budget.id)
     }
 

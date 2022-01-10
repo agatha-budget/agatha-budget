@@ -1,9 +1,11 @@
 package open.tresorier.model
 
+import open.tresorier.model.enum.ProfileEnum
+
 class Budget (
     var name: String,
     var personId: String,
-    var profile: String,
+    var profile: ProfileEnum,
     id: String? = null,
     deleted: Boolean? = null
 ) : DbObject(id, deleted) {
@@ -15,6 +17,6 @@ class Budget (
     companion object {
         const val DEFAULT_BUDGET_NAME = "I18N_DEFAULT_BUDGET"
         const val PROFILE_USER = "PROFILE_USER"
-        const val PROFILE_COMPAGNY = "PROFILE_COMPAGNY"
+        const val PROFILE_COMPANY = "PROFILE_COMPANY"
     }
 }

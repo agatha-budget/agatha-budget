@@ -10,6 +10,7 @@ import open.tresorier.model.Person
 import org.jooq.Configuration
 import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Budget as JooqBudget
+import open.tresorier.model.enum.ProfileEnum
 
 class H2BudgetDao (val configuration : Configuration) : IBudgetDao {
 
@@ -67,7 +68,8 @@ class H2BudgetDao (val configuration : Configuration) : IBudgetDao {
         return JooqBudget(budget.id,
                           budget.personId,
                           budget.name,
-                          budget.deleted
+                          budget.deleted,
+                          budget.profile.toString()
         )
     }
 
@@ -76,6 +78,7 @@ class H2BudgetDao (val configuration : Configuration) : IBudgetDao {
         null
         else Budget(jooqBudget.name,
                       jooqBudget.personId,
+                      ProfileEnum.valueOf(jooqBudget.profile),
                       jooqBudget.id,
                       jooqBudget.deleted
         )
