@@ -95,7 +95,8 @@ fun main() {
     app.post("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val name = getQueryParam<String>(ctx, "name")
-        val profile = getQueryParam<ProfileEnum>(ctx, "profile")
+        val profileString = getQueryParam<String>(ctx, "profile")
+        val profile: ProfileEnum = ProfileEnum.valueOf(profileString)
         val budget: Budget = ServiceManager.budgetService.create(user, name, profile)
         ctx.result(budget.id)
     }
