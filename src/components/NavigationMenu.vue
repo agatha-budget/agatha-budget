@@ -1,11 +1,12 @@
 <template>
-    <div class="buttonMenu">
+    <div class="navigationMenu">
       <ul id="actionsList" class="list-group list-group-horizontal d-flex">
         <li v-if="this.fromPage == 'home' "><button class="btn fas fa-home disabled" :title="$t('HOME')"/></li>
         <li v-else><button v-on:click="goHomePage" class="btn fas fa-home" :title="$t('HOME')"/></li>
         <li v-if="this.fromPage == 'redirect' "><button class="btn fas fa-euro-sign disabled" :title="$t('ACCOUNT')"/></li>
         <li v-else><button v-on:click="goChooseAccount" class="btn fas fa-euro-sign" :title="$t('ACCOUNT')"/></li>
-        <li><button class="btn fas fa-cog disabled" :title="$t('PREFERENCES')"/></li>
+        <li v-if="this.fromPage == 'profile' "><button class="btn fas fa-cog disabled" :title="$t('PREFERENCES')"/></li>
+        <li v-else><button v-on:click="goProfilePage" class="btn fas fa-cog" :title="$t('PREFERENCES')"/></li>
         <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
       </ul>
     </div>
@@ -21,7 +22,7 @@ interface MenuData {
 }
 
 export default defineComponent({
-  name: 'BtnMenu',
+  name: 'NavMenu',
   props: {
     page: {
       type: String,
@@ -37,11 +38,14 @@ export default defineComponent({
     logout () {
       PersonService.deleteSession(this.$store)
     },
-    async goHomePage (): Promise<void> {
+    goHomePage () {
       router.push(RouterPages.home)
     },
-    async goChooseAccount () {
-      router.push(RouterPages.redirectAtAccountPage)
+    goProfilePage () {
+      router.push(RouterPages.profile)
+    },
+    goChooseAccount () {
+      router.push(RouterPages.redirectToAccountPage)
     }
   }
 })
