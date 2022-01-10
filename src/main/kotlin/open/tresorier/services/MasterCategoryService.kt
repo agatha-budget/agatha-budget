@@ -13,7 +13,7 @@ class MasterCategoryService(private val masterCategoryDao: IMasterCategoryDao, p
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         val masterCategory = MasterCategory(name, budget.id)
         val inserted = masterCategoryDao.insert(masterCategory)
-        val category = Category("new category", inserted.id)
+        val category = Category(Category.NEW_CATEGORY_NAME, inserted.id)
         categoryDao.insert(category)
         return inserted
     }
