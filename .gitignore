@@ -35,3 +35,5 @@ session_mngt/
 db/
 
 logs/app.log
+
+logs/
