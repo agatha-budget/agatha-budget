@@ -13,6 +13,7 @@ class Category (
     }
 
     companion object {
+        const val NEW_CATEGORY_NAME = " Nouvelle Enveloppe"
         const val INCOME_ID = "universal_income_category"
         const val TRANSFERT_ID = "universal_transfert_category"
     }
