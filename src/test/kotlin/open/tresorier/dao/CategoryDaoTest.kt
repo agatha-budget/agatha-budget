@@ -9,6 +9,7 @@ import open.tresorier.utils.TestData
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
+import open.tresorier.model.enum.ProfileEnum
 
 open class CategoryDaoTest : ITest {
 
@@ -17,7 +18,7 @@ open class CategoryDaoTest : ITest {
     val masterCategoryDao by inject<IMasterCategoryDao>()
 
     @Test fun testGetAllCategoriesFromBudget() {
-        val budget = Budget("lucie-B1", TestData.person1Id)
+        val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategoryDream = MasterCategory("dreams", budget.id)
         masterCategoryDao.insert(masterCategoryDream)
@@ -44,7 +45,7 @@ open class CategoryDaoTest : ITest {
     }
 
     @Test fun testGetAllCategoriesFromEmptyBudget() {
-        val budget = Budget("lucie-B1", TestData.person1Id)
+        val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val foundCategoryList = categoryDao.findByBudget(budget)
         val universalCategoryList = listOf(
@@ -55,7 +56,7 @@ open class CategoryDaoTest : ITest {
     }
 
     @Test fun testGetAllCategoriesFromUnknownBudget() {
-        val budget = Budget("lucie-B1", TestData.person1Id)
+        val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         val foundCategoryList = categoryDao.findByBudget(budget)
         val universalCategoryList = listOf(
             categoryDao.getById(Category.INCOME_ID),
@@ -71,7 +72,7 @@ open class CategoryDaoTest : ITest {
     }
 
     @Test fun archiveAllDependingCategories() {
-        val budget = Budget("lucie-B1", TestData.person1Id)
+        val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategoryDream = MasterCategory("dreams", budget.id)
         masterCategoryDao.insert(masterCategoryDream)
@@ -106,7 +107,7 @@ open class CategoryDaoTest : ITest {
     }
 
     @Test fun unarchiveAllDependingCategories() {
-        val budget = Budget("lucie-B1", TestData.person1Id)
+        val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategoryDream = MasterCategory("dreams", budget.id)
         masterCategoryDao.insert(masterCategoryDream)
@@ -138,7 +139,7 @@ open class CategoryDaoTest : ITest {
     }
 
     @Test fun unarchiveAllDependingCategoriesSomeWereNotArchived() {
-        val budget = Budget("lucie-B1", TestData.person1Id)
+        val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategoryDream = MasterCategory("dreams", budget.id)
         masterCategoryDao.insert(masterCategoryDream)
@@ -168,7 +169,7 @@ open class CategoryDaoTest : ITest {
     }
 
     @Test fun archiveAllDependingCategoriesSomeWereAlreadyArchived() {
-        val budget = Budget("lucie-B1", TestData.person1Id)
+        val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategoryDream = MasterCategory("dreams", budget.id)
         masterCategoryDao.insert(masterCategoryDream)
@@ -198,7 +199,7 @@ open class CategoryDaoTest : ITest {
     }
 
     @Test fun archiveAllDependingCategoriesWhenThereIsNone() {
-        val budget = Budget("lucie-B1", TestData.person1Id)
+        val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategoryDream = MasterCategory("dreams", budget.id)
         masterCategoryDao.insert(masterCategoryDream)

@@ -9,6 +9,7 @@ import open.tresorier.utils.TestData
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
+import open.tresorier.model.enum.ProfileEnum
 
 open class OperationDaoTest : ITest {
 
@@ -48,7 +49,7 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getSpendingByMonthByCategoryForAllMonths() {
-        val budget = Budget("wellAllocatedBudget", "person1")
+        val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -88,7 +89,7 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getSpendingByMonthByCategoryUntilFebruary() {
-        val budget = Budget("wellAllocatedBudget", "person1")
+        val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -123,14 +124,14 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getAllAllocationsOfNonExistingBudget() {
-        val budget = Budget("wellAllocatedBudget", "person1")
+        val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         val result = operationDao.findTotalSpendingByMonth(budget)
         Assertions.assertEquals(0, result.size)
     }
 
     @Test
     fun getByAccountOrderedByDate() {
-        val budget = Budget("professional budget", "person1")
+        val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -141,7 +142,7 @@ open class OperationDaoTest : ITest {
         val accountB = Account("my own account", budget.id)
         accountDao.insert(accountB)
 
-        val budget2= Budget("personal budget", "person1")
+        val budget2= Budget("personal budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget2)
         val masterCategory2 = MasterCategory("Fixed expense", budget2.id)
         masterCategoryDao.insert(masterCategory2)
@@ -170,7 +171,7 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getByBudgetInMultipleAccount() {
-        val budget = Budget("professional budget", "person1")
+        val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -181,7 +182,7 @@ open class OperationDaoTest : ITest {
         val accountB = Account("my own account", budget.id)
         accountDao.insert(accountB)
 
-        val budget2= Budget("personal budget", "person1")
+        val budget2= Budget("personal budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget2)
         val masterCategory2 = MasterCategory("Fixed expense", budget2.id)
         masterCategoryDao.insert(masterCategory2)
@@ -208,14 +209,14 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getByUnknownBudget() {
-        val unknownBudget = Budget("professional budget", "person1")
+        val unknownBudget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
         val result = operationDao.findByBudget(unknownBudget)
         Assertions.assertEquals(0, result.size)
     }
 
     @Test
     fun getAmountForBudget() {
-        val budget = Budget("professional budget", "person1")
+        val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -226,7 +227,7 @@ open class OperationDaoTest : ITest {
         val accountB = Account("my own account", budget.id)
         accountDao.insert(accountB)
 
-        val budget2= Budget("personal budget", "person1")
+        val budget2= Budget("personal budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget2)
         val masterCategory2 = MasterCategory("Fixed expense", budget2.id)
         masterCategoryDao.insert(masterCategory2)
@@ -259,7 +260,7 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getAmountForEmptyBudget() {
-        val budget = Budget("professional budget", "person1")
+        val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val amountNow = operationDao.findAmountByBudget(budget)
         Assertions.assertEquals(0, amountNow)
