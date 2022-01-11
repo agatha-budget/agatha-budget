@@ -96,7 +96,7 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
         val masterCategoryHumanRessources = MasterCategory("6 - Ressources humaines", budget.id)
         val masterCategoryTaxes = MasterCategory("7 - TVA", budget.id)
         
-        val masterCategories = listOf(masterCategoryGoal, masterCategoryFixed, masterCategoryVariable, masterCategoryProvision)
+        val masterCategories = listOf(masterCategoryIncoming, masterCategoryGoal, masterCategoryProvision, masterCategoryVariable, masterCategoryFixed, masterCategoryHumanRessources, masterCategoryTaxes)
         for (masterCategory in masterCategories) {
             masterCategoryDao.insert(masterCategory)
         }

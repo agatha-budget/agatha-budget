@@ -47,7 +47,9 @@ fun main() {
         val name = ctx.queryParam<String>("name").get()
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
-        val person: Person = ServiceManager.personService.createPerson(name, password, email)
+        val profileString = ctx.queryParam<String>("profile").get()
+        val profile: ProfileEnum = ProfileEnum.valueOf(profileString)
+        val person: Person = ServiceManager.personService.createPerson(name, password, email, profile)
         val billingUrl = BillingService.createNewUserBillingSession(person)
         ctx.result(billingUrl)
     }

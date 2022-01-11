@@ -16,7 +16,5 @@ class Budget (
 
     companion object {
         const val DEFAULT_BUDGET_NAME = "I18N_DEFAULT_BUDGET"
-        const val PROFILE_USER = "PROFILE_USER"
-        const val PROFILE_COMPANY = "PROFILE_COMPANY"
     }
 }
