@@ -20,7 +20,7 @@ const newMasterCategoryName = 'Ω - Nouvelle Catégorie'
 const newCategoryName = ' Nouvelle Enveloppe'
 
 export {
-  Operation, CategoryData, BudgetData, Account, Budget, Category, 
+  Operation, CategoryData, BudgetData, Account, Budget, Category,
   MasterCategory, CategoryDataList, incomeCategoryId, transfertCategoryId,
   newMasterCategoryName, newCategoryName
 }
