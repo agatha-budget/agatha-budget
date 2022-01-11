@@ -2331,16 +2331,19 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} name 
          * @param {string} password 
          * @param {string} email 
+         * @param {string} profile 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPerson: async (name: string, password: string, email: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createPerson: async (name: string, password: string, email: string, profile: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'name' is not null or undefined
             assertParamExists('createPerson', 'name', name)
             // verify required parameter 'password' is not null or undefined
             assertParamExists('createPerson', 'password', password)
             // verify required parameter 'email' is not null or undefined
             assertParamExists('createPerson', 'email', email)
+            // verify required parameter 'profile' is not null or undefined
+            assertParamExists('createPerson', 'profile', profile)
             const localVarPath = `/person`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2363,6 +2366,10 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (email !== undefined) {
                 localVarQueryParameter['email'] = email;
+            }
+
+            if (profile !== undefined) {
+                localVarQueryParameter['profile'] = profile;
             }
 
 
@@ -2480,11 +2487,12 @@ export const PersonApiFp = function(configuration?: Configuration) {
          * @param {string} name 
          * @param {string} password 
          * @param {string} email 
+         * @param {string} profile 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createPerson(name: string, password: string, email: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPerson(name, password, email, options);
+        async createPerson(name: string, password: string, email: string, profile: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPerson(name, password, email, profile, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2534,11 +2542,12 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
          * @param {string} name 
          * @param {string} password 
          * @param {string} email 
+         * @param {string} profile 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPerson(name: string, password: string, email: string, options?: any): AxiosPromise<string> {
-            return localVarFp.createPerson(name, password, email, options).then((request) => request(axios, basePath));
+        createPerson(name: string, password: string, email: string, profile: string, options?: any): AxiosPromise<string> {
+            return localVarFp.createPerson(name, password, email, profile, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2587,12 +2596,13 @@ export class PersonApi extends BaseAPI {
      * @param {string} name 
      * @param {string} password 
      * @param {string} email 
+     * @param {string} profile 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PersonApi
      */
-    public createPerson(name: string, password: string, email: string, options?: AxiosRequestConfig) {
-        return PersonApiFp(this.configuration).createPerson(name, password, email, options).then((request) => request(this.axios, this.basePath));
+    public createPerson(name: string, password: string, email: string, profile: string, options?: AxiosRequestConfig) {
+        return PersonApiFp(this.configuration).createPerson(name, password, email, profile, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
