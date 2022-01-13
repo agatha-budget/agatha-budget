@@ -2,29 +2,37 @@
   <div :class="this.$store.state.css">
     <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
       <div class="accountPageBody">
-        <div v-if="this.editingTitle" class="editingNameAccount row">
-          <span class="name col-9 offset-0 col-sm-8 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4 col-xxl-4 offset-xxl-4">
-              <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
-          </span>
-          <span class="validation col">
-            <button class="btn fas fa-check" v-on:click="updateName()"/>
-            <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
-          </span>
-        </div>
-        <div v-else class="editableNameAccount">
-          <a v-on:click="this.displayTitleEditing()">
-            <h1>
-              {{ this.account ? this.account.name : "" }} :
-              {{ this.account ? getEurosAmount(this.account.amount) : "" }}€
-              <button class="btn fas fa-pen" />
-            </h1>
-          </a>
+        <div class="fixed">
+          <div v-if="this.editingTitle" class="editingNameAccount row">
+            <span class="name col-9 offset-0 col-sm-8 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4 col-xxl-4 offset-xxl-4">
+                <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
+            </span>
+            <span class="validation col">
+              <button class="btn fas fa-check" v-on:click="updateName()"/>
+              <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
+            </span>
+          </div>
+          <div v-else class="editableNameAccount">
+            <a v-on:click="this.displayTitleEditing()">
+              <h1>
+                {{ this.account ? this.account.name : "" }} :
+                {{ this.account ? getEurosAmount(this.account.amount) : "" }}€
+                <button class="btn fas fa-pen" />
+              </h1>
+            </a>
+          </div>
         </div>
         <div class="scrollable operationTable table-hover">
-          <div class="placeholderTop"/>
+          <div class="placeholderTop">
+            <h1>
+                {{ this.account ? this.account.name : "" }} :
+                {{ this.account ? getEurosAmount(this.account.amount) : "" }}€
+                <button class="btn fas fa-pen"/>
+            </h1>
+          </div>
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
-            <OperationForm v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
+            <OperationForm class="modifyOperation" v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
             <a v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation storedOperation">
               <div class="date col-2 offset-1">
                 <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
@@ -33,10 +41,10 @@
               <div class="category col-3 offset-1">
                 {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
               </div>
-              <div class="amount col-3 offset-2">
+              <div class="amount col-3 offset-2 col-sm-2" :class="this.incomingOutgoingFlowClass(operation)">
                 {{ this.getEurosAmount(operation.amount) }} €
               </div>
-              <div class="action col-1">
+              <div class="action col-1 offset-1 offset-sm-2">
                 <button class="btn fas fa-pen"/>
                 <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
               </div>
@@ -69,6 +77,7 @@ interface AccountPageData {
     operations: EditableOperation[];
     name: string;
     editingTitle: boolean;
+    amountInOperation: number;
 }
 
 interface EditableOperation extends Operation {
@@ -103,7 +112,8 @@ export default defineComponent({
     return {
       operations: [],
       name: '',
-      editingTitle: false
+      editingTitle: false,
+      amountInOperation: 0
     }
   },
   computed: {
@@ -171,6 +181,13 @@ export default defineComponent({
     },
     cancelEditing () {
       this.editingTitle = false
+    },
+    incomingOutgoingFlowClass (operation: Operation): string {
+      if (operation.amount > 0) {
+        return 'positive'
+      } else {
+        return 'negative'
+      }
     }
   }
 })

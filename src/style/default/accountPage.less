@@ -1,11 +1,28 @@
 .accountPage {
+
+    // pour toutes les versions
+
     background: white;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
-    border-radius: 28px;
-    padding: 20px;
-
     .accountPageBody {
-        .editingNameAccount, .editableNameAccount {
+        h1 {
+            text-align: center;
+            font-size: xx-large;
+            margin-bottom: 20px;
+            .btn {
+                visibility: hidden;
+                color: @darkBlue;
+                font-size: small;
+                padding: 6px 0px 6px 12px;
+                margin-bottom: 4px;
+            }
+        }
+        h1:hover{
+            .btn {
+                visibility: visible;
+            }
+        }
+        .fixed {
             position: fixed;
             top: 0;
             left: 0;
@@ -14,26 +31,13 @@
             border-bottom: solid 1px whitesmoke;
             padding-top: 20px;
             z-index: 100;
-        }
-        .editingNameAccount {
-            padding-bottom: 12.35px;
-            .name {
-                padding-left: auto;
-                padding-right: auto;
-                margin-bottom: 8.4px;
-            }
-        }
-        .editableNameAccount {
-            h1 {
-                text-align: center;
-                font-size: xx-large;
-                margin-bottom: 20px;
-                .btn {
-                    visibility: hidden;
-                    color: @darkBlue;
-                    font-size: small;
-                    padding: 6px 0px 6px 12px;
-                    margin-bottom: 4px;
+            box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
+            .editingNameAccount {
+                padding-bottom: 12.35px;
+                .name {
+                    padding-left: auto;
+                    padding-right: auto;
+                    margin-bottom: 8.4px;
                 }
             }
             h1:hover{
@@ -46,40 +50,71 @@
             .operationCreate {
                 border-radius: 28px 28px 0 0;
             }
+        }   
+        .scrollable {
             #operationForm {
                 padding: 30px 0 20px 0;
                 display: flex;
                 flex-wrap: wrap;
                 background: @headerColor;
+                .dateTitle, .categoryTitle, .memoTitle, .amountTitle, .dateElement, .categoryElement, .memoElement, .amountElement {
+                    padding: 8px 0 0 0;
+                }
                 .btn{
-                    color: @background;
                     font-size: large;
                 }
+            }
+            .operationCreate {
+                background: @headerColor;
                 .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
                     color: white;
                     font-size: large;
                     font-weight: bold;
                     text-align: middle;
                 }
-                .dateTitle, .categoryTitle, .memoTitle, .amountTitle, .dateElement, .categoryElement, .memoElement, .amountElement {
-                    padding: 8px 0 0 0;
+                .btn {
+                    color: @background;
+                }
+            }
+            .modifyOperation {
+                background: whitesmoke;
+                .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
+                    color: darkslategray;
+                    font-size: large;
+                    font-weight: bold;
+                    text-align: middle;
+                }
+                .btn {
+                    color: @headerColor;
                 }
             }
             .storedOperation {
                 display: flex;
                 flex-wrap: wrap;
                 padding: 8px 0 8px 0;
+                font-size: small;
                 .category {
                     font-size: medium;
                     font-weight: bold;
                 }
                 .amount {
                     font-size: large;
+                    text-align: center;
+                }
+                .positive {
+                    border-radius: 25px;
+                    background: @green;
+                    padding: 2px 8px;
+                }
+                .negative {
+                    padding: 2px 0;
                 }
                 .action {
                     display: flex;
                     .btn {
                         color: @headerColor;
+                        font-size: small;
+                        padding-left: 10px;
                     }
                 }
             }
@@ -127,6 +162,33 @@
         border-top: solid 1px whitesmoke;
     }
 
+    //version ordinateur
+    @media (min-width: 500px) {
+        padding: 20px;
+        .accountPageBody {
+            .scrollable {
+                padding-top: 10px;
+                .operationCreate {
+                    border-radius: 28px 28px 0 0;
+                }
+                .placeholderBottom {
+                    height: 82px;
+                }
+            }
+        }
+    }
+
+    //version mobile
+    @media (max-width: 500px) {
+        .accountPageBody {
+            padding: 0;
+            .scrollable {
+                .placeholderBottom {
+                    height: 92px;
+                }
+            }
+        }
+    }
     
     @import url(../utils/switch.less);
 
