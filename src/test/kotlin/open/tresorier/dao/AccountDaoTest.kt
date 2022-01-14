@@ -7,6 +7,7 @@ import open.tresorier.utils.TestData
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
+import open.tresorier.model.enum.ProfileEnum
 
 open class AccountDaoTest : ITest {
 
@@ -35,7 +36,7 @@ open class AccountDaoTest : ITest {
 
     @Test
     fun getAccountWithAmountForBudget() {
-        val budget = Budget("how much ?", TestData.person1Id)
+        val budget = Budget("how much ?", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val account = Account("account", budget.id)
         accountDao.insert(account)
@@ -60,7 +61,7 @@ open class AccountDaoTest : ITest {
 
     @Test
     fun getAccountWithNullAmountForBudget() {
-        val budget = Budget("0 in account", TestData.person1Id)
+        val budget = Budget("0 in account", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val account = Account("account", budget.id)
         accountDao.insert(account)
@@ -79,7 +80,7 @@ open class AccountDaoTest : ITest {
 
     @Test
     fun getAccountWithNoOperationForBudget() {
-        val budget = Budget("nothing in account", TestData.person1Id)
+        val budget = Budget("nothing in account", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val account = Account("account", budget.id)
         accountDao.insert(account)
@@ -94,7 +95,7 @@ open class AccountDaoTest : ITest {
 
     @Test
     fun getAccountWithNegativeAmountForBudget() {
-        val budget = Budget("minus in account", TestData.person1Id)
+        val budget = Budget("minus in account", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val account = Account("account", budget.id)
         accountDao.insert(account)

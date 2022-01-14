@@ -100,4 +100,18 @@ public class BudgetDao extends DAOImpl<BudgetRecord, open.tresorier.generated.jo
     public List<open.tresorier.generated.jooq.main.tables.pojos.Budget> fetchByDeleted(Boolean... values) {
         return fetch(Budget.BUDGET.DELETED, values);
     }
+
+    /**
+     * Fetch records that have <code>profile BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Budget> fetchRangeOfProfile(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Budget.BUDGET.PROFILE, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>profile IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Budget> fetchByProfile(String... values) {
+        return fetch(Budget.BUDGET.PROFILE, values);
+    }
 }

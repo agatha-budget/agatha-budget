@@ -6,10 +6,4 @@ import org.koin.core.component.inject
 
 class BudgetServiceTest : ITest {
 
-    val budgetService by inject<BudgetService>()
-
-   @Test
-   fun testUpdateSomeoneElseBudget() {
-
-   }
 }
