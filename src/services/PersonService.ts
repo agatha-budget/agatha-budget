@@ -29,8 +29,8 @@ export default class PersonService {
 
   public static async createPerson (store: Store<StoreState>, name: string, email: string, password: string, profile: string) {
     try {
-      const billingUrl = (await (personApi.createPerson(name, password, email, profile))).data
-      window.location.href = billingUrl
+      await (personApi.createPerson(name, password, email, profile))
+      router.push(RouterPages.profile)
     } catch (exception) {
       if (axios.isAxiosError(exception)) {
         alert(exception.response?.data)
