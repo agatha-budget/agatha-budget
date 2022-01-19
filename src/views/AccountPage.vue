@@ -41,7 +41,7 @@
               <div class="category col-3 offset-1">
                 {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
               </div>
-              <div class="amount col-3 offset-2 col-sm-2" :class="this.incomingOutgoingFlowClass(operation)">
+              <div class="amount col-3 offset-2 col-sm-2" :class="this.getClassDependingOnAmount(operation)">
                 {{ this.getEurosAmount(operation.amount) }} €
               </div>
               <div class="action col-1 offset-1 offset-sm-2">
@@ -182,7 +182,7 @@ export default defineComponent({
     cancelEditing () {
       this.editingTitle = false
     },
-    incomingOutgoingFlowClass (operation: Operation): string {
+    getClassDependingOnAmount (operation: Operation): string {
       if (operation.amount > 0) {
         return 'positive'
       } else {
