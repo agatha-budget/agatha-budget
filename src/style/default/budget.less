@@ -2,9 +2,10 @@
 
     // pour toutes les versions
 
+    overflow-x: hidden;
+
     #budgetHeader, #budgetTables {
         background: white;
-        //box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
         font-size: small;
     }
 
@@ -14,98 +15,99 @@
         }
     }
 
-    .fixed {
-        #budgetHeader {
-        
-            padding: 20px 20px 0;
-            border-radius: 0;
-            
-            .date {
-                margin-bottom: 20px;
-                text-align: center;
-                font-size:  xx-large;
-                .btn {
-                    font-size: xx-large;
-                }
-                .date-label {
-                    border-radius: 25px;
-                    font-weight: bold;
-                    padding: 8px  15px 8px 15px;
-                    p {
-                        margin-bottom: 0;
-                    }
-                }
-                .negative {
-                    background: @red;
-                }
-                .positive {
-                    background: @orange;
-                }
-                .null {
-                    background: @dateColor;
+    #budgetHeader {
+        padding: 20px 10px 0 20px;
+        border-radius: 0;
+        .date {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size:  xx-large;
+            .btn {
+                font-size: xx-large;
+            }
+            .date-label {
+                border-radius: 25px;
+                font-weight: bold;
+                padding: 8px  15px 8px 15px;
+                p {
+                    margin-bottom: 0;
                 }
             }
-
-            #totalTable {
-                tr {
-                    th.allocated, th.available, th.spent{
-                        padding: 0 0 10px 0;
-                        div {
-                            min-height: 40px;
-                            background : @headerColor;
-                            text-align: center;
-                            color: whitesmoke
-                            
-                        }
-                    }
-                    td.allocated, td.available, td.spent {
+            .negative {
+                background: @red;
+            }
+            .positive {
+                background: @orange;
+            }
+            .null {
+                background: @dateColor;
+            }
+        }
+        #totalTable {
+            background: white;
+            tr {
+                th.allocated, th.available, th.spent{
+                    padding: 0 0 10px 0;
+                    div {
+                        min-height: 40px;
                         background : @headerColor;
-                        color: white;
-                        border-spacing : 0px;
                         text-align: center;
+                        color: whitesmoke
+                        
                     }
-                    
-                    td.allocated, td.available {
+                }
+                td.allocated, td.available, td.spent {
+                    background : @headerColor;
+                    color: white;
+                    border-spacing : 0px;
+                    text-align: center;
+                }
+                td.allocated, td.available {
+                    font-weight: bold;
+                }
+                td.allocated, th.allocated div {
+                    border-radius: 6px 0 0 6px;
+                }
+                td.available, th.available div {
+                    border-radius: 0 6px 6px 0;
+                }
+                td.name {
+                    padding: 0 10px 0 0;
+                    div {
                         font-weight: bold;
-                    }
-                    
-                    td.allocated, th.allocated div {
-                        border-radius: 6px 0 0 6px;
-                    }
-                    
-                    td.available, th.available div {
-                        border-radius: 0 6px 6px 0;
-                    }
-                    
-                    td.name {
-                        padding: 0 10px 0 0;
-                        div {
-                            font-weight: bold;
-                            min-height: 40px;
-                            border-radius: 6px;
-                            background :  @headerColor;
-                            color: white;
-                            text-align: center;
-                            line-height: 40px;
-                        }
-                    }
-                    .available {
-                        .negative {
-                            border-radius: 25px;
-                            background: @red;
-                            font-weight: bold;
-                            padding: 2px  15px 2px 15px;
-                        }
+                        min-height: 40px;
+                        border-radius: 6px;
+                        background :  @headerColor;
+                        color: white;
+                        text-align: center;
+                        line-height: 40px;
                     }
                 }
             }
         }
     }
 
+    .fixed {
+        position: fixed;
+        top: 0;
+        background: white;
+        border-bottom: solid 1px whitesmoke;
+    }
     .scrollable {
         #budgetTables {
             padding: 20px;
-            //border-radius: 28px;
+            .placeholderTop {
+                #budgetHeader {
+                    td {
+                        background: white;
+                    }
+                    td.name {
+                        div {
+                            background: white;
+                        }
+                    }
+                }
+            }
             table {
                 margin-bottom: 10px;
             }
@@ -120,40 +122,48 @@
                     cursor: pointer;
                     padding: 0 10px 0 0;
                     #operationForm {
-                        padding-left: initial;
                         display: flex;
+                        flex-wrap: wrap;
                         background: @headerColor;
                         border-radius: 5px 5px 0 0;
-                        height: 27px;
+                        padding: 0 10px;
                         #newName {
-                            width: 200px;
-                            padding: 0 12px 0 12px;
-                            background: @headerColor;
+                            width: available;
+                            padding: 3.75px 10px;
+                            background: @majorBlue;
                             color: @lightBlue;
                             border: none;
+                            font-size: small;
+                            font-weight: bold;
                         }
                         .btn {
                             color: @lightBlue;
+                            height: 27px;
+                            width: 27px;
                         }
-                    }
-                    .editable-master-category {
+                    }.editable-master-category {
                         border-radius: 6px 6px 0 0;
-                        background: red;
                         background : @headerColor;
                         text-align: left;
                         padding-left: 10%;
                         text-decoration: none;
                         color: white;
                         .btn {
-                            visibility: hidden;
                             color: @lightBlue;
                             font-size: small;
                             padding: 6px 0px 6px 12px;
                         }
                     }
-                    .editable-master-category:hover{
-                        .btn {
-                            visibility: visible;
+                    @media (pointer: fine) {
+                        .editable-master-category {
+                            .btn {
+                                visibility: hidden;
+                            }
+                        }
+                        .editable-master-category:hover{
+                            .btn {
+                                visibility: visible;
+                            }
                         }
                     }
                 }
@@ -170,28 +180,39 @@
                     text-align: center;
                 }
             }
-                
             tr.category {
                 td {
                     vertical-align: middle;
                     padding: 0;
                 }
                 td.name {
-                    //box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
                     padding: 0 10px 0 0;
                     div {
                         background : @background;
-                        padding: 0 0 0 10px;
+                        padding: 3.75px 10px 3.75px 5px;
                         .btn {
                             color: @headerColor;
                             font-size: small;
                         }
+                        a {
+                            padding: 0 0 0 5px;
+                            .btn {
+                                @media (pointer: coarse) {
+                                    display: none;
+                                }
+                                padding: 0 0 0 12px;
+                            }
+                        }
                         #operationForm {
                             padding-left: initial;
                             display: flex;
+                            flex-wrap: wrap;
                             #newName {
-                                width: 200px;
-                                padding: 0 12px 0 12px;
+                                width: available;
+                                font-size: small;
+                                color: darkslategray;
+                                padding: 0 0 0 5px;
+                                border: none;
                             }
                         }
                     }
@@ -219,6 +240,14 @@
                     text-align: center;
                     background : @background;
                 }
+                td.available {
+                    .negative {
+                        border-radius: 25px;
+                        background: @red;
+                        font-weight: bold;
+                        padding: 2px  15px 2px 15px;
+                    }
+                }
             }
             input[type=number] {
                 -moz-appearance:textfield;
@@ -233,27 +262,21 @@
                     text-transform: capitalize;
                     font-weight: bold;
                     font-size: larger;
-                } 
+                }
             }
         }
     }
 
-    // version ordinateur
-    @media (min-width: 1500px) {
+    // version for computer
+    @media (min-width: 1200px) {
         .fixed {
-            width: 38%;
-        }
-    }
-
-    @media (min-width: 1200px) and (max-width: 1500px) {
-        .fixed {
-            width: 37%;
+            width: 41%;
         }
     }
 
     @media (min-width: 992px) and (max-width: 1200px) {
         .fixed {
-            width: 44%;
+            width: 49%;
         }
     }
 
@@ -261,23 +284,16 @@
         padding-top: 8px;
         margin-right: 0;
         .fixed {
-            position: fixed;
-            top: 0;
             justify-content: center;
             #budgetHeader {
-                border-radius: 20px 5px 0 0;
-                height: 200px;
+                border-radius: 20px 20px 0 0;
             }
         }
-    
         .scrollable {
+            padding-top: 20px;
             #budgetTables {
-                border-radius: 28px 20px 28px 28px;
-                padding-top: 0;
-                margin-top: -8px;
-                .placeholderTop {
-                    height: 205px;
-                }
+                padding-top: 20px;
+                margin-top: -28px;
                 table .budgetTable {
                     overflow-y: scroll;
                     overflow-x: hidden;
@@ -287,23 +303,32 @@
         }
     }
 
-    // version mobile
-    @media (max-width: 992px) {
+    // version for mobile
+    @media (min-width: 768px) and (max-width: 992px) {
         .fixed {
-            position: fixed;
-            top: 0;
-            width: inherit;
+            width: 65%;
+        }
+    }
+    @media (min-width: 576px) and (max-width: 768px) {
+        .fixed {
+            width: 83%;
             #budgetHeader {
-                margin-right: 72px;
-                height: 200px;
+                padding-right: 15px;
             }
         }
-    
+    }
+    @media (max-width: 576px) {
+        .fixed {
+            width: 100%;
+            #budgetHeader {
+                padding-right: 20px;
+            }
+        }
+    }
+
+    @media (max-width: 992px) {
         .scrollable {
             #budgetTables {
-                .placeholderTop {
-                    height: 175px;
-                }
                 .placeholderBottom {
                     height: 93px;
                 }
@@ -311,7 +336,7 @@
         }
     }
 
-    // version tout petit (une colonne en moins)
+    // tiny version (one column less)
     @media (max-width: 500px) {
         .fixed {
             #budgetHeader {
@@ -342,5 +367,4 @@
             }
         }
     }
-    
 }
