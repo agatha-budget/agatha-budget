@@ -47,7 +47,6 @@ import { Account, Category, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
-import AccountService from '@/services/AccountService'
 import OperationForm from '@/components/forms/OperationForm.vue'
 import Utils from '@/utils/Utils'
 import NavMenu from '@/components/NavigationMenu.vue'
@@ -55,8 +54,6 @@ import AccountPageHeader from '@/components/AccountPageHeader.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
-    name: string;
-    editingTitle: boolean;
     amountInOperation: number;
 }
 
@@ -92,8 +89,6 @@ export default defineComponent({
   data (): AccountPageData {
     return {
       operations: [],
-      name: '',
-      editingTitle: false,
       amountInOperation: 0
     }
   },
@@ -105,9 +100,6 @@ export default defineComponent({
         }
       }
       return null
-    },
-    currentName (): string {
-      return this.account?.name || ''
     },
     totalAccount (): number {
       return this.account == null ? 0 : this.getEurosAmount(this.account.amount)
@@ -155,16 +147,6 @@ export default defineComponent({
     },
     getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)
-    },
-    updateName () {
-      AccountService.updateAccount(this.$store, this.accountId, this.name)
-      this.editingTitle = false
-    },
-    displayTitleEditing () {
-      this.editingTitle = true
-    },
-    cancelEditing () {
-      this.editingTitle = false
     },
     getClassDependingOnAmount (operation: Operation): string {
       if (operation.amount > 0) {
