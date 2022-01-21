@@ -52,5 +52,6 @@
     "INSUFFICIENT_SECURITY": "votre mot de passe n'est pas assez sécurisé (minimun 8 caractères, incluant minuscule, majuscule et caractère spécial)",
     "DIFFERENT_PASSWORDS": "le mot de passe et sa confirmation sont différents",
     "RETURN_TO_LOGIN": "retourner à la page de connexion",
-    "BILLING_MANAGEMENT": "gérer votre abonnement"
+    "BILLING_MANAGEMENT": "gérer votre abonnement",
+    "ARCHIVES": "archives"
 }
