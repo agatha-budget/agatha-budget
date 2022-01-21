@@ -6,8 +6,8 @@
           <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
           <div class="col-8 date-label" :class="this.toBeBudgetedClass">
             <p class="month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
-            <p class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> {{ getEurosAmount(this.toBeBudgeted) }} € {{$t('TO_BE_BUDGETED')}}</p>
-            <p class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> {{ getEurosAmount(-1*this.toBeBudgeted) }} € {{$t('TO_BE_PULLED_OUT')}}</p>
+            <p class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> {{ moneyToDivide }} € {{$t('TO_BE_BUDGETED')}}</p>
+            <p class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> {{ -1*moneyToDivide }} € {{$t('TO_BE_PULLED_OUT')}}</p>
           </div>
           <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
         </div>
@@ -21,9 +21,9 @@
             <tbody>
             <tr>
               <td class="name"><div>{{ $t("TOTAL") }}</div></td>
-              <td class="allocated">{{ getEurosAmount(this.totalBudgetData.allocated) }}</td>
-              <td class="spent">{{ getEurosAmount(this.totalBudgetData.spent) }}</td>
-              <td class="available">{{ getEurosAmount(this.totalBudgetData.available) }}</td>
+              <td class="allocated">{{ totalAllocated }}</td>
+              <td class="spent">{{ totalSpent }}</td>
+              <td class="available">{{ totalAvailable }}</td>
             </tr>
           </tbody>
         </table>
@@ -37,8 +37,8 @@
               <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left"/></div>
               <div class="col-8 date-label" :class="this.toBeBudgetedClass">
                 <p class="month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
-                <p class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> {{ getEurosAmount(this.toBeBudgeted) }} € {{$t('TO_BE_BUDGETED')}}</p>
-                <p class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> {{ getEurosAmount(-1*this.toBeBudgeted) }} € {{$t('TO_BE_PULLED_OUT')}}</p>
+                <p class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> {{ moneyToDivide }} € {{$t('TO_BE_BUDGETED')}}</p>
+                <p class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> {{ -1*moneyToDivide }} € {{$t('TO_BE_PULLED_OUT')}}</p>
               </div>
               <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" /></div>
             </div>
@@ -52,9 +52,9 @@
               <tbody>
                 <tr>
                   <td class="name"><div>{{ $t("TOTAL") }}</div></td>
-                  <td class="allocated">{{ getEurosAmount(this.totalBudgetData.allocated) }}</td>
-                  <td class="spent">{{ getEurosAmount(this.totalBudgetData.spent) }}</td>
-                  <td class="available">{{ getEurosAmount(this.totalBudgetData.available) }}</td>
+                  <td class="allocated">{{ totalAllocated }}</td>
+                  <td class="spent">{{ totalSpent }}</td>
+                  <td class="available">{{ totalAvailable }}</td>
                 </tr>
               </tbody>
             </table>
@@ -190,6 +190,18 @@ export default defineComponent({
       } else {
         return 'null'
       }
+    },
+    totalAllocated (): number {
+      return this.getEurosAmount(this.totalBudgetData.allocated)
+    },
+    totalSpent (): number {
+      return this.getEurosAmount(this.totalBudgetData.spent)
+    },
+    totalAvailable (): number {
+      return this.getEurosAmount(this.totalBudgetData.available)
+    },
+    moneyToDivide (): number {
+      return this.getEurosAmount(this.toBeBudgeted)
     }
   },
   methods: {
