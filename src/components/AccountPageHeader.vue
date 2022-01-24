@@ -13,7 +13,7 @@
             <a v-on:click="this.displayTitleEditing()">
               <h1>
                 {{ this.account ? this.account.name : "" }} :
-                {{ this.account ? totalAccount : "" }}€
+                {{ this.account ? totAccount : "" }}€
                 <button class="btn fas fa-pen" />
               </h1>
             </a>
