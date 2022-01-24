@@ -1,7 +1,7 @@
 <template>
   <div id="budgetCmpt" class="container-fluid col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2">
     <div class="fixed">
-      <BudgetHeader :month="this.budgetMonth" :totAllocated="totalAllocated" :totSpent="totalSpent" :totAvailable="totalAvailable" :money="moneyToDivide" />
+      <BudgetHeader :month="this.budgetMonth" :totAllocated="totalAllocated" :totSpent="totalSpent" :totAvailable="totalAvailable" :money="moneyToDivide" v-on:last-month="goToLastMonth()" v-on:next-month="goToNextMonth()" />
     </div>
     <div class="scrollable">
       <div id="budgetTables">
