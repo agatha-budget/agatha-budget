@@ -1,22 +1,16 @@
 <template>
   <div id="budgetCmpt" class="container-fluid col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2">
     <div class="fixed">
-      <BudgetHeader :month="this.budgetMonth" :totAllocated="totalAllocated" :totSpent="totalSpent" :totAvailable="totalAvailable" :money="moneyToDivide" v-on:last-month="goToLastMonth()" v-on:next-month="goToNextMonth()" />
+      <BudgetHeader :month="this.budgetMonth" :totAllocated="totalAllocated" :totSpent="totalSpent" :totAvailable="totalAvailable" :money="moneyToDivide"
+      @change-month="switchMonth" />
     </div>
     <div class="scrollable">
       <div id="budgetTables">
         <div class="placeholderTop">
           <BudgetHeader :month="this.budgetMonth" :totAllocated="totalAllocated" :totSpent="totalSpent" :totAvailable="totalAvailable" :money="moneyToDivide" />
         </div>
-        <table class="budgetTable table"
-        v-for="masterCategory of this.$store.state.masterCategories"
-        :key="masterCategory"
-        >
-            <master-category-cmpt
-              @update-allocation="updateAllocation"
-              :masterCategory="masterCategory"
-              :categoryDataList="this.categoryDataList"
-            />
+        <table class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
+          <master-category-cmpt @update-allocation="updateAllocation" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" />
         </table>
         <div class="budget-tools">
           <div><span type="button" v-on:click="this.createMasterCategory()"> > {{ $t("ADD_MASTER_CATEGORY") }}</span></div>
@@ -28,16 +22,8 @@
         </div>
         <div v-if="this.archiveVisible" id="archive_section" >
           <div class="title">{{ $t("ARCHIVE") }}</div>
-          <table class="budgetArchiveTable table"
-          v-for="masterCategory in this.$store.state.masterCategories"
-          :key="masterCategory"
-          >
-              <master-category-cmpt
-                @update-allocation="updateAllocation"
-                :masterCategory="masterCategory"
-                :categoryDataList="this.categoryDataList"
-                :archived="true"
-              />
+          <table class="budgetArchiveTable table" v-for="masterCategory in this.$store.state.masterCategories" :key="masterCategory" >
+            <master-category-cmpt @update-allocation="updateAllocation" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :archived="true" />
           </table>
         </div>
         <div class="placeholderBottom"></div>
@@ -190,11 +176,12 @@ export default defineComponent({
     getMonthAsDate (monthAsInt: number): Date {
       return Time.getMonthAsDate(monthAsInt)
     },
-    goToNextMonth () {
-      this.budgetMonth = Time.getNextMonth(this.budgetMonth)
-    },
-    goToLastMonth () {
-      this.budgetMonth = Time.getLastMonth(this.budgetMonth)
+    switchMonth (message: string) {
+      if (message === 'next') {
+        this.budgetMonth = Time.getNextMonth(this.budgetMonth)
+      } else {
+        this.budgetMonth = Time.getLastMonth(this.budgetMonth)
+      }
     },
     getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)

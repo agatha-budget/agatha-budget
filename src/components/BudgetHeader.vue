@@ -44,7 +44,7 @@ interface BudgetHeaderData {
 export default defineComponent({
   name: 'BudgetHeader',
   components: {},
-  emits: ['last-month', 'next-month'],
+  emits: ['changeMonth'],
   props: {
     month: {
       type: Number,
@@ -67,8 +67,6 @@ export default defineComponent({
       required: true
     }
   },
-  // created: async function () {},
-  watch: {},
   data (): BudgetHeaderData {
     return {
       budgetMonth: this.$props.month,
@@ -88,11 +86,11 @@ export default defineComponent({
       return Time.getMonthAsDate(monthAsInt)
     },
     goToNextMonth () {
-      this.$emit('next-month')
+      this.$emit('changeMonth', 'next')
       this.budgetMonth = Time.getNextMonth(this.budgetMonth)
     },
     goToLastMonth () {
-      this.$emit('last-month')
+      this.$emit('changeMonth', 'last')
       this.budgetMonth = Time.getLastMonth(this.budgetMonth)
     },
     getEurosAmount (amount: number): number {
