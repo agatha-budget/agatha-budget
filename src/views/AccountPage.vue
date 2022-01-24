@@ -3,7 +3,9 @@
     <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
       <div class="accountPageBody">
         <div class="fixed">
-          <AccountPageHeader :accountId="account.id" :totAccount="this.totalAccount"/>
+          <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+            <AccountPageHeader :accountId="account.id" :totAccount="this.totalAccount" />
+          </div>
         </div>
         <div class="scrollable operationTable table-hover">
           <div class="placeholderTop">
