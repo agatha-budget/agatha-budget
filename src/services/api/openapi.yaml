@@ -47,6 +47,13 @@ paths:
         explode: true
         schema:
           type: string
+      - name: profile
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: Person created
@@ -85,8 +92,7 @@ paths:
           type: string
       responses:
         "200":
-          description: |
-            login successfully this request will return three cookies. "sAccessToken" and "sIdRefreshToken" need to be included in subsequent requests. "sRefreshToken" need to be included when querying "/session/refresh"
+          description: login successfully this request will return three cookies. "sAccessToken" and "sIdRefreshToken" need to be included in subsequent requests. "sRefreshToken" need to be included when querying "/session/refresh"
           headers:
             Set-Cookie-1:
               style: simple
@@ -221,6 +227,14 @@ paths:
         explode: true
         schema:
           type: string
+      - name: profile
+        in: query
+        description: type of the new profile (user or company)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -235,7 +249,13 @@ paths:
             application/json:
               schema:
                 type: string
-              example: invalid user id
+              examples: 
+                a: 
+                  summary: invalid user
+                  value: invalid user id
+                b:
+                  summary: invalid profile
+                  value: invalid profile name
       security:
       - accessToken: []
         refreshTokenId: []
