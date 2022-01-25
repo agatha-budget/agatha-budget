@@ -40,6 +40,16 @@
                     margin-bottom: 8.4px;
                 }
             }
+            h1:hover{
+                .btn {
+                    visibility: visible;
+                }
+            }
+        }
+        .operationTable {
+            .operationCreate {
+                border-radius: 28px 28px 0 0;
+            }
         }   
         .scrollable {
             #operationForm {
@@ -66,7 +76,7 @@
                 }
             }
             .modifyOperation {
-                background: whitesmoke;
+                background: lightgrey;
                 .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
                     color: darkslategray;
                     font-size: large;
@@ -107,11 +117,38 @@
                     }
                 }
             }
+            @media (pointer: fine) {
+                .storedOperation {
+                    .btn {
+                        visibility: hidden;
+                    }
+                }
+                .storedOperation:hover{
+                    .btn {
+                        visibility: visible;
+                    }
+                }
+            }
             .storedOperation:nth-child(even) {
                 background-color: @background;
             }
             .storedOperation:nth-child(odd) {
                 background-color: @darkerBackground;
+            }
+            a {
+                font-size: small;
+                color: black;
+                text-decoration: none;
+                .btn {
+                    font-size: small;
+                    padding-left: 10px;
+                }
+            }
+            .placeholderTop {
+                height: 69.75px;
+            }
+            .placeholderBottom {
+                height: 82px;
             }
         }
     }

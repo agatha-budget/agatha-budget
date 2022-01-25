@@ -122,40 +122,49 @@
                     cursor: pointer;
                     padding: 0 10px 0 0;
                     #operationForm {
-                        padding-left: initial;
                         display: flex;
+                        flex-wrap: wrap;
                         background: @headerColor;
                         border-radius: 5px 5px 0 0;
-                        height: 27px;
+                        padding: 0 10px;
                         #newName {
-                            width: 200px;
-                            padding: 0 12px 0 12px;
-                            background: @headerColor;
+                            width: available;
+                            padding: 3.75px 10px;
+                            margin-top: 5px;
+                            background: @majorBlue;
                             color: @lightBlue;
                             border: none;
+                            font-size: small;
+                            font-weight: bold;
                         }
                         .btn {
                             color: @lightBlue;
+                            height: 27px;
+                            width: 27px;
                         }
-                    }
-                    .editable-master-category {
+                    }.editable-master-category {
                         border-radius: 6px 6px 0 0;
-                        background: red;
-                        background: @headerColor;
+                        background : @headerColor;
                         text-align: left;
                         padding-left: 10%;
                         text-decoration: none;
                         color: white;
                         .btn {
-                            visibility: hidden;
                             color: @lightBlue;
                             font-size: small;
                             padding: 6px 0px 6px 12px;
                         }
                     }
-                    .editable-master-category:hover{
-                        .btn {
-                            visibility: visible;
+                    @media (pointer: fine) {
+                        .editable-master-category {
+                            .btn {
+                                visibility: hidden;
+                            }
+                        }
+                        .editable-master-category:hover{
+                            .btn {
+                                visibility: visible;
+                            }
                         }
                     }
                 }
@@ -181,17 +190,30 @@
                     padding: 0 10px 0 0;
                     div {
                         background : @background;
-                        padding: 0 0 0 10px;
+                        padding: 3.75px 10px 3.75px 5px;
                         .btn {
                             color: @headerColor;
                             font-size: small;
                         }
+                        a {
+                            padding: 0 0 0 5px;
+                            .btn {
+                                @media (pointer: coarse) {
+                                    display: none;
+                                }
+                                padding: 0 0 0 12px;
+                            }
+                        }
                         #operationForm {
                             padding-left: initial;
                             display: flex;
+                            flex-wrap: wrap;
                             #newName {
-                                width: 200px;
-                                padding: 0 12px 0 12px;
+                                width: available;
+                                font-size: small;
+                                color: darkslategray;
+                                padding: 0 0 0 5px;
+                                border: none;
                             }
                         }
                     }
@@ -246,7 +268,7 @@
         }
     }
 
-    // version ordinateur
+    // version for computer
     @media (min-width: 1200px) {
         .fixed {
             width: 41%;
@@ -282,7 +304,7 @@
         }
     }
 
-    // version mobile
+    // version for mobile
     @media (min-width: 768px) and (max-width: 992px) {
         .fixed {
             width: 65%;
@@ -315,7 +337,7 @@
         }
     }
 
-    // version tout petit (une colonne en moins)
+    // tiny version (one column less)
     @media (max-width: 500px) {
         .fixed {
             #budgetHeader {

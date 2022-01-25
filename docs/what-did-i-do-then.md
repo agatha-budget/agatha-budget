@@ -11,6 +11,18 @@
 
 --------------
 
+*how long* : 10 min
+
+*what happened* : error 500 & error 400 "This connection has been closed" but data base accessible for dbeaver
+
+*why* : ...
+
+*what did i do to fix it* : restart all Dynos on heroku's dashboard
+
+*how often* : one
+
+--------------
+
 *how long* :
 
 *what happened* :
