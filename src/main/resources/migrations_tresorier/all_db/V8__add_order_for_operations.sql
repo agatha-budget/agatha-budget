@@ -1,0 +1,2 @@
+ALTER TABLE operation
+ADD COLUMN orderbyday INT NOT NULL DEFAULT 1;

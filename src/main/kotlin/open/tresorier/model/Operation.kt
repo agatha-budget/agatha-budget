@@ -6,6 +6,7 @@ class Operation (
         var categoryId: String? = null,
         var amount: Int = 0,
         var memo: String? = null,
+        val orderByDay: Int,
         id: String? = null,
         deleted: Boolean? = null
 ) : DbObject(id, deleted)
