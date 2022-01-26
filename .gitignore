@@ -36,4 +36,4 @@ db/
 
 logs/app.log
 
-logs/archived/
+logs/

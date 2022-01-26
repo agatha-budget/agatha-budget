@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row4;
+import org.jooq.Row5;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Budget extends TableImpl<BudgetRecord> {
 
-    private static final long serialVersionUID = -2078137128;
+    private static final long serialVersionUID = 194958782;
 
     /**
      * The reference instance of <code>PUBLIC.BUDGET</code>
@@ -65,6 +65,11 @@ public class Budget extends TableImpl<BudgetRecord> {
      * The column <code>PUBLIC.BUDGET.DELETED</code>.
      */
     public final TableField<BudgetRecord, Boolean> DELETED = createField(DSL.name("DELETED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>PUBLIC.BUDGET.PROFILE</code>.
+     */
+    public final TableField<BudgetRecord, String> PROFILE = createField(DSL.name("PROFILE"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false).defaultValue(org.jooq.impl.DSL.field("'PROFILE_USER'", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * Create a <code>PUBLIC.BUDGET</code> table reference
@@ -150,11 +155,11 @@ public class Budget extends TableImpl<BudgetRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row4 type methods
+    // Row5 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<String, String, String, Boolean> fieldsRow() {
-        return (Row4) super.fieldsRow();
+    public Row5<String, String, String, Boolean, String> fieldsRow() {
+        return (Row5) super.fieldsRow();
     }
 }

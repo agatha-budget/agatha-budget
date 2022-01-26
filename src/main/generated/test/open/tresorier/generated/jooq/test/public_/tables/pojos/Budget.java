@@ -13,30 +13,34 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Budget implements Serializable {
 
-    private static final long serialVersionUID = -476246030;
+    private static final long serialVersionUID = -1903049386;
 
     private final String  id;
     private final String  personId;
     private final String  name;
     private final Boolean deleted;
+    private final String  profile;
 
     public Budget(Budget value) {
         this.id = value.id;
         this.personId = value.personId;
         this.name = value.name;
         this.deleted = value.deleted;
+        this.profile = value.profile;
     }
 
     public Budget(
         String  id,
         String  personId,
         String  name,
-        Boolean deleted
+        Boolean deleted,
+        String  profile
     ) {
         this.id = id;
         this.personId = personId;
         this.name = name;
         this.deleted = deleted;
+        this.profile = profile;
     }
 
     public String getId() {
@@ -55,6 +59,10 @@ public class Budget implements Serializable {
         return this.deleted;
     }
 
+    public String getProfile() {
+        return this.profile;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Budget (");
@@ -63,6 +71,7 @@ public class Budget implements Serializable {
         sb.append(", ").append(personId);
         sb.append(", ").append(name);
         sb.append(", ").append(deleted);
+        sb.append(", ").append(profile);
 
         sb.append(")");
         return sb.toString();

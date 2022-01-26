@@ -6,6 +6,7 @@ import open.tresorier.utils.Time
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
+import open.tresorier.model.enum.ProfileEnum
 
 class PersonServiceTest : ITest {
 
@@ -13,7 +14,7 @@ class PersonServiceTest : ITest {
 
     @Test
     fun testValidlogin() {
-        personService.createPerson("Olympe de Gouge", "DeclarationDroit", "olympe@revolution.fr")
+        personService.createPerson("Olympe de Gouge", "DeclarationDroit", "olympe@revolution.fr", ProfileEnum.PROFILE_USER)
         val olympe = personService.login("olympe@revolution.fr", "DeclarationDroit")
         assertNotNull(olympe)
     }
@@ -21,7 +22,7 @@ class PersonServiceTest : ITest {
     @Test
     fun testFailFirstTwoLogin() {
         val leodile: Person =
-            personService.createPerson("Léodile Champseix", "Egalité!", "leodile@champseix.eu")
+            personService.createPerson("Léodile Champseix", "Egalité!", "leodile@champseix.eu", ProfileEnum.PROFILE_USER)
         val before = Time.now()
         // First 3 tries are free (after the third you have to wait)
         personService.login("leodile@champseix.eu", "SecondEmpire")
@@ -36,9 +37,10 @@ class PersonServiceTest : ITest {
     @Test
     fun testFailFourLogin() {
         val simone: Person = personService.createPerson(
-            "Simone de Beauvoir",
+            "Simone Veil",
             "Contraception!1974",
-            "simone@planning-famillial.fr"
+            "simone@planning-famillial.fr",
+            ProfileEnum.PROFILE_USER
         )
         val before = Time.now()
         personService.login("simone@planning-famillial.fr", "1949")
@@ -58,7 +60,7 @@ class PersonServiceTest : ITest {
     @Test
     fun testFailLoginRighPasswordButLockedAccount() {
         val julie: Person =
-            personService.createPerson("Julie Daubié", "Bacheliere!1861", "julie@diplomee.com")
+            personService.createPerson("Julie Daubié", "Bacheliere!1861", "julie@diplomee.com", ProfileEnum.PROFILE_USER)
         val before = Time.now()
         personService.login("julie@diplomee.com", "Certificat")
         personService.login("julie@diplomee.com", "Brevet")
@@ -78,7 +80,7 @@ class PersonServiceTest : ITest {
 
     @Test
     fun testWorkingLoginAfterFail() {
-        val louise: Person = personService.createPerson("Louise Weiss", "Vote!1944", "louise@suffragette.fr")
+        val louise: Person = personService.createPerson("Louise Weiss", "Vote!1944", "louise@suffragette.fr", ProfileEnum.PROFILE_USER)
         val now = Time.now()
         personService.login("louise@suffragette.fr", "1919")
         personService.login("louise@suffragette.fr", "1935")
