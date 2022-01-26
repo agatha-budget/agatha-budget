@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 1938132748;
+    private static final long serialVersionUID = 19370522;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -84,9 +84,9 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, Integer> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>public.operation.orderbyday</code>.
+     * The column <code>public.operation.orderinday</code>.
      */
-    public final TableField<OperationRecord, Integer> ORDERBYDAY = createField(DSL.name("orderbyday"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Integer> ORDERINDAY = createField(DSL.name("orderinday"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
      * Create a <code>public.operation</code> table reference

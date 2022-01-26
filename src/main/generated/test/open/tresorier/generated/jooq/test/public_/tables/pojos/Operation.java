@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 1834677561;
+    private static final long serialVersionUID = -999944149;
 
     private final String  id;
     private final String  accountId;
@@ -22,7 +22,7 @@ public class Operation implements Serializable {
     private final String  categoryId;
     private final String  memo;
     private final Integer amount;
-    private final Integer orderbyday;
+    private final Integer orderinday;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -32,7 +32,7 @@ public class Operation implements Serializable {
         this.categoryId = value.categoryId;
         this.memo = value.memo;
         this.amount = value.amount;
-        this.orderbyday = value.orderbyday;
+        this.orderinday = value.orderinday;
     }
 
     public Operation(
@@ -43,7 +43,7 @@ public class Operation implements Serializable {
         String  categoryId,
         String  memo,
         Integer amount,
-        Integer orderbyday
+        Integer orderinday
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -52,7 +52,7 @@ public class Operation implements Serializable {
         this.categoryId = categoryId;
         this.memo = memo;
         this.amount = amount;
-        this.orderbyday = orderbyday;
+        this.orderinday = orderinday;
     }
 
     public String getId() {
@@ -83,8 +83,8 @@ public class Operation implements Serializable {
         return this.amount;
     }
 
-    public Integer getOrderbyday() {
-        return this.orderbyday;
+    public Integer getOrderinday() {
+        return this.orderinday;
     }
 
     @Override
@@ -98,7 +98,7 @@ public class Operation implements Serializable {
         sb.append(", ").append(categoryId);
         sb.append(", ").append(memo);
         sb.append(", ").append(amount);
-        sb.append(", ").append(orderbyday);
+        sb.append(", ").append(orderinday);
 
         sb.append(")");
         return sb.toString();

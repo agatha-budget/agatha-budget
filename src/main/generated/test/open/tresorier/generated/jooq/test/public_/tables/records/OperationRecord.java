@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implements Record8<String, String, Integer, Integer, String, String, Integer, Integer> {
 
-    private static final long serialVersionUID = 1890765727;
+    private static final long serialVersionUID = -2133796257;
 
     /**
      * Setter for <code>PUBLIC.OPERATION.ID</code>.
@@ -127,17 +127,17 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
     }
 
     /**
-     * Setter for <code>PUBLIC.OPERATION.ORDERBYDAY</code>.
+     * Setter for <code>PUBLIC.OPERATION.ORDERINDAY</code>.
      */
-    public OperationRecord setOrderbyday(Integer value) {
+    public OperationRecord setOrderinday(Integer value) {
         set(7, value);
         return this;
     }
 
     /**
-     * Getter for <code>PUBLIC.OPERATION.ORDERBYDAY</code>.
+     * Getter for <code>PUBLIC.OPERATION.ORDERINDAY</code>.
      */
-    public Integer getOrderbyday() {
+    public Integer getOrderinday() {
         return (Integer) get(7);
     }
 
@@ -201,7 +201,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public Field<Integer> field8() {
-        return Operation.OPERATION.ORDERBYDAY;
+        return Operation.OPERATION.ORDERINDAY;
     }
 
     @Override
@@ -241,7 +241,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public Integer component8() {
-        return getOrderbyday();
+        return getOrderinday();
     }
 
     @Override
@@ -281,7 +281,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public Integer value8() {
-        return getOrderbyday();
+        return getOrderinday();
     }
 
     @Override
@@ -328,7 +328,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public OperationRecord value8(Integer value) {
-        setOrderbyday(value);
+        setOrderinday(value);
         return this;
     }
 
@@ -359,7 +359,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
     /**
      * Create a detached, initialised OperationRecord
      */
-    public OperationRecord(String id, String accountId, Integer month, Integer day, String categoryId, String memo, Integer amount, Integer orderbyday) {
+    public OperationRecord(String id, String accountId, Integer month, Integer day, String categoryId, String memo, Integer amount, Integer orderinday) {
         super(Operation.OPERATION);
 
         set(0, id);
@@ -369,6 +369,6 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
         set(4, categoryId);
         set(5, memo);
         set(6, amount);
-        set(7, orderbyday);
+        set(7, orderinday);
     }
 }
