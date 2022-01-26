@@ -142,4 +142,18 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByAmount(Integer... values) {
         return fetch(Operation.OPERATION.AMOUNT, values);
     }
+
+    /**
+     * Fetch records that have <code>ORDERBYDAY BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfOrderbyday(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Operation.OPERATION.ORDERBYDAY, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>ORDERBYDAY IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByOrderbyday(Integer... values) {
+        return fetch(Operation.OPERATION.ORDERBYDAY, values);
+    }
 }
