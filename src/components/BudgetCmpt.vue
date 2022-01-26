@@ -31,7 +31,35 @@
     </div>
     <div class="scrollable">
       <div id="budgetTables">
-        <div class="placeholderTop" ></div>
+        <div class="placeholderTop">
+          <div id="budgetHeader">
+            <div class="row date">
+              <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left"/></div>
+              <div class="col-8 date-label" :class="this.toBeBudgetedClass">
+                <p class="month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
+                <p class="toBeBudgeted" v-if="this.toBeBudgeted > 0"> {{ getEurosAmount(this.toBeBudgeted) }} € {{$t('TO_BE_BUDGETED')}}</p>
+                <p class="toBePulledOut" v-else-if="this.toBeBudgeted < 0"> {{ getEurosAmount(-1*this.toBeBudgeted) }} € {{$t('TO_BE_PULLED_OUT')}}</p>
+              </div>
+              <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" /></div>
+            </div>
+            <table id="totalTable" class="table">
+              <tr>
+                <th class="col-6 name"></th>
+                <th class="col-2 allocated"><div>{{ $t("ALLOCATED") }}</div></th>
+                <th class="col-2 spent"><div>{{ $t("SPENT") }}</div></th>
+                <th class="col-2 available"><div>{{ $t("AVAILABLE") }}</div></th>
+              </tr>
+              <tbody>
+                <tr>
+                  <td class="name"><div>{{ $t("TOTAL") }}</div></td>
+                  <td class="allocated">{{ getEurosAmount(this.totalBudgetData.allocated) }}</td>
+                  <td class="spent">{{ getEurosAmount(this.totalBudgetData.spent) }}</td>
+                  <td class="available">{{ getEurosAmount(this.totalBudgetData.available) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
         <table class="budgetTable table"
         v-for="masterCategory of this.$store.state.masterCategories"
         :key="masterCategory"
@@ -51,7 +79,7 @@
           </div>
         </div>
         <div v-if="this.archiveVisible" id="archive_section" >
-          <div class="title">{{ $t("ARCHIVE") }}</div>
+          <div class="title">{{ $t("ARCHIVES") }}</div>
           <table class="budgetArchiveTable table"
           v-for="masterCategory in this.$store.state.masterCategories"
           :key="masterCategory"
