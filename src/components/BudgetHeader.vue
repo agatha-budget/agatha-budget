@@ -19,9 +19,9 @@
             <tbody>
                 <tr>
                     <td class="name"><div>{{ $t("TOTAL") }}</div></td>
-                    <td class="allocated">{{ totAllocated }}</td>
-                    <td class="spent">{{ totSpent }}</td>
-                    <td class="available">{{ totAvailable }}</td>
+                    <td class="allocated">{{ totalAllocated }}</td>
+                    <td class="spent">{{ totalSpent }}</td>
+                    <td class="available">{{ totalAvailable }}</td>
                 </tr>
             </tbody>
         </table>
@@ -35,10 +35,6 @@ import Utils from '@/utils/Utils'
 
 interface BudgetHeaderData {
     budgetMonth: number;
-    totalAllocated: number;
-    totalSpent: number;
-    totalAvailable: number;
-    moneyToDivide: number;
 }
 
 export default defineComponent({
@@ -50,15 +46,15 @@ export default defineComponent({
       type: Number,
       required: true
     },
-    totAllocated: {
+    totalAllocated: {
       type: Number,
       required: true
     },
-    totSpent: {
+    totalSpent: {
       type: Number,
       required: true
     },
-    totAvailable: {
+    totalAvailable: {
       type: Number,
       required: true
     },
@@ -69,11 +65,7 @@ export default defineComponent({
   },
   data (): BudgetHeaderData {
     return {
-      budgetMonth: this.$props.month,
-      totalAllocated: this.totAllocated,
-      totalSpent: this.$props.totSpent,
-      totalAvailable: this.$props.totAvailable,
-      moneyToDivide: this.$props.money
+      budgetMonth: this.$props.month
     }
   },
   computed: {

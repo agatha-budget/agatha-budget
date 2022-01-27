@@ -4,12 +4,12 @@
       <div class="accountPageBody">
         <div class="fixed">
           <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-            <AccountPageHeader :accountId="account.id" :totAccount="this.totalAccount" />
+            <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" />
           </div>
         </div>
         <div class="scrollable operationTable table-hover">
           <div class="placeholderTop">
-            <AccountPageHeader :accountId="account.id" :totAccount="this.totalAccount"/>
+            <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
           </div>
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
@@ -56,7 +56,6 @@ import AccountPageHeader from '@/components/AccountPageHeader.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
-    amountInOperation: number;
 }
 
 interface EditableOperation extends Operation {
@@ -90,8 +89,7 @@ export default defineComponent({
   },
   data (): AccountPageData {
     return {
-      operations: [],
-      amountInOperation: 0
+      operations: []
     }
   },
   computed: {

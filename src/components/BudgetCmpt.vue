@@ -1,13 +1,13 @@
 <template>
   <div id="budgetCmpt" class="container-fluid col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2">
     <div class="fixed">
-      <BudgetHeader :month="this.budgetMonth" :totAllocated="totalAllocated" :totSpent="totalSpent" :totAvailable="totalAvailable" :money="moneyToDivide"
-      @change-month="switchMonth" />
+      <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate"
+      @change-month="changeMonth" />
     </div>
     <div class="scrollable">
       <div id="budgetTables">
         <div class="placeholderTop">
-          <BudgetHeader :month="this.budgetMonth" :totAllocated="totalAllocated" :totSpent="totalSpent" :totAvailable="totalAvailable" :money="moneyToDivide" />
+          <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
         </div>
         <table class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
           <master-category-cmpt @update-allocation="updateAllocation" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" />
@@ -136,7 +136,7 @@ export default defineComponent({
     totalAvailable (): number {
       return this.getEurosAmount(this.totalBudgetData.available)
     },
-    moneyToDivide (): number {
+    moneyToAllocate (): number {
       return this.getEurosAmount(this.toBeBudgeted)
     }
   },
@@ -176,7 +176,7 @@ export default defineComponent({
     getMonthAsDate (monthAsInt: number): Date {
       return Time.getMonthAsDate(monthAsInt)
     },
-    switchMonth (message: string) {
+    changeMonth (message: string) {
       if (message === 'next') {
         this.budgetMonth = Time.getNextMonth(this.budgetMonth)
       } else {

@@ -13,7 +13,7 @@
             <a v-on:click="this.displayTitleEditing()">
               <h1>
                 {{ this.account ? this.account.name : "" }} :
-                {{ this.account ? totAccount : "" }}€
+                {{ this.account ? totalAccount : "" }}€
                 <button class="btn fas fa-pen" />
               </h1>
             </a>
@@ -29,7 +29,6 @@ import { Account } from '@/model/model'
 interface AccountPageHeader {
     name: string;
     editingTitle: boolean;
-    totalAccount: number;
 }
 
 export default defineComponent({
@@ -41,7 +40,7 @@ export default defineComponent({
       type: String,
       required: true
     },
-    totAccount: {
+    totalAccount: {
       type: Number,
       required: true
     }
@@ -49,8 +48,7 @@ export default defineComponent({
   data (): AccountPageHeader {
     return {
       name: '',
-      editingTitle: false,
-      totalAccount: this.$props.totAccount
+      editingTitle: false
     }
   },
   computed: {
