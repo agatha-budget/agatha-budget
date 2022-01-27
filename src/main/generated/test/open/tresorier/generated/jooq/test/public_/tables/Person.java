@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row9;
+import org.jooq.Row10;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = -907895400;
+    private static final long serialVersionUID = -2129139524;
 
     /**
      * The reference instance of <code>PUBLIC.PERSON</code>
@@ -90,6 +90,11 @@ public class Person extends TableImpl<PersonRecord> {
      * The column <code>PUBLIC.PERSON.BILLING_STATUS</code>.
      */
     public final TableField<PersonRecord, Boolean> BILLING_STATUS = createField(DSL.name("BILLING_STATUS"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>PUBLIC.PERSON.CREATION_DATE</code>.
+     */
+    public final TableField<PersonRecord, Long> CREATION_DATE = createField(DSL.name("CREATION_DATE"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("1640995200", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * Create a <code>PUBLIC.PERSON</code> table reference
@@ -166,11 +171,11 @@ public class Person extends TableImpl<PersonRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row9 type methods
+    // Row10 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<String, String, String, String, Long, Integer, Boolean, String, Boolean> fieldsRow() {
-        return (Row9) super.fieldsRow();
+    public Row10<String, String, String, String, Long, Integer, Boolean, String, Boolean, Long> fieldsRow() {
+        return (Row10) super.fieldsRow();
     }
 }
