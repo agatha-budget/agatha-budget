@@ -158,8 +158,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             Day(Month.createFromComparable(jooqOperation.month), jooqOperation.day),
             jooqOperation.categoryId,
             jooqOperation.amount,
-            jooqOperation.memo,
             jooqOperation.orderInDay,
+            jooqOperation.memo,
             jooqOperation.id,
         )
     }
@@ -178,8 +178,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             Day(Month.createFromComparable(operationRecord.month), operationRecord.day),
             operationRecord.categoryId,
             operationRecord.amount,
-            operationRecord.memo,
             operationRecord.orderInDay,
+            operationRecord.memo,
             operationRecord.id,
         )
     }

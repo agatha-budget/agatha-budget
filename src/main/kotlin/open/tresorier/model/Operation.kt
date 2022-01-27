@@ -5,8 +5,8 @@ class Operation (
         var day: Day,
         var categoryId: String? = null,
         var amount: Int = 0,
-        var memo: String? = null,
         var orderInDay: Long,
+        var memo: String? = null,
         id: String? = null,
         deleted: Boolean? = null
 ) : DbObject(id, deleted)
