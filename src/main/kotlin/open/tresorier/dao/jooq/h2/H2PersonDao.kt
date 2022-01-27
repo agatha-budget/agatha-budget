@@ -55,7 +55,8 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
             person.loginAttemptCount,
             person.deleted,
             person.billingId,
-            person.billingStatus
+            person.billingStatus,
+            person.creationDate
         )
     }
 
@@ -72,7 +73,8 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
                 jooqPerson.unlockingdate,
                 jooqPerson.loginattemptcount,
                 jooqPerson.id,
-                jooqPerson.deleted
+                jooqPerson.deleted,
+                jooqPerson.creationDate
             )
         }
 
@@ -86,7 +88,8 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
                 recordPerson.unlockingdate,
                 recordPerson.loginattemptcount,
                 recordPerson.id,
-                recordPerson.deleted
+                recordPerson.deleted,
+                recordPerson.creationDate
             )
         }
     }

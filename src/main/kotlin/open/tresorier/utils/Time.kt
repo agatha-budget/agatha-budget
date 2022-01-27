@@ -9,6 +9,18 @@ object Time {
         return System.currentTimeMillis()
     }
 
+    fun twoMonthAgo() : Long {
+        return now() - 2 * 2629743000
+    }
+
+    fun aWeekAgo() : Long {
+        return now() - 7 * 86400000
+    }
+
+    fun isMoreThanAMonthAgo(date : Long) : Boolean {
+        return ((now() - date) > 2629743000)
+    }
+
     fun getDuration(hours : Int = 0, minutes : Int = 0, seconds : Int = 0) : Long {
         val duration : Int = (hours*(60*60)
             + minutes*(60)
