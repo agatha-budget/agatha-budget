@@ -12,8 +12,7 @@
           <div v-else class="editableNameAccount">
             <a v-on:click="this.displayTitleEditing()">
               <h1>
-                {{ this.account ? this.account.name : "" }} :
-                {{ this.account ? totalAccount : "" }}€
+                {{ this.account.name }} : {{ totalAccount }}€
                 <button class="btn fas fa-pen" />
               </h1>
             </a>
