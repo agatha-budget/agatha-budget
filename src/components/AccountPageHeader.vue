@@ -25,7 +25,7 @@ import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
 import { Account } from '@/model/model'
 
-interface AccountPageHeader {
+interface AccountPageHeaderData {
     name: string;
     editingTitle: boolean;
 }
@@ -44,7 +44,7 @@ export default defineComponent({
       required: true
     }
   },
-  data (): AccountPageHeader {
+  data (): AccountPageHeaderData {
     return {
       name: '',
       editingTitle: false
