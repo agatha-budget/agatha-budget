@@ -55,6 +55,6 @@
     "RETURN_TO_LOGIN": "retourner à la page de connexion",
     "BILLING_MANAGEMENT": "Gérer votre abonnement",
     "CHOOSE_PROFILE": "choisissez votre profil",
-    "COMPANY": "entreprise"
-    "USER": "particulier",
+    "COMPANY": "entreprise",
+    "USER": "particulier"
 }
