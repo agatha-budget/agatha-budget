@@ -132,10 +132,11 @@ class BillingService(private val personService: PersonService) {
         }
 
         fun checkIfUserSubscriptionIsActive(person: Person) {
-            if (person.billingStatus == null) {
-                if (Time.isMoreThanAMonthAgo(person.creationDate)) {
-                    throw SuspendedUserException("this user subscription is not up to date")
-                }
+            if (
+                person.billingStatus == null
+                && Time.isMoreThanAMonthAgo(person.creationDate)
+            ) {
+                throw SuspendedUserException("this user subscription is not up to date")
             }
         }
 
