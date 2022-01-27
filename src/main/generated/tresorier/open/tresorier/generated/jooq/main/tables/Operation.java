@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 19370522;
+    private static final long serialVersionUID = 1133868862;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -84,9 +84,9 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, Integer> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>public.operation.orderinday</code>.
+     * The column <code>public.operation.order_in_day</code>.
      */
-    public final TableField<OperationRecord, Integer> ORDERINDAY = createField(DSL.name("orderinday"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Long> ORDER_IN_DAY = createField(DSL.name("order_in_day"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * Create a <code>public.operation</code> table reference
@@ -190,7 +190,7 @@ public class Operation extends TableImpl<OperationRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<String, String, Integer, Integer, String, String, Integer, Integer> fieldsRow() {
+    public Row8<String, String, Integer, Integer, String, String, Integer, Long> fieldsRow() {
         return (Row8) super.fieldsRow();
     }
 }
