@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = 451787031;
+    private static final long serialVersionUID = 540122192;
 
     /**
      * The reference instance of <code>public.person</code>
@@ -94,7 +94,7 @@ public class Person extends TableImpl<PersonRecord> {
     /**
      * The column <code>public.person.creation_date</code>.
      */
-    public final TableField<PersonRecord, Long> CREATION_DATE = createField(DSL.name("creation_date"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("1640995200", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<PersonRecord, Long> CREATION_DATE = createField(DSL.name("creation_date"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("'1640995200000'::bigint", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * Create a <code>public.person</code> table reference
