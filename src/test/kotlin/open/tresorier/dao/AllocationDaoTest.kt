@@ -7,6 +7,7 @@ import open.tresorier.model.*
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
+import open.tresorier.model.enum.ProfileEnum
 
 open class AllocationDaoTest : ITest {
 
@@ -67,7 +68,7 @@ open class AllocationDaoTest : ITest {
 
     @Test
     fun getAllAllocationsOfBudget() {
-        val budget = Budget("wellAllocatedBudget", "person1")
+        val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -92,7 +93,7 @@ open class AllocationDaoTest : ITest {
 
     @Test
     fun getAllAllocationsOfBudgetUntilMonth() {
-        val budget = Budget("wellAllocatedBudget", "person1")
+        val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -124,7 +125,7 @@ open class AllocationDaoTest : ITest {
 
     @Test
     fun getAllAllocationsOfNonExistingBudget() {
-        val budget = Budget("wellAllocatedBudget", "person1")
+        val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         val result = allocationDao.findByBudget(budget)
         Assertions.assertEquals(0, result.size)
     }

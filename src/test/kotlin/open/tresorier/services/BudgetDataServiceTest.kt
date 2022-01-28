@@ -8,6 +8,7 @@ import open.tresorier.utils.TestData
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
+import open.tresorier.model.enum.ProfileEnum
 
 class BudgetDataServiceTest : ITest {
 
@@ -229,7 +230,7 @@ class BudgetDataServiceTest : ITest {
 
     @Test
     fun testFindBudgetData() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -277,7 +278,7 @@ class BudgetDataServiceTest : ITest {
 
     @Test
     fun testFindBudgetDataForGivenMonthsOnly() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -323,7 +324,7 @@ class BudgetDataServiceTest : ITest {
 
     @Test
     fun testFindBudgetDataForGivenMonthWithPriorOperationInCategories() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -367,7 +368,7 @@ class BudgetDataServiceTest : ITest {
 
     @Test
     fun testFindBudgetDataForOneEmptyMonth() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -410,7 +411,7 @@ class BudgetDataServiceTest : ITest {
 
     @Test
     fun testFindBudgetDataFromMonthToEnd() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
@@ -453,7 +454,7 @@ class BudgetDataServiceTest : ITest {
 
     @Test
     fun testFindBudgetDataForEmptyBudget() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val person: Person = personDao.getById(TestData.person1Id)
         val budgetData = budgetDataService.getBudgetData(person, budget)
@@ -463,7 +464,7 @@ class BudgetDataServiceTest : ITest {
 
     @Test
     fun testFindBudgetDataForNonExistingBudget() {
-        val budget = Budget("NotStoredBudget", TestData.person1Id)
+        val budget = Budget("NotStoredBudget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         val person: Person = personDao.getById(TestData.person1Id)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             budgetDataService.getBudgetData(person, budget)
@@ -473,7 +474,7 @@ class BudgetDataServiceTest : ITest {
 
     @Test
     fun testFindBudgetDataWithCents() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)

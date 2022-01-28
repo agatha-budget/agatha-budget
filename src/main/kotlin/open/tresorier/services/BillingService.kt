@@ -15,6 +15,7 @@ import com.stripe.param.billingportal.SessionCreateParams as PortalSessionCreate
 import com.stripe.Stripe
 
 import open.tresorier.utils.Properties
+import open.tresorier.utils.Time
 import open.tresorier.model.Person
 import open.tresorier.exception.*
 
@@ -131,7 +132,10 @@ class BillingService(private val personService: PersonService) {
         }
 
         fun checkIfUserSubscriptionIsActive(person: Person) {
-            if (person.billingStatus == null) {
+            if (
+                person.billingStatus == null
+                && Time.isMoreThanAMonthAgo(person.creationDate)
+            ) {
                 throw SuspendedUserException("this user subscription is not up to date")
             }
         }

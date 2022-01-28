@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
+import open.tresorier.model.enum.ProfileEnum
 
 open class BudgetDaoTest : ITest {
 
@@ -25,7 +26,7 @@ open class BudgetDaoTest : ITest {
 
     @Test
     fun getOwnerForJustAdded() {
-        val budget = Budget("wellAllocatedBudget", TestData.person1Id)
+        val budget = Budget("wellAllocatedBudget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val expectedOwner = personDao.getById(TestData.person1Id)
         val owner = budgetDao.getOwner(budget)
@@ -34,7 +35,7 @@ open class BudgetDaoTest : ITest {
 
     @Test
     fun getOwnerForUnstored() {
-        val budget = Budget("budget", TestData.person1Id)
+        val budget = Budget("budget", TestData.person1Id, ProfileEnum.PROFILE_USER)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             budgetDao.getOwner(budget)
         }
@@ -46,11 +47,11 @@ open class BudgetDaoTest : ITest {
         personDao.insert(anne)
         val lucie = Person("lucie", "lululu", "lucie@mail.eu")
         personDao.insert(lucie)
-        val budgetAnne1 = Budget("anne-B1", anne.id)
+        val budgetAnne1 = Budget("anne-B1", anne.id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budgetAnne1)
-        val budgetAnne2 = Budget("anne-B2", anne.id)
+        val budgetAnne2 = Budget("anne-B2", anne.id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budgetAnne2)
-        val budgetLucie1 = Budget("lucie-B1", lucie.id)
+        val budgetLucie1 = Budget("lucie-B1", lucie.id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budgetLucie1)
         val anneBudgets : List<Budget> = budgetDao.findByPersonId(anne.id)
         val anneBudgetsName : MutableList<String> = mutableListOf()
@@ -63,7 +64,7 @@ open class BudgetDaoTest : ITest {
     }
 
     @Test fun testInsertWithInvalidPersonId() {
-        val invalidBudget = Budget("anne-B3", "not_a_real_id")
+        val invalidBudget = Budget("anne-B3", "not_a_real_id", ProfileEnum.PROFILE_USER)
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             budgetDao.insert(invalidBudget)
         }
@@ -74,7 +75,7 @@ open class BudgetDaoTest : ITest {
     @Test fun testUpdateWithInvalidPersonId() {
         val celine = Person("celine", "cecece", "cecile@mail.eu")
         personDao.insert(celine)
-        val budgetCeline = Budget("celine-B1", celine.id)
+        val budgetCeline = Budget("celine-B1", celine.id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budgetCeline)
         budgetCeline.personId = "not_a_real_id"
         val exception = Assertions.assertThrows(TresorierException::class.java) {
