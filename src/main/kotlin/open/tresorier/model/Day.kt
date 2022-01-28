@@ -13,6 +13,10 @@ class Day (
         return "$month-$day"
     }
 
+    fun isEquals(day: Day): Boolean {
+        return day.comparable == this.comparable
+    }
+
     companion object {
         fun cancelIfEndLessThanStart(start: Day, end: Day){
             this.cancelIfEndLessThanStart(start.comparable, end.comparable)

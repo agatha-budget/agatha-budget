@@ -44,6 +44,9 @@ object TestData {
     val feb_02_2021: Day = Day(feb_2021, 2)
     val march_02_2021: Day = Day(mar_2021, 2)
     val march_15_2021: Day = Day(mar_2021, 15)
+    val jan_14_2022: Day = Day(jan_2022, 14)
+    val jan_15_2022: Day = Day(jan_2022, 15)
+    val jan_16_2022: Day = Day(jan_2022, 16)
 
 
 }

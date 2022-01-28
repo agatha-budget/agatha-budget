@@ -26,9 +26,9 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         return operation
     }
 
-    fun update(person: Person, operation: Operation, account: Account, day:Day, category: Category?, amount: Int?, memo: String?) : Operation{
+    fun update(person: Person, operation: Operation, account: Account, day: Day, category: Category?, amount: Int?, memo: String?) : Operation{
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
-        if (day != operation.day) {
+        if (day.isEquals(operation.day)) {
             val newOrder = Time.now()
             day.let { operation.day = it }
             newOrder.let { operation.orderInDay = it }
