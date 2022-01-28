@@ -6,6 +6,11 @@
       <input class="form-control" id="email" v-model="email" :placeholder="$t('EMAIL')">
       <input class="form-control" type="password" id="password" v-model="password" :placeholder="$t('PASSWORD')">
       <input class="form-control" type="password" id="passwordConfirm" v-model="passwordConfirm" :placeholder="$t('PASSWORD_CONFIRMATION')">
+      <select class="form-control" id="selectProfile" v-model="profile">
+        <option disabled value="">{{$t('CHOOSE_PROFILE')}}</option>
+        <option value="PROFILE_USER">{{$t('USER')}}</option>
+        <option value="PROFILE_COMPANY">{{$t('COMPANY')}}</option>
+      </select>
       <button class="btn btn-info" v-on:click="create">{{$t('CREATE_MY_ACCOUNT')}}</button>
       <p id="login_error_msg">{{errorMsg}}</p>
       <p><a class="teamSelector" v-on:click="goToLogin">{{$t('RETURN_TO_LOGIN')}}</a></p>
@@ -27,7 +32,8 @@ export default defineComponent({
       email: '',
       password: '',
       passwordConfirm: '',
-      errorMsg: ''
+      errorMsg: '',
+      profile: ''
     }
   },
   computed: {
@@ -38,7 +44,7 @@ export default defineComponent({
   methods: {
     async create () {
       if (this.testForm()) {
-        PersonService.createPerson(this.$store, this.name, this.email, this.password)
+        PersonService.createPerson(this.$store, this.name, this.email, this.password, this.profile)
       }
     },
     testForm (): boolean {
@@ -58,6 +64,10 @@ export default defineComponent({
       }
       if (this.name === '') {
         this.$data.errorMsg = this.$t('EMPTY_NAME')
+        return false
+      }
+      if (this.profile === '') {
+        this.$data.errorMsg = this.$t('EMPTY_PROFILE')
         return false
       }
       return true

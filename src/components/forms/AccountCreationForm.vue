@@ -5,7 +5,7 @@
       <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('CHECKING_ACCOUNT')">
       <label for="newAccountAmount">{{ $t('INITIAL_AMOUNT') }}</label>
       <input id="newAccountAmount" class="form-control" v-model.number="amount">
-      </div>
+    </div>
     <button class="btn" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</button>
   </div>
 </template>

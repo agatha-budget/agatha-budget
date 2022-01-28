@@ -1,5 +1,13 @@
-.default {
 
+#app {
+  background-color: @background;
+  .container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+    overflow-x: hidden;
+  }
+}
+.default {
 
   @greenblue: #2198A6;
   @majorBlue: #124D74;
@@ -21,34 +29,43 @@
   @buttonBackColor: #85c7de;
   @dateColor: #c6dbf0;
 
-  .month {
-    text-transform: capitalize;
-  }
-
   .loader {
     margin-top: 5%;
     margin-left: 45%;
   }
 
-  #actionsList {
-    text-align: center;
-    .btn {
-      font-size: 30px;
-      background-color: @actionColor;
-      color: @background;
-      margin: 20px;
-      padding: 10px;
-      border-radius: 45px;
-    }
-    .btn.disables {
-      color: gray;
-    }
-
-    list-style-type: none;
-
+  .homePageComponents {
+    display: flex;
+    flex-wrap: wrap;
   }
 
+  @media (min-width: 992px) {
+    .buttonsAtHome {
+      position: relative;
+      top: 20px;
+    }
+  }
+
+  @media (max-width: 992px) {
+    .accountWidgetAtHome{
+      #accountWidget {
+        display: none;
+      }
+    }
+    .buttonsAtHome {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: white;
+      border-top: solid whitesmoke;
+    }
+  }
+  
+
+  
   @import url(default/accountWidget.less);
   @import url(default/budget.less);
   @import url(default/accountPage.less);
+  @import url(default/ButtonMenu.less);
 }

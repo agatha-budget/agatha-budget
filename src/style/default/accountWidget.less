@@ -4,8 +4,11 @@
     padding: 20px;
     margin-top: 10px;
     text-align: center;
-    h1 {
-        font-size: x-large;
+
+    .title{
+        h1 {
+            font-size: x-large;
+        }
     }
     .total {
         font-size: medium;
@@ -23,33 +26,26 @@
             }
         }
     }
-
     .accountForm {
         background : @background;
         margin-top: 20px;
     }
-
-    .formContainer {
-        padding: 10px;
-        
-    }
     .displayFormBtn, .closeFormBtn {
         padding: 5px;
     }
-
     .closeFormBtn {
         float: right;
         margin: 0px 15px 10px 10px;
         background: @background;
     }
-}
-
-.formContainer {
-    padding: 10px;
+    .formContainer {
+        padding: 10px;
+    }    
 }
 
 #accountCreationForm{
     margin-top: 15px;
+
     .accountCreationInput {
         text-align: left;
         padding: 0 10px 0 10px;
@@ -61,9 +57,5 @@
         margin-top: 15px;
         background: @buttonBackColor;
         margin-bottom: 10px;
-    }
-
-    select {
-        margin: 5px 0 0 0;
     }
 }

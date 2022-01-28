@@ -5,11 +5,8 @@
         <div>
           <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
           <div v-else class="editable-master-category">
-            <a v-on:click="this.putFocusOn(masterCategory.id)">
-              {{ masterCategory?.name }}
-              <button class="btn fas fa-pen"/>
-            </a>
-              <button class="btn fas fa-plus" v-on:click="createCategory"/>
+            <a v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}<button class="btn fas fa-pen"/></a>
+            <button class="btn fas fa-plus" v-on:click="createCategory"/>
           </div>
         </div>
       </th>
@@ -51,7 +48,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { MasterCategory, CategoryDataList, CategoryData, Category } from '@/model/model'
+import { MasterCategory, CategoryDataList, CategoryData, Category, newCategoryName } from '@/model/model'
 import Utils from '@/utils/Utils'
 import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
@@ -107,7 +104,7 @@ export default defineComponent({
       return Utils.getEurosAmount(amount)
     },
     createCategory () {
-      CategoryService.createCategory('New Category', this.masterCategory).then(
+      CategoryService.createCategory(newCategoryName, this.masterCategory).then(
         () => {
           StoreHandler.updateCategories(this.$store)
         }

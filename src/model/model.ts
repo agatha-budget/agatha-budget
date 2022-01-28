@@ -16,7 +16,11 @@ class CategoryData implements ICategoryData {
 
 const incomeCategoryId = 'universal_income_category'
 const transfertCategoryId = 'universal_transfert_category'
+const newMasterCategoryName = 'Ω - Nouvelle Catégorie'
+const newCategoryName = ' Nouvelle Enveloppe'
 
 export {
-  Operation, CategoryData, BudgetData, Account, Budget, Category, MasterCategory, CategoryDataList, incomeCategoryId, transfertCategoryId
+  Operation, CategoryData, BudgetData, Account, Budget, Category,
+  MasterCategory, CategoryDataList, incomeCategoryId, transfertCategoryId,
+  newMasterCategoryName, newCategoryName
 }
