@@ -3,32 +3,13 @@
     <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
       <div class="accountPageBody">
         <div class="fixed">
-          <div v-if="this.editingTitle" class="editingNameAccount row">
-            <span class="name col-9 offset-0 col-sm-8 offset-sm-1 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xl-4 offset-xl-4 col-xxl-4 offset-xxl-4">
-                <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
-            </span>
-            <span class="validation col">
-              <button class="btn fas fa-check" v-on:click="updateName()"/>
-              <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
-            </span>
-          </div>
-          <div v-else class="editableNameAccount">
-            <a v-on:click="this.displayTitleEditing()">
-              <h1>
-                {{ this.account ? this.account.name : "" }} :
-                {{ this.account ? getEurosAmount(this.account.amount) : "" }}€
-                <button class="btn fas fa-pen" />
-              </h1>
-            </a>
+          <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+            <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" />
           </div>
         </div>
         <div class="scrollable operationTable table-hover">
           <div class="placeholderTop">
-            <h1>
-                {{ this.account ? this.account.name : "" }} :
-                {{ this.account ? getEurosAmount(this.account.amount) : "" }}€
-                <button class="btn fas fa-pen"/>
-            </h1>
+            <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
           </div>
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
@@ -68,16 +49,13 @@ import { Account, Category, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
-import AccountService from '@/services/AccountService'
 import OperationForm from '@/components/forms/OperationForm.vue'
 import Utils from '@/utils/Utils'
 import NavMenu from '@/components/NavigationMenu.vue'
+import AccountPageHeader from '@/components/AccountPageHeader.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
-    name: string;
-    editingTitle: boolean;
-    amountInOperation: number;
 }
 
 interface EditableOperation extends Operation {
@@ -88,7 +66,8 @@ export default defineComponent({
   name: 'AccountPage',
   components: {
     OperationForm,
-    NavMenu
+    NavMenu,
+    AccountPageHeader
   },
   beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
@@ -110,10 +89,7 @@ export default defineComponent({
   },
   data (): AccountPageData {
     return {
-      operations: [],
-      name: '',
-      editingTitle: false,
-      amountInOperation: 0
+      operations: []
     }
   },
   computed: {
@@ -125,8 +101,8 @@ export default defineComponent({
       }
       return null
     },
-    currentName (): string {
-      return this.account?.name || ''
+    totalAccount (): number {
+      return this.account == null ? 0 : this.getEurosAmount(this.account.amount)
     }
   },
   emits: ['loosesFocus'],
@@ -171,16 +147,6 @@ export default defineComponent({
     },
     getEurosAmount (amount: number): number {
       return Utils.getEurosAmount(amount)
-    },
-    updateName () {
-      AccountService.updateAccount(this.$store, this.accountId, this.name)
-      this.editingTitle = false
-    },
-    displayTitleEditing () {
-      this.editingTitle = true
-    },
-    cancelEditing () {
-      this.editingTitle = false
     },
     getClassDependingOnAmount (operation: Operation): string {
       if (operation.amount > 0) {

@@ -1,25 +1,26 @@
 .accountPage {
 
     // pour toutes les versions
-
     background: white;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
     .accountPageBody {
-        h1 {
-            text-align: center;
-            font-size: xx-large;
-            margin-bottom: 20px;
-            .btn {
-                visibility: hidden;
-                color: @darkBlue;
-                font-size: small;
-                padding: 6px 0px 6px 12px;
-                margin-bottom: 4px;
+        #accountPageHeader {
+            h1 {
+                text-align: center;
+                font-size: xx-large;
+                margin-bottom: 20px;
+                .btn {
+                    visibility: hidden;
+                    color: @darkBlue;
+                    font-size: small;
+                    padding: 6px 0px 6px 12px;
+                    margin-bottom: 4px;
+                }
             }
-        }
-        h1:hover{
-            .btn {
-                visibility: visible;
+            h1:hover{
+                .btn {
+                    visibility: visible;
+                }
             }
         }
         .fixed {
@@ -144,9 +145,6 @@
                     padding-left: 10px;
                 }
             }
-            .placeholderTop {
-                height: 69.75px;
-            }
             .placeholderBottom {
                 height: 82px;
             }
@@ -165,6 +163,14 @@
     @media (min-width: 500px) {
         padding: 20px;
         .accountPageBody {
+            .fixed {
+                .editableNameAccount {
+                    h1 {
+                        padding-left: 20px;
+                        padding-right: 20px;
+                    }
+                }
+            }
             .scrollable {
                 padding-top: 10px;
                 .operationCreate {
@@ -182,6 +188,9 @@
         .accountPageBody {
             padding: 0;
             .scrollable {
+                .placeholderTop {
+                    padding-top: 20px;
+                }
                 .placeholderBottom {
                     height: 92px;
                 }
