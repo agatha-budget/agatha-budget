@@ -21,7 +21,7 @@ export default defineComponent({
   },
   methods: {
     async goToBillingPortal (): Promise<void> {
-      PersonService.redirectToBillingPortalUrl(this.$store)
+      PersonService.redirectToBillingPortalUrl()
     },
     logout () {
       PersonService.deleteSession(this.$store)

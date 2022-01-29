@@ -1,7 +1,7 @@
 enum Properties {
     server = 'https://agatha-alternance.herokuapp.com/',
     refreshUrl = 'https://agatha-alternance.herokuapp.com/session/refresh',
-    commitHash = '71b06b349da03297e7f689ffbc944e6d6a39843b'
+    commitHash = '55df010cdf38b139dab95e45a2df9a270a5369a7'
 }
 
 export default Properties
