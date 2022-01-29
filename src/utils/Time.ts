@@ -46,6 +46,8 @@ export default class Time {
     const date = new Date()
     const month = monthAsInt % 100
     const year = (monthAsInt - month) / 100
+    // needed because on the 31, setting a month with less than 31 day will break havoc (same when setting february on the 29/30/31)
+    date.setDate(1)
     date.setMonth(month - 1)
     date.setFullYear(year)
     return date
