@@ -24,9 +24,10 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
         }
     }
 
-    override fun update(person: Person) {
+    override fun update(person: Person) : Person {
         val jooqPerson = this.toJooqPerson(person)
         this.generatedDao.update(jooqPerson)
+        return person
     }
 
     override fun getByEmail(email: String): Person {
