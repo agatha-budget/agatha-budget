@@ -1,6 +1,5 @@
 import { Budget, MasterCategory } from '@/model/model'
 import { masterCategoryApi } from '@/services/api/apis'
-import { redirectOnApiError } from '@/router'
 
 export default class MasterCategoryService {
   public static async createMasterCategory (name: string, budget: Budget) {
@@ -8,15 +7,15 @@ export default class MasterCategoryService {
   }
 
   public static async renameMasterCategory (masterCategoryId: string, newName: string) {
-    const response = await masterCategoryApi.updateMasterCategory(masterCategoryId, newName)
+    await masterCategoryApi.updateMasterCategory(masterCategoryId, newName)
   }
 
   public static async archiveMasterCategory (masterCategoryId: string) {
-    const response = await masterCategoryApi.updateMasterCategory(masterCategoryId, undefined, true)
+    await masterCategoryApi.updateMasterCategory(masterCategoryId, undefined, true)
   }
 
   public static async unarchiveMasterCategory (masterCategoryId: string) {
-    const response = await masterCategoryApi.updateMasterCategory(masterCategoryId, undefined, false)
+    await masterCategoryApi.updateMasterCategory(masterCategoryId, undefined, false)
   }
 
   public static async getMasterCategories (budget: Budget): Promise<MasterCategory[]> {
