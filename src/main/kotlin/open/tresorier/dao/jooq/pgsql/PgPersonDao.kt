@@ -56,7 +56,9 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
             person.deleted,
             person.billingId,
             person.billingStatus,
-            person.creationDate
+            person.creationDate,
+            person.style,
+            person.dyslexia
         )
     }
 
@@ -70,6 +72,8 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
                 jooqPerson.email,
                 jooqPerson.billingId,
                 jooqPerson.billingStatus,
+                jooqPerson.style,
+                jooqPerson.dyslexia,
                 jooqPerson.unlockingdate,
                 jooqPerson.loginattemptcount,
                 jooqPerson.id,
@@ -85,6 +89,8 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
                 recordPerson.email,
                 recordPerson.billingId,
                 recordPerson.billingStatus,
+                recordPerson.style,
+                recordPerson.dyslexia,
                 recordPerson.unlockingdate,
                 recordPerson.loginattemptcount,
                 recordPerson.id,
