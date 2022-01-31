@@ -43,17 +43,32 @@ fun main() {
         ctx.result(properties.getProperty("environment"))
     }
 
-    app.post("/person") { ctx ->
+    app.post("/signup") { ctx ->
         val name = ctx.queryParam<String>("name").get()
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
         val profileString = ctx.queryParam<String>("profile").get()
         val profile: ProfileEnum = ProfileEnum.valueOf(profileString)
         val person: Person = ServiceManager.personService.createPerson(name, password, email, profile)
-        person?.let {
-            SuperTokens.newSession(ctx, it.id).create()
-            ctx.json("{\"name\" : " + it.name + "}")
-        }
+        SuperTokens.newSession(ctx, person.id).create()
+        ctx.json("{\"name\" : " + person.name + "}")
+    }
+
+    app.before("/person", SuperTokens.middleware())
+    app.get("/person") { ctx ->
+        val publicPerson : PublicPerson = getUserFromAuth(ctx).toPublicPerson() 
+        ctx.json(publicPerson)
+    }
+
+    app.put("/person") { ctx ->
+        val person = getUserFromAuth(ctx)
+        //optional
+        val newName = getOptionalQueryParam<String>(ctx, "new_name")
+        val newStyle = getOptionalQueryParam<String>(ctx, "new_style")
+        val newDyslexia = getOptionalQueryParam<Boolean>(ctx, "new_dyslexia")
+
+        val publicPerson : PublicPerson = ServiceManager.personService.updatePublicPerson(person, newName, newStyle, newDyslexia)
+        ctx.json(publicPerson)    
     }
 
     // handle webhook sent by stripe
