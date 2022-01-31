@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person implements Serializable {
 
-    private static final long serialVersionUID = -1957063310;
+    private static final long serialVersionUID = -632980967;
 
     private final String  id;
     private final String  email;
@@ -25,6 +25,8 @@ public class Person implements Serializable {
     private final String  billingId;
     private final Boolean billingStatus;
     private final Long    creationDate;
+    private final String  style;
+    private final Boolean dyslexia;
 
     public Person(Person value) {
         this.id = value.id;
@@ -37,6 +39,8 @@ public class Person implements Serializable {
         this.billingId = value.billingId;
         this.billingStatus = value.billingStatus;
         this.creationDate = value.creationDate;
+        this.style = value.style;
+        this.dyslexia = value.dyslexia;
     }
 
     public Person(
@@ -49,7 +53,9 @@ public class Person implements Serializable {
         Boolean deleted,
         String  billingId,
         Boolean billingStatus,
-        Long    creationDate
+        Long    creationDate,
+        String  style,
+        Boolean dyslexia
     ) {
         this.id = id;
         this.email = email;
@@ -61,6 +67,8 @@ public class Person implements Serializable {
         this.billingId = billingId;
         this.billingStatus = billingStatus;
         this.creationDate = creationDate;
+        this.style = style;
+        this.dyslexia = dyslexia;
     }
 
     public String getId() {
@@ -103,6 +111,14 @@ public class Person implements Serializable {
         return this.creationDate;
     }
 
+    public String getStyle() {
+        return this.style;
+    }
+
+    public Boolean getDyslexia() {
+        return this.dyslexia;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Person (");
@@ -117,6 +133,8 @@ public class Person implements Serializable {
         sb.append(", ").append(billingId);
         sb.append(", ").append(billingStatus);
         sb.append(", ").append(creationDate);
+        sb.append(", ").append(style);
+        sb.append(", ").append(dyslexia);
 
         sb.append(")");
         return sb.toString();

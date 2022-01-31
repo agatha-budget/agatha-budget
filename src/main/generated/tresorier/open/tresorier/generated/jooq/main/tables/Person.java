@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row10;
+import org.jooq.Row12;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = 540122192;
+    private static final long serialVersionUID = 1183841341;
 
     /**
      * The reference instance of <code>public.person</code>
@@ -95,6 +95,16 @@ public class Person extends TableImpl<PersonRecord> {
      * The column <code>public.person.creation_date</code>.
      */
     public final TableField<PersonRecord, Long> CREATION_DATE = createField(DSL.name("creation_date"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("'1640995200000'::bigint", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+
+    /**
+     * The column <code>public.person.style</code>.
+     */
+    public final TableField<PersonRecord, String> STYLE = createField(DSL.name("style"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>public.person.dyslexia</code>.
+     */
+    public final TableField<PersonRecord, Boolean> DYSLEXIA = createField(DSL.name("dyslexia"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
      * Create a <code>public.person</code> table reference
@@ -171,11 +181,11 @@ public class Person extends TableImpl<PersonRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row10 type methods
+    // Row12 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row10<String, String, String, String, Long, Integer, Boolean, String, Boolean, Long> fieldsRow() {
-        return (Row10) super.fieldsRow();
+    public Row12<String, String, String, String, Long, Integer, Boolean, String, Boolean, Long, String, Boolean> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 }

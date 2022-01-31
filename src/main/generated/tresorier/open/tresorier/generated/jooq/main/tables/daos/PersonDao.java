@@ -198,4 +198,32 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchByCreationDate(Long... values) {
         return fetch(Person.PERSON.CREATION_DATE, values);
     }
+
+    /**
+     * Fetch records that have <code>style BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfStyle(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Person.PERSON.STYLE, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>style IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchByStyle(String... values) {
+        return fetch(Person.PERSON.STYLE, values);
+    }
+
+    /**
+     * Fetch records that have <code>dyslexia BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfDyslexia(Boolean lowerInclusive, Boolean upperInclusive) {
+        return fetchRange(Person.PERSON.DYSLEXIA, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>dyslexia IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchByDyslexia(Boolean... values) {
+        return fetch(Person.PERSON.DYSLEXIA, values);
+    }
 }
