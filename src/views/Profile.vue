@@ -7,7 +7,7 @@
     <NavMenu :page="'profile'" />
   </div>
 </template>
-
+ 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import PersonService from '@/services/PersonService'
