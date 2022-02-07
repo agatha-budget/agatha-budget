@@ -1,7 +1,7 @@
 {
   "name": "agatha-budget",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "version": "0.1.0",
   "private": true,
