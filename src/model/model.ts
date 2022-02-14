@@ -14,6 +14,16 @@ class CategoryData implements ICategoryData {
     available = 0;
 }
 
+interface SelectOption {
+    value: string;
+    label: string;
+}
+
+interface GroupSelectOption {
+    label: string;
+    options: SelectOption[];
+}
+
 const incomeCategoryId = 'universal_income_category'
 const transfertCategoryId = 'universal_transfert_category'
 const newMasterCategoryName = 'Ω - Nouvelle Catégorie'
@@ -22,5 +32,5 @@ const newCategoryName = ' Nouvelle Enveloppe'
 export {
   Operation, CategoryData, BudgetData, Account, Budget, Category,
   MasterCategory, CategoryDataList, incomeCategoryId, transfertCategoryId,
-  newMasterCategoryName, newCategoryName
+  newMasterCategoryName, newCategoryName, GroupSelectOption, SelectOption
 }
