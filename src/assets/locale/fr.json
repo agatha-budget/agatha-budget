@@ -59,5 +59,6 @@
     "CHOOSE_PROFILE": "choisissez votre profil",
     "COMPANY": "entreprise",
     "USER": "particulier",
-    "ENVELOPE" : "enveloppe"
+    "ENVELOPE" : "enveloppe",
+    "NO_RESULT_FOUND" : "pas de résultat"
 }

@@ -9,7 +9,8 @@
         :groups="true"
         :searchable="true"
         :options="categories"
-    />
+        :noResultsText="$t('NO_RESULT_FOUND')"
+      />
     </div>
     <div class="memoTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("MEMO") }}</div>
     <div class="memoElement col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2"><input id="newOperationMemo" class="form-control" v-model="memo"></div>
@@ -83,7 +84,7 @@ export default defineComponent({
     categories (): GroupSelectOption[] {
       const categories = [
         {
-          label: 'Défaut',
+          label: this.$t('DEFAULT'),
           options: [
             { value: incomeCategoryId, label: this.$t('I18N_INCOME') },
             { value: transfertCategoryId, label: this.$t('I18N_TRASNFERT') }
