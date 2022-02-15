@@ -53,8 +53,12 @@
     "INSUFFICIENT_SECURITY": "Votre mot de passe n'est pas assez sécurisé (minimun 8 caractéres, incluant minuscule, majuscule et caractére spéciaux)",
     "DIFFERENT_PASSWORDS": "Le mot de passe et sa confirmation sont différents",
     "RETURN_TO_LOGIN": "retourner à la page de connexion",
-    "BILLING_MANAGEMENT": "Gérer votre abonnement",
+    "BILLING_MANAGEMENT": "gérer votre abonnement",
+    "SUBCRIPTION": "abonnement",
     "CHOOSE_PROFILE": "choisissez votre profil",
     "COMPANY": "entreprise",
-    "USER": "particulier"
+    "USER": "particulier",
+    "COMUNITY": "communauté",
+    "APPEARANCE": "apparence",
+    "FREE_RESOURCE": "resource gratuite"
 }
