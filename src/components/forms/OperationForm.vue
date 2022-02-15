@@ -82,7 +82,7 @@ export default defineComponent({
       return Utils.getCentsAmount((this.incoming) ? Math.abs(this.amount) : Math.abs(this.amount) * -1)
     },
     categories (): GroupSelectOption[] {
-      const categories = [
+      const optionsList = [
         {
           label: this.$t('DEFAULT'),
           options: [
@@ -92,17 +92,12 @@ export default defineComponent({
         }
       ]
       for (const masterCategory of this.$store.state.masterCategories) {
-        const group: GroupSelectOption = {
-          label: masterCategory.name,
-          options: []
+        const categories = this.getCategoriesByMasterCategory(masterCategory)
+        if (categories.length > 0) {
+          optionsList.push(this.createOptionGroup(masterCategory, categories))
         }
-        for (const category of this.getCategoriesByMasterCategory(masterCategory)) {
-          const option: SelectOption = { value: category.id, label: category.name }
-          group.options.push(option)
-        }
-        categories.push(group)
       }
-      return categories
+      return optionsList
     }
   },
   emits: ['updateOperationList'],
@@ -136,6 +131,17 @@ export default defineComponent({
       this.amount = 0
       this.categoryId = ''
       this.incoming = false
+    },
+    createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
+      const group: GroupSelectOption = {
+        label: masterCategory.name,
+        options: []
+      }
+      for (const category of categories) {
+        const option: SelectOption = { value: category.id, label: category.name }
+        group.options.push(option)
+      }
+      return group
     }
   }
 })
