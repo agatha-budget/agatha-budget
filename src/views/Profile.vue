@@ -1,12 +1,12 @@
 <template>
   <div id="profile_page" :class="this.$store.state.css">
     <div class="card-container">
-      <div class="upper-container">
-        <div class="image-container">
+      <div class="upper-container"></div>
+      <div class="lower-container">
+        <div class="container-cadre">
+          <div class="image-container">
            <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
         </div>
-      </div>
-      <div class="lower-container">
             <h3 class="ProfilName">Nom Prenom</h3>
         <div>
           <header>
@@ -38,6 +38,7 @@
             </ul>
           </li>
           </header>
+          </div>
           </div>
     <div class="navprofile">
     <NavMenu :page="'profile'" />
