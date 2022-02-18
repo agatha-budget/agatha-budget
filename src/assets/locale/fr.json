@@ -31,6 +31,8 @@
     "DELETE": "supprimer",
     "UNKNOWN_CATEGORY": "catégorie inconnue",
     "SELECT_CATEGORY": "sélectionner catégorie",
+    "SELECT_ENVELOPE" : "sélectionner une enveloppe",
+    "SELECT": "sélectionner",
     "ACTION": "action",
     "ARCHIVED_CATEGORIES": "Catégories archivées",
     "DEFAULT": "Par défaut",
@@ -56,5 +58,12 @@
     "BILLING_MANAGEMENT": "Gérer votre abonnement",
     "CHOOSE_PROFILE": "choisissez votre profil",
     "COMPANY": "entreprise",
-    "USER": "particulier"
+    "USER": "particulier",
+    "COMUNITY": "communauté",
+    "APPEARANCE": "apparence",
+    "FREE_RESOURCE": "resource gratuite",
+    "ACCOUNTS" : "comptes",
+    "HOME" : "budget",
+    "ENVELOPE" : "enveloppe",
+    "NO_RESULT_FOUND" : "pas de résultat"
 }

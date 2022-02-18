@@ -35,9 +35,7 @@
           <div class="placeholderBottom"/>
         </div>
       </div>
-      <div class="btnInAccountPage">
-        <NavMenu />
-      </div>
+      <NavMenu :page="'accounts'" />
     </div>
   </div>
 </template>
