@@ -1,4 +1,4 @@
-package open.tresorier.services
+ package open.tresorier.services
 
 import open.tresorier.dao.IOperationDao
 import open.tresorier.model.*
@@ -26,12 +26,15 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         return operation
     }
 
-    fun update(person: Person, operation: Operation, account: Account, day: Day, category: Category?, amount: Int?, memo: String?) : Operation{
+    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, amount: Int?, memo: String?) : Operation{
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
-        if (day.isEquals(operation.day)) {
-            val newOrder = Time.now()
-            day.let { operation.day = it }
-            newOrder.let { operation.orderInDay = it }
+        newDay?.let {
+            if (!it.isEquals(operation.day)) {
+                val newOrder = Time.now()
+                operation.day = it
+                val old = operation.orderInDay
+                operation.orderInDay = newOrder
+            }
         }
         account?.let { operation.accountId = it.id }
         category?.let { operation.categoryId = it.id }
