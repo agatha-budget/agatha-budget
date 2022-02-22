@@ -34,9 +34,9 @@ class OperationServiceTest : ITest {
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
         val operationCreated = operationService.create(mileva, account, TestData.jan_16_2022, category, 1000, "")
-        val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side affect
+        val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side effect
 
-        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, null, 2000, null)
+        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, category, 2000, "memo")
 
         Assertions.assertEquals(orderInDayAtCreation, operationModified.orderInDay)
     }
@@ -56,7 +56,7 @@ class OperationServiceTest : ITest {
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
         val operationCreated = operationService.create(emilie, account, TestData.jan_16_2022, category, 1000, "")
-        val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side affect
+        val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side effect
         
         val operationModified = operationService.update(emilie, operationCreated, account, TestData.jan_15_2022, null, null, null)
 
