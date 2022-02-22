@@ -27,16 +27,16 @@ class OperationServiceTest : ITest {
         mileva.billingStatus = true
         val budget: Budget = budgetService.findByUser(mileva)[0]
         val account: Account = accountService.create(
-            mileva, budget, "personal account", TestData.jan_14_2022, 1000
+            mileva, budget, "personal account", TestData.jan_14_2022, 10000
         )
         val masterCategory = MasterCategory("Fixed expense", budget.id)
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
-        val operationCreated = operationService.create(mileva, account, TestData.jan_16_2022, category, 1000, "")
+        val operationCreated = operationService.create(mileva, account, TestData.jan_16_2022, category, -1000, "encas")
         val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side effect
 
-        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, category, 2000, "memo")
+        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, category, -1200, "encas")
 
         Assertions.assertEquals(orderInDayAtCreation, operationModified.orderInDay)
     }
