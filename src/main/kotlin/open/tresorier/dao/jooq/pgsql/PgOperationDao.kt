@@ -94,7 +94,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             .select()
             .from(OPERATION)
             .where(OPERATION.ACCOUNT_ID.eq(account.id))
-            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc())
+            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
             .fetch().into(OPERATION)
 
         val operationList: MutableList<Operation> = mutableListOf()
@@ -112,7 +112,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             .from(OPERATION)
             .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
-            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc())
+            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
             .fetch().into(OPERATION)
 
         val operationList: MutableList<Operation> = mutableListOf()
@@ -145,7 +145,8 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             operation.day?.day,
             operation.categoryId,
             operation.memo,
-            operation.amount
+            operation.amount,
+            operation.orderInDay
             )
     }
 
@@ -157,6 +158,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             Day(Month.createFromComparable(jooqOperation.month), jooqOperation.day),
             jooqOperation.categoryId,
             jooqOperation.amount,
+            jooqOperation.orderInDay,
             jooqOperation.memo,
             jooqOperation.id,
         )
@@ -176,6 +178,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             Day(Month.createFromComparable(operationRecord.month), operationRecord.day),
             operationRecord.categoryId,
             operationRecord.amount,
+            operationRecord.orderInDay,
             operationRecord.memo,
             operationRecord.id,
         )

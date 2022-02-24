@@ -252,10 +252,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation(account.id, TestData.nov_02_2020 , category.id, -4000),
-                Operation(account.id, TestData.nov_03_2020 , category.id, -2000),
-                Operation(account.id, TestData.feb_02_2021 , category2.id, 1000),
-                Operation(account.id, TestData.march_02_2021 , category.id, -3000),
+                Operation(account.id, TestData.nov_02_2020 , category.id, -4000, 1),
+                Operation(account.id, TestData.nov_03_2020 , category.id, -2000, 2),
+                Operation(account.id, TestData.feb_02_2021 , category2.id, 1000, 3),
+                Operation(account.id, TestData.march_02_2021 , category.id, -3000, 4),
 
                 )
         for (operation in operationList) {
@@ -300,10 +300,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation(account.id, TestData.nov_02_2020 , category.id, -4000),
-                Operation(account.id, TestData.nov_03_2020 , category.id, -2000),
-                Operation(account.id, TestData.feb_02_2021 , category2.id, -1000),
-                Operation(account.id, TestData.march_02_2021 , category.id, -3000),
+                Operation(account.id, TestData.nov_02_2020 , category.id, -4000, 1),
+                Operation(account.id, TestData.nov_03_2020 , category.id, -2000, 2),
+                Operation(account.id, TestData.feb_02_2021 , category2.id, -1000, 3),
+                Operation(account.id, TestData.march_02_2021 , category.id, -3000, 4),
 
                 )
         for (operation in operationList) {
@@ -346,10 +346,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation(account.id, TestData.nov_02_2020 , category.id, -4000),
-                Operation(account.id, TestData.nov_03_2020 , category.id, -2000),
-                Operation(account.id, TestData.feb_02_2021 , category2.id, -1000),
-                Operation(account.id, TestData.march_02_2021 , category.id, -3000),
+                Operation(account.id, TestData.nov_02_2020 , category.id, -4000, 1),
+                Operation(account.id, TestData.nov_03_2020 , category.id, -2000, 2),
+                Operation(account.id, TestData.feb_02_2021 , category2.id, -1000, 3),
+                Operation(account.id, TestData.march_02_2021 , category.id, -3000, 4),
 
                 )
         for (operation in operationList) {
@@ -390,10 +390,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation(account.id, TestData.nov_02_2020 , category.id, -4000),
-                Operation(account.id, TestData.nov_03_2020 , category.id, -2000),
-                Operation(account.id, TestData.feb_02_2021 , category2.id, -1000),
-                Operation(account.id, TestData.march_02_2021 , category.id, -3000),
+                Operation(account.id, TestData.nov_02_2020 , category.id, -4000, 1),
+                Operation(account.id, TestData.nov_03_2020 , category.id, -2000, 2),
+                Operation(account.id, TestData.feb_02_2021 , category2.id, -1000, 3),
+                Operation(account.id, TestData.march_02_2021 , category.id, -3000, 4),
 
                 )
         for (operation in operationList) {
@@ -432,10 +432,10 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation(account.id, TestData.nov_02_2020 , category.id, -4000),
-                Operation( account.id,TestData.nov_03_2020 , category.id, -2000),
-                Operation( account.id,TestData.feb_02_2021 , category2.id, -1000),
-                Operation( account.id,TestData.march_02_2021 , category.id, -3000),
+                Operation(account.id, TestData.nov_02_2020 , category.id, -4000, 1),
+                Operation( account.id,TestData.nov_03_2020 , category.id, -2000, 2),
+                Operation( account.id,TestData.feb_02_2021 , category2.id, -1000, 3),
+                Operation( account.id,TestData.march_02_2021 , category.id, -3000, 4),
         )
         for (operation in operationList) {
             operationDao.insert(operation)
@@ -483,8 +483,8 @@ class BudgetDataServiceTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation(account.id, TestData.oct_02_2020 , category.id, 4554),
-                Operation(account.id, TestData.nov_03_2020 , category.id, 2000),
+                Operation(account.id, TestData.oct_02_2020 , category.id, 4554, 1),
+                Operation(account.id, TestData.nov_03_2020 , category.id, 2000, 2),
         )
         for (operation in operationList) {
             operationDao.insert(operation)
