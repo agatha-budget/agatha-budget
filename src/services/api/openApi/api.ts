@@ -91,6 +91,12 @@ export interface Budget {
     'name': string;
     /**
      * 
+     * @type {string}
+     * @memberof Budget
+     */
+    'profile': string;
+    /**
+     * 
      * @type {boolean}
      * @memberof Budget
      */

@@ -1039,11 +1039,14 @@ components:
       required:
       - id
       - name
+      - profile
       type: object
       properties:
         id:
           type: string
         name:
+          type: string
+        profile:
           type: string
         isDefault:
           type: boolean
