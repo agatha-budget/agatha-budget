@@ -2292,6 +2292,108 @@ export class OperationApi extends BaseAPI {
 
 
 /**
+ * PackageApi - axios parameter creator
+ * @export
+ */
+export const PackageApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createBillingPortalSession: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/billing`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication accessToken required
+
+            // authentication refreshTokenId required
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * PackageApi - functional programming interface
+ * @export
+ */
+export const PackageApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PackageApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createBillingPortalSession(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createBillingPortalSession(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * PackageApi - factory interface
+ * @export
+ */
+export const PackageApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PackageApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createBillingPortalSession(options?: any): AxiosPromise<string> {
+            return localVarFp.createBillingPortalSession(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * PackageApi - object-oriented interface
+ * @export
+ * @class PackageApi
+ * @extends {BaseAPI}
+ */
+export class PackageApi extends BaseAPI {
+    /**
+     * 
+     * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PackageApi
+     */
+    public createBillingPortalSession(options?: AxiosRequestConfig) {
+        return PackageApiFp(this.configuration).createBillingPortalSession(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * PersonApi - axios parameter creator
  * @export
  */

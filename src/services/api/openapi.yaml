@@ -152,6 +152,7 @@ paths:
     get:
       tags:
         - Person
+        - package
       summary: get billing portal URL, new subscription if not subscribed, billing management if already subscribed
       operationId: createBillingPortalSession
       responses:
