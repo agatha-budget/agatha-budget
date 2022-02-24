@@ -184,4 +184,18 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Person> fetchByBillingStatus(Boolean... values) {
         return fetch(Person.PERSON.BILLING_STATUS, values);
     }
+
+    /**
+     * Fetch records that have <code>CREATION_DATE BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Person> fetchRangeOfCreationDate(Long lowerInclusive, Long upperInclusive) {
+        return fetchRange(Person.PERSON.CREATION_DATE, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>CREATION_DATE IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Person> fetchByCreationDate(Long... values) {
+        return fetch(Person.PERSON.CREATION_DATE, values);
+    }
 }

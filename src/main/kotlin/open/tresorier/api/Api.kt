@@ -50,8 +50,10 @@ fun main() {
         val profileString = ctx.queryParam<String>("profile").get()
         val profile: ProfileEnum = ProfileEnum.valueOf(profileString)
         val person: Person = ServiceManager.personService.createPerson(name, password, email, profile)
-        val billingUrl = BillingService.createNewUserBillingSession(person)
-        ctx.result(billingUrl)
+        person?.let {
+            SuperTokens.newSession(ctx, it.id).create()
+            ctx.json("{\"name\" : " + it.name + "}")
+        }
     }
 
     // handle webhook sent by stripe

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person implements Serializable {
 
-    private static final long serialVersionUID = -540679074;
+    private static final long serialVersionUID = -1552809133;
 
     private final String  id;
     private final String  email;
@@ -24,6 +24,7 @@ public class Person implements Serializable {
     private final Boolean deleted;
     private final String  billingId;
     private final Boolean billingStatus;
+    private final Long    creationDate;
 
     public Person(Person value) {
         this.id = value.id;
@@ -35,6 +36,7 @@ public class Person implements Serializable {
         this.deleted = value.deleted;
         this.billingId = value.billingId;
         this.billingStatus = value.billingStatus;
+        this.creationDate = value.creationDate;
     }
 
     public Person(
@@ -46,7 +48,8 @@ public class Person implements Serializable {
         Integer loginattemptcount,
         Boolean deleted,
         String  billingId,
-        Boolean billingStatus
+        Boolean billingStatus,
+        Long    creationDate
     ) {
         this.id = id;
         this.email = email;
@@ -57,6 +60,7 @@ public class Person implements Serializable {
         this.deleted = deleted;
         this.billingId = billingId;
         this.billingStatus = billingStatus;
+        this.creationDate = creationDate;
     }
 
     public String getId() {
@@ -95,6 +99,10 @@ public class Person implements Serializable {
         return this.billingStatus;
     }
 
+    public Long getCreationDate() {
+        return this.creationDate;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Person (");
@@ -108,6 +116,7 @@ public class Person implements Serializable {
         sb.append(", ").append(deleted);
         sb.append(", ").append(billingId);
         sb.append(", ").append(billingStatus);
+        sb.append(", ").append(creationDate);
 
         sb.append(")");
         return sb.toString();
