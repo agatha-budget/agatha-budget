@@ -34,7 +34,7 @@ object TestData {
     val oct_2021: Month =  Month(10,2021)
     val nov_2021: Month =  Month(11,2021)
     val dec_2021: Month =  Month(12,2021)
-    val jan_2022: Month =  Month(1,2021)
+    val jan_2022: Month =  Month(1,2022)
     val feb_2022: Month =  Month(2,2022)
     val mar_2022: Month =  Month(3,2022)
 
@@ -44,6 +44,9 @@ object TestData {
     val feb_02_2021: Day = Day(feb_2021, 2)
     val march_02_2021: Day = Day(mar_2021, 2)
     val march_15_2021: Day = Day(mar_2021, 15)
+    val jan_14_2022: Day = Day(jan_2022, 14)
+    val jan_15_2022: Day = Day(jan_2022, 15)
+    val jan_16_2022: Day = Day(jan_2022, 16)
 
 
 }
