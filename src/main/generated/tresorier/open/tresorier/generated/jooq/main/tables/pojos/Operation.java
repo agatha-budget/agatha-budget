@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = -658183351;
+    private static final long serialVersionUID = 407334196;
 
     private final String  id;
     private final String  accountId;
@@ -22,6 +22,7 @@ public class Operation implements Serializable {
     private final String  categoryId;
     private final String  memo;
     private final Integer amount;
+    private final Long    orderInDay;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -31,6 +32,7 @@ public class Operation implements Serializable {
         this.categoryId = value.categoryId;
         this.memo = value.memo;
         this.amount = value.amount;
+        this.orderInDay = value.orderInDay;
     }
 
     public Operation(
@@ -40,7 +42,8 @@ public class Operation implements Serializable {
         Integer day,
         String  categoryId,
         String  memo,
-        Integer amount
+        Integer amount,
+        Long    orderInDay
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -49,6 +52,7 @@ public class Operation implements Serializable {
         this.categoryId = categoryId;
         this.memo = memo;
         this.amount = amount;
+        this.orderInDay = orderInDay;
     }
 
     public String getId() {
@@ -79,6 +83,10 @@ public class Operation implements Serializable {
         return this.amount;
     }
 
+    public Long getOrderInDay() {
+        return this.orderInDay;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Operation (");
@@ -90,6 +98,7 @@ public class Operation implements Serializable {
         sb.append(", ").append(categoryId);
         sb.append(", ").append(memo);
         sb.append(", ").append(amount);
+        sb.append(", ").append(orderInDay);
 
         sb.append(")");
         return sb.toString();

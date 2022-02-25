@@ -30,7 +30,7 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getOwnerForUnstored() {
-        val operation = Operation( "545", TestData.feb_02_2021,"56", -2554, "achat")
+        val operation = Operation( "545", TestData.feb_02_2021,"56", -2554, 1, "achat")
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             operationDao.getOwner(operation)
         }
@@ -60,10 +60,10 @@ open class OperationDaoTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation( account.id, TestData.nov_02_2020 , category.id,4000),
-                Operation(account.id, TestData.nov_03_2020 , category.id,2000),
-                Operation(account.id, TestData.feb_02_2021 , category2.id,1000),
-                Operation(account.id, TestData.march_02_2021 , category.id,3000),
+                Operation( account.id, TestData.nov_02_2020, category.id, 4000, 1),
+                Operation(account.id, TestData.nov_03_2020, category.id, 2000, 2),
+                Operation(account.id, TestData.feb_02_2021, category2.id, 1000, 3),
+                Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
 
                 )
         for (operation in operationList) {
@@ -100,10 +100,10 @@ open class OperationDaoTest : ITest {
         val account = Account("my own account", budget.id)
         accountDao.insert(account)
         val operationList = listOf(
-                Operation(account.id, TestData.nov_02_2020 , category.id,4000),
-                Operation(account.id, TestData.nov_03_2020 , category.id,2000),
-                Operation(account.id, TestData.feb_02_2021 , category2.id,1000),
-                Operation(account.id, TestData.march_02_2021 , category.id,3000),
+                Operation(account.id, TestData.nov_02_2020, category.id, 4000, 1),
+                Operation(account.id, TestData.nov_03_2020, category.id, 2000, 2),
+                Operation(account.id, TestData.feb_02_2021, category2.id, 1000, 3),
+                Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
 
                 )
         for (operation in operationList) {
@@ -152,11 +152,11 @@ open class OperationDaoTest : ITest {
         accountDao.insert(account2)
 
         val operationList = listOf(
-            Operation(accountA.id, TestData.nov_02_2020 , category.id,4000),
-            Operation(accountA.id, TestData.march_15_2021 , category.id,2100),
-            Operation(accountB.id, TestData.nov_03_2020 , category.id,2000, "in another account"),
-            Operation(accountA.id, TestData.march_02_2021 , category.id,3000),
-            Operation(account2.id, TestData.nov_02_2020 , category2.id,4000, "not in the right budget"),
+            Operation(accountA.id, TestData.nov_02_2020, category.id, 4000, 1),
+            Operation(accountA.id, TestData.march_15_2021, category.id, 2100, 2),
+            Operation(accountB.id, TestData.nov_03_2020, category.id, 2000, 3, "in another account"),
+            Operation(accountA.id, TestData.march_02_2021, category.id, 3000, 4),
+            Operation(account2.id, TestData.nov_02_2020, category2.id, 4000, 5, "not in the right budget"),
         )
         for (operation in operationList) {
             operationDao.insert(operation)
@@ -192,10 +192,10 @@ open class OperationDaoTest : ITest {
         accountDao.insert(account2)
 
         val operationList = listOf(
-            Operation(accountA.id, TestData.nov_02_2020 , category.id,4000),
-            Operation(accountB.id, TestData.nov_03_2020 , category.id,2000, "in another account"),
-            Operation(accountA.id, TestData.march_02_2021 , category.id,3000),
-            Operation(account2.id, TestData.nov_02_2020 , category2.id,4000, "not in the right budget"),
+            Operation(accountA.id, TestData.nov_02_2020, category.id, 4000, 1),
+            Operation(accountB.id, TestData.nov_03_2020, category.id, 2000, 2, "in another account"),
+            Operation(accountA.id, TestData.march_02_2021, category.id, 3000, 3),
+            Operation(account2.id, TestData.nov_02_2020, category2.id, 4000, 4, "not in the right budget"),
         )
         for (operation in operationList) {
             operationDao.insert(operation)
@@ -237,12 +237,12 @@ open class OperationDaoTest : ITest {
         accountDao.insert(account2)
 
         val operationList = listOf(
-            Operation(accountA.id, TestData.nov_02_2020 , category.id,4000),
-            Operation(accountB.id, TestData.nov_03_2020 , Category.INCOME_ID,2000, "income"),
-            Operation(accountA.id, TestData.nov_03_2020 , Category.TRANSFERT_ID,- 3000, "transfert to B"),
-            Operation(accountB.id, TestData.nov_03_2020 , Category.TRANSFERT_ID,3000, "transfert from A"),
-            Operation(accountB.id, TestData.march_02_2021 , category.id,5600, "again"),
-            Operation(account2.id, TestData.nov_02_2020 , category2.id,4000, "not in the right budget"),
+            Operation(accountA.id, TestData.nov_02_2020, category.id, 4000, 1),
+            Operation(accountB.id, TestData.nov_03_2020, Category.INCOME_ID, 2000, 2, "income"),
+            Operation(accountA.id, TestData.nov_03_2020, Category.TRANSFERT_ID, - 3000, 3, "transfert to B"),
+            Operation(accountB.id, TestData.nov_03_2020, Category.TRANSFERT_ID, 3000, 4, "transfert from A"),
+            Operation(accountB.id, TestData.march_02_2021, category.id, 5600, 5, "again"),
+            Operation(account2.id, TestData.nov_02_2020, category2.id, 4000, 6, "not in the right budget"),
         )
         for (operation in operationList) {
             operationDao.insert(operation)

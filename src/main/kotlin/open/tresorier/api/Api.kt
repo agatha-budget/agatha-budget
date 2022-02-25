@@ -273,9 +273,9 @@ fun main() {
         //required
         val user = getUserFromAuth(ctx)
         val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        val day : Day = getQueryParam<Int>(ctx, "day").let {Day.createFromComparable(it)}
 
         //optional
-        val day : Day? = getOptionalQueryParam<Int>(ctx, "day")?.let {Day.createFromComparable(it)}
         val category: Category? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
             ServiceManager.categoryService.getById(user, it)
         }
@@ -290,12 +290,13 @@ fun main() {
         //required
         val user = getUserFromAuth(ctx)
         val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
-
+    
         //optional
         val account: Account? = getOptionalQueryParam<String>(ctx, "new_account_id")?.let{
             ServiceManager.accountService.getById(user, it)
         }
         val day : Day? = getOptionalQueryParam<Int>(ctx, "new_day")?.let {Day.createFromComparable(it)}
+
         val category: Category? = getOptionalQueryParam<String>(ctx, "new_category_id")?.let{
             ServiceManager.categoryService.getById(user, it)
         }
