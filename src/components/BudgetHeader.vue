@@ -4,8 +4,8 @@
             <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
             <div class="col-8 date-label" :class="this.toBeBudgetedClass()">
                 <p class="month">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
-                <p class="toBeBudgeted" v-if="this.money > 0"> {{ money }} € {{$t('TO_BE_BUDGETED')}}</p>
-                <p class="toBePulledOut" v-else-if="this.money < 0"> {{ -1*money }} € {{$t('TO_BE_PULLED_OUT')}}</p>
+                <p class="toBeBudgeted" v-if="this.money > 0"> {{ addSpacesInThousand(money) }} € {{$t('TO_BE_BUDGETED')}}</p>
+                <p class="toBePulledOut" v-else-if="this.money < 0"> {{ addSpacesInThousand(-1 * money) }} € {{$t('TO_BE_PULLED_OUT')}}</p>
             </div>
             <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
         </div>
@@ -19,9 +19,9 @@
             <tbody>
                 <tr>
                     <td class="name"><div>{{ $t("TOTAL") }}</div></td>
-                    <td class="allocated">{{ totalAllocated }}</td>
-                    <td class="spent">{{ totalSpent }}</td>
-                    <td class="available">{{ totalAvailable }}</td>
+                    <td class="allocated">{{ addSpacesInThousand(totalAllocated) }}</td>
+                    <td class="spent">{{ addSpacesInThousand(totalSpent) }}</td>
+                    <td class="available">{{ addSpacesInThousand(totalAvailable) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -96,6 +96,9 @@ export default defineComponent({
       } else {
         return 'null'
       }
+    },
+    addSpacesInThousand (number: number): string {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     }
   }
 })
