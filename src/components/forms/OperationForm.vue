@@ -10,6 +10,7 @@
         :searchable="true"
         :options="categories"
         :noResultsText="$t('NO_RESULT_FOUND')"
+        :placeholder="$t('SELECT_CATEGORY')"
       />
     </div>
     <div class="memoTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("MEMO") }}</div>
