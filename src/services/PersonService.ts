@@ -39,10 +39,12 @@ export default class PersonService {
     }
   }
 
-  public static async redirectToBillingPortalUrl () {
+  public static async redirectToBillingPortalUrl (selectedPackage?: string) {
     try {
-      const billingPortalUrl = (await (personApi.createBillingPortalSession())).data
-      window.location.href = billingPortalUrl
+      if (selectedPackage) {
+        const billingPortalUrl = (await (personApi.createBillingPortalSession(selectedPackage))).data
+        window.location.href = billingPortalUrl
+      }
     } catch (exception) {
       if (axios.isAxiosError(exception)) {
         alert(exception.response?.data)

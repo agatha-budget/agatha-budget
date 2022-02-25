@@ -1,27 +1,40 @@
 <template>
   <div id="profile_page" :class="this.$store.state.css">
-    <h1>Profil utilisateur</h1>
-    <h3>Cette page est encore en construction</h3>
-    <p>Si vous avez été redirigé automatiquement ici, c'est que votre abonnement n'est pas à jour</p>
-    <p><a class="teamSelector" v-on:click="goToBillingPortal">{{$t('BILLING_MANAGEMENT')}}</a></p>
-
-    <div v-if="profileTest == 'user'">
+    <div v-if="profileTest == 'user'" class="user">
       <p>Vous êtes un particulier et vous cherchez à renouveler votre abonnement</p>
-      <button v-on:click="goToUserBillingPortal">intégral annuel</button>
-      <button v-on:click="goToUserBillingPortal">intégral mensuel</button>
-      <button v-on:click="goToUserBillingPortal">essentiel annuel</button>
-      <button v-on:click="goToUserBillingPortal">essentiel mensuel</button>
+      <div class="essentiel">
+        <h1>Essentiel</h1>
+        <div class="icon-plane" />
+        <p>1 mois d'essai offert Un support individuel selon nos disponibilités </p>
+        <button v-on:click="this.goToUserBillingPortal('MONTHLY_ESSENTIAL')">6€/mois sans engagement</button>
+        <button v-on:click="this.goToUserBillingPortal('ANNUAL_ESSENTIAL')">60€/an soit 5€/mois</button>
+      </div>
+      <div class="integral">
+        <h1>Intégral</h1>
+        <div class="icon-paper-plane" />
+        <p>1 mois d'essai offert Les fonctionnalités en avant-première Un support individuel prioritaire </p>
+        <button v-on:click="this.goToUserBillingPortal('MONTHLY_INTEGRAL')">10€/mois sans engagement</button>
+        <button v-on:click="this.goToUserBillingPortal('ANNUAL_INTEGRAL')">96€/an soit 8€/mois</button>
+      </div>
       <p>Si vous êtes en difficulté vous pouvez bénéficier de notre programme solidaire, contactez-nous pour obtenir l'offre</p>
     </div>
-    <div v-if="profileTest == 'company'">
-      <p>Vous êtes un professionel et vous cherchez à renouveler votre abonnement</p>
-      <button v-on:click="goToProfessionalBillingPortal">annuel</button>
-      <button v-on:click="goToProfessionalBillingPortal">mensuel</button>
-      <p>Vous ne savez pas par quel bout commencer pour gérer vous finances ? bénéficiez de nos séances de coaching</p>
-      <button v-on:click="goToProfessionalBillingPortal">coaching 1h</button>
-      <button v-on:click="goToProfessionalBillingPortal">coaching 5h</button>
-      <p>Si vous souhaitez ouvrir un compte Agatha-budget pour vos finances personnelles vous avez le droit à un réduction, contactez-nous pour en savoir plus</p>
+    <div v-if="profileTest == 'company'" class="company">
+      <p>Vous êtes un professionel et vous cherchez à renouveler votre abonnement ou prendre des séances de coaching</p>
+      <div class="subscription">
+        <h1>Entreprise</h1>
+        <p>1 mois d'essai offert Toutes les fonctionnalités Un support individuel prioritaire</p>
+        <button v-on:click="this.goToProfessionalBillingPortal('MONTHLY_COMPANY')">8€/mois HT sans engagement</button>
+        <button v-on:click="this.goToProfessionalBillingPortal('ANNUAL_COMPANY')">84€/an HT soit 7€/mois HT</button>
+      </div>
+      <div class="coaching">
+        <h1>Accompagnement individuel</h1>
+        <p>Votre rapport à l'argent est complexe et devient un frein à votre projet ? Nous pouvons vous aider</p>
+        <button disabled>45€/heure HT sans engagement</button>
+        <button disabled>200€ pour 5h soit 40€/heure HT </button>
+      </div>
+      <p>Si vous souhaitez ouvrir un compte Agatha-budget pour vos finances personnelles vous avez le droit à une réduction, contactez-nous pour en savoir plus</p>
     </div>
+
     <button v-on:click="changerProfileTest">changer de profil</button>
     <NavMenu :page="'profile'" />
   </div>
@@ -57,13 +70,15 @@ export default defineComponent({
       PersonService.deleteSession(this.$store)
     },
 
-    async goToProfessionalBillingPortal (): Promise<void> {
+    async goToProfessionalBillingPortal (selectedPackage: string): Promise<void> {
       console.log(this.profile)
-      // PersonService.redirectToBillingPortalUrl()
+      console.log(selectedPackage)
+      PersonService.redirectToBillingPortalUrl(selectedPackage)
     },
-    async goToUserBillingPortal (): Promise<void> {
+    async goToUserBillingPortal (selectedPackage: string): Promise<void> {
       console.log(this.profile)
-      // PersonService.redirectToBillingPortalUrl()
+      console.log(selectedPackage)
+      PersonService.redirectToBillingPortalUrl(selectedPackage)
     },
 
     changerProfileTest () {
