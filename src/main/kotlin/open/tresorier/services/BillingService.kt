@@ -18,6 +18,7 @@ import open.tresorier.utils.Properties
 import open.tresorier.utils.Time
 import open.tresorier.model.Person
 import open.tresorier.exception.*
+import open.tresorier.model.enum.PriceIdEnum
 
 
 class BillingService(private val personService: PersonService) {
@@ -80,10 +81,10 @@ class BillingService(private val personService: PersonService) {
     }
 
     companion object {
-        fun createNewUserBillingSession(person: Person): String {
+        fun createNewUserBillingSession(person: Person, selectedPackage: PriceIdEnum): String {
             setStripeApiKey()
             val properties = Properties.getProperties()
-            val priceId: String = properties.getProperty("price_id")
+            val priceId: String = properties.getProperty(selectedPackage.toString())
             val taxId: String = properties.getProperty("tax_id")
             val succesUrl: String = properties.getProperty("succesUrl")
             val cancelUrl: String = properties.getProperty("cancelUrl")
