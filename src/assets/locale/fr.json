@@ -58,7 +58,8 @@
     "CHOOSE_PROFILE": "choisissez votre profil",
     "COMPANY": "entreprise",
     "USER": "particulier",
-    "COMUNITY": "communauté",
+    "COMMUNITY": "communauté",
     "APPEARANCE": "apparence",
-    "FREE_RESOURCE": "resource gratuite"
+    "FREE_RESOURCE": "ressource gratuite",
+    "LASTNAME_FIRSTNAME": "nom prénom"
 }
