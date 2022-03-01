@@ -1,49 +1,65 @@
 <template>
   <div :class="this.$store.state.css">
-    <div id="subscritionPage">
+    <div id="subcriptionPage" class="col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 col-xxl-4 offset-xxl-4">
       <div v-if="profileTest == 'user'" class="user">
-        <p>Vous êtes un particulier et vous cherchez à renouveler votre abonnement</p>
-        <div class="essentiel">
-          <h1 class="title">{{ $t('ESSENTIAL') }}</h1>
-          <div class="icon icon-plane" />
-          <p>Un support individuel selon nos disponibilités </p>
-          <button class="btnSubscrition" v-on:click="this.goToBillingPortal('MONTHLY_ESSENTIAL')">6€/mois</button>
-          <button class="btnSubscrition" v-on:click="this.goToBillingPortal('ANNUAL_ESSENTIAL')">60€/an</button>
+        <p class="col-12">{{ $t('TEXT_1_MONTH_FREE') }}</p>
+        <div class="essential row">
+          <h1 class="title col-12">{{ $t('ESSENTIAL') }}</h1>
+          <div class="icon icon-plane col-12" />
+          <p class=" col-12">{{ $t('TEXT_ESSENTIAL') }}</p>
+          <div class="btnSubscription col-6">
+            <button v-on:click="this.goToBillingPortal('MONTHLY_ESSENTIAL')">{{ $t('PRICE_MONTHLY_ESSENTIAL') }}</button>
+          </div>
+          <div class="btnSubscription col-6">
+            <button v-on:click="this.goToBillingPortal('ANNUAL_ESSENTIAL')">{{ $t('PRICE_ANNUAL_ESSENTIAL') }}</button>
+          </div>
         </div>
         <div class="integral">
-          <h1 class="title">{{ $t('INTEGRAL') }}</h1>
-          <div class="icon icon-paper-plane" />
-          <p>Les fonctionnalités en avant-première Un support individuel prioritaire </p>
-          <button class="btnSubscrition" v-on:click="this.goToBillingPortal('MONTHLY_INTEGRAL')">10€/mois</button>
-          <button class="btnSubscrition" v-on:click="this.goToBillingPortal('ANNUAL_INTEGRAL')">96€/an</button>
+          <h1 class="title col-12">{{ $t('INTEGRAL') }}</h1>
+          <div class="icon icon-paper-plane col-12" />
+          <p class="col-12">{{ $t('TEXT_INTEGRAL') }}</p>
+          <div class="btnSubscription col-6">
+            <button v-on:click="this.goToBillingPortal('MONTHLY_INTEGRAL')">{{ $t('PRICE_MONTHLY_INTEGRAL') }}</button>
+          </div>
+          <div class="btnSubscription col-6">
+            <button v-on:click="this.goToBillingPortal('ANNUAL_INTEGRAL')">{{ $t('PRICE_ANNUAL_INTEGRAL') }}</button>
+          </div>
         </div>
-        <p>Si vous êtes en difficulté vous pouvez bénéficier de notre programme solidaire, contactez-nous pour obtenir l'offre</p>
+        <p class="col-12">{{ $t('TEXT_FOR_USER') }}</p>
       </div>
       <div v-if="profileTest == 'company'" class="company">
-        <p>Vous êtes un professionnel et vous cherchez à renouveler votre abonnement ou prendre des séances de coaching</p>
+        <p class="col-12">{{ $t('TEXT_1_MONTH_FREE') }}</p>
         <div class="subscription">
-          <h1 class="title">{{ $t('COMPANY') }}</h1>
-          <div class="icon icon-paper-clip" />
-          <p>Toutes les fonctionnalités Un support individuel prioritaire</p>
-          <button class="btnSubscrition" v-on:click="this.goToBillingPortal('MONTHLY_COMPANY')">8€/mois HT sans engagement</button>
-          <button class="btnSubscrition" v-on:click="this.goToBillingPortal('ANNUAL_COMPANY')">84€/an HT soit 7€/mois HT</button>
+          <h1 class="title col-12">{{ $t('COMPANY') }}</h1>
+          <div class="icon icon-paper-clip col-12" />
+          <p class="col-12">{{ $t('TEXT_COMPANY') }}</p>
+          <div class="btnSubscription col-6">
+            <button v-on:click="this.goToBillingPortal('MONTHLY_COMPANY')">{{ $t('PRICE_MONTHLY_COMPANY') }}</button>
+          </div>
+          <div class="btnSubscription col-6">
+            <button v-on:click="this.goToBillingPortal('ANNUAL_COMPANY')">{{ $t('PRICE_ANNUAL_COMPANY') }}</button>
+          </div>
         </div>
         <div class="coaching">
-          <h1 class="title">{{ $t('PERSONAL_SUPPORT') }}</h1>
-          <div class="icon icon-compass" />
-          <p>Votre rapport à l'argent est complexe et devient un frein à votre projet ? Nous pouvons vous aider</p>
-          <button class="btnSubscrition disabled">1h -> 45€</button>
-          <button class="btnSubscrition disabled">5h -> 200€</button>
+          <h1 class="title col-12">{{ $t('PERSONAL_SUPPORT') }}</h1>
+          <div class="icon icon-compass col-12" />
+          <p class="col-12">{{ $t('TEXT_PERSONAL_SUPPORT') }}</p>
+          <div class="btnSubscription disabled col-6">
+            <button>{{ $t('PRICE_COACHING_1H') }}</button>
+          </div>
+          <div class="btnSubscription disabled col-6">
+            <button>{{ $t('PRICE_COACHING_5H') }}</button>
+          </div>
         </div>
-        <p>Si vous souhaitez ouvrir un compte Agatha-budget pour vos finances personnelles vous avez le droit à une réduction, contactez-nous pour en savoir plus</p>
+        <p class="col-12">{{ $t('TEXT_FOR_COMPANY') }}</p>
+      </div>
+      <!-- <button v-on:click="changerProfileTest">changer de profil</button> -->
+      <div class="placeholderBottom"/>
+      <div class="navigationMenu">
+        <NavMenu/>
       </div>
     </div>
-
-    <div class="navMenu">
-      <NavMenu/>
-    </div>
   </div>
-  <button v-on:click="changerProfileTest">changer de profil</button>
 </template>
 
 <script lang="ts">

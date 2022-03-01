@@ -70,5 +70,20 @@
     "NO_RESULT_FOUND" : "pas de résultat",
     "ESSENTIAL": "essentiel",
     "INTEGRAL": "intégral",
-    "PERSONAL_SUPPORT": "accompagnement personnel"
+    "PERSONAL_SUPPORT": "accompagnement personnel",
+    "TEXT_FOR_USER": "Si vous êtes en difficulté financière, vous pouvez bénéficier de notre programme solidaire, contactez-nous pour en savoir plus",
+    "TEXT_FOR_COMPANY": "Si vous souhaitez ouvrir un compte Agatha-Budget pour vos finances personnelles vous avez le droit à une réduction, contactez-nous pour en savoir plus",
+    "TEXT_1_MONTH_FREE": "Tous nos forfaits incluent un mois d'essai offert",
+    "TEXT_ESSENTIAL": "Votre budget au plus simple",
+    "TEXT_INTEGRAL": "Bénéficiez de toutes les fonctionnalités et d'un support individuel prioritaire",
+    "TEXT_COMPANY": "Toutes les fonctionnalités pour vous aidez à mieux gérer les finances de votre entreprise",
+    "TEXT_PERSONAL_SUPPORT": "Votre rapport à l'argent est complexe et devient un frein à votre projet ? Nous pouvons vous aider",
+    "PRICE_MONTHLY_ESSENTIAL": "6€/mois",
+    "PRICE_ANNUAL_ESSENTIAL": "60€/an",
+    "PRICE_MONTHLY_INTEGRAL": "10€/mois",
+    "PRICE_ANNUAL_INTEGRAL": "96€/an",
+    "PRICE_MONTHLY_COMPANY": "8€/mois HT",
+    "PRICE_ANNUAL_COMPANY": "84€/an HT",
+    "PRICE_COACHING_1H": "1h -> 45€ HT",
+    "PRICE_COACHING_5H": "5h -> 200€ HT"
 }

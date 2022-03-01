@@ -1,31 +1,81 @@
 #subcriptionPage {
-    background-color: @background;
-    .user .company{
+    overflow-y: hidden;
+    .user, .company{
         background-color: white;
-        .essentiel .integral .subscrition .coaching {
+        text-align: center;
+        .essential, .integral, .subscription, .coaching {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 20px;
             color: black;
             background-color: @buttonBackColor;
             display: flex;
             flex-wrap: wrap;
+            text-align: center;
             .title {
                 color: @actionColor;
                 font-weight: bold;
                 text-align: center;
                 text-transform: capitalize;
             }
-            .btnSubscrition {
-                background: @actionColor;
-                color: white;
-                text-align: center;
-                border-radius: 6px;
-                min-width: 15Opx;
-                height: 30px;
+            p {
+                margin-bottom: 2px;
+            }
+            .btnSubscription {
                 padding: 0;
+                background: @actionColor;
+                border-radius: 10px;
+                text-align: center;
+                border: 1px solid @buttonBackColor;
+                button {
+                    border: 1px solid transparent;
+                    text-decoration: none;
+                    background: @actionColor;
+                    color: white;
+                }
             }
             .disabled {
                 background-color: @darkBlue;
-                color: grey;
+                color: lightgray;
+                button {
+                    border: 1px solid transparent;
+                    text-decoration: none;
+                    background: @darkBlue;
+                    color: white;
+                }
             }
+        }
+    }
+
+    // computer version
+    @media (min-width: 576px) {
+        .user, .company {
+            margin-top: 20px;
+            border-radius: 28px;
+            padding: 15px;
+            .essential, .integral, .company, .coaching {
+                p {
+                    padding-bottom: 15px;
+                }
+            }
+        }
+    }
+    // phone version
+    @media (max-width: 576px) {
+        .user, .company {
+            padding: 10px 10px 5px;
+        }
+        .placeholderBottom {
+            background-color: white;
+            height: 82px;
+        }
+        .navigationMenu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-top: solid 1px whitesmoke;
         }
     }
 }
