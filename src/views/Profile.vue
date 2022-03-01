@@ -35,8 +35,6 @@
           </li>
       </div>
     </div>
-    <div class="navMenu">
-  <div id="profile_page" :class="this.$store.state.css">
     <div v-if="profileTest == 'user'" class="user">
       <p>Vous êtes un particulier et vous cherchez à renouveler votre abonnement</p>
       <div class="essentiel">
@@ -71,11 +69,12 @@
       </div>
       <p>Si vous souhaitez ouvrir un compte Agatha-budget pour vos finances personnelles vous avez le droit à une réduction, contactez-nous pour en savoir plus</p>
     </div>
+    </div>
 
-    <button v-on:click="changerProfileTest">changer de profil</button>
+    <div class="navMenu">
     <NavMenu :page="'profile'" />
     </div>
-  </div>
+    <button v-on:click="changerProfileTest">changer de profil</button>
 </template>
 
 <script lang="ts">
@@ -106,9 +105,6 @@ export default defineComponent({
     },
     async goToBillingPortal (): Promise<void> {
       PersonService.redirectToBillingPortalUrl()
-    },
-    logout () {
-      PersonService.deleteSession(this.$store)
     },
 
     async goToProfessionalBillingPortal (selectedPackage: string): Promise<void> {
