@@ -67,5 +67,8 @@
     "ACCOUNTS" : "comptes",
     "HOME" : "budget",
     "ENVELOPE" : "enveloppe",
-    "NO_RESULT_FOUND" : "pas de résultat"
+    "NO_RESULT_FOUND" : "pas de résultat",
+    "ESSENTIAL": "essentiel",
+    "INTEGRAL": "intégral",
+    "PERSONAL_SUPPORT": "accompagnement personnel"
 }

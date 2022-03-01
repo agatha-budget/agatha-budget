@@ -5,6 +5,7 @@ import Profile from '../views/Profile.vue'
 import Signup from '../views/Signup.vue'
 import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
 import AccountPage from '../views/AccountPage.vue'
+import Subscription from '../views/Subscription.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -16,6 +17,7 @@ export enum RouterPages {
   account = '/account',
   about = '/about',
   profile = '/profile',
+  subcription = '/subscription',
   redirectToAccountPage = '/redirectToAccountPage'
 }
 
@@ -39,6 +41,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.redirectToAccountPage,
     component: RedirectToAccountPage
+  },
+  {
+    path: RouterPages.subcription,
+    component: Subscription
   },
   {
     path: RouterPages.account,
