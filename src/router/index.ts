@@ -17,7 +17,7 @@ export enum RouterPages {
   account = '/account',
   about = '/about',
   profile = '/profile',
-  subcription = '/subscription',
+  subscription = '/subscription',
   redirectToAccountPage = '/redirectToAccountPage'
 }
 
@@ -43,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
     component: RedirectToAccountPage
   },
   {
-    path: RouterPages.subcription,
+    path: RouterPages.subscription,
     component: Subscription
   },
   {

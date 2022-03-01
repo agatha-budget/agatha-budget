@@ -9,7 +9,7 @@
         <li>
             <ul>
               <a class="buttonProfile" v-on:click="goSubscriptionPage"><div class="icone fas fa-credit-card"></div>{{
-                $t("SUBCRIPTION")
+                $t("SUBSCRIPTION")
               }}</a>
             </ul>
             <ul>
@@ -62,7 +62,7 @@ export default defineComponent({
       PersonService.deleteSession(this.$store)
     },
     goSubscriptionPage () {
-      router.push(RouterPages.subcription)
+      router.push(RouterPages.subscription)
     }
   }
 })
