@@ -70,7 +70,7 @@ export default defineComponent({
     this.getBudgetData()
   },
   watch: {
-    account: async function () {
+    accounts: async function () {
       this.getBudgetData()
     },
     budget: async function () {

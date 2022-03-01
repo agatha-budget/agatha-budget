@@ -23,7 +23,7 @@
                 {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
               </div>
               <div class="amount col-3 offset-2 col-sm-2" :class="this.getClassDependingOnAmount(operation)">
-                {{ this.getEurosAmount(operation.amount) }} €
+                {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
               </div>
               <div class="action col-1 offset-1 offset-sm-2">
                 <button class="btn fas fa-pen"/>
@@ -35,9 +35,7 @@
           <div class="placeholderBottom"/>
         </div>
       </div>
-      <div class="btnInAccountPage">
-        <NavMenu />
-      </div>
+      <NavMenu :page="'accounts'" class="btnInAccountPage" />
     </div>
   </div>
 </template>
@@ -101,8 +99,9 @@ export default defineComponent({
       }
       return null
     },
-    totalAccount (): number {
-      return this.account == null ? 0 : this.getEurosAmount(this.account.amount)
+    totalAccount (): string {
+      const value = this.account == null ? 0 : this.getEurosAmount(this.account.amount)
+      return this.addSpacesInThousand(value)
     }
   },
   emits: ['loosesFocus'],
@@ -154,6 +153,9 @@ export default defineComponent({
       } else {
         return 'negative'
       }
+    },
+    addSpacesInThousand (number: number): string {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     }
   }
 })
