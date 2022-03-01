@@ -39,6 +39,29 @@ export default class PersonService {
     }
   }
 
+  public static async getPerson () {
+    try {
+      const person = (await personApi.getPerson()).data
+      console.log(person)
+    } catch (exception) {
+      if (axios.isAxiosError(exception)) {
+        alert(exception.response?.data)
+      }
+    }
+  }
+
+  public static async rename (newName: string) {
+    await personApi.updatePerson(newName)
+  }
+
+  public static async changeStyle (newStyle: string) {
+    await personApi.updatePerson(undefined, newStyle)
+  }
+
+  public static async changeDyslexia (newDyslexia: boolean) {
+    await personApi.updatePerson(undefined, undefined, newDyslexia)
+  }
+
   public static async redirectToBillingPortalUrl (selectedPackage?: string) {
     try {
       if (selectedPackage) {
