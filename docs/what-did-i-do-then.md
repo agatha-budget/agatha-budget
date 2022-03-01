@@ -10,7 +10,7 @@
 *how often* : once for moment
 
 --------------
-
+## Bug description
 *how long* : 10 min
 
 *what happened* : error 500 & error 400 "This connection has been closed" but data base accessible for dbeaver
@@ -22,7 +22,7 @@
 *how often* : one
 
 --------------
-
+## Bug description
 *how long* :
 
 *what happened* :
