@@ -3,12 +3,12 @@
     .user, .company{
         background-color: white;
         text-align: center;
-        .essential, .integral, .subscription, .coaching {
+        .essential, .integral, .solidarity, .businessSide, .personalSide, .coaching {
             margin: 5px 0;
             padding: 10px;
             border-radius: 20px;
             color: black;
-            background-color: @buttonBackColor;
+            background-color: @dateColor;
             display: flex;
             flex-wrap: wrap;
             text-align: center;
@@ -23,16 +23,16 @@
                 text-transform: capitalize;
             }
             p {
-                margin-bottom: 2px;
+                text-align: center;
             }
             .btnSubscription {
                 padding: 0;
                 text-align: center;
                 button {
                     border-radius: 10px;
-                    border: 1px solid @actionColor;
+                    border: 1px solid @headerColor;
                     text-decoration: none;
-                    background: @actionColor;
+                    background: @headerColor;
                     color: white;
                     width: 99%;
                 }
@@ -52,12 +52,12 @@
     // computer version
     @media (min-width: 576px) {
         .user, .company {
-            margin-top: 20px;
+            margin-top: 10px;
             border-radius: 28px;
             padding: 15px;
-            .essential, .integral, .company, .coaching {
+            .essential, .integral, .solidarity, .businessSide, .personalSide, .coaching {
                 p {
-                    padding-bottom: 15px;
+                    padding-bottom: 10px;
                 }
             }
         }
