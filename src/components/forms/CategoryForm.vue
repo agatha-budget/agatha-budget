@@ -39,7 +39,7 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['loosesFocus'],
+  emits: ['loosesFocus', 'emptyEnvelope'],
   methods: {
     updateCategory () {
       CategoryService.updateCategory(this.category.id, this.name).then(
@@ -50,6 +50,7 @@ export default defineComponent({
       )
     },
     archiveCategory () {
+      this.$emit('emptyEnvelope', this.category.id)
       CategoryService.archiveCategory(this.category.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)

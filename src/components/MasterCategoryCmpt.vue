@@ -22,12 +22,12 @@
     <tr class="category" v-for="category of this.categories" :key="category">
       <td class="name">
         <div>
-          <CategoryForm v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus"/>
+          <CategoryForm v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus" @empty-envelope="emptyEnvelope"/>
           <a class="editable-category" v-else v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="btn fas fa-pen"/></a>
         </div>
       </td>
       <td class="allocated">
-        <span v-if="archived">{{ this.categoryDataList[category.id]?.allocated ?? "" }}</span>
+        <span v-if="archived">{{ getEurosAmount(this.categoryDataList[category.id]?.allocated ?? "") }}</span>
         <input v-else type="number" class="allocationInput"
         :value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
         v-on:change="updateAllocationOnChange(category.id, $event.target.value)"
@@ -61,7 +61,7 @@ export default defineComponent({
     CategoryForm,
     MasterCategoryForm
   },
-  emits: ['updateAllocation'],
+  emits: ['updateAllocation', 'emptyCategory'],
   props: {
     masterCategory: {
       type: Object as () => MasterCategory,
@@ -115,6 +115,9 @@ export default defineComponent({
     },
     loosesFocus () {
       this.focusOn = ''
+    },
+    emptyEnvelope (categoryId: string) {
+      this.$emit('emptyCategory', categoryId)
     },
     addSpacesInThousand (number: number): string {
       return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')

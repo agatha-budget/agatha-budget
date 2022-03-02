@@ -10,7 +10,7 @@
           <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
         </div>
         <table class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
-          <master-category-cmpt @update-allocation="updateAllocation" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" />
+          <master-category-cmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" />
         </table>
         <div class="budget-tools">
           <div><span type="button" v-on:click="this.createMasterCategory()"> > {{ $t("ADD_MASTER_CATEGORY") }}</span></div>
@@ -23,7 +23,7 @@
         <div v-if="this.archiveVisible" id="archive_section" >
           <div class="title">{{ $t("ARCHIVE") }}</div>
           <table class="budgetArchiveTable table" v-for="masterCategory in this.$store.state.masterCategories" :key="masterCategory" >
-            <master-category-cmpt @update-allocation="updateAllocation" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :archived="true" />
+            <master-category-cmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :archived="true" />
           </table>
         </div>
         <div class="placeholderBottom"></div>
@@ -195,6 +195,12 @@ export default defineComponent({
           }
         )
       }
+    },
+    emptyCategory (categoryId: string) {
+      const amountToregulate = this.categoryDataList[categoryId].available
+      this.categoryDataList[categoryId].available = 0
+      const oldAllocated = this.categoryDataList[categoryId].allocated
+      this.categoryDataList[categoryId].allocated = oldAllocated - amountToregulate
     }
   }
 })
