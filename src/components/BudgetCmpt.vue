@@ -197,10 +197,12 @@ export default defineComponent({
       }
     },
     emptyCategory (categoryId: string) {
-      const amountToregulate = this.categoryDataList[categoryId].available
-      this.categoryDataList[categoryId].available = 0
-      const oldAllocated = this.categoryDataList[categoryId].allocated
-      this.categoryDataList[categoryId].allocated = oldAllocated - amountToregulate
+      if (this.categoryDataList[categoryId].available !== 0) {
+        this.categoryDataList[categoryId].allocated -= this.categoryDataList[categoryId].available
+        this.formerAllocations[categoryId] -= this.categoryDataList[categoryId].available
+        this.categoryDataList[categoryId].available = 0
+        AllocationService.updateAllocation(this.budgetMonth, categoryId, this.formerAllocations[categoryId])
+      }
     }
   }
 })
