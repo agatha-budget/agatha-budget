@@ -210,6 +210,15 @@ paths:
         - Person
       summary: get billing portal URL, new subscription if not subscribed, billing management if already subscribed
       operationId: createBillingPortalSession
+      parameters:
+      - name: package
+        in: query
+        description: chosen package
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: Billing Session created
@@ -1095,11 +1104,14 @@ components:
       required:
       - id
       - name
+      - profile
       type: object
       properties:
         id:
           type: string
         name:
+          type: string
+        profile:
           type: string
         isDefault:
           type: boolean
