@@ -12,6 +12,7 @@ import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.main.tables.MasterCategory;
 import open.tresorier.generated.jooq.main.tables.Operation;
 import open.tresorier.generated.jooq.main.tables.Person;
+import open.tresorier.generated.jooq.main.tables.PostIt;
 import open.tresorier.generated.jooq.main.tables.records.AccountRecord;
 import open.tresorier.generated.jooq.main.tables.records.AllocationRecord;
 import open.tresorier.generated.jooq.main.tables.records.BudgetRecord;
@@ -20,6 +21,7 @@ import open.tresorier.generated.jooq.main.tables.records.FlywaySchemaHistoryReco
 import open.tresorier.generated.jooq.main.tables.records.MasterCategoryRecord;
 import open.tresorier.generated.jooq.main.tables.records.OperationRecord;
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord;
+import open.tresorier.generated.jooq.main.tables.records.PostItRecord;
 
 import org.jooq.ForeignKey;
 import org.jooq.TableField;
@@ -53,6 +55,7 @@ public class Keys {
     public static final UniqueKey<PersonRecord> PERSON_PKEY = UniqueKeys0.PERSON_PKEY;
     public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = UniqueKeys0.PERSON_EMAIL_KEY;
     public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = UniqueKeys0.PERSON_BILLING_ID_KEY;
+    public static final UniqueKey<PostItRecord> DOUBLE_KEY = UniqueKeys0.DOUBLE_KEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -65,6 +68,7 @@ public class Keys {
     public static final ForeignKey<MasterCategoryRecord, BudgetRecord> MASTER_CATEGORY__MASTER_CATEGORY_BUDGET_ID_FKEY = ForeignKeys0.MASTER_CATEGORY__MASTER_CATEGORY_BUDGET_ID_FKEY;
     public static final ForeignKey<OperationRecord, AccountRecord> OPERATION__OPERATION_ACCOUNT_ID_FKEY = ForeignKeys0.OPERATION__OPERATION_ACCOUNT_ID_FKEY;
     public static final ForeignKey<OperationRecord, CategoryRecord> OPERATION__OPERATION_CATEGORY_ID_FKEY = ForeignKeys0.OPERATION__OPERATION_CATEGORY_ID_FKEY;
+    public static final ForeignKey<PostItRecord, BudgetRecord> POST_IT__POST_IT_BUDGET_ID_FKEY = ForeignKeys0.POST_IT__POST_IT_BUDGET_ID_FKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -81,6 +85,7 @@ public class Keys {
         public static final UniqueKey<PersonRecord> PERSON_PKEY = Internal.createUniqueKey(Person.PERSON, "person_pkey", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = Internal.createUniqueKey(Person.PERSON, "person_email_key", new TableField[] { Person.PERSON.EMAIL }, true);
         public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = Internal.createUniqueKey(Person.PERSON, "person_billing_id_key", new TableField[] { Person.PERSON.BILLING_ID }, true);
+        public static final UniqueKey<PostItRecord> DOUBLE_KEY = Internal.createUniqueKey(PostIt.POST_IT, "double_key", new TableField[] { PostIt.POST_IT.BUDGET_ID, PostIt.POST_IT.MONTH }, true);
     }
 
     private static class ForeignKeys0 {
@@ -91,5 +96,6 @@ public class Keys {
         public static final ForeignKey<MasterCategoryRecord, BudgetRecord> MASTER_CATEGORY__MASTER_CATEGORY_BUDGET_ID_FKEY = Internal.createForeignKey(Keys.BUDGET_PKEY, MasterCategory.MASTER_CATEGORY, "master_category_budget_id_fkey", new TableField[] { MasterCategory.MASTER_CATEGORY.BUDGET_ID }, true);
         public static final ForeignKey<OperationRecord, AccountRecord> OPERATION__OPERATION_ACCOUNT_ID_FKEY = Internal.createForeignKey(Keys.ACCOUNT_PKEY, Operation.OPERATION, "operation_account_id_fkey", new TableField[] { Operation.OPERATION.ACCOUNT_ID }, true);
         public static final ForeignKey<OperationRecord, CategoryRecord> OPERATION__OPERATION_CATEGORY_ID_FKEY = Internal.createForeignKey(Keys.CATEGORY_PKEY, Operation.OPERATION, "operation_category_id_fkey", new TableField[] { Operation.OPERATION.CATEGORY_ID }, true);
+        public static final ForeignKey<PostItRecord, BudgetRecord> POST_IT__POST_IT_BUDGET_ID_FKEY = Internal.createForeignKey(Keys.BUDGET_PKEY, PostIt.POST_IT, "post_it_budget_id_fkey", new TableField[] { PostIt.POST_IT.BUDGET_ID }, true);
     }
 }

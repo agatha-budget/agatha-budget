@@ -12,6 +12,7 @@ import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.test.public_.tables.MasterCategory;
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
 import open.tresorier.generated.jooq.test.public_.tables.Person;
+import open.tresorier.generated.jooq.test.public_.tables.PostIt;
 
 
 /**
@@ -59,4 +60,9 @@ public class Tables {
      * The table <code>PUBLIC.PERSON</code>.
      */
     public static final Person PERSON = Person.PERSON;
+
+    /**
+     * The table <code>PUBLIC.POST_IT</code>.
+     */
+    public static final PostIt POST_IT = PostIt.POST_IT;
 }

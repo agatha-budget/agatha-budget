@@ -15,6 +15,7 @@ import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.main.tables.MasterCategory;
 import open.tresorier.generated.jooq.main.tables.Operation;
 import open.tresorier.generated.jooq.main.tables.Person;
+import open.tresorier.generated.jooq.main.tables.PostIt;
 
 import org.jooq.Catalog;
 import org.jooq.Table;
@@ -27,7 +28,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 11991217;
+    private static final long serialVersionUID = 1411072772;
 
     /**
      * The reference instance of <code>public</code>
@@ -75,6 +76,11 @@ public class Public extends SchemaImpl {
     public final Person PERSON = Person.PERSON;
 
     /**
+     * The table <code>public.post_it</code>.
+     */
+    public final PostIt POST_IT = PostIt.POST_IT;
+
+    /**
      * No further instances allowed
      */
     private Public() {
@@ -97,6 +103,7 @@ public class Public extends SchemaImpl {
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             MasterCategory.MASTER_CATEGORY,
             Operation.OPERATION,
-            Person.PERSON);
+            Person.PERSON,
+            PostIt.POST_IT);
     }
 }
