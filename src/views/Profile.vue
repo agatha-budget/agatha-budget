@@ -8,8 +8,8 @@
          <h3 class="profilName">{{$t("LASTNAME_FIRSTNAME")}}</h3>
         <li>
             <ul>
-              <a class="buttonProfile" v-on:click="goToBillingPortal"><div class="icone fas fa-credit-card"></div>{{
-                $t("SUBCRIPTION")
+              <a class="buttonProfile" v-on:click="goSubscriptionPage"><div class="icone fas fa-credit-card"></div>{{
+                $t("SUBSCRIPTION")
               }}</a>
             </ul>
             <ul>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="navMenu">
-    <NavMenu :page="'profile'" />
+      <NavMenu :page="'profile'" />
     </div>
   </div>
 </template>
@@ -45,18 +45,24 @@
 import { defineComponent } from 'vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 import PersonService from '@/services/PersonService'
+import StoreHandler from '@/store/StoreHandler'
+import router, { RouterPages } from '@/router'
 
 export default defineComponent({
   name: 'profilePage',
-  components: {
-    NavMenu
+  components: { NavMenu },
+  created: async function () {
+    StoreHandler.initStore(this.$store)
+  },
+  data () {
+    return { }
   },
   methods: {
     logout () {
       PersonService.deleteSession(this.$store)
     },
-    async goToBillingPortal (): Promise<void> {
-      PersonService.redirectToBillingPortalUrl()
+    goSubscriptionPage () {
+      router.push(RouterPages.subscription)
     }
   }
 })
