@@ -4,7 +4,7 @@ class Operation (
         var accountId: String,
         var day: Day,
         var categoryId: String? = null,
-        var amount: Int = 0,
+        var amount: Int = 0,    // cents
         var orderInDay: Long,
         var memo: String? = null,
         id: String? = null,

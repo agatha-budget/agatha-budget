@@ -63,4 +63,71 @@ class OperationServiceTest : ITest {
         Assertions.assertTrue(orderInDayAtCreation < operationModified.orderInDay)
     }
 
-}
+    @Test
+    fun testOfxOperationDebit() {
+        val rosalind: Person = personService.createPerson(
+            "Rosalind Franklin", "Cliché_51", "rosalind@adn.uk", ProfileEnum.PROFILE_USER
+        )
+        rosalind.billingStatus = true
+        val budget: Budget = budgetService.findByUser(rosalind)[0]
+        val account: Account = accountService.create(
+            rosalind, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220114<TRNAMT>-536,50<FITID>2802202220220228-03.01.56.182263<NAME>PRIX LOUISA GROSS HORWITZ<MEMO>PRIX LOUISA GROSS HORWITZ</STMTTRN>"
+
+        val newOperation: Operation = operationService.createOperationFromOFX(rosalind, account, ofxDebitOperation)
+
+        Assertions.assertTrue(newOperation.day == TestData.jan_14_2022 && newOperation.amount == -53650 && newOperation.memo == "PRIX LOUISA GROSS HORWITZ")
+    }
+
+    @Test
+    fun testOfxOperationCredit() {
+        val ada: Person = personService.createPerson(
+            "Ada Lovelace", "Programme@1815", "ada@dev.uk", ProfileEnum.PROFILE_USER
+        )
+        ada.billingStatus = true
+        val budget: Budget = budgetService.findByUser(ada)[0]
+        val account: Account = accountService.create(
+            ada, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220114<TRNAMT>+89,50<FITID>2802202220220228-03.01.56.182263<NAME>VIR SEPA Babbage<MEMO>VIR SEPA Babbage</STMTTRN>"
+
+        val newOperation = operationService.createOperationFromOFX(ada, account, ofxDebitOperation)
+
+        Assertions.assertTrue(newOperation.day == TestData.jan_14_2022 && newOperation.amount == 8950 && newOperation.memo == "VIR SEPA Babbage")
+    }
+
+    @Test
+    fun testCuttingOperationsFromOfx() {
+        val irene: Person = personService.createPerson(
+            "Irène Joliot-Curie", "Nobel_1935", "irene@chimie.fr", ProfileEnum.PROFILE_USER
+        )
+        irene.billingStatus = true
+        val budget: Budget = budgetService.findByUser(irene)[0]
+        val account: Account = accountService.create(
+            irene, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        val ofxFile: String ="<OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:1252COMPRESSION:NONEOLDFILEUID:NONENEWFILEUID:NONE<OFX><SIGNONMSGSRSV1><SONRS><STATUS><CODE>0<SEVERITY>INFO</STATUS><DTSERVER>20220302<LANGUAGE>FRA<DTPROFUP>20220302<DTACCTUP>20220302</SONRS></SIGNONMSGSRSV1><BANKMSGSRSV1><STMTTRNRS><TRNUID>00<STATUS><CODE>0<SEVERITY>INFO</STATUS><STMTRS><CURDEF>EUR<BANKACCTFROM><BANKID>42559<BRANCHID>10000<ACCTID>04065601113<ACCTTYPE>SAVINGS</BANKACCTFROM><BANKTRANLIST><DTSTART>20220215<DTEND>20220228<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220228<TRNAMT>-8,85<FITID>2802202220220228-17.02.34.872431<NAME>VIR SEPA DENISE EVE<MEMO>VIR SEPA DENISE EVE</STMTTRN><STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220215<TRNAMT>+40,00<FITID>1502202220220215-05.39.35.662478<NAME>POLONIUM<MEMO>POLONIUM</STMTTRN></BANKTRANLIST><LEDGERBAL><BALAMT>5693,5<DTASOF>20220302</LEDGERBAL></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"
+        val listOperations: List<String> = operationService.separateOperationsOfOfxFile(irene, account, ofxFile)
+        
+        Assertions.assertTrue(listOperations[0] == "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220228<TRNAMT>-8,85<FITID>2802202220220228-17.02.34.872431<NAME>VIR SEPA DENISE EVE<MEMO>VIR SEPA DENISE EVE</STMTTRN>" && listOperations[1] == "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220215<TRNAMT>+40,00<FITID>1502202220220215-05.39.35.662478<NAME>POLONIUM<MEMO>POLONIUM</STMTTRN>" && listOperations.size == 2)
+
+    }
+
+    @Test
+    fun testOfxfileWithoutOperation() {
+        val emmanuelle: Person = personService.createPerson(
+            "Emmanuelle Carpentier", "Nobel_2020", "emmanuelle@chimie.fr", ProfileEnum.PROFILE_USER
+        )
+        emmanuelle.billingStatus = true
+        val budget: Budget = budgetService.findByUser(emmanuelle)[0]
+        val account: Account = accountService.create(
+            emmanuelle, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        val ofxFile: String ="<OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:1252COMPRESSION:NONEOLDFILEUID:NONENEWFILEUID:NONE<OFX><SIGNONMSGSRSV1><SONRS><STATUS><CODE>0<SEVERITY>INFO</STATUS><DTSERVER>20220302<LANGUAGE>FRA<DTPROFUP>20220302<DTACCTUP>20220302</SONRS></SIGNONMSGSRSV1><BANKMSGSRSV1><STMTTRNRS><TRNUID>00<STATUS><CODE>0<SEVERITY>INFO</STATUS><STMTRS><CURDEF>EUR<BANKACCTFROM><BANKID>42559<BRANCHID>10000<ACCTID>04065601113<ACCTTYPE>SAVINGS</BANKACCTFROM><BANKTRANLIST><DTSTART>20220215<DTEND>20220228</BANKTRANLIST><LEDGERBAL><BALAMT>5693,5<DTASOF>20220302</LEDGERBAL></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"
+        val listOperations: List<String> = operationService.separateOperationsOfOfxFile(emmanuelle, account, ofxFile)
+
+        Assertions.assertEquals(listOperations.size, 0)
+    }
+
+ }
