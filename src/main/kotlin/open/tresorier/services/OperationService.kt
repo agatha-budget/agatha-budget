@@ -65,13 +65,15 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         var startTag = ofxFile.indexOf("<STMTTRN>")
         var closeTag = ofxFile.indexOf("</STMTTRN>") + 10
         var lastTag = ofxFile.lastIndexOf("</STMTTRN>") + 10
-        while (closeTag == lastTag) {
+        while (closeTag !== lastTag) {
             operationList.add(ofxFile.substring(startTag, closeTag))
             startTag = closeTag
             closeTag = ofxFile.indexOf("</STMTTRN>", startTag) + 10
         }
-        return operationList    // ce sont les opérations en entier, balises comprises
-        //OperationService.createOperationsFromOFX(person, account, operationList)
+        if (startTag !== -1) {
+            operationList.add(ofxFile.substring(startTag, closeTag))
+        }
+        return operationList
     }
     fun passInEachOperation(person: Person, account: Account, operationList: List<String>) {
         operationList.forEach {
@@ -79,31 +81,29 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         }
     }
     fun createOperationFromOFX(person: Person, account: Account, operation: String): Operation {
-        // récupérer les données grâce aux balises respectives (date, montant, mémo) et les formater correctement
-        // <TRNTYP> balise de la nature de l'opération
-        var startElement = 19
-        var endElement = operation.indexOf("<", 11)
+        // <TRNTYPE> balise de la nature de l'opération
+        var startElement = operation.indexOf("<TRNTYPE>") + 9
+        var endElement = operation.indexOf("<", startElement)
         val type = operation.substring(startElement, endElement)
         // <DTPOSTED> balise de la date
-        startElement = endElement + 10
-        endElement += 8
+        startElement = operation.indexOf("<DTPOSTED>") + 10
+        endElement = operation.indexOf("<", startElement)
         val date = operation.substring(startElement, endElement)
-        // <TRNAMT> balise du montant (il y a un + ou un - juste devant le montant en fonction débit ou crédit)
-        startElement = endElement + 9
+        // <TRNAMT> balise du montant
+        startElement = operation.indexOf("<TRNAMT>") + 9
         endElement = operation.indexOf("<", startElement)
         val euro = operation.substring(startElement, endElement)
         // <MEMO> balise du mémo
         startElement = operation.indexOf("<MEMO>") + 6
         endElement = operation.indexOf("<", startElement)
-        val memo = operation.substring(startElement, endElement) // déjà au bon format -> pas de tranformation à faire
+        val memo = operation.substring(startElement, endElement)
         // formatage des données récupérées
-        val day = Day.createFromComparable(Integer.parseInt(date)) // récupère la date au bon format // date est un string et je veux un int
+        val day = Day.createFromComparable(Integer.parseInt(date))
         val cent: String = euro.replace(",", "")
-        var amount: Int = cent.toInt() // récupère le montant au bon format
-        if (type == "DEBIT") { // modifie la valeur du montant en fonction de la nature de la transaction
+        var amount: Int = Integer.parseInt(cent)
+        if (type == "DEBIT") {
             amount *= -1
         }
-        // créer les nouvelles opérations à partir de ces informations
         val operationCreated = this.create(person, account, day, null, amount, memo)
         return operationCreated
     }
