@@ -5,6 +5,8 @@ import open.tresorier.model.*
 import open.tresorier.utils.Time
 
 import java.util.regex.*
+import java.io.File
+import java.io.BufferedReader
 
 class OperationService(private val operationDao: IOperationDao, private val authorizationService: AuthorizationService) {
 
@@ -34,7 +36,6 @@ class OperationService(private val operationDao: IOperationDao, private val auth
             if (!it.isEquals(operation.day)) {
                 val newOrder = Time.now()
                 operation.day = it
-                val old = operation.orderInDay
                 operation.orderInDay = newOrder
             }
         }
@@ -59,6 +60,12 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         return operationDao.findByBudget(budget)
     }
+    fun openAndReadOfxFile(person: Person, account: Account, nameFileOfx: String) {
+        val bufferedReader: BufferedReader = File(nameFileOfx).bufferedReader()
+        val openedFile = bufferedReader.use { it.readText() }
+        val formattedFile: String = openedFile.replace("\n", "")
+        this.separateOperationsOfOfxFile(person, account, formattedFile)
+    }
     fun separateOperationsOfOfxFile(person: Person, account: Account, ofxFile: String) : List<String> {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         var operationList = mutableListOf<String>()
@@ -73,6 +80,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         if (startTag !== -1) {
             operationList.add(ofxFile.substring(startTag, closeTag))
         }
+        this.passInEachOperation(person, account, operationList)
         return operationList
     }
     fun passInEachOperation(person: Person, account: Account, operationList: List<String>) {
