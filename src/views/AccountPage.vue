@@ -11,6 +11,7 @@
           <div class="placeholderTop">
             <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
           </div>
+          <button v-on:click="this.importOfxFile()" class="btnOfx col-2 offset-1">{{ $t('IMPORT_OFX_FILE') }}</button>
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm class="modifyOperation" v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
@@ -156,6 +157,9 @@ export default defineComponent({
     },
     addSpacesInThousand (number: number): string {
       return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    },
+    importOfxFile () {
+      console.log('importation')
     }
   }
 })

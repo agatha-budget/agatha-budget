@@ -1,28 +1,9 @@
 .accountPage {
 
-    // pour toutes les versions
+    // all versions
     background: white;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
     .accountPageBody {
-        #accountPageHeader {
-            h1 {
-                text-align: center;
-                font-size: xx-large;
-                margin-bottom: 20px;
-                .btn {
-                    visibility: hidden;
-                    color: @darkBlue;
-                    font-size: small;
-                    padding: 6px 0px 6px 12px;
-                    margin-bottom: 4px;
-                }
-            }
-            h1:hover{
-                .btn {
-                    visibility: visible;
-                }
-            }
-        }
         .fixed {
             position: fixed;
             top: 0;
@@ -33,6 +14,30 @@
             padding-top: 20px;
             z-index: 100;
             box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
+        }
+        #accountPageHeader {
+            .editableNameAccount {
+                a {
+                    text-decoration: none;
+                    h1 {
+                        text-align: center;
+                        font-size: xx-large;
+                        margin-bottom: 20px;
+                        .btn {
+                            visibility: hidden;
+                            color: @darkBlue;
+                            font-size: small;
+                            padding: 6px 0px 6px 12px;
+                            margin-bottom: 4px;
+                        }
+                    }
+                    h1:hover{
+                        .btn {
+                            visibility: visible;
+                        }
+                    }
+                }
+            }
             .editingNameAccount {
                 padding-bottom: 12.35px;
                 .name {
@@ -41,18 +46,11 @@
                     margin-bottom: 8.4px;
                 }
             }
-            h1:hover{
-                .btn {
-                    visibility: visible;
-                }
-            }
         }
-        .operationTable {
+        .scrollable {
             .operationCreate {
                 border-radius: 28px 28px 0 0;
             }
-        }   
-        .scrollable {
             #operationForm {
                 padding: 30px 0 20px 0;
                 display: flex;
@@ -159,7 +157,7 @@
         border-top: solid 1px whitesmoke;
     }
 
-    //version ordinateur
+    // version for computer
     @media (min-width: 500px) {
         padding: 20px;
         .accountPageBody {
@@ -172,6 +170,23 @@
                 }
             }
             .scrollable {
+                .btnOfx {
+                    @media (min-width: 700px) {
+                        color: black;
+                        background-color: @buttonBackColor;
+                        border-radius: 10px;
+                        height: 30px;
+                        border: 1px solid @buttonBackColor;
+                        position: fixed;
+                        top: 25px;
+                        right: 20px;
+                        z-index: 200;
+                        font-size: small;
+                    }
+                    @media (max-width: 700px) {
+                        display: none;
+                    }
+                }
                 padding-top: 10px;
                 .operationCreate {
                     border-radius: 28px 28px 0 0;
@@ -183,11 +198,14 @@
         }
     }
 
-    //version mobile
+    // version for mobile
     @media (max-width: 500px) {
         .accountPageBody {
             padding: 0;
             .scrollable {
+                .btnOfx{
+                    display: none;
+                }
                 .placeholderTop {
                     padding-top: 20px;
                 }

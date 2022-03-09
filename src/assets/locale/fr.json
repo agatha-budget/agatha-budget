@@ -93,5 +93,6 @@
     "PRICE_COACHING_1H": "1h -> 45€ HT",
     "PRICE_COACHING_5H": "5h -> 200€ HT",
     "PLEASE_CONTACT_US": ", contactez-nous pour en savoir plus",
-    "PLEASE_CONTACT_US_AND_RDV": ", contactez-nous pour en savoir plus et prendre rendez-vous"
+    "PLEASE_CONTACT_US_AND_RDV": ", contactez-nous pour en savoir plus et prendre rendez-vous",
+    "IMPORT_OFX_FILE": "fichier .ofx"
 }
