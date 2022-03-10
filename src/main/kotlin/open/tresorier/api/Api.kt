@@ -320,8 +320,8 @@ fun main() {
         val user = getUserFromAuth(ctx)
         val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val fileOfx: String = ctx.body()
-        ServiceManager.operationService.openAndReadOfxFile(user, account, fileOfx)
         ctx.result("file ofx has been imported")
+        ServiceManager.operationService.openAndReadOfxFile(user, account, fileOfx)
     }
 
     app.before("/allocation", SuperTokens.middleware())
