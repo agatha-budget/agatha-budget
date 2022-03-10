@@ -319,7 +319,7 @@ fun main() {
     app.post("/operation/import") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val fileOfx: String = ctx.body<String>()
+        val fileOfx: String = ctx.body()
         ServiceManager.operationService.openAndReadOfxFile(user, account, fileOfx)
         ctx.result("file ofx has been imported")
     }
