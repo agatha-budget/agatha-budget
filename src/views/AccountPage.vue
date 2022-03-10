@@ -166,33 +166,24 @@ export default defineComponent({
       return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     },
     onFileChange (event: { target: { files: any[] } }) {
-      const data = new FormData()
       const file = event.target.files[0]
-
-      data.append('name', 'my-file')
-      data.append('file', file)
-
-      const config = {
-        header: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }
-      this.other = data
       this.fileOfx = file
     },
     importOfxFile () {
-      console.log(this.fileOfx)
       const fr = new FileReader()
       fr.readAsText(this.fileOfx, 'UTF-8')
       fr.onload = (evt) => {
         if (evt.target) {
           console.log(evt.target.result)
+          if (evt.target.result) {
+            const ofx: string = evt.target.result.toString()
+            OperationService.openAndReadOfxFile(this.$store, this.accountId, ofx)
+          }
         }
       }
       fr.onerror = (evt) => {
         console.error('Failed to read this file')
       }
-      console.log(this.other)
     }
   }
 })

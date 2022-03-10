@@ -30,8 +30,8 @@ export default class OperationService {
     StoreHandler.updateAccounts(store)
   }
 
-  public static async openAndReadOfxFile (store: Store<StoreState>, ofxFileContent: string) {
-    const response = await operationApi.openAndReadOfxFile(ofxFileContent)
+  public static async openAndReadOfxFile (store: Store<StoreState>, accountId: string, ofxFileContent: string) {
+    const response = await operationApi.openAndReadOfxFile(accountId, ofxFileContent)
     StoreHandler.updateAccounts(store)
   }
 }
