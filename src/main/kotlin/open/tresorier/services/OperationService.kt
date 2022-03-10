@@ -60,10 +60,8 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         return operationDao.findByBudget(budget)
     }
-    fun openAndReadOfxFile(person: Person, account: Account, nameFileOfx: String) {
-        val bufferedReader: BufferedReader = File(nameFileOfx).bufferedReader()
-        val openedFile = bufferedReader.use { it.readText() }
-        val formattedFile: String = openedFile.replace("\n", "")
+    fun openAndReadOfxFile(person: Person, account: Account, fileOfx: String) {
+        val formattedFile: String = fileOfx.replace("\n", "")
         this.separateOperationsOfOfxFile(person, account, formattedFile)
     }
     fun separateOperationsOfOfxFile(person: Person, account: Account, ofxFile: String) : List<String> {
