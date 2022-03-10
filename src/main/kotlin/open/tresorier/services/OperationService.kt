@@ -62,6 +62,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
     }
     fun openAndReadOfxFile(person: Person, account: Account, fileOfx: String) {
         val formattedFile: String = fileOfx.replace("\n", "")
+        val doubleFormattedFile: String = formattedFile.replace("\r", "")
         this.separateOperationsOfOfxFile(person, account, formattedFile)
     }
     fun separateOperationsOfOfxFile(person: Person, account: Account, ofxFile: String) : List<String> {
