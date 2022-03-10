@@ -2051,11 +2051,14 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
         /**
          * 
          * @summary Add operations from ofx file
+         * @param {string} accountId id of the account where operations must be created
          * @param {string} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        openAndReadOfxFile: async (body?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        openAndReadOfxFile: async (accountId: string, body?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('openAndReadOfxFile', 'accountId', accountId)
             const localVarPath = `/operation/import`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2067,6 +2070,10 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (accountId !== undefined) {
+                localVarQueryParameter['account_id'] = accountId;
+            }
 
 
     
@@ -2205,12 +2212,13 @@ export const OperationApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Add operations from ofx file
+         * @param {string} accountId id of the account where operations must be created
          * @param {string} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async openAndReadOfxFile(body?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.openAndReadOfxFile(body, options);
+        async openAndReadOfxFile(accountId: string, body?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.openAndReadOfxFile(accountId, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2286,12 +2294,13 @@ export const OperationApiFactory = function (configuration?: Configuration, base
         /**
          * 
          * @summary Add operations from ofx file
+         * @param {string} accountId id of the account where operations must be created
          * @param {string} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        openAndReadOfxFile(body?: string, options?: any): AxiosPromise<string> {
-            return localVarFp.openAndReadOfxFile(body, options).then((request) => request(axios, basePath));
+        openAndReadOfxFile(accountId: string, body?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.openAndReadOfxFile(accountId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2373,13 +2382,14 @@ export class OperationApi extends BaseAPI {
     /**
      * 
      * @summary Add operations from ofx file
+     * @param {string} accountId id of the account where operations must be created
      * @param {string} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public openAndReadOfxFile(body?: string, options?: AxiosRequestConfig) {
-        return OperationApiFp(this.configuration).openAndReadOfxFile(body, options).then((request) => request(this.axios, this.basePath));
+    public openAndReadOfxFile(accountId: string, body?: string, options?: AxiosRequestConfig) {
+        return OperationApiFp(this.configuration).openAndReadOfxFile(accountId, body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
