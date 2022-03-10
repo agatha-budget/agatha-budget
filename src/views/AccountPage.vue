@@ -11,7 +11,10 @@
           <div class="placeholderTop">
             <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
           </div>
-          <button v-on:click="this.importOfxFile()" class="btnOfx col-2 offset-1">{{ $t('IMPORT_OFX_FILE') }}</button>
+          <div class="importOfx">
+            <input type="file" @change="onFileChange($event)" class="inputOfx btnOfx" />
+            <button v-on:click="importOfxFile()" class="btnOfx col-2 offset-1">{{ $t('IMPORT_OFX_FILE') }}</button>
+          </div>
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm class="modifyOperation" v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
@@ -55,6 +58,8 @@ import AccountPageHeader from '@/components/AccountPageHeader.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
+    fileOfx: any;
+    other: any;
 }
 
 interface EditableOperation extends Operation {
@@ -88,7 +93,9 @@ export default defineComponent({
   },
   data (): AccountPageData {
     return {
-      operations: []
+      operations: [],
+      fileOfx: '',
+      other: ''
     }
   },
   computed: {
@@ -158,8 +165,34 @@ export default defineComponent({
     addSpacesInThousand (number: number): string {
       return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     },
+    onFileChange (event: { target: { files: any[] } }) {
+      const data = new FormData()
+      const file = event.target.files[0]
+
+      data.append('name', 'my-file')
+      data.append('file', file)
+
+      const config = {
+        header: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+      this.other = data
+      this.fileOfx = file
+    },
     importOfxFile () {
-      console.log('importation')
+      console.log(this.fileOfx)
+      const fr = new FileReader()
+      fr.readAsText(this.fileOfx, 'UTF-8')
+      fr.onload = (evt) => {
+        if (evt.target) {
+          console.log(evt.target.result)
+        }
+      }
+      fr.onerror = (evt) => {
+        console.error('Failed to read this file')
+      }
+      console.log(this.other)
     }
   }
 })
