@@ -1,1 +1,1 @@
-git rev-parse HEAD | xargs sh scripts/replace_commit_hash.sh
+git rev-parse HEAD | xargs sh scripts/change-backend.sh
