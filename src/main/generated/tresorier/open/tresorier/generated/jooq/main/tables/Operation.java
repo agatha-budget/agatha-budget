@@ -16,7 +16,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row8;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 1371736548;
+    private static final long serialVersionUID = 1133868862;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -82,6 +82,11 @@ public class Operation extends TableImpl<OperationRecord> {
      * The column <code>public.operation.amount</code>.
      */
     public final TableField<OperationRecord, Integer> AMOUNT = createField(DSL.name("amount"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+
+    /**
+     * The column <code>public.operation.order_in_day</code>.
+     */
+    public final TableField<OperationRecord, Long> ORDER_IN_DAY = createField(DSL.name("order_in_day"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * Create a <code>public.operation</code> table reference
@@ -181,11 +186,11 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row8 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, String, Integer, Integer, String, String, Integer> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row8<String, String, Integer, Integer, String, String, Integer, Long> fieldsRow() {
+        return (Row8) super.fieldsRow();
     }
 }
