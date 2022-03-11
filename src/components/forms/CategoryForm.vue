@@ -1,18 +1,20 @@
 <template>
-  <div v-if="this.category.archived" id="operationForm" class="operation">
-    <span class="name">{{ this.name }}</span>
-    <span class="validation">
-      <button class="btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
-      <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-    </span>
-  </div>
-  <div v-else id="operationForm" class="operation">
-    <span class="name"><input id="newName" class="form-control" v-model="name"></span>
-    <span class="validation">
-      <button class="btn fas fa-check" v-on:click="updateCategory"/>
-      <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-      <button class="btn fas fa-archive" v-on:click="archiveCategory"/>
-    </span>
+  <div id="operationForm" class="operation">
+    <div v-if="this.category.archived" class="categoryArchived">
+      <span class="name">{{ this.name }}</span>
+      <span class="validation">
+        <button class="btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
+        <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+      </span>
+    </div>
+    <div v-else>
+      <span class="name"><input id="newName" class="form-control" v-model="name"></span>
+      <span class="validation">
+        <button class="btn fas fa-check" v-on:click="updateCategory"/>
+        <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+        <button class="btn fas fa-archive" v-on:click="archiveCategory"/>
+      </span>
+    </div>
   </div>
 </template>
 
@@ -39,7 +41,7 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['loosesFocus'],
+  emits: ['loosesFocus', 'emptyEnvelope'],
   methods: {
     updateCategory () {
       CategoryService.updateCategory(this.category.id, this.name).then(
@@ -50,6 +52,7 @@ export default defineComponent({
       )
     },
     archiveCategory () {
+      this.$emit('emptyEnvelope', this.category.id)
       CategoryService.archiveCategory(this.category.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)

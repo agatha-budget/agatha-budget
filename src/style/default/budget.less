@@ -32,6 +32,9 @@
                 p {
                     margin-bottom: 0;
                 }
+                .month {
+                    text-transform: capitalize;
+                }
             }
             .negative {
                 background: @red;
@@ -120,13 +123,16 @@
                 }
                 th.name {
                     cursor: pointer;
-                    padding: 0 10px 0 0;
-                    #operationForm {
+                     padding: 0 10px 0 0;
+                    #operationForm { // masterCategory
                         display: flex;
                         flex-wrap: wrap;
                         background: @headerColor;
                         border-radius: 5px 5px 0 0;
-                        padding: 0 10px;
+                        .masterCategoryArchived {
+                            color: @lightBlue;
+                            padding-left: 10%;
+                        }
                         #newName {
                             width: available;
                             padding: 3.75px 10px;
@@ -204,10 +210,17 @@
                                 padding: 0 0 0 12px;
                             }
                         }
-                        #operationForm {
+                        #operationForm { // category
                             padding-left: initial;
                             display: flex;
                             flex-wrap: wrap;
+                            .categoryArchived {
+                                color: darkslategray;
+                                padding: 0 0 0 5px;
+                                .btn {
+                                    padding: 0 12px;
+                                }
+                            }
                             #newName {
                                 width: available;
                                 font-size: small;

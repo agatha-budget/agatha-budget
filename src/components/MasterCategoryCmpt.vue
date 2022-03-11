@@ -10,11 +10,11 @@
           </div>
         </div>
       </th>
-      <th class="col-2 allocated">{{ getEurosAmount(masterCategoryData.allocated)}}</th>
-      <th class="col-2 spent">{{ getEurosAmount(masterCategoryData.spent) }}</th>
+      <th class="col-2 allocated">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.allocated))}}</th>
+      <th class="col-2 spent">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.spent)) }}</th>
       <th class="col-2 available">
         <span :class="masterCategoryData.available < 0 ? 'negative' : 'positive'">
-          {{ getEurosAmount(masterCategoryData.available) }}
+          {{ addSpacesInThousand(getEurosAmount(masterCategoryData.available)) }}
         </span>
       </th>
     </tr>
@@ -22,23 +22,23 @@
     <tr class="category" v-for="category of this.categories" :key="category">
       <td class="name">
         <div>
-          <CategoryForm v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus"/>
+          <CategoryForm v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus" @empty-envelope="emptyEnvelope"/>
           <a class="editable-category" v-else v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="btn fas fa-pen"/></a>
         </div>
       </td>
       <td class="allocated">
-        <span v-if="archived">{{ this.categoryDataList[category.id]?.allocated ?? "" }}</span>
+        <span v-if="archived">{{ getEurosAmount(this.categoryDataList[category.id]?.allocated ?? "") }}</span>
         <input v-else type="number" class="allocationInput"
         :value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
         v-on:change="updateAllocationOnChange(category.id, $event.target.value)"
         >
         </td>
       <td class="spent">
-          {{ getEurosAmount(this.categoryDataList[category.id]?.spent ?? "") }}
+          {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.spent ?? "")) }}
       </td>
       <td class="available">
         <span v-if="this.categoryDataList[category.id] && this.categoryDataList[category.id].available != 0" :class="this.categoryDataList[category.id]?.available < 0 ? 'negative' : 'positive'">
-          {{ getEurosAmount(this.categoryDataList[category.id]?.available) }}
+          {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.available)) }}
         </span>
       </td>
     </tr>
@@ -61,7 +61,7 @@ export default defineComponent({
     CategoryForm,
     MasterCategoryForm
   },
-  emits: ['updateAllocation'],
+  emits: ['updateAllocation', 'emptyCategory'],
   props: {
     masterCategory: {
       type: Object as () => MasterCategory,
@@ -115,6 +115,12 @@ export default defineComponent({
     },
     loosesFocus () {
       this.focusOn = ''
+    },
+    emptyEnvelope (categoryId: string) {
+      this.$emit('emptyCategory', categoryId)
+    },
+    addSpacesInThousand (number: number): string {
+      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     }
   }
 })

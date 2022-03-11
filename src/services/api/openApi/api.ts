@@ -91,6 +91,12 @@ export interface Budget {
     'name': string;
     /**
      * 
+     * @type {string}
+     * @memberof Budget
+     */
+    'profile': string;
+    /**
+     * 
      * @type {boolean}
      * @memberof Budget
      */
@@ -231,6 +237,49 @@ export interface Operation {
      * @memberof Operation
      */
     'memo': string;
+}
+/**
+ * 
+ * @export
+ * @interface Person
+ */
+export interface Person {
+    /**
+     * 
+     * @type {string}
+     * @memberof Person
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Person
+     */
+    'email': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Person
+     */
+    'billingStatus': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof Person
+     */
+    'style': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Person
+     */
+    'dyslexia': boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof Person
+     */
+    'createDate'?: number;
 }
 
 /**
@@ -2294,10 +2343,13 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
+         * @param {string} _package chosen package
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBillingPortalSession: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createBillingPortalSession: async (_package: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter '_package' is not null or undefined
+            assertParamExists('createBillingPortalSession', '_package', _package)
             const localVarPath = `/billing`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2313,6 +2365,10 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
             // authentication accessToken required
 
             // authentication refreshTokenId required
+
+            if (_package !== undefined) {
+                localVarQueryParameter['package'] = _package;
+            }
 
 
     
@@ -2344,7 +2400,7 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
             assertParamExists('createPerson', 'email', email)
             // verify required parameter 'profile' is not null or undefined
             assertParamExists('createPerson', 'profile', profile)
-            const localVarPath = `/person`;
+            const localVarPath = `/signup`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -2461,6 +2517,89 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary Get the person metadata
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPerson: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/person`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication accessToken required
+
+            // authentication refreshTokenId required
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Update the person metadata
+         * @param {string} [newName] 
+         * @param {string} [newStyle] 
+         * @param {boolean} [newDyslexia] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePerson: async (newName?: string, newStyle?: string, newDyslexia?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/person`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication accessToken required
+
+            // authentication refreshTokenId required
+
+            if (newName !== undefined) {
+                localVarQueryParameter['new_name'] = newName;
+            }
+
+            if (newStyle !== undefined) {
+                localVarQueryParameter['new_style'] = newStyle;
+            }
+
+            if (newDyslexia !== undefined) {
+                localVarQueryParameter['new_dyslexia'] = newDyslexia;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -2474,11 +2613,12 @@ export const PersonApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
+         * @param {string} _package chosen package
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createBillingPortalSession(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createBillingPortalSession(options);
+        async createBillingPortalSession(_package: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createBillingPortalSession(_package, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2517,6 +2657,29 @@ export const PersonApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteSession(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
+        /**
+         * 
+         * @summary Get the person metadata
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPerson(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Person>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPerson(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Update the person metadata
+         * @param {string} [newName] 
+         * @param {string} [newStyle] 
+         * @param {boolean} [newDyslexia] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updatePerson(newName?: string, newStyle?: string, newDyslexia?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePerson(newName, newStyle, newDyslexia, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
     }
 };
 
@@ -2530,11 +2693,12 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
+         * @param {string} _package chosen package
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBillingPortalSession(options?: any): AxiosPromise<string> {
-            return localVarFp.createBillingPortalSession(options).then((request) => request(axios, basePath));
+        createBillingPortalSession(_package: string, options?: any): AxiosPromise<string> {
+            return localVarFp.createBillingPortalSession(_package, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2569,6 +2733,27 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
         deleteSession(options?: any): AxiosPromise<string> {
             return localVarFp.deleteSession(options).then((request) => request(axios, basePath));
         },
+        /**
+         * 
+         * @summary Get the person metadata
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPerson(options?: any): AxiosPromise<Array<Person>> {
+            return localVarFp.getPerson(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Update the person metadata
+         * @param {string} [newName] 
+         * @param {string} [newStyle] 
+         * @param {boolean} [newDyslexia] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePerson(newName?: string, newStyle?: string, newDyslexia?: boolean, options?: any): AxiosPromise<string> {
+            return localVarFp.updatePerson(newName, newStyle, newDyslexia, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -2582,12 +2767,13 @@ export class PersonApi extends BaseAPI {
     /**
      * 
      * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
+     * @param {string} _package chosen package
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PersonApi
      */
-    public createBillingPortalSession(options?: AxiosRequestConfig) {
-        return PersonApiFp(this.configuration).createBillingPortalSession(options).then((request) => request(this.axios, this.basePath));
+    public createBillingPortalSession(_package: string, options?: AxiosRequestConfig) {
+        return PersonApiFp(this.configuration).createBillingPortalSession(_package, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2627,6 +2813,31 @@ export class PersonApi extends BaseAPI {
      */
     public deleteSession(options?: AxiosRequestConfig) {
         return PersonApiFp(this.configuration).deleteSession(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get the person metadata
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonApi
+     */
+    public getPerson(options?: AxiosRequestConfig) {
+        return PersonApiFp(this.configuration).getPerson(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Update the person metadata
+     * @param {string} [newName] 
+     * @param {string} [newStyle] 
+     * @param {boolean} [newDyslexia] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PersonApi
+     */
+    public updatePerson(newName?: string, newStyle?: string, newDyslexia?: boolean, options?: AxiosRequestConfig) {
+        return PersonApiFp(this.configuration).updatePerson(newName, newStyle, newDyslexia, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

@@ -5,9 +5,10 @@ import Profile from '../views/Profile.vue'
 import Signup from '../views/Signup.vue'
 import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
 import AccountPage from '../views/AccountPage.vue'
+import Subscription from '../views/Subscription.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosError } from 'axios'
 
 export enum RouterPages {
   home = '/',
@@ -16,6 +17,7 @@ export enum RouterPages {
   account = '/account',
   about = '/about',
   profile = '/profile',
+  subscription = '/subscription',
   redirectToAccountPage = '/redirectToAccountPage'
 }
 
@@ -39,6 +41,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.redirectToAccountPage,
     component: RedirectToAccountPage
+  },
+  {
+    path: RouterPages.subscription,
+    component: Subscription
   },
   {
     path: RouterPages.account,
@@ -67,7 +73,7 @@ export function redirectToLoginPageIfNotLogged (store: Store<StoreState>) {
 
 export function redirectOnApiError (error: AxiosError) {
   if (error.response!.status === 402) {
-    router.push(RouterPages.profile)
+    router.push(RouterPages.subscription)
   } else {
     router.push(RouterPages.login)
   }

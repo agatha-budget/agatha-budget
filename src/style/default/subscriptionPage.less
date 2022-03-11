@@ -1,0 +1,83 @@
+#subscriptionPage {
+    overflow-y: hidden;
+    .user, .company{
+        background-color: white;
+        text-align: center;
+        .essential, .integral, .solidarity, .businessSide, .personalSide, .coaching {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 20px;
+            color: black;
+            background-color: @dateColor;
+            display: flex;
+            flex-wrap: wrap;
+            text-align: center;
+            .icon {
+                color: @actionColor;
+                font-size: xx-large;
+            }
+            .title {
+                color: @actionColor;
+                font-weight: bold;
+                text-align: center;
+                text-transform: capitalize;
+            }
+            p {
+                text-align: center;
+            }
+            .btnSubscription {
+                padding: 0;
+                text-align: center;
+                button {
+                    border-radius: 10px;
+                    border: 1px solid @headerColor;
+                    text-decoration: none;
+                    background: @headerColor;
+                    color: white;
+                    width: 99%;
+                }
+            }
+            .disabled {
+                button {
+                    color: lightgray;
+                    border: 1px solid @darkBlue;
+                    text-decoration: none;
+                    background: @darkBlue;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    // computer version
+    @media (min-width: 576px) {
+        .user, .company {
+            margin-top: 10px;
+            border-radius: 28px;
+            padding: 15px;
+            .essential, .integral, .solidarity, .businessSide, .personalSide, .coaching {
+                p {
+                    padding-bottom: 10px;
+                }
+            }
+        }
+    }
+    // phone version
+    @media (max-width: 576px) {
+        .user, .company {
+            padding: 15px 10px 5px;
+        }
+        .placeholderBottom {
+            background-color: @background;
+            height: 82px;
+        }
+        .navigationMenu {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-top: solid 1px whitesmoke;
+        }
+    }
+}
