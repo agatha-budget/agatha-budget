@@ -17,7 +17,6 @@ export DATABASE_URL="postgresql:///postgres?host=$PGHOST"
 export LC_ALL="en_GB.UTF-8"
 export LC_MESSAGES="en_GB.UTF-8"
 echo $HOSTNAME
-PRICE_ID='fausse valeur'
 
 # create directory if need be
 if [ ! -d $PGHOST ]; then
