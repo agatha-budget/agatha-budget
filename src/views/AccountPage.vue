@@ -22,7 +22,7 @@
                 <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
               </div>
               <div class="col-8"></div>
-              <div class="category col-3 offset-1">
+              <div class="category col-3 offset-1" :class="getClassDependingCategory(operation)">
                 {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
               </div>
               <div class="amount col-3 offset-2 col-sm-2" :class="this.getClassDependingOnAmount(operation)">
@@ -162,6 +162,13 @@ export default defineComponent({
     },
     redirectToImportOfx () {
       router.push({ path: RouterPages.importOfx, query: { accountId: this.accountId } })
+    },
+    getClassDependingCategory (operation: Operation): string {
+      if (operation.categoryId === null) {
+        return 'unknownCategory'
+      } else {
+        return 'categorySelected'
+      }
     }
   }
 })
