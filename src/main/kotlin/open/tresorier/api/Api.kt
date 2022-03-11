@@ -13,6 +13,7 @@ import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
 import open.tresorier.services.BillingService
 import open.tresorier.model.enum.ProfileEnum
+import open.tresorier.model.enum.PriceIdEnum
 
 fun main() {
 
@@ -66,10 +67,12 @@ fun main() {
     app.before("/billing", SuperTokens.middleware())
     app.get("/billing") { ctx ->
         val person = getUserFromAuth(ctx)
+        val packageString = ctx.queryParam<String>("package").get()
+        val selectedPackage: PriceIdEnum = PriceIdEnum.valueOf(packageString)
         if (person.billingId != null) {
             ctx.result(BillingService.createBillingManagementSession(person))
         } else {
-            ctx.result(BillingService.createNewUserBillingSession(person))
+            ctx.result(BillingService.createNewUserBillingSession(person, selectedPackage))
         }
     }
 
