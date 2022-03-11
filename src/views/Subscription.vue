@@ -1,7 +1,7 @@
 <template>
   <div :class="this.$store.state.css">
     <div id="subscriptionPage" class="col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-      <div v-if="profileTest == 'user'" class="user">
+      <div v-if="profile == 'PROFILE_USER'" class="user">
         <p class="col-12">{{ $t('TEXT_1_MONTH_FREE') }}</p>
         <div class="essential row">
           <span class="icon icon-plane col-12" />
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <div v-if="profileTest == 'company'" class="company">
+      <div v-if="profile == 'PROFILE_COMPANY'" class="company">
         <p class="col-12">{{ $t('TEXT_1_MONTH_FREE') }}</p>
         <div class="businessSide">
           <span class="icon icon-briefcase col-12" />
@@ -71,7 +71,6 @@
           </div>
         </div>
       </div>
-      <button v-on:click="changerProfileTest">changer de profil</button>
       <div class="placeholderBottom"/>
       <div class="navigationMenu">
         <NavMenu/>
@@ -93,9 +92,7 @@ export default defineComponent({
     StoreHandler.initStore(this.$store)
   },
   data () {
-    return {
-      profileTest: 'user'
-    }
+    return { }
   },
   computed: {
     profile (): string | undefined {
@@ -111,14 +108,6 @@ export default defineComponent({
     },
     goToContactPage () {
       window.location.href = 'https://agatha-budget.fr/contact/'
-    },
-
-    changerProfileTest () {
-      if (this.profileTest === 'user') {
-        this.profileTest = 'company'
-      } else {
-        this.profileTest = 'user'
-      }
     }
   }
 })
