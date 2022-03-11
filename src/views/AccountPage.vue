@@ -11,9 +11,8 @@
           <div class="placeholderTop">
             <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
           </div>
-          <div class="importOfx">
-            <input type="file" @change="onFileChange($event)" class="inputOfx btnOfx" />
-            <button v-on:click="importOfxFile()" class="btnOfx col-2 offset-1">{{ $t('IMPORT_OFX_FILE') }}</button>
+          <div class="RedirectImportOfx">
+            <button v-on:click="redirectToImportOfx()">{{ $t('IMPORT_OFX_FILE') }}</button>
           </div>
           <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
@@ -39,14 +38,14 @@
           <div class="placeholderBottom"/>
         </div>
       </div>
-      <NavMenu :page="'accounts'" class="btnInAccountPage" />
+      <NavMenu class="btnInAccountPage" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { redirectToLoginPageIfNotLogged } from '@/router'
+import router, { redirectToLoginPageIfNotLogged, RouterPages } from '@/router'
 import { Account, Category, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
@@ -58,8 +57,6 @@ import AccountPageHeader from '@/components/AccountPageHeader.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
-    fileOfx: any;
-    other: any;
 }
 
 interface EditableOperation extends Operation {
@@ -93,9 +90,7 @@ export default defineComponent({
   },
   data (): AccountPageData {
     return {
-      operations: [],
-      fileOfx: '',
-      other: ''
+      operations: []
     }
   },
   computed: {
@@ -165,25 +160,8 @@ export default defineComponent({
     addSpacesInThousand (number: number): string {
       return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     },
-    onFileChange (event: { target: { files: any[] } }) {
-      const file = event.target.files[0]
-      this.fileOfx = file
-    },
-    importOfxFile () {
-      const fr = new FileReader()
-      fr.readAsText(this.fileOfx, 'UTF-8')
-      fr.onload = (evt) => {
-        if (evt.target) {
-          console.log(evt.target.result)
-          if (evt.target.result) {
-            const ofx: string = evt.target.result.toString()
-            OperationService.openAndReadOfxFile(this.$store, this.accountId, ofx)
-          }
-        }
-      }
-      fr.onerror = (evt) => {
-        console.error('Failed to read this file')
-      }
+    redirectToImportOfx () {
+      router.push({ path: RouterPages.importOfx, query: { accountId: this.accountId } })
     }
   }
 })

@@ -6,6 +6,7 @@ import Signup from '../views/Signup.vue'
 import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
 import AccountPage from '../views/AccountPage.vue'
 import Subscription from '../views/Subscription.vue'
+import ImportOfx from '../views/ImportOfx.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { AxiosError, AxiosResponse } from 'axios'
@@ -18,7 +19,8 @@ export enum RouterPages {
   about = '/about',
   profile = '/profile',
   subscription = '/subscription',
-  redirectToAccountPage = '/redirectToAccountPage'
+  redirectToAccountPage = '/redirectToAccountPage',
+  importOfx= '/importOfx'
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -49,6 +51,11 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.account,
     component: AccountPage,
+    props: route => ({ accountId: route.query.accountId })
+  },
+  {
+    path: RouterPages.importOfx,
+    component: ImportOfx,
     props: route => ({ accountId: route.query.accountId })
   },
   {

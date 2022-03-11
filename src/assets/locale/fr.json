@@ -94,5 +94,10 @@
     "PRICE_COACHING_5H": "5h -> 200€ HT",
     "PLEASE_CONTACT_US": ", contactez-nous pour en savoir plus",
     "PLEASE_CONTACT_US_AND_RDV": ", contactez-nous pour en savoir plus et prendre rendez-vous",
-    "IMPORT_OFX_FILE": "fichier .ofx"
+    "IMPORT": "importer",
+    "TEXT_IMPORT": "téléchargez votre relevé bancaire en format .ofx et importez-le ci-dessous",
+    "TEXT_IMPORTED": "le fichier a bien été choisi, cliquez pour finaliser l'import",
+    "SELECT_FILE": "cliquez ici pour séléctionner un ficher à importer",
+    "GO_BACK_TO_ACCOUNT": "retour au compte",
+    "IMPORT_OFX_FILE": "importer des fichiers .ofx"
 }

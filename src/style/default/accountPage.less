@@ -48,6 +48,16 @@
             }
         }
         .scrollable {
+            .RedirectImportOfx {
+                padding-bottom: 5px;
+                text-align: right;
+                button {
+                    background-color: @buttonBackColor;
+                    border: 1px solid @buttonBackColor;
+                    border-radius: 10px;
+                    padding: 5px;
+                }
+            }
             .operationCreate {
                 border-radius: 28px 28px 0 0;
             }
@@ -170,25 +180,6 @@
                 }
             }
             .scrollable {
-                .importOfx {
-                    @media (min-width: 700px) {
-                        .btnOfx {
-                            color: black;
-                            background-color: @buttonBackColor;
-                            border-radius: 10px;
-                            height: 30px;
-                            border: 1px solid @buttonBackColor;
-                            font-size: small;
-                        }
-                        position: fixed;
-                        top: 25px;
-                        right: 20px;
-                        z-index: 200;
-                    }
-                    @media (max-width: 700px) {
-                        display: none;
-                    }
-                }
                 padding-top: 10px;
                 .operationCreate {
                     border-radius: 28px 28px 0 0;
@@ -205,9 +196,6 @@
         .accountPageBody {
             padding: 0;
             .scrollable {
-                .importOfx{
-                    display: none;
-                }
                 .placeholderTop {
                     padding-top: 20px;
                 }
