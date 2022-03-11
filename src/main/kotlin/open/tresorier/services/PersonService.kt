@@ -3,6 +3,7 @@ package open.tresorier.services
 import open.tresorier.dao.IPersonDao
 import open.tresorier.model.Budget
 import open.tresorier.model.Person
+import open.tresorier.model.PublicPerson
 import open.tresorier.utils.Time
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.enum.ProfileEnum
@@ -63,7 +64,14 @@ class PersonService(private val personDao: IPersonDao, private val budgetService
         return personDao.getByBillingId(billingId)
     }
 
-    fun update(person: Person) {
+    fun updatePublicPerson(person: Person, newName: String?, newStyle: String?, newDyslexia: Boolean?) : PublicPerson {
+        newName?.let{person.name = it}
+        newStyle?.let{person.style = it}
+        newDyslexia?.let{person.dyslexia = it}
+        return this.update(person).toPublicPerson()
+    }
+
+    fun update(person: Person) : Person {
         return personDao.update(person)
     }
 
@@ -79,7 +87,7 @@ class PersonService(private val personDao: IPersonDao, private val budgetService
 
     fun delete(person: Person) {
         person.deleted = true
-        return update(person)
+        update(person)
     }
 
 }
