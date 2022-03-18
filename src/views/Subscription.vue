@@ -104,9 +104,6 @@ export default defineComponent({
     }
   },
   methods: {
-    logout () {
-      PersonService.deleteSession(this.$store)
-    },
     async goToBillingPortal (selectedPackage: string): Promise<void> {
       PersonService.redirectToBillingPortalUrl(selectedPackage)
     },
