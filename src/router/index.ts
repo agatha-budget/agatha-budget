@@ -72,7 +72,7 @@ export function redirectToLoginPageIfNotLogged (store: Store<StoreState>) {
 }
 
 export function redirectOnApiError (error: AxiosError) {
-  if (error.response!.status === 402) {
+  if (error.response && error.response.status === 402) {
     router.push(RouterPages.subscription)
   } else {
     router.push(RouterPages.login)
