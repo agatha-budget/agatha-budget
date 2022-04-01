@@ -1,5 +1,8 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1 class="title">This is an about page</h1>
   </div>
 </template>
+<style lang="less">
+  @import "../style/atomic_design/atomic_design.less";
+</style>
