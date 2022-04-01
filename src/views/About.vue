@@ -3,6 +3,12 @@
     <h1 class="title">Default theme</h1>
     <btn class="navigationButton">Navigation button</btn>
     <btn class="navigationButton disabled">Navigation button</btn>
+
+    <btn class="illustratedNavigationBtn disabled">
+      <div class="icone fas fa-book col-4"></div>
+      <div class="label col-8">{{ $t("FREE_RESOURCES") }}</div>
+    </btn>
+
   </div>
 
   <div class="dyslexia">
