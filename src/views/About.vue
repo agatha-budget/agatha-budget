@@ -18,6 +18,21 @@
     <btn class="navigationButton disabled col-6">Navigation button</btn>
     </div>
   </div>
+<br>
+  <div>
+    <btn class="actionButton">Valider</btn>
+    <btn class="actionButton disabled">Valider</btn>
+  </div>
+<br>
+  <div>
+    <btn class="illustratedNavButton">Button</btn>
+    <btn class="illustratedNavButton disabled">Button</btn>
+  </div>
+<br>
+<div>
+    <btn class="dualTabButton">Button</btn>
+    <btn class="dualTabButton disabled">Button</btn>
+  </div>
 
 </template>
 <style lang="less">
