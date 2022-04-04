@@ -4,6 +4,9 @@ import open.tresorier.dao.IOperationDao
 import open.tresorier.model.*
 import open.tresorier.utils.Time
 
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.regex.*
 import java.io.File
 import java.io.BufferedReader
@@ -67,20 +70,20 @@ class OperationService(private val operationDao: IOperationDao, private val auth
     }
     fun separateOperationsOfOfxFile(person: Person, account: Account, ofxFile: String) : List<String> {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        var operationList = mutableListOf<String>()
+        var ofxOperationList = mutableListOf<String>()
         var startTag = ofxFile.indexOf("<STMTTRN>")
         var closeTag = ofxFile.indexOf("</STMTTRN>") + 10
         var lastTag = ofxFile.lastIndexOf("</STMTTRN>") + 10
         while (closeTag !== lastTag) {
-            operationList.add(ofxFile.substring(startTag, closeTag))
+            ofxOperationList.add(ofxFile.substring(startTag, closeTag))
             startTag = closeTag
             closeTag = ofxFile.indexOf("</STMTTRN>", startTag) + 10
         }
         if (startTag !== -1) {
-            operationList.add(ofxFile.substring(startTag, closeTag))
+            ofxOperationList.add(ofxFile.substring(startTag, closeTag))
         }
-        this.passInEachOperation(person, account, operationList)
-        return operationList
+        this.passInEachOperation(person, account, ofxOperationList)
+        return ofxOperationList
     }
     fun passInEachOperation(person: Person, account: Account, operationList: List<String>) {
         operationList.forEach {
@@ -95,7 +98,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         // <DTPOSTED> balise de la date
         startElement = operation.indexOf("<DTPOSTED>") + 10
         endElement = operation.indexOf("<", startElement)
-        val date = operation.substring(startElement, endElement)
+        var date = operation.substring(startElement, endElement)
         // <TRNAMT> balise du montant
         startElement = operation.indexOf("<TRNAMT>") + 9
         endElement = operation.indexOf("<", startElement)
@@ -105,6 +108,9 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         endElement = operation.indexOf("<", startElement)
         val memo = operation.substring(startElement, endElement)
         // formatage des données récupérées
+        if (!Day.checkComparableIsValid(Integer.parseInt(date))) {
+            date = SimpleDateFormat("yyyyMMdd").format( Date())
+        }
         val day = Day.createFromComparable(Integer.parseInt(date))
         val cent: String = euro.replace(",", "")
         var amount: Int = Integer.parseInt(cent)
