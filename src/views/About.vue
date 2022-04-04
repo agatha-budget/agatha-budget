@@ -34,6 +34,27 @@
     <btn class="dualTabButton disabled">Button</btn>
   </div>
 
+  <div>
+  <input type="radio" id="huey" name="drone" value="huey"
+         checked>
+  <label for="huey">Radio</label>
+  <input type="radio" id="huey" name="drone" value="huey"
+         unchecked>
+  <label for="huey">Radio</label>
+</div>
+
+<label for="pet-select">Select</label>
+
+<select id="select">
+    <option value="">Select</option>
+    <option value="dog">1</option>
+    <option value="cat">2</option>
+    <option value="hamster">3</option>
+    <option value="parrot">4</option>
+    <option value="spider">5</option>
+    <option value="goldfish">6</option>
+</select>
+
 </template>
 <style lang="less">
   @import "../style/atomic_design/atomic_design.less";

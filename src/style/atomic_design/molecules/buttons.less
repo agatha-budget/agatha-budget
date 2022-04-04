@@ -25,6 +25,29 @@ btn:hover {
     }
 }
 
+.dyslexia{
+  .navigationButton {
+    background: @action;
+    color: @white;
+    padding: 3px 15px 3px 15px ;
+    border-radius: @btnCornerRadius;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+
+    &.disabled {
+      background: @darkerBackground;
+      color: @dark;
+    }
+
+    &:hover:not(.disabled){ 
+      background-color:  @background;
+      border: 3px solid @navigation;
+      color: @navigation;
+    }
+}
+}
+
 .actionButton{
   background: @action;
   color: @white;
@@ -69,3 +92,7 @@ btn:hover {
     color: @navigation;
 }
 
+#select{
+  background: @action;
+  color: white;
+}
