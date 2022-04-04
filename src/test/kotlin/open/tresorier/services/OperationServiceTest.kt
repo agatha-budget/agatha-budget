@@ -78,10 +78,9 @@ class OperationServiceTest : ITest {
         val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220114<TRNAMT>-536,50<FITID>2802202220220228-03.01.56.182263<NAME>PRIX LOUISA GROSS HORWITZ<MEMO>PRIX LOUISA GROSS HORWITZ</STMTTRN>"
 
         val newOperation: Operation = operationService.createOperationFromOFX(rosalind, account, ofxDebitOperation)
+        val comparableOperation = operationService.create(rosalind, account, TestData.jan_14_2022, null, -53650, "PRIX LOUISA GROSS HORWITZ")
 
-        Assertions.assertEquals(newOperation.day.comparable, 20220114)
-        Assertions.assertEquals(newOperation.amount, -53650)
-        Assertions.assertEquals(newOperation.memo, "PRIX LOUISA GROSS HORWITZ")
+        Assertions.assertTrue(newOperation.isEquals(comparableOperation))
     }
 
     @Test
@@ -97,10 +96,9 @@ class OperationServiceTest : ITest {
         val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220114<TRNAMT>+89,50<FITID>2802202220220228-03.01.56.182263<NAME>VIR SEPA Babbage<MEMO>VIR SEPA Babbage</STMTTRN>"
 
         val newOperation = operationService.createOperationFromOFX(ada, account, ofxDebitOperation)
+        val comparableOperation = operationService.create(ada, account, TestData.jan_14_2022, null, 8950, "VIR SEPA Babbage")
 
-        Assertions.assertEquals(newOperation.day.comparable, 20220114)
-        Assertions.assertEquals(newOperation.amount, 8950)
-        Assertions.assertEquals(newOperation.memo, "VIR SEPA Babbage")
+        Assertions.assertTrue(newOperation.isEquals(comparableOperation))
     }
 
     @Test
@@ -155,7 +153,6 @@ class OperationServiceTest : ITest {
         Assertions.assertEquals(listOperations[0], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220228<TRNAMT>-8,85<FITID>2802202220220228-17.02.34.872431<NAME>MERCURY REDSTONE 3<MEMO>MERCURY REDSTONE 3</STMTTRN>")
     }
 
-    // more tests
     @Test
     fun testOfxOperationWithInvalidDate() {
         val agnodice: Person = personService.createPerson(
@@ -166,7 +163,7 @@ class OperationServiceTest : ITest {
         val account: Account = accountService.create(
             agnodice, budget, "personal account", TestData.jan_14_2022, 1000
         )
-        val operationOfxWhithInvalidDate: String= "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20221528<TRNAMT>-25,58<FITID>2802202220220228-14.32.39.703605<NAME>CB AMAZON PAYMENTS<MEMO>CB AMAZON PAYMENTS</STMTTRN>"
+        val operationOfxWhithInvalidDate: String= "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20221528<TRNAMT>-25,58<FITID>2802202220220228-14.32.39.703605<NAME>VIREMENT HEROPHILE ALEXANDRIE<MEMO>VIREMENT HEROPHILE ALEXANDRIE</STMTTRN>"
         val operationCreated: Operation = operationService.createOperationFromOFX(agnodice, account, operationOfxWhithInvalidDate)
 
         Assertions.assertTrue(operationCreated.day.isEquals(Day.createFromComparable(Integer.parseInt(SimpleDateFormat("yyyyMMdd").format( Date())))))

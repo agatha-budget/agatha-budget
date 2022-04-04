@@ -9,4 +9,20 @@ class Operation (
         var memo: String? = null,
         id: String? = null,
         deleted: Boolean? = null
-) : DbObject(id, deleted)
+) : DbObject(id, deleted) {
+        fun isEquals(operation: Operation): Boolean {
+               if (!operation.day.isEquals(this.day)) {
+                        return false
+                }
+                if (operation.amount !== this.amount) {
+                        return false
+                }
+                if (operation.categoryId !== this.categoryId) {
+                        return false
+                }
+                if (!operation.memo.equals(this.memo)) {
+                        return false
+                }
+                return true
+        }
+}
