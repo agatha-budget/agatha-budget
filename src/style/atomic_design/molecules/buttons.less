@@ -93,16 +93,47 @@ btn:hover {
     padding: 2px;
   }
   .tabLest{
+    background-color:  #00324931;
     border-radius: 15px 0px 0px 15px;
     border: 1px solid @action;
     color: @navigation;
   }
   .tabRight{
+    background-color:  #00324931;
+    border-radius: 0px 15px 15px 0px;
+    border: 1px solid @action;
+    color: @navigation;
+  }
+  
+  .active{
+    .tabLest{
+      background-color:  #ffffff;
+      border-radius: 15px 0px 0px 15px;
+      border: 1px solid @action;
+      color: @navigation;
+    }
+    .tabRight{
+      background-color:  #00324931;
+      border-radius: 0px 15px 15px 0px;
+      border: 1px solid @action;
+      color: white;
+    }
+  }
+  .inactive
+  .tabLest{
+    background-color:  #00324931;
+    border-radius: 15px 0px 0px 15px;
+    border: 1px solid @action;
+    color: rgb(255, 255, 255);
+  }
+  .tabRight{
+    background-color:  #ffffff;
     border-radius: 0px 15px 15px 0px;
     border: 1px solid @action;
     color: @navigation;
   }
 }
+
 
 #select{
   background: @action;

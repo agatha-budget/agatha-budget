@@ -34,6 +34,20 @@
     <btn class="tabRight">TabRight</btn>
   </div>
 
+  <div class="dualTab">
+    <div class="active">
+    <btn class="tabLest" >TabLeft</btn>
+    <btn class="tabRight">TabRight</btn>
+    </div>
+  </div>
+
+  <div class="dualTab">
+    <div class="inactive">
+    <btn class="tabLest" >TabLeft</btn>
+    <btn class="tabRight">TabRight</btn>
+    </div>
+  </div>
+
   <div>
   <input type="radio" id="huey" name="drone" value="huey"
          checked>
@@ -41,6 +55,10 @@
   <input type="radio" id="huey" name="drone" value="huey"
          unchecked>
   <label for="huey">Radio</label>
+</div>
+
+<div>
+  <label for="switch"></label>
 </div>
 
 <label for="pet-select">Select</label>
