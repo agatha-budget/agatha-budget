@@ -22,12 +22,12 @@
   <div>
     <btn class="actionButton">Valider</btn>
   </div>
-
+<h2>illustratedNavButton</h2>
   <div>
     <btn class="illustratedNavButton">Button</btn>
     <btn class="illustratedNavButton disabled">Button</btn>
   </div>
-
+<h2>dualTab</h2>
 <div class="dualTab">
     <btn class="tabLest" >TabLeft</btn>
     <btn class="tabRight">TabRight</btn>
@@ -46,7 +46,7 @@
     <btn class="tabRight">TabRight</btn>
     </div>
   </div>
-
+<h2>radio</h2>
   <div>
   <input type="radio" id="huey" name="drone" value="huey"
          checked>
@@ -55,13 +55,17 @@
          unchecked>
   <label for="huey">Radio</label>
 </div>
-
+<h2>switch</h2>
+<div>
+<label class="switch"><input class="switch-input" type="checkbox"><span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px;"></span><span class="switch-handle"></span></label>
+<input class="switch-input" type="checkbox">
+<span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px;"></span>
+</div>
 <div>
   <label for="switch"></label>
 </div>
-
+<h2>select</h2>
 <label for="pet-select">Select</label>
-
 <select id="select">
     <option value="">Select</option>
     <option value="dog">1</option>
