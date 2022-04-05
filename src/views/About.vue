@@ -30,8 +30,8 @@
   </div>
 
 <div class="dualTab">
-    <btn >tabLeft</btn>
-    <btn class="active">tabRight</btn>
+    <btn class="tabLest" >TabLeft</btn>
+    <btn class="tabRight">TabRight</btn>
   </div>
 
   <div>
