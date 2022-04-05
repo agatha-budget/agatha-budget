@@ -38,7 +38,7 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
     }
 
     fun findByUser(person: Person) : List<Budget> {
-        authorizationService.cancelIfUserIsUnauthorized(person)
+        // don't check if authorized, should be accessed even by inactive person
         return budgetDao.findByPersonId(person.id)
     }
 
@@ -69,7 +69,7 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
             Category("Internet", masterCategoryFixed.id),
             Category("Forfait téléphone", masterCategoryFixed.id),
             Category("Électricité", masterCategoryFixed.id),
-            Category("Agatha-Budget (8€/mois)", masterCategoryFixed.id),
+            Category("Agatha-Budget (5€/mois)", masterCategoryFixed.id),
             Category("Dons", masterCategoryFixed.id),
             Category("Assurances", masterCategoryFixed.id),
             Category("Gaz", masterCategoryFixed.id),
@@ -118,7 +118,7 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
             Category("Livraisons", masterCategoryVariable.id),
             Category("Matières premières", masterCategoryVariable.id),
             Category("Abonnements/Cotisations", masterCategoryFixed.id),
-            Category("Agatha-Budget (8€/mois)", masterCategoryFixed.id),
+            Category("Agatha-Budget (7€/mois)", masterCategoryFixed.id),
             Category("Comptables", masterCategoryFixed.id),
             Category("Divers", masterCategoryFixed.id),
             Category("Eau/Gaz/Électricité", masterCategoryFixed.id),
