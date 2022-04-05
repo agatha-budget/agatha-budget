@@ -49,22 +49,12 @@ btn:hover {
 }
 
 .actionButton{
-  background: @action;
-  color: @white;
+  background: rgb(213, 213, 213);
+  color: rgb(0, 0, 0);
+  border: 1px solid @navigation;
   padding: 3px 15px 3px 15px ;
   border-radius: @btnCornerRadius;
   text-align: center;
-
-  &.disabled {
-    background: @darkerBackground;
-    color: @dark;
-  }
-
-  &:hover:not(.disabled){ 
-    background-color:  @background;
-    border: 3px solid @navigation;
-    color: @navigation;
-  }
 }
 
 .illustratedNavButton{

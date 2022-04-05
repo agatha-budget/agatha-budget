@@ -21,7 +21,6 @@
 <h2>Action Button</h2>
   <div>
     <btn class="actionButton">Valider</btn>
-    <btn class="actionButton disabled">Valider</btn>
   </div>
 
   <div>
