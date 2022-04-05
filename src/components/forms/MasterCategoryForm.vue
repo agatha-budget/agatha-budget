@@ -1,18 +1,20 @@
 <template>
-  <div v-if="this.archived" id="operationForm" class="operation">
-    <span class="name">{{ this.name }}</span>
-     <span class="validation">
-      <button class="btn fas fa-level-up-alt" v-on:click="unarchiveMasterCategory"/>
-      <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-    </span>
-  </div>
-  <div v-else id="operationForm" class="operation">
-    <span class="name"><input id="newName" class="form-control" v-model="name"></span>
-    <span class="validation">
-      <button class="btn fas fa-check" v-on:click="updateMasterCategory"/>
-      <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-      <button class="btn fas fa-archive" v-on:click="archiveMasterCategory"/>
-    </span>
+  <div id="operationForm" class="operation">
+    <div v-if="this.archived" class="masterCategoryArchived">
+      <span class="name">{{ this.name }}</span>
+       <span class="validation">
+        <button class="btn fas fa-level-up-alt" v-on:click="unarchiveMasterCategory"/>
+        <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+      </span>
+    </div>
+    <div v-else>
+      <span class="name"><input id="newName" class="form-control" v-model="name"></span>
+      <span class="validation">
+        <button class="btn fas fa-check" v-on:click="updateMasterCategory"/>
+        <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+        <button class="btn fas fa-archive" v-on:click="archiveMasterCategory"/>
+      </span>
+    </div>
   </div>
 </template>
 

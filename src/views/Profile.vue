@@ -5,38 +5,36 @@
         <div class="image-container">
            <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
         </div>
-         <h3 class="profilName">{{$t("LASTNAME_FIRSTNAME")}}</h3>
         <li>
             <ul>
-              <a class="buttonProfile" v-on:click="goToBillingPortal"><div class="icone fas fa-credit-card"></div>{{
-                $t("SUBCRIPTION")
-              }}</a>
+              <a class="buttonProfile row" v-on:click="goSubscriptionPage">
+                <div class="icone fas fa-credit-card col-4"></div>
+                <div class="label col-8">{{ $t("SUBSCRIPTION") }}</div>
+              </a>
             </ul>
             <ul>
-              <a class="buttonProfile disabled"><div class="icone fas fa-book"></div>{{
-                $t("FREE_RESOURCE")
-              }}</a>
+              <a class="buttonProfile disabled row">
+                <div class="icone fas fa-book col-4"></div>
+                <div class="label col-8">{{ $t("FREE_RESOURCES") }}</div>
+              </a>
             </ul>
             <ul>
-              <a class="buttonProfile disabled"><div class="icone fas fa-palette"></div>{{
-                $t("APPEARANCE")
-              }}</a>
+              <a class="buttonProfile disabled row">
+                <div class="icone fas fa-palette col-4"></div>
+                <div class="label col-8">{{ $t("APPEARANCE") }}</div>
+              </a>
             </ul>
             <ul>
-              <a class="buttonProfile disabled"  ><div class="icone fab fa-discord"></div>{{
-                $t("COMMUNITY")
-              }}</a>
-            </ul>
-            <ul>
-              <a class="buttonProfile" v-on:click="logout"><div class="icone fas fa-power-off"></div>{{
-                $t("LOGOUT")
-              }}</a>
+              <a class="buttonProfile row" href="https://forum.agatha-budget.fr">
+                <div class="icone fas fa-question col-4"></div>
+                <div class="label col-8">{{ $t("SUPPORT") }}</div>
+              </a>
             </ul>
           </li>
       </div>
     </div>
     <div class="navMenu">
-    <NavMenu :page="'profile'" />
+      <NavMenu :page="'profile'" />
     </div>
   </div>
 </template>
@@ -45,18 +43,24 @@
 import { defineComponent } from 'vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 import PersonService from '@/services/PersonService'
+import StoreHandler from '@/store/StoreHandler'
+import router, { RouterPages } from '@/router'
 
 export default defineComponent({
   name: 'profilePage',
-  components: {
-    NavMenu
+  components: { NavMenu },
+  created: async function () {
+    StoreHandler.initStore(this.$store)
+  },
+  data () {
+    return { }
   },
   methods: {
     logout () {
       PersonService.deleteSession(this.$store)
     },
-    async goToBillingPortal (): Promise<void> {
-      PersonService.redirectToBillingPortalUrl()
+    goSubscriptionPage () {
+      router.push(RouterPages.subscription)
     }
   }
 })
