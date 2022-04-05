@@ -4,6 +4,10 @@
       <h1>{{$t('MY_ACCOUNTS')}}</h1>
     </div>
     <span class="total"> total : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>
+    <input type="text" v-model="testString" placeholder="je ne sers à rien">
+    <div>testString : {{ testString }}</div>
+    <div>testParse : {{ this.parseComma(testString) }}</div>
+    <div>testNombere : {{ this.testNombre }}</div>
     <ul>
       <li class="accounts" v-for="account of this.$store.state.accounts" :key="account">
         <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{this.getEurosAmount(account.amount)}} €</button>
@@ -36,6 +40,7 @@ import Utils from '@/utils/Utils'
 
 interface AccountsWidgetData {
     accountCreationFormIsDisplayed: boolean;
+    testString: string;
 }
 
 export default defineComponent({
@@ -45,7 +50,8 @@ export default defineComponent({
   },
   data (): AccountsWidgetData {
     return {
-      accountCreationFormIsDisplayed: false
+      accountCreationFormIsDisplayed: false,
+      testString: 'vide'
     }
   },
   computed: {
@@ -55,6 +61,9 @@ export default defineComponent({
         total += account.amount
       }
       return total
+    },
+    testNombre (): number {
+      return this.parseCommanb(this.testString)
     }
   },
   methods: {
@@ -70,6 +79,22 @@ export default defineComponent({
     },
     addSpacesInThousand (number: number): string {
       return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    },
+    parseComma (amount: string): string {
+      if (amount.indexOf(',') !== -1) {
+        console.log('on passe dans la boucle' + amount.indexOf(','))
+        const parsed = amount.replace(/,/g, '.')
+        console.log(amount)
+        return parsed
+      }
+      return amount
+    },
+    parseCommanb (amount: string): number {
+      if (amount.indexOf(',') !== -1) {
+        const parsed = amount.replace(/,/g, '.')
+        return Number(parsed)
+      }
+      return Number(amount)
     }
   }
 })
