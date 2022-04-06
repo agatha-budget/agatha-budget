@@ -52,12 +52,12 @@ repositories {
 
 val generatedDir = "src/main/generated"
 val generatedDirMain = generatedDir + "/tresorier"
-val generatedDirTest = generatedDir + "/test"
+val generatedDirTest = generatedDir + "/window"
 
 sourceSets {
     main {
         java {
-            setSrcDirs(listOf(generatedDirMain, generatedDirTest, "src/main/kotlin"))
+            setSrcDirs(listOf(generatedDirMain, generatedDir + "/test", "src/main/kotlin"))
         }
     }
     create("intTest") {
