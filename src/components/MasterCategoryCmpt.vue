@@ -119,14 +119,10 @@ export default defineComponent({
       this.$emit('emptyCategory', categoryId)
     },
     addSpacesInThousand (number: number): string {
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+      return Utils.addSpacesInThousand(number)
     },
     parseComma (amount: string): number {
-      if (amount.indexOf(',') !== -1) {
-        const parsed = amount.replace(/,/g, '.')
-        return Number(parsed)
-      }
-      return Number(amount)
+      return Utils.parseComma(amount)
     }
   }
 })

@@ -148,11 +148,7 @@ export default defineComponent({
       return group
     },
     parseComma (amount: string): number {
-      if (amount.indexOf(',') !== -1) {
-        const parsed = amount.replace(/,/g, '.')
-        return Number(parsed)
-      }
-      return Number(amount)
+      return Utils.parseComma(amount)
     }
   }
 })

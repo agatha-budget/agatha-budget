@@ -6,4 +6,16 @@ export default class Utils {
   public static getCentsAmount (eurosAmount: number): number {
     return Math.round(+eurosAmount * 100)
   }
+
+  public static addSpacesInThousand (number: number): string {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  }
+
+  public static parseComma (amount: string): number {
+    if (amount.indexOf(',') !== -1) {
+      const parsed = amount.replace(/,/g, '.')
+      return Number(parsed)
+    }
+    return Number(amount)
+  }
 }
