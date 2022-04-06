@@ -5,32 +5,30 @@
         <div class="image-container">
            <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
         </div>
-         <h3 class="profilName">{{$t("LASTNAME_FIRSTNAME")}}</h3>
         <li>
             <ul>
-              <a class="buttonProfile" v-on:click="goSubscriptionPage"><div class="icone fas fa-credit-card"></div>{{
-                $t("SUBSCRIPTION")
-              }}</a>
+              <a class="buttonProfile row" v-on:click="goSubscriptionPage">
+                <div class="icone fas fa-credit-card col-4"></div>
+                <div class="label col-8">{{ $t("SUBSCRIPTION") }}</div>
+              </a>
             </ul>
             <ul>
-              <a class="buttonProfile disabled"><div class="icone fas fa-book"></div>{{
-                $t("FREE_RESOURCE")
-              }}</a>
+              <a class="buttonProfile disabled row">
+                <div class="icone fas fa-book col-4"></div>
+                <div class="label col-8">{{ $t("FREE_RESOURCES") }}</div>
+              </a>
             </ul>
             <ul>
-              <a class="buttonProfile disabled"><div class="icone fas fa-palette"></div>{{
-                $t("APPEARANCE")
-              }}</a>
+              <a class="buttonProfile disabled row">
+                <div class="icone fas fa-palette col-4"></div>
+                <div class="label col-8">{{ $t("APPEARANCE") }}</div>
+              </a>
             </ul>
             <ul>
-              <a class="buttonProfile disabled"  ><div class="icone fab fa-discord"></div>{{
-                $t("COMMUNITY")
-              }}</a>
-            </ul>
-            <ul>
-              <a class="buttonProfile" v-on:click="logout"><div class="icone fas fa-power-off"></div>{{
-                $t("LOGOUT")
-              }}</a>
+              <a class="buttonProfile row" href="https://forum.agatha-budget.fr">
+                <div class="icone fas fa-question col-4"></div>
+                <div class="label col-8">{{ $t("SUPPORT") }}</div>
+              </a>
             </ul>
           </li>
       </div>

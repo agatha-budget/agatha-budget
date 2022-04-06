@@ -22,15 +22,10 @@
     text-transform: capitalize;
 }
 
-.buttonProfile{
-    background-color: #90D9E9;
-    color: #252525;
+.buttonProfile {
     text-decoration: none;
-    font-size: 16px;
-    border: 3px solid #90D9E9;
+    font-size: 20px;
     border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.5s ease-out;
     text-transform: capitalize;
     list-style-type: none;
     display: flex;
@@ -38,9 +33,31 @@
     margin-top: 20px;
     margin-left: 30px;
     margin-right: 30px;
+    .label {
+        text-align: left;
+    }
+    .icone{
+        margin-top: 3px;
+    }
 }
 
-.buttonProfile:hover{ 
+.buttonProfile:not(.disabled){
+    background-color: #90D9E9;
+    border: 3px solid #90D9E9;
+    color: #252525;
+    cursor: pointer;
+    transition: background-color 0.5s ease-out;
+   
+}
+
+.buttonProfile.disabled {
+    border: 3px solid @darkerBackground;
+    background-color: @darkerBackground;
+    color: #252525;
+    cursor: default;
+}
+
+.buttonProfile:hover:not(.disabled){ 
     background-color:  #007da711;
     border: 3px solid #003249;
     color: #003249;
@@ -51,11 +68,7 @@ ol, ul {
     padding-left: 0;
 }
 
-.icone{
-    position: absolute;
-    margin-top: 3px;
-    margin-right: 200px;
-}
+
 
 .boxMenu{
     background: white;

@@ -9,7 +9,7 @@ import Subscription from '../views/Subscription.vue'
 import ImportOfx from '../views/ImportOfx.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
-import { AxiosError, AxiosResponse } from 'axios'
+import { AxiosError } from 'axios'
 
 export enum RouterPages {
   home = '/',
@@ -79,8 +79,8 @@ export function redirectToLoginPageIfNotLogged (store: Store<StoreState>) {
 }
 
 export function redirectOnApiError (error: AxiosError) {
-  if (error.response!.status === 402) {
-    router.push(RouterPages.profile)
+  if (error.response && error.response.status === 402) {
+    router.push(RouterPages.subscription)
   } else {
     router.push(RouterPages.login)
   }

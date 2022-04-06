@@ -2,9 +2,11 @@
   <div :class="this.$store.state.css">
     <div id="subscriptionPage" class="col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
       <div v-if="profile == 'PROFILE_USER'" class="user">
-        <p class="col-12">{{ $t('TEXT_1_MONTH_FREE') }}</p>
+        <h1>{{ $t('SUBSCRIPTION') }}</h1>
+        <p class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
+        <p class="col-12">{{ $t('CHOOSE_THE_BEST_FOR_YOU') }}</p>
         <div class="essential row">
-          <span class="icon icon-plane col-12" />
+          <span class="icon icon-paper-plane col-12" />
           <h1 class="title col-12">{{ $t('ESSENTIAL') }}</h1>
           <p class=" col-12">{{ $t('TEXT_ESSENTIAL') }}</p>
           <div class="btnSubscription col-6">
@@ -15,7 +17,7 @@
           </div>
         </div>
         <div class="integral">
-          <span class="icon icon-paper-plane col-12" />
+          <span class="icon icon-plane col-12" />
           <h1 class="title col-12">{{ $t('INTEGRAL') }}</h1>
           <p class="col-12">{{ $t('TEXT_INTEGRAL') }}</p>
           <div class="btnSubscription col-6">
@@ -36,7 +38,9 @@
       </div>
 
       <div v-if="profile == 'PROFILE_COMPANY'" class="company">
-        <p class="col-12">{{ $t('TEXT_1_MONTH_FREE') }}</p>
+          <h1>{{ $t('SUBSCRIPTION') }}</h1>
+        <p class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
+        <p class="col-12">{{ $t('CHOOSE_THE_BEST_FOR_YOU') }}</p>
         <div class="businessSide">
           <span class="icon icon-briefcase col-12" />
           <h1 class="title col-12">{{ $t('BUSINESS_SIDE') }}</h1>
@@ -100,9 +104,6 @@ export default defineComponent({
     }
   },
   methods: {
-    logout () {
-      PersonService.deleteSession(this.$store)
-    },
     async goToBillingPortal (selectedPackage: string): Promise<void> {
       PersonService.redirectToBillingPortalUrl(selectedPackage)
     },
