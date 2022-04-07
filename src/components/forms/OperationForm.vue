@@ -22,7 +22,7 @@
           <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px"></span>
           <span class="switch-handle"></span>
       </label>
-        <input id="newOperationAmount" class="form-control" v-model.number="amount">
+        <input id="newOperationAmount" class="form-control" v-model="amountString">
     </div>
     </div>
   <div class="action col-1 offset-6">
@@ -46,7 +46,7 @@ interface OperationFormData {
   categoryId: string;
   memo: string;
   incoming: boolean;
-  amount: number;
+  amountString: string;
 }
 
 export default defineComponent({
@@ -60,7 +60,7 @@ export default defineComponent({
       categoryId: this.operation?.categoryId || '',
       memo: this.operation?.memo || '',
       incoming: this.operation?.amount ? this.operation.amount > 0 : false,
-      amount: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0))
+      amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0)).toString()
     }
   },
   props: {
@@ -99,6 +99,9 @@ export default defineComponent({
         }
       }
       return optionsList
+    },
+    amount (): number {
+      return this.parseComma(this.amountString)
     }
   },
   emits: ['updateOperationList'],
@@ -129,7 +132,7 @@ export default defineComponent({
     },
     rebootAddOperationForm () {
       this.memo = ''
-      this.amount = 0
+      this.amountString = ''
       this.categoryId = ''
       this.incoming = false
     },
@@ -143,6 +146,9 @@ export default defineComponent({
         group.options.push(option)
       }
       return group
+    },
+    parseComma (amount: string): number {
+      return Utils.parseComma(amount)
     }
   }
 })

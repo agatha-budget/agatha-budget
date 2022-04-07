@@ -28,10 +28,9 @@
       </td>
       <td class="allocated">
         <span v-if="archived">{{ getEurosAmount(this.categoryDataList[category.id]?.allocated ?? "") }}</span>
-        <input v-else type="number" class="allocationInput"
-        :value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
-        v-on:change="updateAllocationOnChange(category.id, $event.target.value)"
-        >
+        <input v-else type="text" class="allocationInput"
+        v-bind:value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
+        v-on:change="updateAllocationOnChange(category.id, this.parseComma($event.target.value))">
         </td>
       <td class="spent">
           {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.spent ?? "")) }}
@@ -120,7 +119,10 @@ export default defineComponent({
       this.$emit('emptyCategory', categoryId)
     },
     addSpacesInThousand (number: number): string {
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+      return Utils.addSpacesInThousand(number)
+    },
+    parseComma (amount: string): number {
+      return Utils.parseComma(amount)
     }
   }
 })

@@ -4,7 +4,7 @@
       <label for="newAccountName">{{ $t('ACCOUNT_NAME') }}</label>
       <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('CHECKING_ACCOUNT')">
       <label for="newAccountAmount">{{ $t('INITIAL_AMOUNT') }}</label>
-      <input id="newAccountAmount" class="form-control" v-model.number="amount">
+      <input id="newAccountAmount" class="form-control" v-model="amountString">
     </div>
     <button class="btn" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</button>
   </div>
@@ -20,7 +20,12 @@ export default defineComponent({
   data () {
     return {
       name: '',
-      amount: 0
+      amountString: '0'
+    }
+  },
+  computed: {
+    amount (): number {
+      return this.parseComma(this.amountString)
     }
   },
   emits: ['updateAccountList', 'closeForm'],
@@ -34,6 +39,9 @@ export default defineComponent({
           }
         )
       }
+    },
+    parseComma (amount: string): number {
+      return Utils.parseComma(amount)
     }
   }
 })

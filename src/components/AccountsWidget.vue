@@ -3,7 +3,7 @@
     <div class="row title">
       <h1>{{$t('MY_ACCOUNTS')}}</h1>
     </div>
-    <span class="total"> total : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>
+    <span class="total">{{$t('TOTAL')}} : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>
     <ul>
       <li class="accounts" v-for="account of this.$store.state.accounts" :key="account">
         <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{this.getEurosAmount(account.amount)}} €</button>
@@ -69,7 +69,7 @@ export default defineComponent({
       return this.addSpacesInThousand(value)
     },
     addSpacesInThousand (number: number): string {
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+      return Utils.addSpacesInThousand(number)
     }
   }
 })
