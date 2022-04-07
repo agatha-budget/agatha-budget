@@ -1,16 +1,17 @@
 package open.tresorier.services
 
-import java.text.SimpleDateFormat
-import java.util.Date
 import open.tresorier.dependenciesinjection.ITest
+import open.tresorier.dao.*
 import open.tresorier.model.Operation
 import open.tresorier.model.*
-import org.junit.jupiter.api.Test
-import org.koin.core.component.inject
-import open.tresorier.utils.TestData
-import open.tresorier.dao.*
-import org.junit.jupiter.api.Assertions
 import open.tresorier.model.enum.ProfileEnum
+import open.tresorier.utils.TestData
+
+import java.text.SimpleDateFormat
+import java.util.Date
+import org.koin.core.component.inject
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.Assertions
 
 class OperationServiceTest : ITest {
 
@@ -167,6 +168,61 @@ class OperationServiceTest : ITest {
         val operationCreated: Operation = operationService.createOperationFromOFX(agnodice, account, operationOfxWhithInvalidDate)
 
         Assertions.assertTrue(operationCreated.day.isEquals(Day.createFromComparable(Integer.parseInt(SimpleDateFormat("yyyyMMdd").format( Date())))))
+        Assertions.assertTrue(operationCreated.memo.equals("problème de date VIREMENT HEROPHILE ALEXANDRIE"))
+    }
+
+    @Test
+    fun testPassInEachOperationCorrect() {
+        val hedy: Person = personService.createPerson(
+            "Hedy Lamarr", "WIFI_2292387", "hedy@inventrice.at", ProfileEnum.PROFILE_USER
+        )
+        hedy.billingStatus = true
+        val budget: Budget = budgetService.findByUser(hedy)[0]
+        val account: Account = accountService.create(
+            hedy, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        val operationList = mutableListOf<String>()
+        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.593488<NAME>POSITIONNEMENT SATELLITES<MEMO>POSITIONNEMENT SATELLITES</STMTTRN>")
+        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.581463<NAME>ELECTRONIC FRONTIER FOUNDATION<MEMO>ELECTRONIC FRONTIER FOUNDATION</STMTTRN>")
+        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,38<FITID>2502202220220225-08.36.00.568860<NAME>FHSS<MEMO>FHSS</STMTTRN>")
+        val numberProblem = operationService.passInEachOperation(hedy, account, operationList)
+
+        Assertions.assertEquals(numberProblem, 0)
+    }
+
+    @Test
+    fun testPassInEachOperationWithProblem() {
+        val francoise: Person = personService.createPerson(
+            "Françoise Barré-Sinoussi", "Nobel_2008", "vih.sida@médecine.fr", ProfileEnum.PROFILE_USER
+        )
+        francoise.billingStatus = true
+        val budget: Budget = budgetService.findByUser(francoise)[0]
+        val account: Account = accountService.create(
+            francoise, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        val operationList = mutableListOf<String>()
+        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220025<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.593488<NAME>INSTUT PASTEUR<MEMO>INSTUT PASTEUR</STMTTRN>")
+        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220235<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.581463<NAME>RETROVIRUS<MEMO>RETROVIRUS</STMTTRN>")
+        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,38<FITID>2502202220220225-08.36.00.568860<NAME>ASSOCIATION AIDES<MEMO>ASSOCIATION AIDES</STMTTRN>")
+        val numberProblem = operationService.passInEachOperation(francoise, account, operationList)
+
+        Assertions.assertEquals(numberProblem, 2)
+    }
+
+    @Test
+    fun testPassInEachOperationWithoutOperation() {
+        val marion: Person = personService.createPerson(
+            "Marion Créhange", "Thèsarde_1961", "marion@informatique.fr", ProfileEnum.PROFILE_USER
+        )
+        marion.billingStatus = true
+        val budget: Budget = budgetService.findByUser(marion)[0]
+        val account: Account = accountService.create(
+            marion, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        val operationList = mutableListOf<String>()
+        val numberProblem = operationService.passInEachOperation(marion, account, operationList)
+
+        Assertions.assertEquals(numberProblem, 0)
     }
 
 }

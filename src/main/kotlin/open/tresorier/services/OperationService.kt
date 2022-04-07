@@ -85,10 +85,19 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         this.passInEachOperation(person, account, ofxOperationList)
         return ofxOperationList
     }
-    fun passInEachOperation(person: Person, account: Account, operationList: List<String>) {
+    fun passInEachOperation(person: Person, account: Account, operationList: List<String>): Int {
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        var nbOperationsProb = 0
         operationList.forEach {
-            this.createOperationFromOFX(person, account, it)
+            val operationCreated = this.createOperationFromOFX(person, account, it)
+            if (operationCreated.memo != null) {
+                if (operationCreated.memo.toString().indexOf("problème de date") != -1) {
+                    nbOperationsProb ++
+                }
+            }
+            operationDao.insert(operationCreated)
         }
+        return nbOperationsProb
     }
     fun createOperationFromOFX(person: Person, account: Account, operation: String): Operation {
         // <TRNTYPE> balise de la nature de l'opération
@@ -106,10 +115,11 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         // <MEMO> balise du mémo
         startElement = operation.indexOf("<MEMO>") + 6
         endElement = operation.indexOf("<", startElement)
-        val memo = operation.substring(startElement, endElement)
+        var memo = operation.substring(startElement, endElement)
         // formatage des données récupérées
-        if (!Day.checkComparableIsValid(Integer.parseInt(date))) {
-            date = SimpleDateFormat("yyyyMMdd").format( Date())
+        if (!Day.checkComparableIsValid(Integer.parseInt(date))) { // si la date est non valide on met à la date du jour
+            date = SimpleDateFormat("yyyyMMdd").format( Date())    // ainsi les opérations où il y a des problèmes sont visibles en premier
+            memo = "problème de date " + memo
         }
         val day = Day.createFromComparable(Integer.parseInt(date))
         val cent: String = euro.replace(",", "")
@@ -117,7 +127,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         if (type == "DEBIT") {
             amount *= -1
         }
-        val operationCreated = this.create(person, account, day, null, amount, memo)
+        val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo)    // créer une opération sans la mettre dans la base de donnée
         return operationCreated
     }
  }
