@@ -1,6 +1,8 @@
 <template>
+<h1 class="title">Molecule</h1>
+<h2>Button</h2>
   <div>
-    <h1 class="title">Default theme</h1>
+    <h3>Default theme</h3>
     <btn class="navigationButton">Navigation button</btn>
     <btn class="navigationButton disabled">Navigation button</btn>
 
@@ -11,23 +13,16 @@
 
   </div>
 
-  <div class="dyslexia">
-    <h1 class="title">dyslexia</h1>
-    <div class="row">
-    <btn class="navigationButton col-6 offset-2">Navigation button</btn>
-    <btn class="navigationButton disabled col-6">Navigation button</btn>
-    </div>
-  </div>
-<h2>Action Button</h2>
+<h3>Action Button</h3>
   <div>
     <btn class="actionButton">Valider</btn>
   </div>
-<h2>illustratedNavButton</h2>
+<h3>illustratedNavButton</h3>
   <div>
     <btn class="illustratedNavButton">Button</btn>
     <btn class="illustratedNavButton disabled">Button</btn>
   </div>
-<h2>dualTab</h2>
+<h3>dualTab</h3>
 <div class="dualTab">
     <btn class="tabLest" >TabLeft</btn>
     <btn class="tabRight">TabRight</btn>
@@ -46,7 +41,7 @@
     <btn class="tabRight">TabRight</btn>
     </div>
   </div>
-<h2>radio</h2>
+<h3>radio</h3>
   <div>
   <input type="radio" id="huey" name="drone" value="huey"
          checked>
@@ -55,7 +50,7 @@
          unchecked>
   <label for="huey">Radio</label>
 </div>
-<h2>switch</h2>
+<h3>switch</h3>
 <div>
 <label class="switch"><input class="switch-input" type="checkbox"><span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px;"></span><span class="switch-handle"></span></label>
 <input class="switch-input" type="checkbox">
@@ -64,20 +59,20 @@
 <div>
   <label for="switch"></label>
 </div>
-<h2>select</h2>
+<h3>select</h3>
 <div>
-<label for="pet-select">Select</label>
+<label>Select</label>
 <select id="select">
     <option value="">Select</option>
-    <option value="dog">1</option>
-    <option value="cat">2</option>
-    <option value="hamster">3</option>
-    <option value="parrot">4</option>
-    <option value="spider">5</option>
-    <option value="goldfish">6</option>
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    <option>4</option>
+    <option>5</option>
+    <option>6</option>
 </select>
 </div>
-<h2>NavBar</h2>
+<h3>NavBar</h3>
 <div class="navigationMenu">
       <ul id="actionsList" class="list-group list-group-horizontal d-flex">
         <li v-if="this.fromPage == 'home' "><button class="btn fas fa-home disabled" :title="$t('HOME')"/></li>
@@ -89,6 +84,20 @@
         <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
       </ul>
     </div>
+
+    <h2>Forms</h2>
+    <h3>select</h3>
+<div>
+<label>Select</label>
+<select id="select">
+    <option value="">Select</option>
+</select>
+</div>
+
+<label for="name">Name (4 to 8 characters):</label>
+
+<input type="text" id="name" name="name" required
+       minlength="4" maxlength="8" size="10">
 
 </template>
 <style lang="less">
