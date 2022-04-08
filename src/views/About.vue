@@ -34,17 +34,13 @@
     </div>
 
     <div class="dualTab">
-      <div class="active">
-      <btn class="tabLeft" >TabLeft</btn>
-      <btn class="tabRight">TabRight</btn>
-      </div>
+        <btn class="tabLeft active">TabLeft</btn>
+        <btn class="tabRight">TabRight</btn>
     </div>
 
     <div class="dualTab">
-      <div class="inactive">
       <btn class="tabLeft" >TabLeft</btn>
-      <btn class="tabRight">TabRight</btn>
-      </div>
+      <btn class="tabRight active">TabRight</btn>
     </div>
   </div>
 </div>

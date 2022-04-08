@@ -11,12 +11,12 @@ btn {
   display: inline-block;
   margin: 5px;
   text-transform: capitalize;
+  padding: 3px 15px 3px 15px ;
 }
 
 .navigationButton {
     background: @action;
     color: @white;
-    padding: 3px 15px 3px 15px ;
     border-radius: @btnCornerRadius;
     text-align: center;
 
@@ -35,7 +35,8 @@ btn {
 
     &:hover:not(.disabled){ 
       background-color:  @background;
-      border: 3px solid @navigation;
+      // replace border so that the 'border' is inside the button and doesn't change the total size
+      box-shadow:inset 0px 0px 0px 3px @navigation;
       color: @navigation;
       .illustration {
         color: @navigation;
@@ -54,56 +55,26 @@ btn {
 
 .dualTab{
   btn{  
-    background-color:  #00324931;
-    color: @navigation;
-    padding: 2px;
-  }
-  .tabLeft{
-    background-color:  #00324931;
-    border-radius: 15px 0px 0px 15px;
     border: 1px solid @action;
-    color: @navigation;
-    margin-right: 0;
-  }
-  .tabRight{
-    background-color:  #00324931;
-    border-radius: 0px 15px 15px 0px;
-    border: 1px solid @action;
-    color: @navigation;
-    margin-left: 0;
-  }
-  
-  .active{
-    .tabLeft{
-      background-color:  #ffffff;
+    color: @dark;
+
+    &.tabLeft{
       border-radius: 15px 0px 0px 15px;
-      border: 1px solid @action;
-      color: @navigation;
+      margin-right: 0;
     }
-    .tabRight{
-      background-color:  #00324931;
+
+    &.tabRight{
       border-radius: 0px 15px 15px 0px;
-      border: 1px solid @action;
-      color: white;
+      margin-left: 0;
     }
-  }
-  .inactive
-  .tabLeft{
-    background-color:  #00324931;
-    border-radius: 15px 0px 0px 15px;
-    border: 1px solid @action;
-    color: rgb(255, 255, 255);
-  }
-  .tabRight{
-    background-color:  #ffffff;
-    border-radius: 0px 15px 15px 0px;
-    border: 1px solid @action;
-    color: @navigation;
+
+    &.active{
+      background: @active;
+    }
   }
 }
 
-
-#select{
+.select{
   background: @action;
   color: white;
 }
