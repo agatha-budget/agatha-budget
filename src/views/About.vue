@@ -39,23 +39,36 @@
     </div>
 
     <div class="dualTab">
-      <btn class="tabLeft" >TabLeft</btn>
+      <btn class="tabLeft">TabLeft</btn>
       <btn class="tabRight active">TabRight</btn>
     </div>
   </div>
 </div>
 
 <div class="designContainer col-8 offset-2 row">
-  <h2>Forms</h2>
+  <h2>Inputs</h2>
   <div class="col-md-6">
-    <h3>radio</h3>
-      <div>
-      <input type="radio" id="huey" name="drone" value="huey"
-            checked>
-      <label for="huey">Radio</label>
-      <input type="radio" id="huey" name="drone" value="huey"
-            unchecked>
-      <label for="huey">Radio</label>
+
+    <h3>Radio // from Bootstrap</h3>
+    <div class="radioSelect">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+        <label class="form-check-label" for="exampleRadios1">
+          Default radio
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+        <label class="form-check-label" for="exampleRadios2">
+          Second default radio
+        </label>
+      </div>
+      <div class="form-check disabled">
+        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+        <label class="form-check-label" for="exampleRadios3">
+          Disabled radio
+        </label>
+      </div>
     </div>
 
     <h3>Switch</h3>
@@ -65,25 +78,39 @@
         <span class="switch-handle"></span>
     </label>
 
-    <h3>select</h3>
-    <div>
-    <label>Select</label>
-    <select id="select">
-        <option value="">Select</option>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-    </select>
+    <h3>Text Input</h3>
+    <div class="textInput form-group">
+      <label for="textInput">Email address</label>
+      <input type="email" class="form-control" id="textInput" placeholder="name@example.com">
+    </div>
+
+    <h3>Dark Text Input</h3>
+    <div class="darkTextInput form-group">
+      <label for="darkTextInput">Email address</label>
+      <input type="email" class="form-control" id="darkTextInput" placeholder="name@example.com">
+    </div>
+
+    <h3>Number Input</h3>
+    <div class="numberInput form-group">
+      <label for="textInput">Number</label>
+      <input type="number" class="form-control" id="textInput" placeholder="0">
+    </div>
+
+    <h3>Select with search</h3>
+    <div class="selectAutoComplete form-group">
+      <label for="category">Category</label>
+      <Multiselect
+        id="category"
+        v-model="categoryId"
+        :groups="true"
+        :searchable="true"
+        :options="categories"
+        :noResultsText="$t('NO_RESULT_FOUND')"
+        :placeholder="$t('SELECT_CATEGORY')"
+      />
     </div>
   </div>
-  <h3>Text Input</h3>
-  <label for="name">Name (4 to 8 characters):</label>
-  <input type="text" id="name" name="name" required minlength="4" maxlength="8" size="10">
 </div>
-
 <h1 class="title">Organisms</h1>
 <div class="designContainer col-8 offset-2 row">
   <h2>Navigation</h2>
@@ -103,6 +130,30 @@
   </div>
 </div>
 </template>
+<script lang="ts">
+import { defineComponent } from 'vue'
+import Multiselect from '@vueform/multiselect'
+
+export default defineComponent({
+  name: 'About',
+  components: {
+    Multiselect
+  },
+  data () {
+    return {
+      categories: [
+        {
+          label: this.$t('DEFAULT'),
+          options: [
+            { value: 'lala', label: this.$t('I18N_INCOME') },
+            { value: 'lili', label: this.$t('I18N_TRASNFERT') }
+          ]
+        }
+      ]
+    }
+  }
+})
+</script>
 <style lang="less">
   @import "../style/atomic_design/atomic_design.less";
 </style>
