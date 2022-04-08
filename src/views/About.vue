@@ -26,7 +26,7 @@
   </div>
   <div class="col-md-6">
 
-    <h3>dualTab</h3>
+    <h3>DualTab</h3>
 
     <div class="dualTab">
       <btn class="tabLeft" >TabLeft</btn>
@@ -57,15 +57,14 @@
             unchecked>
       <label for="huey">Radio</label>
     </div>
-    <h3>switch</h3>
-    <div>
-    <label class="switch"><input class="switch-input" type="checkbox"><span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px;"></span><span class="switch-handle"></span></label>
-    <input class="switch-input" type="checkbox">
-    <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px;"></span>
-    </div>
-    <div>
-      <label for="switch"></label>
-    </div>
+
+    <h3>Switch</h3>
+    <label class="customSwitch">
+        <input class="switch-input" type="checkbox"/>
+        <span class="switch-label" data-on="+" data-off="-"></span>
+        <span class="switch-handle"></span>
+    </label>
+
     <h3>select</h3>
     <div>
     <label>Select</label>
