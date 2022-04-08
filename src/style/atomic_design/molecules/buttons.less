@@ -6,6 +6,12 @@ btn:hover {
   cursor: pointer;
 }
 
+btn {
+  white-space: nowarp;
+  display: inline-block;
+  margin: 5px;
+}
+
 .navigationButton {
     background: @action;
     color: @white;
@@ -61,21 +67,23 @@ btn:hover {
     color: @navigation;
     padding: 2px;
   }
-  .tabLest{
+  .tabLeft{
     background-color:  #00324931;
     border-radius: 15px 0px 0px 15px;
     border: 1px solid @action;
     color: @navigation;
+    margin-right: 0;
   }
   .tabRight{
     background-color:  #00324931;
     border-radius: 0px 15px 15px 0px;
     border: 1px solid @action;
     color: @navigation;
+    margin-left: 0;
   }
   
   .active{
-    .tabLest{
+    .tabLeft{
       background-color:  #ffffff;
       border-radius: 15px 0px 0px 15px;
       border: 1px solid @action;
@@ -89,7 +97,7 @@ btn:hover {
     }
   }
   .inactive
-  .tabLest{
+  .tabLeft{
     background-color:  #00324931;
     border-radius: 15px 0px 0px 15px;
     border: 1px solid @action;
