@@ -124,6 +124,16 @@
     </div>
   </div>
 </div>
+
+<div class="designContainer col-8 offset-2 row">
+  <h2>Containers</h2>
+  <div class="col-md-6">
+    <h3>Number Container</h3>
+    <span class="positive">124 221</span>
+    <span class="negative">- 124 221</span>
+  </div>
+</div>
+
 <h1 class="title">Organisms</h1>
 <div class="designContainer col-8 offset-2 row">
   <h2>Navigation</h2>
