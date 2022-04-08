@@ -78,6 +78,33 @@
         <span class="switch-handle"></span>
     </label>
 
+    <h3>AmountInput</h3>
+    <div class="amountInput input-group flex-nowrap">
+      <label class="customSwitch">
+        <input class="switch-input" type="checkbox" v-model="incoming"/>
+          <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px"></span>
+          <span class="switch-handle"></span>
+      </label>
+        <input id="amount" class="form-control" v-model.number="amount">
+    </div>
+
+    <h3>Select with search</h3>
+    <div class="selectAutoComplete form-group">
+      <label for="category">Category</label>
+      <Multiselect
+        id="category"
+        v-model="categoryId"
+        :groups="true"
+        :searchable="true"
+        :options="categories"
+        :noResultsText="$t('NO_RESULT_FOUND')"
+        :placeholder="$t('SELECT_CATEGORY')"
+      />
+    </div>
+
+    </div>
+    <div class="col-md-6">
+
     <h3>Text Input</h3>
     <div class="textInput form-group">
       <label for="textInput">Email address</label>
@@ -94,20 +121,6 @@
     <div class="numberInput form-group">
       <label for="textInput">Number</label>
       <input type="number" class="form-control" id="textInput" placeholder="0">
-    </div>
-
-    <h3>Select with search</h3>
-    <div class="selectAutoComplete form-group">
-      <label for="category">Category</label>
-      <Multiselect
-        id="category"
-        v-model="categoryId"
-        :groups="true"
-        :searchable="true"
-        :options="categories"
-        :noResultsText="$t('NO_RESULT_FOUND')"
-        :placeholder="$t('SELECT_CATEGORY')"
-      />
     </div>
   </div>
 </div>
