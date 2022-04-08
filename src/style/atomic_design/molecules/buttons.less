@@ -10,6 +10,7 @@ btn {
   white-space: nowarp;
   display: inline-block;
   margin: 5px;
+  text-transform: capitalize;
 }
 
 .navigationButton {
@@ -19,19 +20,28 @@ btn {
     border-radius: @btnCornerRadius;
     text-align: center;
 
+    .illustration {
+      margin-right: 15px;
+      color: @white;
+    }
+
     &.disabled {
       background: @darkerBackground;
       color: @dark;
+      .illustration {
+        color: @dark;
+      }
     }
 
     &:hover:not(.disabled){ 
       background-color:  @background;
       border: 3px solid @navigation;
       color: @navigation;
+      .illustration {
+        color: @navigation;
+      }
     }
 }
-
-
 
 .actionButton{
   background: rgb(221, 221, 221);
@@ -40,25 +50,6 @@ btn {
   padding: 3px 15px 3px 15px ;
   border-radius: @btnCornerRadius;
   text-align: center;
-}
-
-.illustratedNavButton{
-  background: @action;
-  color: @white;
-  padding: 3px 15px 3px 15px ;
-  border-radius: @btnCornerRadius;
-  text-align: center;
-
-  &.disabled {
-    background: @darkerBackground;
-    color: @dark;
-  }
-
-  &:hover:not(.disabled){ 
-    background-color:  @background;
-    border: 3px solid @navigation;
-    color: @navigation;
-  }
 }
 
 .dualTab{

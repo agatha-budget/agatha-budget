@@ -10,9 +10,14 @@
     <btn class="navigationButton disabled">Navigation button</btn>
 
     <h3>IllustratedNavigationButtons </h3>
-    <btn class="illustratedNavigationBtn disabled">
-      <div class="icone fas fa-book col-4"></div>
-      <div class="label col-8">{{ $t("FREE_RESOURCES") }}</div>
+    <btn class="navigationButton">
+      <span class="illustration fas fa-book"/>
+      {{ $t("FREE_RESOURCES") }}
+    </btn>
+
+    <btn class="navigationButton disabled">
+      <span class="illustration fas fa-book"/>
+      {{ $t("FREE_RESOURCES") }}
     </btn>
 
     <h3>Action Button</h3>
