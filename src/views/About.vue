@@ -131,6 +131,31 @@
     <h3>Number Container</h3>
     <span class="positive">124 221</span>
     <span class="negative">- 124 221</span>
+
+    <h3>Form Container Header</h3>
+    <div class="formContainer header">
+      <div class="numberInput form-group">
+        <label for="textInput">Number</label>
+        <input type="number" class="form-control" id="textInput" placeholder="0">
+      </div>
+      <div class="numberInput form-group">
+        <label for="textInput">Number</label>
+        <input type="number" class="form-control" id="textInput" placeholder="0">
+      </div>
+    </div>
+
+    <h3>Form Container Inline</h3>
+    <div class="formContainer inline">
+      <div class="numberInput form-group">
+        <label for="textInput">Number</label>
+        <input type="number" class="form-control" id="textInput" placeholder="0">
+      </div>
+      <div class="numberInput form-group">
+        <label for="textInput">Number</label>
+        <input type="number" class="form-control" id="textInput" placeholder="0">
+      </div>
+    </div>
+
   </div>
 </div>
 
