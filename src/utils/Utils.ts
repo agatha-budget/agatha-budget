@@ -21,29 +21,29 @@ export default class Utils {
 
   public static calcul (calculation: string): number {
     let result: number
-    if (calculation.indexOf('+') !== -1) {
-      const pos = calculation.indexOf('+')
+    if (calculation.includes('+')) {
+      const pos = calculation.lastIndexOf('+')
       const avant = calculation.substring(0, pos)
       const apres = calculation.substring(pos + 1)
-      console.log(pos, calculation)
+      console.log(' + ', pos, calculation)
       result = this.calcul(avant) + this.calcul(apres)
-    } else if (calculation.indexOf('-') !== -1) {
-      const pos = calculation.indexOf('-')
+    } else if (calculation.includes('-')) {
+      const pos = calculation.lastIndexOf('-')
       const avant = calculation.substring(0, pos)
       const apres = calculation.substring(pos + 1)
-      console.log(pos, calculation)
+      console.log(' - ', pos, calculation)
       result = this.calcul(avant) - this.calcul(apres)
-    } else if (calculation.indexOf('*') !== -1) {
-      const pos = calculation.indexOf('*')
+    } else if (calculation.includes('*')) {
+      const pos = calculation.lastIndexOf('*')
       const avant = calculation.substring(0, pos)
       const apres = calculation.substring(pos + 1)
-      console.log(pos, calculation)
+      console.log(' * ', pos, calculation)
       result = this.calcul(avant) * this.calcul(apres)
-    } else if (calculation.indexOf('/') !== -1) {
-      const pos = calculation.indexOf('/')
+    } else if (calculation.includes('/')) {
+      const pos = calculation.lastIndexOf('/')
       const avant = calculation.substring(0, pos)
       const apres = calculation.substring(pos + 1)
-      console.log(pos, calculation)
+      console.log(' / ', pos, calculation)
       result = this.calcul(avant) / this.calcul(apres)
     } else {
       result = this.parseComma(calculation)
@@ -54,11 +54,11 @@ export default class Utils {
   public static parenthesis (calculation: string): number {
     const nombre = this.ValidityParenthesis(calculation)
     console.log('nombre de parenthèses ' + nombre)
-    const list = this.separateParenthesisBis(calculation, nombre)
-    console.log('tableau ' + list)
-    const result = this.calculParenthesis(calculation, nombre, list)
-    console.log('resultat' + result)
-    return result
+    const list = this.separateParenthesis(calculation, nombre)
+    console.log('tableau ', list)
+    const result = this.calculParenthesisBis(calculation, nombre, list)
+    console.log('resultat : ', result)
+    return this.calcul(result)
   }
 
   public static ValidityParenthesis (calculation: string): number {
@@ -82,12 +82,13 @@ export default class Utils {
     return nbParenthesis
   }
 
-  public static separateParenthesisBis (calculation: string, nb: number): Array<Array<number>> {
-    // renvoie un tableau avec les indices des parenthèse par couple ouverte/fermée
+  public static separateParenthesis (calculation: string, nb: number): Array<Array<number>> {
+    // renvoie un tableau avec les indices des parenthèses par couple ouverte/fermée
     const list: Array<Array<number>> = Array(nb)
     let indexList = 0
     console.log(list)
     for (let i = 0; i < calculation.length; i++) {
+      console.log('tour', i, list)
       if (calculation.charAt(i) === '(') {
         list[indexList] = [i, -1]
         indexList++
@@ -102,22 +103,33 @@ export default class Utils {
     return list
   }
 
-  public static calculParenthesis (calculation: string, nb: number, tab: Array<Array<number>>): number {
-    let newCalculation = ''
-    let indice = 0
-    for (let i = 0; i < nb; i++) {
-      if (indice < tab[i][0]) {
-        newCalculation = newCalculation + calculation.substring(indice, tab[i][0])
+  public static calculParenthesisBis (calculation: string, nb: number, tab: Array<Array<number>>): string {
+    if (nb === 0) {
+      return calculation
+    }
+    let numParenthesis = 0
+    if (nb > 1) {
+      let ecart = tab[0][1] - tab[0][0]
+      for (let i = 1; i < nb; i++) {
+        if (tab[i][1] - tab[i][0] < ecart) {
+          ecart = tab[i][1] - tab[i][0]
+          numParenthesis = i
+        }
       }
-      const prio = calculation.substring(tab[i][0] + 1, tab[i][1])
-      newCalculation = newCalculation + this.calcul(prio)
-      indice = tab[i][1]
     }
-    console.log('indice ' + indice, 'length ' + calculation.length)
-    if (indice < calculation.length - 1) {
-      newCalculation = newCalculation + calculation.substring(indice + 1, calculation.length)
+    const prio = this.calcul(calculation.substring(tab[numParenthesis][0] + 1, tab[numParenthesis][1]))
+    let avant = ''
+    let apres = ''
+    if (tab[numParenthesis][0] !== 0) {
+      avant = calculation.substring(0, tab[numParenthesis][0])
     }
-    console.log(newCalculation, 'nouveau calcul')
-    return this.calcul(newCalculation)
+    if (tab[numParenthesis][1] !== calculation.length - 1) {
+      apres = calculation.substring(tab[numParenthesis][1] + 1)
+    }
+    const newCalculation = avant + prio + apres
+    console.log('newCalculation ', newCalculation)
+    const newTab = this.separateParenthesis(newCalculation, nb - 1)
+    console.log('newTab ', newTab)
+    return this.calculParenthesisBis(newCalculation, nb - 1, newTab)
   }
 }
