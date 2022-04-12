@@ -177,6 +177,45 @@
     </div>
   </div>
 </div>
+
+<div class="designContainer col-8 offset-2 row">
+  <h2>Budget Data</h2>
+    <h3>MasterCategoryHeader</h3>
+     <div class="col-md-6">
+  <div class="MasterCdefault">
+    <h3>Master Category</h3><h3>124</h3><h3>300</h3>
+  </div>
+  </div>
+  <div class="col-md-6">
+  <div class="MasterCcollapsed">
+    <h3>Master Category</h3>
+  </div>
+  <br>
+  </div>
+  <div class="col-md-6">
+  <div class="MasterCdefault">
+    <label for="name"></label>
+<input type="text" id="name" name="name" required>
+    <h3 class="fa fa-trash" aria-hidden="true"></h3>
+    <h3 class="fa fa-check"></h3>
+  </div>
+  </div>
+  <h3>CategoryBudgetData</h3>
+ <div class="col-md-6">
+  <div class="CategoryBudgetDataDefault">
+    <h3>Category</h3>
+<h3>124</h3><h3>300</h3>
+  </div>
+  </div>
+  <h3>Budget Header</h3>
+   <div class="col-md-6">
+  <div class="MasterCcollapsed">
+    <h3>Alloué</h3><h3>Disponible</h3>
+  </div>
+  </div>
+  <h3>Budget Total Line</h3>
+</div>
+
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
