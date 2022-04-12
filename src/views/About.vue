@@ -207,13 +207,24 @@
 <h3>124</h3><h3>300</h3>
   </div>
   </div>
+  <div class="col-md-6">
+  <div class="CategoryBudgetDataDebit">
+    <h3>Category</h3>
+<h3>124</h3><h3>300</h3>
+  </div>
+  </div>
   <h3>Budget Header</h3>
    <div class="col-md-6">
-  <div class="MasterCcollapsed">
+  <div class="BudgetHeader">
     <h3>Alloué</h3><h3>Disponible</h3>
   </div>
   </div>
   <h3>Budget Total Line</h3>
+  <div class="col-md-6">
+  <div class="MasterCcollapsed">
+    <h3>Total</h3><h3>124</h3><h3>300</h3>
+  </div>
+  </div>
 </div>
 
 </template>
