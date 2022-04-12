@@ -19,36 +19,27 @@ export default class Utils {
     return Number(amount)
   }
 
-  public static calcul (calculation: string): number { // 9*((6*7-4)+3)*(5+6-(1+4))/2/3/3/3
+  public static calcul (calculation: string): number { // 9*((6*7-4)+3)*(5+6-(1+4))/2/3/3/3 returns 41
     let result: number
-    console.log(calculation)
     if (calculation.includes('+') && calculation.includes('-')) {
       if (calculation.lastIndexOf('+') < calculation.lastIndexOf('-')) {
-        console.log('deux signes -')
         result = this.subtraction(calculation)
       } else {
-        console.log('deux signes +')
         result = this.addition(calculation)
       }
     } else if (calculation.includes('+')) {
-      console.log('un signe +')
       result = this.addition(calculation)
     } else if (calculation.includes('-')) {
-      console.log('un signe -')
       result = this.subtraction(calculation)
     } else if (calculation.includes('*') && calculation.includes('/')) {
       if (calculation.lastIndexOf('/') < calculation.lastIndexOf('*')) {
-        console.log('deux signes *')
         result = this.multiplication(calculation)
       } else {
-        console.log('deux signes /')
         result = this.division(calculation)
       }
     } else if (calculation.includes('*')) {
-      console.log('un signe *')
       result = this.multiplication(calculation)
     } else if (calculation.includes('/')) {
-      console.log('un signe /')
       result = this.division(calculation)
     } else {
       result = this.parseComma(calculation)
@@ -84,17 +75,17 @@ export default class Utils {
     return this.calcul(avant) / this.calcul(apres)
   }
 
+  // fonction à appeler pour faire les calculs, peut être faire les tests de présence de parenthèse pour être plus rapide, renommer les variables en anglais et les commentaires
   public static parenthesis (calculation: string): number {
-    const nombre = this.ValidityParenthesis(calculation)
-    console.log('nombre de parenthèses ' + nombre)
-    const list = this.separateParenthesis(calculation, nombre)
-    console.log('tableau ', list)
-    const result = this.calculParenthesisBis(calculation, nombre, list)
-    console.log('resultat : ', result)
+    const newCalculation = calculation.replace(/x/g, '*')
+    const nombre = this.validityParenthesis(newCalculation)
+    const list = this.separateParenthesis(newCalculation, nombre)
+    const result = this.calculParenthesis(newCalculation, nombre, list)
     return this.calcul(result)
   }
 
-  public static ValidityParenthesis (calculation: string): number {
+  // peut être amélioré, en passant la boucle sur les parenthèses seulement
+  public static validityParenthesis (calculation: string): number {
     // test de validité de l'équation (niveau parenthèses)
     let compteur = 0
     let nbParenthesis = 0
@@ -115,13 +106,12 @@ export default class Utils {
     return nbParenthesis
   }
 
+  // peut être amélioré, en passant la boucle sur les parenthèses seulement
   public static separateParenthesis (calculation: string, nb: number): Array<Array<number>> {
     // renvoie un tableau avec les indices des parenthèses par couple ouverte/fermée
     const list: Array<Array<number>> = Array(nb)
     let indexList = 0
-    console.log(list)
     for (let i = 0; i < calculation.length; i++) {
-      console.log('tour', i, list)
       if (calculation.charAt(i) === '(') {
         list[indexList] = [i, -1]
         indexList++
@@ -136,7 +126,7 @@ export default class Utils {
     return list
   }
 
-  public static calculParenthesisBis (calculation: string, nb: number, tab: Array<Array<number>>): string {
+  public static calculParenthesis (calculation: string, nb: number, tab: Array<Array<number>>): string {
     if (nb === 0) {
       return calculation
     }
@@ -160,9 +150,7 @@ export default class Utils {
       apres = calculation.substring(tab[numParenthesis][1] + 1)
     }
     const newCalculation = avant + prio + apres
-    console.log('newCalculation ', newCalculation)
     const newTab = this.separateParenthesis(newCalculation, nb - 1)
-    console.log('newTab ', newTab)
-    return this.calculParenthesisBis(newCalculation, nb - 1, newTab)
+    return this.calculParenthesis(newCalculation, nb - 1, newTab)
   }
 }

@@ -25,7 +25,7 @@ export default defineComponent({
   },
   computed: {
     amount (): number {
-      return this.parseComma(this.amountString)
+      return this.parenthesis(this.amountString)
     }
   },
   emits: ['updateAccountList', 'closeForm'],
@@ -40,8 +40,8 @@ export default defineComponent({
         )
       }
     },
-    parseComma (amount: string): number {
-      return Utils.parseComma(amount)
+    parenthesis (amount: string): number {
+      return Utils.parenthesis(amount)
     }
   }
 })

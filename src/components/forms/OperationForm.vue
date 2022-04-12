@@ -101,7 +101,7 @@ export default defineComponent({
       return optionsList
     },
     amount (): number {
-      return this.parseComma(this.amountString)
+      return this.parenthesis(this.amountString)
     }
   },
   emits: ['updateOperationList'],
@@ -147,8 +147,8 @@ export default defineComponent({
       }
       return group
     },
-    parseComma (amount: string): number {
-      return Utils.parseComma(amount)
+    parenthesis (amount: string): number {
+      return Utils.parenthesis(amount)
     }
   }
 })
