@@ -39,6 +39,7 @@ import { Category, MasterCategory, Operation, incomeCategoryId, transfertCategor
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import Utils from '@/utils/Utils'
+import Calcul from '@/utils/Calcul'
 import Multiselect from '@vueform/multiselect'
 
 interface OperationFormData {
@@ -148,7 +149,7 @@ export default defineComponent({
       return group
     },
     entireCalcul (amount: string): number {
-      return Utils.entireCalcul(amount)
+      return Calcul.entireCalcul(amount)
     }
   }
 })

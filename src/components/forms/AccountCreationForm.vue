@@ -14,6 +14,7 @@
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
 import Utils from '@/utils/Utils'
+import Calcul from '@/utils/Calcul'
 
 export default defineComponent({
   name: 'AccountCreationForm',
@@ -41,7 +42,7 @@ export default defineComponent({
       }
     },
     entireCalcul (amount: string): number {
-      return Utils.entireCalcul(amount)
+      return Calcul.entireCalcul(amount)
     }
   }
 })

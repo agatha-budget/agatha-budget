@@ -49,6 +49,7 @@
 import { defineComponent } from 'vue'
 import { MasterCategory, CategoryDataList, CategoryData, Category, newCategoryName } from '@/model/model'
 import Utils from '@/utils/Utils'
+import Calcul from '@/utils/Calcul'
 import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
@@ -122,7 +123,7 @@ export default defineComponent({
       return Utils.addSpacesInThousand(number)
     },
     entireCalcul (amount: string): number {
-      return Utils.entireCalcul(amount)
+      return Calcul.entireCalcul(amount)
     }
   }
 })
