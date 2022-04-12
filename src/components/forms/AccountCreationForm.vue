@@ -25,7 +25,7 @@ export default defineComponent({
   },
   computed: {
     amount (): number {
-      return this.parenthesis(this.amountString)
+      return this.entireCalcul(this.amountString)
     }
   },
   emits: ['updateAccountList', 'closeForm'],
@@ -40,8 +40,8 @@ export default defineComponent({
         )
       }
     },
-    parenthesis (amount: string): number {
-      return Utils.parenthesis(amount)
+    entireCalcul (amount: string): number {
+      return Utils.entireCalcul(amount)
     }
   }
 })

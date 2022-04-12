@@ -101,7 +101,7 @@ export default defineComponent({
       return optionsList
     },
     amount (): number {
-      return this.parenthesis(this.amountString)
+      return this.entireCalcul(this.amountString)
     }
   },
   emits: ['updateOperationList'],
@@ -147,8 +147,8 @@ export default defineComponent({
       }
       return group
     },
-    parenthesis (amount: string): number {
-      return Utils.parenthesis(amount)
+    entireCalcul (amount: string): number {
+      return Utils.entireCalcul(amount)
     }
   }
 })

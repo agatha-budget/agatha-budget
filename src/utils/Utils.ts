@@ -19,7 +19,20 @@ export default class Utils {
     return Number(amount)
   }
 
-  public static calcul (calculation: string): number { // 9*((6*7-4)+3)*(5+6-(1+4))/2/3/3/3 returns 41
+  // to calculate a mathematical expression
+  public static entireCalcul (calculation: string): number {
+    const newCalculation = calculation.replace(/x/g, '*')
+    if (calculation.includes(')') && calculation.includes('(')) {
+      const numberParenthesis = this.validityParenthesis(newCalculation)
+      const listParenthesis = this.separateParenthesis(newCalculation, numberParenthesis)
+      const result = this.calculParenthesis(newCalculation, numberParenthesis, listParenthesis)
+      return this.basicCalcul(result)
+    }
+    return this.basicCalcul(newCalculation)
+  }
+
+  // resolve a mathematical expression without parenthesis
+  public static basicCalcul (calculation: string): number { // 9*((6*7-4)+3)*(5+6-(1+4))/2/3/3/3 returns 41
     let result: number
     if (calculation.includes('+') && calculation.includes('-')) {
       if (calculation.lastIndexOf('+') < calculation.lastIndexOf('-')) {
@@ -48,68 +61,57 @@ export default class Utils {
   }
 
   public static subtraction (calculation: string): number {
-    const pos = calculation.lastIndexOf('-')
-    const avant = calculation.substring(0, pos)
-    const apres = calculation.substring(pos + 1)
-    return this.calcul(avant) - this.calcul(apres)
+    const position = calculation.lastIndexOf('-')
+    const before = calculation.substring(0, position)
+    const after = calculation.substring(position + 1)
+    return this.basicCalcul(before) - this.basicCalcul(after)
   }
 
   public static addition (calculation: string): number {
-    const pos = calculation.lastIndexOf('+')
-    const avant = calculation.substring(0, pos)
-    const apres = calculation.substring(pos + 1)
-    return this.calcul(avant) + this.calcul(apres)
+    const position = calculation.lastIndexOf('+')
+    const before = calculation.substring(0, position)
+    const after = calculation.substring(position + 1)
+    return this.basicCalcul(before) + this.basicCalcul(after)
   }
 
   public static multiplication (calculation: string): number {
-    const pos = calculation.lastIndexOf('*')
-    const avant = calculation.substring(0, pos)
-    const apres = calculation.substring(pos + 1)
-    return this.calcul(avant) * this.calcul(apres)
+    const position = calculation.lastIndexOf('*')
+    const before = calculation.substring(0, position)
+    const after = calculation.substring(position + 1)
+    return this.basicCalcul(before) * this.basicCalcul(after)
   }
 
   public static division (calculation: string): number {
-    const pos = calculation.lastIndexOf('/')
-    const avant = calculation.substring(0, pos)
-    const apres = calculation.substring(pos + 1)
-    return this.calcul(avant) / this.calcul(apres)
+    const position = calculation.lastIndexOf('/')
+    const before = calculation.substring(0, position)
+    const after = calculation.substring(position + 1)
+    return this.basicCalcul(before) / this.basicCalcul(after)
   }
 
-  // fonction à appeler pour faire les calculs, peut être faire les tests de présence de parenthèse pour être plus rapide, renommer les variables en anglais et les commentaires
-  public static parenthesis (calculation: string): number {
-    const newCalculation = calculation.replace(/x/g, '*')
-    const nombre = this.validityParenthesis(newCalculation)
-    const list = this.separateParenthesis(newCalculation, nombre)
-    const result = this.calculParenthesis(newCalculation, nombre, list)
-    return this.calcul(result)
-  }
-
-  // peut être amélioré, en passant la boucle sur les parenthèses seulement
+  // check valid position of parenthesis and returns quantity of pair of these
   public static validityParenthesis (calculation: string): number {
-    // test de validité de l'équation (niveau parenthèses)
-    let compteur = 0
-    let nbParenthesis = 0
+    let counter = 0
+    let numberParenthesis = 0
     for (let i = 0; i < calculation.length; i++) {
-      if (compteur < 0) {
+      if (counter < 0) {
         return -1
       }
       if (calculation.charAt(i) === '(') {
-        compteur++
-        nbParenthesis++
+        counter++
+        numberParenthesis++
       } else if (calculation.charAt(i) === ')') {
-        compteur--
+        counter--
       }
     }
-    if (compteur !== 0) {
+    if (counter !== 0) {
       return -1
     }
-    return nbParenthesis
+    return numberParenthesis
   }
 
-  // peut être amélioré, en passant la boucle sur les parenthèses seulement
-  public static separateParenthesis (calculation: string, nb: number): Array<Array<number>> {
-    // renvoie un tableau avec les indices des parenthèses par couple ouverte/fermée
-    const list: Array<Array<number>> = Array(nb)
+  // return list of parenthesis' position filed per pair
+  public static separateParenthesis (calculation: string, numberParenthesis: number): Array<Array<number>> {
+    const list: Array<Array<number>> = Array(numberParenthesis)
     let indexList = 0
     for (let i = 0; i < calculation.length; i++) {
       if (calculation.charAt(i) === '(') {
@@ -126,31 +128,32 @@ export default class Utils {
     return list
   }
 
-  public static calculParenthesis (calculation: string, nb: number, tab: Array<Array<number>>): string {
-    if (nb === 0) {
+  // return priority basic expression due to parenthesis
+  public static calculParenthesis (calculation: string, numberParenthesis: number, listParenthesis: Array<Array<number>>): string {
+    if (numberParenthesis === 0) {
       return calculation
     }
-    let numParenthesis = 0
-    if (nb > 1) {
-      let ecart = tab[0][1] - tab[0][0]
-      for (let i = 1; i < nb; i++) {
-        if (tab[i][1] - tab[i][0] < ecart) {
-          ecart = tab[i][1] - tab[i][0]
-          numParenthesis = i
+    let indexParenthesis = 0
+    if (numberParenthesis > 1) {
+      let ecart = listParenthesis[0][1] - listParenthesis[0][0]
+      for (let i = 1; i < numberParenthesis; i++) {
+        if (listParenthesis[i][1] - listParenthesis[i][0] < ecart) {
+          ecart = listParenthesis[i][1] - listParenthesis[i][0]
+          indexParenthesis = i
         }
       }
     }
-    const prio = this.calcul(calculation.substring(tab[numParenthesis][0] + 1, tab[numParenthesis][1]))
-    let avant = ''
-    let apres = ''
-    if (tab[numParenthesis][0] !== 0) {
-      avant = calculation.substring(0, tab[numParenthesis][0])
+    const priority = this.basicCalcul(calculation.substring(listParenthesis[indexParenthesis][0] + 1, listParenthesis[indexParenthesis][1]))
+    let before = ''
+    let after = ''
+    if (listParenthesis[indexParenthesis][0] !== 0) {
+      before = calculation.substring(0, listParenthesis[indexParenthesis][0])
     }
-    if (tab[numParenthesis][1] !== calculation.length - 1) {
-      apres = calculation.substring(tab[numParenthesis][1] + 1)
+    if (listParenthesis[indexParenthesis][1] !== calculation.length - 1) {
+      after = calculation.substring(listParenthesis[indexParenthesis][1] + 1)
     }
-    const newCalculation = avant + prio + apres
-    const newTab = this.separateParenthesis(newCalculation, nb - 1)
-    return this.calculParenthesis(newCalculation, nb - 1, newTab)
+    const newCalculation = before + priority + after
+    const newList = this.separateParenthesis(newCalculation, numberParenthesis - 1)
+    return this.calculParenthesis(newCalculation, numberParenthesis - 1, newList)
   }
 }
