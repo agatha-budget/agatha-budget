@@ -19,36 +19,69 @@ export default class Utils {
     return Number(amount)
   }
 
-  public static calcul (calculation: string): number {
+  public static calcul (calculation: string): number { // 9*((6*7-4)+3)*(5+6-(1+4))/2/3/3/3
     let result: number
-    if (calculation.includes('+')) {
-      const pos = calculation.lastIndexOf('+')
-      const avant = calculation.substring(0, pos)
-      const apres = calculation.substring(pos + 1)
-      console.log(' + ', pos, calculation)
-      result = this.calcul(avant) + this.calcul(apres)
+    console.log(calculation)
+    if (calculation.includes('+') && calculation.includes('-')) {
+      if (calculation.lastIndexOf('+') < calculation.lastIndexOf('-')) {
+        console.log('deux signes -')
+        result = this.subtraction(calculation)
+      } else {
+        console.log('deux signes +')
+        result = this.addition(calculation)
+      }
+    } else if (calculation.includes('+')) {
+      console.log('un signe +')
+      result = this.addition(calculation)
     } else if (calculation.includes('-')) {
-      const pos = calculation.lastIndexOf('-')
-      const avant = calculation.substring(0, pos)
-      const apres = calculation.substring(pos + 1)
-      console.log(' - ', pos, calculation)
-      result = this.calcul(avant) - this.calcul(apres)
+      console.log('un signe -')
+      result = this.subtraction(calculation)
+    } else if (calculation.includes('*') && calculation.includes('/')) {
+      if (calculation.lastIndexOf('/') < calculation.lastIndexOf('*')) {
+        console.log('deux signes *')
+        result = this.multiplication(calculation)
+      } else {
+        console.log('deux signes /')
+        result = this.division(calculation)
+      }
     } else if (calculation.includes('*')) {
-      const pos = calculation.lastIndexOf('*')
-      const avant = calculation.substring(0, pos)
-      const apres = calculation.substring(pos + 1)
-      console.log(' * ', pos, calculation)
-      result = this.calcul(avant) * this.calcul(apres)
+      console.log('un signe *')
+      result = this.multiplication(calculation)
     } else if (calculation.includes('/')) {
-      const pos = calculation.lastIndexOf('/')
-      const avant = calculation.substring(0, pos)
-      const apres = calculation.substring(pos + 1)
-      console.log(' / ', pos, calculation)
-      result = this.calcul(avant) / this.calcul(apres)
+      console.log('un signe /')
+      result = this.division(calculation)
     } else {
       result = this.parseComma(calculation)
     }
     return Math.trunc(result * 100) / 100
+  }
+
+  public static subtraction (calculation: string): number {
+    const pos = calculation.lastIndexOf('-')
+    const avant = calculation.substring(0, pos)
+    const apres = calculation.substring(pos + 1)
+    return this.calcul(avant) - this.calcul(apres)
+  }
+
+  public static addition (calculation: string): number {
+    const pos = calculation.lastIndexOf('+')
+    const avant = calculation.substring(0, pos)
+    const apres = calculation.substring(pos + 1)
+    return this.calcul(avant) + this.calcul(apres)
+  }
+
+  public static multiplication (calculation: string): number {
+    const pos = calculation.lastIndexOf('*')
+    const avant = calculation.substring(0, pos)
+    const apres = calculation.substring(pos + 1)
+    return this.calcul(avant) * this.calcul(apres)
+  }
+
+  public static division (calculation: string): number {
+    const pos = calculation.lastIndexOf('/')
+    const avant = calculation.substring(0, pos)
+    const apres = calculation.substring(pos + 1)
+    return this.calcul(avant) / this.calcul(apres)
   }
 
   public static parenthesis (calculation: string): number {
