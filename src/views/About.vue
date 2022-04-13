@@ -194,8 +194,8 @@
   </div>
   <div class="col-md-6">
   <div class="MasterCdefault">
-    <label for="name"></label>
-<input type="text" id="name" name="name" required>
+  <label for="darkTextInput"></label>
+<input type="email" class="form-control" id="darkTextInput" placeholder="name@example.com">
     <h3 class="fa fa-trash" aria-hidden="true"></h3>
     <h3 class="fa fa-check"></h3>
   </div>
@@ -213,6 +213,12 @@
 <h3>124</h3><h3>300</h3>
   </div>
   </div>
+  <div class="col-md-6">
+  <div class="CategoryBudgetDataDefault">
+    <h3>Category</h3>
+<h3>124</h3><span class="negative">-221</span>
+  </div>
+  </div>
   <h3>Budget Header</h3>
    <div class="col-md-6">
   <div class="BudgetHeader">
@@ -225,6 +231,12 @@
     <h3>Total</h3><h3>124</h3><h3>300</h3>
   </div>
   </div>
+</div>
+
+<h1 class="title">Opération</h1>
+<div class="designContainer col-8 offset-2 row">
+  <h3>Opération Item</h3>
+  <h3>Operation Form</h3>
 </div>
 
 </template>
