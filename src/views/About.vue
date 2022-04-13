@@ -132,8 +132,8 @@
     <span class="positive">124 221</span>
     <span class="negative">- 124 221</span>
 
-    <h3>Form Container Header</h3>
-    <div class="formContainer header">
+    <h3>Container Header</h3>
+    <div class="container header">
       <div class="numberInput form-group">
         <label for="textInput">Number</label>
         <input type="number" class="form-control" id="textInput" placeholder="0">
@@ -144,8 +144,8 @@
       </div>
     </div>
 
-    <h3>Form Container Inline</h3>
-    <div class="formContainer inline">
+    <h3>Container default</h3>
+    <div class="container">
       <div class="numberInput form-group">
         <label for="textInput">Number</label>
         <input type="number" class="form-control" id="textInput" placeholder="0">
@@ -182,7 +182,7 @@
   <h2>Budget Data</h2>
     <h3>MasterCategoryHeader</h3>
      <div class="col-md-6">
-  <div class="MasterCdefault">
+  <div class="container">
     <h3>Master Category</h3><h3>124</h3><h3>300</h3>
   </div>
   </div>
