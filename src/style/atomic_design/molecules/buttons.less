@@ -1,0 +1,76 @@
+btn:hover {
+  cursor: pointer;
+}
+
+btn {
+  white-space: nowarp;
+  display: inline-block;
+  margin: 5px;
+  text-transform: capitalize;
+  padding: 3px 15px 3px 15px ;
+}
+
+.navigationButton {
+    background: @action;
+    color: @white;
+    border-radius: @btnBorderRadius;
+    text-align: center;
+
+    .illustration {
+      margin-right: 15px;
+      color: @white;
+    }
+
+    &.disabled {
+      background: @darkerBackground;
+      color: @dark;
+      .illustration {
+        color: @dark;
+      }
+    }
+
+    &:hover:not(.disabled){ 
+      background-color:  @background;
+      // replace border so that the 'border' is inside the button and doesn't change the total size
+      box-shadow:inset 0px 0px 0px 3px @navigation;
+      color: @navigation;
+      .illustration {
+        color: @navigation;
+      }
+    }
+}
+
+.actionButton{
+  background: rgb(221, 221, 221);
+  color: rgb(0, 0, 0);
+  border: 1px solid @navigation;
+  padding: 3px 15px 3px 15px ;
+  border-radius: @btnBorderRadius;
+  text-align: center;
+}
+
+.dualTab{
+  btn{  
+    border: 1px solid @action;
+    color: @dark;
+
+    &.tabLeft{
+      border-radius: 15px 0px 0px 15px;
+      margin-right: 0;
+    }
+
+    &.tabRight{
+      border-radius: 0px 15px 15px 0px;
+      margin-left: 0;
+    }
+
+    &.active{
+      background: @active;
+    }
+  }
+}
+
+.select{
+  background: @action;
+  color: white;
+}
