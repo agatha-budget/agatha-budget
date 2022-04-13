@@ -183,7 +183,7 @@
   <h3>MasterCategoryHeader</h3>
   <div class="col-md-6">
     <table>
-      <thead class="container">
+      <thead class="container header">
         <tr>
           <th>Master Category</th>
           <th>124</th>
