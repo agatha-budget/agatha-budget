@@ -78,7 +78,7 @@ class OperationServiceTest : ITest {
         )
         val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220114<TRNAMT>-536,50<FITID>2802202220220228-03.01.56.182263<NAME>PRIX LOUISA GROSS HORWITZ<MEMO>PRIX LOUISA GROSS HORWITZ</STMTTRN>"
 
-        val newOperation: Operation = operationService.createOperationFromOFX(rosalind, account, ofxDebitOperation)
+        val newOperation: Operation = operationService.createOperationFromOFX(account, ofxDebitOperation)
         val comparableOperation = operationService.create(rosalind, account, TestData.jan_14_2022, null, -53650, "PRIX LOUISA GROSS HORWITZ")
 
         Assertions.assertTrue(newOperation.isEquals(comparableOperation))
@@ -96,7 +96,7 @@ class OperationServiceTest : ITest {
         )
         val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220114<TRNAMT>+89,50<FITID>2802202220220228-03.01.56.182263<NAME>VIR SEPA Babbage<MEMO>VIR SEPA Babbage</STMTTRN>"
 
-        val newOperation = operationService.createOperationFromOFX(ada, account, ofxDebitOperation)
+        val newOperation = operationService.createOperationFromOFX(account, ofxDebitOperation)
         val comparableOperation = operationService.create(ada, account, TestData.jan_14_2022, null, 8950, "VIR SEPA Babbage")
 
         Assertions.assertTrue(newOperation.isEquals(comparableOperation))
@@ -104,16 +104,8 @@ class OperationServiceTest : ITest {
 
     @Test
     fun testCuttingOperationsFromOfx() {
-        val irene: Person = personService.createPerson(
-            "Irène Joliot-Curie", "Nobel_1935", "irene@chimie.fr", ProfileEnum.PROFILE_USER
-        )
-        irene.billingStatus = true
-        val budget: Budget = budgetService.findByUser(irene)[0]
-        val account: Account = accountService.create(
-            irene, budget, "personal account", TestData.jan_14_2022, 1000
-        )
         val ofxFile: String = "<OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:1252COMPRESSION:NONEOLDFILEUID:NONENEWFILEUID:NONE<OFX><SIGNONMSGSRSV1><SONRS><STATUS><CODE>0<SEVERITY>INFO</STATUS><DTSERVER>20220302<LANGUAGE>FRA<DTPROFUP>20220302<DTACCTUP>20220302</SONRS></SIGNONMSGSRSV1><BANKMSGSRSV1><STMTTRNRS><TRNUID>00<STATUS><CODE>0<SEVERITY>INFO</STATUS><STMTRS><CURDEF>EUR<BANKACCTFROM><BANKID>42559<BRANCHID>10000<ACCTID>04065601113<ACCTTYPE>SAVINGS</BANKACCTFROM><BANKTRANLIST><DTSTART>20220215<DTEND>20220228<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220228<TRNAMT>-8,85<FITID>2802202220220228-17.02.34.872431<NAME>VIR SEPA DENISE EVE<MEMO>VIR SEPA DENISE EVE</STMTTRN><STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220215<TRNAMT>+40,00<FITID>1502202220220215-05.39.35.662478<NAME>POLONIUM<MEMO>POLONIUM</STMTTRN></BANKTRANLIST><LEDGERBAL><BALAMT>5693,5<DTASOF>20220302</LEDGERBAL></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"
-        val listOperations: List<String> = operationService.separateOperationsOfOfxFile(irene, account, ofxFile)
+        val listOperations: List<String> = operationService.separateOperationsOfOfxFile(ofxFile)
         
         Assertions.assertEquals(listOperations[0], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220228<TRNAMT>-8,85<FITID>2802202220220228-17.02.34.872431<NAME>VIR SEPA DENISE EVE<MEMO>VIR SEPA DENISE EVE</STMTTRN>")
         Assertions.assertEquals(listOperations[1], "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220215<TRNAMT>+40,00<FITID>1502202220220215-05.39.35.662478<NAME>POLONIUM<MEMO>POLONIUM</STMTTRN>")
@@ -123,32 +115,16 @@ class OperationServiceTest : ITest {
 
     @Test
     fun testOfxFileWithoutOperation() {
-        val emmanuelle: Person = personService.createPerson(
-            "Emmanuelle Carpentier", "Nobel_2020", "emmanuelle@chimie.fr", ProfileEnum.PROFILE_USER
-        )
-        emmanuelle.billingStatus = true
-        val budget: Budget = budgetService.findByUser(emmanuelle)[0]
-        val account: Account = accountService.create(
-            emmanuelle, budget, "personal account", TestData.jan_14_2022, 1000
-        )
         val ofxFile: String = "<OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:1252COMPRESSION:NONEOLDFILEUID:NONENEWFILEUID:NONE<OFX><SIGNONMSGSRSV1><SONRS><STATUS><CODE>0<SEVERITY>INFO</STATUS><DTSERVER>20220302<LANGUAGE>FRA<DTPROFUP>20220302<DTACCTUP>20220302</SONRS></SIGNONMSGSRSV1><BANKMSGSRSV1><STMTTRNRS><TRNUID>00<STATUS><CODE>0<SEVERITY>INFO</STATUS><STMTRS><CURDEF>EUR<BANKACCTFROM><BANKID>42559<BRANCHID>10000<ACCTID>04065601113<ACCTTYPE>SAVINGS</BANKACCTFROM><BANKTRANLIST><DTSTART>20220215<DTEND>20220228</BANKTRANLIST><LEDGERBAL><BALAMT>5693,5<DTASOF>20220302</LEDGERBAL></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"
-        val listOperations: List<String> = operationService.separateOperationsOfOfxFile(emmanuelle, account, ofxFile)
+        val listOperations: List<String> = operationService.separateOperationsOfOfxFile(ofxFile)
 
         Assertions.assertEquals(listOperations.size, 0)
     }
 
     @Test
     fun testOfxFileWithOnlyOneOperation() {
-        val katherine: Person = personService.createPerson(
-            "Katherine Johnson", "NASA_1953", "katherine@fusée.us", ProfileEnum.PROFILE_USER
-        )
-        katherine.billingStatus = true
-        val budget: Budget = budgetService.findByUser(katherine)[0]
-        val account: Account = accountService.create(
-            katherine, budget, "personal account", TestData.jan_14_2022, 1000
-        )
         val ofxFile: String = "<OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:1252COMPRESSION:NONEOLDFILEUID:NONENEWFILEUID:NONE<OFX><SIGNONMSGSRSV1><SONRS><STATUS><CODE>0<SEVERITY>INFO</STATUS><DTSERVER>20220302<LANGUAGE>FRA<DTPROFUP>20220302<DTACCTUP>20220302</SONRS></SIGNONMSGSRSV1><BANKMSGSRSV1><STMTTRNRS><TRNUID>00<STATUS><CODE>0<SEVERITY>INFO</STATUS><STMTRS><CURDEF>EUR<BANKACCTFROM><BANKID>42559<BRANCHID>10000<ACCTID>04065601113<ACCTTYPE>SAVINGS</BANKACCTFROM><BANKTRANLIST><DTSTART>20220215<DTEND>20220228<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220228<TRNAMT>-8,85<FITID>2802202220220228-17.02.34.872431<NAME>MERCURY REDSTONE 3<MEMO>MERCURY REDSTONE 3</STMTTRN></BANKTRANLIST><LEDGERBAL><BALAMT>5693,5<DTASOF>20220302</LEDGERBAL></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"
-        val listOperations: List<String> = operationService.separateOperationsOfOfxFile(katherine, account, ofxFile)
+        val listOperations: List<String> = operationService.separateOperationsOfOfxFile(ofxFile)
 
         Assertions.assertEquals(listOperations.size, 1)
         Assertions.assertEquals(listOperations[0], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220228<TRNAMT>-8,85<FITID>2802202220220228-17.02.34.872431<NAME>MERCURY REDSTONE 3<MEMO>MERCURY REDSTONE 3</STMTTRN>")
@@ -165,14 +141,14 @@ class OperationServiceTest : ITest {
             agnodice, budget, "personal account", TestData.jan_14_2022, 1000
         )
         val operationOfxWhithInvalidDate: String= "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20221528<TRNAMT>-25,58<FITID>2802202220220228-14.32.39.703605<NAME>VIREMENT HEROPHILE ALEXANDRIE<MEMO>VIREMENT HEROPHILE ALEXANDRIE</STMTTRN>"
-        val operationCreated: Operation = operationService.createOperationFromOFX(agnodice, account, operationOfxWhithInvalidDate)
+        val operationCreated: Operation = operationService.createOperationFromOFX(account, operationOfxWhithInvalidDate)
 
         Assertions.assertTrue(operationCreated.day.isEquals(Day.createFromComparable(Integer.parseInt(SimpleDateFormat("yyyyMMdd").format( Date())))))
         Assertions.assertTrue(operationCreated.memo.equals("problème de date VIREMENT HEROPHILE ALEXANDRIE"))
     }
 
     @Test
-    fun testPassInEachOperationCorrect() {
+    fun testImportFileCorrect() {
         val hedy: Person = personService.createPerson(
             "Hedy Lamarr", "WIFI_2292387", "hedy@inventrice.at", ProfileEnum.PROFILE_USER
         )
@@ -181,32 +157,10 @@ class OperationServiceTest : ITest {
         val account: Account = accountService.create(
             hedy, budget, "personal account", TestData.jan_14_2022, 1000
         )
-        val operationList = mutableListOf<String>()
-        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.593488<NAME>POSITIONNEMENT SATELLITES<MEMO>POSITIONNEMENT SATELLITES</STMTTRN>")
-        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.581463<NAME>ELECTRONIC FRONTIER FOUNDATION<MEMO>ELECTRONIC FRONTIER FOUNDATION</STMTTRN>")
-        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,38<FITID>2502202220220225-08.36.00.568860<NAME>FHSS<MEMO>FHSS</STMTTRN>")
-        val numberProblem = operationService.passInEachOperation(hedy, account, operationList)
+        val operationList = "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.593488<NAME>POSITIONNEMENT SATELLITES<MEMO>POSITIONNEMENT SATELLITES</STMTTRN><STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.581463<NAME>ELECTRONIC FRONTIER FOUNDATION<MEMO>ELECTRONIC FRONTIER FOUNDATION</STMTTRN><STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,38<FITID>2502202220220225-08.36.00.568860<NAME>FHSS<MEMO>FHSS</STMTTRN>"
+        val numberOperation = operationService.importOfxFile(hedy, account, operationList)
 
-        Assertions.assertEquals(numberProblem, 0)
-    }
-
-    @Test
-    fun testPassInEachOperationWithProblem() {
-        val francoise: Person = personService.createPerson(
-            "Françoise Barré-Sinoussi", "Nobel_2008", "vih.sida@médecine.fr", ProfileEnum.PROFILE_USER
-        )
-        francoise.billingStatus = true
-        val budget: Budget = budgetService.findByUser(francoise)[0]
-        val account: Account = accountService.create(
-            francoise, budget, "personal account", TestData.jan_14_2022, 1000
-        )
-        val operationList = mutableListOf<String>()
-        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220025<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.593488<NAME>INSTUT PASTEUR<MEMO>INSTUT PASTEUR</STMTTRN>")
-        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220235<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.581463<NAME>RETROVIRUS<MEMO>RETROVIRUS</STMTTRN>")
-        operationList.add("<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,38<FITID>2502202220220225-08.36.00.568860<NAME>ASSOCIATION AIDES<MEMO>ASSOCIATION AIDES</STMTTRN>")
-        val numberProblem = operationService.passInEachOperation(francoise, account, operationList)
-
-        Assertions.assertEquals(numberProblem, 2)
+        Assertions.assertEquals(numberOperation, 3)
     }
 
     @Test
@@ -219,10 +173,10 @@ class OperationServiceTest : ITest {
         val account: Account = accountService.create(
             marion, budget, "personal account", TestData.jan_14_2022, 1000
         )
-        val operationList = mutableListOf<String>()
-        val numberProblem = operationService.passInEachOperation(marion, account, operationList)
+        val operationList = ""
+        val numberOperation = operationService.importOfxFile(marion, account, operationList)
 
-        Assertions.assertEquals(numberProblem, 0)
+        Assertions.assertEquals(numberOperation, 0)
     }
 
 }

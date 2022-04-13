@@ -63,13 +63,19 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         return operationDao.findByBudget(budget)
     }
-    fun openAndReadOfxFile(person: Person, account: Account, fileOfx: String) {
-        val formattedFile: String = fileOfx.replace("\n", "")
-        val doubleFormattedFile: String = formattedFile.replace("\r", "")
-        this.separateOperationsOfOfxFile(person, account, doubleFormattedFile)
-    }
-    fun separateOperationsOfOfxFile(person: Person, account: Account, ofxFile: String) : List<String> {
+    fun importOfxFile(person: Person, account: Account, fileOfx: String): Int {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
+        val formattedFile: String = fileOfx.replace("\n", "").replace("\r", "")
+        val listOperation = this.separateOperationsOfOfxFile(formattedFile)
+        var nbOperation = 0
+        listOperation.forEach {
+            val operationCreated = this.createOperationFromOFX(account, it)
+            nbOperation ++
+            operationDao.insert(operationCreated)
+        }
+        return nbOperation
+    }
+    fun separateOperationsOfOfxFile(ofxFile: String) : List<String> {
         var ofxOperationList = mutableListOf<String>()
         var startTag = ofxFile.indexOf("<STMTTRN>")
         var closeTag = ofxFile.indexOf("</STMTTRN>") + 10
@@ -82,24 +88,9 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         if (startTag !== -1) {
             ofxOperationList.add(ofxFile.substring(startTag, closeTag))
         }
-        this.passInEachOperation(person, account, ofxOperationList)
         return ofxOperationList
     }
-    fun passInEachOperation(person: Person, account: Account, operationList: List<String>): Int {
-        authorizationService.cancelIfUserIsUnauthorized(person, account)
-        var nbOperationsProb = 0
-        operationList.forEach {
-            val operationCreated = this.createOperationFromOFX(person, account, it)
-            if (operationCreated.memo != null) {
-                if (operationCreated.memo.toString().indexOf("problème de date") != -1) {
-                    nbOperationsProb ++
-                }
-            }
-            operationDao.insert(operationCreated)
-        }
-        return nbOperationsProb
-    }
-    fun createOperationFromOFX(person: Person, account: Account, operation: String): Operation {
+    fun createOperationFromOFX(account: Account, operation: String): Operation {
         // <TRNTYPE> balise de la nature de l'opération
         var startElement = operation.indexOf("<TRNTYPE>") + 9
         var endElement = operation.indexOf("<", startElement)
