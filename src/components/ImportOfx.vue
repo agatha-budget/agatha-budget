@@ -2,18 +2,17 @@
   <div class="MasterCcollapsed">
     <div class="importPage">
       <div v-if="fileImported">
-        <p class="blanc">{{ this.nbOperationImported }} opérations importées</p>
+        <p class="text">{{ this.nbOperationImported }}{{ $t('IMPORTED_OPERATION') }}</p>
       </div>
       <div v-else>
         <div v-if="fileSelected">
-          <p class="blanc">Le fichier est sélectionné</p>
+          <p class="text">{{ $t('FILE_IS_SELECTED') }}</p>
           <btn v-on:click="importOfxFile()" class="actionButton">{{ $t('IMPORT') }}</btn>
         </div>
         <div v-else>
-          <btn ></btn>
           <div class="actionButton ofxForm">
             <input id="importOfxFile" type="file" @change="onFileChange($event)" class="inputOfx" />
-            <label for="importOfxFile" class="col-12">Sélectionner un fichier .ofx</label>
+            <label for="importOfxFile" class="col-12">{{ $t('SELECT_FILE') }}</label>
           </div>
         </div>
       </div>
@@ -24,7 +23,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
-import router, { RouterPages } from '@/router'
 
 interface ImportOfxData {
     fileOfx: any;
@@ -78,10 +76,6 @@ export default defineComponent({
       fr.onerror = (evt) => {
         console.error('Failed to read this file')
       }
-      router.push({ path: RouterPages.account, query: { accountId: this.$props.accountId } })
-    },
-    goBackAccountPage () {
-      router.push({ path: RouterPages.account, query: { accountId: this.$props.accountId } })
     }
   }
 })

@@ -11,13 +11,13 @@
           <div class="placeholderTop">
             <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
           </div>
-          <div class="dualTab">
+          <div class="dualTab switchOperation">
             <btn v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">Ajout manuel</btn>
             <btn v-else v-on:click="switchAddOperation('manual')" class="tabLeft">Ajout manuel</btn>
             <btn v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">Import</btn>
             <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">Import</btn>
           </div>
-          <div v-if="importBloc" class="RedirectImportOfx">
+          <div v-if="importBloc" class="importOfx">
             <ImportOfx :accountId="this.accountId"/>
           </div>
           <OperationForm v-if="manualBloc" class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>

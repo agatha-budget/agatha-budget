@@ -97,5 +97,7 @@
     "CHOOSE_THE_BEST_FOR_YOU": "Choisissez l'offre la plus adaptée à votre besoin et n'hésitez pas à nous contacter en cas de doute",
     "PLEASE_CONTACT_US_AND_RDV": ", contactez-nous pour en savoir plus et prendre rendez-vous",
     "IMPORT": "importer",
-    "SELECT_FILE": "cliquez ici pour sélectionner un ficher à importer"
+    "SELECT_FILE": "sélectionner un fichier .ofx",
+    "IMPORTED_OPERATION": " opérations importées",
+    "FILE_IS_SELECTED": "le fichier est sélectionné"
 }
