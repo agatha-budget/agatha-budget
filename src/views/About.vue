@@ -183,7 +183,7 @@
   <h3>MasterCategoryHeader</h3>
   <div class="col-md-6">
     <table>
-      <thead class="container header">
+      <thead class="container header masterCategory">
         <tr>
           <th>Master Category</th>
           <th>124</th>
@@ -192,50 +192,7 @@
       </thead>
     </table>
   </div>
-  <div class="col-md-6">
-    <div class="MasterCcollapsed">
-      <h3>Master Category</h3>
-    </div>
-  </div>
-  <div class="col-md-6">
-  <div class="MasterCdefault">
-  <label for="darkTextInput"></label>
-<input type="email" class="form-control" id="darkTextInput" placeholder="name@example.com">
-    <h3 class="fa fa-trash" aria-hidden="true"></h3>
-    <h3 class="fa fa-check"></h3>
-  </div>
-  </div>
-  <h3>CategoryBudgetData</h3>
- <div class="col-md-6">
-  <div class="CategoryBudgetDataDefault">
-    <h3>Category</h3>
-<h3>124</h3><h3>300</h3>
-  </div>
-  </div>
-  <div class="col-md-6">
-  <div class="CategoryBudgetDataDebit">
-    <h3>Category</h3>
-<h3>124</h3><h3>300</h3>
-  </div>
-  </div>
-  <div class="col-md-6">
-  <div class="CategoryBudgetDataDefault">
-    <h3>Category</h3>
-<h3>124</h3><span class="negative">-221</span>
-  </div>
-  </div>
-  <h3>Budget Header</h3>
-   <div class="col-md-6">
-  <div class="BudgetHeader">
-    <h3>Alloué</h3><h3>Disponible</h3>
-  </div>
-  </div>
-  <h3>Budget Total Line</h3>
-  <div class="col-md-6">
-  <div class="MasterCcollapsed">
-    <h3>Total</h3><h3>124</h3><h3>300</h3>
-  </div>
-  </div>
+
 </div>
 
 <h1 class="title">Opération</h1>
