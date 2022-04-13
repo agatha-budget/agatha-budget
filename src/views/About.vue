@@ -191,6 +191,16 @@
         </tr>
       </thead>
     </table>
+    <h3>MasterCategoryHeader collapsed</h3>
+    <table>
+      <thead class="container header masterCategory collapsed">
+        <tr>
+          <th class="col-6">Master Category</th>
+          <th class="col-3">124</th>
+          <th class="col-3">300</th>
+        </tr>
+      </thead>
+    </table>
   </div>
 </div>
 

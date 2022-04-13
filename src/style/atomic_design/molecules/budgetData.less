@@ -10,4 +10,12 @@
     th:last-child{
         border-radius: 0 @borderRadius 0 0;
     }
+    &.collapsed{
+        th:first-child{
+            border-radius:  @borderRadius 0 0 @borderRadius;
+        }
+        th:last-child{
+            border-radius: 0 @borderRadius @borderRadius 0;
+        }
+    }
 }
