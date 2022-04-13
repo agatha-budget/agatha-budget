@@ -180,17 +180,22 @@
 
 <div class="designContainer col-8 offset-2 row">
   <h2>Budget Data</h2>
-    <h3>MasterCategoryHeader</h3>
-     <div class="col-md-6">
-  <div class="container">
-    <h3>Master Category</h3><h3>124</h3><h3>300</h3>
-  </div>
+  <h3>MasterCategoryHeader</h3>
+  <div class="col-md-6">
+    <table>
+      <thead class="container">
+        <tr>
+          <th>Master Category</th>
+          <th>124</th>
+          <th>300</th>
+        </tr>
+      </thead>
+    </table>
   </div>
   <div class="col-md-6">
-  <div class="MasterCcollapsed">
-    <h3>Master Category</h3>
-  </div>
-  <br>
+    <div class="MasterCcollapsed">
+      <h3>Master Category</h3>
+    </div>
   </div>
   <div class="col-md-6">
   <div class="MasterCdefault">
