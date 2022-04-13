@@ -2056,9 +2056,9 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        openAndReadOfxFile: async (accountId: string, body?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        importOfxFile: async (accountId: string, body?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('openAndReadOfxFile', 'accountId', accountId)
+            assertParamExists('importOfxFile', 'accountId', accountId)
             const localVarPath = `/operation/import`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2217,8 +2217,8 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async openAndReadOfxFile(accountId: string, body?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.openAndReadOfxFile(accountId, body, options);
+        async importOfxFile(accountId: string, body?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.importOfxFile(accountId, body, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2299,8 +2299,8 @@ export const OperationApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        openAndReadOfxFile(accountId: string, body?: string, options?: any): AxiosPromise<string> {
-            return localVarFp.openAndReadOfxFile(accountId, body, options).then((request) => request(axios, basePath));
+        importOfxFile(accountId: string, body?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.importOfxFile(accountId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2388,8 +2388,8 @@ export class OperationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public openAndReadOfxFile(accountId: string, body?: string, options?: AxiosRequestConfig) {
-        return OperationApiFp(this.configuration).openAndReadOfxFile(accountId, body, options).then((request) => request(this.axios, this.basePath));
+    public importOfxFile(accountId: string, body?: string, options?: AxiosRequestConfig) {
+        return OperationApiFp(this.configuration).importOfxFile(accountId, body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

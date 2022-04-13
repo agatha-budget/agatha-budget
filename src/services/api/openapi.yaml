@@ -1060,7 +1060,7 @@ paths:
       tags:
       - Operation
       summary: Add operations from ofx file
-      operationId: openAndReadOfxFile
+      operationId: importOfxFile
       parameters:
       - name: account_id
         in: query
