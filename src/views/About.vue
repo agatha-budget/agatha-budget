@@ -185,14 +185,13 @@
     <table>
       <thead class="container header masterCategory">
         <tr>
-          <th>Master Category</th>
-          <th>124</th>
-          <th>300</th>
+          <th class="col-6">Master Category</th>
+          <th class="col-3">124</th>
+          <th class="col-3">300</th>
         </tr>
       </thead>
     </table>
   </div>
-
 </div>
 
 <h1 class="title">Opération</h1>
