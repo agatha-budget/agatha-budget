@@ -11,10 +11,16 @@
           <div class="placeholderTop">
             <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
           </div>
-          <div class="RedirectImportOfx">
-            <button v-on:click="redirectToImportOfx()">{{ $t('IMPORT_OFX_FILE') }}</button>
+          <div class="dualTab">
+            <btn v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">Ajout manuel</btn>
+            <btn v-else v-on:click="switchAddOperation('manual')" class="tabLeft">Ajout manuel</btn>
+            <btn v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">Import</btn>
+            <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">Import</btn>
           </div>
-          <OperationForm class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
+          <div v-if="importBloc" class="RedirectImportOfx">
+            <ImportOfx :accountId="this.accountId"/>
+          </div>
+          <OperationForm v-if="manualBloc" class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
             <OperationForm class="modifyOperation" v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
             <a v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation storedOperation">
@@ -45,7 +51,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import router, { redirectToLoginPageIfNotLogged, RouterPages } from '@/router'
+import { redirectToLoginPageIfNotLogged } from '@/router'
 import { Account, Category, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
@@ -54,9 +60,12 @@ import OperationForm from '@/components/forms/OperationForm.vue'
 import Utils from '@/utils/Utils'
 import NavMenu from '@/components/NavigationMenu.vue'
 import AccountPageHeader from '@/components/AccountPageHeader.vue'
+import ImportOfx from '@/components/ImportOfx.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
+    importBloc: boolean;
+    manualBloc: boolean;
 }
 
 interface EditableOperation extends Operation {
@@ -68,7 +77,8 @@ export default defineComponent({
   components: {
     OperationForm,
     NavMenu,
-    AccountPageHeader
+    AccountPageHeader,
+    ImportOfx
   },
   beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
@@ -90,7 +100,9 @@ export default defineComponent({
   },
   data (): AccountPageData {
     return {
-      operations: []
+      operations: [],
+      importBloc: false,
+      manualBloc: false
     }
   },
   computed: {
@@ -160,14 +172,24 @@ export default defineComponent({
     addSpacesInThousand (number: number): string {
       return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
     },
-    redirectToImportOfx () {
-      router.push({ path: RouterPages.importOfx, query: { accountId: this.accountId } })
-    },
     getClassDependingCategory (operation: Operation): string {
       if (operation.categoryId === null) {
         return 'unknownCategory'
       } else {
         return 'categorySelected'
+      }
+    },
+    switchAddOperation (type: string) {
+      if (type === 'import') {
+        this.importBloc = !this.importBloc
+        if (this.importBloc === true && this.manualBloc === true) {
+          this.manualBloc = false
+        }
+      } else if (type === 'manual') {
+        this.manualBloc = !this.manualBloc
+        if (this.importBloc === true && this.manualBloc === true) {
+          this.importBloc = false
+        }
       }
     }
   }
