@@ -257,7 +257,7 @@
     </table>
   <h3>Category Budget Data Hover</h3>
   <table>
-      <thead class="categoryBudgetData">
+      <thead class="categoryBudgetData hover">
         <tr>
           <th class="col-6">Category</th>
           <th class="col-3">
@@ -265,9 +265,7 @@
                <input type="number" class="form-control" id="textInput" placeholder="0">
             </div>
           </th>
-          <th class="col-3">
-            <span class="negative">-221</span>
-          </th>
+          <th class="col-3">221</th>
         </tr>
       </thead>
     </table>
