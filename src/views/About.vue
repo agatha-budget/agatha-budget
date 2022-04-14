@@ -202,16 +202,26 @@
       </thead>
     </table>
     <h3>MasterCategoryHeader Edit</h3>
-     <table>
-      <thead class="container header masterCategory edit">
+    <table>
+     <thead class="container header masterCategory edit">
+      <tr>
+        <th class="col-6">
+          <div class="darkTextInput form-group">
+              <input type="text" class="form-control" id="darkTextInput" placeholder="Master Category">
+          </div>
+        </th>
+        <th class="fas fa-book col-3"></th>
+        <th class="col-3"></th>
+      </tr>
+     </thead>
+    </table>
+  <h3>Category Budget Data </h3>
+  <table>
+      <thead class="container body categoryBudgetData">
         <tr>
-          <th class="col-6">
-            <div class="darkTextInput form-group">
-               <input type="text" class="form-control" id="darkTextInput" placeholder="Master Category">
-            </div>
-          </th>
-          <th class="col-3"></th>
-          <th class="col-3"></th>
+          <th class="col-6">Master Category</th>
+          <th class="col-3">124</th>
+          <th class="col-3">300</th>
         </tr>
       </thead>
     </table>
