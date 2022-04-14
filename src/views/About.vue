@@ -201,9 +201,9 @@
         </tr>
       </thead>
     </table>
-    <h3>MasterCategoryHeader Default Hover</h3>
+    <h3>MasterCategoryHeader Edit</h3>
      <table>
-      <thead class="container header masterCategory masterCategoryHover">
+      <thead class="container header masterCategory edit">
         <tr>
           <th class="col-6">
             <div class="darkTextInput form-group">

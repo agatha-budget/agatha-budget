@@ -1,24 +1,23 @@
 .masterCategory {
     *{
         font-weight: normal;
-        text-align: center;
         padding: 10px;
     }
     th:first-child{
         border-radius:  @borderRadius 0 0 0;
+        text-align: left;
+
     }
     th:last-child{
         border-radius: 0 @borderRadius 0 0;
     }
-    &.masterCategoryHover{
+    th{
+        text-align: center;
+    }
+    &.edit{
         *{
             padding: 3px;
-        }
-        th:first-child{
-            border-radius:  @borderRadius 0 0 0;
-        }
-        th:last-child{
-            border-radius: 0 @borderRadius 0 0;
+            text-align: left;
         }
     }
     &.collapsed{
