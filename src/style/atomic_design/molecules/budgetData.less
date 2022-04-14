@@ -1,0 +1,32 @@
+.masterCategory {
+    *{
+        font-weight: normal;
+        padding: 10px;
+    }
+    th {
+        text-align: center;
+        &:first-child{
+            border-radius:  @borderRadius 0 0 0;
+            text-align: left;
+        }
+        &:last-child{
+            border-radius: 0 @borderRadius 0 0;
+        }    
+    }
+    &.edit{
+        *{
+            padding: 3px;
+            text-align: left;
+        }
+    }
+    &.collapsed{
+        th{
+            &:first-child{
+                border-radius:  @borderRadius 0 0 @borderRadius;
+            }
+            &:last-child{
+                border-radius: 0 @borderRadius @borderRadius 0;
+            }
+        }
+    }
+}

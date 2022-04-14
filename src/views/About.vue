@@ -137,8 +137,8 @@
     <span class="positive">124 221</span>
     <span class="negative">- 124 221</span>
 
-    <h3>Form Container Header</h3>
-    <div class="formContainer header">
+    <h3>Container Header</h3>
+    <div class="container header">
       <div class="numberInput form-group">
         <label for="textInput">Number</label>
         <input type="number" class="form-control" id="textInput" placeholder="0">
@@ -149,8 +149,8 @@
       </div>
     </div>
 
-    <h3>Form Container Inline</h3>
-    <div class="formContainer inline">
+    <h3>Container default</h3>
+    <div class="container">
       <div class="numberInput form-group">
         <label for="textInput">Number</label>
         <input type="number" class="form-control" id="textInput" placeholder="0">
@@ -185,51 +185,48 @@
 
 <div class="designContainer col-8 offset-2 row">
   <h2>Budget Data</h2>
-    <h3>MasterCategoryHeader</h3>
-     <div class="col-md-6">
-  <div class="MasterCdefault">
-    <h3>Master Category</h3><h3>124</h3><h3>300</h3>
-  </div>
-  </div>
+  <h3>MasterCategoryHeader</h3>
   <div class="col-md-6">
-  <div class="MasterCcollapsed">
-    <h3>Master Category</h3>
+    <table>
+      <thead class="container header masterCategory">
+        <tr>
+          <th class="col-6">Master Category</th>
+          <th class="col-3">124</th>
+          <th class="col-3">300</th>
+        </tr>
+      </thead>
+    </table>
+    <h3>MasterCategoryHeader collapsed</h3>
+    <table>
+      <thead class="container header masterCategory collapsed">
+        <tr>
+          <th class="col-6">Master Category</th>
+          <th class="col-3">124</th>
+          <th class="col-3">300</th>
+        </tr>
+      </thead>
+    </table>
+    <h3>MasterCategoryHeader Edit</h3>
+     <table>
+      <thead class="container header masterCategory edit">
+        <tr>
+          <th class="col-6">
+            <div class="darkTextInput form-group">
+               <input type="text" class="form-control" id="darkTextInput" placeholder="Master Category">
+            </div>
+          </th>
+          <th class="col-3"></th>
+          <th class="col-3"></th>
+        </tr>
+      </thead>
+    </table>
   </div>
-  <br>
-  </div>
-  <div class="col-md-6">
-  <div class="MasterCdefault">
-    <label for="name"></label>
-<input type="text" id="name" name="name" required>
-    <h3 class="fa fa-trash" aria-hidden="true"></h3>
-    <h3 class="fa fa-check"></h3>
-  </div>
-  </div>
-  <h3>CategoryBudgetData</h3>
- <div class="col-md-6">
-  <div class="CategoryBudgetDataDefault">
-    <h3>Category</h3>
-<h3>124</h3><h3>300</h3>
-  </div>
-  </div>
-  <div class="col-md-6">
-  <div class="CategoryBudgetDataDebit">
-    <h3>Category</h3>
-<h3>124</h3><h3>300</h3>
-  </div>
-  </div>
-  <h3>Budget Header</h3>
-   <div class="col-md-6">
-  <div class="BudgetHeader">
-    <h3>Alloué</h3><h3>Disponible</h3>
-  </div>
-  </div>
-  <h3>Budget Total Line</h3>
-  <div class="col-md-6">
-  <div class="MasterCcollapsed">
-    <h3>Total</h3><h3>124</h3><h3>300</h3>
-  </div>
-  </div>
+</div>
+
+<h1 class="title">Opération</h1>
+<div class="designContainer col-8 offset-2 row">
+  <h3>Opération Item</h3>
+  <h3>Operation Form</h3>
 </div>
 
 </template>
