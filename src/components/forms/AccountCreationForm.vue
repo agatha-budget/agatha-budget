@@ -14,6 +14,7 @@
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
 import Utils from '@/utils/Utils'
+import Calcul from '@/utils/Calcul'
 
 export default defineComponent({
   name: 'AccountCreationForm',
@@ -25,7 +26,7 @@ export default defineComponent({
   },
   computed: {
     amount (): number {
-      return this.parseComma(this.amountString)
+      return this.entireCalcul(this.amountString)
     }
   },
   emits: ['updateAccountList', 'closeForm'],
@@ -40,8 +41,8 @@ export default defineComponent({
         )
       }
     },
-    parseComma (amount: string): number {
-      return Utils.parseComma(amount)
+    entireCalcul (amount: string): number {
+      return Calcul.entireCalcul(amount)
     }
   }
 })

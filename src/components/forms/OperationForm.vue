@@ -39,6 +39,7 @@ import { Category, MasterCategory, Operation, incomeCategoryId, transfertCategor
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import Utils from '@/utils/Utils'
+import Calcul from '@/utils/Calcul'
 import Multiselect from '@vueform/multiselect'
 
 interface OperationFormData {
@@ -101,7 +102,7 @@ export default defineComponent({
       return optionsList
     },
     amount (): number {
-      return this.parseComma(this.amountString)
+      return this.entireCalcul(this.amountString)
     }
   },
   emits: ['updateOperationList'],
@@ -147,8 +148,8 @@ export default defineComponent({
       }
       return group
     },
-    parseComma (amount: string): number {
-      return Utils.parseComma(amount)
+    entireCalcul (amount: string): number {
+      return Calcul.entireCalcul(amount)
     }
   }
 })
