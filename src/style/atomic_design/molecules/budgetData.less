@@ -30,3 +30,38 @@
         }
     }
 }
+
+.categoryBudgetData {
+    *{
+        background: @grey;
+        font-weight: normal;
+        padding: 10px;
+        color: black ;
+    }
+    th {
+        text-align: center;
+        &:first-child{
+            text-align: left;
+            border-left: solid @action;
+        }
+        &:last-child{
+            border-right: solid @action;
+        }  
+    }
+    &.edit{
+        *{
+            padding: 3px;
+            text-align: left;
+        }
+    }
+    &.collapsed{
+        th{
+            &:first-child{
+                border-radius:  @borderRadius 0 0 @borderRadius;
+            }
+            &:last-child{
+                border-radius: 0 @borderRadius @borderRadius 0;
+            }
+        }
+    }
+}
