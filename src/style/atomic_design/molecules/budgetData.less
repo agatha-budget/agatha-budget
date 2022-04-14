@@ -1,4 +1,4 @@
-.masterCategory{
+.masterCategory {
     *{
         font-weight: normal;
         text-align: center;
@@ -9,6 +9,17 @@
     }
     th:last-child{
         border-radius: 0 @borderRadius 0 0;
+    }
+    &.masterCategoryHover{
+        *{
+            padding: 3px;
+        }
+        th:first-child{
+            border-radius:  @borderRadius 0 0 0;
+        }
+        th:last-child{
+            border-radius: 0 @borderRadius 0 0;
+        }
     }
     &.collapsed{
         th:first-child{

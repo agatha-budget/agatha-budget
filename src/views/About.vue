@@ -201,6 +201,20 @@
         </tr>
       </thead>
     </table>
+    <h3>MasterCategoryHeader Default Hover</h3>
+     <table>
+      <thead class="container header masterCategory masterCategoryHover">
+        <tr>
+          <th class="col-6">
+            <div class="darkTextInput form-group">
+               <input type="text" class="form-control" id="darkTextInput" placeholder="Master Category">
+            </div>
+          </th>
+          <th class="col-3"></th>
+          <th class="col-3"></th>
+        </tr>
+      </thead>
+    </table>
   </div>
 </div>
 
