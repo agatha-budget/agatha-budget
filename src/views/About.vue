@@ -215,6 +215,18 @@
       </tr>
      </thead>
     </table>
+   <h3>MasterCategoryHeader Debit</h3>
+   <table>
+      <thead class="container header masterCategory">
+      <tr>
+        <th class="col-6">Master Category</th>
+        <th class="col-3">124</th>
+        <th class="col-3">
+          <span class="negative">-221</span>
+        </th>
+        </tr>
+      </thead>
+    </table>
   <h3>Category Budget Data </h3>
   <table>
       <thead class="categoryBudgetData">
@@ -249,7 +261,11 @@
   <table>
       <thead class="categoryBudgetData edit">
         <tr>
-          <th class="col-6">Category</th>
+          <th class="col-6">
+            <div class="textInput form-group">
+              <input type="text" class="form-control" id="textInput" placeholder="Category">
+            </div>
+          </th>
           <th class="col-3"></th>
           <th class="col-3"></th>
         </tr>
