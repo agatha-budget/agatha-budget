@@ -217,10 +217,12 @@
     </table>
   <h3>Category Budget Data </h3>
   <table>
-      <thead class="container body categoryBudgetData">
+      <thead class="categoryBudgetData">
         <tr>
           <th class="col-6">Master Category</th>
-          <th class="col-3">124</th>
+          <th class="col-3"><div class="numberInput form-group">
+      <input type="number" class="form-control" id="textInput" placeholder="0">
+    </div></th>
           <th class="col-3">300</th>
         </tr>
       </thead>

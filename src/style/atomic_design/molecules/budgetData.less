@@ -33,10 +33,9 @@
 
 .categoryBudgetData {
     *{
-        background: @grey;
         font-weight: normal;
-        padding: 10px;
-        color: black ;
+        padding: 3px;
+        background: @background;
     }
     th {
         text-align: center;
@@ -47,21 +46,5 @@
         &:last-child{
             border-right: solid @action;
         }  
-    }
-    &.edit{
-        *{
-            padding: 3px;
-            text-align: left;
-        }
-    }
-    &.collapsed{
-        th{
-            &:first-child{
-                border-radius:  @borderRadius 0 0 @borderRadius;
-            }
-            &:last-child{
-                border-radius: 0 @borderRadius @borderRadius 0;
-            }
-        }
     }
 }
