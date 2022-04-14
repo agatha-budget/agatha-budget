@@ -3,16 +3,15 @@
         font-weight: normal;
         padding: 10px;
     }
-    th:first-child{
-        border-radius:  @borderRadius 0 0 0;
-        text-align: left;
-
-    }
-    th:last-child{
-        border-radius: 0 @borderRadius 0 0;
-    }
-    th{
+    th {
         text-align: center;
+        &:first-child{
+            border-radius:  @borderRadius 0 0 0;
+            text-align: left;
+        }
+        &:last-child{
+            border-radius: 0 @borderRadius 0 0;
+        }    
     }
     &.edit{
         *{
@@ -21,11 +20,13 @@
         }
     }
     &.collapsed{
-        th:first-child{
-            border-radius:  @borderRadius 0 0 @borderRadius;
-        }
-        th:last-child{
-            border-radius: 0 @borderRadius @borderRadius 0;
+        th{
+            &:first-child{
+                border-radius:  @borderRadius 0 0 @borderRadius;
+            }
+            &:last-child{
+                border-radius: 0 @borderRadius @borderRadius 0;
+            }
         }
     }
 }
