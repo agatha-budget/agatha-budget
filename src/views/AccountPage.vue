@@ -165,7 +165,7 @@ export default defineComponent({
       if (operation.amount > 0) {
         return 'positive'
       } else {
-        return 'negative'
+        return ''
       }
     },
     addSpacesInThousand (number: number): string {

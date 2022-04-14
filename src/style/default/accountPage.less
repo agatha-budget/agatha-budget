@@ -22,7 +22,7 @@
                     h1 {
                         text-align: center;
                         font-size: xx-large;
-                        margin-bottom: 20px;
+                        padding-bottom: 20px;
                         .btn {
                             visibility: hidden;
                             color: @darkBlue;
@@ -50,6 +50,7 @@
         .scrollable {
             .switchOperation {
                 text-align: center;
+                margin: 20px 0;
             }
             .importOfx {
                 padding-bottom: 5px;
@@ -59,7 +60,6 @@
                 padding: 10px 10px 20px 20px;
                 display: flex;
                 flex-wrap: wrap;
-                margin: 0;
                 width: 100%;
                 max-width: max-content;
                 .crossContainer {
@@ -82,6 +82,7 @@
                 }
             }
             .operationCreate {
+                margin: 10px 0 20px 0;
                 *{
                     color: black
                 }
@@ -90,6 +91,9 @@
                         color: white;
                     }
                 }
+            }
+            .modifyOperation {
+                border-radius: 0;
             }
             .storedOperation {
                 display: flex;
@@ -109,14 +113,6 @@
                 .amount {
                     font-size: large;
                     text-align: center;
-                }
-                .positive {
-                    border-radius: 25px;
-                    background: @green;
-                    padding: 2px 8px;
-                }
-                .negative {
-                    padding: 2px 0;
                 }
                 .action {
                     display: flex;
