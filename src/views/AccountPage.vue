@@ -18,7 +18,7 @@
             <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">Import</btn>
           </div>
           <div v-if="importBloc" class="importOfx">
-            <ImportOfx :accountId="this.accountId"/>
+            <ImportOfx :accountId="this.accountId" @close-import="closeImport"/>
           </div>
           <OperationForm v-if="manualBloc" class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
@@ -119,7 +119,6 @@ export default defineComponent({
       return this.addSpacesInThousand(value)
     }
   },
-  emits: ['loosesFocus'],
   methods: {
     async getAccountOperation () {
       if (this.account) {
@@ -191,6 +190,9 @@ export default defineComponent({
           this.importBloc = false
         }
       }
+    },
+    closeImport () {
+      this.importBloc = false
     }
   }
 })

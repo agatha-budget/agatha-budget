@@ -1,5 +1,8 @@
 <template>
-  <div class="MasterCcollapsed">
+  <div class="MasterCcollapsed import row">
+    <div class="crossContainer col-12">
+      <span class="cross light fas fa-times-circle" v-on:click="closeImport()"/>
+    </div>
     <div class="importPage">
       <div v-if="fileImported">
         <p class="text">{{ this.nbOperationImported }}{{ $t('IMPORTED_OPERATION') }}</p>
@@ -55,6 +58,7 @@ export default defineComponent({
       nbOperationImported: '0'
     }
   },
+  emits: ['closeImport'],
   methods: {
     onFileChange (event: { target: { files: any[] } }) {
       const file = event.target.files[0]
@@ -76,6 +80,9 @@ export default defineComponent({
       fr.onerror = (evt) => {
         console.error('Failed to read this file')
       }
+    },
+    closeImport () {
+      this.$emit('closeImport')
     }
   }
 })

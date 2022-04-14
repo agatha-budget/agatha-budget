@@ -42,6 +42,11 @@
       <btn class="tabLeft">TabLeft</btn>
       <btn class="tabRight active">TabRight</btn>
     </div>
+
+    <h3>Cross</h3>
+
+      <span class="cross light fas fa-times-circle"/>
+      <span class="cross dark fas fa-times-circle"/>
   </div>
 </div>
 
