@@ -32,11 +32,12 @@
 }
 
 .categoryBudgetData {
-    *{
         font-weight: normal;
-        padding: 3px;
-        background: @background;
-    }
+        background: @darkerBackground;
+        *{
+            font-weight: normal;
+            padding: 4px;
+        }
     th {
         text-align: center;
         &:first-child{
@@ -46,5 +47,5 @@
         &:last-child{
             border-right: solid @action;
         }  
-    }
+    }  
 }

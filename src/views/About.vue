@@ -219,11 +219,29 @@
   <table>
       <thead class="categoryBudgetData">
         <tr>
-          <th class="col-6">Master Category</th>
-          <th class="col-3"><div class="numberInput form-group">
-      <input type="number" class="form-control" id="textInput" placeholder="0">
-    </div></th>
+          <th class="col-6">Category</th>
+          <th class="col-3">
+            <div class="numberInput form-group">
+               <input type="number" class="form-control" id="textInput" placeholder="0">
+            </div>
+          </th>
           <th class="col-3">300</th>
+        </tr>
+      </thead>
+    </table>
+   <h3>Category Budget Data Debit </h3>
+   <table>
+      <thead class="categoryBudgetData">
+        <tr>
+          <th class="col-6">Category</th>
+          <th class="col-3">
+            <div class="numberInput form-group">
+               <input type="number" class="form-control" id="textInput" placeholder="0">
+            </div>
+          </th>
+          <th class="col-3">
+            <span class="negative">-221</span>
+          </th>
         </tr>
       </thead>
     </table>
