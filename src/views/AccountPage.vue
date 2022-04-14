@@ -20,9 +20,9 @@
           <div v-if="importBloc" class="importOfx">
             <ImportOfx :accountId="this.accountId" @close-import="closeImport"/>
           </div>
-          <OperationForm v-if="manualBloc" class="operationCreate" @update-operation-list="getAccountOperation" :accountId="this.accountId"/>
+          <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
           <template v-for="operation in this.operations" :key="operation">
-            <OperationForm class="modifyOperation" v-if="operation.editing" @update-operation-list="getAccountOperation" :accountId="this.accountId" :operation="operation"/>
+            <OperationForm class="modifyOperation container" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
             <a v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation storedOperation">
               <div class="date col-2 offset-1">
                 <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
@@ -193,6 +193,12 @@ export default defineComponent({
     },
     closeImport () {
       this.importBloc = false
+    },
+    closeForm () {
+      this.manualBloc = false
+    },
+    closeUpdate (operation: EditableOperation) {
+      operation.editing = false
     }
   }
 })

@@ -55,42 +55,40 @@
                 padding-bottom: 5px;
                 text-align: center;
             }
-            .operationCreate {
-                border-radius: 28px 28px 0 0;
-            }
             #operationForm {
-                padding: 30px 0 20px 0;
+                padding: 10px 10px 20px 20px;
                 display: flex;
                 flex-wrap: wrap;
+                margin: 0;
+                width: 100%;
+                max-width: max-content;
+                .crossContainer {
+                    text-align: right;
+                }
                 .dateTitle, .categoryTitle, .memoTitle, .amountTitle, .dateElement, .categoryElement, .memoElement, .amountElement {
                     padding: 8px 0 0 0;
                 }
-                .btn{
-                    font-size: large;
-                }
-            }
-            .operationCreate {
-                background: @headerColor;
                 .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
                     color: white;
                     font-size: large;
                     font-weight: bold;
                     text-align: middle;
                 }
-                .btn {
-                    color: @background;
+                .actionButton{
+                    color: black;
+                    font-weight: 500;
+                    width: 100%;
+                    margin-top: 25px;
                 }
             }
-            .modifyOperation {
-                background: lightgrey;
-                .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
-                    color: darkslategray;
-                    font-size: large;
-                    font-weight: bold;
-                    text-align: middle;
+            .operationCreate {
+                *{
+                    color: black
                 }
-                .btn {
-                    color: @headerColor;
+                .crossContainer {
+                    .cross {
+                        color: white;
+                    }
                 }
             }
             .storedOperation {
@@ -172,7 +170,7 @@
 
     // version for computer
     @media (min-width: 500px) {
-        padding: 20px;
+        padding: 5px 20px 20px;
         .accountPageBody {
             .fixed {
                 .editableNameAccount {
@@ -184,9 +182,6 @@
             }
             .scrollable {
                 padding-top: 10px;
-                .operationCreate {
-                    border-radius: 28px 28px 0 0;
-                }
                 .placeholderBottom {
                     height: 82px;
                 }
