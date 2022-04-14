@@ -245,6 +245,32 @@
         </tr>
       </thead>
     </table>
+  <h3>Category Budget Data Edit</h3>
+  <table>
+      <thead class="categoryBudgetData edit">
+        <tr>
+          <th class="col-6">Category</th>
+          <th class="col-3"></th>
+          <th class="col-3"></th>
+        </tr>
+      </thead>
+    </table>
+  <h3>Category Budget Data Hover</h3>
+  <table>
+      <thead class="categoryBudgetData">
+        <tr>
+          <th class="col-6">Category</th>
+          <th class="col-3">
+            <div class="numberInput form-group">
+               <input type="number" class="form-control" id="textInput" placeholder="0">
+            </div>
+          </th>
+          <th class="col-3">
+            <span class="negative">-221</span>
+          </th>
+        </tr>
+      </thead>
+    </table>
   </div>
 </div>
 
