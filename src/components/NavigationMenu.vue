@@ -1,13 +1,13 @@
 <template>
     <div class="navigationMenu">
       <ul id="actionsList" class="list-group list-group-horizontal d-flex">
-        <li v-if="this.fromPage == 'home' "><button class="btn fas fa-home disabled" :title="$t('HOME')"/></li>
-        <li v-else><button v-on:click="goHomePage" class="btn fas fa-home" :title="$t('HOME')"/></li>
-        <li v-if="this.fromPage == 'accounts' "><button class="btn fas fa-euro-sign disabled" :title="$t('ACCOUNTS')"/></li>
-        <li v-else><button v-on:click="goChooseAccount" class="btn fas fa-euro-sign" :title="$t('ACCOUNTS')"/></li>
-        <li v-if="this.fromPage == 'profile' "><button class="btn fas fa-cog disabled" :title="$t('PREFERENCES')"/></li>
-        <li v-else><button v-on:click="goProfilePage" class="btn fas fa-cog" :title="$t('PREFERENCES')"/></li>
-        <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
+        <li v-if="this.fromPage == 'home' "><button class="btn home fas fa-home disabled" :title="$t('HOME')"/></li>
+        <li v-else><button v-on:click="goHomePage" class="btn home fas fa-home" :title="$t('HOME')"/></li>
+        <li v-if="this.fromPage == 'accounts' "><button class="btn account fas fa-euro-sign disabled" :title="$t('ACCOUNTS')"/></li>
+        <li v-else><button v-on:click="goChooseAccount" class="btn account fas fa-euro-sign" :title="$t('ACCOUNTS')"/></li>
+        <li v-if="this.fromPage == 'profile' "><button class="btn profile fas fa-cog disabled" :title="$t('PREFERENCES')"/></li>
+        <li v-else><button v-on:click="goProfilePage" class="btn profile fas fa-cog" :title="$t('PREFERENCES')"/></li>
+        <li><button v-on:click="logout" class="btn logOut fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
       </ul>
     </div>
 </template>
