@@ -210,8 +210,12 @@
               <input type="text" class="form-control" id="darkTextInput" placeholder="Master Category">
           </div>
         </th>
-        <th class="fas fa-book col-3"></th>
-        <th class="col-3"></th>
+        <th class="col-3">
+          <span class="illustration fas fa-check"/>
+        </th>
+        <th class="col-3">
+          <span class="illustration fas fa-archive"/>
+        </th>
       </tr>
      </thead>
     </table>
@@ -224,7 +228,7 @@
         <th class="col-3">
           <span class="negative">-221</span>
         </th>
-        </tr>
+      </tr>
       </thead>
     </table>
   <h3>Category Budget Data </h3>
@@ -266,8 +270,12 @@
               <input type="text" class="form-control" id="textInput" placeholder="Category">
             </div>
           </th>
-          <th class="col-3"></th>
-          <th class="col-3"></th>
+          <th class="col-3">
+            <span class="illustration fas fa-check"/>
+          </th>
+          <th class="col-3">
+            <span class="illustration fas fa-archive"/>
+          </th>
         </tr>
       </thead>
     </table>
