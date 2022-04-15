@@ -207,16 +207,94 @@
       </thead>
     </table>
     <h3>MasterCategoryHeader Edit</h3>
-     <table>
-      <thead class="container header masterCategory edit">
+    <table>
+     <thead class="container header masterCategory edit">
+      <tr>
+        <th class="col-6">
+          <div class="darkTextInput form-group">
+              <input type="text" class="form-control" id="darkTextInput" placeholder="Master Category">
+          </div>
+        </th>
+        <th class="col-3">
+          <span class="illustration fas fa-check"/>
+        </th>
+        <th class="col-3">
+          <span class="illustration fas fa-archive"/>
+        </th>
+      </tr>
+     </thead>
+    </table>
+   <h3>MasterCategoryHeader Debit</h3>
+   <table>
+      <thead class="container header masterCategory">
+      <tr>
+        <th class="col-6">Master Category</th>
+        <th class="col-3">124</th>
+        <th class="col-3">
+          <span class="negative">-221</span>
+        </th>
+      </tr>
+      </thead>
+    </table>
+  <h3>Category Budget Data </h3>
+  <table>
+      <thead class="categoryBudgetData">
         <tr>
-          <th class="col-6">
-            <div class="darkTextInput form-group">
-               <input type="text" class="form-control" id="darkTextInput" placeholder="Master Category">
+          <th class="col-6">Category</th>
+          <th class="col-3">
+            <div class="numberInput form-group">
+               <input type="number" class="form-control" id="textInput" placeholder="0">
             </div>
           </th>
-          <th class="col-3"></th>
-          <th class="col-3"></th>
+          <th class="col-3">300</th>
+        </tr>
+      </thead>
+    </table>
+   <h3>Category Budget Data Debit </h3>
+   <table>
+      <thead class="categoryBudgetData">
+        <tr>
+          <th class="col-6">Category</th>
+          <th class="col-3">
+            <div class="numberInput form-group">
+               <input type="number" class="form-control" id="textInput" placeholder="0">
+            </div>
+          </th>
+          <th class="col-3">
+            <span class="negative">-221</span>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  <h3>Category Budget Data Edit</h3>
+  <table>
+      <thead class="categoryBudgetData edit">
+        <tr>
+          <th class="col-6">
+            <div class="textInput form-group">
+              <input type="text" class="form-control" id="textInput" placeholder="Category">
+            </div>
+          </th>
+          <th class="col-3">
+            <span class="illustration fas fa-check"/>
+          </th>
+          <th class="col-3">
+            <span class="illustration fas fa-archive"/>
+          </th>
+        </tr>
+      </thead>
+    </table>
+  <h3>Category Budget Data Hover</h3>
+  <table>
+      <thead class="categoryBudgetData hover">
+        <tr>
+          <th class="col-6">Category</th>
+          <th class="col-3">
+            <div class="numberInput form-group">
+               <input type="number" class="form-control" id="textInput" placeholder="0">
+            </div>
+          </th>
+          <th class="col-3">221</th>
         </tr>
       </thead>
     </table>
