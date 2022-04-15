@@ -2,6 +2,7 @@
 
     // all versions
     background: white;
+    padding: 0;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
     .accountPageBody {
         .fixed {
@@ -19,6 +20,7 @@
             .editableNameAccount {
                 a {
                     text-decoration: none;
+                    text-align: center;
                     h1 {
                         text-align: center;
                         font-size: xx-large;
@@ -34,6 +36,11 @@
                     h1:hover{
                         .btn {
                             visibility: visible;
+                        }
+                    }
+                    .negative {
+                        .btn {
+                            color: white;
                         }
                     }
                 }
@@ -61,6 +68,7 @@
                 display: flex;
                 flex-wrap: wrap;
                 width: 100%;
+                max-width: none;
                 .crossContainer {
                     text-align: right;
                 }
@@ -166,14 +174,11 @@
 
     // version for computer
     @media (min-width: 500px) {
-        padding: 5px 20px 20px;
         .accountPageBody {
-            .fixed {
-                .editableNameAccount {
-                    h1 {
-                        padding-left: 20px;
-                        padding-right: 20px;
-                    }
+            .editableNameAccount {
+                h1 {
+                    padding-left: 20px;
+                    padding-right: 20px;
                 }
             }
             .scrollable {
