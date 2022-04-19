@@ -302,6 +302,16 @@
         </tr>
       </thead>
     </table>
+  <h3>Budget Total Line</h3>
+  <table>
+      <thead class="container header masterCategory collapsed">
+        <tr>
+          <th class="col-6">Total</th>
+          <th class="col-3">124</th>
+          <th class="col-3">300</th>
+        </tr>
+      </thead>
+    </table>
   </div>
 </div>
 
