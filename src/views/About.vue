@@ -338,6 +338,51 @@
         </thead>
       </table>
     <h3>Operation Form</h3>
+    <table>
+        <thead class="container header operationForm">
+          <tr>
+            <th class="col-6">Date</th>
+            <th class="col-6">700</th>
+          </tr>
+          <tr>
+            <th class="col-6">Catégorie</th>
+            <th class="col-6">-73.54</th>
+          </tr>
+           <tr>
+            <th class="col-6">Mémo</th>
+            <th class="col-6">
+              <span class="positive">1234</span>
+            </th>
+          </tr>
+          <tr>
+            <th class="col-6">Montant</th>
+            <th class="col-6">-73.54</th>
+          </tr>
+        </thead>
+      </table>
+    <h3>Operation Form Edit</h3>
+    <table>
+        <thead class="container operationForm">
+          <tr>
+            <th class="col-6">Date</th>
+            <th class="col-6">700</th>
+          </tr>
+          <tr>
+            <th class="col-6">Catégorie</th>
+            <th class="col-6">-73.54</th>
+          </tr>
+           <tr>
+            <th class="col-6">Mémo</th>
+            <th class="col-6">
+              <span class="positive">1234</span>
+            </th>
+          </tr>
+          <tr>
+            <th class="col-6">Montant</th>
+            <th class="col-6">-73.54</th>
+          </tr>
+        </thead>
+      </table>
   </div>
 </div>
 
