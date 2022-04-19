@@ -320,7 +320,7 @@
   <div class="col-md-6">
     <h3>Opération Item</h3>
     <table>
-        <thead class="container operationItem">
+        <thead class="operationItem">
           <tr>
             <th class="col-6">Courses alimentaires</th>
             <th class="col-6">-73.54</th>

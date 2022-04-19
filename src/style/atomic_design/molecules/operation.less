@@ -13,22 +13,14 @@ th {
     text-align: center;
     &:first-child{
         text-align: left;
-        border-left: solid @action;
+    }
+} 
+tr {
+    &:first-child{
+     background: @white;
     }
     &:last-child{
-        border-right: solid @action;
-    }  
-} 
-&.hover{
-    th{
-        &:first-child{
-            border-radius:  0 0 0 @borderRadius;
-            border-left: @action;
-        }
-        &:last-child{
-            border-radius: 0 0 @borderRadius 0;
-            border-right: @action;
-        }
+     background: @white;   
     }
-}
+}    
 }
