@@ -42,6 +42,11 @@
       <btn class="tabLeft">TabLeft</btn>
       <btn class="tabRight active">TabRight</btn>
     </div>
+
+    <h3>Cross</h3>
+
+      <span class="cross light fas fa-times-circle"/>
+      <span class="cross dark fas fa-times-circle"/>
   </div>
 </div>
 
@@ -74,18 +79,18 @@
     <h3>Switch</h3>
     <label class="customSwitch">
         <input class="switch-input" type="checkbox"/>
-        <span class="switch-label" data-on="+" data-off="-"></span>
-        <span class="switch-handle"></span>
+        <span class="switch-label" data-on="+" data-off="-"/>
+        <span class="switch-handle"/>
     </label>
 
     <h3>AmountInput</h3>
     <div class="amountInput input-group flex-nowrap">
       <label class="customSwitch">
         <input class="switch-input" type="checkbox" v-model="incoming"/>
-          <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px"></span>
-          <span class="switch-handle"></span>
+          <span class="switch-label" data-on="+" data-off="-"/>
+          <span class="switch-handle"/>
       </label>
-        <input id="amount" class="form-control" v-model.number="amount">
+        <input id="amount" class="form-control">
     </div>
 
     <h3>Select with search</h3>

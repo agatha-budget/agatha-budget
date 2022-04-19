@@ -8,7 +8,7 @@
             <div class="accountWidgetAtHome">
               <AccountsWidget/>
             </div>
-            <div>
+            <div class="buttonsAtHome">
               <NavMenu :page="'home'" />
             </div>
           </div>

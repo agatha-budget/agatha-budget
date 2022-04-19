@@ -10,6 +10,7 @@
     "SPENT": "dépensé",
     "AVAILABLE": "disponible",
     "TOTAL": "total",
+    "SUBMIT": "valider",
     "GRAPH_AND_REPORT": "graphiques et rapports",
     "PREFERENCES" : "préférences",
     "LOGOUT": "déconnexion",
@@ -93,7 +94,11 @@
     "PRICE_COACHING_1H": "1h -> 45€ HT",
     "PRICE_COACHING_5H": "5h -> 200€ HT",
     "PLEASE_CONTACT_US": ", contactez-nous pour en savoir plus",
-    "PLEASE_CONTACT_US_AND_RDV": ", contactez-nous pour en savoir plus et prendre rendez-vous",
     "TRIAL_PERIOD_IS_OVER": "Si vous êtes redirigé ici, c'est que votre période d'essai est terminée",
-    "CHOOSE_THE_BEST_FOR_YOU": "Choisissez l'offre la plus adaptée à votre besoin et n'hésitez pas à nous contacter en cas de doute"
+    "CHOOSE_THE_BEST_FOR_YOU": "Choisissez l'offre la plus adaptée à votre besoin et n'hésitez pas à nous contacter en cas de doute",
+    "PLEASE_CONTACT_US_AND_RDV": ", contactez-nous pour en savoir plus et prendre rendez-vous",
+    "IMPORT": "importer",
+    "SELECT_FILE": "sélectionner un fichier .ofx",
+    "IMPORTED_OPERATION": " opérations importées",
+    "FILE_IS_SELECTED": "le fichier est sélectionné"
 }

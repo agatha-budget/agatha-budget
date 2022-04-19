@@ -14,4 +14,5 @@
 };
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "style/all.less";
+@import "style/atomic_design/atomic_design.less";
 </style>

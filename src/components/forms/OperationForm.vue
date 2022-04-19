@@ -1,9 +1,12 @@
 <template>
-<div id="operationForm" class="operation">
+  <div id="operationForm" class="operation">
+    <div class="crossContainer col-12">
+      <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
+    </div>
     <div class="dateTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("DATE") }}</div>
     <div class="dateElement col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
     <div class="categoryTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1 col-lg-2 offset-lg-1 col-xl-2 offset-xl-1 col-xxl-2 offset-xxl-1">{{ $t("ENVELOPE") }}</div>
-    <div class="categoryElement col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
+    <div class="categoryElement selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
       <Multiselect
         v-model="categoryId"
         :groups="true"
@@ -14,22 +17,25 @@
       />
     </div>
     <div class="memoTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("MEMO") }}</div>
-    <div class="memoElement col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2"><input id="newOperationMemo" class="form-control" v-model="memo"></div>
+    <div class="memoElement textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
+      <input id="newOperationMemo" class="form-control" v-model="memo">
+    </div>
     <div class="amountTitle col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1 col-lg-2 offset-lg-1 col-xl-2 offset-xl-1 col-xxl-2 offset-xxl-1">{{ $t("AMOUNT") }}</div>
-    <div class="amountElement col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-4"><div class="input-group flex-nowrap">
-      <label class="switch">
-        <input class="switch-input" type="checkbox" v-model="incoming"/>
-          <span class="switch-label" data-on="+" data-off="-" style="border-radius: 8px"></span>
-          <span class="switch-handle"></span>
-      </label>
-        <input id="newOperationAmount" class="form-control" v-model.number="amount">
+    <div class="amountElement col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
+      <div class="amountInput input-group flex-nowrap">
+        <label class="customSwitch">
+          <input class="switch-input" type="checkbox" v-model="incoming"/>
+          <span class="switch-label" data-on="+" data-off="-"/>
+          <span class="switch-handle"/>
+        </label>
+          <input id="amount" class="form-control" v-model.number="amount">
+      </div>
     </div>
+    <div class="action col-4 offset-4 col-md-2 offset-md-5">
+      <btn v-if="this.operation" class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
+      <btn v-else class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
     </div>
-  <div class="action col-1 offset-6">
-    <button v-if="this.operation" class="btn fas fa-check" v-on:click="updateOperation" :title="$t('UPDATE')"/>
-    <button v-else class="btn fas fa-check" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')"/>
   </div>
-</div>
 </template>
 
 <script lang="ts">
@@ -101,7 +107,7 @@ export default defineComponent({
       return optionsList
     }
   },
-  emits: ['updateOperationList'],
+  emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
   methods: {
     updateOperation () {
       if (this.operation) {
@@ -143,6 +149,12 @@ export default defineComponent({
         group.options.push(option)
       }
       return group
+    },
+    closeForm () {
+      if (this.operation) {
+        this.$emit('closeUpdate', this.operation)
+      }
+      this.$emit('closeForm')
     }
   }
 })
