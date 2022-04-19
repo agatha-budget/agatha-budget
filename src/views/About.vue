@@ -317,8 +317,28 @@
 
 <h1 class="title">Opération</h1>
 <div class="designContainer col-8 offset-2 row">
-  <h3>Opération Item</h3>
-  <h3>Operation Form</h3>
+  <div class="col-md-6">
+    <h3>Opération Item</h3>
+    <table>
+        <thead class="container operationItem">
+          <tr>
+            <th class="col-6">Courses alimentaires</th>
+            <th class="col-6">-73.54</th>
+          </tr>
+          <tr>
+            <th class="col-6">Courses alimentaires</th>
+            <th class="col-6">-73.54</th>
+          </tr>
+           <tr>
+            <th class="col-6">Salaire</th>
+            <th class="col-6">
+              <span class="positive">1234</span>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    <h3>Operation Form</h3>
+  </div>
 </div>
 
 </template>

@@ -1,0 +1,34 @@
+.operationItem{
+    font-weight: normal;
+    background: @darkerBackground;
+    *{
+        font-weight: normal;
+        padding: 4px;
+    }
+    .illustration{
+        font-weight: 900;
+        color: @dark;
+    }
+th {
+    text-align: center;
+    &:first-child{
+        text-align: left;
+        border-left: solid @action;
+    }
+    &:last-child{
+        border-right: solid @action;
+    }  
+} 
+&.hover{
+    th{
+        &:first-child{
+            border-radius:  0 0 0 @borderRadius;
+            border-left: @action;
+        }
+        &:last-child{
+            border-radius: 0 0 @borderRadius 0;
+            border-right: @action;
+        }
+    }
+}
+}
