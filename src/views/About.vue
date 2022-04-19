@@ -293,6 +293,15 @@
         </tr>
       </thead>
     </table>
+  <h3>Budget Header</h3>
+  <table>
+      <thead class="container header masterCategory collapsed">
+        <tr>
+          <th class="col-6">Alloué</th>
+          <th class="col-6">Disponible</th>
+        </tr>
+      </thead>
+    </table>
   </div>
 </div>
 
