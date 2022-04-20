@@ -80,12 +80,12 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         var startTag = ofxFile.indexOf("<STMTTRN>")
         var closeTag = ofxFile.indexOf("</STMTTRN>") + 10
         var lastTag = ofxFile.lastIndexOf("</STMTTRN>") + 10
-        while (closeTag !== lastTag) {
+        while (closeTag != lastTag) {
             ofxOperationList.add(ofxFile.substring(startTag, closeTag))
             startTag = closeTag
             closeTag = ofxFile.indexOf("</STMTTRN>", startTag) + 10
         }
-        if (startTag !== -1) {
+        if (startTag != -1) {
             ofxOperationList.add(ofxFile.substring(startTag, closeTag))
         }
         return ofxOperationList

@@ -14,10 +14,10 @@ class Operation (
                if (!operation.day.isEquals(this.day)) {
                         return false
                 }
-                if (operation.amount !== this.amount) {
+                if (operation.amount != this.amount) {
                         return false
                 }
-                if (operation.categoryId !== this.categoryId) {
+                if (operation.categoryId != this.categoryId) {
                         return false
                 }
                 if (!operation.memo.equals(this.memo)) {

@@ -14,7 +14,7 @@ class Day (
     }
 
     fun isEquals(day: Day): Boolean {
-        return day.comparable === this.comparable
+        return day.comparable == this.comparable
     }
 
     companion object {
@@ -46,12 +46,12 @@ class Day (
             // check valid day
             if (day > 28) { // possibility of invalid day
                 // february during a bissextile year
-                if (month === 2 && year%4 !== 0) {
+                if (month == 2 && year%4 != 0) {
                     return false
                 }
                 if (day > 29) {
                     // february never have more of 29 days
-                    if (month === 2) {
+                    if (month == 2) {
                         return false
                     }
                     if (day > 30) {
