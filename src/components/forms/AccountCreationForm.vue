@@ -8,7 +8,7 @@
         <label for="newAccountName">{{ $t('ACCOUNT_NAME') }}</label>
         <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('CHECKING_ACCOUNT')">
         <label for="newAccountAmount">{{ $t('INITIAL_AMOUNT') }}</label>
-        <input id="newAccountAmount" class="form-control" v-model.number="amount">
+      <input id="newAccountAmount" class="form-control" v-model="amountString">
       </div>
     </div>
     <btn class="actionButton" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</btn>
@@ -19,13 +19,19 @@
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
 import Utils from '@/utils/Utils'
+import Calcul from '@/utils/Calcul'
 
 export default defineComponent({
   name: 'AccountCreationForm',
   data () {
     return {
       name: '',
-      amount: 0
+      amountString: '0'
+    }
+  },
+  computed: {
+    amount (): number {
+      return this.entireCalcul(this.amountString)
     }
   },
   emits: ['updateAccountList', 'closeForm'],
@@ -39,6 +45,9 @@ export default defineComponent({
           }
         )
       }
+    },
+    entireCalcul (amount: string): number {
+      return Calcul.entireCalcul(amount)
     },
     closeForm () {
       this.$emit('closeForm')
