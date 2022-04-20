@@ -332,6 +332,15 @@ fun main() {
         val operations = ServiceManager.operationService.findByBudget(user, budget)
         ctx.json(operations)
     }
+    
+    app.before("/operation/import", SuperTokens.middleware())
+    app.post("/operation/import") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        val fileOfx: String = ctx.body()
+        val numberOperation = ServiceManager.operationService.importOfxFile(user, account, fileOfx)
+        ctx.json(numberOperation)
+    }
 
     app.before("/allocation", SuperTokens.middleware())
     app.post("/allocation") { ctx ->
