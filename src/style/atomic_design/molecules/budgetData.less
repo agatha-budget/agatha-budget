@@ -1,70 +1,50 @@
-.masterCategory {
+.budgetTable {
+    border-collapse: collapse;
+    border-radius: @borderRadius;
+    border-style: hidden; /* hide standard table (collapsed) border */
+    box-shadow: 0 0 0 2px @action; /* this draws the table border  */ 
+    overflow: hidden;
+    width: 100%;
     *{
         font-weight: normal;
-        padding: 10px;
     }
     .illustration{
         font-weight: 900;
     }
-    th {
+    th , td {
         text-align: center;
         &:first-child{
-            border-radius:  @borderRadius 0 0 0;
+            padding-left: 10px;
             text-align: left;
-        }
-        &:last-child{
-            border-radius: 0 @borderRadius 0 0;
-        }    
-    }
-    &.edit{
-        *{
-            padding: 3px;
-            text-align: left;
-        }
-    }
-    &.collapsed{
-        th{
-            &:first-child{
-                border-radius:  @borderRadius 0 0 @borderRadius;
-            }
-            &:last-child{
-                border-radius: 0 @borderRadius @borderRadius 0;
-            }
         }
     }
 }
 
-.categoryBudgetData {
-        font-weight: normal;
-        background: @darkerBackground;
+.masterCategory {
+    *{
+        padding: 10px;
+    }
+    &.edit{
         *{
-            font-weight: normal;
-            padding: 4px;
+            padding: 2px;
         }
-        .illustration{
-            font-weight: 900;
-            color: @dark;
-        }
-    th {
-        text-align: center;
-        &:first-child{
-            text-align: left;
-            border-left: solid @action;
-        }
-        &:last-child{
-            border-right: solid @action;
-        }  
-    } 
-    &.hover{
-        th{
-            &:first-child{
-                border-radius:  0 0 0 @borderRadius;
-                border-left: @action;
-            }
-            &:last-child{
-                border-radius: 0 0 @borderRadius 0;
-                border-right: @action;
-            }
+    }
+}
+
+.categoryBudget {
+    background: @darkerBackground;
+    *{
+        padding: 2px;
+    }
+    &:first-child{
+        text-align: left;
+    }
+    .illustration{
+        color: @dark;
+    }
+    .numberInput {
+        input {
+            text-align: center;
         }
     }
 }
