@@ -1,12 +1,17 @@
 <template>
   <div id="accountCreationForm">
     <div class="accountCreationInput">
-      <label for="newAccountName">{{ $t('ACCOUNT_NAME') }}</label>
-      <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('CHECKING_ACCOUNT')">
-      <label for="newAccountAmount">{{ $t('INITIAL_AMOUNT') }}</label>
-      <input id="newAccountAmount" class="form-control" v-model.number="amount">
+      <div class="crossContainer col-12">
+        <span class="cross fas fa-times-circle" v-on:click="closeForm"/>
+      </div>
+      <div class="fields">
+        <label for="newAccountName">{{ $t('ACCOUNT_NAME') }}</label>
+        <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('CHECKING_ACCOUNT')">
+        <label for="newAccountAmount">{{ $t('INITIAL_AMOUNT') }}</label>
+        <input id="newAccountAmount" class="form-control" v-model.number="amount">
+      </div>
     </div>
-    <button class="btn" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</button>
+    <btn class="actionButton" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</btn>
   </div>
 </template>
 
@@ -34,6 +39,9 @@ export default defineComponent({
           }
         )
       }
+    },
+    closeForm () {
+      this.$emit('closeForm')
     }
   }
 })

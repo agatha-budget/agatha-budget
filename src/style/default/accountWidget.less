@@ -4,58 +4,43 @@
     padding: 20px;
     margin-top: 10px;
     text-align: center;
+    
 
-    .title{
-        h1 {
-            font-size: x-large;
-        }
+    .title {
+        font-weight: 550;
     }
-    .total {
-        font-size: medium;
+    .subtitle {
+        font-size: 18px;
     }
-    ul {
-        border-radius: 28px;
-        padding: 20px;
-        li {
-            background : @buttonBackColor;
-            border-radius: 10px;
-            margin: 5px;
-            list-style-type: none;
-            .btn {
-                font-size: small;
+    .accountContainer {
+        margin-top: 10px;
+        .accounts {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            display: flex;
+            flex-wrap: wrap;
+            text-align: left;
+            .name, .amount {
+                color: white;
             }
         }
-    }
-    .accountForm {
-        background : @background;
-        margin-top: 20px;
-    }
-    .displayFormBtn, .closeFormBtn {
-        padding: 5px;
-    }
-    .closeFormBtn {
-        float: right;
-        margin: 0px 15px 10px 10px;
-        background: @background;
-    }
-    .formContainer {
-        padding: 10px;
-    }    
-}
-
-#accountCreationForm{
-    margin-top: 15px;
-
-    .accountCreationInput {
-        text-align: left;
-        padding: 0 10px 0 10px;
-        label {
-            margin: 5px 0;
+        .accounts:hover {
+            * {
+                color: black;
+            }
         }
-    }
-    .btn {
-        margin-top: 15px;
-        background: @buttonBackColor;
-        margin-bottom: 10px;
+        .addAccount {
+            margin-top: 20px;
+            .container {
+                padding: 10px 10px 20px 20px;
+                .fields {
+                    padding-right: 10px;
+                    input {
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
     }
 }
