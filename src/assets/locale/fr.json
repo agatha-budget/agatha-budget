@@ -100,5 +100,6 @@
     "IMPORT": "importer",
     "SELECT_FILE": "sélectionner un fichier .ofx",
     "IMPORTED_OPERATION": " opérations importées",
-    "FILE_IS_SELECTED": "le fichier est sélectionné"
+    "FILE_IS_SELECTED": "le fichier est sélectionné",
+    "GRAPH": "graphiques"
 }

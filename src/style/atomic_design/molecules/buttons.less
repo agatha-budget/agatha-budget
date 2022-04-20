@@ -12,9 +12,11 @@ btn {
 
 .navigationButton {
     background: @action;
-    color: @white;
     border-radius: @btnBorderRadius;
     text-align: center;
+    * {
+      color: @white;
+    }
 
     .illustration {
       margin-right: 15px; 
@@ -22,8 +24,7 @@ btn {
 
     &.disabled {
       background: @darkerBackground;
-      color: @dark;
-      .illustration {
+      * {
         color: @dark;
       }
     }
@@ -32,8 +33,7 @@ btn {
       background-color:  @background;
       // replace border so that the 'border' is inside the button and doesn't change the total size
       box-shadow:inset 0px 0px 0px 3px @navigation;
-      color: @navigation;
-      .illustration {
+      * {
         color: @navigation;
       }
     }
