@@ -215,6 +215,26 @@ open class OperationDaoTest : ITest {
     }
 
     @Test
+    fun getByBudgetAndCategory() {
+        // return a list of operation
+    }
+    
+    @Test
+    fun getByCategoryWithNoOperation () {
+        // return empty list
+    }
+
+    @Test
+    fun getByUnknownCategory () {
+        // return empty list
+    }
+
+    @Test
+    fun getByCategoryWithUncategorizedOperation () {
+        // return list of operation Without the uncategorized operation 
+    }
+
+    @Test
     fun getAmountForBudget() {
         val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)

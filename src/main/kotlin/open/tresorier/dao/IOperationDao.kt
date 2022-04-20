@@ -10,6 +10,6 @@ interface IOperationDao {
     fun findTotalSpendingByMonth(budget: Budget, maxMonth: Month? = null) : List<Spending>
     fun findAmountByBudget(budget: Budget, month: Month? = null) : Int
     fun findByAccount(account: Account) : List<Operation>
-    fun findByBudget(budget: Budget) : List<Operation>
+    fun findByBudget(budget: Budget, category: Category?) : List<Operation>
     fun getOwner(operation: Operation) : Person
 }
