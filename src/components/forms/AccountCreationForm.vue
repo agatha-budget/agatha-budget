@@ -5,10 +5,8 @@
         <span class="cross fas fa-times-circle" v-on:click="closeForm"/>
       </div>
       <div class="fields">
-        <label for="newAccountName">{{ $t('ACCOUNT_NAME') }}</label>
-        <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('CHECKING_ACCOUNT')">
-        <label for="newAccountAmount">{{ $t('INITIAL_AMOUNT') }}</label>
-      <input id="newAccountAmount" class="form-control" v-model="amountString">
+        <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('ACCOUNT_NAME')">
+      <input id="newAccountAmount" class="form-control" v-model="amountString" :placeholder="$t('INITIAL_AMOUNT')">
       </div>
     </div>
     <btn class="actionButton" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</btn>
@@ -26,7 +24,7 @@ export default defineComponent({
   data () {
     return {
       name: '',
-      amountString: '0'
+      amountString: ''
     }
   },
   computed: {
