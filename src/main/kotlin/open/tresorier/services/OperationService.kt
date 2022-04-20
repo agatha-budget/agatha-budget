@@ -66,16 +66,16 @@ class OperationService(private val operationDao: IOperationDao, private val auth
     fun importOfxFile(person: Person, account: Account, fileOfx: String): Int {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         val formattedFile: String = fileOfx.replace("\n", "").replace("\r", "")
-        val listOperation = this.separateOperationsOfOfxFile(formattedFile)
+        val ofxOperationList = this.splitOfxOperations(formattedFile)
         var nbOperation = 0
-        listOperation.forEach {
+        ofxOperationList.forEach {
             val operationCreated = this.createOperationFromOFX(account, it)
             nbOperation ++
             operationDao.insert(operationCreated)
         }
         return nbOperation
     }
-    fun separateOperationsOfOfxFile(ofxFile: String) : List<String> {
+    fun splitOfxOperations(ofxFile: String) : List<String> {
         var ofxOperationList = mutableListOf<String>()
         var startTag = ofxFile.indexOf("<STMTTRN>")
         var closeTag = ofxFile.indexOf("</STMTTRN>") + 10
