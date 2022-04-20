@@ -4,90 +4,10 @@
 
     overflow-x: hidden;
 
-    #budgetHeader, #budgetTables {
-        background: white;
-        font-size: small;
-    }
-
-    #budgetTables, #totalTable  {
-        tbody, td, tfoot, th, thead, tr {
-            border-style: none;
-        }
-    }
-
     #budgetHeader {
         padding: 20px 10px 0 20px;
         border-radius: 0;
-        .date {
-            margin-bottom: 20px;
-            text-align: center;
-            font-size:  xx-large;
-            .btn {
-                font-size: xx-large;
-            }
-            .date-label {
-                border-radius: 25px;
-                font-weight: bold;
-                padding: 8px  15px 8px 15px;
-                p {
-                    margin-bottom: 0;
-                }
-                .month {
-                    text-transform: capitalize;
-                }
-            }
-            .negative {
-                background: @red;
-            }
-            .positive {
-                background: @orange;
-            }
-            .null {
-                background: @dateColor;
-            }
-        }
-        #totalTable {
-            background: white;
-            tr {
-                th.allocated, th.available, th.spent{
-                    padding: 0 0 10px 0;
-                    div {
-                        min-height: 40px;
-                        background : @headerColor;
-                        text-align: center;
-                        color: whitesmoke
-                        
-                    }
-                }
-                td.allocated, td.available, td.spent {
-                    background : @headerColor;
-                    color: white;
-                    border-spacing : 0px;
-                    text-align: center;
-                }
-                td.allocated, td.available {
-                    font-weight: bold;
-                }
-                td.allocated, th.allocated div {
-                    border-radius: 6px 0 0 6px;
-                }
-                td.available, th.available div {
-                    border-radius: 0 6px 6px 0;
-                }
-                td.name {
-                    padding: 0 10px 0 0;
-                    div {
-                        font-weight: bold;
-                        min-height: 40px;
-                        border-radius: 6px;
-                        background :  @headerColor;
-                        color: white;
-                        text-align: center;
-                        line-height: 40px;
-                    }
-                }
-            }
-        }
+        
     }
 
     .fixed {
@@ -173,18 +93,6 @@
                             }
                         }
                     }
-                }
-                th.allocated {
-                    border-radius: 6px 0px 0px 0px;
-                }
-                th.available {
-                    border-radius: 0px 6px 0px 0px;
-                }
-                th.allocated, th.available, th.spent {
-                    background : @headerColor;
-                    color: white;
-                    border-spacing : 0px;
-                    text-align: center;
                 }
             }
             tr.category {
