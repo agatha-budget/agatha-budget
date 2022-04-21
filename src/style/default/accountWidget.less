@@ -4,13 +4,13 @@
     padding: 20px;
     margin-top: 10px;
     text-align: center;
-    
-
-    .title {
-        font-weight: 550;
-    }
-    .subtitle {
-        font-size: 18px;
+    .titlesContainer {
+        .title {
+            font-weight: 550;
+        }
+        .subtitle {
+            font-size: 18px;
+        }
     }
     .accountContainer {
         margin-top: 10px;
@@ -43,4 +43,38 @@
             }
         }
     }
+}
+// version for mobile
+@media (max-width: 768px) {
+    #accountWidget {
+        border-radius: 0;
+        margin-top: 0;
+        height: 100vh;
+        .titlesContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
+            text-transform: capitalize;
+            padding: 30px 0;
+            font-size: 30px;
+        }
+        .accountContainer {
+            margin-top: 160px;
+        }
+    }
+    .navigationMenu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.2);
+    }
+}
+.redirectToAccountPage {
+    overflow-y: hidden;
+    overflow-x: hidden;
 }
