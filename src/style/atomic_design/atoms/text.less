@@ -5,17 +5,23 @@
   font-size: 16px;
 }
 
-.subtext {
+.subtext, .subtext * {
   font-size: 12px;
 }
 
-.title {
+.title, .title *{
   font-size: 25px;
   text-align: center;
+  &:first-letter {
+    text-transform: capitalize;
+  }
 }
 
-.Subtitle {
+.Subtitle, .subtitle * {
   font-size: 20px;
+  &:first-letter {
+    text-transform: capitalize;
+  }
 }
 
 
