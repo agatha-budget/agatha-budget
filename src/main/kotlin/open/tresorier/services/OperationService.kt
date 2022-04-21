@@ -121,7 +121,8 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo, false, false)    // créer une opération sans la mettre dans la base de donnée
         return operationCreated
     }
-    fun pendingOperation(operation: Operation): Operation {
+    fun pendingOperation(person: Person, operation: Operation): Operation {
+        authorizationService.cancelIfUserIsUnauthorized(person, operation)
         operation.pending = !operation.pending
         return operation
     }

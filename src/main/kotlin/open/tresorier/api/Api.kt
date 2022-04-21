@@ -342,6 +342,14 @@ fun main() {
         ctx.json(numberOperation)
     }
 
+    app.before("/operation/pending", SuperTokens.middleware())
+    app.put("/operation/pending") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
+        val pendedOperation = ServiceManager.operationService.pendingOperation(user, operation)
+        ctx.json(pendedOperation)
+    }
+
     app.before("/allocation", SuperTokens.middleware())
     app.post("/allocation") { ctx ->
         val user = getUserFromAuth(ctx)

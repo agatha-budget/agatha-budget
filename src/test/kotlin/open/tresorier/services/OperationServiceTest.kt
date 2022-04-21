@@ -192,11 +192,11 @@ class OperationServiceTest : ITest {
         var operation: Operation = operationService.create(
             francoise, account, TestData.jan_14_2022, null, 8950, "Institut de la santé et de la recherche médicale"
         )
-        operationService.pendingOperation(operation)
+        operationService.pendingOperation(francoise, operation)
 
         Assertions.assertTrue(operation.pending)
 
-        operationService.pendingOperation(operation)
+        operationService.pendingOperation(francoise, operation)
 
         Assertions.assertFalse(operation.pending)
     }
