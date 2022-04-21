@@ -15,7 +15,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
 
     fun createInitialOperation(person: Person, account: Account, day: Day, amount: Int){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(account.id, day, Category.INCOME_ID, amount, 1, "Montant initial")
+        val operation = Operation(account.id, day, Category.INCOME_ID, amount, 1, "Montant initial", false, false)
         operationDao.insert(operation)
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
     }
@@ -23,7 +23,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
     fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         val order = Time.now()
-        val operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo)
+        val operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, false, false)
         return operationDao.insert(operation)
     }
 
@@ -118,7 +118,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         if (type == "DEBIT") {
             amount *= -1
         }
-        val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo)    // créer une opération sans la mettre dans la base de donnée
+        val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo, false, false)    // créer une opération sans la mettre dans la base de donnée
         return operationCreated
     }
- }
+}
