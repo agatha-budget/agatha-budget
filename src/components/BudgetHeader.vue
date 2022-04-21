@@ -1,5 +1,6 @@
 <template>
     <div id="budgetHeader">
+       <!--Calendar-->
       <div class="row dateNav">
           <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
           <div class="col-8 date-label" :class="this.toBeBudgetedClass()">
@@ -9,23 +10,23 @@
           </div>
           <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
       </div>
-      <table class="budgetTable">
+      <table  class="budgetTable">
+        <!-- Table column label-->
         <thead class="container header masterCategory collapsed col-6 offset-6">
           <tr>
-            <th class="col-6 name"></th>
-            <th class="col-2 allocated"><div>{{ $t("ALLOCATED") }}</div></th>
-            <th class="col-2 spent"><div>{{ $t("SPENT") }}</div></th>
-            <th class="col-2 available"><div>{{ $t("AVAILABLE") }}</div></th>
+            <th class="col-6"></th>
+            <th class="col-2">{{ $t("ALLOCATED") }}</th>
+            <th class="col-2 spent">{{ $t("SPENT") }}</th>
+            <th class="col-2">{{ $t("AVAILABLE") }}</th>
           </tr>
         </thead>
-      </table>
-      <table  class="budgetTable">
+        <!-- Total for all table-->
         <thead class="container header masterCategory collapsed">
           <tr>
-            <th class="name"><div>{{ $t("TOTAL") }}</div></th>
-            <th class="allocated">{{ addSpacesInThousand(totalAllocated) }}</th>
-            <th class="spent">{{ addSpacesInThousand(totalSpent) }}</th>
-            <th class="available">{{ addSpacesInThousand(totalAvailable) }}</th>
+            <th class="col-6">{{ $t("TOTAL") }}</th>
+            <th class="col-2">{{ addSpacesInThousand(totalAllocated) }}</th>
+            <th class="col-2 spent">{{ addSpacesInThousand(totalSpent) }}</th>
+            <th class="col-2">{{ addSpacesInThousand(totalAvailable) }}</th>
           </tr>
         </thead>
       </table>

@@ -216,14 +216,24 @@
     <table class="budgetTable">
       <thead class="container header masterCategory">
         <tr>
-          <th class="col-6">Master Category</th>
-          <th class="col-3">124</th>
+          <th class="col-6">
+            <a>Master Category</a>
+            <span class="action">
+              <button class="illustration btn fas fa-pen"/>
+              <button class="illustration btn fas fa-plus"/>
+            </span>
+          </th>
+          <th class="col-3 spent">124</th>
           <th class="col-3">300</th>
         </tr>
       </thead>
       <tbody class="categoryBudget">
         <tr>
-          <td class="col-6">Category</td>
+          <td class="col-6">
+            <a>Enveloppe
+              <button class="illustration btn fas fa-pen"/>
+            </a>
+          </td>
           <td class="col-3">
             <div class="numberInput form-group">
                 <input type="number" class="form-control" id="textInput" placeholder="0">
@@ -237,7 +247,13 @@
     <table class="budgetTable">
       <thead class="container header masterCategory collapsed">
         <tr>
-          <th class="col-6">Master Category</th>
+          <th class="col-6">
+            <a>Master Category</a>
+            <span class="action">
+              <button class="illustration btn fas fa-pen"/>
+              <button class="illustration btn fas fa-angle-double-down"/>
+            </span>
+          </th>
           <th class="col-3">124</th>
           <th class="col-3">300</th>
         </tr>
@@ -276,50 +292,25 @@
         </tr>
       </tbody>
     </table>
-   <h3>MasterCategoryHeader Debit</h3>
-   <table class="budgetTable">
-      <thead class="container header masterCategory">
-      <tr>
-        <th class="col-6">Master Category</th>
-        <th class="col-3">124</th>
-        <th class="col-3">
-          <span class="negative">-221</span>
-        </th>
-      </tr>
-      </thead>
-      <tbody class="categoryBudget">
+    <h3>Budget Header</h3>
+    <table class="budgetTable">
+        <thead class="container header masterCategory collapsed col-6 offset-6">
+          <tr>
+            <th class="col-6">Alloué</th>
+            <th class="col-6">Disponible</th>
+          </tr>
+        </thead>
+      </table>
+    <h3>Budget Total Line</h3>
+    <table class="budgetTable">
+      <thead class="container header masterCategory collapsed">
         <tr>
-          <td class="col-6">Category</td>
-          <td class="col-3">
-            <div class="numberInput form-group">
-                <input type="number" class="form-control" id="textInput" placeholder="0">
-            </div>
-          </td>
-          <td class="col-3">
-            <span class="negative">-221</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  <h3>Budget Header</h3>
-  <table class="budgetTable">
-      <thead class="container header masterCategory collapsed col-6 offset-6">
-        <tr>
-          <th class="col-6">Alloué</th>
-          <th class="col-6">Disponible</th>
+          <th class="col-6">Total</th>
+          <th class="col-3">124</th>
+          <th class="col-3">300</th>
         </tr>
       </thead>
     </table>
-  <h3>Budget Total Line</h3>
-  <table class="budgetTable">
-    <thead class="container header masterCategory collapsed">
-      <tr>
-        <th class="col-6">Total</th>
-        <th class="col-3">124</th>
-        <th class="col-3">300</th>
-      </tr>
-    </thead>
-  </table>
   </div>
 </div>
 

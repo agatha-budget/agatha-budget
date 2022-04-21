@@ -9,7 +9,10 @@
         font-weight: normal;
     }
     .illustration{
-        font-weight: 900;
+        font-weight: 700;
+    }
+    .action {
+        padding: 2px;
     }
     th , td {
         text-align: center;
@@ -18,33 +21,31 @@
             text-align: left;
         }
     }
-}
-
-.masterCategory {
-    *{
-        padding: 10px;
+    .masterCategory {
+        &.edit{
+            *{
+                padding: 2px;
+            }
+        }
     }
-    &.edit{
+    .categoryBudget {
+        background: @darkerBackground;
         *{
             padding: 2px;
         }
-    }
-}
-
-.categoryBudget {
-    background: @darkerBackground;
-    *{
-        padding: 2px;
-    }
-    &:first-child{
-        text-align: left;
-    }
-    .illustration{
-        color: @dark;
-    }
-    .numberInput {
-        input {
-            text-align: center;
+        &:first-child{
+            text-align: left;
+        }
+        .illustration{
+            color: @dark;
+        }
+        .numberInput {
+            input {
+                text-align: center;
+            }
         }
     }
 }
+
+
+

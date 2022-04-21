@@ -4,11 +4,10 @@
       <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate"
       @change-month="changeMonth" />
     </div>
-    <div class="scrollable">
+    <div id="budget">
+      <!-- Placeholder for the fixed top -->
+      <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
       <div id="budgetTables">
-        <div class="placeholderTop">
-          <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
-        </div>
         <table class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
           <master-category-cmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" />
         </table>
@@ -22,7 +21,7 @@
         </div>
         <div v-if="this.archiveVisible" id="archive_section" >
           <div class="title">{{ $t("ARCHIVE") }}</div>
-          <table class="budgetArchiveTable table" v-for="masterCategory in this.$store.state.masterCategories" :key="masterCategory" >
+          <table class="budgetTable table" v-for="masterCategory in this.$store.state.masterCategories" :key="masterCategory" >
             <master-category-cmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :archived="true" />
           </table>
         </div>

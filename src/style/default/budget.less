@@ -2,191 +2,32 @@
 
     // pour toutes les versions
 
-    overflow-x: hidden;
+    background: white;
+    overflow-x: hidden; // remove the horizontal elevator
 
     #budgetHeader {
-        padding: 20px 10px 0 20px;
         border-radius: 0;
-        
     }
 
     .fixed {
+        padding: 20px;
+        background: white;
         position: fixed;
         top: 0;
-        background: white;
         border-bottom: solid 1px whitesmoke;
     }
-    .scrollable {
-        #budgetTables {
-            padding: 20px;
-            .placeholderTop {
-                #budgetHeader {
-                    td {
-                        background: white;
-                    }
-                    td.name {
-                        div {
-                            background: white;
-                        }
-                    }
-                }
-            }
-            table {
-                margin-bottom: 10px;
-            }
-            tr.masterCategory {
-                th {
-                    div {
-                        vertical-align: middle;
-                        padding: 0;
-                    }
-                }
-                th.name {
-                    cursor: pointer;
-                     padding: 0 10px 0 0;
-                    #operationForm { // masterCategory
-                        display: flex;
-                        flex-wrap: wrap;
-                        background: @headerColor;
-                        border-radius: 5px 5px 0 0;
-                        .masterCategoryArchived {
-                            color: @lightBlue;
-                            padding-left: 10%;
-                        }
-                        #newName {
-                            width: available;
-                            padding: 3.75px 10px;
-                            margin-top: 5px;
-                            background: @majorBlue;
-                            color: @lightBlue;
-                            border: none;
-                            font-size: small;
-                            font-weight: bold;
-                        }
-                        .btn {
-                            color: @lightBlue;
-                            height: 27px;
-                            width: 27px;
-                        }
-                    }.editable-master-category {
-                        border-radius: 6px 6px 0 0;
-                        background : @headerColor;
-                        text-align: left;
-                        padding-left: 10%;
-                        text-decoration: none;
-                        color: white;
-                        .btn {
-                            color: @lightBlue;
-                            font-size: small;
-                            padding: 6px 0px 6px 12px;
-                        }
-                    }
-                    @media (pointer: fine) {
-                        .editable-master-category {
-                            .btn {
-                                visibility: hidden;
-                            }
-                        }
-                        .editable-master-category:hover{
-                            .btn {
-                                visibility: visible;
-                            }
-                        }
-                    }
-                }
-            }
-            tr.category {
-                td {
-                    vertical-align: middle;
-                    padding: 0;
-                }
-                td.name {
-                    padding: 0 10px 0 0;
-                    div {
-                        background : @background;
-                        padding: 3.75px 10px 3.75px 5px;
-                        .btn {
-                            color: @headerColor;
-                            font-size: small;
-                        }
-                        a {
-                            padding: 0 0 0 5px;
-                            .btn {
-                                @media (pointer: coarse) {
-                                    display: none;
-                                }
-                                padding: 0 0 0 12px;
-                            }
-                        }
-                        #operationForm { // category
-                            padding-left: initial;
-                            display: flex;
-                            flex-wrap: wrap;
-                            .categoryArchived {
-                                color: darkslategray;
-                                padding: 0 0 0 5px;
-                                .btn {
-                                    padding: 0 12px;
-                                }
-                            }
-                            #newName {
-                                width: available;
-                                font-size: small;
-                                color: darkslategray;
-                                padding: 0 0 0 5px;
-                                border: none;
-                            }
-                        }
-                    }
-                    .editable-category{
-                        cursor: pointer;
-                        color: darkslategray;
-                        text-decoration: none;
-                        text-align: right;
-                        .btn {
-                            visibility: hidden;
-                        }
-                    }
-                    .editable-category:hover{
-                        .btn {
-                            visibility: visible;
-                        }
-                    }
-                }
-                td.allocated {
-                    input {
-                        text-align: center;
-                    }
-                }
-                td.allocated, td.available, td.spent {
-                    text-align: center;
-                    background : @background;
-                }
-                td.available {
-                    .negative {
-                        border-radius: 25px;
-                        background: @red;
-                        font-weight: bold;
-                        padding: 2px  15px 2px 15px;
-                    }
-                }
-            }
-            input[type=number] {
-                -moz-appearance:textfield;
-            }
-            .spent {
-                font-weight: lighter;
-            }
-            #archive_section {
-                .title {
-                    text-align: center;
-                    padding: 20px;
-                    text-transform: capitalize;
-                    font-weight: bold;
-                    font-size: larger;
-                }
-            }
-        }
+
+    #budget {
+        padding: 20px;
+    }
+
+    #budgetTables {
+        // add space in order to be out of the fixed top
+        margin-top: 30px;
+    }
+
+    .budgetTable {
+        margin-top: 10px;
     }
 
     // version for computer
@@ -260,35 +101,11 @@
 
     // tiny version (one column less)
     @media (max-width: 500px) {
-        .fixed {
-            #budgetHeader {
-                #totalTable {
-                    tr {
-                        th.spent{
-                            display: none;
-                        }
-                        td.spent {
-                            display: none;
-                        }
-                    }
-                }
-            }
-        }
-        .scrollable {
-            #budgetTables {
-                tr.masterCategory {
-                    th.spent{
-                        display: none;
-                    }
-                }
-                tr.category {
-                    td.spent{
-                        display: none;
-                    }
-                }
-            }
+        .spent{
+            display: none;
         }
     }
+    
     @media (max-height: 400px) {
         .placeholderBottom {
             display: none;
