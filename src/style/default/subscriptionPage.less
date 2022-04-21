@@ -1,7 +1,10 @@
 #subscriptionPage {
     overflow-y: hidden;
+    h1 {
+        padding-top: 10px;
+    }
     p {
-        margin: 8px 0;
+        margin: 8px 50px;
     }
     .user, .company {
         background: @white;
@@ -11,14 +14,15 @@
         .essential, .integral, .solidarity, .businessSide, .personalSide, .coaching {
             margin: 0;
             padding: 10px 0;
+            background: @white;
             .icon {
                 font-size: 34px;
-                color: @navigation;
-                margin: 5px;
+                color: @white;
+                padding-bottom: 5px;
             }
             .container {
                 border-radius: 0;
-                padding: 0;
+                padding: 10px 0 0;
                 text-transform: capitalize;
                 margin: 0;
                 max-width: none;
@@ -31,11 +35,12 @@
         }
     }
     @media (max-width: 768px) {
+        overflow-y: scroll;
         .user, .company {
             margin-top: 0;
             height: 100vh;
             border-radius: 0;
-            padding-top: 150px;
+            padding-top: 103px;
             .topBanner {
                 position: fixed;
                 top: 0;
@@ -43,8 +48,14 @@
                 right: 0;
                 background-color: white;
                 box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
-                padding: 30px 0 20px;
+                padding: 20px 0;
                 font-size: 30px;
+            }
+            .placeholderTop {
+                height: 20px;
+            }
+            .placeholderBottom {
+                height: 95px;
             }
         }
     }
