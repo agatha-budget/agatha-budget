@@ -1,83 +1,51 @@
 #subscriptionPage {
     overflow-y: hidden;
-    .user, .company{
-        background-color: white;
+    p {
+        margin: 8px 0;
+    }
+    .user, .company {
+        background: @white;
+        margin-top: 10px;
+        border-radius: 28px;
         text-align: center;
         .essential, .integral, .solidarity, .businessSide, .personalSide, .coaching {
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 20px;
-            color: black;
-            background-color: @dateColor;
-            display: flex;
-            flex-wrap: wrap;
-            text-align: center;
+            margin: 0;
+            padding: 10px 0;
             .icon {
-                color: @actionColor;
-                font-size: xx-large;
+                font-size: 34px;
+                color: @navigation;
+                margin: 5px;
             }
-            .title {
-                color: @actionColor;
-                font-weight: bold;
-                text-align: center;
-                text-transform: capitalize;
-            }
-            p {
-                text-align: center;
-            }
-            .btnSubscription {
+            .container {
+                border-radius: 0;
                 padding: 0;
-                text-align: center;
-                button {
-                    border-radius: 10px;
-                    border: 1px solid @headerColor;
-                    text-decoration: none;
-                    background: @headerColor;
-                    color: white;
-                    width: 99%;
-                }
+                text-transform: capitalize;
+                margin: 0;
+                max-width: none;
             }
-            .disabled {
-                button {
-                    color: lightgray;
-                    border: 1px solid @darkBlue;
-                    text-decoration: none;
-                    background: @darkBlue;
-                    color: white;
-                }
-            }
+        }
+        .navigationButton {
+            color: @dark;
+            background: @background;
+            width: 40%;
         }
     }
-
-    // computer version
-    @media (min-width: 576px) {
+    @media (max-width: 768px) {
         .user, .company {
-            margin-top: 10px;
-            border-radius: 28px;
-            padding: 15px;
-            .essential, .integral, .solidarity, .businessSide, .personalSide, .coaching {
-                p {
-                    padding-bottom: 10px;
-                }
+            margin-top: 0;
+            height: 100vh;
+            border-radius: 0;
+            padding-top: 150px;
+            .topBanner {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background-color: white;
+                box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
+                padding: 30px 0 20px;
+                font-size: 30px;
             }
-        }
-    }
-    // phone version
-    @media (max-width: 576px) {
-        .user, .company {
-            padding: 15px 10px 5px;
-        }
-        .placeholderBottom {
-            background-color: @background;
-            height: 82px;
-        }
-        .navigationMenu {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: white;
-            border-top: solid 1px whitesmoke;
         }
     }
 }
