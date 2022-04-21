@@ -16,7 +16,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row8;
+import org.jooq.Row10;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = -1644123542;
+    private static final long serialVersionUID = 1735395615;
 
     /**
      * The reference instance of <code>PUBLIC.OPERATION</code>
@@ -87,6 +87,16 @@ public class Operation extends TableImpl<OperationRecord> {
      * The column <code>PUBLIC.OPERATION.ORDER_IN_DAY</code>.
      */
     public final TableField<OperationRecord, Long> ORDER_IN_DAY = createField(DSL.name("ORDER_IN_DAY"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+
+    /**
+     * The column <code>PUBLIC.OPERATION.PENDING</code>.
+     */
+    public final TableField<OperationRecord, Boolean> PENDING = createField(DSL.name("PENDING"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>PUBLIC.OPERATION.LOCKED</code>.
+     */
+    public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("LOCKED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
      * Create a <code>PUBLIC.OPERATION</code> table reference
@@ -186,11 +196,11 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row8 type methods
+    // Row10 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<String, String, Integer, Integer, String, String, Integer, Long> fieldsRow() {
-        return (Row8) super.fieldsRow();
+    public Row10<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean> fieldsRow() {
+        return (Row10) super.fieldsRow();
     }
 }
