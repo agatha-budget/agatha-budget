@@ -180,6 +180,30 @@
         <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
       </ul>
     </div>
+    <h3>Calendar</h3>
+    <div class="row dateNav">
+      <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
+      <div class="col-8 date-label title">
+          <p class="month">April</p>
+      </div>
+      <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
+    </div>
+    <div class="row dateNav">
+      <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
+      <div class="col-8 date-label title positive">
+          <p>April</p>
+          <p>3 000€ à distribuer</p>
+      </div>
+      <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
+    </div>
+    <div class="row dateNav">
+      <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
+      <div class="col-8 date-label title negative">
+          <p>April</p>
+          <p>3 000€ à retirer</p>
+      </div>
+      <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
+    </div>
   </div>
 </div>
 
@@ -188,25 +212,25 @@
   <h3>Budget Table</h3>
   <div class="col-md-6">
     <table class="budgetTable">
-    <thead class="container header masterCategory">
-      <tr>
-        <th class="col-6">Master Category</th>
-        <th class="col-3">124</th>
-        <th class="col-3">300</th>
-      </tr>
-    </thead>
-    <tbody class="categoryBudget">
-      <tr>
-        <td class="col-6">Category</td>
-        <td class="col-3">
-          <div class="numberInput form-group">
-              <input type="number" class="form-control" id="textInput" placeholder="0">
-          </div>
-        </td>
-        <td class="col-3">300</td>
-      </tr>
-    </tbody>
-  </table>
+      <thead class="container header masterCategory">
+        <tr>
+          <th class="col-6">Master Category</th>
+          <th class="col-3">124</th>
+          <th class="col-3">300</th>
+        </tr>
+      </thead>
+      <tbody class="categoryBudget">
+        <tr>
+          <td class="col-6">Category</td>
+          <td class="col-3">
+            <div class="numberInput form-group">
+                <input type="number" class="form-control" id="textInput" placeholder="0">
+            </div>
+          </td>
+          <td class="col-3">300</td>
+        </tr>
+      </tbody>
+    </table>
     <h3>MasterCategoryHeader collapsed</h3>
     <table class="budgetTable">
       <thead class="container header masterCategory collapsed">
