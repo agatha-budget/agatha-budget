@@ -45,8 +45,10 @@
 
     <h3>Cross</h3>
 
-      <span class="cross light fas fa-times-circle"/>
-      <span class="cross dark fas fa-times-circle"/>
+      <div class="crossContainer col-12">
+        <span class="cross fas fa-times-circle"/>
+      </div>
+
   </div>
 </div>
 

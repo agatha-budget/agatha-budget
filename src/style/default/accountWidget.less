@@ -4,58 +4,77 @@
     padding: 20px;
     margin-top: 10px;
     text-align: center;
-
-    .title{
-        h1 {
-            font-size: x-large;
+    .titlesContainer {
+        .title {
+            font-weight: 550;
+        }
+        .subtitle {
+            font-size: 18px;
         }
     }
-    .total {
-        font-size: medium;
-    }
-    ul {
-        border-radius: 28px;
-        padding: 20px;
-        li {
-            background : @buttonBackColor;
-            border-radius: 10px;
-            margin: 5px;
-            list-style-type: none;
-            .btn {
-                font-size: small;
+    .accountContainer {
+        margin-top: 10px;
+        .accounts {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+            display: flex;
+            flex-wrap: wrap;
+            text-align: left;
+            .name, .amount {
+                color: white;
+            }
+        }
+        .accounts:hover {
+            * {
+                color: black;
+            }
+        }
+        .addAccount {
+            margin-top: 20px;
+            .container {
+                padding: 10px 10px 20px 20px;
+                .fields {
+                    padding-right: 10px;
+                    input {
+                        margin-bottom: 10px;
+                    }
+                }
             }
         }
     }
-    .accountForm {
-        background : @background;
-        margin-top: 20px;
-    }
-    .displayFormBtn, .closeFormBtn {
-        padding: 5px;
-    }
-    .closeFormBtn {
-        float: right;
-        margin: 0px 15px 10px 10px;
-        background: @background;
-    }
-    .formContainer {
-        padding: 10px;
-    }    
 }
-
-#accountCreationForm{
-    margin-top: 15px;
-
-    .accountCreationInput {
-        text-align: left;
-        padding: 0 10px 0 10px;
-        label {
-            margin: 5px 0;
+// version for mobile
+@media (max-width: 768px) {
+    #accountWidget {
+        border-radius: 0;
+        margin-top: 0;
+        height: 100vh;
+        .titlesContainer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
+            text-transform: capitalize;
+            padding: 30px 0;
+            font-size: 30px;
+        }
+        .accountContainer {
+            margin-top: 160px;
         }
     }
-    .btn {
-        margin-top: 15px;
-        background: @buttonBackColor;
-        margin-bottom: 10px;
+    .navigationMenu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.2);
     }
+}
+.redirectToAccountPage {
+    overflow-y: hidden;
+    overflow-x: hidden;
 }

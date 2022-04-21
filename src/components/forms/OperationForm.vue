@@ -28,7 +28,7 @@
           <span class="switch-label" data-on="+" data-off="-"/>
           <span class="switch-handle"/>
         </label>
-          <input id="amount" class="form-control" v-model.number="amount">
+        <input id="newOperationAmount" class="form-control" v-model="amountString">
       </div>
     </div>
     <div class="action col-4 offset-4 col-md-2 offset-md-5">
@@ -45,6 +45,7 @@ import { Category, MasterCategory, Operation, incomeCategoryId, transfertCategor
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import Utils from '@/utils/Utils'
+import Calcul from '@/utils/Calcul'
 import Multiselect from '@vueform/multiselect'
 
 interface OperationFormData {
@@ -52,7 +53,7 @@ interface OperationFormData {
   categoryId: string;
   memo: string;
   incoming: boolean;
-  amount: number;
+  amountString: string;
 }
 
 export default defineComponent({
@@ -66,7 +67,7 @@ export default defineComponent({
       categoryId: this.operation?.categoryId || '',
       memo: this.operation?.memo || '',
       incoming: this.operation?.amount ? this.operation.amount > 0 : false,
-      amount: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0))
+      amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0)).toString()
     }
   },
   props: {
@@ -105,6 +106,9 @@ export default defineComponent({
         }
       }
       return optionsList
+    },
+    amount (): number {
+      return this.entireCalcul(this.amountString)
     }
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
@@ -135,7 +139,7 @@ export default defineComponent({
     },
     rebootAddOperationForm () {
       this.memo = ''
-      this.amount = 0
+      this.amountString = ''
       this.categoryId = ''
       this.incoming = false
     },
@@ -149,6 +153,9 @@ export default defineComponent({
         group.options.push(option)
       }
       return group
+    },
+    entireCalcul (amount: string): number {
+      return Calcul.entireCalcul(amount)
     },
     closeForm () {
       if (this.operation) {

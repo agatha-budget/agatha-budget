@@ -1,81 +1,77 @@
 <template>
   <div :class="this.$store.state.css">
-    <div id="subscriptionPage" class="col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+    <div id="subscriptionPage" class="col-12 offset-0 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
       <div v-if="profile == 'PROFILE_USER'" class="user">
-        <h1>{{ $t('SUBSCRIPTION') }}</h1>
-        <p class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
-        <p class="col-12">{{ $t('CHOOSE_THE_BEST_FOR_YOU') }}</p>
-        <div class="essential row">
-          <span class="icon icon-paper-plane col-12" />
-          <h1 class="title col-12">{{ $t('ESSENTIAL') }}</h1>
-          <p class=" col-12">{{ $t('TEXT_ESSENTIAL') }}</p>
-          <div class="btnSubscription col-6">
-            <button v-on:click="this.goToBillingPortal('MONTHLY_ESSENTIAL')">{{ $t('PRICE_MONTHLY_ESSENTIAL') }}</button>
+        <div class="topBanner">
+          <h1>{{ $t('SUBSCRIPTION') }}</h1>
+          <p v-if="!validSubscription" class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
+        </div>
+        <div v-if="!validSubscription" class="placeholderTop"/>
+        <p v-on:click="this.goToContactPage">{{ $t('CHOOSE_THE_BEST_FOR_YOU') }}</p>
+        <div class="essential">
+          <div class="container header">
+            <span class="icon icon-paper-plane" />
+            <div class="title">{{ $t('ESSENTIAL') }}</div>
           </div>
-          <div class="btnSubscription col-6">
-            <button v-on:click="this.goToBillingPortal('ANNUAL_ESSENTIAL')">{{ $t('PRICE_ANNUAL_ESSENTIAL') }}</button>
-          </div>
+          <p>{{ $t('TEXT_ESSENTIAL') }}</p>
+          <btn class="navigationButton" v-on:click="this.goToBillingPortal('MONTHLY_ESSENTIAL')">{{ $t('PRICE_MONTHLY_ESSENTIAL') }}</btn>
+          <btn class="navigationButton" v-on:click="this.goToBillingPortal('ANNUAL_ESSENTIAL')">{{ $t('PRICE_ANNUAL_ESSENTIAL') }}</btn>
         </div>
         <div class="integral">
-          <span class="icon icon-plane col-12" />
-          <h1 class="title col-12">{{ $t('INTEGRAL') }}</h1>
-          <p class="col-12">{{ $t('TEXT_INTEGRAL') }}</p>
-          <div class="btnSubscription col-6">
-            <button v-on:click="this.goToBillingPortal('MONTHLY_INTEGRAL')">{{ $t('PRICE_MONTHLY_INTEGRAL') }}</button>
+          <div class="container header">
+            <span class="icon icon-plane" />
+            <div class="title">{{ $t('INTEGRAL') }}</div>
           </div>
-          <div class="btnSubscription col-6">
-            <button v-on:click="this.goToBillingPortal('ANNUAL_INTEGRAL')">{{ $t('PRICE_ANNUAL_INTEGRAL') }}</button>
-          </div>
+          <p>{{ $t('TEXT_INTEGRAL') }}</p>
+          <btn class="navigationButton" v-on:click="this.goToBillingPortal('MONTHLY_INTEGRAL')">{{ $t('PRICE_MONTHLY_INTEGRAL') }}</btn>
+          <btn class="navigationButton" v-on:click="this.goToBillingPortal('ANNUAL_INTEGRAL')">{{ $t('PRICE_ANNUAL_INTEGRAL') }}</btn>
         </div>
         <div class="solidarity">
-          <span class="icon icon-support col-12" />
-          <h1 class="title col-12">{{ $t('SOLIDARITY') }}</h1>
-          <p class="col-12" v-on:click="this.goToContactPage">{{ $t('TEXT_FOR_USER') }}{{ $t('PLEASE_CONTACT_US') }}</p>
-          <div class="btnSubscription disabled col-12">
-            <button v-on:click="this.goToContactPage">{{ $t('PRICE_MONTHLY_SOLIDARITY') }}</button>
+          <div class="container header">
+            <span class="icon icon-support" />
+            <div class="title">{{ $t('SOLIDARITY') }}</div>
           </div>
+          <p v-on:click="this.goToContactPage">{{ $t('TEXT_FOR_USER') }}{{ $t('PLEASE_CONTACT_US') }}</p>
+          <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_MONTHLY_SOLIDARITY') }}</btn>
         </div>
+        <div class="placeholderBottom"/>
       </div>
 
       <div v-if="profile == 'PROFILE_COMPANY'" class="company">
+        <div class="topBanner">
           <h1>{{ $t('SUBSCRIPTION') }}</h1>
-        <p class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
-        <p class="col-12">{{ $t('CHOOSE_THE_BEST_FOR_YOU') }}</p>
+          <p v-if="!validSubscription" class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
+        </div>
+        <p>{{ $t('CHOOSE_THE_BEST_FOR_YOU') }}</p>
         <div class="businessSide">
-          <span class="icon icon-briefcase col-12" />
-          <h1 class="title col-12">{{ $t('BUSINESS_SIDE') }}</h1>
-          <p class="col-12">{{ $t('TEXT_COMPANY') }}</p>
-          <div class="btnSubscription col-6">
-            <button v-on:click="this.goToBillingPortal('MONTHLY_COMPANY')">{{ $t('PRICE_MONTHLY_COMPANY') }}</button>
+          <div class="container header">
+            <span class="icon icon-briefcase" />
+            <div class="title">{{ $t('BUSINESS_SIDE') }}</div>
           </div>
-          <div class="btnSubscription col-6">
-            <button v-on:click="this.goToBillingPortal('ANNUAL_COMPANY')">{{ $t('PRICE_ANNUAL_COMPANY') }}</button>
-          </div>
+          <p>{{ $t('TEXT_COMPANY') }}</p>
+          <btn class="navigationButton" v-on:click="this.goToBillingPortal('MONTHLY_COMPANY')">{{ $t('PRICE_MONTHLY_COMPANY') }}</btn>
+          <btn class="navigationButton" v-on:click="this.goToBillingPortal('ANNUAL_COMPANY')">{{ $t('PRICE_ANNUAL_COMPANY') }}</btn>
         </div>
         <div class="personalSide">
-          <span class="icon icon-home col-12" />
-          <h1 class="title col-12">{{ $t('PERSONAL_SIDE') }}</h1>
-          <p class="col-12" v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SIDE') }}{{ $t('PLEASE_CONTACT_US') }}</p>
-          <div class="btnSubscription disabled col-6">
-            <button v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_MONTHLY') }}</button>
+          <div class="container header">
+            <span class="icon icon-home" />
+            <div class="title">{{ $t('PERSONAL_SIDE') }}</div>
           </div>
-          <div class="btnSubscription disabled col-6">
-            <button v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_ANNUAL') }}</button>
-          </div>
+          <p v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SIDE') }}{{ $t('PLEASE_CONTACT_US') }}</p>
+          <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_MONTHLY') }}</btn>
+          <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_ANNUAL') }}</btn>
         </div>
         <div class="coaching">
-          <span class="icon icon-compass col-12" />
-          <h1 class="title col-12">{{ $t('PERSONAL_SUPPORT') }}</h1>
-          <p class="col-12" v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SUPPORT') }}{{ $t('PLEASE_CONTACT_US_AND_RDV') }}</p>
-          <div class="btnSubscription disabled col-6">
-            <button v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_1H') }}</button>
+          <div class="container header">
+            <span class="icon icon-compass" />
+            <div class="title">{{ $t('PERSONAL_SUPPORT') }}</div>
           </div>
-          <div class="btnSubscription disabled col-6">
-            <button v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_5H') }}</button>
-          </div>
+          <p v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SUPPORT') }}{{ $t('PLEASE_CONTACT_US_AND_RDV') }}</p>
+          <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_1H') }}</btn>
+          <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_5H') }}</btn>
         </div>
+        <div class="placeholderBottom"/>
       </div>
-      <div class="placeholderBottom"/>
       <div class="navigationMenu">
         <NavMenu/>
       </div>
@@ -94,6 +90,12 @@ export default defineComponent({
   components: { NavMenu },
   created: async function () {
     StoreHandler.initStore(this.$store)
+  },
+  props: {
+    validSubscription: {
+      type: Boolean,
+      required: true
+    }
   },
   data () {
     return { }

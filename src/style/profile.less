@@ -1,86 +1,86 @@
-
-.profilPage{
+.profilePage {
     text-align: center;
-    background-color: #f2f2f2;
-    color: #124d74;
-    list-style-type: none;
-    justify-content: center;
-    list-style-type: none;
-    
-#logoface {
-    max-width: 100px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    justify-content: center
-}
+    overflow-y: hidden;
+    .boxMenu{
+        background: white;
+        border-radius: 28px;
+        padding: 20px;
+        margin-top: 10px;
 
-.profilName{
-    background-color: #007EA7;
-    color: #ffffff;
-    margin-top:  10px;
-    margin-bottom: 15px;
-    text-transform: capitalize;
-}
+        #logoface {
+            max-width: 100px;
+            margin: 10px 0;
+        }
 
-.buttonProfile {
-    text-decoration: none;
-    font-size: 20px;
-    border-radius: 10px;
-    text-transform: capitalize;
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
-    .label {
-        text-align: left;
+        .buttonContainer {
+            margin-top: 20px;
+            .navigationButton {
+                margin-bottom: 15px;
+                padding: 5px 12px;
+                .illustration {
+                    margin: 0;
+                    padding-top: 3px;
+                }
+                .name {
+                    text-align: left;
+                }
+            }
+            a { // essential to have a tag 'a' for support to keep link for forum
+                text-transform: capitalize;
+                text-decoration: none;
+            }
+        }
     }
-    .icone{
-        margin-top: 3px;
+}
+.navMenu {
+    @media (min-width:1400px) {
+        padding-left: 150px;
     }
 }
 
-.buttonProfile:not(.disabled){
-    background-color: #90D9E9;
-    border: 3px solid #90D9E9;
-    color: #252525;
-    cursor: pointer;
-    transition: background-color 0.5s ease-out;
-   
+// version for computer 
+@media (min-width: 768px) {
+    .profilePage {
+        .boxMenu {
+            .title {
+                display: none;
+            }
+        }
+    }
 }
 
-.buttonProfile.disabled {
-    border: 3px solid @darkerBackground;
-    background-color: @darkerBackground;
-    color: #252525;
-    cursor: default;
+// version for mobile
+@media (max-width: 768px) {
+    .profilePage {
+        .boxMenu{
+            border-radius: 0;
+            margin-top: 0;
+            height: 100vh;
+            #logoface {
+                display: none;
+            }
+            .title {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background-color: white;
+                box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
+                text-transform: capitalize;
+                padding: 30px 0;
+                font-size: 30px;
+            }
+            .buttonContainer {
+                margin-top: 150px;
+            }
+        }
+    }
+    .navMenu {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.2);
+    }
 }
-
-.buttonProfile:hover:not(.disabled){ 
-    background-color:  #007da711;
-    border: 3px solid #003249;
-    color: #003249;
-    cursor: pointer;
-}
-
-ol, ul {
-    padding-left: 0;
-}
-
-
-
-.boxMenu{
-    background: white;
-    border-radius: 28px;
-    padding: 20px;
-    margin-top: 10px;
-}
-}
-
-@media (min-width: 1400px) {
-    .navMenu{
-    padding-left: 150px;
-}
-}
-

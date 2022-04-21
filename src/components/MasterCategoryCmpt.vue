@@ -28,10 +28,9 @@
       </td>
       <td class="allocated">
         <span v-if="archived">{{ getEurosAmount(this.categoryDataList[category.id]?.allocated ?? "") }}</span>
-        <input v-else type="number" class="allocationInput"
-        :value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
-        v-on:change="updateAllocationOnChange(category.id, $event.target.value)"
-        >
+        <input v-else type="text" class="allocationInput"
+        v-bind:value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
+        v-on:change="updateAllocationOnChange(category.id, this.entireCalcul($event.target.value))">
         </td>
       <td class="spent">
           {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.spent ?? "")) }}
@@ -50,6 +49,7 @@
 import { defineComponent } from 'vue'
 import { MasterCategory, CategoryDataList, CategoryData, Category, newCategoryName } from '@/model/model'
 import Utils from '@/utils/Utils'
+import Calcul from '@/utils/Calcul'
 import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
@@ -120,7 +120,10 @@ export default defineComponent({
       this.$emit('emptyCategory', categoryId)
     },
     addSpacesInThousand (number: number): string {
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+      return Utils.addSpacesInThousand(number)
+    },
+    entireCalcul (amount: string): number {
+      return Calcul.entireCalcul(amount)
     }
   }
 })

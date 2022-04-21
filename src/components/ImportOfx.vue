@@ -1,7 +1,7 @@
 <template>
   <div class="MasterCcollapsed import row">
     <div class="crossContainer col-12">
-      <span class="cross light fas fa-times-circle" v-on:click="closeImport()"/>
+      <span class="cross fas fa-times-circle" v-on:click="closeImport"/>
     </div>
     <div class="importPage">
       <div v-if="fileImported">
