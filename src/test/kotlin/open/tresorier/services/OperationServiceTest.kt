@@ -179,4 +179,26 @@ class OperationServiceTest : ITest {
         Assertions.assertEquals(numberOperation, 0)
     }
 
+    @Test
+    fun testpendingProperty() {
+        val francoise: Person = personService.createPerson(
+            "Françoise Barré-Sinoussi", "HPA-23", "francoise@vih-sida.fr", ProfileEnum.PROFILE_USER
+        )
+        francoise.billingStatus = true
+        val budget: Budget = budgetService.findByUser(francoise)[0]
+        val account: Account = accountService.create(
+            francoise, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        var operation: Operation = operationService.create(
+            francoise, account, TestData.jan_14_2022, null, 8950, "Institut de la santé et de la recherche médicale"
+        )
+        operationService.pendingOperation(operation)
+
+        Assertions.assertTrue(operation.pending)
+
+        operationService.pendingOperation(operation)
+
+        Assertions.assertFalse(operation.pending)
+    }
+
 }
