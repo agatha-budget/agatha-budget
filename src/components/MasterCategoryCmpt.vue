@@ -1,5 +1,5 @@
 <template>
-  <template v-if="this.categories.length > 0">
+  <table class="budgetTable table" v-if="this.categories.length > 0">
     <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
     <thead v-else class="container header masterCategory">
         <tr>
@@ -46,7 +46,7 @@
         </tr>
       </template>
     </tbody>
-  </template>
+  </table>
 </template>
 
 <script lang="ts">

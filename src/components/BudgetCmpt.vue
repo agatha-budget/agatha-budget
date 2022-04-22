@@ -8,9 +8,9 @@
       <!-- Placeholder for the fixed top -->
       <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
       <div id="budgetTables">
-        <table class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
+        <template class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
           <master-category-cmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" />
-        </table>
+        </template>
         <div class="budget-tools">
           <div><span type="button" v-on:click="this.createMasterCategory()"> > {{ $t("ADD_MASTER_CATEGORY") }}</span></div>
           <div><span class="tooltiped" > > {{ $t("ADD_CATEGORY") }}<span class="tooltiptext">{{ $t("CLICK_ON_THE_MASTER_CATEGORY") }}</span></span></div>
@@ -21,9 +21,9 @@
         </div>
         <div v-if="this.archiveVisible" id="archive_section" >
           <div class="title">{{ $t("ARCHIVE") }}</div>
-          <table class="budgetTable table" v-for="masterCategory in this.$store.state.masterCategories" :key="masterCategory" >
+          <template v-for="masterCategory in this.$store.state.masterCategories" :key="masterCategory" >
             <master-category-cmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :archived="true" />
-          </table>
+          </template>
         </div>
         <div class="placeholderBottom"></div>
       </div>
