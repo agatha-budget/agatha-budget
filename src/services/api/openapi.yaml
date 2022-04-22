@@ -894,6 +894,13 @@ paths:
         explode: true
         schema:
           type: string
+      - name: new_pending
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
       responses:
         "200":
           description: successful operation
@@ -950,6 +957,13 @@ paths:
         explode: true
         schema:
           type: string
+      - name: pending
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
       responses:
         "200":
           description: successful operation
@@ -1031,7 +1045,7 @@ paths:
       summary: Find operation by budget
       operationId: findOperationsByBudget
       parameters:
-      - name: account_id
+      - name: budget_id
         in: query
         description: id of the budget whose operations you want to retrieve
         required: true
