@@ -12,7 +12,20 @@
         font-weight: 700;
     }
     .action {
-        padding: 2px;
+        .btn {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        display: none;
+    }
+    .name, .action {
+        cursor: pointer;
+        &:hover {
+            display: inline;
+            .action {
+                display: inline;
+            }
+        }
     }
     th , td {
         text-align: center;
@@ -29,7 +42,7 @@
         }
     }
     .categoryBudget {
-        background: @darkerBackground;
+        background: @background;
         *{
             padding: 2px;
         }
