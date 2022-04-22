@@ -18,20 +18,20 @@
     </tr>
   </thead>
   <thead v-else class="container header masterCategory edit">
-  <tr>
-    <th class="col-6">
-      <span class="name">{{ this.name }}</span>
-    </th>
-    <th class="col-2">
-      <button class="illustration btn fas fa-level-up-alt" v-on:click="unarchiveMasterCategory"/>
+    <tr>
+      <th class="col-6">
+        <span class="name">{{ this.name }}</span>
       </th>
-       <th class="col-2">
-      <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+      <th class="col-2">
+        <button class="illustration btn fas fa-level-up-alt" v-on:click="unarchiveMasterCategory"/>
+        </th>
+      <th class="col-2">
+        <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
       </th>
       <th class="col-2">
       </th>
-  </tr>
-</thead>
+    </tr>
+  </thead>
 </template>
 
 <script lang="ts">
