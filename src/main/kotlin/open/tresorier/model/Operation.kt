@@ -7,7 +7,7 @@ class Operation (
         var amount: Int = 0,    // cents
         var orderInDay: Long,
         var memo: String? = null,
-        var pending: Boolean,
+        var pending: Boolean = false,
         var locked: Boolean,
         id: String? = null,
         deleted: Boolean? = null

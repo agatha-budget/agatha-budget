@@ -284,8 +284,9 @@ fun main() {
         }
         val amount : Int? = getOptionalQueryParam<Int>(ctx, "amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "memo")
+        val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "pending")
 
-        val operation: Operation = ServiceManager.operationService.create(user, account, day, category, amount, memo)
+        val operation: Operation = ServiceManager.operationService.create(user, account, day, category, amount, memo, pending)
         ctx.json(operation)
     }
 
@@ -305,8 +306,9 @@ fun main() {
         }
         val amount : Int? = getOptionalQueryParam<Int>(ctx, "new_amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "new_memo")
+        val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "new_pending")
 
-        val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo)
+        val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo, pending)
         ctx.json(updatedOperation)
     }
 
@@ -340,14 +342,6 @@ fun main() {
         val fileOfx: String = ctx.body()
         val numberOperation = ServiceManager.operationService.importOfxFile(user, account, fileOfx)
         ctx.json(numberOperation)
-    }
-
-    app.before("/operation/pending", SuperTokens.middleware())
-    app.put("/operation/pending") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
-        val pendedOperation = ServiceManager.operationService.pendingOperation(user, operation)
-        ctx.json(pendedOperation)
     }
 
     app.before("/allocation", SuperTokens.middleware())
