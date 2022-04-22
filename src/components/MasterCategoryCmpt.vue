@@ -1,16 +1,14 @@
 <template>
   <template v-if="this.categories.length > 0">
-    <thead class="container header masterCategory">
+    <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
+    <thead v-else class="container header masterCategory">
         <tr>
-          <th class="col-6">
-            <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
-            <div v-else class="name">
-                <span v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}</span>
-                <span class="action">
-                  <button class="illustration btn fas fa-pen" v-on:click="this.putFocusOn(masterCategory.id)"/>
-                  <button class="illustration btn fas fa-plus" v-on:click="createCategory"/>
-                </span>
-            </div>
+          <th class="col-6 name">
+            <span v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}</span>
+            <span class="action">
+              <button class="illustration btn fas fa-pen" v-on:click="this.putFocusOn(masterCategory.id)"/>
+              <button class="illustration btn fas fa-plus" v-on:click="createCategory"/>
+            </span>
           </th>
           <th class="col-2">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.allocated))}}</th>
           <th class="col-2 spent">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.spent)) }}</th>
@@ -21,10 +19,10 @@
       </thead>
     <tbody class="categoryBudget">
       <tr v-for="category of this.categories" :key="category">
-        <td class="col-6">
+        <td class="col-6 name">
           <div>
             <CategoryForm v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus" @empty-envelope="emptyEnvelope"/>
-            <span class="name" v-else v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="action illustration btn fas fa-pen"/></span>
+            <span v-else v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="action illustration btn fas fa-pen"/></span>
           </div>
         </td>
         <td class="col-2">
