@@ -2,17 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   padding: 8px 0 8px 0;
-  font-size: small;
   cursor: pointer;
   .category {
-      font-size: medium;
       font-weight: bold;
-  }
-  .unknownCategory {
-      background-color: @alert;
-      border-radius: 25px;
-      padding: 2px 8px;
-      width: 180px;
   }
   .amount {
       font-size: large;
@@ -23,6 +15,10 @@
       .btn {
           padding-left: 10px;
       }
+  }
+
+  .lineStart {
+    padding-left: 30px;
   }
 
   &:nth-child(even) {

@@ -19,21 +19,23 @@
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
           <span v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation">
-            <div class="date col-2 offset-1">
+            <div class="lineStart date col-3">
               <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
             </div>
-            <div class="col-8"></div>
-            <div class="category col-3 offset-1" :class="getClassDependingCategory(operation)">
+            <div class="col-9"></div>
+
+            <div class="lineStart category col-4" :class="getClassDependingCategory(operation)">
               {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
             </div>
-            <div class="amount col-3 offset-2 col-sm-2" :class="this.getClassDependingOnAmount(operation)">
+            <div class="amount col-2 offset-2 col-sm-2" :class="this.getClassDependingOnAmount(operation)">
               {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
             </div>
-            <div class="action col-1 offset-1 offset-sm-2">
+            <div class="action col-2 offset-sm-2">
               <button class="illustration btn fas fa-pen"/>
               <button class="illustration btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
             </div>
-            <div class="memo col-3 offset-1">{{ operation.memo }}</div>
+
+            <div class="lineStart memo col-5">{{ operation.memo }}</div>
           </span>
         </template>
       </div>
@@ -170,11 +172,7 @@ export default defineComponent({
       return Utils.addSpacesInThousand(number)
     },
     getClassDependingCategory (operation: Operation): string {
-      if (operation.categoryId === null) {
-        return 'unknownCategory'
-      } else {
-        return 'categorySelected'
-      }
+      return (operation.categoryId === null) ? 'negative' : ''
     },
     switchAddOperation (type: string) {
       if (type === 'import') {
