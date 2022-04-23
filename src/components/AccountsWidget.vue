@@ -1,5 +1,5 @@
 <template>
-  <div id="accountWidget">
+  <div id="accountWidget" class="container">
     <div>
       <h1 class="title">{{$t('MY_ACCOUNTS')}}</h1>
       <span class="subtitle"> {{ $t('TOTAL') }} : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>

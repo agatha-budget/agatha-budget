@@ -13,14 +13,14 @@
     <btn class="navigationButton disabled">navigation button</btn>
 
     <h3>IllustratedNavigationButtons </h3>
-    <btn class="navigationButton">
-      <span class="illustration fas fa-book"/>
-      {{ $t("FREE_RESOURCES") }}
+    <btn class="navigationButton row">
+      <span class="illustration fas fa-book col-4"/>
+      <span class="illustrationLabel col-8">{{ $t("FREE_RESOURCES") }}</span>
     </btn>
 
-    <btn class="navigationButton disabled">
-      <span class="illustration fas fa-book"/>
-      {{ $t("FREE_RESOURCES") }}
+    <btn class="navigationButton disabled row">
+      <span class="illustration fas fa-book col-4"/>
+      <span class="illustrationLabel col-8">{blbnnilbbibi</span>
     </btn>
 
     <h3>Action Button</h3>

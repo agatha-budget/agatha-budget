@@ -9,6 +9,12 @@ btn {
   padding: 3px 15px 3px 15px ;
 }
 
+a.navigationButton {
+  padding: 2px;
+  text-decoration: none;
+  text-transform: none;
+}
+
 .navigationButton {
     background: @action;
     border-radius: @btnBorderRadius;
@@ -19,9 +25,14 @@ btn {
     * {
       color: @white;
     }
-
     .illustration {
-      margin-right: 15px; 
+      padding: 4px;
+      text-align: right;
+    }
+
+    .illustrationLabel {
+      padding-left: 20px;
+      text-align: left;
     }
 
     &.disabled {
