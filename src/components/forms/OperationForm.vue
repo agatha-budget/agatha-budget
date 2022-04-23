@@ -1,5 +1,5 @@
 <template>
-  <div class="flexForm operation form">
+  <div class="flexForm form">
     <div class="containerCross col-12">
       <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
     </div>

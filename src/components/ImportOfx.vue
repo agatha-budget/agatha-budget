@@ -1,5 +1,5 @@
 <template>
-  <div class="container header import row">
+  <div class="container header">
     <div class="containerCross col-12">
       <span class="cross fas fa-times-circle" v-on:click="closeImport"/>
     </div>
@@ -13,9 +13,9 @@
           <btn v-on:click="importOfxFile()" class="actionButton">{{ $t('IMPORT') }}</btn>
         </div>
         <div v-else>
-          <div class="actionButton ofxForm">
-            <input id="importOfxFile" type="file" @change="onFileChange($event)" class="inputOfx" />
-            <label for="importOfxFile" class="col-12">{{ $t('SELECT_FILE') }}</label>
+          <div class="ofxForm">
+            <input id="importOfxFile" type="file" @change="onFileChange($event)" class="fileInput" />
+            <label for="importOfxFile" class="actionButton">{{ $t('SELECT_FILE') }}</label>
           </div>
         </div>
       </div>
