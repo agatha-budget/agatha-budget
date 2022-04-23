@@ -10,14 +10,14 @@
             </span>
           </div>
           <div v-else class="editableNameAccount">
-            <a v-on:click="this.displayTitleEditing()" class="row">
+            <span v-on:click="this.displayTitleEditing()" class="row">
               <div class="displayNameAccount col-12 offset-0 col-sm-8 offset-sm-2 col-xxl-6 offset-xxl-3">
-                <h1 :class="this.getClassDependingOnAmount()">
+                <h1 class="title" :class="this.getClassDependingOnAmount()">
                   {{ this.account.name }} : {{ totalAccount }}€
                   <button class="btn fas fa-pen" />
                 </h1>
               </div>
-            </a>
+            </span>
           </div>
     </div>
 </template>

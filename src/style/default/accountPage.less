@@ -1,29 +1,27 @@
 .accountPage {
-    .fixed {
-        right: 0;
-        left: 0;
+    background-color: @lighterBackground;
+
+    .illustration {
+        color: @action;
     }
+
+////////////////////
+// Accound Header //
+////////////////////
     .editableNameAccount {
-        a {
+        .title {
             text-decoration: none;
             text-align: center;
-            h1 {
-                text-align: center;
-                font-size: xx-large;
-                padding-bottom: 20px;
-                .btn {
-                    visibility: hidden;
-                    font-size: small;
-                    padding: 6px 0px 6px 12px;
-                    margin-bottom: 4px;
-                }
+            .btn {
+                font-size: 20px;
+                visibility: hidden;
             }
-            h1:hover{
+            &:hover{
                 .btn {
                     visibility: visible;
                 }
             }
-            .negative {
+            &.negative {
                 .btn {
                     color: @white;
                 }
@@ -63,8 +61,6 @@
                     text-align: middle;
                 }
                 .actionButton{
-                    color: black;
-                    font-weight: 500;
                     width: 100%;
                     margin-top: 25px;
                 }
