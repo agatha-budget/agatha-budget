@@ -1,7 +1,7 @@
 <template>
   <div id="accountCreationForm">
     <div class="accountCreationInput">
-      <div class="crossContainer col-12">
+      <div class="containerCross col-12">
         <span class="cross fas fa-times-circle" v-on:click="closeForm"/>
       </div>
       <div class="form">

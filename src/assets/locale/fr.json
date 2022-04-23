@@ -101,5 +101,7 @@
     "SELECT_FILE": "sélectionner un fichier .ofx",
     "IMPORTED_OPERATION": " opérations importées",
     "FILE_IS_SELECTED": "le fichier est sélectionné",
-    "GRAPH": "graphiques"
+    "GRAPH": "graphiques",
+    "ADD_MANUALLY": "Ajout manuel",
+    "BANK_IMPORT": "Import relevé"
 }

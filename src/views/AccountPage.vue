@@ -9,17 +9,15 @@
       </div>
       <div class="content container operationTable table-hover">
         <div class="dualTab switchOperation">
-          <btn v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">Ajout manuel</btn>
-          <btn v-else v-on:click="switchAddOperation('manual')" class="tabLeft">Ajout manuel</btn>
-          <btn v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">Import</btn>
-          <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">Import</btn>
+          <btn v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">{{ $t("ADD_MANUALLY") }}</btn>
+          <btn v-else v-on:click="switchAddOperation('manual')" class="tabLeft">{{ $t("ADD_MANUALLY") }}</btn>
+          <btn v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">{{ $t("BANK_IMPORT") }}</btn>
+          <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">{{ $t("BANK_IMPORT") }}</btn>
         </div>
-        <div v-if="importBloc" class="importOfx">
-          <ImportOfx :accountId="this.accountId" @close-import="closeImport"/>
-        </div>
+        <ImportOfx v-if="importBloc" :accountId="this.accountId" @close-import="closeImport"/>
         <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
         <template v-for="operation in this.operations" :key="operation">
-          <OperationForm class="modifyOperation container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
+          <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
           <a v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation storedOperation">
             <div class="date col-2 offset-1">
               <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>

@@ -48,7 +48,7 @@
 
     <h3>Cross</h3>
 
-      <div class="crossContainer col-12">
+      <div class="containerCross col-12">
         <span class="cross fas fa-times-circle"/>
       </div>
 

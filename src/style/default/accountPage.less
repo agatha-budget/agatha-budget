@@ -10,10 +10,7 @@
 ////////////////////
     .editableNameAccount {
         .title {
-            text-decoration: none;
-            text-align: center;
             .btn {
-                font-size: 20px;
                 visibility: hidden;
             }
             &:hover{
@@ -21,139 +18,77 @@
                     visibility: visible;
                 }
             }
-            &.negative {
-                .btn {
-                    color: @white;
-                }
-            }
         }
     }
-    .editingNameAccount {
-        padding-bottom: 12.35px;
-        .name {
-            padding-left: auto;
-            padding-right: auto;
-            margin-bottom: 8.4px;
+////////////////////
+// Operation List //
+////////////////////
+
+    .content {
+        .dualTab {
+            text-align: center;
+            margin: 20px 0;
         }
-    }
-        .content {
-            .switchOperation {
+        .inlineOperationForm {
+            border-radius: 0;
+            margin: 0;
+        }
+        .storedOperation {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 8px 0 8px 0;
+            font-size: small;
+            .category {
+                font-size: medium;
+                font-weight: bold;
+            }
+            .unknownCategory {
+                background-color: @alert;
+                border-radius: 25px;
+                padding: 2px 8px;
+                width: 180px;
+            }
+            .amount {
+                font-size: large;
                 text-align: center;
-                margin: 20px 0;
             }
-            .importOfx {
-                padding-bottom: 5px;
-                text-align: center;
-            }
-            #operationForm {
-                padding: 10px 10px 20px 20px;
+            .action {
                 display: flex;
-                flex-wrap: wrap;
-                width: 100%;
-                max-width: none;
-                .dateTitle, .categoryTitle, .memoTitle, .amountTitle, .dateElement, .categoryElement, .memoElement, .amountElement {
-                    padding: 8px 0 0 0;
-                }
-                .dateTitle, .categoryTitle, .memoTitle, .amountTitle {
-                    color: white;
-                    font-size: large;
-                    font-weight: bold;
-                    text-align: middle;
-                }
-                .actionButton{
-                    width: 100%;
-                    margin-top: 25px;
-                }
-            }
-            .operationCreate {
-                margin: 10px 0 20px 0;
-                *{
-                    color: black
-                }
-                .crossContainer {
-                    .cross {
-                        color: white;
-                    }
-                }
-            }
-            .modifyOperation {
-                border-radius: 0;
-                margin: 0;
-            }
-            .storedOperation {
-                display: flex;
-                flex-wrap: wrap;
-                padding: 8px 0 8px 0;
-                font-size: small;
-                .category {
-                    font-size: medium;
-                    font-weight: bold;
-                }
-                .unknownCategory {
-                    background-color: @alert;
-                    border-radius: 25px;
-                    padding: 2px 8px;
-                    width: 180px;
-                }
-                .amount {
-                    font-size: large;
-                    text-align: center;
-                }
-                .action {
-                    display: flex;
-                    .btn {
-                        font-size: small;
-                        padding-left: 10px;
-                    }
-                }
-            }
-            @media (pointer: fine) {
-                .storedOperation {
-                    .btn {
-                        visibility: hidden;
-                    }
-                }
-                .storedOperation:hover{
-                    .btn {
-                        visibility: visible;
-                    }
-                }
-            }
-            .storedOperation:nth-child(even) {
-                background-color: @background;
-            }
-            .storedOperation:nth-child(odd) {
-                background-color: @darkerBackground;
-            }
-            a {
-                font-size: small;
-                color: black;
-                text-decoration: none;
                 .btn {
                     font-size: small;
                     padding-left: 10px;
                 }
             }
-            .placeholderBottom {
-                height: 82px;
+        }
+        @media (pointer: fine) {
+            .storedOperation {
+                .btn {
+                    visibility: hidden;
+                }
+            }
+            .storedOperation:hover{
+                .btn {
+                    visibility: visible;
+                }
             }
         }
-
-    // version for computer
-    @media (min-width: 500px) {
-        .accountPageBody {
-            .editableNameAccount {
-                h1 {
-                    padding-left: 20px;
-                    padding-right: 20px;
-                }
+        .storedOperation:nth-child(even) {
+            background-color: @background;
+        }
+        .storedOperation:nth-child(odd) {
+            background-color: @darkerBackground;
+        }
+        a {
+            font-size: small;
+            color: black;
+            text-decoration: none;
+            .btn {
+                font-size: small;
+                padding-left: 10px;
             }
-            .scrollable {
-                padding-top: 10px;
-                .placeholderBottom {
-                    height: 82px;
-                }
-            }
+        }
+        .placeholderBottom {
+            height: 82px;
         }
     }
 
