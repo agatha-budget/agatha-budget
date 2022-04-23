@@ -1,7 +1,7 @@
 <template>
   <div :class="this.$store.state.css">
     <div class="profilePage">
-      <div class="container">
+      <div class="container small">
         <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
         <div class="header title">{{ $t('PREFERENCES') }}</div>
         <div class="content">
