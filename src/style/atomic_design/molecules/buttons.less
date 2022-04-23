@@ -6,7 +6,6 @@ btn {
   white-space: nowarp;
   display: inline-block;
   margin: 5px;
-  text-transform: capitalize;
   padding: 3px 15px 3px 15px ;
 }
 
@@ -81,6 +80,23 @@ btn {
   .cross:hover {
     cursor: pointer;
   }
+}
+
+.navBarBtn {
+    font-size: 30px;
+    background-color: @navigation;
+    color: @background;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 45px;
+    width: 52px;
+    &.disabled {
+      background-color: @active;
+      color: @navigation;
+    }
+    &:hover {
+      color: @background;
+    }
 }
 
 .select{

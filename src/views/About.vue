@@ -3,11 +3,14 @@
 <div class="designContainer col-8 offset-2 row">
   <h2>Button</h2>
   <div class="col-md-6">
+    <h3>NavBarButtons</h3>
+    <button class="navBarBtn btn fas fa-home" :title="$t('HOME')"/>
+    <button class="navBarBtn btn fas fa-home disabled" :title="$t('HOME')"/>
 
     <h3>NavigationButtons</h3>
-    <btn class="navigationButton">Navigation button</btn>
+    <btn class="navigationButton">navigation button</btn>
 
-    <btn class="navigationButton disabled">Navigation button</btn>
+    <btn class="navigationButton disabled">navigation button</btn>
 
     <h3>IllustratedNavigationButtons </h3>
     <btn class="navigationButton">
@@ -171,15 +174,15 @@
   <h2>Navigation</h2>
   <div class="col-md-6">
     <h3>NavBar</h3>
-    <div class="navigationMenu">
-      <ul id="actionsList" class="list-group list-group-horizontal d-flex">
-        <li v-if="this.fromPage == 'home' "><button class="btn fas fa-home disabled" :title="$t('HOME')"/></li>
-        <li v-else><button v-on:click="goHomePage" class="btn fas fa-home" :title="$t('HOME')"/></li>
-        <li v-if="this.fromPage == 'accounts' "><button class="btn fas fa-euro-sign disabled" :title="$t('ACCOUNTS')"/></li>
-        <li v-else><button v-on:click="goChooseAccount" class="btn fas fa-euro-sign" :title="$t('ACCOUNTS')"/></li>
-        <li v-if="this.fromPage == 'profile' "><button class="btn fas fa-cog disabled" :title="$t('PREFERENCES')"/></li>
-        <li v-else><button v-on:click="goProfilePage" class="btn fas fa-cog" :title="$t('PREFERENCES')"/></li>
-        <li><button v-on:click="logout" class="btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
+    <div class="navBar">
+      <ul class="list-group list-group-horizontal d-flex">
+        <li v-if="this.fromPage == 'home' "><button class="navBarBtn btn fas fa-home disabled" :title="$t('HOME')"/></li>
+        <li v-else><button v-on:click="goHomePage" class="navBarBtn btn fas fa-home" :title="$t('HOME')"/></li>
+        <li v-if="this.fromPage == 'accounts' "><button class="navBarBtn btn fas fa-euro-sign disabled" :title="$t('ACCOUNTS')"/></li>
+        <li v-else><button v-on:click="goChooseAccount" class="navBarBtn btn fas fa-euro-sign" :title="$t('ACCOUNTS')"/></li>
+        <li v-if="this.fromPage == 'profile' "><button class="navBarBtn btn fas fa-cog disabled" :title="$t('PREFERENCES')"/></li>
+        <li v-else><button v-on:click="goProfilePage" class="navBarBtn btn fas fa-cog" :title="$t('PREFERENCES')"/></li>
+        <li><button v-on:click="logout" class="navBarBtn btn fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
       </ul>
     </div>
     <h3>Calendar</h3>
