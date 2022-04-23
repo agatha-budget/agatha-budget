@@ -1,7 +1,7 @@
 <template>
   <div id="sign_up_page">
-    <img id="logo" alt="Vue logo" src="../assets/logo.png" />
-    <div>
+    <div class="form">
+      <img id="logo" alt="Vue logo" src="../assets/logo.png" />
       <input class="form-control" type="text" id="name" v-model="name" :placeholder="$t('NAME')">
       <input class="form-control" id="email" v-model="email" :placeholder="$t('EMAIL')">
       <input class="form-control" type="password" id="password" v-model="password" :placeholder="$t('PASSWORD')">
@@ -11,9 +11,9 @@
         <option value="PROFILE_USER">{{$t('USER')}}</option>
         <option value="PROFILE_COMPANY">{{$t('COMPANY')}}</option>
       </select>
-      <button class="btn btn-info" v-on:click="create">{{$t('CREATE_MY_ACCOUNT')}}</button>
-      <p id="login_error_msg">{{errorMsg}}</p>
-      <p><a class="teamSelector" v-on:click="goToLogin">{{$t('RETURN_TO_LOGIN')}}</a></p>
+      <button class="navigationButton btn" v-on:click="create">{{$t('CREATE_MY_ACCOUNT')}}</button>
+      <p>{{errorMsg}}</p>
+      <button id="toOtherForm" class="navigationButton btn" v-on:click="goToLogin">{{$t('LOGIN')}}</button>
     </div>
   </div>
 </template>
