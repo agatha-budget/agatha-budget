@@ -9,34 +9,36 @@
         max-width: 100px;
         margin: 10px 0;
     }
+
+    // version for mobile
+    @media (max-width: 768px) {
+        #logoface {
+            display: none;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
+            text-transform: capitalize;
+            padding: 30px 0;
+            font-size: 30px;
+        }
+        .content {
+            margin-top: 100px;
+            height: 100%;
+        }
+        .navBar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.2);
+        }
+    }
+
 }
 
-// version for mobile
-@media (max-width: 768px) {
-    #logoface {
-        display: none;
-    }
-    .header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: white;
-        box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
-        text-transform: capitalize;
-        padding: 30px 0;
-        font-size: 30px;
-    }
-    .content {
-        margin-top: 100px;
-        height: 100%;
-    }
-    .navBar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: white;
-        box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.2);
-    }
-}
