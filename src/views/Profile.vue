@@ -3,30 +3,32 @@
     <div class="profilePage">
       <div class="container">
         <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
-        <h1 class="title">{{ $t('PREFERENCES') }}</h1>
-        <btn class="navigationButton row" v-on:click="goSubscriptionPage">
-          <span class="illustration fas fa-credit-card col-4"/>
-          <span class="illustrationLabel col-8">{{ $t("SUBSCRIPTION") }}</span>
-        </btn>
-        <btn class="navigationButton disabled row">
-          <span class="illustration fas fa-book-open col-4"/>
-          <span class="illustrationLabel col-8">{{ $t("FREE_RESOURCES") }}</span>
-        </btn>
-        <btn class="navigationButton disabled row">
-          <span class="illustration fas fa-chart-area col-4"/>
-          <span class="illustrationLabel col-8">{{ $t("GRAPH") }}</span>
-        </btn>
-        <btn class="navigationButton disabled row">
-          <span class="illustration fas fa-palette col-4"/>
-          <span class="illustrationLabel col-8">{{ $t("APPEARANCE") }}</span>
-        </btn>
-        <a class="navigationButton row" href="https://forum.agatha-budget.fr">
-          <span class="illustration fas fa-question col-4"/>
-          <span class="illustrationLabel col-8">{{ $t("SUPPORT") }}</span>
-        </a>
+        <div class="header title">{{ $t('PREFERENCES') }}</div>
+        <div class="content">
+          <btn class="navigationButton row" v-on:click="goSubscriptionPage">
+            <span class="illustration fas fa-credit-card col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("SUBSCRIPTION") }}</span>
+          </btn>
+          <btn class="navigationButton disabled row">
+            <span class="illustration fas fa-book-open col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("FREE_RESOURCES") }}</span>
+          </btn>
+          <btn class="navigationButton disabled row">
+            <span class="illustration fas fa-chart-area col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("GRAPH") }}</span>
+          </btn>
+          <btn class="navigationButton disabled row">
+            <span class="illustration fas fa-palette col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("APPEARANCE") }}</span>
+          </btn>
+          <a class="navigationButton row" href="https://forum.agatha-budget.fr">
+            <span class="illustration fas fa-question col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("SUPPORT") }}</span>
+          </a>
+        </div>
       </div>
     </div>
-      <NavMenu :page="'profile'" />
+    <NavMenu :page="'profile'" />
     </div>
 </template>
 
