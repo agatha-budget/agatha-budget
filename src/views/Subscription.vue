@@ -72,9 +72,7 @@
         </div>
         <div class="placeholderBottom"/>
       </div>
-      <div class="navigationMenu">
-        <NavMenu/>
-      </div>
+      <NavMenu/>
     </div>
   </div>
 </template>

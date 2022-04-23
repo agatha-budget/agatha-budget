@@ -44,7 +44,7 @@
           <div class="placeholderBottom"/>
         </div>
       </div>
-      <NavMenu class="btnInAccountPage" />
+      <NavMenu/>
     </div>
   </div>
 </template>
