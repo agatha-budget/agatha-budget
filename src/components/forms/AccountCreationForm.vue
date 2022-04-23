@@ -4,9 +4,9 @@
       <div class="crossContainer col-12">
         <span class="cross fas fa-times-circle" v-on:click="closeForm"/>
       </div>
-      <div class="fields">
+      <div class="form">
         <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('ACCOUNT_NAME')">
-      <input id="newAccountAmount" class="form-control" v-model="amountString" :placeholder="$t('INITIAL_AMOUNT')">
+        <input id="newAccountAmount" class="form-control" v-model="amountString" :placeholder="$t('INITIAL_AMOUNT')">
       </div>
     </div>
     <btn class="actionButton" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</btn>

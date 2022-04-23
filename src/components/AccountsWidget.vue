@@ -1,21 +1,27 @@
 <template>
   <div id="accountWidget">
-    <div class="titlesContainer">
+    <div>
       <h1 class="title">{{$t('MY_ACCOUNTS')}}</h1>
       <span class="subtitle"> {{ $t('TOTAL') }} : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>
     </div>
     <div class="accountContainer col-12 offset-0 col-sm-8 offset-sm-2 col-md-12 offset-md-0">
       <btn v-for="account of this.$store.state.accounts" :key="account" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
-          <div v-if="this.fromPage == 'home' " class="name col-10 offset-2 col-xl-8 offset-xl-0 col-xxl-7 offset-xxl-1">{{ account.name }} :</div>
-          <div v-if="this.fromPage == 'home' " class="amount col-6 offset-3 col-xl-4 offset-xl-0">{{this.getEurosAmount(account.amount)}}€</div>
-          <div v-if="this.fromPage == 'account' " class="name col-7 offset-1">{{ account.name }} :</div>
-          <div v-if="this.fromPage == 'account' " class="amount col-4 offset-0">{{this.getEurosAmount(account.amount)}}€</div>
+        <template v-if="this.fromPage == 'home'">
+          <div class="name col-10 offset-2 col-xl-8 offset-xl-0 col-xxl-7 offset-xxl-1">{{ account.name }} :</div>
+          <div class="amount col-6 offset-3 col-xl-4 offset-xl-0">{{this.getEurosAmount(account.amount)}}€</div>
+        </template>
+        <template v-else>
+          <div class="name col-7 offset-1">{{ account.name }} :</div>
+          <div class="amount col-4 offset-0">{{this.getEurosAmount(account.amount)}}€</div>
+        </template>
       </btn>
-      <div v-if="!accountCreationFormIsDisplayed" class="addAccount">
-        <btn v-on:click="changeAccountCreationFormDisplay" class="actionButton">{{$t('ADD_ACCOUNT')}}</btn>
-      </div>
-      <div v-else class="addAccount">
-        <AccountCreationForm class="container" @update-account-list="getAccounts" @close-form="changeAccountCreationFormDisplay"/>
+      <div class="addAccount">
+        <template v-if="!accountCreationFormIsDisplayed">
+          <btn v-on:click="changeAccountCreationFormDisplay" class="actionButton">{{$t('ADD_ACCOUNT')}}</btn>
+        </template>
+        <template v-else>
+          <AccountCreationForm class="container" @update-account-list="getAccounts" @close-form="changeAccountCreationFormDisplay"/>
+        </template>
       </div>
     </div>
   </div>

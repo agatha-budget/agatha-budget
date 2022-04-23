@@ -1,8 +1,11 @@
 // Default text, can be overriden by a specific theme 
-* {
+*, text {
   font-family: 'Arial', Verdana, sans-serif;
   color: @dark;
   font-size: 16px;
+  &:first-letter {
+    text-transform: capitalize;
+  }
 }
 
 .subtext, .subtext * {
@@ -12,9 +15,6 @@
 .title, .title *{
   font-size: 25px;
   text-align: center;
-  &:first-letter {
-    text-transform: capitalize;
-  }
 }
 
 .subtitle, .subtitle * {
