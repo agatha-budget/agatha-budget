@@ -1,0 +1,39 @@
+.home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (min-width: 992px) {
+    .navBar {
+      position: relative;
+      top: 20px;
+      .account {
+        display: none;
+      }
+    }
+  }
+  
+  @media (max-width: 992px) {
+    .accountWidgetAtHome{
+      #accountWidget {
+        display: none;
+      }
+    }
+    .navBar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: white;
+      border-top: solid whitesmoke;
+    }
+  }
+  
+  @media (max-height: 400px) {
+    .navBar {
+        display: none;
+    }
+  }
+
+}
+
