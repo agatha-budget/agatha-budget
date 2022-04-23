@@ -1,50 +1,50 @@
 <template >
   <div :class="this.$store.state.css">
     <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-      <div class="accountPageBody">
-        <div class="fixed">
-          <div class="col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
-            <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" />
-          </div>
-        </div>
-        <div class="scrollable operationTable table-hover">
-          <div class="placeholderTop">
-            <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
-          </div>
-          <div class="dualTab switchOperation">
-            <btn v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">Ajout manuel</btn>
-            <btn v-else v-on:click="switchAddOperation('manual')" class="tabLeft">Ajout manuel</btn>
-            <btn v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">Import</btn>
-            <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">Import</btn>
-          </div>
-          <div v-if="importBloc" class="importOfx">
-            <ImportOfx :accountId="this.accountId" @close-import="closeImport"/>
-          </div>
-          <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
-          <template v-for="operation in this.operations" :key="operation">
-            <OperationForm class="modifyOperation container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
-            <a v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation storedOperation">
-              <div class="date col-2 offset-1">
-                <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
-              </div>
-              <div class="col-8"></div>
-              <div class="category col-3 offset-1" :class="getClassDependingCategory(operation)">
-                {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
-              </div>
-              <div class="amount col-3 offset-2 col-sm-2" :class="this.getClassDependingOnAmount(operation)">
-                {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
-              </div>
-              <div class="action col-1 offset-1 offset-sm-2">
-                <button class="btn fas fa-pen"/>
-                <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
-              </div>
-              <div class="memo col-3 offset-1">{{ operation.memo }}</div>
-            </a>
-          </template>
-          <div class="placeholderBottom"/>
-        </div>
+      <div class="header fixed">
+          <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" />
       </div>
-      <NavMenu/>
+      <div class="placeholderTop">
+        <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
+      </div>
+      <div class="content container operationTable table-hover">
+        <div class="dualTab switchOperation">
+          <btn v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">Ajout manuel</btn>
+          <btn v-else v-on:click="switchAddOperation('manual')" class="tabLeft">Ajout manuel</btn>
+          <btn v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">Import</btn>
+          <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">Import</btn>
+        </div>
+        <div v-if="importBloc" class="importOfx">
+          <ImportOfx :accountId="this.accountId" @close-import="closeImport"/>
+        </div>
+        <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
+        <template v-for="operation in this.operations" :key="operation">
+          <OperationForm class="modifyOperation container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
+          <a v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation storedOperation">
+            <div class="date col-2 offset-1">
+              <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+            </div>
+            <div class="col-8"></div>
+            <div class="category col-3 offset-1" :class="getClassDependingCategory(operation)">
+              {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+            </div>
+            <div class="amount col-3 offset-2 col-sm-2" :class="this.getClassDependingOnAmount(operation)">
+              {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+            </div>
+            <div class="action col-1 offset-1 offset-sm-2">
+              <button class="btn fas fa-pen"/>
+              <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
+            </div>
+            <div class="memo col-3 offset-1">{{ operation.memo }}</div>
+          </a>
+        </template>
+      </div>
+      <div class="placeholder">
+        <NavMenu/>
+      </div>
+      <div class="footer fixed">
+        <NavMenu/>
+      </div>
     </div>
   </div>
 </template>

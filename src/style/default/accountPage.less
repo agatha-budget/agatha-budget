@@ -1,59 +1,44 @@
 .accountPage {
-
-    // all versions
-    background: white;
-    padding: 0;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.05);
-    .accountPageBody {
-        .fixed {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: white;
-            border-bottom: solid 1px whitesmoke;
-            padding-top: 20px;
-            z-index: 100;
-            box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.2);
-        }
-        #accountPageHeader {
-            .editableNameAccount {
-                a {
-                    text-decoration: none;
-                    text-align: center;
-                    h1 {
-                        text-align: center;
-                        font-size: xx-large;
-                        padding-bottom: 20px;
-                        .btn {
-                            visibility: hidden;
-                            font-size: small;
-                            padding: 6px 0px 6px 12px;
-                            margin-bottom: 4px;
-                        }
-                    }
-                    h1:hover{
-                        .btn {
-                            visibility: visible;
-                        }
-                    }
-                    .negative {
-                        .btn {
-                            color: white;
-                        }
-                    }
+    .fixed {
+        right: 0;
+        left: 0;
+    }
+    .editableNameAccount {
+        a {
+            text-decoration: none;
+            text-align: center;
+            h1 {
+                text-align: center;
+                font-size: xx-large;
+                padding-bottom: 20px;
+                .btn {
+                    visibility: hidden;
+                    font-size: small;
+                    padding: 6px 0px 6px 12px;
+                    margin-bottom: 4px;
                 }
             }
-            .editingNameAccount {
-                padding-bottom: 12.35px;
-                .name {
-                    padding-left: auto;
-                    padding-right: auto;
-                    margin-bottom: 8.4px;
+            h1:hover{
+                .btn {
+                    visibility: visible;
+                }
+            }
+            .negative {
+                .btn {
+                    color: @white;
                 }
             }
         }
-        .scrollable {
+    }
+    .editingNameAccount {
+        padding-bottom: 12.35px;
+        .name {
+            padding-left: auto;
+            padding-right: auto;
+            margin-bottom: 8.4px;
+        }
+    }
+        .content {
             .switchOperation {
                 text-align: center;
                 margin: 20px 0;
@@ -157,15 +142,6 @@
                 height: 82px;
             }
         }
-    }
-    .navBar {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: white;
-        border-top: solid 1px whitesmoke;
-    }
 
     // version for computer
     @media (min-width: 500px) {
