@@ -18,7 +18,7 @@
         <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
-          <a v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation storedOperation">
+          <span v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation">
             <div class="date col-2 offset-1">
               <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
             </div>
@@ -34,10 +34,10 @@
               <button class="illustration btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
             </div>
             <div class="memo col-3 offset-1">{{ operation.memo }}</div>
-          </a>
+          </span>
         </template>
       </div>
-      <div class="placeholder">
+      <div class="placeholder bottom">
         <NavMenu/>
       </div>
       <div class="footer fixed">

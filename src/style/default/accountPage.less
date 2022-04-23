@@ -5,24 +5,16 @@
         color: @action;
     }
 
-////////////////////
-// Accound Header //
-////////////////////
-    .editableNameAccount {
-        .title {
+    .title {
+        .btn {
+            visibility: hidden;
+        }
+        &:hover{
             .btn {
-                visibility: hidden;
-            }
-            &:hover{
-                .btn {
-                    visibility: visible;
-                }
+                visibility: visible;
             }
         }
     }
-////////////////////
-// Operation List //
-////////////////////
 
     .content {
         .dualTab {
@@ -32,80 +24,6 @@
         .inlineOperationForm {
             border-radius: 0;
             margin: 0;
-        }
-        .storedOperation {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 8px 0 8px 0;
-            font-size: small;
-            .category {
-                font-size: medium;
-                font-weight: bold;
-            }
-            .unknownCategory {
-                background-color: @alert;
-                border-radius: 25px;
-                padding: 2px 8px;
-                width: 180px;
-            }
-            .amount {
-                font-size: large;
-                text-align: center;
-            }
-            .action {
-                display: flex;
-                .btn {
-                    font-size: small;
-                    padding-left: 10px;
-                }
-            }
-        }
-        @media (pointer: fine) {
-            .storedOperation {
-                .btn {
-                    visibility: hidden;
-                }
-            }
-            .storedOperation:hover{
-                .btn {
-                    visibility: visible;
-                }
-            }
-        }
-        .storedOperation:nth-child(even) {
-            background-color: @background;
-        }
-        .storedOperation:nth-child(odd) {
-            background-color: @darkerBackground;
-        }
-        a {
-            font-size: small;
-            color: black;
-            text-decoration: none;
-            .btn {
-                font-size: small;
-                padding-left: 10px;
-            }
-        }
-        .placeholderBottom {
-            height: 82px;
-        }
-    }
-
-    // version for mobile
-    @media (max-width: 500px) {
-        .accountPageBody .scrollable {
-            .placeholderTop {
-                padding-top: 20px;
-            }
-            .placeholderBottom {
-                height: 92px;
-            }
-        }
-        @media (max-height: 400px) {
-            .placeholderBottom, .navbar {
-                display: none;
-            }
         }
     }
 }
