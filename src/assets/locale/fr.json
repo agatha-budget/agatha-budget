@@ -17,7 +17,7 @@
     "MY_ACCOUNTS": "mes comptes",
     "ADD_ACCOUNT": "ajouter un compte",
     "ACCOUNT_NAME": "nom du compte",
-    "INITIAL_AMOUNT": "montant initial",
+    "CURRENT_AMOUNT": "montant actuel",
     "CREATE_ACCOUNT": "ajouter ce compte",
     "CANCEL": "annuler",
     "DATE": "date",
@@ -103,5 +103,6 @@
     "FILE_IS_SELECTED": "le fichier est sélectionné",
     "GRAPH": "graphiques",
     "ADD_MANUALLY": "Ajout manuel",
-    "BANK_IMPORT": "Import relevé"
+    "BANK_IMPORT": "Import relevé",
+    "PARAMETERS": "Paramètres"
 }

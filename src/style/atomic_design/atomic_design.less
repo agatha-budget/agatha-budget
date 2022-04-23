@@ -20,7 +20,20 @@
 @import "pagesLayout/login.less";
 @import "pagesLayout/profile.less";
 @import "pagesLayout/accountPage.less";
+@import "pagesLayout/menuLayout.less";
+@import "pagesLayout/accountWidget.less";
 
+
+#app {
+  background-color: @background;
+  .container-fluid {
+    padding-right: 0;
+    padding-left: 0;
+    overflow-x: hidden;
+  }
+}
+
+// used only in /about page to display the component avalaible
 .designContainer {
   background-color: #EBE9E9;
   border: solid;

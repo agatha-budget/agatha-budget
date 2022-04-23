@@ -1,10 +1,15 @@
 <template>
   <div :class="this.$store.state.css">
-    <div class="profilePage">
-      <div class="container small">
-        <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
-        <div class="header title">{{ $t('PREFERENCES') }}</div>
-        <div class="content">
+    <div class="profilePage menuLayout row col-md-4 offset-md-4 col-xl-8 offset-xl-2">
+        <div class="header fixed title">
+          {{ $t('PARAMETERS') }}
+        </div>
+        <div class="placeholder top">
+          {{ $t('PARAMETERS') }}
+        </div>
+        <div class="content container">
+          <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
+          <div class="header title"></div>
           <btn class="navigationButton row" v-on:click="goSubscriptionPage">
             <span class="illustration fas fa-credit-card col-4"/>
             <span class="illustrationLabel col-8">{{ $t("SUBSCRIPTION") }}</span>
@@ -26,10 +31,14 @@
             <span class="illustrationLabel col-8">{{ $t("SUPPORT") }}</span>
           </a>
         </div>
+        <div class="placeholder bottom">
+          <NavMenu :page="'profile'" />
+        </div>
+        <div class="footer fixed">
+          <NavMenu :page="'profile'" />
+        </div>
       </div>
-    </div>
-    <NavMenu :page="'profile'" />
-    </div>
+  </div>
 </template>
 
 <script lang="ts">

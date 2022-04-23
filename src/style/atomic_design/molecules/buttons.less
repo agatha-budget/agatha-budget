@@ -16,43 +16,51 @@ a.navigationButton {
 }
 
 .navigationButton {
-    background: @action;
-    border-radius: @btnBorderRadius;
-    border:none;
-    width: 100%;
-    text-align: center;
+  background: @action;
+  border-radius: @btnBorderRadius;
+  border:none;
+  width: 100%;
+  text-align: center;
+  color: @white;
+  * {
     color: @white;
+  }
+  .illustration {
+    padding: 4px;
+    text-align: right;
+  }
+
+  .illustrationLabel {
+    padding-left: 20px;
+    text-align: left;
+  }
+
+  &.disabled {
+    background: @darkerBackground;
+    color: @dark;
     * {
-      color: @white;
-    }
-    .illustration {
-      padding: 4px;
-      text-align: right;
-    }
-
-    .illustrationLabel {
-      padding-left: 20px;
-      text-align: left;
-    }
-
-    &.disabled {
-      background: @darkerBackground;
       color: @dark;
-      * {
-        color: @dark;
-      }
     }
+  }
 
-    &:hover:not(.disabled){ 
-      background-color:  @background;
-      // replace border so that the 'border' is inside the button and doesn't change the total size
-      box-shadow:inset 0px 0px 0px 3px @navigation;
+  &:hover:not(.disabled){ 
+    background-color:  @background;
+    // replace border so that the 'border' is inside the button and doesn't change the total size
+    box-shadow:inset 0px 0px 0px 3px @navigation;
+    color: @navigation;
+    * {
       color: @navigation;
-      * {
-        color: @navigation;
-      }
     }
+  }
+  &.accounts {
+    margin: 5px auto;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+  }
 }
+
+
 
 .actionButton{
   background: rgb(221, 221, 221);
