@@ -32,8 +32,8 @@
               {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
             </div>
             <div class="action col-1 offset-1 offset-sm-2">
-              <button class="btn fas fa-pen"/>
-              <button class="btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
+              <button class="illustration btn fas fa-pen"/>
+              <button class="illustration btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
             </div>
             <div class="memo col-3 offset-1">{{ operation.memo }}</div>
           </a>
