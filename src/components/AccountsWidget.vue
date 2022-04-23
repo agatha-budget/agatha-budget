@@ -20,7 +20,7 @@
           <btn v-on:click="changeAccountCreationFormDisplay" class="actionButton">{{$t('ADD_ACCOUNT')}}</btn>
         </template>
         <template v-else>
-          <AccountCreationForm class="container" @update-account-list="getAccounts" @close-form="changeAccountCreationFormDisplay"/>
+          <AccountCreationForm class="container inline" @update-account-list="getAccounts" @close-form="changeAccountCreationFormDisplay"/>
         </template>
       </div>
     </div>

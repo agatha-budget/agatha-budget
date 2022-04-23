@@ -1,7 +1,7 @@
 <template>
   <table class="budgetTable table" v-if="this.categories.length > 0">
     <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
-    <thead v-else class="container header masterCategory">
+    <thead v-else class="masterCategory">
         <tr>
           <th class="col-6 name">
             <span v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}</span>

@@ -12,7 +12,7 @@
       </div>
       <table  class="budgetTable">
         <!-- Table column label-->
-        <thead class="container header masterCategory collapsed col-6 offset-6">
+        <thead class="masterCategory collapsed col-6 offset-6">
           <tr>
             <th class="col-6"></th>
             <th class="col-2">{{ $t("ALLOCATED") }}</th>
@@ -21,7 +21,7 @@
           </tr>
         </thead>
         <!-- Total for all table-->
-        <thead class="container header masterCategory collapsed">
+        <thead class="masterCategory collapsed">
           <tr>
             <th class="col-6">{{ $t("TOTAL") }}</th>
             <th class="col-2">{{ addSpacesInThousand(totalAllocated) }}</th>

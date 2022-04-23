@@ -1,5 +1,5 @@
 <template>
-  <thead v-if="!this.archived" class="container header masterCategory edit">
+  <thead v-if="!this.archived" class="masterCategory edit">
     <tr>
       <th class="col-6">
         <div class="darkTextInput form-group">
@@ -17,7 +17,7 @@
       </th>
     </tr>
   </thead>
-  <thead v-else class="container header masterCategory edit">
+  <thead v-else class="masterCategory edit">
     <tr>
       <th class="col-6">
         <span class="name">{{ this.name }}</span>

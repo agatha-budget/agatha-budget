@@ -217,7 +217,7 @@
   <h3>Budget Table</h3>
   <div class="col-md-6">
     <table class="budgetTable">
-      <thead class="container header masterCategory">
+      <thead class="masterCategory">
         <tr>
           <th class="col-6">
             <a>Master Category</a>
@@ -248,7 +248,7 @@
     </table>
     <h3>MasterCategoryHeader collapsed</h3>
     <table class="budgetTable">
-      <thead class="container header masterCategory collapsed">
+      <thead class="masterCategory collapsed">
         <tr>
           <th class="col-6">
             <a>Master Category</a>
@@ -264,7 +264,7 @@
     </table>
     <h3>MasterCategoryHeader Edit</h3>
     <table class="budgetTable">
-      <thead class="container header masterCategory edit">
+      <thead class="masterCategory edit">
         <tr>
           <th class="col-6">
             <div class="darkTextInput form-group">
@@ -297,7 +297,7 @@
     </table>
     <h3>Budget Header</h3>
     <table class="budgetTable">
-        <thead class="container header masterCategory collapsed col-6 offset-6">
+        <thead class="masterCategory collapsed col-6 offset-6">
           <tr>
             <th class="col-6">Alloué</th>
             <th class="col-6">Disponible</th>
@@ -306,7 +306,7 @@
       </table>
     <h3>Budget Total Line</h3>
     <table class="budgetTable">
-      <thead class="container header masterCategory collapsed">
+      <thead class="masterCategory collapsed">
         <tr>
           <th class="col-6">Total</th>
           <th class="col-3">124</th>
