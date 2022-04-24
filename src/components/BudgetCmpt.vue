@@ -4,7 +4,7 @@
       <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate"
       @change-month="changeMonth" />
     </div>
-    <div class="placeholderTop">
+    <div class="placeholder top">
       <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
     </div>
     <div class="content">
@@ -27,6 +27,7 @@
           </template>
         </div>
       </div>
+      <div class="placeholder bottom"></div>
     </div>
   </div>
 </template>
