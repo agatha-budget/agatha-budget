@@ -329,7 +329,8 @@ fun main() {
     app.get("/operation/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val operations = ServiceManager.operationService.findByBudget(user, budget)
+        val category: Category = ServiceManager.categoryService.getById(user, getQueryParam<String>(ctx, "category_id"))
+        val operations = ServiceManager.operationService.findByBudget(user, budget, category)
         ctx.json(operations)
     }
 

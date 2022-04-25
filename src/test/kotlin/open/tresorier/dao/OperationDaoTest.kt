@@ -200,7 +200,7 @@ open class OperationDaoTest : ITest {
         for (operation in operationList) {
             operationDao.insert(operation)
         }
-        val result = operationDao.findByBudget(budget)
+        val result = operationDao.findByBudget(budget, category)
         Assertions.assertEquals(3, result.size)
         Assertions.assertEquals(3000, result[0].amount)
         Assertions.assertEquals(2000, result[1].amount)
@@ -210,7 +210,7 @@ open class OperationDaoTest : ITest {
     @Test
     fun getByUnknownBudget() {
         val unknownBudget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
-        val result = operationDao.findByBudget(unknownBudget)
+        val result = operationDao.findByBudget(unknownBudget, unknowncategory)
         Assertions.assertEquals(0, result.size)
     }
 

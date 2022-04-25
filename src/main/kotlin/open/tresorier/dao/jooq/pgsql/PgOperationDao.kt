@@ -106,7 +106,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
         return operationList
     }
 
-    override fun findByBudget(budget: Budget): List<Operation> {
+    override fun findByBudget(budget: Budget, category: Category?): List<Operation> {
         val jooqOperationList = this.query
             .select()
             .from(OPERATION)
