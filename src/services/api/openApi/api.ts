@@ -2055,6 +2055,47 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
+         * @summary Add operations from ofx file
+         * @param {string} accountId id of the account where operations must be created
+         * @param {string} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        importOfxFile: async (accountId: string, body?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'accountId' is not null or undefined
+            assertParamExists('importOfxFile', 'accountId', accountId)
+            const localVarPath = `/operation/import`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (accountId !== undefined) {
+                localVarQueryParameter['account_id'] = accountId;
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/ofx';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary Update an operation
          * @param {string} operationId 
          * @param {string} [newAccountId] 
@@ -2181,6 +2222,18 @@ export const OperationApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary Add operations from ofx file
+         * @param {string} accountId id of the account where operations must be created
+         * @param {string} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async importOfxFile(accountId: string, body?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.importOfxFile(accountId, body, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @summary Update an operation
          * @param {string} operationId 
          * @param {string} [newAccountId] 
@@ -2250,6 +2303,17 @@ export const OperationApiFactory = function (configuration?: Configuration, base
          */
         findOperationsByBudget(budgetId: string, options?: any): AxiosPromise<Array<Operation>> {
             return localVarFp.findOperationsByBudget(budgetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Add operations from ofx file
+         * @param {string} accountId id of the account where operations must be created
+         * @param {string} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        importOfxFile(accountId: string, body?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.importOfxFile(accountId, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2328,6 +2392,19 @@ export class OperationApi extends BaseAPI {
      */
     public findOperationsByBudget(budgetId: string, options?: AxiosRequestConfig) {
         return OperationApiFp(this.configuration).findOperationsByBudget(budgetId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Add operations from ofx file
+     * @param {string} accountId id of the account where operations must be created
+     * @param {string} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof OperationApi
+     */
+    public importOfxFile(accountId: string, body?: string, options?: AxiosRequestConfig) {
+        return OperationApiFp(this.configuration).importOfxFile(accountId, body, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -1,0 +1,42 @@
+.dateNav {
+    margin-bottom: 20px;
+    text-align: center;
+    .date-label {
+        background: @validation;
+        border-radius: 25px;
+        font-weight: bold;
+        padding: 8px  15px 8px 15px;
+        p {
+            margin-bottom: 0;
+        }
+        .month {
+            text-transform: capitalize;
+        }
+        &.negative {
+            background: @alert;
+            *{
+                color: @white;
+            }
+        }
+        &.positive {
+            background: @warning;
+            *{
+                color: @white;
+            }
+        }
+    }   
+}
+
+.navBar {
+    ul {
+        text-align: center;
+        justify-content: center;
+        list-style-type: none;
+                
+        @media (max-width: 479px) {
+            .btn {
+                margin: 20px 10px;
+            }
+        }
+    }
+}

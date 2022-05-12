@@ -1,0 +1,30 @@
+.accountPage {
+    background-color: @lighterBackground;
+    min-height: 100vh;
+
+    .illustration {
+        color: @action;
+    }
+
+    .title {
+        .btn {
+            visibility: hidden;
+        }
+        &:hover{
+            .btn {
+                visibility: visible;
+            }
+        }
+    }
+
+    .content {
+        .dualTab {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .inlineOperationForm {
+            border-radius: 0;
+            margin: 0;
+        }
+    }
+}

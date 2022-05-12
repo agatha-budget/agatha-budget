@@ -1,48 +1,52 @@
 <template>
-  <template v-if="this.categories.length > 0">
-    <tr class="masterCategory">
-      <th class="col-6 name">
-        <div>
-          <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
-          <div v-else class="editable-master-category">
-            <a v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}<button class="btn fas fa-pen"/></a>
-            <button class="btn fas fa-plus" v-on:click="createCategory"/>
-          </div>
-        </div>
-      </th>
-      <th class="col-2 allocated">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.allocated))}}</th>
-      <th class="col-2 spent">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.spent)) }}</th>
-      <th class="col-2 available">
-        <span :class="masterCategoryData.available < 0 ? 'negative' : 'positive'">
+  <table class="budgetTable table" v-if="this.categories.length > 0">
+    <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
+    <thead v-else class="masterCategory">
+        <tr>
+          <th class="col-6 name">
+            <span v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}</span>
+            <span class="action">
+              <button class="illustration btn fas fa-pen" v-on:click="this.putFocusOn(masterCategory.id)"/>
+              <button class="illustration btn fas fa-plus" v-on:click="createCategory"/>
+            </span>
+          </th>
+          <th class="col-2">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.allocated))}}</th>
+          <th class="col-2 spent">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.spent)) }}</th>
+          <th class="col-2"><span :class="masterCategoryData.available < 0 ? 'negative' : ''">
           {{ addSpacesInThousand(getEurosAmount(masterCategoryData.available)) }}
-        </span>
-      </th>
-    </tr>
-    <tbody>
-    <tr class="category" v-for="category of this.categories" :key="category">
-      <td class="name">
-        <div>
-          <CategoryForm v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus" @empty-envelope="emptyEnvelope"/>
-          <a class="editable-category" v-else v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="btn fas fa-pen"/></a>
-        </div>
-      </td>
-      <td class="allocated">
-        <span v-if="archived">{{ getEurosAmount(this.categoryDataList[category.id]?.allocated ?? "") }}</span>
-        <input v-else type="text" class="allocationInput"
-        v-bind:value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
-        v-on:change="updateAllocationOnChange(category.id, this.entireCalcul($event.target.value))">
-        </td>
-      <td class="spent">
-          {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.spent ?? "")) }}
-      </td>
-      <td class="available">
-        <span v-if="this.categoryDataList[category.id] && this.categoryDataList[category.id].available != 0" :class="this.categoryDataList[category.id]?.available < 0 ? 'negative' : 'positive'">
-          {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.available)) }}
-        </span>
-      </td>
-    </tr>
+        </span></th>
+        </tr>
+      </thead>
+    <tbody >
+      <template v-for="category of this.categories" :key="category">
+        <CategoryForm class="categoryBudget" v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus" @empty-envelope="emptyEnvelope"/>
+        <tr class="categoryBudget" v-else>
+          <td class="col-6 name">
+            <div>
+              <span  v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="action illustration btn fas fa-pen"/></span>
+            </div>
+          </td>
+          <td class="col-2">
+              <span v-if="archived">{{ getEurosAmount(this.categoryDataList[category.id]?.allocated ?? "") }}</span>
+              <div v-else class="form-group numberInput">
+              <input  type="text" class="form-control"
+                v-bind:value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
+                v-on:change="updateAllocationOnChange(category.id, this.entireCalcul($event.target.value))"
+              >
+              </div>
+            </td>
+            <td class="col-2 spent">
+                {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.spent ?? "")) }}
+            </td>
+            <td class="col-2">
+              <span v-if="this.categoryDataList[category.id] && this.categoryDataList[category.id].available != 0" :class="this.categoryDataList[category.id]?.available < 0 ? 'negative' : ''">
+              {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.available)) }}
+            </span>
+          </td>
+        </tr>
+      </template>
     </tbody>
-  </template>
+  </table>
 </template>
 
 <script lang="ts">
