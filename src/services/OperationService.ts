@@ -15,8 +15,8 @@ export default class OperationService {
     return data
   }
 
-  public static async addOperation (store: Store<StoreState>, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string) {
-    const response = await operationApi.addOperation(accountId, day, categoryId, amount, memo)
+  public static async addOperation (store: Store<StoreState>, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean) {
+    const response = await operationApi.addOperation(accountId, day, categoryId, amount, memo, isPending)
     StoreHandler.updateAccounts(store)
   }
 
@@ -25,8 +25,8 @@ export default class OperationService {
     StoreHandler.updateAccounts(store)
   }
 
-  public static async updateOperation (store: Store<StoreState>, operation: Operation, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string) {
-    const response = await operationApi.updateOperation(operation.id, accountId, day, categoryId, amount, memo)
+  public static async updateOperation (store: Store<StoreState>, operation: Operation, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean) {
+    const response = await operationApi.updateOperation(operation.id, accountId, day, categoryId, amount, memo, isPending)
     StoreHandler.updateAccounts(store)
   }
 

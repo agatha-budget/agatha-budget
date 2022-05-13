@@ -35,6 +35,11 @@
       <btn v-if="this.operation" class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
       <btn v-else class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
     </div>
+    <div class="pending">
+      <input type="checkbox" id="pending" v-model="isPending">
+      <div v-if="isPending">pas encore débité</div>
+      <dir v-else>débité</dir>
+    </div>
   </div>
 </template>
 
@@ -54,6 +59,7 @@ interface OperationFormData {
   memo: string;
   incoming: boolean;
   amountString: string;
+  isPending: boolean;
 }
 
 export default defineComponent({
@@ -67,7 +73,8 @@ export default defineComponent({
       categoryId: this.operation?.categoryId || '',
       memo: this.operation?.memo || '',
       incoming: this.operation?.amount ? this.operation.amount > 0 : false,
-      amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0)).toString()
+      amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0)).toString(),
+      isPending: this.operation?.pending || false
     }
   },
   props: {
@@ -115,8 +122,9 @@ export default defineComponent({
   methods: {
     updateOperation () {
       if (this.operation) {
-        OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
+        OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo, this.isPending).then(
           () => {
+            console.log(this.isPending + ' update')
             this.$emit('updateOperationList')
           }
         )
@@ -125,8 +133,9 @@ export default defineComponent({
       }
     },
     addOperation () {
-      OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
+      OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo, this.isPending).then(
         () => {
+          console.log(this.isPending + ' add')
           this.$emit('updateOperationList')
         }
       )
@@ -142,6 +151,7 @@ export default defineComponent({
       this.amountString = ''
       this.categoryId = ''
       this.incoming = false
+      this.isPending = false
     },
     createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
       const group: GroupSelectOption = {

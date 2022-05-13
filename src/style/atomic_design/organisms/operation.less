@@ -11,13 +11,13 @@
       font-size: large;
       text-align: center;
   }
-  .action {
+  .action, .pending {
       display: flex;
       .btn {
           padding-left: 10px;
       }
   }
-
+  
   .lineStart {
     padding-left: 30px;
   }
@@ -31,11 +31,11 @@
   }
 
   @media (pointer: fine) { 
-    .btn {
+    .action {
         visibility: hidden;
     }
     &:hover{
-      .btn {
+      .action {
           visibility: visible;
       }
     }
