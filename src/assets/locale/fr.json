@@ -1,7 +1,7 @@
 {
-    "EMAIL": "Email",
-    "PASSWORD": "Mot de passe",
-    "PASSWORD_CONFIRMATION": "Confirmation",
+    "EMAIL": "email",
+    "PASSWORD": "mot de passe",
+    "PASSWORD_CONFIRMATION": "confirmation",
     "LOGIN": "se connecter",
     "SORRY_WRONG_LOGIN": "Aucun utilisateur n'a été trouvé pour cette adresse",
     "SORRY_WRONG_PASSWORD": "Mot de passe invalide",
@@ -48,7 +48,7 @@
     "CHECKING_ACCOUNT": "compte courant",
     "CREATE_ACCOUNT_HERE": "créer un compte",
     "CREATE_MY_ACCOUNT": "créer mon compte",
-    "NAME": "Nom",
+    "NAME": "nom",
     "CONFIRM_PASSWORD": "confirmer le mot de passe",
     "EMPTY_NAME": "veuillez renseigner votre nom",
     "EMPTY_PROFILE": "veuillez renseigner un profil",
@@ -59,8 +59,8 @@
     "BILLING_MANAGEMENT": "gérer votre abonnement",
     "SUBSCRIPTION": "abonnement",
     "CHOOSE_PROFILE": "Choisissez votre profil",
-    "COMPANY": "Entreprise",
-    "USER": "Particulier",
+    "COMPANY": "entreprise",
+    "USER": "particulier",
     "SUPPORT": "support",
     "APPEARANCE": "apparence",
     "FREE_RESOURCES": "ressources",
@@ -103,7 +103,7 @@
     "IMPORTED_OPERATION": " opérations importées",
     "FILE_IS_SELECTED": "le fichier est sélectionné",
     "GRAPH": "graphiques",
-    "ADD_MANUALLY": "Ajout manuel",
-    "BANK_IMPORT": "Import relevé",
-    "PARAMETERS": "Paramètres"
+    "ADD_MANUALLY": "ajout manuel",
+    "BANK_IMPORT": "import relevé",
+    "PARAMETERS": "paramètres"
 }
