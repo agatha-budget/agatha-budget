@@ -105,5 +105,7 @@
     "GRAPH": "graphiques",
     "ADD_MANUALLY": "Ajout manuel",
     "BANK_IMPORT": "Import relevé",
-    "PARAMETERS": "Paramètres"
+    "PARAMETERS": "Paramètres",
+    "DEBITED": "déjà débité",
+    "NOT_DEBITED": "pas encore débité"
 }
