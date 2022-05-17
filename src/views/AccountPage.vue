@@ -2,10 +2,10 @@
   <div :class="this.$store.state.css">
     <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
       <div class="header fixed">
-          <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" />
+          <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="this.realAmount"/>
       </div>
       <div class="placeholderTop">
-        <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
+        <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" :existingPendingOperation="true" :realAmountOnAccount="100"/>
       </div>
       <div class="content container operationTable table-hover">
         <div class="dualTab switchOperation">
@@ -69,6 +69,7 @@ interface AccountPageData {
     operations: EditableOperation[];
     importBloc: boolean;
     manualBloc: boolean;
+    existingPendingOperation: boolean;
 }
 
 interface EditableOperation extends Operation {
@@ -105,7 +106,8 @@ export default defineComponent({
     return {
       operations: [],
       importBloc: false,
-      manualBloc: false
+      manualBloc: false,
+      existingPendingOperation: false
     }
   },
   computed: {
@@ -120,6 +122,15 @@ export default defineComponent({
     totalAccount (): string {
       const value = this.account == null ? 0 : this.getEurosAmount(this.account.amount)
       return this.addSpacesInThousand(value)
+    },
+    realAmount (): string {
+      let value: number = this.account == null ? 0 : this.account.amount
+      this.operations.forEach((operation) => {
+        if (operation.pending === true) {
+          value -= operation.amount
+        }
+      })
+      return this.addSpacesInThousand(value / 100)
     }
   },
   methods: {
@@ -196,6 +207,15 @@ export default defineComponent({
       if (operation) {
         OperationService.updateOperation(this.$store, operation, this.accountId, operation.day, operation.categoryId, operation.amount, operation.memo, false)
       }
+    },
+    pendingOperation (): boolean {
+      let operationPending = false
+      this.operations.forEach((operation) => {
+        if (operation.pending === true) {
+          operationPending = true
+        }
+      })
+      return operationPending
     },
     closeImport () {
       this.importBloc = false

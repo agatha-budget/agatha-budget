@@ -131,7 +131,6 @@ export default defineComponent({
       if (this.operation) {
         OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo, this.isPending).then(
           () => {
-            console.log(this.isPending + ' update')
             this.$emit('updateOperationList')
           }
         )
@@ -142,7 +141,6 @@ export default defineComponent({
     addOperation () {
       OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo, this.isPending).then(
         () => {
-          console.log(this.isPending + ' add')
           this.$emit('updateOperationList')
         }
       )
