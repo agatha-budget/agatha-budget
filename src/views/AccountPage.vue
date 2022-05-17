@@ -193,7 +193,9 @@ export default defineComponent({
       }
     },
     debited (operation: Operation) {
-      operation.pending = false
+      if (operation) {
+        OperationService.updateOperation(this.$store, operation, this.accountId, operation.day, operation.categoryId, operation.amount, operation.memo, false)
+      }
     },
     closeImport () {
       this.importBloc = false
