@@ -1,12 +1,15 @@
 <template>
   <div id="accountCreationForm">
     <div class="accountCreationInput">
-      <label for="newAccountName">{{ $t('ACCOUNT_NAME') }}</label>
-      <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('CHECKING_ACCOUNT')">
-      <label for="newAccountAmount">{{ $t('INITIAL_AMOUNT') }}</label>
-      <input id="newAccountAmount" class="form-control" v-model.number="amount">
+      <div class="containerCross col-12">
+        <span class="cross fas fa-times-circle" v-on:click="closeForm"/>
+      </div>
+      <div class="form">
+        <input id="newAccountName" class="form-control" v-model="name" :placeholder="$t('ACCOUNT_NAME')">
+        <input id="newAccountAmount" class="form-control" v-model="amountString" :placeholder="$t('CURRENT_AMOUNT')">
+      </div>
     </div>
-    <button class="btn" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</button>
+    <btn class="actionButton" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</btn>
   </div>
 </template>
 
@@ -14,13 +17,19 @@
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
 import Utils from '@/utils/Utils'
+import Calcul from '@/utils/Calcul'
 
 export default defineComponent({
   name: 'AccountCreationForm',
   data () {
     return {
       name: '',
-      amount: 0
+      amountString: ''
+    }
+  },
+  computed: {
+    amount (): number {
+      return this.entireCalcul(this.amountString)
     }
   },
   emits: ['updateAccountList', 'closeForm'],
@@ -34,6 +43,12 @@ export default defineComponent({
           }
         )
       }
+    },
+    entireCalcul (amount: string): number {
+      return Calcul.entireCalcul(amount)
+    },
+    closeForm () {
+      this.$emit('closeForm')
     }
   }
 })

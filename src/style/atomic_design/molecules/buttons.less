@@ -1,0 +1,126 @@
+btn:hover {
+  cursor: pointer;
+}
+
+btn {
+  white-space: nowarp;
+  display: inline-block;
+  margin: 5px;
+  padding: 3px 15px 3px 15px ;
+}
+
+a.navigationButton {
+  padding: 2px;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.navigationButton {
+  background: @action;
+  border-radius: @btnBorderRadius;
+  border:none;
+  width: 100%;
+  text-align: center;
+  color: @white;
+  * {
+    color: @white;
+  }
+  .illustration {
+    padding: 4px;
+    text-align: right;
+  }
+
+  .illustrationLabel {
+    padding-left: 20px;
+    text-align: left;
+  }
+
+  &.disabled {
+    background: @darkerBackground;
+    color: @dark;
+    * {
+      color: @dark;
+    }
+  }
+
+  &:hover:not(.disabled){ 
+    background-color:  @background;
+    // replace border so that the 'border' is inside the button and doesn't change the total size
+    box-shadow:inset 0px 0px 0px 3px @navigation;
+    color: @navigation;
+    * {
+      color: @navigation;
+    }
+  }
+  &.accounts {
+    margin: 5px auto;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+  }
+}
+
+
+
+.actionButton{
+  background: rgb(221, 221, 221);
+  color: rgb(0, 0, 0);
+  border: 1px solid @navigation;
+  padding: 3px 15px 3px 15px ;
+  border-radius: @btnBorderRadius;
+  text-align: center;
+}
+
+.dualTab{
+  btn{  
+    border: 1px solid @action;
+    color: @dark;
+
+    &.tabLeft{
+      border-radius: 15px 0px 0px 15px;
+      margin-right: 0;
+    }
+
+    &.tabRight{
+      border-radius: 0px 15px 15px 0px;
+      margin-left: 0;
+    }
+
+    &.active{
+      background: @active;
+    }
+  }
+}
+
+.containerCross {
+  text-align: right;
+  .cross {
+    font-size: 26px;
+    font-weight: 600;
+  }
+  .cross:hover {
+    cursor: pointer;
+  }
+}
+
+.navBarBtn {
+    font-size: 30px;
+    background-color: @navigation;
+    color: @background;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 45px;
+    width: 52px;
+    &.disabled {
+      background-color: @active;
+      color: @navigation;
+    }
+    &:hover {
+      color: @background;
+    }
+}
+
+.select{
+  background: @action;
+  color: white;
+}

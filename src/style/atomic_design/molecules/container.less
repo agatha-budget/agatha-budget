@@ -1,0 +1,66 @@
+.positive {
+  background-color: @validation;
+  border-radius: 25px;
+  padding : 2px 8px;
+}
+
+.negative {
+  background-color: @alert;
+  color: @white;
+  border-radius: 25px;
+  padding : 2px 8px;
+  &.title {
+      padding: 10px 12px;
+  }
+  .btn {
+    color: @white;
+  }
+}
+
+.container {
+  margin: 10px auto;
+  padding: 20px;
+  border-radius: @borderRadius;
+  background: @lighterBackground;
+  text-align: center;
+  &.header {
+    background: @header;
+    color: @white;
+    *{
+      color: @white;
+    }
+    input, select, .selectAutoComplete *, .actionButton {
+      color: @dark;
+    }
+  }
+  &.inline {
+    background: @inline;
+    color: @white;
+  }
+  &.small {
+    max-width: 500px;
+  }
+}
+
+.banner {
+  background: @header;
+  width: 100%;
+  color: @white;
+  *{
+    color: @white;
+  }
+  padding: 10px;
+  margin-top: 40px;
+  margin-bottom: 10px;
+}
+
+.MasterCcollapsed{
+  display: flex;
+  background: linear-gradient(to right, #003249, #007EA7);
+  border-radius: 10px;
+  padding: 5px;
+  justify-content: space-around;;
+  h3{
+  color: @background;
+}
+}

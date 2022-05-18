@@ -5,17 +5,19 @@
                 <input id="accountName" class="form-control" :placeholder=this.currentName v-model="name">
             </span>
             <span class="validation col">
-              <button class="btn fas fa-check" v-on:click="updateName()"/>
-              <button class="btn fas fa-times" v-on:click="this.cancelEditing()"/>
+              <button class="illustration btn fas fa-check" v-on:click="updateName()"/>
+              <button class="illustration btn fas fa-times" v-on:click="this.cancelEditing()"/>
             </span>
           </div>
           <div v-else class="editableNameAccount">
-            <a v-on:click="this.displayTitleEditing()">
-              <h1>
-                {{ this.account.name }} : {{ totalAccount }}€
-                <button class="btn fas fa-pen" />
-              </h1>
-            </a>
+            <span v-on:click="this.displayTitleEditing()" class="row">
+              <div class="displayNameAccount col-12 offset-0 col-sm-8 offset-sm-2 col-xxl-6 offset-xxl-3">
+                <h1 class="title" :class="this.getClassDependingOnAmount()">
+                  {{ this.account.name }} : {{ totalAccount }}€
+                  <button class="btn fas fa-pen" />
+                </h1>
+              </div>
+            </span>
           </div>
     </div>
 </template>
@@ -74,6 +76,13 @@ export default defineComponent({
     },
     cancelEditing () {
       this.editingTitle = false
+    },
+    getClassDependingOnAmount (): string {
+      if (this.totalAccount < 0) {
+        return 'negative'
+      } else {
+        return ''
+      }
     }
   }
 })

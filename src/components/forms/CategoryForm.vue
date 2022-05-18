@@ -1,21 +1,33 @@
 <template>
-  <div id="operationForm" class="operation">
-    <div v-if="this.category.archived" class="categoryArchived">
+  <tr v-if="!this.category.archived">
+    <th class="col-6">
+      <div class="form-group">
+          <input type="text" class="form-control" v-model="name">
+      </div>
+    </th>
+    <th class="col-2">
+      <button class="illustration btn fas fa-check" v-on:click="updateCategory"/>
+    </th>
+      <th class="col-2">
+      <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+    </th>
+    <th class="col-2">
+      <button class="illustration btn fas fa-archive" v-on:click="archiveCategory"/>
+    </th>
+  </tr>
+  <tr v-else>
+    <th class="col-6">
       <span class="name">{{ this.name }}</span>
-      <span class="validation">
-        <button class="btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
-        <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-      </span>
-    </div>
-    <div v-else>
-      <span class="name"><input id="newName" class="form-control" v-model="name"></span>
-      <span class="validation">
-        <button class="btn fas fa-check" v-on:click="updateCategory"/>
-        <button class="btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-        <button class="btn fas fa-archive" v-on:click="archiveCategory"/>
-      </span>
-    </div>
-  </div>
+    </th>
+    <th class="col-2">
+      <button class="illustration btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
+      </th>
+    <th class="col-2">
+      <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
+    </th>
+    <th class="col-2">
+    </th>
+  </tr>
 </template>
 
 <script lang="ts">

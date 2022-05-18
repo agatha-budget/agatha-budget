@@ -1,41 +1,43 @@
 <template>
   <div :class="this.$store.state.css">
-    <div class="profilPage">
-      <div class="boxMenu col-12 offset-0 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4 col-xxl-3 offset-xxl-5 ">
-        <div class="image-container">
-           <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
+    <div class="profilePage menuLayout row col-md-4 offset-md-4 col-xl-8 offset-xl-2">
+        <div class="header fixed title">
+          {{ $t('PARAMETERS') }}
         </div>
-        <li>
-            <ul>
-              <a class="buttonProfile row" v-on:click="goSubscriptionPage">
-                <div class="icone fas fa-credit-card col-4"></div>
-                <div class="label col-8">{{ $t("SUBSCRIPTION") }}</div>
-              </a>
-            </ul>
-            <ul>
-              <a class="buttonProfile disabled row">
-                <div class="icone fas fa-book col-4"></div>
-                <div class="label col-8">{{ $t("FREE_RESOURCES") }}</div>
-              </a>
-            </ul>
-            <ul>
-              <a class="buttonProfile disabled row">
-                <div class="icone fas fa-palette col-4"></div>
-                <div class="label col-8">{{ $t("APPEARANCE") }}</div>
-              </a>
-            </ul>
-            <ul>
-              <a class="buttonProfile row" href="https://forum.agatha-budget.fr">
-                <div class="icone fas fa-question col-4"></div>
-                <div class="label col-8">{{ $t("SUPPORT") }}</div>
-              </a>
-            </ul>
-          </li>
+        <div class="placeholder top">
+          {{ $t('PARAMETERS') }}
+        </div>
+        <div class="content container">
+          <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
+          <div class="header title"></div>
+          <btn class="navigationButton row" v-on:click="goSubscriptionPage">
+            <span class="illustration fas fa-credit-card col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("SUBSCRIPTION") }}</span>
+          </btn>
+          <btn class="navigationButton disabled row">
+            <span class="illustration fas fa-book-open col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("FREE_RESOURCES") }}</span>
+          </btn>
+          <btn class="navigationButton disabled row">
+            <span class="illustration fas fa-chart-area col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("GRAPH") }}</span>
+          </btn>
+          <btn class="navigationButton disabled row">
+            <span class="illustration fas fa-palette col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("APPEARANCE") }}</span>
+          </btn>
+          <a class="navigationButton row" href="https://forum.agatha-budget.fr">
+            <span class="illustration fas fa-question col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("SUPPORT") }}</span>
+          </a>
+        </div>
+        <div class="placeholder bottom">
+          <NavMenu :page="'profile'" />
+        </div>
+        <div class="footer fixed">
+          <NavMenu :page="'profile'" />
+        </div>
       </div>
-    </div>
-    <div class="navMenu">
-      <NavMenu :page="'profile'" />
-    </div>
   </div>
 </template>
 

@@ -1,30 +1,29 @@
 <template>
-  <div id="accountWidget">
-    <div class="row title">
-      <h1>{{$t('MY_ACCOUNTS')}}</h1>
+  <div id="accountWidget" class="container">
+    <div>
+      <span class="subtitle"> {{ $t('TOTAL') }} : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>
     </div>
-    <span class="total"> total : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>
-    <ul>
-      <li class="accounts" v-for="account of this.$store.state.accounts" :key="account">
-        <button class="btn" v-on:click="goToAccountPage(account)">{{ account.name }} : {{this.getEurosAmount(account.amount)}} €</button>
-      </li>
-      <li class="accountForm">
-        <div v-if="!accountCreationFormIsDisplayed">
-          <button class="btn displayFormBtn" v-on:click="changeAccountCreationFormDisplay" >
-            <span >{{$t('ADD_ACCOUNT')}}</span>
-          </button>
-        </div>
-        <div v-else class="closeBtnContainer">
-          <button class="btn closeFormBtn" v-on:click="changeAccountCreationFormDisplay">
-            <span>x</span>
-          </button>
-        </div>
-        <div class="formContainer" v-if="accountCreationFormIsDisplayed">
-          <AccountCreationForm @update-account-list="getAccounts" @close-form="changeAccountCreationFormDisplay" />
-        </div>
-      </li>
-    </ul>
+    <div class="accountList col-12 offset-0 col-sm-8 offset-sm-2 col-md-12 offset-md-0">
+      <btn v-for="account of this.$store.state.accounts" :key="account" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
+        <template v-if="this.fromPage == 'home'">
+          <div class="name col-10 offset-2 col-xl-8 offset-xl-0 col-xxl-7 offset-xxl-1">{{ account.name }} :</div>
+          <div class="amount col-6 offset-3 col-xl-4 offset-xl-0">{{this.getEurosAmount(account.amount)}}€</div>
+        </template>
+        <template v-else>
+          <div class="name col-7 offset-1">{{ account.name }} :</div>
+          <div class="amount col-4 offset-0">{{this.getEurosAmount(account.amount)}}€</div>
+        </template>
+      </btn>
     </div>
+    <div class="addAccount">
+      <template v-if="!accountCreationFormIsDisplayed">
+        <btn v-on:click="changeAccountCreationFormDisplay" class="actionButton">{{$t('ADD_ACCOUNT')}}</btn>
+      </template>
+      <template v-else>
+        <AccountCreationForm class="container inline" @update-account-list="getAccounts" @close-form="changeAccountCreationFormDisplay"/>
+      </template>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -36,6 +35,7 @@ import Utils from '@/utils/Utils'
 
 interface AccountsWidgetData {
     accountCreationFormIsDisplayed: boolean;
+    fromPage: string;
 }
 
 export default defineComponent({
@@ -43,9 +43,16 @@ export default defineComponent({
   components: {
     AccountCreationForm
   },
+  props: {
+    page: {
+      type: String,
+      required: true
+    }
+  },
   data (): AccountsWidgetData {
     return {
-      accountCreationFormIsDisplayed: false
+      accountCreationFormIsDisplayed: false,
+      fromPage: this.$props.page
     }
   },
   computed: {
@@ -69,7 +76,7 @@ export default defineComponent({
       return this.addSpacesInThousand(value)
     },
     addSpacesInThousand (number: number): string {
-      return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+      return Utils.addSpacesInThousand(number)
     }
   }
 })
