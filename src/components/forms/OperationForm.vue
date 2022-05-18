@@ -167,7 +167,7 @@ export default defineComponent({
     },
     createOptionTransfer (accounts: Account[]): GroupSelectOption {
       const group: GroupSelectOption = {
-        label: 'Transfert vers/depuis',
+        label: this.$t('I18N_TRANSFER'),
         options: []
       }
       for (const account of accounts) {
@@ -183,13 +183,13 @@ export default defineComponent({
         for (const account of this.$store.state.accounts) {
           if (this.categoryId === account.id) {
             if (this.incoming) {
-              OperationService.addOperation(this.$store, this.categoryId, Time.getDayFromDateString(this.date), transfertCategoryId, this.signedCentsAmount * -1, this.memo + ' transfert vers ' + this.account.name)
+              OperationService.addOperation(this.$store, this.categoryId, Time.getDayFromDateString(this.date), transfertCategoryId, this.signedCentsAmount * -1, this.memo + this.$t('TRANSFER_TO') + this.account.name)
               this.categoryId = transfertCategoryId
-              this.memo = this.memo + ' transfert depuis ' + account.name
+              this.memo = this.memo + this.$t('TRANSFER_FROM') + account.name
             } else {
-              OperationService.addOperation(this.$store, this.categoryId, Time.getDayFromDateString(this.date), transfertCategoryId, this.signedCentsAmount * -1, this.memo + ' transfert depuis ' + this.account.name)
+              OperationService.addOperation(this.$store, this.categoryId, Time.getDayFromDateString(this.date), transfertCategoryId, this.signedCentsAmount * -1, this.memo + this.$t('TRANSFER_FROM') + this.account.name)
               this.categoryId = transfertCategoryId
-              this.memo = this.memo + ' transfert vers ' + account.name
+              this.memo = this.memo + this.$t('TRANSFER_TO') + account.name
             }
           }
         }
