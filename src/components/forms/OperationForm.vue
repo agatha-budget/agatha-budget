@@ -110,12 +110,21 @@ export default defineComponent({
     },
     amount (): number {
       return this.entireCalcul(this.amountString)
+    },
+    account (): Account | null {
+      for (const account of this.$store.state.accounts) {
+        if (account.id === this.accountId) {
+          return account
+        }
+      }
+      return null
     }
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
   methods: {
     updateOperation () {
       if (this.operation) {
+        this.categoryForTransfer()
         OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
           () => {
             this.$emit('updateOperationList')
@@ -126,6 +135,7 @@ export default defineComponent({
       }
     },
     addOperation () {
+      this.categoryForTransfer()
       OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
         () => {
           this.$emit('updateOperationList')
@@ -167,6 +177,23 @@ export default defineComponent({
         }
       }
       return group
+    },
+    categoryForTransfer () {
+      if (this.account) {
+        for (const account of this.$store.state.accounts) {
+          if (this.categoryId === account.id) {
+            if (this.incoming) {
+              OperationService.addOperation(this.$store, this.categoryId, Time.getDayFromDateString(this.date), transfertCategoryId, this.signedCentsAmount * -1, this.memo + ' transfert vers ' + this.account.name)
+              this.categoryId = transfertCategoryId
+              this.memo = this.memo + ' transfert depuis ' + account.name
+            } else {
+              OperationService.addOperation(this.$store, this.categoryId, Time.getDayFromDateString(this.date), transfertCategoryId, this.signedCentsAmount * -1, this.memo + ' transfert depuis ' + this.account.name)
+              this.categoryId = transfertCategoryId
+              this.memo = this.memo + ' transfert vers ' + account.name
+            }
+          }
+        }
+      }
     },
     entireCalcul (amount: string): number {
       return Calcul.entireCalcul(amount)
