@@ -41,7 +41,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
-import { Category, MasterCategory, Operation, incomeCategoryId, transfertCategoryId, GroupSelectOption, SelectOption } from '@/model/model'
+import { Category, MasterCategory, Operation, Account, incomeCategoryId, transfertCategoryId, GroupSelectOption, SelectOption } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import Utils from '@/utils/Utils'
@@ -94,11 +94,12 @@ export default defineComponent({
         {
           label: this.$t('DEFAULT'),
           options: [
-            { value: incomeCategoryId, label: this.$t('I18N_INCOME') },
-            { value: transfertCategoryId, label: this.$t('I18N_TRASNFERT') }
+            { value: incomeCategoryId, label: this.$t('I18N_INCOME') }
           ]
         }
       ]
+      const allAccounts = this.$store.state.accounts
+      optionsList.push(this.createOptionTransfer(allAccounts))
       for (const masterCategory of this.$store.state.masterCategories) {
         const categories = this.getCategoriesByMasterCategory(masterCategory)
         if (categories.length > 0) {
@@ -151,6 +152,19 @@ export default defineComponent({
       for (const category of categories) {
         const option: SelectOption = { value: category.id, label: category.name }
         group.options.push(option)
+      }
+      return group
+    },
+    createOptionTransfer (accounts: Account[]): GroupSelectOption {
+      const group: GroupSelectOption = {
+        label: 'Transfert vers/depuis',
+        options: []
+      }
+      for (const account of accounts) {
+        if (account.id !== this.accountId) {
+          const option: SelectOption = { value: account.id, label: account.name }
+          group.options.push(option)
+        }
       }
       return group
     },
