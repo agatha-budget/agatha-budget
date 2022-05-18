@@ -1,0 +1,69 @@
+.budgetTable {
+    border-style: none;
+    border-collapse: collapse;
+    border-radius: @borderRadius;
+    border-style: hidden; /* hide standard table (collapsed) border */
+    box-shadow: 0 0 0 2px @action; /* this draws the table border  */ 
+    overflow: hidden;
+    width: 100%;
+    *{
+        font-weight: normal;
+    }
+    .illustration{
+        font-weight: 700;
+    }
+    .action {
+        .btn {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        display: none;
+    }
+    .name, .action {
+        cursor: pointer;
+        &:hover {
+            .action {
+                display: inline;
+            }
+        }
+    }
+    th , td {
+        text-align: center;
+        &:first-child{
+            padding-left: 10px;
+            text-align: left;
+        }
+    }
+    .masterCategory {
+        background: @header;
+        color: @white;
+        *{
+          color: @white;
+        }
+        &.edit{
+            *{
+                padding: 2px;
+            }
+        }
+    }
+    .categoryBudget {
+        background: @background;
+        *{
+            padding: 1px;
+        }
+        &:first-child{
+            text-align: left;
+        }
+        .illustration{
+            color: @navigation;
+        }
+        .numberInput {
+            input {
+                text-align: center;
+            }
+        }
+    }
+}
+
+
+

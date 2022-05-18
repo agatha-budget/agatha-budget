@@ -18,6 +18,7 @@ export enum RouterPages {
   about = '/about',
   profile = '/profile',
   subscription = '/subscription',
+  invalidSubscription = '/invalidSubscription',
   redirectToAccountPage = '/redirectToAccountPage'
 }
 
@@ -44,7 +45,13 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: RouterPages.subscription,
-    component: Subscription
+    component: Subscription,
+    props: { validSubscription: true }
+  },
+  {
+    path: RouterPages.invalidSubscription,
+    component: Subscription,
+    props: { validSubscription: false }
   },
   {
     path: RouterPages.account,
@@ -73,7 +80,7 @@ export function redirectToLoginPageIfNotLogged (store: Store<StoreState>) {
 
 export function redirectOnApiError (error: AxiosError) {
   if (error.response && error.response.status === 402) {
-    router.push(RouterPages.subscription)
+    router.push(RouterPages.invalidSubscription)
   } else {
     router.push(RouterPages.login)
   }

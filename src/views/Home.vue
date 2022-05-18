@@ -1,16 +1,14 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="home row">
+    <div class="row">
       <div v-if="this.$store.state.storeLoaded">
-        <div class="homePageComponents">
+        <div class="home">
           <BudgetCmpt :month="this.currentMonth" />
           <div class="col-3 offset-1 col-xl-3 offset-xl-1 col-xxl-3 offset-xxl-1">
             <div class="accountWidgetAtHome">
-              <AccountsWidget/>
+              <AccountsWidget :page="'home'"/>
             </div>
-            <div>
-              <NavMenu :page="'home'" />
-            </div>
+            <NavMenu :page="'home'" />
           </div>
         </div>
       </div>

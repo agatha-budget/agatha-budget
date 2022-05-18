@@ -1,0 +1,39 @@
+.fixed {
+  position: fixed;
+  background-color: @lighterBackground;
+  width: inherit;
+  box-shadow: 0px -2px 25px rgba(0, 0, 0, 0.2);
+
+  &.footer {
+    bottom: 0;
+    border-top: solid 1px whitesmoke;
+  }
+  &.header {
+    padding: 20px;
+    position: fixed;
+    top: 0;
+  }
+}
+
+.placeholder {
+  visibility: hidden;
+  &.bottom {
+    margin-top: 20px;
+  }
+  &.top {
+    margin-bottom: 50px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fixed {
+    left: 0;
+    right: 0;
+  }
+}
+
+@media (max-height: 400px) {
+  .placeholder, .navbar {
+      display: none;
+  }
+}

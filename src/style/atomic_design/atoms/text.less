@@ -1,0 +1,40 @@
+// Default text, can be overriden by a specific theme 
+*, text {
+  font-family: 'Arial', Verdana, sans-serif;
+  color: @dark;
+  font-size: 16px;
+  &:first-letter {
+    text-transform: capitalize;
+  }
+}
+
+.subtext, .subtext * {
+  font-size: 12px;
+}
+
+.title, .title *{
+  font-size: 25px;
+  text-align: center;
+  .btn {
+    font-size: 20px;
+  }
+}
+
+.subtitle, .subtitle * {
+  font-size: 20px;
+  &:first-letter {
+    text-transform: capitalize;
+  }
+}
+
+@import "../../../../node_modules/@fortawesome/fontawesome-free/css/all.css";
+
+/////////////////////////////////////
+
+// Specific theme text
+
+.dyslexia {
+  * {
+    color: red;
+  }
+}

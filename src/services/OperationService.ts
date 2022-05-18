@@ -29,4 +29,10 @@ export default class OperationService {
     const response = await operationApi.updateOperation(operation.id, accountId, day, categoryId, amount, memo)
     StoreHandler.updateAccounts(store)
   }
+
+  public static async importOfxFile (store: Store<StoreState>, accountId: string, ofxFileContent: string): Promise<string> {
+    const response = await operationApi.importOfxFile(accountId, ofxFileContent)
+    StoreHandler.updateAccounts(store)
+    return response.data
+  }
 }
