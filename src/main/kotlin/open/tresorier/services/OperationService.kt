@@ -65,7 +65,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
     }
     fun importOfxFile(person: Person, account: Account, fileOfx: String): Int {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val formattedFile: String = fileOfx.replace("\n", "").replace("\r", "")
+        val formattedFile: String = fileOfx.replace("\n", "").replace("\r", "").replace("\t", "")
         val ofxOperationList = this.splitOfxOperations(formattedFile)
         var nbOperation = 0
         ofxOperationList.forEach {
@@ -103,8 +103,8 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         startElement = operation.indexOf("<TRNAMT>") + 9
         endElement = operation.indexOf("<", startElement)
         val euro = operation.substring(startElement, endElement)
-        // <MEMO> balise du mémo
-        startElement = operation.indexOf("<MEMO>") + 6
+        // <NAME> balise du mémo
+        startElement = operation.indexOf("<NAME>") + 6
         endElement = operation.indexOf("<", startElement)
         var memo = operation.substring(startElement, endElement)
         // formatage des données récupérées
@@ -113,7 +113,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
             memo = "problème de date " + memo
         }
         val day = Day.createFromComparable(Integer.parseInt(date))
-        val cent: String = euro.replace(",", "")
+        val cent: String = euro.replace(",", "").replace(".", "")
         var amount: Int = Integer.parseInt(cent)
         if (type == "DEBIT") {
             amount *= -1
