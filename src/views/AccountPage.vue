@@ -5,7 +5,7 @@
           <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="this.realAmount"/>
       </div>
       <div class="placeholderTop">
-        <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" :existingPendingOperation="true" :realAmountOnAccount="100"/>
+        <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="this.realAmount"/>
       </div>
       <div class="content container operationTable table-hover">
         <div class="dualTab switchOperation">
