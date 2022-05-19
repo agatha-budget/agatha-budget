@@ -124,7 +124,6 @@ export default defineComponent({
   methods: {
     updateOperation () {
       if (this.operation) {
-        this.categoryForTransfer()
         OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
           () => {
             this.$emit('updateOperationList')
@@ -135,12 +134,17 @@ export default defineComponent({
       }
     },
     addOperation () {
-      this.categoryForTransfer()
-      OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
-        () => {
-          this.$emit('updateOperationList')
+      const accountForTransfer = this.getAccountById(this.categoryId)
+      if (this.account && accountForTransfer) {
+        if (this.incoming) {
+          this.categoryForTransfer(accountForTransfer, this.account)
+        } else {
+          this.categoryForTransfer(this.account, accountForTransfer)
         }
-      )
+      } else {
+        OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo)
+      }
+      this.$emit('updateOperationList')
     },
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
       return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
@@ -178,22 +182,12 @@ export default defineComponent({
       }
       return group
     },
-    categoryForTransfer () {
-      if (this.account) {
-        for (const account of this.$store.state.accounts) {
-          if (this.categoryId === account.id) {
-            if (this.incoming) {
-              OperationService.addOperation(this.$store, this.categoryId, Time.getDayFromDateString(this.date), transfertCategoryId, this.signedCentsAmount * -1, this.memo + this.$t('TRANSFER_TO') + this.account.name)
-              this.categoryId = transfertCategoryId
-              this.memo = this.memo + this.$t('TRANSFER_FROM') + account.name
-            } else {
-              OperationService.addOperation(this.$store, this.categoryId, Time.getDayFromDateString(this.date), transfertCategoryId, this.signedCentsAmount * -1, this.memo + this.$t('TRANSFER_FROM') + this.account.name)
-              this.categoryId = transfertCategoryId
-              this.memo = this.memo + this.$t('TRANSFER_TO') + account.name
-            }
-          }
-        }
-      }
+    getAccountById (accountId: string): Account | null {
+      return StoreHandler.getAccountById(this.$store, accountId)
+    },
+    categoryForTransfer (debitedAccount: Account, creditedAccount: Account) {
+      OperationService.addOperation(this.$store, debitedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, Utils.getCentsAmount(this.amount * -1), this.memo + this.$t('TRANSFER_TO') + creditedAccount.name)
+      OperationService.addOperation(this.$store, creditedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, Utils.getCentsAmount(this.amount), this.memo + this.$t('TRANSFER_FROM') + debitedAccount.name)
     },
     entireCalcul (amount: string): number {
       return Calcul.entireCalcul(amount)
