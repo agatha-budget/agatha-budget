@@ -179,7 +179,7 @@ class OperationServiceTest : ITest {
     }
 
     @Test
-    fun testImportOfxFileOtherLayout() {
+    fun testImportOfxFileOtherTagsAndAmount() {
         val irene: Person = personService.createPerson(
             "Irène Joliot-Curie", "Nobel_1935", "irene@chimie.fr", ProfileEnum.PROFILE_USER
         )
@@ -195,7 +195,7 @@ class OperationServiceTest : ITest {
     }
 
     @Test
-    fun testOfxOperationOtherLayout() {
+    fun testOfxOperationOtherTagsAndAmount() {
         val emmanuelle: Person = personService.createPerson(
             "Emmanuelle Carpentier", "Nobel_2020", "emmanuelle@chimie.fr", ProfileEnum.PROFILE_USER
         )
@@ -213,7 +213,7 @@ class OperationServiceTest : ITest {
     }
 
     @Test
-    fun testCuttingOperationsOtherLayout() {
+    fun testCuttingOperationsOtherTagsAndAmount() {
         val ofxFile: String = "<OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:1252COMPRESSION:NONEOLDFILEUID:NONENEWFILEUID:NONE<OFX><SIGNONMSGSRSV1><SONRS><STATUS><CODE>0<SEVERITY>INFO</STATUS><DTSERVER>20220515000000<LANGUAGE>FRA</SONRS></SIGNONMSGSRSV1><BANKMSGSRSV1><STMTTRNRS><TRNUID>20220515000000<STATUS><CODE>0<SEVERITY>INFO</STATUS><STMTRS><CURDEF>EUR<BANKACCTFROM><BANKID>10278<BRANCHID>08895<ACCTID>00020483705<ACCTTYPE>CHECKING</BANKACCTFROM><BANKTRANLIST><DTSTART>20220315000000<DTEND>20220513000000<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-8.98<FITID>LLW_DPE3LF<NAME>CASA GRENOBLE 1 CARTE 37459926 P</STMTTRN><STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-26.05<FITID>LLW_DPE3LO<NAME>UNDIZ-2155 CARTE 37459926 PAIEME</STMTTRN></BANKTRANLIST><LEDGERBAL><BALAMT>1051.56<DTASOF>20220513000000</LEDGERBAL><AVAILBAL><BALAMT>0.00<DTASOF>20220513000000</AVAILBAL></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"
         val listOperations: List<String> = operationService.splitOfxOperations(ofxFile)
         
