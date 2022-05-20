@@ -31,17 +31,25 @@
         <input id="newOperationAmount" class="form-control" v-model="amountString">
       </div>
     </div>
-    <div v-if="isPending" v-on:click="pending" class="flexForm pending col-12">
-      <div class="icon col-2 offset-3 col-md-1 offset-md-7">
-        <button class="illustration btn fas fa-hourglass-half"/>
+    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
+    <div class="col-7 col-sm-6 col-md-7 col-xxl-8 flexForm">
+      <label class="customSwitch">
+          <input class="switch-input" type="checkbox" v-model="ispending" v-on:click="pending"/>
+          <span class="switch-label-pending"/>
+          <span class="switch-handle-pending"/>
+      </label>
+      <div v-if="isPending" class="flexForm">
+        <div class="icon">
+          <button class="illustration btn fas fa-hourglass-half"/>
+        </div>
+        <div>{{ $t("PENDING") }}</div>
       </div>
-      <div class="col-5 col-md-3">{{ $t("NOT_DEBITED") }}</div>
-    </div>
-    <div v-else v-on:click="pending" class="flexForm pending col-12">
-      <div class="icon col-2 offset-3 col-md-1 offset-md-7">
-        <button class="illustration btn fas fa-calendar-check"/>
+      <div v-else class="flexForm">
+        <div class="icon">
+          <button class="illustration btn fas fa-calendar-check"/>
+        </div>
+        <div>{{ $t("DEBITED") }}</div>
       </div>
-      <div class="col-5 col-md-3">{{ $t("DEBITED") }}</div>
     </div>
     <div class="action col-4 offset-4 col-md-2 offset-md-5">
       <btn v-if="this.operation" class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>

@@ -107,6 +107,7 @@
     "BANK_IMPORT": "Import relevé",
     "PARAMETERS": "Paramètres",
     "DEBITED": "déjà débité",
-    "NOT_DEBITED": "pas encore débité",
+    "PENDING": "en attente",
+    "STATUS": "statut",
     "REAL_AMOUNT": "montant réel sur le compte"
 }
