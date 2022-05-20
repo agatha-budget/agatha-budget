@@ -112,12 +112,7 @@ export default defineComponent({
       return this.entireCalcul(this.amountString)
     },
     account (): Account | null {
-      for (const account of this.$store.state.accounts) {
-        if (account.id === this.accountId) {
-          return account
-        }
-      }
-      return null
+      return this.getAccountById(this.accountId)
     }
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
