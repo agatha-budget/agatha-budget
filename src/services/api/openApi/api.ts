@@ -2426,13 +2426,11 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
-         * @param {string} _package chosen package
+         * @param {string} [_package] chosen package
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBillingPortalSession: async (_package: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter '_package' is not null or undefined
-            assertParamExists('createBillingPortalSession', '_package', _package)
+        createBillingPortalSession: async (_package?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/billing`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2696,11 +2694,11 @@ export const PersonApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
-         * @param {string} _package chosen package
+         * @param {string} [_package] chosen package
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createBillingPortalSession(_package: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async createBillingPortalSession(_package?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createBillingPortalSession(_package, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2776,11 +2774,11 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
-         * @param {string} _package chosen package
+         * @param {string} [_package] chosen package
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBillingPortalSession(_package: string, options?: any): AxiosPromise<string> {
+        createBillingPortalSession(_package?: string, options?: any): AxiosPromise<string> {
             return localVarFp.createBillingPortalSession(_package, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2850,12 +2848,12 @@ export class PersonApi extends BaseAPI {
     /**
      * 
      * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
-     * @param {string} _package chosen package
+     * @param {string} [_package] chosen package
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PersonApi
      */
-    public createBillingPortalSession(_package: string, options?: AxiosRequestConfig) {
+    public createBillingPortalSession(_package?: string, options?: AxiosRequestConfig) {
         return PersonApiFp(this.configuration).createBillingPortalSession(_package, options).then((request) => request(this.axios, this.basePath));
     }
 

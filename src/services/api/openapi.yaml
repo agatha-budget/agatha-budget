@@ -214,7 +214,7 @@ paths:
       - name: package
         in: query
         description: chosen package
-        required: true
+        required: false
         style: form
         explode: true
         schema:
