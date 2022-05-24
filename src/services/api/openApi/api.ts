@@ -279,7 +279,13 @@ export interface Person {
      * @type {number}
      * @memberof Person
      */
-    'createDate'?: number;
+    'creationDate': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Person
+     */
+    'hasBillingId': boolean;
 }
 
 /**
