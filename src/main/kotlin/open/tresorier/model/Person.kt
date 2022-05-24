@@ -25,6 +25,7 @@ class Person (
             this.style,
             this.dyslexia,
             this.creationDate,
+            this.billingId != null
         )
     }
 }
