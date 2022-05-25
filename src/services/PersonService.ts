@@ -1,8 +1,9 @@
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { personApi } from '@/services/api/apis'
-import router, { RouterPages, redirectToLoginPageIfNotLogged } from '@/router'
-import axios from 'axios'
+import router, { RouterPages, redirectToLoginPageIfNotLogged, redirectOnApiError } from '@/router'
+import { Person } from '@/model/model'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 
 interface LoginResponse {
     name: string;
@@ -39,15 +40,14 @@ export default class PersonService {
     }
   }
 
-  public static async getPerson () {
-    try {
-      const person = (await personApi.getPerson()).data
-      console.log(person)
-    } catch (exception) {
-      if (axios.isAxiosError(exception)) {
-        alert(exception.response?.data)
-      }
-    }
+  public static async getPerson (): Promise<Person> {
+    return personApi.getPerson()
+      .then((r: AxiosResponse) => {
+        return r.data
+      })
+      .catch((e: AxiosError) => {
+        redirectOnApiError(e)
+      })
   }
 
   public static async rename (newName: string) {
@@ -62,12 +62,22 @@ export default class PersonService {
     await personApi.updatePerson(undefined, undefined, newDyslexia)
   }
 
-  public static async redirectToBillingPortalUrl (selectedPackage?: string) {
+  public static async redirectToBillingPortalUrl (selectedPackage: string) {
     try {
-      if (selectedPackage) {
-        const billingPortalUrl = (await (personApi.createBillingPortalSession(selectedPackage))).data
-        window.location.href = billingPortalUrl
+      const billingPortalUrl = (await (personApi.createBillingPortalSession(selectedPackage))).data
+      window.location.href = billingPortalUrl
+    } catch (exception) {
+      if (axios.isAxiosError(exception)) {
+        alert(exception.response?.data)
       }
+    }
+  }
+
+  public static async manageSubscription () {
+    try {
+      const billingPortalUrl = (await (personApi.createBillingPortalSession())).data
+      console.log('billingPortalUrl : ' + billingPortalUrl)
+      window.location.href = billingPortalUrl
     } catch (exception) {
       if (axios.isAxiosError(exception)) {
         alert(exception.response?.data)

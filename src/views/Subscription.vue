@@ -10,63 +10,72 @@
         <h1 class="title">{{ $t('SUBSCRIPTION') }}</h1>
         <p v-if="!validSubscription" class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
       </div>
-      <div v-if="profile == 'PROFILE_USER'" class="content">
-        <p class="subtitle" v-on:click="this.goToContactPage">{{ $t('CHOOSE_THE_BEST_FOR_YOU') }}</p>
-        <p class="subtitle" v-on:click="this.goToContactPage">{{ $t('ASK_FOR_HELP') }}</p>
-        <div class="essential">
-          <div class="banner">
-            <span class="icon icon-paper-plane" />
-            <div class="title">{{ $t('ESSENTIAL') }}</div>
-          </div>
-          <p>{{ $t('TEXT_ESSENTIAL') }}</p>
-          <btn class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_ESSENTIAL')">{{ $t('PRICE_MONTHLY_ESSENTIAL') }}</btn>
-          <btn class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_ESSENTIAL')">{{ $t('PRICE_ANNUAL_ESSENTIAL') }}</btn>
-        </div>
-        <div class="integral">
-          <div class="banner">
-            <span class="icon icon-plane" />
-            <div class="title">{{ $t('INTEGRAL') }}</div>
-          </div>
-          <p>{{ $t('TEXT_INTEGRAL') }}</p>
-          <btn class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_INTEGRAL')">{{ $t('PRICE_MONTHLY_INTEGRAL') }}</btn>
-          <btn class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_INTEGRAL')">{{ $t('PRICE_ANNUAL_INTEGRAL') }}</btn>
-        </div>
-        <div class="solidarity">
-          <div class="banner">
-            <span class="icon icon-support" />
-            <div class="title">{{ $t('SOLIDARITY') }}</div>
-          </div>
-          <p v-on:click="this.goToContactPage">{{ $t('TEXT_FOR_USER') }}{{ $t('PLEASE_CONTACT_US') }}</p>
-          <btn class="actionButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_MONTHLY_SOLIDARITY') }}</btn>
-        </div>
+      <div v-if="this.managementPage">
+        gérer son abonnement :
+        <button v-on:click="this.getInformation">clique moi</button>
+        <button v-on:click="this.changePage">changer de page</button>
       </div>
-      <div v-else class="content">
-        <div class="businessSide">
-          <div class="container header">
-            <span class="icon icon-briefcase" />
-            <div class="title">{{ $t('BUSINESS_SIDE') }}</div>
+      <div v-else>
+        <div v-if="profile == 'PROFILE_USER'" class="content">
+          <p class="subtitle" v-on:click="this.goToContactPage">{{ $t('CHOOSE_THE_BEST_FOR_YOU') }}</p>
+          <p class="subtitle" v-on:click="this.goToContactPage">{{ $t('ASK_FOR_HELP') }}</p>
+          <div class="essential">
+            <div class="banner">
+              <span class="icon icon-paper-plane" />
+              <div class="title">{{ $t('ESSENTIAL') }}</div>
+            </div>
+            <p>{{ $t('TEXT_ESSENTIAL') }}</p>
+            <btn class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_ESSENTIAL')">{{ $t('PRICE_MONTHLY_ESSENTIAL') }}</btn>
+            <btn class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_ESSENTIAL')">{{ $t('PRICE_ANNUAL_ESSENTIAL') }}</btn>
           </div>
-          <p>{{ $t('TEXT_COMPANY') }}</p>
-          <btn class="navigationButton" v-on:click="this.goToBillingPortal('MONTHLY_COMPANY')">{{ $t('PRICE_MONTHLY_COMPANY') }}</btn>
-          <btn class="navigationButton" v-on:click="this.goToBillingPortal('ANNUAL_COMPANY')">{{ $t('PRICE_ANNUAL_COMPANY') }}</btn>
+          <div class="integral">
+            <div class="banner">
+              <span class="icon icon-plane" />
+              <div class="title">{{ $t('INTEGRAL') }}</div>
+            </div>
+            <p>{{ $t('TEXT_INTEGRAL') }}</p>
+            <btn class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_INTEGRAL')">{{ $t('PRICE_MONTHLY_INTEGRAL') }}</btn>
+            <btn class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_INTEGRAL')">{{ $t('PRICE_ANNUAL_INTEGRAL') }}</btn>
+          </div>
+          <div class="solidarity">
+            <div class="banner">
+              <span class="icon icon-support" />
+              <div class="title">{{ $t('SOLIDARITY') }}</div>
+            </div>
+            <p v-on:click="this.goToContactPage">{{ $t('TEXT_FOR_USER') }}{{ $t('PLEASE_CONTACT_US') }}</p>
+            <btn class="actionButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_MONTHLY_SOLIDARITY') }}</btn>
+          </div>
+          <button v-if="hasBillingId" v-on:click="this.changePage">changer de page</button>
         </div>
-        <div class="personalSide">
-          <div class="container header">
-            <span class="icon icon-home" />
-            <div class="title">{{ $t('PERSONAL_SIDE') }}</div>
+        <div v-else class="content">
+          <div class="businessSide">
+            <div class="container header">
+              <span class="icon icon-briefcase" />
+              <div class="title">{{ $t('BUSINESS_SIDE') }}</div>
+            </div>
+            <p>{{ $t('TEXT_COMPANY') }}</p>
+            <btn class="navigationButton" v-on:click="this.goToBillingPortal('MONTHLY_COMPANY')">{{ $t('PRICE_MONTHLY_COMPANY') }}</btn>
+            <btn class="navigationButton" v-on:click="this.goToBillingPortal('ANNUAL_COMPANY')">{{ $t('PRICE_ANNUAL_COMPANY') }}</btn>
           </div>
-          <p v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SIDE') }}{{ $t('PLEASE_CONTACT_US') }}</p>
-          <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_MONTHLY') }}</btn>
-          <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_ANNUAL') }}</btn>
-        </div>
-        <div class="coaching">
-          <div class="container header">
-            <span class="icon icon-compass" />
-            <div class="title">{{ $t('PERSONAL_SUPPORT') }}</div>
+          <div class="personalSide">
+            <div class="container header">
+              <span class="icon icon-home" />
+              <div class="title">{{ $t('PERSONAL_SIDE') }}</div>
+            </div>
+            <p v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SIDE') }}{{ $t('PLEASE_CONTACT_US') }}</p>
+            <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_MONTHLY') }}</btn>
+            <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_ANNUAL') }}</btn>
           </div>
-          <p v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SUPPORT') }}{{ $t('PLEASE_CONTACT_US_AND_RDV') }}</p>
-          <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_1H') }}</btn>
-          <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_5H') }}</btn>
+          <div class="coaching">
+            <div class="container header">
+              <span class="icon icon-compass" />
+              <div class="title">{{ $t('PERSONAL_SUPPORT') }}</div>
+            </div>
+            <p v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SUPPORT') }}{{ $t('PLEASE_CONTACT_US_AND_RDV') }}</p>
+            <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_1H') }}</btn>
+            <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_5H') }}</btn>
+          </div>
+          <button v-if="hasBillingId" v-on:click="this.changePage">changer de page</button>
         </div>
       </div>
       <div class="placeholder bottom">
@@ -84,12 +93,14 @@ import { defineComponent } from 'vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 import PersonService from '@/services/PersonService'
 import StoreHandler from '@/store/StoreHandler'
+import { Person } from '@/model/model'
 
 export default defineComponent({
   name: 'Subscription',
   components: { NavMenu },
   created: async function () {
     StoreHandler.initStore(this.$store)
+    this.managementPage = this.hasBillingId
   },
   props: {
     validSubscription: {
@@ -98,11 +109,18 @@ export default defineComponent({
     }
   },
   data () {
-    return { }
+    return {
+      hasBillingId: true, // comment faire pour obtenir le hasBillingId de la Person ?
+      managementPage: true
+    }
   },
   computed: {
     profile (): string | undefined {
       return this.$store.state.budget?.profile
+    // },
+    // hasBillingId (): boolean {
+    //   if (PersonService.getPerson().promise.object.hasBillingId)
+    //   return PersonService.getPerson().hasBillingId
     }
   },
   methods: {
@@ -111,6 +129,18 @@ export default defineComponent({
     },
     goToContactPage () {
       window.location.href = 'https://agatha-budget.fr/contact/'
+    },
+    async getInformation () {
+      console.log(this.hasBillingId)
+      PersonService.getPerson().then(
+        (person: Person) => {
+          console.log(person)
+        }
+      )
+      // PersonService.manageSubscription()
+    },
+    changePage () {
+      this.managementPage = !this.managementPage
     }
   }
 })
