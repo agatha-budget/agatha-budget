@@ -12,8 +12,9 @@
       </div>
       <div v-if="this.managementPage">
         gérer son abonnement :
-        <button v-on:click="this.getInformation">clique moi</button>
-        <button v-on:click="this.changePage">changer de page</button>
+        <p v-if="!billingStatus">abonnement en sursis</p>
+        <btn  class="actionButton" v-on:click="this.getInformation">clique moi</btn>
+        <btn class="navigationButton" v-on:click="this.changePage">voir toutes les offres</btn>
       </div>
       <div v-else>
         <div v-if="profile == 'PROFILE_USER'" class="content">
@@ -45,7 +46,6 @@
             <p v-on:click="this.goToContactPage">{{ $t('TEXT_FOR_USER') }}{{ $t('PLEASE_CONTACT_US') }}</p>
             <btn class="actionButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_MONTHLY_SOLIDARITY') }}</btn>
           </div>
-          <button v-if="hasBillingId" v-on:click="this.changePage">changer de page</button>
         </div>
         <div v-else class="content">
           <div class="businessSide">
@@ -75,8 +75,8 @@
             <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_1H') }}</btn>
             <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_5H') }}</btn>
           </div>
-          <button v-if="hasBillingId" v-on:click="this.changePage">changer de page</button>
         </div>
+        <btn class="navigationButton" v-if="hasBillingId" v-on:click="this.changePage">gérer mon abonnement</btn>
       </div>
       <div class="placeholder bottom">
         <NavMenu/>
@@ -94,13 +94,22 @@ import NavMenu from '@/components/NavigationMenu.vue'
 import PersonService from '@/services/PersonService'
 import StoreHandler from '@/store/StoreHandler'
 import { Person } from '@/model/model'
+// import { Person } from '@/model/model'
+
+interface SubscriptionPageData {
+  hasBillingId: boolean | undefined;
+  managementPage: boolean |undefined;
+  billingStatus: boolean |undefined;
+}
 
 export default defineComponent({
   name: 'Subscription',
   components: { NavMenu },
   created: async function () {
     StoreHandler.initStore(this.$store)
-    this.managementPage = this.hasBillingId
+    this.hasBillingId = this.person?.hasBillingId
+    this.managementPage = this.person?.hasBillingId
+    // this.billingStatus = this.person?.billingStatus
   },
   props: {
     validSubscription: {
@@ -108,19 +117,19 @@ export default defineComponent({
       required: true
     }
   },
-  data () {
+  data (): SubscriptionPageData {
     return {
-      hasBillingId: true, // comment faire pour obtenir le hasBillingId de la Person ?
-      managementPage: true
+      hasBillingId: true,
+      managementPage: true,
+      billingStatus: false
     }
   },
   computed: {
     profile (): string | undefined {
       return this.$store.state.budget?.profile
-    // },
-    // hasBillingId (): boolean {
-    //   if (PersonService.getPerson().promise.object.hasBillingId)
-    //   return PersonService.getPerson().hasBillingId
+    },
+    person (): Person | null {
+      return this.$store.state.person
     }
   },
   methods: {
@@ -132,11 +141,11 @@ export default defineComponent({
     },
     async getInformation () {
       console.log(this.hasBillingId)
-      PersonService.getPerson().then(
-        (person: Person) => {
-          console.log(person)
-        }
-      )
+      console.log(this.person)
+      console.log(this.person?.hasBillingId)
+      console.log(this.person?.billingStatus)
+      console.log(this.profile)
+      console.log(PersonService.getPerson())
       // PersonService.manageSubscription()
     },
     changePage () {

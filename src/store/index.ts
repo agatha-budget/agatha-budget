@@ -1,7 +1,7 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import SuperTokensRequest from 'supertokens-website/axios'
-import { Budget, Account, Category, MasterCategory } from '@/model/model'
+import { Budget, Account, Category, MasterCategory, Person } from '@/model/model'
 import StoreHandler from './StoreHandler'
 
 export interface StoreState {
@@ -12,6 +12,7 @@ export interface StoreState {
   masterCategories: MasterCategory[];
   css: string;
   storeLoaded: boolean;
+  person: Person | null;
 }
 
 export const key: InjectionKey<Store<StoreState>> = Symbol('injectionKey')
@@ -24,7 +25,8 @@ export const store = createStore<StoreState>({
     categories: [],
     masterCategories: [],
     css: 'default',
-    storeLoaded: false
+    storeLoaded: false,
+    person: null
   },
   mutations: {
     updateLogged (state) {
@@ -52,6 +54,9 @@ export const store = createStore<StoreState>({
     },
     updateStoreLoaded (state, storeLoaded: boolean) {
       state.storeLoaded = storeLoaded
+    },
+    updatePerson (state, person: Person) {
+      state.person = person
     }
   },
   actions: {
@@ -72,6 +77,9 @@ export const store = createStore<StoreState>({
     },
     updateStoreLoaded (context, storeLoaded: boolean) {
       context.commit('updateStoreLoaded', storeLoaded)
+    },
+    updatePerson (context, person: Person) {
+      context.commit('updatePerson', person)
     }
   },
   modules: {
