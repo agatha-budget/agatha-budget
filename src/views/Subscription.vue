@@ -11,10 +11,10 @@
         <p v-if="!validSubscription" class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
       </div>
       <div v-if="this.managementPage">
-        gérer son abonnement :
-        <p v-if="!billingStatus">abonnement en sursis</p>
-        <btn  class="actionButton" v-on:click="this.getInformation">clique moi</btn>
-        <btn class="navigationButton" v-on:click="this.changePage">voir toutes les offres</btn>
+        <p>{{ $t('MANAGE_SUBSCRIPTION') }} : </p>
+        <p v-if="!billingStatus">{{ $t('DEFERMENT_SUBSCRIPTION') }}</p>
+        <btn  class="actionButton" v-on:click="this.getInformation">{{ $t('MANAGE_SUBSCRIPTION') }}</btn>
+        <btn class="navigationButton" v-on:click="this.changePage">{{ $t('SEE_ALL_OFFERS') }}</btn>
       </div>
       <div v-else>
         <div v-if="profile == 'PROFILE_USER'" class="content">
@@ -76,7 +76,7 @@
             <btn class="navigationButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_5H') }}</btn>
           </div>
         </div>
-        <btn class="navigationButton" v-if="hasBillingId" v-on:click="this.changePage">gérer mon abonnement</btn>
+        <btn class="navigationButton" v-if="hasBillingId" v-on:click="this.changePage">{{ $t('MANAGE_SUBSCRIPTION') }}</btn>
       </div>
       <div class="placeholder bottom">
         <NavMenu/>
@@ -94,7 +94,6 @@ import NavMenu from '@/components/NavigationMenu.vue'
 import PersonService from '@/services/PersonService'
 import StoreHandler from '@/store/StoreHandler'
 import { Person } from '@/model/model'
-// import { Person } from '@/model/model'
 
 interface SubscriptionPageData {
   hasBillingId: boolean | undefined;
@@ -109,7 +108,7 @@ export default defineComponent({
     StoreHandler.initStore(this.$store)
     this.hasBillingId = this.person?.hasBillingId
     this.managementPage = this.person?.hasBillingId
-    // this.billingStatus = this.person?.billingStatus
+    this.billingStatus = this.person?.billingStatus
   },
   props: {
     validSubscription: {
@@ -121,7 +120,7 @@ export default defineComponent({
     return {
       hasBillingId: true,
       managementPage: true,
-      billingStatus: false
+      billingStatus: true
     }
   },
   computed: {
@@ -140,13 +139,7 @@ export default defineComponent({
       window.location.href = 'https://agatha-budget.fr/contact/'
     },
     async getInformation () {
-      console.log(this.hasBillingId)
-      console.log(this.person)
-      console.log(this.person?.hasBillingId)
-      console.log(this.person?.billingStatus)
-      console.log(this.profile)
-      console.log(PersonService.getPerson())
-      // PersonService.manageSubscription()
+      PersonService.manageSubscription()
     },
     changePage () {
       this.managementPage = !this.managementPage
