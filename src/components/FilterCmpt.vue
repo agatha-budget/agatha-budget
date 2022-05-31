@@ -57,7 +57,7 @@ export default defineComponent({
       categoryId: ''
     }
   },
-  emits: ['closeFilter'],
+  emits: ['closeFilter', 'filteringCategory'],
   methods: {
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
       return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
@@ -78,6 +78,7 @@ export default defineComponent({
     },
     filter () {
       console.log(this.categoryId)
+      this.$emit('filteringCategory', this.categoryId)
     }
   }
 })

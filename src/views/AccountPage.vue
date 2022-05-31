@@ -20,7 +20,7 @@
           <span class="illutstration btn fas fa-filter"/>
           filtrer
         </div>
-        <FilterCmpt v-if="filterBloc" @close-filter="closeFilter"/>
+        <FilterCmpt v-if="filterBloc" @close-filter="closeFilter" @filtering-category="filter"/>
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
           <span v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation">
@@ -71,6 +71,7 @@ interface AccountPageData {
     importBloc: boolean;
     manualBloc: boolean;
     filterBloc: boolean;
+    filteringCategoryId: string | null;
 }
 
 interface EditableOperation extends Operation {
@@ -109,7 +110,8 @@ export default defineComponent({
       operations: [],
       importBloc: false,
       manualBloc: false,
-      filterBloc: false
+      filterBloc: false,
+      filteringCategoryId: null
     }
   },
   computed: {
@@ -128,8 +130,9 @@ export default defineComponent({
   },
   methods: {
     async getAccountOperation () {
+      console.log(this.filteringCategoryId + ' filteringCategoryId')
       if (this.account) {
-        return OperationService.getOperations(this.account).then(
+        return OperationService.getOperations(this.account, this.filteringCategoryId).then(
           (operations) => {
             this.operations = this.operationToEditableOperation(operations)
           }
@@ -180,6 +183,10 @@ export default defineComponent({
     },
     getClassDependingCategory (operation: Operation): string {
       return (operation.categoryId === null) ? 'negative' : ''
+    },
+    filter (categoryId: string) {
+      this.filteringCategoryId = categoryId
+      this.getAccountOperation()
     },
     switchAddOperation (type: string) {
       if (type === 'import') {
