@@ -38,7 +38,6 @@
               <button class="illustration btn fas fa-pen"/>
               <button class="illustration btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
             </div>
-
             <div class="lineStart memo col-5">{{ operation.memo }}</div>
           </span>
         </template>

@@ -279,7 +279,13 @@ export interface Person {
      * @type {number}
      * @memberof Person
      */
-    'createDate'?: number;
+    'creationDate': number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Person
+     */
+    'hasBillingId': boolean;
 }
 
 /**
@@ -2013,14 +2019,15 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary Find operation by budget
-         * @param {string} accountId id of the budget whose operations you want to retrieve
+         * @summary Find operation by budget and category
+         * @param {string} budgetId id of the budget whose operations you want to retrieve
+         * @param {string} [categoryId] if apply filter on category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOperationsByBudget: async (accountId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('findOperationsByBudget', 'accountId', accountId)
+        findOperationsByBudget: async (budgetId: string, categoryId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('findOperationsByBudget', 'budgetId', budgetId)
             const localVarPath = `/operation/budget`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2033,8 +2040,12 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (accountId !== undefined) {
-                localVarQueryParameter['account_id'] = accountId;
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budget_id'] = budgetId;
+            }
+
+            if (categoryId !== undefined) {
+                localVarQueryParameter['category_id'] = categoryId;
             }
 
 
@@ -2200,13 +2211,14 @@ export const OperationApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Find operation by budget
-         * @param {string} accountId id of the budget whose operations you want to retrieve
+         * @summary Find operation by budget and category
+         * @param {string} budgetId id of the budget whose operations you want to retrieve
+         * @param {string} [categoryId] if apply filter on category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findOperationsByBudget(accountId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findOperationsByBudget(accountId, options);
+        async findOperationsByBudget(budgetId: string, categoryId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findOperationsByBudget(budgetId, categoryId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2283,13 +2295,14 @@ export const OperationApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary Find operation by budget
-         * @param {string} accountId id of the budget whose operations you want to retrieve
+         * @summary Find operation by budget and category
+         * @param {string} budgetId id of the budget whose operations you want to retrieve
+         * @param {string} [categoryId] if apply filter on category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOperationsByBudget(accountId: string, options?: any): AxiosPromise<Array<Operation>> {
-            return localVarFp.findOperationsByBudget(accountId, options).then((request) => request(axios, basePath));
+        findOperationsByBudget(budgetId: string, categoryId?: string, options?: any): AxiosPromise<Array<Operation>> {
+            return localVarFp.findOperationsByBudget(budgetId, categoryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2369,14 +2382,15 @@ export class OperationApi extends BaseAPI {
 
     /**
      * 
-     * @summary Find operation by budget
-     * @param {string} accountId id of the budget whose operations you want to retrieve
+     * @summary Find operation by budget and category
+     * @param {string} budgetId id of the budget whose operations you want to retrieve
+     * @param {string} [categoryId] if apply filter on category
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public findOperationsByBudget(accountId: string, options?: AxiosRequestConfig) {
-        return OperationApiFp(this.configuration).findOperationsByBudget(accountId, options).then((request) => request(this.axios, this.basePath));
+    public findOperationsByBudget(budgetId: string, categoryId?: string, options?: AxiosRequestConfig) {
+        return OperationApiFp(this.configuration).findOperationsByBudget(budgetId, categoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -2420,13 +2434,11 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
-         * @param {string} _package chosen package
+         * @param {string} [_package] chosen package
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBillingPortalSession: async (_package: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter '_package' is not null or undefined
-            assertParamExists('createBillingPortalSession', '_package', _package)
+        createBillingPortalSession: async (_package?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/billing`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2690,11 +2702,11 @@ export const PersonApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
-         * @param {string} _package chosen package
+         * @param {string} [_package] chosen package
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createBillingPortalSession(_package: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+        async createBillingPortalSession(_package?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createBillingPortalSession(_package, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2770,11 +2782,11 @@ export const PersonApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
-         * @param {string} _package chosen package
+         * @param {string} [_package] chosen package
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBillingPortalSession(_package: string, options?: any): AxiosPromise<string> {
+        createBillingPortalSession(_package?: string, options?: any): AxiosPromise<string> {
             return localVarFp.createBillingPortalSession(_package, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2844,12 +2856,12 @@ export class PersonApi extends BaseAPI {
     /**
      * 
      * @summary get billing portal URL, new subscription if not subscribed, billing management if already subscribed
-     * @param {string} _package chosen package
+     * @param {string} [_package] chosen package
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PersonApi
      */
-    public createBillingPortalSession(_package: string, options?: AxiosRequestConfig) {
+    public createBillingPortalSession(_package?: string, options?: AxiosRequestConfig) {
         return PersonApiFp(this.configuration).createBillingPortalSession(_package, options).then((request) => request(this.axios, this.basePath));
     }
 
