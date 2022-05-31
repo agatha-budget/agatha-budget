@@ -130,7 +130,6 @@ export default defineComponent({
   },
   methods: {
     async getAccountOperation () {
-      console.log(this.filteringCategoryId + ' filteringCategoryId')
       if (this.account) {
         return OperationService.getOperations(this.account, this.filteringCategoryId).then(
           (operations) => {
@@ -209,12 +208,18 @@ export default defineComponent({
     },
     closeFilter () {
       this.filterBloc = false
+      this.filteringCategoryId = null
+      this.getAccountOperation()
     },
     closeUpdate (operation: EditableOperation) {
       operation.editing = false
     },
     blocFilter () {
       this.filterBloc = !this.filterBloc
+      if (!this.filterBloc) {
+        this.filteringCategoryId = null
+        this.getAccountOperation()
+      }
     }
   }
 })

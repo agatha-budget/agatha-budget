@@ -12,6 +12,7 @@
       :noResultsText="$t('NO_RESULT_FOUND')"
       :placeholder="$t('SELECT_CATEGORY')"
     />
+    <btn v-on:click="removeFilter" class="actionButton">enlever le filtre</btn>
     <btn v-on:click="filter" class="actionButton">Filtrer</btn>
   </div>
 </template>
@@ -77,8 +78,10 @@ export default defineComponent({
       this.$emit('closeFilter')
     },
     filter () {
-      console.log(this.categoryId)
       this.$emit('filteringCategory', this.categoryId)
+    },
+    removeFilter () {
+      this.$emit('filteringCategory', null)
     }
   }
 })

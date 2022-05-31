@@ -1,4 +1,4 @@
-import { Account, Operation, Category } from '@/model/model'
+import { Account, Operation } from '@/model/model'
 import { operationApi } from '@/services/api/apis'
 import StoreHandler from '@/store/StoreHandler'
 import { StoreState } from '@/store/index'
@@ -11,10 +11,8 @@ export default class OperationService {
     if (account.id) {
       let response
       if (categoryId) {
-        console.log(categoryId + ' if')
         response = await operationApi.findOperationsByAccount(account.id, categoryId)
       } else {
-        console.log(categoryId + ' else')
         response = await operationApi.findOperationsByAccount(account.id, undefined)
       }
       data = response.data
