@@ -321,7 +321,8 @@ fun main() {
     app.get("/operation/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val operations = ServiceManager.operationService.findByAccount(user, account)
+        val category: Category = ServiceManager.categoryService.getById(user, getQueryParam<String>(ctx, "category_id"))
+        val operations = ServiceManager.operationService.findByAccount(user, account, category)
         ctx.json(operations)
     }
 

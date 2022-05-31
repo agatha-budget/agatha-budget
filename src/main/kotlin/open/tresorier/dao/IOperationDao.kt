@@ -9,7 +9,7 @@ interface IOperationDao {
     fun getById(id: String): Operation
     fun findTotalSpendingByMonth(budget: Budget, maxMonth: Month? = null) : List<Spending>
     fun findAmountByBudget(budget: Budget, month: Month? = null) : Int
-    fun findByAccount(account: Account) : List<Operation>
+    fun findByAccount(account: Account, category: Category?) : List<Operation>
     fun findByBudget(budget: Budget, category: Category?) : List<Operation>
     fun getOwner(operation: Operation) : Person
 }

@@ -162,7 +162,7 @@ open class OperationDaoTest : ITest {
             operationDao.insert(operation)
         }
 
-        val result = operationDao.findByAccount(accountA)
+        val result = operationDao.findByAccount(accountA, null)
         Assertions.assertEquals(3, result.size)
         Assertions.assertEquals(2100, result[0].amount)
         Assertions.assertEquals(3000, result[1].amount)
