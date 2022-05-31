@@ -16,6 +16,11 @@
         </div>
         <ImportOfx v-if="importBloc" :accountId="this.accountId" @close-import="closeImport"/>
         <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
+        <div v-on:click="blocFilter">
+          <span class="illutstration btn fas fa-filter"/>
+          filtrer
+        </div>
+        <FilterCmpt v-if="filterBloc" @close-filter="closeFilter"/>
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
           <span v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation">
@@ -23,7 +28,6 @@
               <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
             </div>
             <div class="col-9"></div>
-
             <div class="lineStart category col-4" :class="getClassDependingCategory(operation)">
               {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
             </div>
@@ -61,11 +65,13 @@ import Utils from '@/utils/Utils'
 import NavMenu from '@/components/NavigationMenu.vue'
 import AccountPageHeader from '@/components/AccountPageHeader.vue'
 import ImportOfx from '@/components/ImportOfx.vue'
+import FilterCmpt from '@/components/FilterCmpt.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
     importBloc: boolean;
     manualBloc: boolean;
+    filterBloc: boolean;
 }
 
 interface EditableOperation extends Operation {
@@ -78,7 +84,8 @@ export default defineComponent({
     OperationForm,
     NavMenu,
     AccountPageHeader,
-    ImportOfx
+    ImportOfx,
+    FilterCmpt
   },
   beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
@@ -102,7 +109,8 @@ export default defineComponent({
     return {
       operations: [],
       importBloc: false,
-      manualBloc: false
+      manualBloc: false,
+      filterBloc: false
     }
   },
   computed: {
@@ -193,8 +201,14 @@ export default defineComponent({
     closeForm () {
       this.manualBloc = false
     },
+    closeFilter () {
+      this.filterBloc = false
+    },
     closeUpdate (operation: EditableOperation) {
       operation.editing = false
+    },
+    blocFilter () {
+      this.filterBloc = !this.filterBloc
     }
   }
 })
