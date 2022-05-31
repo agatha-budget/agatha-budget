@@ -216,22 +216,113 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getByBudgetAndCategory() {
-        // return a list of operation
+        val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("firstCategory", masterCategory.id)
+        categoryDao.insert(category)
+        val category2 = Category("secondCategory", masterCategory.id)
+        categoryDao.insert(category2)
+        val account = Account("current account", budget.id)
+        accountDao.insert(account)
+        val operationList = listOf(
+                Operation(account.id, TestData.nov_02_2020, category.id, 4000, 1),
+                Operation(account.id, TestData.nov_03_2020, category.id, 2000, 2),
+                Operation(account.id, TestData.feb_02_2021, category2.id, 1000, 3),
+                Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
+                Operation(account.id, TestData.jan_14_2022, category2.id, 321, 5),
+                Operation(account.id, TestData.jan_15_2022, category.id, 546, 6)
+                )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        val result = operationDao.findByBudget(budget, category)
+        Assertions.assertEquals(4, result.size)
+        Assertions.assertEquals(546, result[0].amount)
+        Assertions.assertEquals(3000, result[1].amount)
+        Assertions.assertEquals(2000, result[2].amount)
+        Assertions.assertEquals(4000, result[3].amount)
     }
     
     @Test
     fun getByCategoryWithNoOperation () {
-        // return empty list
+        val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("firstCategory", masterCategory.id)
+        categoryDao.insert(category)
+        val category2 = Category("secondCategory", masterCategory.id)
+        categoryDao.insert(category2)
+        val account = Account("current account", budget.id)
+        accountDao.insert(account)
+        val operationList = listOf(
+                Operation(account.id, TestData.nov_02_2020, category.id, 4000, 1),
+                Operation(account.id, TestData.nov_03_2020, category.id, 2000, 2),
+                Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
+
+                )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        val result = operationDao.findByBudget(budget, category2)
+        Assertions.assertEquals(0, result.size)
+        
     }
 
     @Test
     fun getByUnknownCategory () {
-        // return empty list
+        val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("firstCategory", masterCategory.id)
+        categoryDao.insert(category)
+        val category2 = Category("secondCategory", masterCategory.id)
+        categoryDao.insert(category2)
+        val category3 = Category("thirdCategory", masterCategory.id)
+        val account = Account("current account", budget.id)
+        accountDao.insert(account)
+        val operationList = listOf(
+                Operation(account.id, TestData.nov_02_2020, category.id, 4000, 1),
+                Operation(account.id, TestData.nov_03_2020, category.id, 2000, 2),
+                Operation(account.id, TestData.feb_02_2021, category2.id, 1000, 3),
+                Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
+
+                )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        val result = operationDao.findByBudget(budget, category3)
+        Assertions.assertEquals(0, result.size)
     }
 
     @Test
     fun getByCategoryWithUncategorizedOperation () {
-        // return list of operation Without the uncategorized operation 
+        val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("category", masterCategory.id)
+        categoryDao.insert(category)
+        val account = Account("current account", budget.id)
+        accountDao.insert(account)
+        val operationList = listOf(
+                Operation(account.id, TestData.nov_02_2020, category.id, 4000, 1),
+                Operation(account.id, TestData.nov_03_2020, category.id, 2000, 2),
+                Operation(account.id, TestData.feb_02_2021, null, 1000, 3),
+                Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
+
+                )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        val result = operationDao.findByBudget(budget, category)
+        Assertions.assertEquals(3, result.size)
+        Assertions.assertEquals(3000, result[0].amount)
+        Assertions.assertEquals(2000, result[1].amount)
+        Assertions.assertEquals(4000, result[2].amount)
     }
 
     @Test
