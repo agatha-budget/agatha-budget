@@ -1982,12 +1982,13 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary Find operation by account
+         * @summary Find operation by account and category
          * @param {string} accountId id of the account whose operations you want to retrieve
+         * @param {string} [categoryId] if apply filter by category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOperationsByAccount: async (accountId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        findOperationsByAccount: async (accountId: string, categoryId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('findOperationsByAccount', 'accountId', accountId)
             const localVarPath = `/operation/account`;
@@ -2006,6 +2007,10 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
                 localVarQueryParameter['account_id'] = accountId;
             }
 
+            if (categoryId !== undefined) {
+                localVarQueryParameter['category_id'] = categoryId;
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -2021,7 +2026,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
          * 
          * @summary Find operation by budget and category
          * @param {string} budgetId id of the budget whose operations you want to retrieve
-         * @param {string} [categoryId] if apply filter on category
+         * @param {string} [categoryId] if apply filter by category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2200,20 +2205,21 @@ export const OperationApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Find operation by account
+         * @summary Find operation by account and category
          * @param {string} accountId id of the account whose operations you want to retrieve
+         * @param {string} [categoryId] if apply filter by category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findOperationsByAccount(accountId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findOperationsByAccount(accountId, options);
+        async findOperationsByAccount(accountId: string, categoryId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findOperationsByAccount(accountId, categoryId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Find operation by budget and category
          * @param {string} budgetId id of the budget whose operations you want to retrieve
-         * @param {string} [categoryId] if apply filter on category
+         * @param {string} [categoryId] if apply filter by category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2285,19 +2291,20 @@ export const OperationApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary Find operation by account
+         * @summary Find operation by account and category
          * @param {string} accountId id of the account whose operations you want to retrieve
+         * @param {string} [categoryId] if apply filter by category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOperationsByAccount(accountId: string, options?: any): AxiosPromise<Array<Operation>> {
-            return localVarFp.findOperationsByAccount(accountId, options).then((request) => request(axios, basePath));
+        findOperationsByAccount(accountId: string, categoryId?: string, options?: any): AxiosPromise<Array<Operation>> {
+            return localVarFp.findOperationsByAccount(accountId, categoryId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Find operation by budget and category
          * @param {string} budgetId id of the budget whose operations you want to retrieve
-         * @param {string} [categoryId] if apply filter on category
+         * @param {string} [categoryId] if apply filter by category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2370,21 +2377,22 @@ export class OperationApi extends BaseAPI {
 
     /**
      * 
-     * @summary Find operation by account
+     * @summary Find operation by account and category
      * @param {string} accountId id of the account whose operations you want to retrieve
+     * @param {string} [categoryId] if apply filter by category
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public findOperationsByAccount(accountId: string, options?: AxiosRequestConfig) {
-        return OperationApiFp(this.configuration).findOperationsByAccount(accountId, options).then((request) => request(this.axios, this.basePath));
+    public findOperationsByAccount(accountId: string, categoryId?: string, options?: AxiosRequestConfig) {
+        return OperationApiFp(this.configuration).findOperationsByAccount(accountId, categoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Find operation by budget and category
      * @param {string} budgetId id of the budget whose operations you want to retrieve
-     * @param {string} [categoryId] if apply filter on category
+     * @param {string} [categoryId] if apply filter by category
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OperationApi

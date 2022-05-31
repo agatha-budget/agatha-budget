@@ -214,7 +214,7 @@ paths:
       - name: package
         in: query
         description: chosen package
-        required: true
+        required: false
         style: form
         explode: true
         schema:
@@ -997,13 +997,21 @@ paths:
     get:
       tags:
       - Operation
-      summary: Find operation by account
+      summary: Find operation by account and category
       operationId: findOperationsByAccount
       parameters:
       - name: account_id
         in: query
         description: id of the account whose operations you want to retrieve
         required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: category_id
+        in: query
+        description: if apply filter by category
+        required: false
         style: form
         explode: true
         schema:
@@ -1041,7 +1049,7 @@ paths:
           type: string
       - name: category_id
         in: query
-        description: if apply filter on category
+        description: if apply filter by category
         required: false
         style: form
         explode: true
@@ -1296,6 +1304,7 @@ components:
       - style
       - dyslexia
       - creationDate
+      - hasBillingId
       type: object
       properties:
         name:
@@ -1308,8 +1317,10 @@ components:
           type: string
         dyslexia:
           type: boolean
-        createDate:
+        creationDate:
           type: number
+        hasBillingId:
+          type: boolean
       xml:
         name: person
   securitySchemes:
