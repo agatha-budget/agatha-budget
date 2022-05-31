@@ -40,7 +40,7 @@ class Day (
             val day = comparable%100
             val month = ((comparable-day)/100)%100
             val year = (comparable-month-day)/10000
-            if (month < 1 || month > 13) {
+            if (month < 1 || month > 12) {
                 return false // month is invalid
             }
             // check valid day
