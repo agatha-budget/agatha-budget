@@ -1,0 +1,6 @@
+CREATE TABLE log_user_login (
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    id_user VARCHAR(36) NOT NULL,
+    date BIGINT DEFAULT 0,
+    action VARCHAR(36) NOT NULL DEFAULT 'ACTION_LOGIN'
+);

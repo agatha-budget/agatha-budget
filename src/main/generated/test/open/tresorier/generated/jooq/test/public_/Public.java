@@ -13,6 +13,7 @@ import open.tresorier.generated.jooq.test.public_.tables.Allocation;
 import open.tresorier.generated.jooq.test.public_.tables.Budget;
 import open.tresorier.generated.jooq.test.public_.tables.Category;
 import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
+import open.tresorier.generated.jooq.test.public_.tables.LogUserLogin;
 import open.tresorier.generated.jooq.test.public_.tables.MasterCategory;
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
 import open.tresorier.generated.jooq.test.public_.tables.Person;
@@ -28,7 +29,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 860013673;
+    private static final long serialVersionUID = 958803717;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -59,6 +60,11 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.flyway_schema_history</code>.
      */
     public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
+
+    /**
+     * The table <code>PUBLIC.LOG_USER_LOGIN</code>.
+     */
+    public final LogUserLogin LOG_USER_LOGIN = LogUserLogin.LOG_USER_LOGIN;
 
     /**
      * The table <code>PUBLIC.MASTER_CATEGORY</code>.
@@ -96,6 +102,7 @@ public class Public extends SchemaImpl {
             Budget.BUDGET,
             Category.CATEGORY,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
+            LogUserLogin.LOG_USER_LOGIN,
             MasterCategory.MASTER_CATEGORY,
             Operation.OPERATION,
             Person.PERSON);
