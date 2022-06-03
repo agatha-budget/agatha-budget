@@ -24,9 +24,10 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
         }
     }
 
-    override fun update(person: Person) {
+    override fun update(person: Person) : Person {
         val jooqPerson = this.toJooqPerson(person)
         this.generatedDao.update(jooqPerson)
+        return person
     }
 
     override fun getByEmail(email: String): Person {
@@ -56,7 +57,9 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
             person.deleted,
             person.billingId,
             person.billingStatus,
-            person.creationDate
+            person.creationDate,
+            person.style,
+            person.dyslexia
         )
     }
 
@@ -70,6 +73,8 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
                 jooqPerson.email,
                 jooqPerson.billingId,
                 jooqPerson.billingStatus,
+                jooqPerson.style,
+                jooqPerson.dyslexia,
                 jooqPerson.unlockingdate,
                 jooqPerson.loginattemptcount,
                 jooqPerson.id,
@@ -85,6 +90,8 @@ class H2PersonDao(val configuration: Configuration) : IPersonDao {
                 recordPerson.email,
                 recordPerson.billingId,
                 recordPerson.billingStatus,
+                recordPerson.style,
+                recordPerson.dyslexia,
                 recordPerson.unlockingdate,
                 recordPerson.loginattemptcount,
                 recordPerson.id,

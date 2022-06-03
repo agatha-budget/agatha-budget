@@ -13,6 +13,7 @@ import open.tresorier.utils.Properties
 import java.util.Properties as JavaProperties
 import open.tresorier.services.BillingService
 import open.tresorier.model.enum.ProfileEnum
+import open.tresorier.model.enum.PriceIdEnum
 
 fun main() {
 
@@ -43,17 +44,32 @@ fun main() {
         ctx.result(properties.getProperty("environment"))
     }
 
-    app.post("/person") { ctx ->
+    app.post("/signup") { ctx ->
         val name = ctx.queryParam<String>("name").get()
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
         val profileString = ctx.queryParam<String>("profile").get()
         val profile: ProfileEnum = ProfileEnum.valueOf(profileString)
         val person: Person = ServiceManager.personService.createPerson(name, password, email, profile)
-        person?.let {
-            SuperTokens.newSession(ctx, it.id).create()
-            ctx.json("{\"name\" : " + it.name + "}")
-        }
+        SuperTokens.newSession(ctx, person.id).create()
+        ctx.json("{\"name\" : " + person.name + "}")
+    }
+
+    app.before("/person", SuperTokens.middleware())
+    app.get("/person") { ctx ->
+        val publicPerson : PublicPerson = getUserFromAuth(ctx).toPublicPerson() 
+        ctx.json(publicPerson)
+    }
+
+    app.put("/person") { ctx ->
+        val person = getUserFromAuth(ctx)
+        //optional
+        val newName = getOptionalQueryParam<String>(ctx, "new_name")
+        val newStyle = getOptionalQueryParam<String>(ctx, "new_style")
+        val newDyslexia = getOptionalQueryParam<Boolean>(ctx, "new_dyslexia")
+
+        val publicPerson : PublicPerson = ServiceManager.personService.updatePublicPerson(person, newName, newStyle, newDyslexia)
+        ctx.json(publicPerson)    
     }
 
     // handle webhook sent by stripe
@@ -69,22 +85,29 @@ fun main() {
         if (person.billingId != null) {
             ctx.result(BillingService.createBillingManagementSession(person))
         } else {
-            ctx.result(BillingService.createNewUserBillingSession(person))
+            val packageString = ctx.queryParam<String>("package").get()
+            val selectedPackage: PriceIdEnum = PriceIdEnum.valueOf(packageString)
+            ctx.result(BillingService.createNewUserBillingSession(person, selectedPackage))
         }
     }
 
     app.post("/login") { ctx ->
         val email = getQueryParam<String>(ctx, "email")
         val password = getQueryParam<String>(ctx, "password")
-        val person: Person? = ServiceManager.personService.login(email, password)
-        if (person == null) {
-            val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
+        try {
+            val person: Person? = ServiceManager.personService.login(email, password)
+            if (person == null) {
+                val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
+                ctx.status(400)
+                ctx.json("{\"unlockingDate\" : $unlockingDate}")
+            }
+            person?.let {
+                SuperTokens.newSession(ctx, it.id).create()
+                ctx.json("{\"name\" : " + it.name + "}")
+            }
+        } catch (e: Exception) {
             ctx.status(400)
-            ctx.json("{\"unlockingDate\" : $unlockingDate}")
-        }
-        person?.let {
-            SuperTokens.newSession(ctx, it.id).create()
-            ctx.json("{\"name\" : " + it.name + "}")
+            ctx.json("{\"unlockingDate\" : null }")
         }
     }
 
@@ -313,6 +336,15 @@ fun main() {
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val operations = ServiceManager.operationService.findByBudget(user, budget)
         ctx.json(operations)
+    }
+    
+    app.before("/operation/import", SuperTokens.middleware())
+    app.post("/operation/import") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        val fileOfx: String = ctx.body()
+        val numberOperation = ServiceManager.operationService.importOfxFile(user, account, fileOfx)
+        ctx.json(numberOperation)
     }
 
     app.before("/allocation", SuperTokens.middleware())
