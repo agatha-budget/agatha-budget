@@ -1,19 +1,21 @@
 <template>
-  <div class="container header">
+  <div class="container header row form flexForm">
     <div class="containerCross col-12">
       <span class="cross fas fa-times-circle" v-on:click="closeFilter"/>
     </div>
-    <div>Filtrer par catégorie :</div>
-    <Multiselect
-      v-model="categoryId"
-      :groups="true"
-      :searchable="true"
-      :options="categories"
-      :noResultsText="$t('NO_RESULT_FOUND')"
-      :placeholder="$t('SELECT_CATEGORY')"
-    />
-    <btn v-on:click="removeFilter" class="actionButton">enlever le filtre</btn>
-    <btn v-on:click="filter" class="actionButton">Filtrer</btn>
+    <div class ="col-4 offset-1 col-lg-3 offset-lg-2">{{ $t("FILTER_BY_CATEGORY") }} :</div>
+    <div class="selectAutoComplete col-5 offset-1 col-lg-4 offset-lg-1">
+      <Multiselect
+        v-model="categoryId"
+        :groups="true"
+        :searchable="true"
+        :options="categories"
+        :noResultsText="$t('NO_RESULT_FOUND')"
+        :placeholder="$t('SELECT_CATEGORY')"
+      />
+    </div>
+    <btn v-on:click="removeFilter" class="actionButton col-3 offset-1 col-lg-3 offset-lg-2">{{ $t("REMOVE_FILTER") }}</btn>
+    <btn v-on:click="filter" class="actionButton col-3 offset-2 col-lg-3 offset-lg-1">{{ $t("FILTER") }}</btn>
   </div>
 </template>
 

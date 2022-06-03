@@ -18,7 +18,7 @@
         <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
         <div v-on:click="blocFilter">
           <span class="illutstration btn fas fa-filter"/>
-          filtrer
+          {{ $t("FILTER") }}
         </div>
         <FilterCmpt v-if="filterBloc" @close-filter="closeFilter" @filtering-category="filter"/>
         <template v-for="operation in this.operations" :key="operation">
