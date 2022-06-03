@@ -2,7 +2,6 @@ package open.tresorier.services
 
 import open.tresorier.dao.IPostItDao
 import open.tresorier.model.*
-import open.tresorier.utils.Time
 
 class PostItService(private val postItDao: IPostItDao, private val authorizationService: AuthorizationService) {
 
