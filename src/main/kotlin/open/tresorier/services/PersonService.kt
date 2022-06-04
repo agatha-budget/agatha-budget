@@ -18,6 +18,7 @@ class PersonService(private val personDao: IPersonDao,
         var person = Person(name, hashedPassword, email)
         person = personDao.insert(person)
         budgetService.create(person, Budget.DEFAULT_BUDGET_NAME, profile)
+        mailingService.add(person)
         return person
     }
 
