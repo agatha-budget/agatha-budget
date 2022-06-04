@@ -9,7 +9,9 @@ import open.tresorier.exception.TresorierException
 import open.tresorier.model.enum.ProfileEnum
 
 
-class PersonService(private val personDao: IPersonDao, private val budgetService: BudgetService) {
+class PersonService(private val personDao: IPersonDao, 
+    private val budgetService: BudgetService,
+    private val mailingService: MailingService) {
 
     fun createPerson(name: String, password: String, email: String, profile: ProfileEnum): Person {
         val hashedPassword = AuthenticationService.hashPassword(password)
