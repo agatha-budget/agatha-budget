@@ -44,7 +44,7 @@ fun main() {
         ctx.result(properties.getProperty("environment"))
     }
 
-    app.post("/signup") { ctx ->
+    app.post("/person") { ctx ->
         val name = ctx.queryParam<String>("name").get()
         val password = ctx.queryParam<String>("password").get()
         val email = ctx.queryParam<String>("email").get()
