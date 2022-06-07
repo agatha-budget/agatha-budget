@@ -146,7 +146,9 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             operation.categoryId,
             operation.memo,
             operation.amount,
-            operation.orderInDay
+            operation.orderInDay,
+            operation.pending,
+            operation.locked,
             )
     }
 
@@ -160,6 +162,8 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.amount,
             jooqOperation.orderInDay,
             jooqOperation.memo,
+            jooqOperation.pending,
+            jooqOperation.locked,
             jooqOperation.id,
         )
     }
@@ -180,6 +184,8 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             operationRecord.amount,
             operationRecord.orderInDay,
             operationRecord.memo,
+            operationRecord.pending,
+            operationRecord.locked,
             operationRecord.id,
         )
     }

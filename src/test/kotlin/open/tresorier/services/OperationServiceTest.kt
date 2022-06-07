@@ -36,10 +36,10 @@ class OperationServiceTest : ITest {
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
-        val operationCreated = operationService.create(mileva, account, TestData.jan_16_2022, category, -1000, "encas")
+        val operationCreated = operationService.create(mileva, account, TestData.jan_16_2022, category, -1000, "encas", false)
         val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side effect
 
-        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, category, -1200, "encas")
+        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, category, -1200, "encas", false)
 
         Assertions.assertEquals(orderInDayAtCreation, operationModified.orderInDay)
     }
@@ -58,10 +58,10 @@ class OperationServiceTest : ITest {
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
-        val operationCreated = operationService.create(emilie, account, TestData.jan_16_2022, category, 1000, "")
+        val operationCreated = operationService.create(emilie, account, TestData.jan_16_2022, category, 1000, "", false)
         val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side effect
         
-        val operationModified = operationService.update(emilie, operationCreated, account, TestData.jan_15_2022, null, null, null)
+        val operationModified = operationService.update(emilie, operationCreated, account, TestData.jan_15_2022, null, null, null, null)
 
         Assertions.assertTrue(orderInDayAtCreation < operationModified.orderInDay)
     }
@@ -79,7 +79,7 @@ class OperationServiceTest : ITest {
         val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220114<TRNAMT>-536,50<FITID>2802202220220228-03.01.56.182263<NAME>PRIX LOUISA GROSS HORWITZ<MEMO>PRIX LOUISA GROSS HORWITZ</STMTTRN>"
 
         val newOperation: Operation = operationService.createOperationFromOFX(account, ofxDebitOperation)
-        val comparableOperation = operationService.create(rosalind, account, TestData.jan_14_2022, null, -53650, "PRIX LOUISA GROSS HORWITZ")
+        val comparableOperation = operationService.create(rosalind, account, TestData.jan_14_2022, null, -53650, "PRIX LOUISA GROSS HORWITZ", false)
 
         Assertions.assertTrue(newOperation.isEquals(comparableOperation))
     }
@@ -97,7 +97,7 @@ class OperationServiceTest : ITest {
         val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220114<TRNAMT>+89,50<FITID>2802202220220228-03.01.56.182263<NAME>VIR SEPA Babbage<MEMO>VIR SEPA Babbage</STMTTRN>"
 
         val newOperation = operationService.createOperationFromOFX(account, ofxDebitOperation)
-        val comparableOperation = operationService.create(ada, account, TestData.jan_14_2022, null, 8950, "VIR SEPA Babbage")
+        val comparableOperation = operationService.create(ada, account, TestData.jan_14_2022, null, 8950, "VIR SEPA Babbage", false)
 
         Assertions.assertTrue(newOperation.isEquals(comparableOperation))
     }
@@ -220,6 +220,30 @@ class OperationServiceTest : ITest {
         Assertions.assertEquals(listOperations[0], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-8.98<FITID>LLW_DPE3LF<NAME>CASA GRENOBLE 1 CARTE 37459926 P</STMTTRN>")
         Assertions.assertEquals(listOperations[1], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-26.05<FITID>LLW_DPE3LO<NAME>UNDIZ-2155 CARTE 37459926 PAIEME</STMTTRN>")
         Assertions.assertEquals(listOperations.size, 2)
+    }
+
+    @Test
+    fun testpendingProperty() {
+        val francoise: Person = personService.createPerson(
+            "Françoise Barré-Sinoussi", "HPA-23", "francoise@vih-sida.fr", ProfileEnum.PROFILE_USER
+        )
+        francoise.billingStatus = true
+        val budget: Budget = budgetService.findByUser(francoise)[0]
+        val account: Account = accountService.create(
+            francoise, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        var operation: Operation = operationService.create(
+            francoise, account, TestData.jan_14_2022, null, 8950, "Institut de la santé et de la recherche médicale", null
+        )
+        Assertions.assertFalse(operation.pending)
+
+        operationService.update(francoise, operation, account, null, null, null, null, true)
+
+        Assertions.assertTrue(operation.pending)
+
+        operationService.update(francoise, operation, account, null, null, null, null, false)
+
+        Assertions.assertFalse(operation.pending)
     }
 
 }
