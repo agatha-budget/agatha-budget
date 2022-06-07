@@ -82,11 +82,11 @@ fun main() {
     app.before("/billing", SuperTokens.middleware())
     app.get("/billing") { ctx ->
         val person = getUserFromAuth(ctx)
-        val packageString = ctx.queryParam<String>("package").get()
-        val selectedPackage: PriceIdEnum = PriceIdEnum.valueOf(packageString)
         if (person.billingId != null) {
             ctx.result(BillingService.createBillingManagementSession(person))
         } else {
+            val packageString = ctx.queryParam<String>("package").get()
+            val selectedPackage: PriceIdEnum = PriceIdEnum.valueOf(packageString)
             ctx.result(BillingService.createNewUserBillingSession(person, selectedPackage))
         }
     }
@@ -94,15 +94,20 @@ fun main() {
     app.post("/login") { ctx ->
         val email = getQueryParam<String>(ctx, "email")
         val password = getQueryParam<String>(ctx, "password")
-        val person: Person? = ServiceManager.personService.login(email, password)
-        if (person == null) {
-            val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
+        try {
+            val person: Person? = ServiceManager.personService.login(email, password)
+            if (person == null) {
+                val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
+                ctx.status(400)
+                ctx.json("{\"unlockingDate\" : $unlockingDate}")
+            }
+            person?.let {
+                SuperTokens.newSession(ctx, it.id).create()
+                ctx.json("{\"name\" : " + it.name + "}")
+            }
+        } catch (e: Exception) {
             ctx.status(400)
-            ctx.json("{\"unlockingDate\" : $unlockingDate}")
-        }
-        person?.let {
-            SuperTokens.newSession(ctx, it.id).create()
-            ctx.json("{\"name\" : " + it.name + "}")
+            ctx.json("{\"unlockingDate\" : null }")
         }
     }
 

@@ -110,7 +110,6 @@ class OperationServiceTest : ITest {
         Assertions.assertEquals(listOperations[0], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220228<TRNAMT>-8,85<FITID>2802202220220228-17.02.34.872431<NAME>VIR SEPA DENISE EVE<MEMO>VIR SEPA DENISE EVE</STMTTRN>")
         Assertions.assertEquals(listOperations[1], "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220215<TRNAMT>+40,00<FITID>1502202220220215-05.39.35.662478<NAME>POLONIUM<MEMO>POLONIUM</STMTTRN>")
         Assertions.assertEquals(listOperations.size, 2)
-    
     }
 
     @Test
@@ -177,6 +176,50 @@ class OperationServiceTest : ITest {
         val numberOperation = operationService.importOfxFile(marion, account, operationList)
 
         Assertions.assertEquals(numberOperation, 0)
+    }
+
+    @Test
+    fun testImportOfxFileOtherTagsAndAmount() {
+        val irene: Person = personService.createPerson(
+            "Irène Joliot-Curie", "Nobel_1935", "irene@chimie.fr", ProfileEnum.PROFILE_USER
+        )
+        irene.billingStatus = true
+        val budget: Budget = budgetService.findByUser(irene)[0]
+        val account: Account = accountService.create(
+            irene, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        val operationList = "OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:1252COMPRESSION:NONEOLDFILEUID:NONENEWFILEUID:NONE<OFX><SIGNONMSGSRSV1><SONRS><STATUS><CODE>0<SEVERITY>INFO</STATUS><DTSERVER>20220515000000<LANGUAGE>FRA</SONRS></SIGNONMSGSRSV1><BANKMSGSRSV1><STMTTRNRS><TRNUID>20220515000000<STATUS><CODE>0<SEVERITY>INFO</STATUS><STMTRS><CURDEF>EUR<BANKACCTFROM><BANKID>10278<BRANCHID>08895<ACCTID>00020483705<ACCTTYPE>CHECKING</BANKACCTFROM><BANKTRANLIST><DTSTART>20220315000000<DTEND>20220513000000<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-8.98<FITID>LLW_DPE3LF<NAME>CASA GRENOBLE 1 CARTE 37459926 P</STMTTRN><STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-26.05<FITID>LLW_DPE3LO<NAME>UNDIZ-2155 CARTE 37459926 PAIEME</STMTTRN><STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220317<DTUSER>20220317<TRNAMT>-6.40<FITID>LLW_DPRGLF<NAME>CARREFOUR CITY CARTE 37459926 PA</STMTTRN></BANKTRANLIST><LEDGERBAL><BALAMT>1051.56<DTASOF>20220513000000</LEDGERBAL><AVAILBAL><BALAMT>0.00<DTASOF>20220513000000</AVAILBAL></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"
+        val numberOperation = operationService.importOfxFile(irene, account, operationList)
+
+        Assertions.assertEquals(numberOperation, 3)
+    }
+
+    @Test
+    fun testOfxOperationOtherTagsAndAmount() {
+        val emmanuelle: Person = personService.createPerson(
+            "Emmanuelle Carpentier", "Nobel_2020", "emmanuelle@chimie.fr", ProfileEnum.PROFILE_USER
+        )
+        emmanuelle.billingStatus = true
+        val budget: Budget = budgetService.findByUser(emmanuelle)[0]
+        val account: Account = accountService.create(
+            emmanuelle, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        val operation = "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220114<DTUSER>20220114<TRNAMT>-25.00<FITID>LLDGOYVPC9<NAME>CRISPR-Cas9</STMTTRN>"
+        
+        val newOperation: Operation = operationService.createOperationFromOFX(account, operation)
+        val comparableOperation = operationService.create(emmanuelle, account, TestData.jan_14_2022, null, -2500, "CRISPR-Cas9")
+
+        Assertions.assertTrue(newOperation.isEquals(comparableOperation))
+    }
+
+    @Test
+    fun testCuttingOperationsOtherTagsAndAmount() {
+        val ofxFile: String = "<OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:1252COMPRESSION:NONEOLDFILEUID:NONENEWFILEUID:NONE<OFX><SIGNONMSGSRSV1><SONRS><STATUS><CODE>0<SEVERITY>INFO</STATUS><DTSERVER>20220515000000<LANGUAGE>FRA</SONRS></SIGNONMSGSRSV1><BANKMSGSRSV1><STMTTRNRS><TRNUID>20220515000000<STATUS><CODE>0<SEVERITY>INFO</STATUS><STMTRS><CURDEF>EUR<BANKACCTFROM><BANKID>10278<BRANCHID>08895<ACCTID>00020483705<ACCTTYPE>CHECKING</BANKACCTFROM><BANKTRANLIST><DTSTART>20220315000000<DTEND>20220513000000<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-8.98<FITID>LLW_DPE3LF<NAME>CASA GRENOBLE 1 CARTE 37459926 P</STMTTRN><STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-26.05<FITID>LLW_DPE3LO<NAME>UNDIZ-2155 CARTE 37459926 PAIEME</STMTTRN></BANKTRANLIST><LEDGERBAL><BALAMT>1051.56<DTASOF>20220513000000</LEDGERBAL><AVAILBAL><BALAMT>0.00<DTASOF>20220513000000</AVAILBAL></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"
+        val listOperations: List<String> = operationService.splitOfxOperations(ofxFile)
+        
+        Assertions.assertEquals(listOperations[0], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-8.98<FITID>LLW_DPE3LF<NAME>CASA GRENOBLE 1 CARTE 37459926 P</STMTTRN>")
+        Assertions.assertEquals(listOperations[1], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-26.05<FITID>LLW_DPE3LO<NAME>UNDIZ-2155 CARTE 37459926 PAIEME</STMTTRN>")
+        Assertions.assertEquals(listOperations.size, 2)
     }
 
     @Test
