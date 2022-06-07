@@ -16,7 +16,6 @@ export default class Calcul {
       const result = this.calculParenthesis(newCalculation, numberParenthesis, listParenthesis)
       return this.basicCalcul(result)
     }
-    console.log(newCalculation + ' entireCalcul')
     return this.basicCalcul(newCalculation)
   }
 

@@ -37,7 +37,7 @@
     "ACTION": "action",
     "ARCHIVED_CATEGORIES": "catégories archivées",
     "DEFAULT": "par défaut",
-    "I18N_TRASNFERT": "Transfert vers/depuis un autre compte",
+    "I18N_TRANSFER": "Transfert vers/depuis un autre compte",
     "TO_BE_PULLED_OUT": "à retirer",
     "LOADING": "En route !",
     "ADD_MASTER_CATEGORY": "ajouter une catégorie",
@@ -105,5 +105,7 @@
     "GRAPH": "graphiques",
     "ADD_MANUALLY": "ajout manuel",
     "BANK_IMPORT": "import relevé",
-    "PARAMETERS": "paramètres"
+    "PARAMETERS": "paramètres",
+    "TRANSFER_TO": " transfert vers ",
+    "TRANSFER_FROM": " transfert depuis "
 }
