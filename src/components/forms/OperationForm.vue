@@ -108,7 +108,7 @@ export default defineComponent({
       return optionsList
     },
     amount (): number {
-      return this.entireCalcul(this.amountString)
+      return Calcul.entireCalcul(this.amountString)
     }
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
@@ -153,9 +153,6 @@ export default defineComponent({
         group.options.push(option)
       }
       return group
-    },
-    entireCalcul (amount: string): number {
-      return Calcul.entireCalcul(amount)
     },
     closeForm () {
       if (this.operation) {
