@@ -109,7 +109,7 @@ export default defineComponent({
       return optionsList
     },
     amount (): number {
-      return Calcul.entireCalcul(this.amountString)
+      return this.entireCalcul(this.amountString)
     },
     account (): Account | null {
       return this.getAccountById(this.accountId)
@@ -163,6 +163,26 @@ export default defineComponent({
         group.options.push(option)
       }
       return group
+    },
+    createOptionTransfer (accounts: Account[]): GroupSelectOption {
+      const group: GroupSelectOption = {
+        label: this.$t('I18N_TRANSFER'),
+        options: []
+      }
+      for (const account of accounts) {
+        if (account.id !== this.accountId) {
+          const option: SelectOption = { value: account.id, label: account.name }
+          group.options.push(option)
+        }
+      }
+      return group
+    },
+    getAccountById (accountId: string): Account | null {
+      return StoreHandler.getAccountById(this.$store, accountId)
+    },
+    categoryForTransfer (debitedAccount: Account, creditedAccount: Account) {
+      OperationService.addOperation(this.$store, debitedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, Utils.getCentsAmount(this.amount * -1), this.memo + this.$t('TRANSFER_TO') + creditedAccount.name)
+      OperationService.addOperation(this.$store, creditedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, Utils.getCentsAmount(this.amount), this.memo + this.$t('TRANSFER_FROM') + debitedAccount.name)
     },
     entireCalcul (amount: string): number {
       return Calcul.entireCalcul(amount)
