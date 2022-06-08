@@ -76,7 +76,6 @@ export default class PersonService {
   public static async manageSubscription () {
     try {
       const billingPortalUrl = (await (personApi.createBillingPortalSession())).data
-      console.log('billingPortalUrl : ' + billingPortalUrl)
       window.location.href = billingPortalUrl
     } catch (exception) {
       if (axios.isAxiosError(exception)) {
