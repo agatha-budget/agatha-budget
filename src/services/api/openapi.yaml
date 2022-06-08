@@ -214,7 +214,7 @@ paths:
       - name: package
         in: query
         description: chosen package
-        required: true
+        required: false
         style: form
         explode: true
         schema:
@@ -1288,6 +1288,7 @@ components:
       - style
       - dyslexia
       - creationDate
+      - hasBillingId
       type: object
       properties:
         name:
@@ -1300,8 +1301,10 @@ components:
           type: string
         dyslexia:
           type: boolean
-        createDate:
+        creationDate:
           type: number
+        hasBillingId:
+          type: boolean
       xml:
         name: person
   securitySchemes:
