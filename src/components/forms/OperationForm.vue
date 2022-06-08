@@ -41,7 +41,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
-import { Category, MasterCategory, Operation, incomeCategoryId, transfertCategoryId, GroupSelectOption, SelectOption } from '@/model/model'
+import { Category, MasterCategory, Operation, Account, incomeCategoryId, transfertCategoryId, GroupSelectOption, SelectOption } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import Utils from '@/utils/Utils'
@@ -94,11 +94,12 @@ export default defineComponent({
         {
           label: this.$t('DEFAULT'),
           options: [
-            { value: incomeCategoryId, label: this.$t('I18N_INCOME') },
-            { value: transfertCategoryId, label: this.$t('I18N_TRASNFERT') }
+            { value: incomeCategoryId, label: this.$t('I18N_INCOME') }
           ]
         }
       ]
+      const allAccounts = this.$store.state.accounts
+      optionsList.push(this.createOptionTransfer(allAccounts))
       for (const masterCategory of this.$store.state.masterCategories) {
         const categories = this.getCategoriesByMasterCategory(masterCategory)
         if (categories.length > 0) {
@@ -108,7 +109,10 @@ export default defineComponent({
       return optionsList
     },
     amount (): number {
-      return Calcul.entireCalcul(this.amountString)
+      return this.entireCalcul(this.amountString)
+    },
+    account (): Account | null {
+      return this.getAccountById(this.accountId)
     }
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
@@ -125,11 +129,17 @@ export default defineComponent({
       }
     },
     addOperation () {
-      OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
-        () => {
-          this.$emit('updateOperationList')
+      const accountForTransfer = this.getAccountById(this.categoryId)
+      if (this.account && accountForTransfer) {
+        if (this.incoming) {
+          this.categoryForTransfer(accountForTransfer, this.account)
+        } else {
+          this.categoryForTransfer(this.account, accountForTransfer)
         }
-      )
+      } else {
+        OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo)
+      }
+      this.$emit('updateOperationList')
     },
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
       return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
@@ -153,6 +163,29 @@ export default defineComponent({
         group.options.push(option)
       }
       return group
+    },
+    createOptionTransfer (accounts: Account[]): GroupSelectOption {
+      const group: GroupSelectOption = {
+        label: this.$t('I18N_TRANSFER'),
+        options: []
+      }
+      for (const account of accounts) {
+        if (account.id !== this.accountId) {
+          const option: SelectOption = { value: account.id, label: account.name }
+          group.options.push(option)
+        }
+      }
+      return group
+    },
+    getAccountById (accountId: string): Account | null {
+      return StoreHandler.getAccountById(this.$store, accountId)
+    },
+    categoryForTransfer (debitedAccount: Account, creditedAccount: Account) {
+      OperationService.addOperation(this.$store, debitedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, Utils.getCentsAmount(this.amount * -1), this.memo + this.$t('TRANSFER_TO') + creditedAccount.name)
+      OperationService.addOperation(this.$store, creditedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, Utils.getCentsAmount(this.amount), this.memo + this.$t('TRANSFER_FROM') + debitedAccount.name)
+    },
+    entireCalcul (amount: string): number {
+      return Calcul.entireCalcul(amount)
     },
     closeForm () {
       if (this.operation) {
