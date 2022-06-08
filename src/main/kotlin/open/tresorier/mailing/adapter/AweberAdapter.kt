@@ -8,6 +8,7 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
 import open.tresorier.utils.Properties
+import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.mailing.IMailingPort
 
 import open.tresorier.model.Person
@@ -15,7 +16,7 @@ import open.tresorier.model.Person
 class AweberAdapter() : IMailingPort {
     
     override fun add(person: Person) {
-        val properties = Properties.getProperties()
+        val properties = Properties()
         val bodyAsJsonString = 
         """{
             'email' : ${person.email},
@@ -26,9 +27,9 @@ class AweberAdapter() : IMailingPort {
         val url = 
         """
             https://api.aweber.com/1.0/accounts/" 
-            ${properties.getProperty(Properties.aweberAccountId)}
+            ${properties.get(AWEBER_ACCOUNT_ID)}
             /lists/"
-            ${properties.getProperty(Properties.aweberListId)}
+            ${properties.get(AWEBER_LIST_ID)}
             /subscribers
         """
 
@@ -39,7 +40,7 @@ class AweberAdapter() : IMailingPort {
 		connection.setRequestProperty("Accept", "application/json")
 		connection.setRequestProperty("User-Agent", "Agatha/1.0")
         connection.setRequestProperty("Authorization",
-         "Bearer ${properties.getProperty(Properties.aweberAccessToken)}"
+         "Bearer ${properties.get(AWEBER_ACCESS_TOKEN)}"
         )
 
 		// BODY

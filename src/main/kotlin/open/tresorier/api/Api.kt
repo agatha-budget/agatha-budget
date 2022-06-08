@@ -10,20 +10,20 @@ import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.exception.SuspendedUserException
 import open.tresorier.model.*
 import open.tresorier.utils.Properties
-import java.util.Properties as JavaProperties
+import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.services.BillingService
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.model.enum.PriceIdEnum
 
 fun main() {
 
-    val properties = Properties.getProperties()
+    val properties = Properties()
     val app = setUpApp(properties)
 
     // Session Manager
     SuperTokens.config().withHosts(
-        properties.getProperty("supertoken_url"),
-        properties.getProperty("supertoken_api_key")
+        properties.get(SUPERTOKEN_URL),
+        properties.get(SUPERTOKEN_API_KEY)
     )
     // Dependencies injection
     ServiceManager.start()
@@ -41,7 +41,7 @@ fun main() {
     }
 
     app.get("/ping") { ctx ->
-        ctx.result(properties.getProperty("environment"))
+        ctx.result(properties.get(ENVIRONMENT))
     }
 
     app.post("/signup") { ctx ->
@@ -358,13 +358,17 @@ fun main() {
     }
 }
 
-private fun setUpApp(properties: JavaProperties): Javalin {
-    val environmentStatus = properties.getProperty("environment")
+private fun setUpApp(properties: Properties): Javalin {
+    val environmentStatus = properties.get(ENVIRONMENT)
     val app = Javalin.create { config ->
             if (environmentStatus == "dev") {
                 config.enableCorsForAllOrigins()
             } else {
-                config.enableCorsForOrigin(properties.getProperty("allowed_origin_front"),properties.getProperty("allowed_origin_beta_front"), properties.getProperty("allowed_origin_stripe"))
+                config.enableCorsForOrigin(
+                    properties.get(ALLOWED_ORIGIN_FRONT),
+                    properties.get(ALLOWED_ORIGIN_BETA_FRONT),
+                    properties.get(ALLOWED_ORIGIN_STRIPE)
+                )
             }
     }.start(getHerokuAssignedOrDefaultPort())
 

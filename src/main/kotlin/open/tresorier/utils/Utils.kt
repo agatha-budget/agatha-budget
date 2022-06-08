@@ -3,12 +3,13 @@ package open.tresorier.utils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.io.FileInputStream
-import java.util.Properties
+import java.util.Properties as JavaProperties
+import open.tresorier.utils.PropertiesEnum.*
 
 object Utils {
 
-    fun getPropertiesFromFile(fileRelativePath : String) : Properties {
-        val properties = Properties()
+    fun getPropertiesFromFile(fileRelativePath : String) : JavaProperties {
+        val properties = JavaProperties()
         val propertiesFile = System.getProperty("user.dir") + "/" + fileRelativePath;
         val inputStream = FileInputStream(propertiesFile)
         properties.load(inputStream)

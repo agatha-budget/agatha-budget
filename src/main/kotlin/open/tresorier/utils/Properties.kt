@@ -1,48 +1,41 @@
 package open.tresorier.utils
 
-import java.util.Properties
+import java.util.Properties as JavaProperties
+import open.tresorier.utils.PropertiesEnum.*
 
-object Properties {
-    const val aweberListId = "aweberListId"
-    const val aweberAccountId = "aweberAccountId"
-    const val aweberAccessToken = "aweberAccessToken"
+class Properties () {
 
-    fun getProperties() : Properties {
-        val defaultProperties = Utils.getPropertiesFromFile("gradle.properties")
-        return getHerokuProperties(defaultProperties)
+    val properties: JavaProperties
+
+    // initializer block
+    init {
+        properties = Utils.getPropertiesFromFile("gradle.properties")
+        getSystemProperties()
     }
 
-    fun getHerokuProperties(default: Properties) : Properties{
+    fun get(name : PropertiesEnum) : String {
+        return properties.getProperty(name.name)
+    }
 
-        val properties = Properties(default)
+    fun getSystemProperties() {
 
-        val tresorierDB = default.getProperty("herokuTresorierDB")
-        val integrationDB = default.getProperty("herokuIntegrationDB")
+        val tresorierDB = this.get(HEROKU_TRESORIER_DB)
+        val integrationDB = this.get(HEROKU_INTEGRATION_DB)
 
-        val tresorier_db_url = System.getenv(tresorierDB +"_URL") ?: default.getProperty("tresorier_db_url_dflt")
-        val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: default.getProperty("tresorier_db_usr_dflt")
-        val tresorier_db_pwd = System.getenv(tresorierDB + "_PASSWORD") ?: default.getProperty("tresorier_db_pwd_dflt")
+        val tresorier_db_url = System.getenv(tresorierDB +"_URL") ?: this.get(TRESORIER_DB_URL_DFLT)
+        val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: this.get(TRESORIER_DB_USR_DFLT)
+        val tresorier_db_pwd = System.getenv(tresorierDB + "_PASSWORD") ?: this.get(TRESORIER_DB_PWD_DFLT)
 
-        val test_db_url = default.getProperty("test_db_url")
-        val test_db_usr = default.getProperty("test_db_usr")
-        val test_db_pwd = default.getProperty("test_db_pwd")
+        val integration_db_url = System.getenv(integrationDB +"_URL") ?: this.get(INTEGRATION_DB_URL_DFLT)
+        val integration_db_usr = System.getenv(integrationDB + "_USERNAME") ?: this.get(INTEGRATION_DB_USR_DFLT)
+        val integration_db_pwd = System.getenv(integrationDB + "_PASSWORD") ?: this.get(INTEGRATION_DB_PWD_DFLT)
 
-        val integration_db_url = System.getenv(integrationDB +"_URL") ?: default.getProperty("integration_db_url_dflt")
-        val integration_db_usr = System.getenv(integrationDB + "_USERNAME") ?: default.getProperty("integration_db_usr_dflt")
-        val integration_db_pwd = System.getenv(integrationDB + "_PASSWORD") ?: default.getProperty("integration_db_pwd_dflt")
+        properties.setProperty("TRESORIER_DB_URL", tresorier_db_url)
+        properties.setProperty("TRESORIER_DB_USR", tresorier_db_usr)
+        properties.setProperty("TRESORIER_DB_PWD", tresorier_db_pwd)
 
-        properties.setProperty("tresorier_db_url", tresorier_db_url)
-        properties.setProperty("tresorier_db_usr", tresorier_db_usr)
-        properties.setProperty("tresorier_db_pwd", tresorier_db_pwd)
-
-        properties.setProperty("test_db_url", test_db_url)
-        properties.setProperty("test_db_usr", test_db_usr)
-        properties.setProperty("test_db_pwd", test_db_pwd)
-
-        properties.setProperty("integration_db_url", integration_db_url)
-        properties.setProperty("integration_db_usr", integration_db_usr)
-        properties.setProperty("integration_db_pwd", integration_db_pwd)
-
-        return properties
+        properties.setProperty("INTEGRATION_DB_URL", integration_db_url)
+        properties.setProperty("INTEGRATION_DB_USR", integration_db_usr)
+        properties.setProperty("INTEGRATION_DB_PWD", integration_db_pwd)
     }
 }
