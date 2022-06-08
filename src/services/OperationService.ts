@@ -16,17 +16,17 @@ export default class OperationService {
   }
 
   public static async addOperation (store: Store<StoreState>, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean) {
-    const response = await operationApi.addOperation(accountId, day, categoryId, amount, memo, isPending)
+    await operationApi.addOperation(accountId, day, categoryId, amount, memo, isPending)
     StoreHandler.updateAccounts(store)
   }
 
   public static async deleteOperation (store: Store<StoreState>, operation: Operation) {
-    const response = await operationApi.deleteOperation(operation.id)
+    await operationApi.deleteOperation(operation.id)
     StoreHandler.updateAccounts(store)
   }
 
   public static async updateOperation (store: Store<StoreState>, operation: Operation, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean) {
-    const response = await operationApi.updateOperation(operation.id, accountId, day, categoryId, amount, memo, isPending)
+    await operationApi.updateOperation(operation.id, accountId, day, categoryId, amount, memo, isPending)
     StoreHandler.updateAccounts(store)
   }
 

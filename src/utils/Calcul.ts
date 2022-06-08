@@ -45,7 +45,7 @@ export default class Calcul {
     } else {
       result = this.parseComma(calculation)
     }
-    return Math.trunc(result * 100) / 100
+    return Math.round(result * 100) / 100
   }
 
   public static subtraction (calculation: string): number {
