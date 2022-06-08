@@ -38,13 +38,13 @@
           <span class="switch-label-pending"/>
           <span class="switch-handle-pending"/>
       </label>
-      <div v-if="isPending" class="flexForm">
+      <div v-if="isPending" class="flexForm textPending">
         <div class="icon">
           <button class="illustration btn fas fa-hourglass-half"/>
         </div>
         <div>{{ $t("PENDING") }}</div>
       </div>
-      <div v-else class="flexForm">
+      <div v-else class="flexForm textPending">
         <div class="icon">
           <button class="illustration btn fas fa-calendar-check"/>
         </div>
