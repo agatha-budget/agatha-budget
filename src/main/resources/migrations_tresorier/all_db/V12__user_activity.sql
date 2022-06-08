@@ -1,6 +1,6 @@
-CREATE TABLE log_user_login (
+CREATE TABLE user_activity (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
-    id_user VARCHAR(36) NOT NULL,
+    user_id VARCHAR(36) NOT NULL,
     date BIGINT DEFAULT 0,
     action VARCHAR(36) NOT NULL DEFAULT 'ACTION_LOGIN'
 );

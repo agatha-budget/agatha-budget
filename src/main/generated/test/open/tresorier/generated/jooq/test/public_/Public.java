@@ -13,10 +13,10 @@ import open.tresorier.generated.jooq.test.public_.tables.Allocation;
 import open.tresorier.generated.jooq.test.public_.tables.Budget;
 import open.tresorier.generated.jooq.test.public_.tables.Category;
 import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
-import open.tresorier.generated.jooq.test.public_.tables.LogUserLogin;
 import open.tresorier.generated.jooq.test.public_.tables.MasterCategory;
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
 import open.tresorier.generated.jooq.test.public_.tables.Person;
+import open.tresorier.generated.jooq.test.public_.tables.UserActivity;
 
 import org.jooq.Catalog;
 import org.jooq.Table;
@@ -29,7 +29,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 958803717;
+    private static final long serialVersionUID = -339440419;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -62,11 +62,6 @@ public class Public extends SchemaImpl {
     public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
-     * The table <code>PUBLIC.LOG_USER_LOGIN</code>.
-     */
-    public final LogUserLogin LOG_USER_LOGIN = LogUserLogin.LOG_USER_LOGIN;
-
-    /**
      * The table <code>PUBLIC.MASTER_CATEGORY</code>.
      */
     public final MasterCategory MASTER_CATEGORY = MasterCategory.MASTER_CATEGORY;
@@ -80,6 +75,11 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.PERSON</code>.
      */
     public final Person PERSON = Person.PERSON;
+
+    /**
+     * The table <code>PUBLIC.USER_ACTIVITY</code>.
+     */
+    public final UserActivity USER_ACTIVITY = UserActivity.USER_ACTIVITY;
 
     /**
      * No further instances allowed
@@ -102,9 +102,9 @@ public class Public extends SchemaImpl {
             Budget.BUDGET,
             Category.CATEGORY,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
-            LogUserLogin.LOG_USER_LOGIN,
             MasterCategory.MASTER_CATEGORY,
             Operation.OPERATION,
-            Person.PERSON);
+            Person.PERSON,
+            UserActivity.USER_ACTIVITY);
     }
 }

@@ -9,10 +9,10 @@ import open.tresorier.generated.jooq.main.tables.Allocation;
 import open.tresorier.generated.jooq.main.tables.Budget;
 import open.tresorier.generated.jooq.main.tables.Category;
 import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
-import open.tresorier.generated.jooq.main.tables.LogUserLogin;
 import open.tresorier.generated.jooq.main.tables.MasterCategory;
 import open.tresorier.generated.jooq.main.tables.Operation;
 import open.tresorier.generated.jooq.main.tables.Person;
+import open.tresorier.generated.jooq.main.tables.UserActivity;
 
 
 /**
@@ -47,11 +47,6 @@ public class Tables {
     public static final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
-     * The table <code>public.log_user_login</code>.
-     */
-    public static final LogUserLogin LOG_USER_LOGIN = LogUserLogin.LOG_USER_LOGIN;
-
-    /**
      * The table <code>public.master_category</code>.
      */
     public static final MasterCategory MASTER_CATEGORY = MasterCategory.MASTER_CATEGORY;
@@ -65,4 +60,9 @@ public class Tables {
      * The table <code>public.person</code>.
      */
     public static final Person PERSON = Person.PERSON;
+
+    /**
+     * The table <code>public.user_activity</code>.
+     */
+    public static final UserActivity USER_ACTIVITY = UserActivity.USER_ACTIVITY;
 }

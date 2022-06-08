@@ -2,7 +2,7 @@ package open.tresorier.model
 
 import open.tresorier.model.enum.ActionEnum
 
-class LogUserLogin (
+class UserActivity (
     val userId: String? = null,
     val date: Long = 0,
     val action: ActionEnum? = ActionEnum.ACTION_LOGIN,

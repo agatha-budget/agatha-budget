@@ -9,19 +9,19 @@ import open.tresorier.generated.jooq.test.public_.tables.Allocation;
 import open.tresorier.generated.jooq.test.public_.tables.Budget;
 import open.tresorier.generated.jooq.test.public_.tables.Category;
 import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
-import open.tresorier.generated.jooq.test.public_.tables.LogUserLogin;
 import open.tresorier.generated.jooq.test.public_.tables.MasterCategory;
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
 import open.tresorier.generated.jooq.test.public_.tables.Person;
+import open.tresorier.generated.jooq.test.public_.tables.UserActivity;
 import open.tresorier.generated.jooq.test.public_.tables.records.AccountRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.AllocationRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.BudgetRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.CategoryRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.FlywaySchemaHistoryRecord;
-import open.tresorier.generated.jooq.test.public_.tables.records.LogUserLoginRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.MasterCategoryRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord;
+import open.tresorier.generated.jooq.test.public_.tables.records.UserActivityRecord;
 
 import org.jooq.ForeignKey;
 import org.jooq.TableField;
@@ -50,12 +50,12 @@ public class Keys {
     public static final UniqueKey<BudgetRecord> CONSTRAINT_7 = UniqueKeys0.CONSTRAINT_7;
     public static final UniqueKey<CategoryRecord> CONSTRAINT_3 = UniqueKeys0.CONSTRAINT_3;
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = UniqueKeys0.FLYWAY_SCHEMA_HISTORY_PK;
-    public static final UniqueKey<LogUserLoginRecord> CONSTRAINT_D1 = UniqueKeys0.CONSTRAINT_D1;
     public static final UniqueKey<MasterCategoryRecord> CONSTRAINT_D = UniqueKeys0.CONSTRAINT_D;
     public static final UniqueKey<OperationRecord> CONSTRAINT_9 = UniqueKeys0.CONSTRAINT_9;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8 = UniqueKeys0.CONSTRAINT_8;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8C = UniqueKeys0.CONSTRAINT_8C;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8C7 = UniqueKeys0.CONSTRAINT_8C7;
+    public static final UniqueKey<UserActivityRecord> CONSTRAINT_E2 = UniqueKeys0.CONSTRAINT_E2;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -79,12 +79,12 @@ public class Keys {
         public static final UniqueKey<BudgetRecord> CONSTRAINT_7 = Internal.createUniqueKey(Budget.BUDGET, "CONSTRAINT_7", new TableField[] { Budget.BUDGET.ID }, true);
         public static final UniqueKey<CategoryRecord> CONSTRAINT_3 = Internal.createUniqueKey(Category.CATEGORY, "CONSTRAINT_3", new TableField[] { Category.CATEGORY.ID }, true);
         public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "flyway_schema_history_pk", new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
-        public static final UniqueKey<LogUserLoginRecord> CONSTRAINT_D1 = Internal.createUniqueKey(LogUserLogin.LOG_USER_LOGIN, "CONSTRAINT_D1", new TableField[] { LogUserLogin.LOG_USER_LOGIN.ID }, true);
         public static final UniqueKey<MasterCategoryRecord> CONSTRAINT_D = Internal.createUniqueKey(MasterCategory.MASTER_CATEGORY, "CONSTRAINT_D", new TableField[] { MasterCategory.MASTER_CATEGORY.ID }, true);
         public static final UniqueKey<OperationRecord> CONSTRAINT_9 = Internal.createUniqueKey(Operation.OPERATION, "CONSTRAINT_9", new TableField[] { Operation.OPERATION.ID }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8 = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8C = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8C", new TableField[] { Person.PERSON.EMAIL }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8C7 = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8C7", new TableField[] { Person.PERSON.BILLING_ID }, true);
+        public static final UniqueKey<UserActivityRecord> CONSTRAINT_E2 = Internal.createUniqueKey(UserActivity.USER_ACTIVITY, "CONSTRAINT_E2", new TableField[] { UserActivity.USER_ACTIVITY.ID }, true);
     }
 
     private static class ForeignKeys0 {
