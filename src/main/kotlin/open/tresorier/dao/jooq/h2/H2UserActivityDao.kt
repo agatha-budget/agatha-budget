@@ -51,11 +51,11 @@ class H2UserActivity(val configuration: Configuration): IUserActivityDao {
         return userActivityList
     }
 
-    override fun getByDate(day: Day): List<UserActivity> {
+    override fun getByDate(date: Long): List<UserActivity> {
         val jooqUserActivityList = this.query
             .select()
             .from(USER_ACTIVITY)
-            .where(USER_ACTIVITY.DATE.eq(day.comparable.toLong()))
+            .where(USER_ACTIVITY.DATE.eq(date))
             .fetch().into(USER_ACTIVITY)
         
         val userActivityList: MutableList<UserActivity> = mutableListOf()
