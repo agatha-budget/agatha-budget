@@ -3,10 +3,10 @@
     <div class="containerCross col-12">
       <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
     </div>
-    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("DATE") }}</div>
-    <div class="col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
-    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1 col-lg-2 offset-lg-1 col-xl-2 offset-xl-1 col-xxl-2 offset-xxl-1">{{ $t("ENVELOPE") }}</div>
-    <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
+    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1">{{ $t("DATE") }}</div>
+    <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
+    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1">{{ $t("ENVELOPE") }}</div>
+    <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-xxl-4">
       <Multiselect
         v-model="categoryId"
         :groups="true"
@@ -16,12 +16,12 @@
         :placeholder="$t('SELECT_CATEGORY')"
       />
     </div>
-    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1 col-lg-1 offset-lg-1 col-xl-1 offset-xl-1 col-xxl-1 offset-xxl-1">{{ $t("MEMO") }}</div>
+    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
     <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
       <input id="newOperationMemo" class="form-control" v-model="memo">
     </div>
-    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1 col-lg-2 offset-lg-1 col-xl-2 offset-xl-1 col-xxl-2 offset-xxl-1">{{ $t("AMOUNT") }}</div>
-    <div class="amountElement col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-4">
+    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1">{{ $t("AMOUNT") }}</div>
+    <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">
       <div class="amountInput input-group flex-nowrap">
         <label class="customSwitch">
           <input class="switch-input" type="checkbox" v-model="incoming"/>
@@ -29,6 +29,26 @@
           <span class="switch-handle"/>
         </label>
         <input id="newOperationAmount" class="form-control" v-model="amountString">
+      </div>
+    </div>
+    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
+    <div class="col-7 col-sm-6 col-md-7 col-xxl-8 flexForm">
+      <label class="customSwitch">
+          <input class="switch-input" type="checkbox" v-on:click="pending"/>
+          <span class="switch-label-pending"/>
+          <span class="switch-handle-pending"/>
+      </label>
+      <div v-if="isPending" class="flexForm textPending">
+        <div class="icon">
+          <button class="illustration btn fas fa-hourglass-half"/>
+        </div>
+        <div>{{ $t("PENDING") }}</div>
+      </div>
+      <div v-else class="flexForm textPending">
+        <div class="icon">
+          <button class="illustration btn fas fa-calendar-check"/>
+        </div>
+        <div>{{ $t("DEBITED") }}</div>
       </div>
     </div>
     <div class="action col-4 offset-4 col-md-2 offset-md-5">
@@ -54,6 +74,7 @@ interface OperationFormData {
   memo: string;
   incoming: boolean;
   amountString: string;
+  isPending: boolean;
 }
 
 export default defineComponent({
@@ -67,7 +88,8 @@ export default defineComponent({
       categoryId: this.operation?.categoryId || '',
       memo: this.operation?.memo || '',
       incoming: this.operation?.amount ? this.operation.amount > 0 : false,
-      amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0)).toString()
+      amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0)).toString(),
+      isPending: this.operation?.pending || false
     }
   },
   props: {
@@ -119,7 +141,7 @@ export default defineComponent({
   methods: {
     updateOperation () {
       if (this.operation) {
-        OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo).then(
+        OperationService.updateOperation(this.$store, this.operation, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo, this.isPending).then(
           () => {
             this.$emit('updateOperationList')
           }
@@ -137,7 +159,7 @@ export default defineComponent({
           this.categoryForTransfer(this.account, accountForTransfer)
         }
       } else {
-        OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo)
+        OperationService.addOperation(this.$store, this.accountId, Time.getDayFromDateString(this.date), this.categoryId, this.signedCentsAmount, this.memo, this.isPending)
       }
       this.$emit('updateOperationList')
     },
@@ -152,6 +174,7 @@ export default defineComponent({
       this.amountString = ''
       this.categoryId = ''
       this.incoming = false
+      this.isPending = false
     },
     createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
       const group: GroupSelectOption = {
@@ -163,6 +186,9 @@ export default defineComponent({
         group.options.push(option)
       }
       return group
+    },
+    pending () {
+      this.isPending = !this.isPending
     },
     createOptionTransfer (accounts: Account[]): GroupSelectOption {
       const group: GroupSelectOption = {
