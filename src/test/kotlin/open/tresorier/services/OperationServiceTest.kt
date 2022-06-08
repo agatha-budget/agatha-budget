@@ -207,7 +207,7 @@ class OperationServiceTest : ITest {
         val operation = "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220114<DTUSER>20220114<TRNAMT>-25.00<FITID>LLDGOYVPC9<NAME>CRISPR-Cas9</STMTTRN>"
         
         val newOperation: Operation = operationService.createOperationFromOFX(account, operation)
-        val comparableOperation = operationService.create(emmanuelle, account, TestData.jan_14_2022, null, -2500, "CRISPR-Cas9")
+        val comparableOperation = operationService.create(emmanuelle, account, TestData.jan_14_2022, null, -2500, "CRISPR-Cas9", false)
 
         Assertions.assertTrue(newOperation.isEquals(comparableOperation))
     }
