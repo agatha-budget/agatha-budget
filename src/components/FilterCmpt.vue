@@ -3,8 +3,8 @@
     <div class="containerCross col-12">
       <span class="cross fas fa-times-circle" v-on:click="closeFilter"/>
     </div>
-    <div class ="label col-4 offset-0 col-lg-3 offset-lg-2">{{ $t("CATEGORY") }} :</div>
-    <div class="selectAutoComplete col-6 offset-1 col-lg-4 offset-lg-1">
+    <div class ="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("CATEGORY") }}</div>
+    <div class="selectAutoComplete col-6 offset-1 col-sm-5 col-md-4">
       <Multiselect
         v-model="categoryId"
         :groups="true"
@@ -14,7 +14,7 @@
         :placeholder="$t('SELECT_CATEGORY')"
       />
     </div>
-    <btn v-on:click="filter" class="actionButton col-4 offset-4">{{ $t("FILTER") }}</btn>
+    <btn v-on:click="filter" class="actionButton filterButton col-6 offset-3 col-sm-4 offset-sm-4 col-md-2 offset-md-1">{{ $t("FILTER") }}</btn>
   </div>
 </template>
 
