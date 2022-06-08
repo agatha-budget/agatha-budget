@@ -92,4 +92,13 @@ export default class StoreHandler {
     }
     return categories
   }
+
+  public static getAccountById (store: Store<StoreState>, accountId: string): Account | null {
+    for (const account of store.state.accounts) {
+      if (account.id === accountId) {
+        return account
+      }
+    }
+    return null
+  }
 }
