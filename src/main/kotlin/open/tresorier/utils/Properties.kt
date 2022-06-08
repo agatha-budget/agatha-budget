@@ -3,6 +3,9 @@ package open.tresorier.utils
 import java.util.Properties
 
 object Properties {
+    const val aweberListId = "aweberListId"
+    const val aweberAccountId = "aweberAccountId"
+    const val aweberAccessToken = "aweberAccessToken"
 
     fun getProperties() : Properties {
         val defaultProperties = Utils.getPropertiesFromFile("gradle.properties")
