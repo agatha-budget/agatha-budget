@@ -1,10 +1,10 @@
 <template>
-  <div class="container header row form flexForm">
+  <div class="container header row form">
     <div class="containerCross col-12">
       <span class="cross fas fa-times-circle" v-on:click="closeFilter"/>
     </div>
-    <div class ="col-4 offset-1 col-lg-3 offset-lg-2">{{ $t("FILTER_BY_CATEGORY") }} :</div>
-    <div class="selectAutoComplete col-5 offset-1 col-lg-4 offset-lg-1">
+    <div class ="label col-4 offset-0 col-lg-3 offset-lg-2">{{ $t("CATEGORY") }} :</div>
+    <div class="selectAutoComplete col-6 offset-1 col-lg-4 offset-lg-1">
       <Multiselect
         v-model="categoryId"
         :groups="true"
@@ -14,8 +14,7 @@
         :placeholder="$t('SELECT_CATEGORY')"
       />
     </div>
-    <btn v-on:click="removeFilter" class="actionButton col-3 offset-1 col-lg-3 offset-lg-2">{{ $t("REMOVE_FILTER") }}</btn>
-    <btn v-on:click="filter" class="actionButton col-3 offset-2 col-lg-3 offset-lg-1">{{ $t("FILTER") }}</btn>
+    <btn v-on:click="filter" class="actionButton col-4 offset-4">{{ $t("FILTER") }}</btn>
   </div>
 </template>
 
@@ -81,9 +80,6 @@ export default defineComponent({
     },
     filter () {
       this.$emit('filteringCategory', this.categoryId)
-    },
-    removeFilter () {
-      this.$emit('filteringCategory', null)
     }
   }
 })
