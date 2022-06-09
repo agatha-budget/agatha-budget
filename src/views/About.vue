@@ -314,10 +314,16 @@
         </tr>
       </thead>
     </table>
-    aaaa
-    <BarChart/>
-    ooooo
   </div>
+</div>
+
+<div class="designContainer col-8 offset-2 row">
+  <h2>Charts</h2>
+
+  aaaa
+  <BarChart/>
+  ooooo
+
 </div>
 
 </template>
@@ -325,6 +331,7 @@
 import { defineComponent } from 'vue'
 import Multiselect from '@vueform/multiselect'
 import BarChart from '@/components/charts/BarChart.vue'
+import PieChart from '@/components/charts/PieChart.vue'
 
 export default defineComponent({
   name: 'About',

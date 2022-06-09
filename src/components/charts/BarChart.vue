@@ -1,5 +1,5 @@
 <template>
-    <Bar
+  <Bar
     :chart-options="chartOptions"
     :chart-data="chartData"
     :chart-id="chartId"
@@ -16,6 +16,7 @@
 
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import pattern from 'patternomaly'
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
@@ -53,8 +54,14 @@ export default {
   data () {
     return {
       chartData: {
-        labels: ['January', 'February', 'March'],
-        datasets: [{ data: [40, 20, 12] }]
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        datasets: [
+          {
+            label: 'GitHub Commits',
+            backgroundColor: '#f87979',
+            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+          }
+        ]
       },
       chartOptions: {
         responsive: true
