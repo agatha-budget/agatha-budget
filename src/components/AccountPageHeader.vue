@@ -9,15 +9,28 @@
               <button class="illustration btn fas fa-times" v-on:click="this.cancelEditing()"/>
             </span>
           </div>
-          <div v-else class="editableNameAccount">
-            <span v-on:click="this.displayTitleEditing()" class="row">
-              <div class="displayNameAccount col-12 offset-0 col-sm-8 offset-sm-2 col-xxl-6 offset-xxl-3">
-                <h1 class="title" :class="this.getClassDependingOnAmount()">
-                  {{ this.account.name }} : {{ totalAccount }}€
-                  <button class="btn fas fa-pen" />
-                </h1>
+          <div v-else class="editableNameAccount row">
+            <div v-if="this.displayRealAmount" class="col-11">
+              <h1 class="title">{{ $t("REAL_AMOUNT") }} : {{ realAmountOnAccount }}€</h1>
+            </div>
+            <div v-else class="col-11">
+              <span v-on:click="this.displayTitleEditing()" class="row">
+                <div class="displayNameAccount col-12 offset-0 col-sm-8 offset-sm-2 col-xxl-6 offset-xxl-3">
+                  <h1 class="title" :class="this.getClassDependingOnAmount()">
+                    {{ this.account.name }} : {{ totalAccount }}€
+                    <button class="btn fas fa-pen" />
+                  </h1>
+                </div>
+              </span>
+            </div>
+            <div v-if="existingPendingOperation" class="col-1">
+              <div v-if="this.displayRealAmount">
+                <button v-on:click="displayAmount" class="illustration btn fas fa-calendar-check"/>
               </div>
-            </span>
+              <div v-else>
+                <button v-on:click="displayAmount" class="illustration btn fas fa-hourglass-half"/>
+              </div>
+            </div>
           </div>
     </div>
 </template>
@@ -30,6 +43,7 @@ import { Account } from '@/model/model'
 interface AccountPageHeaderData {
     name: string;
     editingTitle: boolean;
+    displayRealAmount: boolean;
 }
 
 export default defineComponent({
@@ -44,12 +58,21 @@ export default defineComponent({
     totalAccount: {
       type: Number,
       required: true
+    },
+    existingPendingOperation: {
+      type: Boolean,
+      required: true
+    },
+    realAmountOnAccount: {
+      type: Number,
+      required: true
     }
   },
   data (): AccountPageHeaderData {
     return {
       name: '',
-      editingTitle: false
+      editingTitle: false,
+      displayRealAmount: false
     }
   },
   computed: {
@@ -83,6 +106,9 @@ export default defineComponent({
       } else {
         return ''
       }
+    },
+    displayAmount () {
+      this.displayRealAmount = !this.displayRealAmount
     }
   }
 })

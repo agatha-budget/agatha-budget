@@ -108,7 +108,13 @@
     "PARAMETERS": "paramètres",
     "FILTER": "filtrer",
     "REMOVE_FILTER": "enlever les filtres",
-    "FILTER_BY_CATEGORY": "filtrer par catégorie",
+    "DEBITED": "déjà débité",
+    "PENDING": "en attente",
+    "STATUS": "statut",
+    "REAL_AMOUNT": "montant réel sur le compte",
     "TRANSFER_TO": " transfert vers ",
-    "TRANSFER_FROM": " transfert depuis "
+    "TRANSFER_FROM": " transfert depuis ",
+    "SEE_ALL_OFFERS": "voir toutes les offres",
+    "MANAGE_SUBSCRIPTION": "gérer son abonnement",
+    "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau"
 }
