@@ -21,7 +21,7 @@ object ServiceManager : KoinComponent {
     fun start(){
         startKoin{
             printLogger()
-            modules(dbAccess_module, dao_module, adapter_module, service_module)
+            modules(dbAccess_module, adapter_module, service_module)
         }
     }
 
