@@ -14,7 +14,7 @@
         :placeholder="$t('SELECT_CATEGORY')"
       />
     </div>
-    <btn v-on:click="filter" class="actionButton filterButton col-6 offset-3 col-sm-4 offset-sm-4 col-md-2 offset-md-1">{{ $t("FILTER") }}</btn>
+    <btn v-on:click="filter" class="actionButton col-6 offset-3 col-sm-4 offset-sm-4 col-md-2 offset-md-1">{{ $t("FILTER") }}</btn>
   </div>
 </template>
 
