@@ -16,43 +16,45 @@ import open.tresorier.model.Person
 class AweberAdapter() : IMailingPort {
     
     override fun add(person: Person) {
+        System.out.println("Try to add to aweber !!")
         val properties = Properties()
-        val bodyAsJsonString = 
+        val body = 
         """{
             'email' : ${person.email},
             'update_existing' : 'true'
             'name' : ${person.name},
             'tags' : ['new_user']
-        }"""
-        val url = 
-        """
-            https://api.aweber.com/1.0/accounts/" 
-            ${properties.get(AWEBER_ACCOUNT_ID)}
-            /lists/"
-            ${properties.get(AWEBER_LIST_ID)}
-            /subscribers
-        """
+        }""".trimIndent()
+
+        val url = "https://api.aweber.com/1.0/accounts/${properties.get(AWEBER_ACCOUNT_ID)}/lists/${properties.get(AWEBER_LIST_ID)}/subscribers"
 
         // HEADER
+        System.out.println(url)
         val connection = URL(url).openConnection() as HttpURLConnection
-		connection.setRequestMethod("POST")
+		connection.requestMethod = "POST"
 		connection.setRequestProperty("Content-Type", "application/json")
 		connection.setRequestProperty("Accept", "application/json")
 		connection.setRequestProperty("User-Agent", "Agatha/1.0")
         connection.setRequestProperty("Authorization",
          "Bearer ${properties.get(AWEBER_ACCESS_TOKEN)}"
         )
+        connection.doInput = true;
+		connection.doOutput = true;
 
 		// BODY
-		connection.setDoOutput(true);
-		val outStream = connection.getOutputStream()
-        val body = bodyAsJsonString.toByteArray(Charsets.UTF_8)
-        outStream.write(body, 0, body.size)
-		outStream.close()
+        val outputStreamWriter = OutputStreamWriter(connection.outputStream)
+        outputStreamWriter.write(body)
+		outputStreamWriter.flush()
 
-		val responseCode = connection.getResponseCode()
+        System.out.println("Message Sent")
+
+		val responseCode = connection.responseCode
+        System.out.println(connection.responseMessage)
 		if (responseCode != HttpURLConnection.HTTP_OK) { 
             System.out.println("POST request not worked")
-		}
+		} else {
+            System.out.println("seems to have worked")
+
+        }
 	}
 }
