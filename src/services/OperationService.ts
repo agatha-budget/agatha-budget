@@ -3,7 +3,6 @@ import { operationApi } from '@/services/api/apis'
 import StoreHandler from '@/store/StoreHandler'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
-import { redirectOnApiError } from '@/router'
 
 export default class OperationService {
   public static async getOperations (account: Account, categoryId: string | null): Promise<Operation[]> {

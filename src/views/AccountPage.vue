@@ -32,19 +32,12 @@
               <div class="lineStart category col-6" :class="getClassDependingCategory(operation)">
                 {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
               </div>
-              <div class="amount col-3 offset-3" :class="this.getClassDependingOnAmount(operation)">
+              <div class="amount col-4 offset-2 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
                 {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
               </div>
               <div class="lineStart memo col-12">{{ operation.memo }}</div>
             </div>
-            <div class="col-9"></div>
-            <div class="lineStart category col-4" :class="getClassDependingCategory(operation)">
-              {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
-            </div>
-            <div class="amount col-2 offset-2 col-sm-2" :class="this.getClassDependingOnAmount(operation)">
-              {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
-            </div>
-            <div class="action col-2 offset-sm-1">//
+            <div class="action col-2 offset-1">
               <button class="illustration btn fas fa-pen"/>
               <button class="illustration btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
             </div>
