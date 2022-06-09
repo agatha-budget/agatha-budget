@@ -15,5 +15,4 @@ val service_module = module {
     single { AllocationService(get(), get()) }
     single { MailingService(get()) }
     single { BudgetDataService(get(), get(), get()) }
-
 }

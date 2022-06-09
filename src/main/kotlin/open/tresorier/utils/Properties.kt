@@ -11,16 +11,16 @@ class Properties () {
     init {
         properties = Utils.getPropertiesFromFile("gradle.properties")
         getSystemProperties()
+        getDBProperties()
     }
 
     fun get(name : PropertiesEnum) : String {
         return properties.getProperty(name.name)
     }
 
-    fun getSystemProperties() {
-
-        val tresorierDB = this.get(HEROKU_TRESORIER_DB)
-        val integrationDB = this.get(HEROKU_INTEGRATION_DB)
+    fun getDBProperties() {
+        val tresorierDB = this.get(TRESORIER_DB_ID)
+        val integrationDB = this.get(INTEGRATION_DB_ID)
 
         val tresorier_db_url = System.getenv(tresorierDB +"_URL") ?: this.get(TRESORIER_DB_URL_DFLT)
         val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: this.get(TRESORIER_DB_USR_DFLT)
@@ -37,5 +37,14 @@ class Properties () {
         properties.setProperty("INTEGRATION_DB_URL", integration_db_url)
         properties.setProperty("INTEGRATION_DB_USR", integration_db_usr)
         properties.setProperty("INTEGRATION_DB_PWD", integration_db_pwd)
+    }
+
+    fun getSystemProperties() {
+        for (propertyEnum in PropertiesEnum.values()){
+            val propertyName = propertyEnum.toString()
+            System.getenv(propertyName)?.let {
+                properties.setProperty(propertyName, it)
+            }
+        }
     }
 }
