@@ -15,15 +15,15 @@ class OperationService(private val operationDao: IOperationDao, private val auth
 
     fun createInitialOperation(person: Person, account: Account, day: Day, amount: Int){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(account.id, day, Category.INCOME_ID, amount, 1, "Montant initial")
+        val operation = Operation(account.id, day, Category.INCOME_ID, amount, 1, "Montant initial", false, false)
         operationDao.insert(operation)
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
     }
 
-    fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?) : Operation {
+    fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?, pending: Boolean?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         val order = Time.now()
-        val operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo)
+        val operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false)
         return operationDao.insert(operation)
     }
 
@@ -33,7 +33,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         return operation
     }
 
-    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, amount: Int?, memo: String?) : Operation {
+    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, amount: Int?, memo: String?, pending: Boolean?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
         newDay?.let {
             if (!it.isEquals(operation.day)) {
@@ -46,6 +46,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         category?.let { operation.categoryId = it.id }
         amount?.let { operation.amount = it }
         memo?.let { operation.memo = it }
+        pending?.let { operation.pending = it }
         return operationDao.update(operation)
     }
 
@@ -118,7 +119,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         if (type == "DEBIT") {
             amount *= -1
         }
-        val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo)    // créer une opération sans la mettre dans la base de donnée
+        val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo, false, false)    // créer une opération sans la mettre dans la base de donnée
         return operationCreated
     }
- }
+}

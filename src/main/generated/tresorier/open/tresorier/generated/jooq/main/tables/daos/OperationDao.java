@@ -156,4 +156,32 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchByOrderInDay(Long... values) {
         return fetch(Operation.OPERATION.ORDER_IN_DAY, values);
     }
+
+    /**
+     * Fetch records that have <code>pending BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchRangeOfPending(Boolean lowerInclusive, Boolean upperInclusive) {
+        return fetchRange(Operation.OPERATION.PENDING, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>pending IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchByPending(Boolean... values) {
+        return fetch(Operation.OPERATION.PENDING, values);
+    }
+
+    /**
+     * Fetch records that have <code>locked BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchRangeOfLocked(Boolean lowerInclusive, Boolean upperInclusive) {
+        return fetchRange(Operation.OPERATION.LOCKED, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>locked IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchByLocked(Boolean... values) {
+        return fetch(Operation.OPERATION.LOCKED, values);
+    }
 }
