@@ -314,6 +314,9 @@
         </tr>
       </thead>
     </table>
+    aaaa
+    <BarChart/>
+    ooooo
   </div>
 </div>
 
@@ -321,11 +324,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Multiselect from '@vueform/multiselect'
+import BarChart from '@/components/charts/BarChart.vue'
 
 export default defineComponent({
   name: 'About',
   components: {
-    Multiselect
+    Multiselect,
+    BarChart
   },
   data () {
     return {
