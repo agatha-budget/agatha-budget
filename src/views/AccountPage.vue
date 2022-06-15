@@ -16,7 +16,7 @@
         </div>
         <ImportOfx v-if="importBloc" :accountId="this.accountId" @close-import="closeImport"/>
         <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
-        <div v-on:click="blocFilter">
+        <div v-on:click="onClickFilterButton">
           <span class="illutstration btn fas fa-filter"/>
           {{ $t("FILTER") }}
         </div>
@@ -246,7 +246,7 @@ export default defineComponent({
     closeUpdate (operation: EditableOperation) {
       operation.editing = false
     },
-    blocFilter () {
+    onClickFilterButton () {
       this.filterBloc = !this.filterBloc
       if (!this.filterBloc) {
         this.filteringCategoryId = null
