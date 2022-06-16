@@ -1,6 +1,6 @@
 <template>
   <div :class="this.$store.state.css">
-    <div class="profilePage menuLayout row col-md-4 offset-md-4 col-xl-8 offset-xl-2">
+    <div class="profilePage menuLayout row col-md-8 offset-md-2 col-xxl-6 offset-xxl-3">
         <div class="header fixed title">
           {{ $t('PARAMETERS') }}
         </div>
