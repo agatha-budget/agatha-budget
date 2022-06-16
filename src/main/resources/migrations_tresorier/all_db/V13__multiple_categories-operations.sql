@@ -1,0 +1,2 @@
+ALTER TABLE operation
+ADD COLUMN motherOperation VARCHAR(36) DEFAULT NULL;

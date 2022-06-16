@@ -16,7 +16,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row10;
+import org.jooq.Row11;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = -1829548681;
+    private static final long serialVersionUID = 136633060;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -97,6 +97,11 @@ public class Operation extends TableImpl<OperationRecord> {
      * The column <code>public.operation.locked</code>.
      */
     public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("locked"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>public.operation.motheroperation</code>.
+     */
+    public final TableField<OperationRecord, String> MOTHEROPERATION = createField(DSL.name("motheroperation"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * Create a <code>public.operation</code> table reference
@@ -196,11 +201,11 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row10 type methods
+    // Row11 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row10<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean> fieldsRow() {
-        return (Row10) super.fieldsRow();
+    public Row11<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String> fieldsRow() {
+        return (Row11) super.fieldsRow();
     }
 }

@@ -184,4 +184,18 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByLocked(Boolean... values) {
         return fetch(Operation.OPERATION.LOCKED, values);
     }
+
+    /**
+     * Fetch records that have <code>MOTHEROPERATION BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMotheroperation(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Operation.OPERATION.MOTHEROPERATION, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>MOTHEROPERATION IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByMotheroperation(String... values) {
+        return fetch(Operation.OPERATION.MOTHEROPERATION, values);
+    }
 }

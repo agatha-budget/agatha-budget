@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 1289459188;
+    private static final long serialVersionUID = -1637598237;
 
     private final String  id;
     private final String  accountId;
@@ -25,6 +25,7 @@ public class Operation implements Serializable {
     private final Long    orderInDay;
     private final Boolean pending;
     private final Boolean locked;
+    private final String  motheroperation;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -37,6 +38,7 @@ public class Operation implements Serializable {
         this.orderInDay = value.orderInDay;
         this.pending = value.pending;
         this.locked = value.locked;
+        this.motheroperation = value.motheroperation;
     }
 
     public Operation(
@@ -49,7 +51,8 @@ public class Operation implements Serializable {
         Integer amount,
         Long    orderInDay,
         Boolean pending,
-        Boolean locked
+        Boolean locked,
+        String  motheroperation
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -61,6 +64,7 @@ public class Operation implements Serializable {
         this.orderInDay = orderInDay;
         this.pending = pending;
         this.locked = locked;
+        this.motheroperation = motheroperation;
     }
 
     public String getId() {
@@ -103,6 +107,10 @@ public class Operation implements Serializable {
         return this.locked;
     }
 
+    public String getMotheroperation() {
+        return this.motheroperation;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Operation (");
@@ -117,6 +125,7 @@ public class Operation implements Serializable {
         sb.append(", ").append(orderInDay);
         sb.append(", ").append(pending);
         sb.append(", ").append(locked);
+        sb.append(", ").append(motheroperation);
 
         sb.append(")");
         return sb.toString();
