@@ -149,6 +149,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             operation.orderInDay,
             operation.pending,
             operation.locked,
+            operation.motherOperation,
             )
     }
 

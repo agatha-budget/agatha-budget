@@ -36,10 +36,10 @@ class OperationServiceTest : ITest {
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
-        val operationCreated = operationService.create(mileva, account, TestData.jan_16_2022, category, -1000, "encas", false)
+        val operationCreated = operationService.create(mileva, account, TestData.jan_16_2022, category, -1000, "encas", false, null)
         val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side effect
 
-        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, category, -1200, "encas", false)
+        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, category, -1200, "encas", false, null)
 
         Assertions.assertEquals(orderInDayAtCreation, operationModified.orderInDay)
     }
@@ -58,10 +58,10 @@ class OperationServiceTest : ITest {
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
-        val operationCreated = operationService.create(emilie, account, TestData.jan_16_2022, category, 1000, "", false)
+        val operationCreated = operationService.create(emilie, account, TestData.jan_16_2022, category, 1000, "", false, null)
         val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side effect
         
-        val operationModified = operationService.update(emilie, operationCreated, account, TestData.jan_15_2022, null, null, null, null)
+        val operationModified = operationService.update(emilie, operationCreated, account, TestData.jan_15_2022, null, null, null, null, null)
 
         Assertions.assertTrue(orderInDayAtCreation < operationModified.orderInDay)
     }
@@ -79,7 +79,7 @@ class OperationServiceTest : ITest {
         val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220114<TRNAMT>-536,50<FITID>2802202220220228-03.01.56.182263<NAME>PRIX LOUISA GROSS HORWITZ<MEMO>PRIX LOUISA GROSS HORWITZ</STMTTRN>"
 
         val newOperation: Operation = operationService.createOperationFromOFX(account, ofxDebitOperation)
-        val comparableOperation = operationService.create(rosalind, account, TestData.jan_14_2022, null, -53650, "PRIX LOUISA GROSS HORWITZ", false)
+        val comparableOperation = operationService.create(rosalind, account, TestData.jan_14_2022, null, -53650, "PRIX LOUISA GROSS HORWITZ", false, null)
 
         Assertions.assertTrue(newOperation.isEquals(comparableOperation))
     }
@@ -97,7 +97,7 @@ class OperationServiceTest : ITest {
         val ofxDebitOperation: String = "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220114<TRNAMT>+89,50<FITID>2802202220220228-03.01.56.182263<NAME>VIR SEPA Babbage<MEMO>VIR SEPA Babbage</STMTTRN>"
 
         val newOperation = operationService.createOperationFromOFX(account, ofxDebitOperation)
-        val comparableOperation = operationService.create(ada, account, TestData.jan_14_2022, null, 8950, "VIR SEPA Babbage", false)
+        val comparableOperation = operationService.create(ada, account, TestData.jan_14_2022, null, 8950, "VIR SEPA Babbage", false, null)
 
         Assertions.assertTrue(newOperation.isEquals(comparableOperation))
     }
@@ -207,7 +207,7 @@ class OperationServiceTest : ITest {
         val operation = "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220114<DTUSER>20220114<TRNAMT>-25.00<FITID>LLDGOYVPC9<NAME>CRISPR-Cas9</STMTTRN>"
         
         val newOperation: Operation = operationService.createOperationFromOFX(account, operation)
-        val comparableOperation = operationService.create(emmanuelle, account, TestData.jan_14_2022, null, -2500, "CRISPR-Cas9", false)
+        val comparableOperation = operationService.create(emmanuelle, account, TestData.jan_14_2022, null, -2500, "CRISPR-Cas9", false, null)
 
         Assertions.assertTrue(newOperation.isEquals(comparableOperation))
     }
@@ -233,15 +233,15 @@ class OperationServiceTest : ITest {
             francoise, budget, "personal account", TestData.jan_14_2022, 1000
         )
         var operation: Operation = operationService.create(
-            francoise, account, TestData.jan_14_2022, null, 8950, "Institut de la santé et de la recherche médicale", null
+            francoise, account, TestData.jan_14_2022, null, 8950, "Institut de la santé et de la recherche médicale", null, null
         )
         Assertions.assertFalse(operation.pending)
 
-        operationService.update(francoise, operation, account, null, null, null, null, true)
+        operationService.update(francoise, operation, account, null, null, null, null, true, null)
 
         Assertions.assertTrue(operation.pending)
 
-        operationService.update(francoise, operation, account, null, null, null, null, false)
+        operationService.update(francoise, operation, account, null, null, null, null, false, null)
 
         Assertions.assertFalse(operation.pending)
     }
