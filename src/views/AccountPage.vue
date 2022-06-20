@@ -16,6 +16,11 @@
         </div>
         <ImportOfx v-if="importBloc" :accountId="this.accountId" @close-import="closeImport"/>
         <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
+        <div v-on:click="onClickFilterButton">
+          <span class="illutstration btn fas fa-filter"/>
+          {{ $t("FILTER") }}
+        </div>
+        <FilterCmpt v-if="filterBloc" @close-filter="closeFilter" @filtering-category="filter"/>
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
           <span v-else class="operation">
@@ -27,12 +32,12 @@
               <div class="lineStart category col-6" :class="getClassDependingCategory(operation)">
                 {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
               </div>
-              <div class="amount col-3 offset-3" :class="this.getClassDependingOnAmount(operation)">
+              <div class="amount col-4 offset-2 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
                 {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
               </div>
               <div class="lineStart memo col-12">{{ operation.memo }}</div>
             </div>
-            <div class="action col-2 offset-sm-1">
+            <div class="action col-2 offset-1">
               <button class="illustration btn fas fa-pen"/>
               <button class="illustration btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
             </div>
@@ -64,11 +69,14 @@ import Utils from '@/utils/Utils'
 import NavMenu from '@/components/NavigationMenu.vue'
 import AccountPageHeader from '@/components/AccountPageHeader.vue'
 import ImportOfx from '@/components/ImportOfx.vue'
+import FilterCmpt from '@/components/FilterCmpt.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
     importBloc: boolean;
     manualBloc: boolean;
+    filterBloc: boolean;
+    filteringCategoryId: string | null;
     existingPendingOperation: boolean;
 }
 
@@ -82,7 +90,8 @@ export default defineComponent({
     OperationForm,
     NavMenu,
     AccountPageHeader,
-    ImportOfx
+    ImportOfx,
+    FilterCmpt
   },
   beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
@@ -107,6 +116,8 @@ export default defineComponent({
       operations: [],
       importBloc: false,
       manualBloc: false,
+      filterBloc: false,
+      filteringCategoryId: null,
       existingPendingOperation: false
     }
   },
@@ -136,7 +147,7 @@ export default defineComponent({
   methods: {
     async getAccountOperation () {
       if (this.account) {
-        return OperationService.getOperations(this.account).then(
+        return OperationService.getOperations(this.account, this.filteringCategoryId).then(
           (operations) => {
             this.operations = this.operationToEditableOperation(operations)
           }
@@ -190,6 +201,10 @@ export default defineComponent({
     getClassDependingCategory (operation: Operation): string {
       return (operation.categoryId === null) ? 'negative' : ''
     },
+    filter (categoryId: string) {
+      this.filteringCategoryId = categoryId
+      this.getAccountOperation()
+    },
     switchAddOperation (type: string) {
       if (type === 'import') {
         this.importBloc = !this.importBloc
@@ -223,8 +238,20 @@ export default defineComponent({
     closeForm () {
       this.manualBloc = false
     },
+    closeFilter () {
+      this.filterBloc = false
+      this.filteringCategoryId = null
+      this.getAccountOperation()
+    },
     closeUpdate (operation: EditableOperation) {
       operation.editing = false
+    },
+    onClickFilterButton () {
+      this.filterBloc = !this.filterBloc
+      if (!this.filterBloc) {
+        this.filteringCategoryId = null
+        this.getAccountOperation()
+      }
     }
   }
 })
