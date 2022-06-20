@@ -8,7 +8,7 @@
     <th class="col-2">
       <button class="illustration btn fas fa-check" v-on:click="updateCategory"/>
     </th>
-      <th class="col-2">
+    <th class="col-2 disappearForMobile">
       <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
     </th>
     <th class="col-2">
@@ -16,17 +16,16 @@
     </th>
   </tr>
   <tr v-else>
-    <th class="col-6">
+    <td class="col-6">
       <span class="name">{{ this.name }}</span>
-    </th>
-    <th class="col-2">
+    </td>
+    <td class="col-2">
       <button class="illustration btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
-      </th>
-    <th class="col-2">
+    </td>
+    <td class="col-2">
       <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-    </th>
-    <th class="col-2">
-    </th>
+    </td>
+    <td class="col-2 disappearForMobile"/>
   </tr>
 </template>
 
