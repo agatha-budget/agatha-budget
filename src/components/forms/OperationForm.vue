@@ -34,7 +34,7 @@
     <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
     <div class="col-7 col-sm-6 col-md-7 col-xxl-8 flexForm">
       <label class="customSwitch">
-          <input class="switch-input" type="checkbox" v-on:click="pending"/>
+          <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
           <span class="switch-label-pending"/>
           <span class="switch-handle-pending"/>
       </label>
