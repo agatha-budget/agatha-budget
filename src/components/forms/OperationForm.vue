@@ -32,19 +32,19 @@
       </div>
     </div>
     <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
-    <div class="col-7 col-sm-6 col-md-7 col-xxl-8 flexForm">
+    <div class="col-8 col-sm-6 col-md-7 col-xxl-8 inline">
       <label class="customSwitch">
           <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
           <span class="switch-label-pending"/>
           <span class="switch-handle-pending"/>
       </label>
-      <div v-if="isPending" class="flexForm textPending">
+      <div v-if="isPending" class="inline textPending">
         <div class="icon">
           <button class="illustration btn fas fa-hourglass-half"/>
         </div>
         <div>{{ $t("PENDING") }}</div>
       </div>
-      <div v-else class="flexForm textPending">
+      <div v-else class="inline textPending">
         <div class="icon">
           <button class="illustration btn fas fa-calendar-check"/>
         </div>
