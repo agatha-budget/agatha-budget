@@ -2,7 +2,6 @@ package open.tresorier.services
 
 import open.tresorier.dependenciesinjection.ITest
 import open.tresorier.dao.*
-import open.tresorier.model.Operation
 import open.tresorier.model.*
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.utils.TestData
