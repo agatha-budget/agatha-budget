@@ -12,7 +12,7 @@ import open.tresorier.model.Day
 import open.tresorier.generated.jooq.test.public_.tables.pojos.UserActivity as JooqUserActivity
 import open.tresorier.model.enum.ActionEnum
 
-class H2UserActivity(val configuration: Configuration): IUserActivityDao {
+class H2UserActivityDao(val configuration: Configuration): IUserActivityDao {
 
     private val generatedDao: UserActivityDao = UserActivityDao(configuration)
     private val query = DSL.using(configuration)

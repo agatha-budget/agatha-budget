@@ -5,10 +5,10 @@ import open.tresorier.model.*
 import open.tresorier.model.enum.ActionEnum
 
 
-class UserActivityService(private val userActivityDao: IUserActivityDao, private val authorizationService: AuthorizationService, private val operationService: OperationService) {
+class UserActivityService(private val userActivityDao: IUserActivityDao) {
 
-    fun create(userId: String, date: Long, action: ActionEnum): UserActivity {
-        val userActivity = UserActivity(userId, date, action)
+    fun create(user: Person, date: Long, action: ActionEnum): UserActivity {
+        val userActivity = UserActivity(user.id, date, action)
         userActivityDao.insert(userActivity)
         return userActivity
     }
