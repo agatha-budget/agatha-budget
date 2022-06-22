@@ -13,7 +13,7 @@
             <div v-if="this.displayRealAmount" class="col-10 offset-1">
               <h1 class="title">{{ $t("REAL_AMOUNT") }} : {{ realAmountOnAccount }} €</h1>
             </div>
-            <div v-else class="col-10 offset-1">
+            <div v-else class="col-11 offset-0">
               <span v-on:click="this.displayTitleEditing()" class="row">
                 <div class="displayNameAccount col-12 offset-0 col-sm-8 offset-sm-2 col-xxl-6 offset-xxl-3">
                   <h1 class="title" :class="this.getClassDependingOnAmount()">

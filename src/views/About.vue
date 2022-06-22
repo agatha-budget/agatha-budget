@@ -52,6 +52,13 @@
         <span class="cross fas fa-times-circle"/>
       </div>
 
+    <h3>ActionLabelIcon</h3>
+
+      <div class="actionLabelIcon">
+        <span class="illustration btn fas fa-filter"/>
+        <div class="text">petit mot sympatique</div>
+      </div>
+
   </div>
 </div>
 

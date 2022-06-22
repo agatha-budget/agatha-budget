@@ -15,9 +15,9 @@
           <master-category-cmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" />
         </template>
         <div class="budget-tools">
-          <div><span type="button" v-on:click="this.createMasterCategory()"> > {{ $t("ADD_MASTER_CATEGORY") }}</span></div>
-          <div><span class="tooltiped" > > {{ $t("ADD_CATEGORY") }}<span class="tooltiptext">{{ $t("CLICK_ON_THE_MASTER_CATEGORY") }}</span></span></div>
-          <div v-on:click="this.archiveVisible = !this.archiveVisible">
+          <div><span type="button" class="actionLabelIcon" v-on:click="this.createMasterCategory()"> > {{ $t("ADD_MASTER_CATEGORY") }}</span></div>
+          <div><span class="tooltiped actionLabelIcon" > > {{ $t("ADD_CATEGORY") }}<span class="tooltiptext">{{ $t("CLICK_ON_THE_MASTER_CATEGORY") }}</span></span></div>
+          <div v-on:click="this.archiveVisible = !this.archiveVisible" class="actionLabelIcon">
             <span v-if="this.archiveVisible" type="button" > > {{ $t("HIDE_ARCHIVE") }}</span>
             <span v-else type="button"> > {{ $t("SHOW_ARCHIVE") }}</span>
           </div>
