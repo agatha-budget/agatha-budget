@@ -246,7 +246,7 @@
           </td>
           <td class="col-3">
             <div class="numberInput form-group">
-                <input type="number" class="form-control" id="textInput" placeholder="0">
+                <input type="text" class="form-control" id="textInput" placeholder="0">
             </div>
           </td>
           <td class="col-3">300</td>
