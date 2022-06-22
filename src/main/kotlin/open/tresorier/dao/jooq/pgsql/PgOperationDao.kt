@@ -90,24 +90,15 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
     }
 
     override fun findByAccount(account: Account, category: Category?): List<Operation> {
-        var jooqOperationList: org.jooq.Result<OperationRecord>
-        if (category != null) {
-            jooqOperationList = this.query
-                .select()
-                .from(OPERATION)
-                .where(OPERATION.ACCOUNT_ID.eq(account.id))
-                .and(OPERATION.CATEGORY_ID.eq(category.id))
-                .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
-                .fetch().into(OPERATION)
-        } else {
-            jooqOperationList = this.query
-                .select()
-                .from(OPERATION)
-                .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
-                .where(OPERATION.ACCOUNT_ID.eq(account.id))
-                .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
-                .fetch().into(OPERATION)
+        val query = this.query
+            .select()
+            .from(OPERATION)
+            .where(OPERATION.ACCOUNT_ID.eq(account.id))
+        category?.let{
+            query.and(OPERATION.CATEGORY_ID.eq(it.id))
         }
+        query.orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
+        val jooqOperationList = query.fetch().into(OPERATION)
         val operationList: MutableList<Operation> = mutableListOf()
         for (operationRecord : OperationRecord in jooqOperationList) {
             val operation = this.toOperation(operationRecord)
@@ -118,25 +109,16 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
     }
 
     override fun findByBudget(budget: Budget, category: Category?): List<Operation> {
-        var jooqOperationList: org.jooq.Result<OperationRecord>
-        if (category != null) {
-            jooqOperationList = this.query
-                .select()
-                .from(OPERATION)
-                .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
-                .where(ACCOUNT.BUDGET_ID.eq(budget.id))
-                .and(OPERATION.CATEGORY_ID.eq(category.id))
-                .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
-                .fetch().into(OPERATION)
-        } else {
-            jooqOperationList = this.query
-                .select()
-                .from(OPERATION)
-                .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
-                .where(ACCOUNT.BUDGET_ID.eq(budget.id))
-                .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
-                .fetch().into(OPERATION)
+        val query = this.query
+            .select()
+            .from(OPERATION)
+            .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
+            .where(ACCOUNT.BUDGET_ID.eq(budget.id))
+        category?.let{
+            query.and(OPERATION.CATEGORY_ID.eq(it.id))
         }
+        query.orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
+        val jooqOperationList = query.fetch().into(OPERATION)
         val operationList: MutableList<Operation> = mutableListOf()
         for (operationRecord : OperationRecord in jooqOperationList) {
             val operation = this.toOperation(operationRecord)
@@ -163,8 +145,8 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
         return JooqOperation(
             operation.id,
             operation.accountId,
-            operation.day?.month?.comparable,
-            operation.day?.day,
+            operation.day.month.comparable,
+            operation.day.day,
             operation.categoryId,
             operation.memo,
             operation.amount,

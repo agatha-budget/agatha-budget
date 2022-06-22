@@ -323,9 +323,7 @@ fun main() {
         val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
         var category: Category? = null
-        if (categoryId != null) {
-            category = ServiceManager.categoryService.getById(user, categoryId)
-        }
+        category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
         val operations = ServiceManager.operationService.findByAccount(user, account, category)
         ctx.json(operations)
     }
@@ -336,9 +334,7 @@ fun main() {
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
         var category: Category? = null
-        if (categoryId != null) {
-            category = ServiceManager.categoryService.getById(user, categoryId)
-        }
+        category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
         val operations = ServiceManager.operationService.findByBudget(user, budget, category)
         ctx.json(operations)
     }
