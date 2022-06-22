@@ -93,6 +93,8 @@ val jackson_version="2.10.3"
 val supertoken_version="1.4.+"
 val argon_version="2.7"
 val stripe_version="20.85.0"
+val json_version="20220320"
+
 
 dependencies {
     // Kotlin
@@ -147,6 +149,7 @@ dependencies {
     // Billing
     implementation("com.stripe:stripe-java:$stripe_version")
 
+    implementation("org.json:json:$json_version")
 }
 
 tasks.clean {

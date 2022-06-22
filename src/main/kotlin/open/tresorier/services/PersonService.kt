@@ -16,8 +16,8 @@ class PersonService(private val personDao: IPersonDao,
     fun createPerson(name: String, password: String, email: String, profile: ProfileEnum): Person {
         val hashedPassword = AuthenticationService.hashPassword(password)
         var person = Person(name, hashedPassword, email)
-        person = personDao.insert(person)
-        budgetService.create(person, Budget.DEFAULT_BUDGET_NAME, profile)
+        //person = personDao.insert(person)
+        //budgetService.create(person, Budget.DEFAULT_BUDGET_NAME, profile)
         mailingService.addPersonToMailingList(person)
         return person
     }
