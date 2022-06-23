@@ -11,8 +11,14 @@ import org.json.JSONObject
 import open.tresorier.model.Person
 
 class AweberAdapter() : IMailingPort {
-    
     override fun add(person: Person) {
+        val properties = Properties()
+        if (properties.get(ENVIRONMENT) == "prod" ){
+            this.sendToAweber(person)
+        }
+    }
+
+    fun sendToAweber(person: Person) {
         refreshToken()
         val properties = Properties()
 
@@ -43,7 +49,6 @@ class AweberAdapter() : IMailingPort {
         val properties = Properties()
 
         val url = "https://auth.aweber.com/oauth2/token"
-
 
         val headerProperties = mapOf(
             "Content-Type" to "application/json",
