@@ -12,6 +12,11 @@ class Properties () {
         properties = Utils.getPropertiesFromFile("gradle.properties")
         getSystemProperties()
         getDBProperties()
+        System.out.println("ewfuefuoeofiewfo")
+        System.out.println(this.get(AWEBER_LIST_ID))
+        System.out.println(this.get(TRESORIER_DB_URL_DFLT))
+        System.out.println("ewfuefuoeofiewfo")
+
     }
 
     fun get(name : PropertiesEnum) : String {
@@ -45,6 +50,12 @@ class Properties () {
             System.getenv(propertyName)?.let {
                 properties.setProperty(propertyName, it)
             }
+        }
+    }
+
+    companion object {
+        fun set(name : PropertiesEnum, value : String) {
+            return Utils.setPropertyInFile("gradle.properties", name.name, value)
         }
     }
 }
