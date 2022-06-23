@@ -47,11 +47,7 @@ class AweberAdapter() : IMailingPort {
         outputStreamWriter.write(body)
 		outputStreamWriter.flush()
 
-        System.out.println(connection.responseCode)
-        System.out.println(connection.inputStream.reader().use { it.readText() })
-
         val validResponseCodes = arrayOf(HttpURLConnection.HTTP_OK, HttpURLConnection.HTTP_CREATED)
-        System.out.println(validResponseCodes.toString())
         if (connection.responseCode !in validResponseCodes) {
             System.out.println("am here")
             throw MailingException("could not insert mail : ${person.email}, ${connection.errorStream.reader().use { it.readText() }}")
@@ -82,14 +78,11 @@ class AweberAdapter() : IMailingPort {
         outputStreamWriter.write(body)
 		outputStreamWriter.flush()
         
-
-
         if (connection.responseCode != HttpURLConnection.HTTP_OK) { 
             throw MailingException("could not refresh token, ${connection.errorStream.reader().use { it.readText() }}")
 		}
 
         val response = JSONObject(connection.inputStream.reader().use { it.readText() })
-        System.out.println(response.toString())
         Properties.set(AWEBER_ACCESS_TOKEN, response.get("access_token").toString())
         Properties.set(AWEBER_REFRESH_TOKEN,response.get("refresh_token").toString())
 
