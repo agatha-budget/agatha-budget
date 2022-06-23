@@ -2,6 +2,9 @@ package open.tresorier.utils
 
 import java.util.Properties as JavaProperties
 import open.tresorier.utils.PropertiesEnum.*
+import java.io.FileInputStream
+import java.io.File
+import kotlin.text.Regex
 
 class Properties () {
 
@@ -9,7 +12,7 @@ class Properties () {
 
     // initializer block
     init {
-        properties = Utils.getPropertiesFromFile("gradle.properties")
+        properties = Properties.getPropertiesFromFile("gradle.properties")
         getSystemProperties()
         getDBProperties()
     }
@@ -50,7 +53,22 @@ class Properties () {
 
     companion object {
         fun set(name : PropertiesEnum, value : String) {
-            return Utils.setPropertyInFile("gradle.properties", name.name, value)
+            return Properties.setPropertyInFile("gradle.properties", name.name, value)
+        }
+
+        fun getPropertiesFromFile(fileRelativePath : String) : JavaProperties {
+            val properties = JavaProperties()
+            val path = System.getProperty("user.dir") + "/" + fileRelativePath;
+            val inputStream = FileInputStream(path)
+            properties.load(inputStream)
+            return properties
+        }
+    
+        fun setPropertyInFile(fileRelativePath : String, key : String, value : String) {
+            val path = System.getProperty("user.dir") + "/" + fileRelativePath;
+            val file = File(path) 
+            val content = file.readText().replace(Regex("${key}=.*"), "${key}=${value}");
+            file.writeText(content);
         }
     }
 }
