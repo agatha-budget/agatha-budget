@@ -18,12 +18,20 @@ import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import pattern from 'patternomaly'
 
+interface BarChartData {
+    chartDataDefault: Record<string, any>;
+    chartOptions: Record<string, any>;
+}
+
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
   name: 'BarChart',
   components: { Bar },
   props: {
+    chartData: {
+      type: Object
+    },
     chartId: {
       type: String,
       default: 'bar-chart'
@@ -51,9 +59,9 @@ export default {
       type: Object
     }
   },
-  data () {
+  data (): BarChartData {
     return {
-      chartData: {
+      chartDataDefault: {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         datasets: [
           {
