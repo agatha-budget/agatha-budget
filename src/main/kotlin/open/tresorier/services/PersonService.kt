@@ -7,11 +7,11 @@ import open.tresorier.model.PublicPerson
 import open.tresorier.utils.Time
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.enum.ProfileEnum
+import open.tresorier.model.enum.ActionEnum
 
 
-class PersonService(private val personDao: IPersonDao, 
-    private val budgetService: BudgetService,
-    private val mailingService: MailingService) {
+class PersonService(private val personDao: IPersonDao, private val budgetService: BudgetService,
+ private val userActivityService: UserActivityService, private val mailingService: MailingService) {
 
     fun createPerson(name: String, password: String, email: String, profile: ProfileEnum): Person {
         val hashedPassword = AuthenticationService.hashPassword(password)
@@ -35,6 +35,8 @@ class PersonService(private val personDao: IPersonDao,
             updateLoginAttempt(it, correctPassword)
             if (!(correctPassword && unlockedAccount)){
                 person = null
+            } else {
+                userActivityService.create(it, Time.now(), ActionEnum.ACTION_LOGIN)
             }
         }
         return person

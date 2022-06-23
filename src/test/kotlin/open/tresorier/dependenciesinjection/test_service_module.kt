@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val test_service_module = module {
     // init default mock behavior
     val mockFactory = MockFactory()
-    single<PersonService>(named("PersonServiceInvalidDao")) { PersonService(mockFactory.mockInvalidPersonDao, get(), get()) }
+    single<PersonService>(named("PersonServiceInvalidDao")) { PersonService(mockFactory.mockInvalidPersonDao, get(), get(), get())  }
 }
 
 class MockFactory {
