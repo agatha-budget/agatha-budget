@@ -39,3 +39,5 @@ logs/app.log
 logs/
 
 gradle.properties
+
+local.properties
