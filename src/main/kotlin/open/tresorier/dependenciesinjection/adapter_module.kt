@@ -4,6 +4,8 @@ import open.tresorier.mailing.*
 import open.tresorier.mailing.adapter.*
 import open.tresorier.dao.*
 import open.tresorier.dao.jooq.pgsql.*
+import open.tresorier.utils.Properties
+import open.tresorier.utils.PropertiesEnum.*
 import org.koin.dsl.module
 
 val properties = Properties()

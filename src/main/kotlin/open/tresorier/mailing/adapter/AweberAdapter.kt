@@ -1,8 +1,8 @@
 package open.tresorier.mailing.adapter
 
 import org.json.JSONArray
-import open.tresorier.utils.Properties
 import open.tresorier.utils.HTTPConnection
+import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.mailing.IMailingPort
 import open.tresorier.exception.MailingException
