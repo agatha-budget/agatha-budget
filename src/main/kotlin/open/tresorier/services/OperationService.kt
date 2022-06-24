@@ -32,7 +32,6 @@ class OperationService(private val operationDao: IOperationDao, private val auth
             if (!it.isEquals(operation.day)) {
                 val newOrder = Time.now()
                 operation.day = it
-                val old = operation.orderInDay
                 operation.orderInDay = newOrder
             }
         }

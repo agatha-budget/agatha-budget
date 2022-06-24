@@ -14,7 +14,7 @@ class Day (
     }
 
     fun isEquals(day: Day): Boolean {
-        return day.comparable === this.comparable
+        return day.comparable == this.comparable
     }
 
     companion object {

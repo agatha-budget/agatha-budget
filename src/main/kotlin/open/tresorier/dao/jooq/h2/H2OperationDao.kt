@@ -163,8 +163,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         return JooqOperation(
             operation.id,
             operation.accountId,
-            operation.day?.month?.comparable,
-            operation.day?.day,
+            operation.day.month.comparable,
+            operation.day.day,
             operation.categoryId,
             operation.memo,
             operation.amount,
