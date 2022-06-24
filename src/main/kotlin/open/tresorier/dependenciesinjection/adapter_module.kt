@@ -6,8 +6,9 @@ import open.tresorier.dao.*
 import open.tresorier.dao.jooq.pgsql.*
 import org.koin.dsl.module
 
+val properties = Properties()
 val adapter_module = module {
-    single<IMailingPort> { AweberAdapter() }
+    single<IMailingPort> { if (properties.get(ENVIRONMENT) == "prod") AweberAdapter() else MockMailingAdapter() }
     single<IPersonDao> { PgPersonDao((get())) }
     single<IBudgetDao> { PgBudgetDao((get())) }
     single<IAccountDao> { PgAccountDao((get())) }

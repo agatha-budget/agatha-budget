@@ -12,13 +12,6 @@ import open.tresorier.model.Person
 
 class AweberAdapter() : IMailingPort {
     override fun add(person: Person) {
-        val properties = Properties()
-        if (properties.get(ENVIRONMENT) == "prod" ){
-            this.sendToAweber(person)
-        }
-    }
-
-    fun sendToAweber(person: Person) {
         refreshToken()
         val properties = Properties()
 
