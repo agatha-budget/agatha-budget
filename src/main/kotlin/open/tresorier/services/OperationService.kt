@@ -11,8 +11,13 @@ import java.util.Locale
 import java.util.regex.*
 import java.io.File
 import java.io.BufferedReader
+import open.tresorier.model.enum.ActionEnum
 
-class OperationService(private val operationDao: IOperationDao, private val authorizationService: AuthorizationService, private val accountDao: IAccountDao) {
+class OperationService(
+    private val operationDao: IOperationDao,
+    private val authorizationService: AuthorizationService,
+    private val accountDao: IAccountDao,
+    private val userActivityService: UserActivityService) {
 
     fun createInitialOperation(person: Person, account: Account, day: Day, amount: Int){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
@@ -75,6 +80,9 @@ class OperationService(private val operationDao: IOperationDao, private val auth
             val operationCreated = this.createOperationFromOFX(account, it)
             nbOperation ++
             operationDao.insert(operationCreated)
+        }
+        if (nbOperation > 0) {
+            userActivityService.create(person, Time.now(), ActionEnum.ACTION_IMPORT)
         }
         return nbOperation
     }
