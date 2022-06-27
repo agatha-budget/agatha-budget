@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = -1637598237;
+    private static final long serialVersionUID = -1061950552;
 
     private final String  id;
     private final String  accountId;
@@ -25,7 +25,7 @@ public class Operation implements Serializable {
     private final Long    orderInDay;
     private final Boolean pending;
     private final Boolean locked;
-    private final String  motheroperation;
+    private final String  motherOperationId;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -38,7 +38,7 @@ public class Operation implements Serializable {
         this.orderInDay = value.orderInDay;
         this.pending = value.pending;
         this.locked = value.locked;
-        this.motheroperation = value.motheroperation;
+        this.motherOperationId = value.motherOperationId;
     }
 
     public Operation(
@@ -52,7 +52,7 @@ public class Operation implements Serializable {
         Long    orderInDay,
         Boolean pending,
         Boolean locked,
-        String  motheroperation
+        String  motherOperationId
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -64,7 +64,7 @@ public class Operation implements Serializable {
         this.orderInDay = orderInDay;
         this.pending = pending;
         this.locked = locked;
-        this.motheroperation = motheroperation;
+        this.motherOperationId = motherOperationId;
     }
 
     public String getId() {
@@ -107,8 +107,8 @@ public class Operation implements Serializable {
         return this.locked;
     }
 
-    public String getMotheroperation() {
-        return this.motheroperation;
+    public String getMotherOperationId() {
+        return this.motherOperationId;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class Operation implements Serializable {
         sb.append(", ").append(orderInDay);
         sb.append(", ").append(pending);
         sb.append(", ").append(locked);
-        sb.append(", ").append(motheroperation);
+        sb.append(", ").append(motherOperationId);
 
         sb.append(")");
         return sb.toString();

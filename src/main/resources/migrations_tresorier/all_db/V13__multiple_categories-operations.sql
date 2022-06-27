@@ -1,2 +1,2 @@
 ALTER TABLE operation
-ADD COLUMN motherOperation VARCHAR(36) DEFAULT NULL;
+ADD COLUMN mother_operation_id VARCHAR(36) DEFAULT NULL;

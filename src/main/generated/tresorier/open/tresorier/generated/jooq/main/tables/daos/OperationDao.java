@@ -186,16 +186,16 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>motheroperation BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>mother_operation_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchRangeOfMotheroperation(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Operation.OPERATION.MOTHEROPERATION, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchRangeOfMotherOperationId(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Operation.OPERATION.MOTHER_OPERATION_ID, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>motheroperation IN (values)</code>
+     * Fetch records that have <code>mother_operation_id IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchByMotheroperation(String... values) {
-        return fetch(Operation.OPERATION.MOTHEROPERATION, values);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.Operation> fetchByMotherOperationId(String... values) {
+        return fetch(Operation.OPERATION.MOTHER_OPERATION_ID, values);
     }
 }

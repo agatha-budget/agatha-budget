@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 136633060;
+    private static final long serialVersionUID = 1636383545;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -99,9 +99,9 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("locked"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
-     * The column <code>public.operation.motheroperation</code>.
+     * The column <code>public.operation.mother_operation_id</code>.
      */
-    public final TableField<OperationRecord, String> MOTHEROPERATION = createField(DSL.name("motheroperation"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<OperationRecord, String> MOTHER_OPERATION_ID = createField(DSL.name("mother_operation_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * Create a <code>public.operation</code> table reference

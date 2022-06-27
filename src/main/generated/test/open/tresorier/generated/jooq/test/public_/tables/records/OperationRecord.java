@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implements Record11<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String> {
 
-    private static final long serialVersionUID = 996726919;
+    private static final long serialVersionUID = -2099647689;
 
     /**
      * Setter for <code>PUBLIC.OPERATION.ID</code>.
@@ -172,17 +172,17 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
     }
 
     /**
-     * Setter for <code>PUBLIC.OPERATION.MOTHEROPERATION</code>.
+     * Setter for <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
      */
-    public OperationRecord setMotheroperation(String value) {
+    public OperationRecord setMotherOperationId(String value) {
         set(10, value);
         return this;
     }
 
     /**
-     * Getter for <code>PUBLIC.OPERATION.MOTHEROPERATION</code>.
+     * Getter for <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
      */
-    public String getMotheroperation() {
+    public String getMotherOperationId() {
         return (String) get(10);
     }
 
@@ -261,7 +261,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public Field<String> field11() {
-        return Operation.OPERATION.MOTHEROPERATION;
+        return Operation.OPERATION.MOTHER_OPERATION_ID;
     }
 
     @Override
@@ -316,7 +316,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public String component11() {
-        return getMotheroperation();
+        return getMotherOperationId();
     }
 
     @Override
@@ -371,7 +371,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public String value11() {
-        return getMotheroperation();
+        return getMotherOperationId();
     }
 
     @Override
@@ -436,7 +436,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public OperationRecord value11(String value) {
-        setMotheroperation(value);
+        setMotherOperationId(value);
         return this;
     }
 
@@ -470,7 +470,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
     /**
      * Create a detached, initialised OperationRecord
      */
-    public OperationRecord(String id, String accountId, Integer month, Integer day, String categoryId, String memo, Integer amount, Long orderInDay, Boolean pending, Boolean locked, String motheroperation) {
+    public OperationRecord(String id, String accountId, Integer month, Integer day, String categoryId, String memo, Integer amount, Long orderInDay, Boolean pending, Boolean locked, String motherOperationId) {
         super(Operation.OPERATION);
 
         set(0, id);
@@ -483,6 +483,6 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
         set(7, orderInDay);
         set(8, pending);
         set(9, locked);
-        set(10, motheroperation);
+        set(10, motherOperationId);
     }
 }

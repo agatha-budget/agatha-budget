@@ -149,7 +149,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             operation.orderInDay,
             operation.pending,
             operation.locked,
-            operation.motherOperation,
+            operation.motherOperationId,
             )
     }
 
@@ -166,6 +166,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.pending,
             jooqOperation.locked,
             jooqOperation.id,
+            jooqOperation.motherOperationId
         )
     }
 
@@ -188,6 +189,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             operationRecord.pending,
             operationRecord.locked,
             operationRecord.id,
+            operationRecord.motherOperationId
         )
     }
 }

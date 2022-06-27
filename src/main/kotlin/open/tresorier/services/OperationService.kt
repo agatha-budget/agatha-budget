@@ -20,10 +20,10 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
     }
 
-    fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?, pending: Boolean?, motherOperation: String?) : Operation {
+    fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?, pending: Boolean?, motherOperationId: String?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         val order = Time.now()
-        val operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false, motherOperation)
+        val operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false, motherOperationId)
         return operationDao.insert(operation)
     }
 
@@ -33,7 +33,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         return operation
     }
 
-    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, amount: Int?, memo: String?, pending: Boolean?, motherOperation: String?) : Operation {
+    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, amount: Int?, memo: String?, pending: Boolean?, motherOperationId: String?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
         newDay?.let {
             if (!it.isEquals(operation.day)) {
@@ -47,7 +47,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         amount?.let { operation.amount = it }
         memo?.let { operation.memo = it }
         pending?.let { operation.pending = it }
-        motherOperation?.let { operation.motherOperation = it }
+        motherOperationId?.let { operation.motherOperationId = it }
         return operationDao.update(operation)
     }
 

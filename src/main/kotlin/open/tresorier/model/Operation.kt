@@ -9,7 +9,7 @@ class Operation (
         var memo: String? = null,
         var pending: Boolean = false,
         var locked: Boolean,
-        var motherOperation: String? = null,
+        var motherOperationId: String? = null,
         id: String? = null,
         deleted: Boolean? = null
 ) : DbObject(id, deleted) {
