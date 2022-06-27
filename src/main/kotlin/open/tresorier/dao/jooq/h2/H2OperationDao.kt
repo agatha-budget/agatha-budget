@@ -165,8 +165,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.memo,
             jooqOperation.pending,
             jooqOperation.locked,
+            jooqOperation.motherOperationId,
             jooqOperation.id,
-            jooqOperation.motherOperationId
         )
     }
 
@@ -188,8 +188,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             operationRecord.memo,
             operationRecord.pending,
             operationRecord.locked,
-            operationRecord.id,
             operationRecord.motherOperationId,
+            operationRecord.id,
         )
     }
 }

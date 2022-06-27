@@ -165,8 +165,8 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.memo,
             jooqOperation.pending,
             jooqOperation.locked,
+            jooqOperation.motherOperationId,
             jooqOperation.id,
-            jooqOperation.motherOperationId
         )
     }
 
@@ -188,8 +188,8 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             operationRecord.memo,
             operationRecord.pending,
             operationRecord.locked,
+            operationRecord.motherOperationId,
             operationRecord.id,
-            operationRecord.motherOperationId
         )
     }
 }

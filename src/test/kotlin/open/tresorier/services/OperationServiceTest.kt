@@ -246,4 +246,62 @@ class OperationServiceTest : ITest {
         Assertions.assertFalse(operation.pending)
     }
 
+    @Test 
+    fun testFindDaughterOperations() {
+        val katherine: Person = personService.createPerson(
+            "Katherine Johnson", "Apollo-11", "katherine@nasa.us", ProfileEnum.PROFILE_USER
+        )
+        katherine.billingStatus = true
+        val budget: Budget = budgetService.findByUser(katherine)[0]
+        val account: Account = accountService.create(
+            katherine, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        var operation: Operation = operationService.create(
+            katherine, account, TestData.jan_14_2022, null, 0, "Mercury-Atlas 6", null, null
+        )
+        var idMotherOperation = operation.id
+        var operation1: Operation = operationService.create(
+            katherine, account, TestData.jan_14_2022, null, 1962, "Mercury", null, idMotherOperation
+        )
+        var operation2: Operation = operationService.create(
+            katherine, account, TestData.jan_14_2022, null, 1962, "Atlas", null, idMotherOperation
+        )
+        operationService.create(katherine, account, TestData.jan_14_2022, null, 1969, "Friendship 7", null, null )
+        var operation3: Operation = operationService.create(
+            katherine, account, TestData.jan_14_2022, null, 1962, "6", null, idMotherOperation
+        )
+
+        val listDaughterOperation = operationService.findDaughterOperations(katherine, operation)
+
+        Assertions.assertEquals(listDaughterOperation.size, 3)
+        Assertions.assertTrue(listDaughterOperation[0].isEquals(operation3))
+        Assertions.assertTrue(listDaughterOperation[1].isEquals(operation2))
+        Assertions.assertTrue(listDaughterOperation[2].isEquals(operation1))
+    }
+
+    @Test 
+    fun testFindDaugtherOperationWhitoutDaughterOperation() {
+        val valentina: Person = personService.createPerson(
+            "Valentina Terechkova", "Vostok-6", "valentina@cosmonaute.ru", ProfileEnum.PROFILE_USER
+        )
+        valentina.billingStatus = true
+        val budget: Budget = budgetService.findByUser(valentina)[0]
+        val account: Account = accountService.create(
+            valentina, budget, "personal account", TestData.jan_14_2022, 1000
+        )
+        var operation: Operation = operationService.create(
+            valentina, account, TestData.jan_14_2022, null, 0, "ordre de l'amitié", null, null
+        )
+        var idMotherOperation = operation.id
+        operationService.create(valentina, account, TestData.jan_14_2022, null, 1963, "ordre de Lénine", null, idMotherOperation)
+        operationService.create(valentina, account, TestData.jan_14_2022, null, 1963, "héros de l'union Soviétique", null, idMotherOperation)
+        var operation0: Operation = operationService.create(
+            valentina, account, TestData.jan_14_2022, null, 1963, "Tchaïka", null, null
+        )
+        operationService.create(valentina, account, TestData.jan_14_2022, null, 1963, "cratère", null, idMotherOperation)
+
+        val listDaughterOperation = operationService.findDaughterOperations(valentina, operation0)
+
+        Assertions.assertEquals(listDaughterOperation.size, 0)
+    }
 }

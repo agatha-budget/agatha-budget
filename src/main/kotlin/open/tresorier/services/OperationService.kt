@@ -1,6 +1,7 @@
  package open.tresorier.services
 
 import open.tresorier.dao.IOperationDao
+import open.tresorier.dao.IAccountDao
 import open.tresorier.model.*
 import open.tresorier.utils.Time
 
@@ -11,7 +12,7 @@ import java.util.regex.*
 import java.io.File
 import java.io.BufferedReader
 
-class OperationService(private val operationDao: IOperationDao, private val authorizationService: AuthorizationService) {
+class OperationService(private val operationDao: IOperationDao, private val authorizationService: AuthorizationService, private val accountDao: IAccountDao) {
 
     fun createInitialOperation(person: Person, account: Account, day: Day, amount: Int){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
@@ -122,5 +123,18 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         }
         val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo, false, false, null)
         return operationCreated
+    }
+    fun findDaughterOperations(person: Person, motherOperation: Operation): List<Operation> {
+        val motherOperationId = motherOperation.id
+        val account = accountDao.getById(motherOperation.accountId)
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        val listAllOperations: List<Operation> = operationDao.findByAccount(account)
+        var listDaughterOperation = mutableListOf<Operation>()
+        listAllOperations.forEach {
+            if (it.motherOperationId == motherOperationId) {
+                listDaughterOperation.add(it)
+            }
+        }
+        return listDaughterOperation
     }
 }
