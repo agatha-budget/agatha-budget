@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 407334196;
+    private static final long serialVersionUID = 538245875;
 
     private final String  id;
     private final String  accountId;
@@ -23,6 +23,8 @@ public class Operation implements Serializable {
     private final String  memo;
     private final Integer amount;
     private final Long    orderInDay;
+    private final Boolean pending;
+    private final Boolean locked;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -33,6 +35,8 @@ public class Operation implements Serializable {
         this.memo = value.memo;
         this.amount = value.amount;
         this.orderInDay = value.orderInDay;
+        this.pending = value.pending;
+        this.locked = value.locked;
     }
 
     public Operation(
@@ -43,7 +47,9 @@ public class Operation implements Serializable {
         String  categoryId,
         String  memo,
         Integer amount,
-        Long    orderInDay
+        Long    orderInDay,
+        Boolean pending,
+        Boolean locked
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -53,6 +59,8 @@ public class Operation implements Serializable {
         this.memo = memo;
         this.amount = amount;
         this.orderInDay = orderInDay;
+        this.pending = pending;
+        this.locked = locked;
     }
 
     public String getId() {
@@ -87,6 +95,14 @@ public class Operation implements Serializable {
         return this.orderInDay;
     }
 
+    public Boolean getPending() {
+        return this.pending;
+    }
+
+    public Boolean getLocked() {
+        return this.locked;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Operation (");
@@ -99,6 +115,8 @@ public class Operation implements Serializable {
         sb.append(", ").append(memo);
         sb.append(", ").append(amount);
         sb.append(", ").append(orderInDay);
+        sb.append(", ").append(pending);
+        sb.append(", ").append(locked);
 
         sb.append(")");
         return sb.toString();

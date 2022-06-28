@@ -7,6 +7,7 @@ import java.sql.DriverManager
 
 import org.koin.dsl.module
 import open.tresorier.utils.Properties
+import open.tresorier.utils.PropertiesEnum.*
 import java.sql.Connection
 
 val dbAccess_module = module {
@@ -15,11 +16,11 @@ val dbAccess_module = module {
 
 object DBConfiguration {
 
-    private val properties = Properties.getProperties()
+    private val properties = Properties()
 
-    private val userName: String = properties.getProperty("tresorier_db_usr")
-    private val password: String = properties.getProperty("tresorier_db_pwd")
-    private val url: String = properties.getProperty("tresorier_db_url")
+    private val userName: String = properties.get(TRESORIER_DB_USR)
+    private val password: String = properties.get(TRESORIER_DB_PWD)
+    private val url: String = properties.get(TRESORIER_DB_URL)
 
     private val connection: Connection = DriverManager.getConnection(url, userName, password)
     val configuration: Configuration = DefaultConfiguration().set(connection).set(SQLDialect.POSTGRES)

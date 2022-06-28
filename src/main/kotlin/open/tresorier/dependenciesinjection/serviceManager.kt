@@ -16,11 +16,13 @@ object ServiceManager : KoinComponent {
     val allocationService : AllocationService by inject()
     val operationService : OperationService by inject()
     val billingService: BillingService by inject()
+    val mailingService: MailingService by inject()
+    val userActivityService: UserActivityService by inject()
 
     fun start(){
         startKoin{
             printLogger()
-            modules(dbAccess_module, dao_module, service_module)
+            modules(dbAccess_module, adapter_module, service_module)
         }
     }
 

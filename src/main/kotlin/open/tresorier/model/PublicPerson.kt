@@ -9,4 +9,5 @@ class PublicPerson (
     var style: String? = null,
     var dyslexia: Boolean = false,
     val creationDate: Long,
+    val hasBillingId: Boolean,
 )

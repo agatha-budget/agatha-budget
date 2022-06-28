@@ -12,6 +12,7 @@ import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.main.tables.MasterCategory;
 import open.tresorier.generated.jooq.main.tables.Operation;
 import open.tresorier.generated.jooq.main.tables.Person;
+import open.tresorier.generated.jooq.main.tables.UserActivity;
 import open.tresorier.generated.jooq.main.tables.records.AccountRecord;
 import open.tresorier.generated.jooq.main.tables.records.AllocationRecord;
 import open.tresorier.generated.jooq.main.tables.records.BudgetRecord;
@@ -20,6 +21,7 @@ import open.tresorier.generated.jooq.main.tables.records.FlywaySchemaHistoryReco
 import open.tresorier.generated.jooq.main.tables.records.MasterCategoryRecord;
 import open.tresorier.generated.jooq.main.tables.records.OperationRecord;
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord;
+import open.tresorier.generated.jooq.main.tables.records.UserActivityRecord;
 
 import org.jooq.ForeignKey;
 import org.jooq.TableField;
@@ -53,6 +55,7 @@ public class Keys {
     public static final UniqueKey<PersonRecord> PERSON_PKEY = UniqueKeys0.PERSON_PKEY;
     public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = UniqueKeys0.PERSON_EMAIL_KEY;
     public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = UniqueKeys0.PERSON_BILLING_ID_KEY;
+    public static final UniqueKey<UserActivityRecord> USER_ACTIVITY_PKEY = UniqueKeys0.USER_ACTIVITY_PKEY;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -81,6 +84,7 @@ public class Keys {
         public static final UniqueKey<PersonRecord> PERSON_PKEY = Internal.createUniqueKey(Person.PERSON, "person_pkey", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = Internal.createUniqueKey(Person.PERSON, "person_email_key", new TableField[] { Person.PERSON.EMAIL }, true);
         public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = Internal.createUniqueKey(Person.PERSON, "person_billing_id_key", new TableField[] { Person.PERSON.BILLING_ID }, true);
+        public static final UniqueKey<UserActivityRecord> USER_ACTIVITY_PKEY = Internal.createUniqueKey(UserActivity.USER_ACTIVITY, "user_activity_pkey", new TableField[] { UserActivity.USER_ACTIVITY.ID }, true);
     }
 
     private static class ForeignKeys0 {

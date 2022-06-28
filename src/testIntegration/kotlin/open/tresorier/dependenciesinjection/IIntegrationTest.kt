@@ -8,7 +8,7 @@ interface IIntegrationTest : ITest {
     @BeforeEach override fun injectDependencies() {
         startKoin {
             printLogger()
-            modules(dbAccessTestIntegration_module, dao_module)
+            modules(dbAccessTestIntegration_module, adapter_module)
         }
     }
 }

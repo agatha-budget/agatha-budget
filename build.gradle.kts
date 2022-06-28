@@ -1,32 +1,32 @@
 import org.jooq.meta.jaxb.ForcedType
 
 // Properties for DB access
-val tresorier_db_driver: String by project
-val tresorier_db_url_dflt: String by project
-val tresorier_db_usr_dflt: String by project
-val tresorier_db_pwd_dflt: String by project
-val tresorier_db_version: String by project
+val TRESORIER_DB_DRIVER: String by project
+val TRESORIER_DB_URL_DFLT: String by project
+val TRESORIER_DB_USR_DFLT: String by project
+val TRESORIER_DB_PWD_DFLT: String by project
+val TRESORIER_DB_VERSION: String by project
 
-val integration_db_url_dflt: String by project
-val integration_db_usr_dflt: String by project
-val integration_db_pwd_dflt: String by project
+val INTEGRATION_DB_URL_DFLT: String by project
+val INTEGRATION_DB_USR_DFLT: String by project
+val INTEGRATION_DB_PWD_DFLT: String by project
 
-val test_db_driver: String by project
-val test_db_url: String by project
-val test_db_usr: String by project
-val test_db_pwd: String by project
-val test_db_version: String by project
+val TEST_DB_DRIVER: String by project
+val TEST_DB_URL: String by project
+val TEST_DB_USR: String by project
+val TEST_DB_PWD: String by project
+val TEST_DB_VERSION: String by project
 
-val herokuTresorierDB: String by project
-val herokuIntegrationDB: String by project
+val TRESORIER_DB_ID: String by project
+val INTEGRATION_DB_ID: String by project
 
-val tresorier_db_url = System.getenv(herokuTresorierDB +"_URL") ?: tresorier_db_url_dflt
-val tresorier_db_usr = System.getenv(herokuTresorierDB + "_USERNAME") ?: tresorier_db_usr_dflt
-val tresorier_db_pwd = System.getenv(herokuTresorierDB + "_PASSWORD") ?: tresorier_db_pwd_dflt
+val TRESORIER_DB_URL = System.getenv(TRESORIER_DB_ID +"_URL") ?: TRESORIER_DB_URL_DFLT
+val TRESORIER_DB_USR = System.getenv(TRESORIER_DB_ID + "_USERNAME") ?: TRESORIER_DB_USR_DFLT
+val TRESORIER_DB_PWD = System.getenv(TRESORIER_DB_ID + "_PASSWORD") ?: TRESORIER_DB_PWD_DFLT
 
-val integration_db_url = System.getenv(herokuIntegrationDB +"_URL") ?: integration_db_url_dflt
-val integration_db_usr = System.getenv(herokuIntegrationDB + "_USERNAME") ?: integration_db_usr_dflt
-val integration_db_pwd = System.getenv(herokuIntegrationDB + "_PASSWORD") ?: integration_db_pwd_dflt
+val INTEGRATION_DB_URL = System.getenv(INTEGRATION_DB_ID +"_URL") ?: INTEGRATION_DB_URL_DFLT
+val INTEGRATION_DB_USR = System.getenv(INTEGRATION_DB_ID + "_USERNAME") ?: INTEGRATION_DB_USR_DFLT
+val INTEGRATION_DB_PWD = System.getenv(INTEGRATION_DB_ID + "_PASSWORD") ?: INTEGRATION_DB_PWD_DFLT
 
 buildscript {
     dependencies {
@@ -93,6 +93,8 @@ val jackson_version="2.10.3"
 val supertoken_version="1.4.+"
 val argon_version="2.7"
 val stripe_version="20.85.0"
+val json_version="20220320"
+
 
 dependencies {
     // Kotlin
@@ -147,6 +149,7 @@ dependencies {
     // Billing
     implementation("com.stripe:stripe-java:$stripe_version")
 
+    implementation("org.json:json:$json_version")
 }
 
 tasks.clean {
@@ -154,26 +157,26 @@ tasks.clean {
 }
 
 tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTresorierDatabase") {
-    url = tresorier_db_url
-    user = tresorier_db_usr
-    password = tresorier_db_pwd
-    locations = arrayOf(tresorier_db_version)
+    url = TRESORIER_DB_URL
+    user = TRESORIER_DB_USR
+    password = TRESORIER_DB_PWD
+    locations = arrayOf(TRESORIER_DB_VERSION)
 }
 
 
 tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateIntegrationDatabase") {
-    url = integration_db_url
-    user = integration_db_usr
-    password = integration_db_pwd
-    locations = arrayOf(tresorier_db_version)
+    url = INTEGRATION_DB_URL
+    user = INTEGRATION_DB_USR
+    password = INTEGRATION_DB_PWD
+    locations = arrayOf(TRESORIER_DB_VERSION)
 }
 
 tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTestDatabase") {
-    driver = test_db_driver
-    url = test_db_url
-    user = test_db_usr
-    password = test_db_pwd
-    locations = arrayOf(test_db_version)
+    driver = TEST_DB_DRIVER
+    url = TEST_DB_URL
+    user = TEST_DB_USR
+    password = TEST_DB_PWD
+    locations = arrayOf(TEST_DB_VERSION)
 }
 
 tasks.register("migrate") {
@@ -183,25 +186,25 @@ tasks.register("migrate") {
 }
 
 tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanIntegrationDatabase") {
-    url = integration_db_url
-    user = integration_db_usr
-    password = integration_db_pwd
-    locations = arrayOf(tresorier_db_version)
+    url = INTEGRATION_DB_URL
+    user = INTEGRATION_DB_USR
+    password = INTEGRATION_DB_PWD
+    locations = arrayOf(TRESORIER_DB_VERSION)
 }
 
 tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTresorierDatabase") {
-    url = tresorier_db_url
-    user = tresorier_db_usr
-    password = tresorier_db_pwd
-    locations = arrayOf(tresorier_db_version)
+    url = TRESORIER_DB_URL
+    user = TRESORIER_DB_USR
+    password = TRESORIER_DB_PWD
+    locations = arrayOf(TRESORIER_DB_VERSION)
 }
 
 tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTestDatabase") {
-    driver = test_db_driver
-    url = test_db_url
-    user = test_db_usr
-    password = test_db_pwd
-    locations = arrayOf(test_db_version)
+    driver = TEST_DB_DRIVER
+    url = TEST_DB_URL
+    user = TEST_DB_USR
+    password = TEST_DB_PWD
+    locations = arrayOf(TEST_DB_VERSION)
 }
 
 tasks.register("cleanAllDB") {
@@ -217,10 +220,10 @@ jooq {
              jooqConfiguration.apply {
                  logging = org.jooq.meta.jaxb.Logging.WARN
                  jdbc.apply {
-                     driver = tresorier_db_driver
-                     url = tresorier_db_url
-                     user = tresorier_db_usr
-                     password = tresorier_db_pwd
+                     driver = TRESORIER_DB_DRIVER
+                     url = TRESORIER_DB_URL
+                     user = TRESORIER_DB_USR
+                     password = TRESORIER_DB_PWD
                  }
                  generator.apply {
                      name = "org.jooq.codegen.JavaGenerator"
@@ -260,10 +263,10 @@ jooq {
             jooqConfiguration.apply {
                 logging = org.jooq.meta.jaxb.Logging.WARN
                 jdbc.apply {
-                    driver = test_db_driver
-                    url = test_db_url
-                    user = test_db_usr
-                    password = test_db_pwd
+                    driver = TEST_DB_DRIVER
+                    url = TEST_DB_URL
+                    user = TEST_DB_USR
+                    password = TEST_DB_PWD
                 }
                 generator.apply {
                     name = "org.jooq.codegen.JavaGenerator"

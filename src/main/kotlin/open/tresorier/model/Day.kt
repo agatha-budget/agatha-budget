@@ -14,7 +14,7 @@ class Day (
     }
 
     fun isEquals(day: Day): Boolean {
-        return day.comparable === this.comparable
+        return day.comparable == this.comparable
     }
 
     companion object {
@@ -34,6 +34,40 @@ class Day (
             val month = ((comparable-day)/100)%100
             val year = (comparable-month-day)/10000
             return Day(Month(month, year), day)
+        }
+
+        fun checkComparableIsValid(comparable: Int) : Boolean {
+            val day = comparable%100
+            val month = ((comparable-day)/100)%100
+            val year = (comparable-month-day)/10000
+            if (month < 1 || month > 12) {
+                return false // month is invalid
+            }
+            // check valid day
+            if (day > 28) { // possibility of invalid day
+                // february during a bissextile year
+                if (month == 2 && year%4 != 0) {
+                    return false
+                }
+                if (day > 29) {
+                    // february never have more of 29 days
+                    if (month == 2) {
+                        return false
+                    }
+                    if (day > 30) {
+                        // for april, june, september and november
+                        var listMonths = listOf(4, 6, 9, 11)
+                        if (listMonths.contains(month)) {
+                            return false
+                        }
+                        // day superior of 31
+                        if (day > 31) {
+                            return false
+                        }
+                    }
+                }
+            }
+            return true
         }
     }
 }
