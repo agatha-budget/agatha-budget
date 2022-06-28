@@ -15,6 +15,8 @@ import com.stripe.param.billingportal.SessionCreateParams as PortalSessionCreate
 import com.stripe.Stripe
 
 import open.tresorier.utils.Properties
+import open.tresorier.utils.PropertiesEnum
+import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.utils.Time
 import open.tresorier.model.Person
 import open.tresorier.exception.*
@@ -48,8 +50,8 @@ class BillingService(private val personService: PersonService) {
 
     fun handleWebhook(payload: String, sigHeader: String?) {
         setStripeApiKey()
-        val properties = Properties.getProperties()
-        val endpointSecret = properties.getProperty("stripe_webhook")
+        val properties = Properties()
+        val endpointSecret = properties.get(STRIPE_WEBHOOK)
         val event = Webhook.constructEvent(payload, sigHeader, endpointSecret);
         // Deserialize the nested object inside the event
         val dataObjectDeserializer : EventDataObjectDeserializer = event.getDataObjectDeserializer();
@@ -83,11 +85,11 @@ class BillingService(private val personService: PersonService) {
     companion object {
         fun createNewUserBillingSession(person: Person, selectedPackage: PriceIdEnum): String {
             setStripeApiKey()
-            val properties = Properties.getProperties()
-            val priceId: String = properties.getProperty(selectedPackage.toString())
-            val taxId: String = properties.getProperty("tax_id")
-            val succesUrl: String = properties.getProperty("succesUrl")
-            val cancelUrl: String = properties.getProperty("cancelUrl")
+            val properties = Properties()
+            val priceId: String = properties.get(PropertiesEnum.valueOf(selectedPackage.toString()))
+            val taxId: String = properties.get(TAX_ID)
+            val succesUrl: String = properties.get(SUCCES_URL)
+            val cancelUrl: String = properties.get(CANCEL_URL)
 
             val params : CheckoutSessionCreateParam = CheckoutSessionCreateParam.Builder()
                 .setSuccessUrl(succesUrl)
@@ -111,8 +113,7 @@ class BillingService(private val personService: PersonService) {
 
         fun createBillingManagementSession(person: Person): String {
             setStripeApiKey()
-            val properties = Properties.getProperties()
-            val succesUrl: String = properties.getProperty("succesUrl")
+            val succesUrl: String = Properties().get(SUCCES_URL)
 
             val params : PortalSessionCreateParam = PortalSessionCreateParam.Builder()
                 .setCustomer(person.billingId)
@@ -124,8 +125,7 @@ class BillingService(private val personService: PersonService) {
         }
        
         fun setStripeApiKey() {
-            val properties = Properties.getProperties()
-            Stripe.apiKey = properties.getProperty("stripe_api_key")
+            Stripe.apiKey = Properties().get(STRIPE_API_KEY)
         }
 
         fun checkClientIdentifierIsNotNull(stripeObject: StripeObject, id : String?) {

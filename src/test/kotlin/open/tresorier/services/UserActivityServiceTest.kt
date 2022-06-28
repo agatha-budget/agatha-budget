@@ -46,6 +46,7 @@ class UserActivityServiceTest : ITest {
         operationService.importOfxFile(josephine, account, ofxFile)
         val listImport = userActivityService.getByAction(ActionEnum.ACTION_IMPORT)
 
+        Assertions.assertEquals(listImport.size, 1)
         Assertions.assertEquals(listImport[0].userId, josephine.id)
     }
 }

@@ -10,11 +10,13 @@ import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.model.enum.ActionEnum
 
 
-class PersonService(private val personDao: IPersonDao, private val budgetService: BudgetService, private val userActivityService: UserActivityService) {
+class PersonService(private val personDao: IPersonDao, private val budgetService: BudgetService,
+ private val userActivityService: UserActivityService, private val mailingService: MailingService) {
 
     fun createPerson(name: String, password: String, email: String, profile: ProfileEnum): Person {
         val hashedPassword = AuthenticationService.hashPassword(password)
         var person = Person(name, hashedPassword, email)
+        mailingService.addPersonToMailingList(person)
         person = personDao.insert(person)
         budgetService.create(person, Budget.DEFAULT_BUDGET_NAME, profile)
         return person
