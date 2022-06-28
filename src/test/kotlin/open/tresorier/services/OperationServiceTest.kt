@@ -255,22 +255,21 @@ class OperationServiceTest : ITest {
         val account: Account = accountService.create(
             katherine, budget, "personal account", TestData.jan_14_2022, 1000
         )
-        var operation: Operation = operationService.create(
+        var motherOperation: Operation = operationService.create(
             katherine, account, TestData.jan_14_2022, null, 0, "Mercury-Atlas 6", null, null
         )
-        var idMotherOperation = operation.id
         var operation1: Operation = operationService.create(
-            katherine, account, TestData.jan_14_2022, null, 1962, "Mercury", null, idMotherOperation
+            katherine, account, TestData.jan_14_2022, null, 1962, "Mercury", null, motherOperation
         )
         var operation2: Operation = operationService.create(
-            katherine, account, TestData.jan_14_2022, null, 1962, "Atlas", null, idMotherOperation
+            katherine, account, TestData.jan_14_2022, null, 1962, "Atlas", null, motherOperation
         )
         operationService.create(katherine, account, TestData.jan_14_2022, null, 1969, "Friendship 7", null, null )
         var operation3: Operation = operationService.create(
-            katherine, account, TestData.jan_14_2022, null, 1962, "6", null, idMotherOperation
+            katherine, account, TestData.jan_14_2022, null, 1962, "6", null, motherOperation
         )
 
-        val listDaughterOperation = operationService.findDaughterOperations(katherine, operation)
+        val listDaughterOperation = operationService.findDaughterOperations(katherine, motherOperation)
 
         Assertions.assertEquals(listDaughterOperation.size, 3)
         Assertions.assertTrue(listDaughterOperation[0].isEquals(operation3))
@@ -288,16 +287,15 @@ class OperationServiceTest : ITest {
         val account: Account = accountService.create(
             valentina, budget, "personal account", TestData.jan_14_2022, 1000
         )
-        var operation: Operation = operationService.create(
+        var motherOperation: Operation = operationService.create(
             valentina, account, TestData.jan_14_2022, null, 0, "ordre de l'amitié", null, null
         )
-        var idMotherOperation = operation.id
-        operationService.create(valentina, account, TestData.jan_14_2022, null, 1963, "ordre de Lénine", null, idMotherOperation)
-        operationService.create(valentina, account, TestData.jan_14_2022, null, 1963, "héros de l'union Soviétique", null, idMotherOperation)
+        operationService.create(valentina, account, TestData.jan_14_2022, null, 1963, "ordre de Lénine", null, motherOperation)
+        operationService.create(valentina, account, TestData.jan_14_2022, null, 1963, "héros de l'union Soviétique", null, motherOperation)
         var operation0: Operation = operationService.create(
             valentina, account, TestData.jan_14_2022, null, 1963, "Tchaïka", null, null
         )
-        operationService.create(valentina, account, TestData.jan_14_2022, null, 1963, "cratère", null, idMotherOperation)
+        operationService.create(valentina, account, TestData.jan_14_2022, null, 1963, "cratère", null, motherOperation)
 
         val listDaughterOperation = operationService.findDaughterOperations(valentina, operation0)
 
