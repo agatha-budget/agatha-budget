@@ -9,6 +9,7 @@
         </div>
 
         <BarChart :chartData="chartData"/>
+
         <input type="radio" id="allocated" value="allocated" v-model="typeInformation">
         <label for="allocated">allocated</label>
         <input type="radio" id="spent" value="spent" v-model="typeInformation">
@@ -16,6 +17,16 @@
         <input type="radio" id="available" value="available" v-model="typeInformation">
         <label for="available">available</label>
         <span>Choisi : {{ typeInformation }}</span>
+        <Multiselect
+          v-model="masterCategoryId"
+          :groups="true"
+          :searchable="true"
+          :options="masterCategories"
+          :noResultsText="$t('NO_RESULT_FOUND')"
+          :placeholder="$t('SELECT_MASTER_CATEGORY')"
+        />
+        <btn class="actionButton" v-on:click="drawPieChart">recalculer pie</btn>
+        <btn class="actionButton" v-on:click="drawBarChart">recalculer bar</btn>
         <PieChart :chartData="pieChartData"/>
 
         <div class="placeholder bottom">
@@ -36,8 +47,9 @@ import PieChart from '@/components/charts/PieChart.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 import StoreHandler from '@/store/StoreHandler'
 import BudgetDataService from '@/services/BudgetDataService'
-import { CategoryDataList, Budget, MasterCategory } from '@/model/model'
+import { CategoryDataList, Budget, MasterCategory, GroupSelectOption } from '@/model/model'
 import Utils from '@/utils/Utils'
+import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
     chartData: {
@@ -57,6 +69,7 @@ interface ChartPageData {
       }[];
     };
     typeInformation: string;
+    masterCategoryId: string;
 }
 
 export default defineComponent({
@@ -64,7 +77,8 @@ export default defineComponent({
   components: {
     BarChart,
     PieChart,
-    NavMenu
+    NavMenu,
+    Multiselect
   },
   props: { },
   beforeCreate: async function () {
@@ -90,20 +104,39 @@ export default defineComponent({
       },
       categoryDataList: {},
       pieChartData: {
-        labels: ['VueJs', 'EmberJs', 'ReactJs', 'AngularJs'],
+        labels: [],
         datasets: [
           {
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-            data: [40, 50, 80, 10]
+            backgroundColor: [],
+            data: []
           }
         ]
       },
-      typeInformation: ''
+      typeInformation: 'spent',
+      masterCategoryId: ''
     }
   },
   computed: {
     budget (): Budget | null {
       return this.$store.state.budget
+    },
+    masterCategories (): GroupSelectOption[] {
+      const optionsList = [
+        {
+          label: this.$t('CHOOSE'),
+          options: [
+            { value: '', label: this.$t('ALL_BUDGET') }
+          ]
+        }
+      ]
+      for (const masterCategory of this.$store.state.masterCategories) {
+        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+        if (categories.length > 0) {
+          const newOption = { value: masterCategory.id, label: masterCategory.name }
+          optionsList[0].options.push(newOption)
+        }
+      }
+      return optionsList
     }
   },
   methods: {
@@ -117,8 +150,9 @@ export default defineComponent({
         )
       }
     },
-    getNames (masterCategorySelected: MasterCategory | null): string[] {
+    getNames (masterCategorySelectedId: string): string[] {
       const listName: string[] = []
+      const masterCategorySelected = StoreHandler.getMasterCategoryById(this.$store, masterCategorySelectedId)
       if (masterCategorySelected) {
         const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategorySelected, false)
         for (const category of categories) {
@@ -136,20 +170,21 @@ export default defineComponent({
       console.log(listName) ///
       return listName
     },
-    getDatas (type: string, masterCategorySelected: MasterCategory | null): number[] {
+    getDatas (type: string, masterCategorySelectedId: string): number[] {
       const listData: number[] = []
+      const masterCategorySelected = StoreHandler.getMasterCategoryById(this.$store, masterCategorySelectedId)
       if (masterCategorySelected) {
         const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategorySelected, false)
         for (const category of categories) {
           switch (type) {
-            case 'allocation':
-              listData.push(this.categoryDataList[category.id]?.allocated)
+            case 'allocated':
+              listData.push(Utils.getEurosAmount(this.categoryDataList[category.id]?.allocated))
               break
             case 'spent':
-              listData.push(this.categoryDataList[category.id]?.spent)
+              listData.push(Utils.getEurosAmount(this.categoryDataList[category.id]?.spent * (-1)))
               break
             case 'available':
-              listData.push(this.categoryDataList[category.id]?.available)
+              listData.push(Utils.getEurosAmount(this.categoryDataList[category.id]?.available))
               break
           }
         }
@@ -159,7 +194,7 @@ export default defineComponent({
           const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
           for (const category of categories) {
             switch (type) {
-              case 'allocation':
+              case 'allocated':
                 data += this.categoryDataList[category.id]?.allocated
                 break
               case 'spent':
@@ -193,8 +228,8 @@ export default defineComponent({
       return listColor
     },
     drawPieChart () {
-      const labelList = this.getNames(null)
-      const dataList = this.getDatas('spent', null)
+      const labelList = this.getNames(this.masterCategoryId)
+      const dataList = this.getDatas(this.typeInformation, this.masterCategoryId)
       const colorList = this.getColor(false, false, false)
       this.pieChartData.labels = labelList
       this.pieChartData.datasets[0].data = dataList
@@ -204,19 +239,19 @@ export default defineComponent({
       const datasetsAllocation = {
         label: 'Allocation',
         backgroundColor: this.getColor(true, false, false),
-        data: this.getDatas('allocation', null)
+        data: this.getDatas('allocated', this.masterCategoryId)
       }
       const datasetsSpent = {
         label: 'Dépensé',
         backgroundColor: this.getColor(false, true, false),
-        data: this.getDatas('spent', null)
+        data: this.getDatas('spent', this.masterCategoryId)
       }
       const datasetsAvailable = {
         label: 'Disponible',
         backgroundColor: this.getColor(false, false, true),
-        data: this.getDatas('available', null)
+        data: this.getDatas('available', this.masterCategoryId)
       }
-      this.chartData.labels = this.getNames(null)
+      this.chartData.labels = this.getNames(this.masterCategoryId)
       this.chartData.datasets = [datasetsAllocation, datasetsSpent, datasetsAvailable]
     }
   }
