@@ -26,10 +26,11 @@ class UserActivityServiceTest : ITest {
             "Lucie Aubrac", "DernièreColonne!1940", "lucie@resitance.fr", ProfileEnum.PROFILE_USER
         )
         personService.login("lucie@resitance.fr", "DernièreColonne!1940")
-        val listLogin = userActivityService.getByAction(ActionEnum.ACTION_LOGIN)
+        val listLogin = userActivityService.getByUser(lucie)
         
-        Assertions.assertEquals(listLogin[0].userId, lucie.id)
-        Assertions.assertEquals(listLogin.size, 1)
+        Assertions.assertEquals(1, listLogin.size)
+        Assertions.assertEquals(ActionEnum.ACTION_LOGIN, listLogin[0].action)
+
     }
 
     @Test
@@ -44,9 +45,9 @@ class UserActivityServiceTest : ITest {
         )
         val ofxFile: String = "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220114<TRNAMT>+89,50<FITID>2802202220220228-03.01.56.182263<NAME>PETITE CROIX DE LORRAINE<MEMO>PETITE CROIX DE LORRAINE</STMTTRN>"
         operationService.importOfxFile(josephine, account, ofxFile)
-        val listImport = userActivityService.getByAction(ActionEnum.ACTION_IMPORT)
+        val listImport = userActivityService.getByUser(josephine)
 
-        Assertions.assertEquals(listImport.size, 1)
-        Assertions.assertEquals(listImport[0].userId, josephine.id)
+        Assertions.assertEquals(1, listImport.size)
+        Assertions.assertEquals(ActionEnum.ACTION_IMPORT, listImport[0].action)
     }
 }
