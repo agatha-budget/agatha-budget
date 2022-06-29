@@ -3,13 +3,17 @@ import { operationApi } from '@/services/api/apis'
 import StoreHandler from '@/store/StoreHandler'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
-import { redirectOnApiError } from '@/router'
 
 export default class OperationService {
-  public static async getOperations (account: Account): Promise<Operation[]> {
+  public static async getOperations (account: Account, categoryId: string | null): Promise<Operation[]> {
     let data: Operation[] = []
     if (account.id) {
-      const response = await operationApi.findOperationsByAccount(account.id)
+      let response
+      if (categoryId) {
+        response = await operationApi.findOperationsByAccount(account.id, categoryId)
+      } else {
+        response = await operationApi.findOperationsByAccount(account.id, undefined)
+      }
       data = response.data
     }
     return data

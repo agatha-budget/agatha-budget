@@ -29,6 +29,9 @@
     }
     th , td {
         text-align: center;
+        padding-right: 0;
+        padding-left:0;
+        vertical-align: middle;
         &:first-child{
             padding-left: 10px;
             text-align: left;
@@ -49,7 +52,8 @@
     .categoryBudget {
         background: @background;
         *{
-            padding: 1px;
+            padding-top: 1px;
+            padding-bottom: 1px;
         }
         &:first-child{
             text-align: left;
@@ -60,6 +64,8 @@
         .numberInput {
             input {
                 text-align: center;
+                padding-left: 0;
+                padding-right: 0;
             }
         }
     }

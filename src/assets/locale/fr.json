@@ -106,6 +106,8 @@
     "ADD_MANUALLY": "ajout manuel",
     "BANK_IMPORT": "import relevé",
     "PARAMETERS": "paramètres",
+    "FILTER": "filtrer",
+    "REMOVE_FILTER": "enlever les filtres",
     "DEBITED": "déjà débité",
     "PENDING": "en attente",
     "STATUS": "statut",

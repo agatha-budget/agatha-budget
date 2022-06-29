@@ -3,9 +3,9 @@
     <div class="containerCross col-12">
       <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
     </div>
-    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1">{{ $t("DATE") }}</div>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("DATE") }}</div>
     <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
-    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1">{{ $t("ENVELOPE") }}</div>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("ENVELOPE") }}</div>
     <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-xxl-4">
       <Multiselect
         v-model="categoryId"
@@ -16,11 +16,11 @@
         :placeholder="$t('SELECT_CATEGORY')"
       />
     </div>
-    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
     <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
       <input id="newOperationMemo" class="form-control" v-model="memo">
     </div>
-    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-2 offset-md-1">{{ $t("AMOUNT") }}</div>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("AMOUNT") }}</div>
     <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">
       <div class="amountInput input-group flex-nowrap">
         <label class="customSwitch">
@@ -31,20 +31,20 @@
         <input id="newOperationAmount" class="form-control" v-model="amountString">
       </div>
     </div>
-    <div class="label col-3 offset-1 col-sm-2 offset-sm-2 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
-    <div class="col-7 col-sm-6 col-md-7 col-xxl-8 flexForm">
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
+    <div class="col-8 col-sm-6 col-md-7 col-xxl-8 inline">
       <label class="customSwitch">
-          <input class="switch-input" type="checkbox" v-on:click="pending"/>
+          <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
           <span class="switch-label-pending"/>
           <span class="switch-handle-pending"/>
       </label>
-      <div v-if="isPending" class="flexForm textPending">
+      <div v-if="isPending" class="inline textPending">
         <div class="icon">
           <button class="illustration btn fas fa-hourglass-half"/>
         </div>
         <div>{{ $t("PENDING") }}</div>
       </div>
-      <div v-else class="flexForm textPending">
+      <div v-else class="inline textPending">
         <div class="icon">
           <button class="illustration btn fas fa-calendar-check"/>
         </div>

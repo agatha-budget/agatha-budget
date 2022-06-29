@@ -2,6 +2,15 @@
     background-color: @lighterBackground;
     min-height: 100vh;
 
+    .editableNameAccount {
+        .displayNameAccount, .col-1 {
+            padding: 0;
+        }
+        .illustration {
+            padding: 4px;
+        }
+    }
+
     .illustration {
         color: @action;
     }
@@ -21,7 +30,7 @@
     .content {
         .dualTab {
             text-align: center;
-            margin: 20px 0;
+            margin: 20px 0 5px;
         }
         .inlineOperationForm {
             border-radius: 0;
@@ -29,6 +38,9 @@
         }
         .label {
             padding-top: 4px;
+        }
+        .inline {
+            display: flex;
         }
         .textPending {
             padding-top: 7px;

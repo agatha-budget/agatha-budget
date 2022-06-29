@@ -15,6 +15,16 @@
 
     .content {
         padding: 10px 20px;
+        .masterCategory {
+            .illustration {
+                padding-bottom: 8px;
+            }
+        }
+        .categoryBudget {
+            th {
+                padding-left: 0;
+            }
+        }
     }
 
     .budgetTable {
@@ -25,12 +35,14 @@
     @media (min-width: 1200px) {
         .fixed {
             width: 41%;
+            margin-left: 21%;
         }
     }
 
     @media (min-width: 992px) and (max-width: 1200px) {
         .fixed {
             width: 49%;
+            margin-left: 13%;
         }
     }
 
@@ -59,12 +71,12 @@
     // version for mobile
     @media (min-width: 768px) and (max-width: 992px) {
         .fixed {
-            width: 65%;
+            width: 100%;
         }
     }
     @media (min-width: 576px) and (max-width: 768px) {
         .fixed {
-            width: 83%;
+            width: 100%;
             #budgetHeader {
                 padding-right: 15px;
             }
@@ -73,9 +85,6 @@
     @media (max-width: 576px) {
         .fixed {
             width: 100%;
-            #budgetHeader {
-                padding-right: 20px;
-            }
         }
     }
 
@@ -91,7 +100,7 @@
 
     // tiny version (one column less)
     @media (max-width: 500px) {
-        .spent{
+        .spent, .disappearForMobile {
             display: none;
         }
     }
