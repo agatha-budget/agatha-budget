@@ -1,4 +1,6 @@
 <template>
+
+  <div v-if="this.dataOperation.operationsData.length == 1">
   <div class="flexForm form">
     <div class="containerCross col-12">
       <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
@@ -32,7 +34,7 @@
       </div>
     </div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
-    <div class="col-8 col-sm-6 col-md-7 col-xxl-8 inline">
+    <div class="col-8 col-sm-6 col-md-6 col-xxl-8 inline">
       <label class="customSwitch">
           <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
           <span class="switch-label-pending"/>
@@ -51,10 +53,91 @@
         <div>{{ $t("DEBITED") }}</div>
       </div>
     </div>
+    <div class="col-3">
+      <btn class="actionButton" v-on:click="addCategory">dans pls catégories</btn>
+    </div>
     <div class="action col-4 offset-4 col-md-2 offset-md-5">
       <btn v-if="this.operation" class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
       <btn v-else class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
     </div>
+    </div>
+  </div>
+
+  <div v-else>
+  <div class="flexForm form">
+    <div class="containerCross col-12">
+      <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
+    </div>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("DATE") }}</div>
+    <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("AMOUNT") }}</div>
+    <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">montantTotal</div>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
+    <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
+      <input id="newOperationMemo" class="form-control" v-model="memo">
+    </div>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("STATUS") }}</div>
+    <div class="col-7 col-sm-6 col-md-3 col-xxl-4 inline">
+      <label class="customSwitch">
+          <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
+          <span class="switch-label-pending"/>
+          <span class="switch-handle-pending"/>
+      </label>
+      <div v-if="isPending" class="inline textPending">
+        <div class="icon">
+          <button class="illustration btn fas fa-hourglass-half"/>
+        </div>
+        <div>{{ $t("PENDING") }}</div>
+      </div>
+      <div v-else class="inline textPending">
+        <div class="icon">
+          <button class="illustration btn fas fa-calendar-check"/>
+        </div>
+        <div>{{ $t("DEBITED") }}</div>
+      </div>
+    </div>
+
+    <div v-for="daughterOperation in this.dataOperation.operationsData" :key="daughterOperation" class="flexForm form col-12">
+    <div class="containerCross col-12">
+      <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
+    </div>
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("ENVELOPE") }}</div>
+      <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-xxl-4">
+        <Multiselect
+          v-model="categoryId"
+          :groups="true"
+          :searchable="true"
+          :options="categories"
+          :noResultsText="$t('NO_RESULT_FOUND')"
+          :placeholder="$t('SELECT_CATEGORY')"
+        />
+      </div>
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-0 col-md-2 offset-md-0">{{ $t("AMOUNT") }}</div>
+      <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">
+        <div class="amountInput input-group flex-nowrap">
+          <label class="customSwitch">
+            <input class="switch-input" type="checkbox" v-model="incoming"/>
+            <span class="switch-label" data-on="+" data-off="-"/>
+            <span class="switch-handle"/>
+          </label>
+          <input id="newOperationAmount" class="form-control" v-model="amountString">
+        </div>
+      </div>
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("MEMO") }}</div>
+      <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
+        <input id="newOperationMemo" class="form-control" v-model="memo">
+      </div>
+      {{ daughterOperation.index }}
+    </div>
+
+    <div class="col-4 offset-1 col-md-3 offset-md-2">
+      <btn class="actionButton " v-on:click="addOperation">valider</btn>
+    </div>
+    <div class="col-4 offset-2 col-md-3 offset-md-2">
+      <btn class="actionButton" v-on:click="addCategory">ajouter enveloppe</btn>
+    </div>
+
+</div>
   </div>
 </template>
 
@@ -75,6 +158,16 @@ interface OperationFormData {
   incoming: boolean;
   amountString: string;
   isPending: boolean;
+  dataOperation: {
+    date: string;
+    isPending: boolean;
+    operationsData: {
+      index: number;
+      amount: number;
+      categoryId: string;
+      memo: string;
+    }[];
+  };
 }
 
 export default defineComponent({
@@ -89,7 +182,17 @@ export default defineComponent({
       memo: this.operation?.memo || '',
       incoming: this.operation?.amount ? this.operation.amount > 0 : false,
       amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0)).toString(),
-      isPending: this.operation?.pending || false
+      isPending: this.operation?.pending || false,
+      dataOperation: {
+        date: Time.getCurrentDateString(),
+        isPending: false,
+        operationsData: [{
+          index: 0,
+          amount: 0,
+          categoryId: '',
+          memo: ''
+        }]
+      }
     }
   },
   props: {
@@ -218,6 +321,20 @@ export default defineComponent({
         this.$emit('closeUpdate', this.operation)
       }
       this.$emit('closeForm')
+    },
+    addCategory () {
+      const newOperationData = {
+        index: this.dataOperation.operationsData.length,
+        amount: 0,
+        categoryId: '',
+        memo: ''
+      }
+      this.dataOperation.operationsData.push(newOperationData)
+      console.log(this.dataOperation)
+    },
+    removeCategory (index: number) {
+      this.dataOperation.operationsData.splice(index, 1)
+      console.log(this.dataOperation)
     }
   }
 })
