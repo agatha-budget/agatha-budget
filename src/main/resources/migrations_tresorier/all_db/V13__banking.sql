@@ -13,8 +13,13 @@ CREATE TABLE bank_account (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
     name VARCHAR(36) NOT NULL,
     agreement_id VARCHAR(36) NOT NULL,
-    account_id VARCHAR(36) DEFAULT NULL,
     deleted BOOLEAN DEFAULT false,
-    FOREIGN KEY (agreement_id) REFERENCES bank_agreement(id),
-    FOREIGN KEY (account_id) REFERENCES account(id)
+    FOREIGN KEY (agreement_id) REFERENCES bank_agreement(id)
 );
+
+ALTER TABLE account
+ADD COLUMN bank_account_id VARCHAR(36) DEFAULT NULL;
+
+ALTER TABLE account
+ADD FOREIGN KEY (bank_account_id) REFERENCES bank_account(id);
+

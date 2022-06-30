@@ -68,9 +68,9 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final ForeignKey<AccountRecord, BudgetRecord> CONSTRAINT_E4 = ForeignKeys0.CONSTRAINT_E4;
+    public static final ForeignKey<AccountRecord, BankAccountRecord> CONSTRAINT_E49 = ForeignKeys0.CONSTRAINT_E49;
     public static final ForeignKey<AllocationRecord, CategoryRecord> CONSTRAINT_A = ForeignKeys0.CONSTRAINT_A;
     public static final ForeignKey<BankAccountRecord, BankAgreementRecord> CONSTRAINT_19 = ForeignKeys0.CONSTRAINT_19;
-    public static final ForeignKey<BankAccountRecord, AccountRecord> CONSTRAINT_197 = ForeignKeys0.CONSTRAINT_197;
     public static final ForeignKey<BankAgreementRecord, PersonRecord> CONSTRAINT_49 = ForeignKeys0.CONSTRAINT_49;
     public static final ForeignKey<BudgetRecord, PersonRecord> CONSTRAINT_75 = ForeignKeys0.CONSTRAINT_75;
     public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CONSTRAINT_31 = ForeignKeys0.CONSTRAINT_31;
@@ -100,9 +100,9 @@ public class Keys {
 
     private static class ForeignKeys0 {
         public static final ForeignKey<AccountRecord, BudgetRecord> CONSTRAINT_E4 = Internal.createForeignKey(Keys.CONSTRAINT_7, Account.ACCOUNT, "CONSTRAINT_E4", new TableField[] { Account.ACCOUNT.BUDGET_ID }, true);
+        public static final ForeignKey<AccountRecord, BankAccountRecord> CONSTRAINT_E49 = Internal.createForeignKey(Keys.CONSTRAINT_1, Account.ACCOUNT, "CONSTRAINT_E49", new TableField[] { Account.ACCOUNT.BANK_ACCOUNT_ID }, true);
         public static final ForeignKey<AllocationRecord, CategoryRecord> CONSTRAINT_A = Internal.createForeignKey(Keys.CONSTRAINT_3, Allocation.ALLOCATION, "CONSTRAINT_A", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID }, true);
         public static final ForeignKey<BankAccountRecord, BankAgreementRecord> CONSTRAINT_19 = Internal.createForeignKey(Keys.CONSTRAINT_4, BankAccount.BANK_ACCOUNT, "CONSTRAINT_19", new TableField[] { BankAccount.BANK_ACCOUNT.AGREEMENT_ID }, true);
-        public static final ForeignKey<BankAccountRecord, AccountRecord> CONSTRAINT_197 = Internal.createForeignKey(Keys.CONSTRAINT_E, BankAccount.BANK_ACCOUNT, "CONSTRAINT_197", new TableField[] { BankAccount.BANK_ACCOUNT.ACCOUNT_ID }, true);
         public static final ForeignKey<BankAgreementRecord, PersonRecord> CONSTRAINT_49 = Internal.createForeignKey(Keys.CONSTRAINT_8, BankAgreement.BANK_AGREEMENT, "CONSTRAINT_49", new TableField[] { BankAgreement.BANK_AGREEMENT.PERSON_ID }, true);
         public static final ForeignKey<BudgetRecord, PersonRecord> CONSTRAINT_75 = Internal.createForeignKey(Keys.CONSTRAINT_8, Budget.BUDGET, "CONSTRAINT_75", new TableField[] { Budget.BUDGET.PERSON_ID }, true);
         public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CONSTRAINT_31 = Internal.createForeignKey(Keys.CONSTRAINT_D, Category.CATEGORY, "CONSTRAINT_31", new TableField[] { Category.CATEGORY.MASTER_CATEGORY_ID }, true);

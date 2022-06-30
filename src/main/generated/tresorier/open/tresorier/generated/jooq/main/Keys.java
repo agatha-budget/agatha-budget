@@ -68,9 +68,9 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final ForeignKey<AccountRecord, BudgetRecord> ACCOUNT__ACCOUNT_BUDGET_ID_FKEY = ForeignKeys0.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY;
+    public static final ForeignKey<AccountRecord, BankAccountRecord> ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY = ForeignKeys0.ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY;
     public static final ForeignKey<AllocationRecord, CategoryRecord> ALLOCATION__ALLOCATION_CATEGORY_ID_FKEY = ForeignKeys0.ALLOCATION__ALLOCATION_CATEGORY_ID_FKEY;
     public static final ForeignKey<BankAccountRecord, BankAgreementRecord> BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY = ForeignKeys0.BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY;
-    public static final ForeignKey<BankAccountRecord, AccountRecord> BANK_ACCOUNT__BANK_ACCOUNT_ACCOUNT_ID_FKEY = ForeignKeys0.BANK_ACCOUNT__BANK_ACCOUNT_ACCOUNT_ID_FKEY;
     public static final ForeignKey<BankAgreementRecord, PersonRecord> BANK_AGREEMENT__BANK_AGREEMENT_PERSON_ID_FKEY = ForeignKeys0.BANK_AGREEMENT__BANK_AGREEMENT_PERSON_ID_FKEY;
     public static final ForeignKey<BudgetRecord, PersonRecord> BUDGET__BUDGET_PERSON_ID_FKEY = ForeignKeys0.BUDGET__BUDGET_PERSON_ID_FKEY;
     public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY = ForeignKeys0.CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY;
@@ -100,9 +100,9 @@ public class Keys {
 
     private static class ForeignKeys0 {
         public static final ForeignKey<AccountRecord, BudgetRecord> ACCOUNT__ACCOUNT_BUDGET_ID_FKEY = Internal.createForeignKey(Keys.BUDGET_PKEY, Account.ACCOUNT, "account_budget_id_fkey", new TableField[] { Account.ACCOUNT.BUDGET_ID }, true);
+        public static final ForeignKey<AccountRecord, BankAccountRecord> ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY = Internal.createForeignKey(Keys.BANK_ACCOUNT_PKEY, Account.ACCOUNT, "account_bank_account_id_fkey", new TableField[] { Account.ACCOUNT.BANK_ACCOUNT_ID }, true);
         public static final ForeignKey<AllocationRecord, CategoryRecord> ALLOCATION__ALLOCATION_CATEGORY_ID_FKEY = Internal.createForeignKey(Keys.CATEGORY_PKEY, Allocation.ALLOCATION, "allocation_category_id_fkey", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID }, true);
         public static final ForeignKey<BankAccountRecord, BankAgreementRecord> BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY = Internal.createForeignKey(Keys.BANK_AGREEMENT_PKEY, BankAccount.BANK_ACCOUNT, "bank_account_agreement_id_fkey", new TableField[] { BankAccount.BANK_ACCOUNT.AGREEMENT_ID }, true);
-        public static final ForeignKey<BankAccountRecord, AccountRecord> BANK_ACCOUNT__BANK_ACCOUNT_ACCOUNT_ID_FKEY = Internal.createForeignKey(Keys.ACCOUNT_PKEY, BankAccount.BANK_ACCOUNT, "bank_account_account_id_fkey", new TableField[] { BankAccount.BANK_ACCOUNT.ACCOUNT_ID }, true);
         public static final ForeignKey<BankAgreementRecord, PersonRecord> BANK_AGREEMENT__BANK_AGREEMENT_PERSON_ID_FKEY = Internal.createForeignKey(Keys.PERSON_PKEY, BankAgreement.BANK_AGREEMENT, "bank_agreement_person_id_fkey", new TableField[] { BankAgreement.BANK_AGREEMENT.PERSON_ID }, true);
         public static final ForeignKey<BudgetRecord, PersonRecord> BUDGET__BUDGET_PERSON_ID_FKEY = Internal.createForeignKey(Keys.PERSON_PKEY, Budget.BUDGET, "budget_person_id_fkey", new TableField[] { Budget.BUDGET.PERSON_ID }, true);
         public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY = Internal.createForeignKey(Keys.MASTER_CATEGORY_PKEY, Category.CATEGORY, "category_master_category_id_fkey", new TableField[] { Category.CATEGORY.MASTER_CATEGORY_ID }, true);

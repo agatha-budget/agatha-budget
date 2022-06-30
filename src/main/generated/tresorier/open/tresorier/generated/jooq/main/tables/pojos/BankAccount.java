@@ -13,19 +13,17 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAccount implements Serializable {
 
-    private static final long serialVersionUID = 198813081;
+    private static final long serialVersionUID = 133208596;
 
     private final String  id;
     private final String  name;
     private final String  agreementId;
-    private final String  accountId;
     private final Boolean deleted;
 
     public BankAccount(BankAccount value) {
         this.id = value.id;
         this.name = value.name;
         this.agreementId = value.agreementId;
-        this.accountId = value.accountId;
         this.deleted = value.deleted;
     }
 
@@ -33,13 +31,11 @@ public class BankAccount implements Serializable {
         String  id,
         String  name,
         String  agreementId,
-        String  accountId,
         Boolean deleted
     ) {
         this.id = id;
         this.name = name;
         this.agreementId = agreementId;
-        this.accountId = accountId;
         this.deleted = deleted;
     }
 
@@ -55,10 +51,6 @@ public class BankAccount implements Serializable {
         return this.agreementId;
     }
 
-    public String getAccountId() {
-        return this.accountId;
-    }
-
     public Boolean getDeleted() {
         return this.deleted;
     }
@@ -70,7 +62,6 @@ public class BankAccount implements Serializable {
         sb.append(id);
         sb.append(", ").append(name);
         sb.append(", ").append(agreementId);
-        sb.append(", ").append(accountId);
         sb.append(", ").append(deleted);
 
         sb.append(")");

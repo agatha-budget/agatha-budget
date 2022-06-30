@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row5;
+import org.jooq.Row4;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAccount extends TableImpl<BankAccountRecord> {
 
-    private static final long serialVersionUID = 1849769573;
+    private static final long serialVersionUID = 859586271;
 
     /**
      * The reference instance of <code>public.bank_account</code>
@@ -60,11 +60,6 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
      * The column <code>public.bank_account.agreement_id</code>.
      */
     public final TableField<BankAccountRecord, String> AGREEMENT_ID = createField(DSL.name("agreement_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
-
-    /**
-     * The column <code>public.bank_account.account_id</code>.
-     */
-    public final TableField<BankAccountRecord, String> ACCOUNT_ID = createField(DSL.name("account_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>public.bank_account.deleted</code>.
@@ -121,15 +116,11 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
 
     @Override
     public List<ForeignKey<BankAccountRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<BankAccountRecord, ?>>asList(Keys.BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY, Keys.BANK_ACCOUNT__BANK_ACCOUNT_ACCOUNT_ID_FKEY);
+        return Arrays.<ForeignKey<BankAccountRecord, ?>>asList(Keys.BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY);
     }
 
     public BankAgreement bankAgreement() {
         return new BankAgreement(this, Keys.BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY);
-    }
-
-    public Account account() {
-        return new Account(this, Keys.BANK_ACCOUNT__BANK_ACCOUNT_ACCOUNT_ID_FKEY);
     }
 
     @Override
@@ -159,11 +150,11 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row4 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<String, String, String, String, Boolean> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row4<String, String, String, Boolean> fieldsRow() {
+        return (Row4) super.fieldsRow();
     }
 }
