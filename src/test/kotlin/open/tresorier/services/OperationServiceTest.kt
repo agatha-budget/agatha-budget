@@ -158,7 +158,7 @@ class OperationServiceTest : ITest {
         val operationList = "<STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.593488<NAME>POSITIONNEMENT SATELLITES<MEMO>POSITIONNEMENT SATELLITES</STMTTRN><STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,83<FITID>2502202220220225-08.36.00.581463<NAME>ELECTRONIC FRONTIER FOUNDATION<MEMO>ELECTRONIC FRONTIER FOUNDATION</STMTTRN><STMTTRN><TRNTYPE>CREDIT<DTPOSTED>20220225<TRNAMT>+1,38<FITID>2502202220220225-08.36.00.568860<NAME>FHSS<MEMO>FHSS</STMTTRN>"
         val numberOperation = operationService.importOfxFile(hedy, account, operationList)
 
-        Assertions.assertEquals(numberOperation, 3)
+        Assertions.assertEquals(3, numberOperation)
     }
 
     @Test
@@ -174,7 +174,7 @@ class OperationServiceTest : ITest {
         val operationList = ""
         val numberOperation = operationService.importOfxFile(marion, account, operationList)
 
-        Assertions.assertEquals(numberOperation, 0)
+        Assertions.assertEquals(0, numberOperation)
     }
 
     @Test
@@ -190,7 +190,7 @@ class OperationServiceTest : ITest {
         val operationList = "OFXHEADER:100DATA:OFXSGMLVERSION:102SECURITY:NONEENCODING:USASCIICHARSET:1252COMPRESSION:NONEOLDFILEUID:NONENEWFILEUID:NONE<OFX><SIGNONMSGSRSV1><SONRS><STATUS><CODE>0<SEVERITY>INFO</STATUS><DTSERVER>20220515000000<LANGUAGE>FRA</SONRS></SIGNONMSGSRSV1><BANKMSGSRSV1><STMTTRNRS><TRNUID>20220515000000<STATUS><CODE>0<SEVERITY>INFO</STATUS><STMTRS><CURDEF>EUR<BANKACCTFROM><BANKID>10278<BRANCHID>08895<ACCTID>00020483705<ACCTTYPE>CHECKING</BANKACCTFROM><BANKTRANLIST><DTSTART>20220315000000<DTEND>20220513000000<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-8.98<FITID>LLW_DPE3LF<NAME>CASA GRENOBLE 1 CARTE 37459926 P</STMTTRN><STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-26.05<FITID>LLW_DPE3LO<NAME>UNDIZ-2155 CARTE 37459926 PAIEME</STMTTRN><STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220317<DTUSER>20220317<TRNAMT>-6.40<FITID>LLW_DPRGLF<NAME>CARREFOUR CITY CARTE 37459926 PA</STMTTRN></BANKTRANLIST><LEDGERBAL><BALAMT>1051.56<DTASOF>20220513000000</LEDGERBAL><AVAILBAL><BALAMT>0.00<DTASOF>20220513000000</AVAILBAL></STMTRS></STMTTRNRS></BANKMSGSRSV1></OFX>"
         val numberOperation = operationService.importOfxFile(irene, account, operationList)
 
-        Assertions.assertEquals(numberOperation, 3)
+        Assertions.assertEquals(3, numberOperation)
     }
 
     @Test
@@ -218,7 +218,7 @@ class OperationServiceTest : ITest {
         
         Assertions.assertEquals(listOperations[0], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-8.98<FITID>LLW_DPE3LF<NAME>CASA GRENOBLE 1 CARTE 37459926 P</STMTTRN>")
         Assertions.assertEquals(listOperations[1], "<STMTTRN><TRNTYPE>DEBIT<DTPOSTED>20220315<DTUSER>20220315<TRNAMT>-26.05<FITID>LLW_DPE3LO<NAME>UNDIZ-2155 CARTE 37459926 PAIEME</STMTTRN>")
-        Assertions.assertEquals(listOperations.size, 2)
+        Assertions.assertEquals(2, listOperations.size)
     }
 
     @Test
@@ -271,7 +271,7 @@ class OperationServiceTest : ITest {
 
         val listDaughterOperation = operationService.findDaughterOperations(katherine, motherOperation)
 
-        Assertions.assertEquals(listDaughterOperation.size, 3)
+        Assertions.assertEquals(3, listDaughterOperation.size)
         Assertions.assertTrue(listDaughterOperation[0].isEquals(operation3))
         Assertions.assertTrue(listDaughterOperation[1].isEquals(operation2))
         Assertions.assertTrue(listDaughterOperation[2].isEquals(operation1))
@@ -299,6 +299,59 @@ class OperationServiceTest : ITest {
 
         val listDaughterOperation = operationService.findDaughterOperations(valentina, operation0)
 
-        Assertions.assertEquals(listDaughterOperation.size, 0)
+        Assertions.assertEquals(0, listDaughterOperation.size)
+    }
+
+    @Test
+    fun testFindMotherOperationByAccount() {
+        val madeleine: Person = personService.createPerson(
+            "Madeleine Brès", "allaitement", "madeleine@medecine.fr", ProfileEnum.PROFILE_USER
+        )
+        madeleine.billingStatus = true
+        val budget: Budget = budgetService.findByUser(madeleine)[0]
+        val account: Account = accountService.create(
+            madeleine, budget, "personal account", TestData.jan_14_2022, 1875
+        )
+        var operation1: Operation = operationService.create(
+            madeleine, account, TestData.jan_14_2022, null, 0, "De la mamelle et de l'allaitement", null, null
+        )
+        var operation2: Operation = operationService.create(
+            madeleine, account, TestData.jan_14_2022, null, 1877, "L'Allaitement artificiel et le biberon", null, null
+        )
+        operationService.create(madeleine, account, TestData.jan_14_2022, null, 1882, "Analyse du lait des femmes galibies", null, operation1)
+        var operation3: Operation = operationService.create(
+            madeleine, account, TestData.jan_14_2022, null, 1899, "Mamans et bébés", null, null
+        )
+
+        val listMotherOperation = operationService.findMotherOperationsByAccount(madeleine, account)
+
+        // an initial operation was created during account creation
+        Assertions.assertEquals(4, listMotherOperation.size)
+        Assertions.assertTrue(listMotherOperation[0].isEquals(operation3))
+        Assertions.assertTrue(listMotherOperation[1].isEquals(operation2))
+        Assertions.assertTrue(listMotherOperation[2].isEquals(operation1))
+    }
+
+    @Test
+    fun testFindMotherOperationByDaugtherOperation() {
+        val maria: Person = personService.createPerson(
+            "Maria Goeppert-Mayer", "physique1963", "maria@nobel.de", ProfileEnum.PROFILE_USER
+        )
+        maria.billingStatus = true
+        val budget: Budget = budgetService.findByUser(maria)[0]
+        val account: Account = accountService.create(
+            maria, budget, "personal account", TestData.jan_14_2022, 1875
+        )
+        var motherOperation: Operation = operationService.create(
+            maria, account, TestData.jan_14_2022, null, 0, " 2, 8, 20, 28, 50, 82 et 126", null, null
+        )
+        operationService.create(maria, account, TestData.jan_14_2022, null, 1940, "structure en couche", null, null)
+        var daughterOperation: Operation = operationService.create(
+            maria, account, TestData.jan_14_2022, null, 1950, "nombres magiques", null, motherOperation
+        )
+
+        val operationFound = operationService.findMotherOperationByDaugtherOperation(account, daughterOperation)
+
+        Assertions.assertTrue(operationFound.isEquals(motherOperation))
     }
 }

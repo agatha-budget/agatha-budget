@@ -160,16 +160,15 @@ class OperationService(
         }
         return listMotherOperations
     }
-    fun findMotherOperationByDaugtherOperation(account: Account, daughterOperation: Operation) : Operation? {
-        if (daughterOperation.motherOperationId != null) {
-            val person = accountDao.getOwner(account)
-            val listMotherOperations = this.findMotherOperationsByAccount(person, account)
-            listMotherOperations.forEach {
-                if (daughterOperation.motherOperationId == it.id) {
-                    return it
-                }
+    fun findMotherOperationByDaugtherOperation(account: Account, daughterOperation: Operation) : Operation {
+        val person = accountDao.getOwner(account)
+        val listMotherOperations = this.findMotherOperationsByAccount(person, account)
+        var motherOperation: Operation = daughterOperation
+        listMotherOperations.forEach {
+            if (daughterOperation.motherOperationId == it.id) {
+                motherOperation = it
             }
         }
-        return null
+        return motherOperation
     }
 }
