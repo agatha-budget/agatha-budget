@@ -9,6 +9,6 @@ import open.tresorier.model.banking.Bank
 interface IBankingPort {
     fun getLinkForUserAgreement(person: Person, bankId: String) : String
     fun updateBankAccountList(person: Person)
-    fun getTransactions(account: Account) : List<Operation>
+    fun getOperations(account: Account) : List<Operation>
     fun getAvailableBanks() : List<Bank>
 }

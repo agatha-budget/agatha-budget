@@ -23,7 +23,7 @@ class MockBankingAdapter() : IBankingPort {
         //get bankAccounts with RequisitionId
     }
 
-    override fun getTransactions(account: Account) : List<Operation> {
+    override fun getOperations(account: Account) : List<Operation> {
         // add new transaction for account
         return listOf()
     }

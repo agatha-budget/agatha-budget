@@ -29,13 +29,13 @@ class NordigenAdapter() : IBankingPort {
         //get bankAccounts with RequisitionId
     }
 
-    override fun getTransactions(account: Account) : List<Operation> {
+    override fun getOperations(account: Account) : List<Operation> {
         // add new transaction for account
-        return listOf()
+        return listOf<Operation>()
     }
 
     override fun getAvailableBanks() : List<Bank> {
-        return listOf(
+        return listOf<Bank>(
             Bank("CREDIT_COOPERATIF_CCOPFRPPXXX",
              "Crédit Coopératif",
              "https://cdn.nordigen.com/ais/CREDIT_COOPERATIF_CCOPFRPPXXX.png"
