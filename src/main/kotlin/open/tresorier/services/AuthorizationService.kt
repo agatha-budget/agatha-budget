@@ -10,7 +10,8 @@ class AuthorizationService(
     private val allocationDao: IAllocationDao,
     private val categoryDao: ICategoryDao,
     private val masterCategoryDao: IMasterCategoryDao,
-    private val operationDao: IOperationDao
+    private val operationDao: IOperationDao,
+    private val bankAgreementDao: IBankAgreementDao
 
 ) {
 
@@ -64,5 +65,12 @@ class AuthorizationService(
             throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with operation " + operation.id)
         }
         BillingService.checkIfUserSubscriptionIsActive(person)
+    }
+
+    fun cancelIfUserIsUnauthorized(person: Person, bankAgreement: BankAgreement) {
+        val owner = bankAgreementDao.getOwner(BankAgreement)
+        if (owner.id != person.id) {
+            throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with bankAgreement " + bankAgreement.id)
+        }
     }
 }

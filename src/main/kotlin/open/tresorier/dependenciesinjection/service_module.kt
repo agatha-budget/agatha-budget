@@ -4,7 +4,7 @@ import open.tresorier.services.*
 import org.koin.dsl.module
 
 val service_module = module {
-    single { AuthorizationService(get(), get(), get(), get(), get(), get()) }
+    single { AuthorizationService(get(), get(), get(), get(), get(), get(), get()) }
     single { PersonService(get(), get(), get(), get()) }
     single { BillingService(get()) }
     single { BudgetService(get(), get(), get(), get()) }

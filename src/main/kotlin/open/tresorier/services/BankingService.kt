@@ -13,7 +13,8 @@ class BankingService(private val bankingAdapter: IBankingPort, private val autho
         return this.bankingAdapter.getLinkForUserAgreement(person, bankId)
     }
 
-    fun updateBankAccountList(person: Person) {
+    fun updateBankAccountList(person: Person, agreement: BankAgreement) {
+        this.authorizationService.cancelIfUserIsUnauthorized(person, agreement)
         this.bankingAdapter.updateBankAccountList(person)
     }
 
@@ -34,4 +35,6 @@ class BankingService(private val bankingAdapter: IBankingPort, private val autho
     fun getAvailableBanks() : List<Bank> {
         return this.bankingAdapter.getAvailableBanks()
     }
+
+    
 }
