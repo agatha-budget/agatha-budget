@@ -12,11 +12,8 @@ import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.main.tables.MasterCategory;
 import open.tresorier.generated.jooq.main.tables.Operation;
 import open.tresorier.generated.jooq.main.tables.Person;
-<<<<<<< HEAD
 import open.tresorier.generated.jooq.main.tables.PostIt;
-=======
 import open.tresorier.generated.jooq.main.tables.UserActivity;
->>>>>>> develop
 
 
 /**
@@ -66,13 +63,12 @@ public class Tables {
     public static final Person PERSON = Person.PERSON;
 
     /**
-<<<<<<< HEAD
      * The table <code>public.post_it</code>.
      */
     public static final PostIt POST_IT = PostIt.POST_IT;
-=======
+
+    /**
      * The table <code>public.user_activity</code>.
      */
     public static final UserActivity USER_ACTIVITY = UserActivity.USER_ACTIVITY;
->>>>>>> develop
 }

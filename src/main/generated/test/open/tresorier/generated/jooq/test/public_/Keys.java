@@ -12,11 +12,8 @@ import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.test.public_.tables.MasterCategory;
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
 import open.tresorier.generated.jooq.test.public_.tables.Person;
-<<<<<<< HEAD
 import open.tresorier.generated.jooq.test.public_.tables.PostIt;
-=======
 import open.tresorier.generated.jooq.test.public_.tables.UserActivity;
->>>>>>> develop
 import open.tresorier.generated.jooq.test.public_.tables.records.AccountRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.AllocationRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.BudgetRecord;
@@ -25,11 +22,8 @@ import open.tresorier.generated.jooq.test.public_.tables.records.FlywaySchemaHis
 import open.tresorier.generated.jooq.test.public_.tables.records.MasterCategoryRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord;
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord;
-<<<<<<< HEAD
 import open.tresorier.generated.jooq.test.public_.tables.records.PostItRecord;
-=======
 import open.tresorier.generated.jooq.test.public_.tables.records.UserActivityRecord;
->>>>>>> develop
 
 import org.jooq.ForeignKey;
 import org.jooq.TableField;
@@ -63,11 +57,8 @@ public class Keys {
     public static final UniqueKey<PersonRecord> CONSTRAINT_8 = UniqueKeys0.CONSTRAINT_8;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8C = UniqueKeys0.CONSTRAINT_8C;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8C7 = UniqueKeys0.CONSTRAINT_8C7;
-<<<<<<< HEAD
     public static final UniqueKey<PostItRecord> DOUBLE_KEY = UniqueKeys0.DOUBLE_KEY;
-=======
     public static final UniqueKey<UserActivityRecord> CONSTRAINT_E2 = UniqueKeys0.CONSTRAINT_E2;
->>>>>>> develop
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -97,11 +88,8 @@ public class Keys {
         public static final UniqueKey<PersonRecord> CONSTRAINT_8 = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8C = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8C", new TableField[] { Person.PERSON.EMAIL }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8C7 = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8C7", new TableField[] { Person.PERSON.BILLING_ID }, true);
-<<<<<<< HEAD
         public static final UniqueKey<PostItRecord> DOUBLE_KEY = Internal.createUniqueKey(PostIt.POST_IT, "DOUBLE_KEY", new TableField[] { PostIt.POST_IT.BUDGET_ID, PostIt.POST_IT.MONTH }, true);
-=======
         public static final UniqueKey<UserActivityRecord> CONSTRAINT_E2 = Internal.createUniqueKey(UserActivity.USER_ACTIVITY, "CONSTRAINT_E2", new TableField[] { UserActivity.USER_ACTIVITY.ID }, true);
->>>>>>> develop
     }
 
     private static class ForeignKeys0 {
