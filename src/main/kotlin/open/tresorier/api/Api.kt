@@ -356,6 +356,19 @@ fun main() {
         val allocation = ServiceManager.allocationService.insertOrUpdate(user, month, category, amount)
         ctx.json(allocation)
     }
+
+    app.before("/postIt", SuperTokens.middleware())
+    app.post("/postIt") { ctx ->
+        val month: Month = Month.createFromComparable(getQueryParam<Int>(ctx, "month"))
+        val budgetId: String = getQueryParam<String>(ctx, "budget_id")
+        val text: String = getQueryParam<String>(ctx, "text")
+    }
+
+    app.before("/postIt", SuperTokens.middleware())
+    app.get("/postIt") { ctx ->
+        val month: Month = Month.createFromComparable(getQueryParam<Int>(ctx, "month"))
+        val budgetId: String = getQueryParam<String>(ctx, "budget_id")
+    }
 }
 
 private fun setUpApp(properties: JavaProperties): Javalin {
