@@ -6,11 +6,11 @@
       <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
     </div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("DATE") }}</div>
-    <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
+    <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="dataOperation.date"></div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("ENVELOPE") }}</div>
     <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-xxl-4">
       <Multiselect
-        v-model="categoryId"
+        v-model="dataOperation.operationsData[0].categoryId"
         :groups="true"
         :searchable="true"
         :options="categories"
@@ -20,23 +20,23 @@
     </div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
     <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
-      <input id="newOperationMemo" class="form-control" v-model="memo">
+      <input id="newOperationMemo" class="form-control" v-model="dataOperation.memo">
     </div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("AMOUNT") }}</div>
     <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">
       <div class="amountInput input-group flex-nowrap">
         <label class="customSwitch">
-          <input class="switch-input" type="checkbox" v-model="incoming"/>
+          <input class="switch-input" type="checkbox" v-model="dataOperation.operationsData[0].incoming"/>
           <span class="switch-label" data-on="+" data-off="-"/>
           <span class="switch-handle"/>
         </label>
-        <input id="newOperationAmount" class="form-control" v-model="amountString">
+        <input id="newOperationAmount" class="form-control" v-model="dataOperation.operationsData[0].amountString">
       </div>
     </div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
     <div class="col-8 col-sm-6 col-md-6 col-xxl-8 inline">
       <label class="customSwitch">
-          <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
+          <input class="switch-input" type="checkbox" v-on:click="pending" v-model="dataOperation.isPending"/>
           <span class="switch-label-pending"/>
           <span class="switch-handle-pending"/>
       </label>
@@ -69,17 +69,17 @@
       <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
     </div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("DATE") }}</div>
-    <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
+    <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="dataOperation.date"></div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("AMOUNT") }}</div>
-    <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">montantTotal</div>
+    <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">montantTotal {{ totalAmount }}</div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
     <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
-      <input id="newOperationMemo" class="form-control" v-model="memo">
+      <input id="newOperationMemo" class="form-control" v-model="dataOperation.memo">
     </div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("STATUS") }}</div>
     <div class="col-7 col-sm-6 col-md-3 col-xxl-4 inline">
       <label class="customSwitch">
-          <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
+          <input class="switch-input" type="checkbox" v-on:click="pending" v-model="dataOperation.isPending"/>
           <span class="switch-label-pending"/>
           <span class="switch-handle-pending"/>
       </label>
@@ -99,12 +99,12 @@
 
     <div v-for="daughterOperation in this.dataOperation.operationsData" :key="daughterOperation" class="flexForm form col-12">
     <div class="containerCross col-12">
-      <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
+      <span class="cross fas fa-trash" v-on:click="removeCategory(dataOperation.operationsData.indexOf(daughterOperation))"/>
     </div>
       <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("ENVELOPE") }}</div>
       <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-xxl-4">
         <Multiselect
-          v-model="categoryId"
+          v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].categoryId"
           :groups="true"
           :searchable="true"
           :options="categories"
@@ -116,18 +116,20 @@
       <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">
         <div class="amountInput input-group flex-nowrap">
           <label class="customSwitch">
-            <input class="switch-input" type="checkbox" v-model="incoming"/>
+            <input class="switch-input" type="checkbox" v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].incoming"/>
             <span class="switch-label" data-on="+" data-off="-"/>
             <span class="switch-handle"/>
           </label>
-          <input id="newOperationAmount" class="form-control" v-model="amountString">
+          <input id="newOperationAmount" class="form-control" v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].amountString">
         </div>
       </div>
       <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("MEMO") }}</div>
       <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
-        <input id="newOperationMemo" class="form-control" v-model="memo">
+        <input id="newOperationMemo" class="form-control" v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].memo">
       </div>
       {{ daughterOperation.index }}
+      {{ dataOperation.operationsData.indexOf(daughterOperation) }}
+      <button v-on:click="displayData">clique-moi</button>
     </div>
 
     <div class="col-4 offset-1 col-md-3 offset-md-2">
@@ -161,9 +163,10 @@ interface OperationFormData {
   dataOperation: {
     date: string;
     isPending: boolean;
+    memo: string;
     operationsData: {
-      index: number;
-      amount: number;
+      incoming: boolean;
+      amountString: string;
       categoryId: string;
       memo: string;
     }[];
@@ -186,9 +189,10 @@ export default defineComponent({
       dataOperation: {
         date: Time.getCurrentDateString(),
         isPending: false,
+        memo: '',
         operationsData: [{
-          index: 0,
-          amount: 0,
+          incoming: false,
+          amountString: '0',
           categoryId: '',
           memo: ''
         }]
@@ -238,6 +242,9 @@ export default defineComponent({
     },
     account (): Account | null {
       return this.getAccountById(this.accountId)
+    },
+    totalAmount (): number {
+      return 0
     }
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
@@ -324,8 +331,8 @@ export default defineComponent({
     },
     addCategory () {
       const newOperationData = {
-        index: this.dataOperation.operationsData.length,
-        amount: 0,
+        incoming: false,
+        amountString: '0',
         categoryId: '',
         memo: ''
       }
@@ -334,6 +341,9 @@ export default defineComponent({
     },
     removeCategory (index: number) {
       this.dataOperation.operationsData.splice(index, 1)
+      console.log(this.dataOperation)
+    },
+    displayData () {
       console.log(this.dataOperation)
     }
   }
