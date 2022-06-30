@@ -12,7 +12,11 @@ import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.main.tables.MasterCategory;
 import open.tresorier.generated.jooq.main.tables.Operation;
 import open.tresorier.generated.jooq.main.tables.Person;
+<<<<<<< HEAD
 import open.tresorier.generated.jooq.main.tables.PostIt;
+=======
+import open.tresorier.generated.jooq.main.tables.UserActivity;
+>>>>>>> develop
 import open.tresorier.generated.jooq.main.tables.records.AccountRecord;
 import open.tresorier.generated.jooq.main.tables.records.AllocationRecord;
 import open.tresorier.generated.jooq.main.tables.records.BudgetRecord;
@@ -21,7 +25,11 @@ import open.tresorier.generated.jooq.main.tables.records.FlywaySchemaHistoryReco
 import open.tresorier.generated.jooq.main.tables.records.MasterCategoryRecord;
 import open.tresorier.generated.jooq.main.tables.records.OperationRecord;
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord;
+<<<<<<< HEAD
 import open.tresorier.generated.jooq.main.tables.records.PostItRecord;
+=======
+import open.tresorier.generated.jooq.main.tables.records.UserActivityRecord;
+>>>>>>> develop
 
 import org.jooq.ForeignKey;
 import org.jooq.TableField;
@@ -55,7 +63,11 @@ public class Keys {
     public static final UniqueKey<PersonRecord> PERSON_PKEY = UniqueKeys0.PERSON_PKEY;
     public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = UniqueKeys0.PERSON_EMAIL_KEY;
     public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = UniqueKeys0.PERSON_BILLING_ID_KEY;
+<<<<<<< HEAD
     public static final UniqueKey<PostItRecord> DOUBLE_KEY = UniqueKeys0.DOUBLE_KEY;
+=======
+    public static final UniqueKey<UserActivityRecord> USER_ACTIVITY_PKEY = UniqueKeys0.USER_ACTIVITY_PKEY;
+>>>>>>> develop
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -85,7 +97,11 @@ public class Keys {
         public static final UniqueKey<PersonRecord> PERSON_PKEY = Internal.createUniqueKey(Person.PERSON, "person_pkey", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = Internal.createUniqueKey(Person.PERSON, "person_email_key", new TableField[] { Person.PERSON.EMAIL }, true);
         public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = Internal.createUniqueKey(Person.PERSON, "person_billing_id_key", new TableField[] { Person.PERSON.BILLING_ID }, true);
+<<<<<<< HEAD
         public static final UniqueKey<PostItRecord> DOUBLE_KEY = Internal.createUniqueKey(PostIt.POST_IT, "double_key", new TableField[] { PostIt.POST_IT.BUDGET_ID, PostIt.POST_IT.MONTH }, true);
+=======
+        public static final UniqueKey<UserActivityRecord> USER_ACTIVITY_PKEY = Internal.createUniqueKey(UserActivity.USER_ACTIVITY, "user_activity_pkey", new TableField[] { UserActivity.USER_ACTIVITY.ID }, true);
+>>>>>>> develop
     }
 
     private static class ForeignKeys0 {

@@ -10,20 +10,20 @@ import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.exception.SuspendedUserException
 import open.tresorier.model.*
 import open.tresorier.utils.Properties
-import java.util.Properties as JavaProperties
+import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.services.BillingService
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.model.enum.PriceIdEnum
 
 fun main() {
 
-    val properties = Properties.getProperties()
+    val properties = Properties()
     val app = setUpApp(properties)
 
     // Session Manager
     SuperTokens.config().withHosts(
-        properties.getProperty("supertoken_url"),
-        properties.getProperty("supertoken_api_key")
+        properties.get(SUPERTOKEN_URL),
+        properties.get(SUPERTOKEN_API_KEY)
     )
     // Dependencies injection
     ServiceManager.start()
@@ -41,7 +41,7 @@ fun main() {
     }
 
     app.get("/ping") { ctx ->
-        ctx.result(properties.getProperty("environment"))
+        ctx.result(properties.get(ENVIRONMENT))
     }
 
     app.post("/person") { ctx ->
@@ -289,8 +289,9 @@ fun main() {
         }
         val amount : Int? = getOptionalQueryParam<Int>(ctx, "amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "memo")
+        val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "pending")
 
-        val operation: Operation = ServiceManager.operationService.create(user, account, day, category, amount, memo)
+        val operation: Operation = ServiceManager.operationService.create(user, account, day, category, amount, memo, pending)
         ctx.json(operation)
     }
 
@@ -310,8 +311,9 @@ fun main() {
         }
         val amount : Int? = getOptionalQueryParam<Int>(ctx, "new_amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "new_memo")
+        val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "new_pending")
 
-        val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo)
+        val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo, pending)
         ctx.json(updatedOperation)
     }
 
@@ -326,7 +328,9 @@ fun main() {
     app.get("/operation/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val operations = ServiceManager.operationService.findByAccount(user, account)
+        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
+        val category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
+        val operations = ServiceManager.operationService.findByAccount(user, account, category)
         ctx.json(operations)
     }
 
@@ -334,7 +338,9 @@ fun main() {
     app.get("/operation/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val operations = ServiceManager.operationService.findByBudget(user, budget)
+        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
+        val  category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
+        val operations = ServiceManager.operationService.findByBudget(user, budget, category)
         ctx.json(operations)
     }
     
@@ -371,13 +377,17 @@ fun main() {
     }
 }
 
-private fun setUpApp(properties: JavaProperties): Javalin {
-    val environmentStatus = properties.getProperty("environment")
+private fun setUpApp(properties: Properties): Javalin {
+    val environmentStatus = properties.get(ENVIRONMENT)
     val app = Javalin.create { config ->
             if (environmentStatus == "dev") {
                 config.enableCorsForAllOrigins()
             } else {
-                config.enableCorsForOrigin(properties.getProperty("allowed_origin_front"),properties.getProperty("allowed_origin_beta_front"), properties.getProperty("allowed_origin_stripe"))
+                config.enableCorsForOrigin(
+                    properties.get(ALLOWED_ORIGIN_FRONT),
+                    properties.get(ALLOWED_ORIGIN_BETA_FRONT),
+                    properties.get(ALLOWED_ORIGIN_STRIPE)
+                )
             }
     }.start(getHerokuAssignedOrDefaultPort())
 

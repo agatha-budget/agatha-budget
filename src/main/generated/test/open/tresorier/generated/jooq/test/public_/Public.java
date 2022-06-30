@@ -16,7 +16,11 @@ import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.test.public_.tables.MasterCategory;
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
 import open.tresorier.generated.jooq.test.public_.tables.Person;
+<<<<<<< HEAD
 import open.tresorier.generated.jooq.test.public_.tables.PostIt;
+=======
+import open.tresorier.generated.jooq.test.public_.tables.UserActivity;
+>>>>>>> develop
 
 import org.jooq.Catalog;
 import org.jooq.Table;
@@ -29,7 +33,11 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
+<<<<<<< HEAD
     private static final long serialVersionUID = -1913888229;
+=======
+    private static final long serialVersionUID = -339440419;
+>>>>>>> develop
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -77,9 +85,15 @@ public class Public extends SchemaImpl {
     public final Person PERSON = Person.PERSON;
 
     /**
+<<<<<<< HEAD
      * The table <code>PUBLIC.POST_IT</code>.
      */
     public final PostIt POST_IT = PostIt.POST_IT;
+=======
+     * The table <code>PUBLIC.USER_ACTIVITY</code>.
+     */
+    public final UserActivity USER_ACTIVITY = UserActivity.USER_ACTIVITY;
+>>>>>>> develop
 
     /**
      * No further instances allowed
@@ -105,6 +119,10 @@ public class Public extends SchemaImpl {
             MasterCategory.MASTER_CATEGORY,
             Operation.OPERATION,
             Person.PERSON,
+<<<<<<< HEAD
             PostIt.POST_IT);
+=======
+            UserActivity.USER_ACTIVITY);
+>>>>>>> develop
     }
 }

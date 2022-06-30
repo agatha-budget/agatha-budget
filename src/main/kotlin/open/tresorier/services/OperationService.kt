@@ -10,20 +10,21 @@ import java.util.Locale
 import java.util.regex.*
 import java.io.File
 import java.io.BufferedReader
+import open.tresorier.model.enum.ActionEnum
 
-class OperationService(private val operationDao: IOperationDao, private val authorizationService: AuthorizationService) {
+class OperationService(private val operationDao: IOperationDao, private val authorizationService: AuthorizationService, private val userActivityService: UserActivityService) {
 
     fun createInitialOperation(person: Person, account: Account, day: Day, amount: Int){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(account.id, day, Category.INCOME_ID, amount, 1, "Montant initial")
+        val operation = Operation(account.id, day, Category.INCOME_ID, amount, 1, "Montant initial", false, false)
         operationDao.insert(operation)
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
     }
 
-    fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?) : Operation {
+    fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?, pending: Boolean?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         val order = Time.now()
-        val operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo)
+        val operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false)
         return operationDao.insert(operation)
     }
 
@@ -33,7 +34,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         return operation
     }
 
-    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, amount: Int?, memo: String?) : Operation {
+    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, amount: Int?, memo: String?, pending: Boolean?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
         newDay?.let {
             if (!it.isEquals(operation.day)) {
@@ -46,6 +47,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         category?.let { operation.categoryId = it.id }
         amount?.let { operation.amount = it }
         memo?.let { operation.memo = it }
+        pending?.let { operation.pending = it }
         return operationDao.update(operation)
     }
 
@@ -54,14 +56,14 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         operationDao.delete(operation)
     }
 
-    fun findByAccount(person: Person, account: Account) : List<Operation> {
+    fun findByAccount(person: Person, account: Account, category: Category?) : List<Operation> {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        return operationDao.findByAccount(account)
+        return operationDao.findByAccount(account, category)
     }
 
-    fun findByBudget(person: Person, budget: Budget) : List<Operation> {
+    fun findByBudget(person: Person, budget: Budget, category: Category?) : List<Operation> {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
-        return operationDao.findByBudget(budget)
+        return operationDao.findByBudget(budget, category)
     }
     fun importOfxFile(person: Person, account: Account, fileOfx: String): Int {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
@@ -72,6 +74,9 @@ class OperationService(private val operationDao: IOperationDao, private val auth
             val operationCreated = this.createOperationFromOFX(account, it)
             nbOperation ++
             operationDao.insert(operationCreated)
+        }
+        if (nbOperation > 0) {
+            userActivityService.create(person, Time.now(), ActionEnum.ACTION_IMPORT)
         }
         return nbOperation
     }
@@ -118,7 +123,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         if (type == "DEBIT") {
             amount *= -1
         }
-        val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo)    // créer une opération sans la mettre dans la base de donnée
+        val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo, false, false)    // créer une opération sans la mettre dans la base de donnée
         return operationCreated
     }
- }
+}
