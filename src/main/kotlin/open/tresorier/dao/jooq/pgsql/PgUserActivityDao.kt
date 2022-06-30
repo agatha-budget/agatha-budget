@@ -2,14 +2,14 @@ package open.tresorier.dao.jooq.pgsql
 
 import open.tresorier.dao.IUserActivityDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.generated.jooq.test.public_.Tables.*
-import open.tresorier.generated.jooq.test.public_.tables.daos.UserActivityDao
-import open.tresorier.generated.jooq.test.public_.tables.records.UserActivityRecord
+import open.tresorier.generated.jooq.main.Tables.*
+import open.tresorier.generated.jooq.main.tables.daos.UserActivityDao
+import open.tresorier.generated.jooq.main.tables.records.UserActivityRecord
 import open.tresorier.model.UserActivity
 import org.jooq.Configuration
 import org.jooq.impl.DSL
 import open.tresorier.model.Day
-import open.tresorier.generated.jooq.test.public_.tables.pojos.UserActivity as JooqUserActivity
+import open.tresorier.generated.jooq.main.tables.pojos.UserActivity as JooqUserActivity
 import open.tresorier.model.enum.ActionEnum
 
 class PgUserActivityDao(val configuration: Configuration): IUserActivityDao {

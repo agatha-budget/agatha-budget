@@ -1,45 +1,74 @@
 package open.tresorier.utils
 
-import java.util.Properties
+import java.util.Properties as JavaProperties
+import open.tresorier.utils.PropertiesEnum.*
+import java.io.FileInputStream
+import java.io.File
+import kotlin.text.Regex
 
-object Properties {
+class Properties () {
 
-    fun getProperties() : Properties {
-        val defaultProperties = Utils.getPropertiesFromFile("gradle.properties")
-        return getHerokuProperties(defaultProperties)
+    val properties: JavaProperties
+
+    // initializer block
+    init {
+        properties = Properties.getPropertiesFromFile("gradle.properties")
+        getSystemProperties()
+        getDBProperties()
     }
 
-    fun getHerokuProperties(default: Properties) : Properties{
+    fun get(name : PropertiesEnum) : String {
+        return properties.getProperty(name.name)
+    }
 
-        val properties = Properties(default)
+    fun getDBProperties() {
+        val tresorierDB = this.get(TRESORIER_DB_ID)
+        val integrationDB = this.get(INTEGRATION_DB_ID)
 
-        val tresorierDB = default.getProperty("herokuTresorierDB")
-        val integrationDB = default.getProperty("herokuIntegrationDB")
+        val tresorier_db_url = System.getenv(tresorierDB +"_URL") ?: this.get(TRESORIER_DB_URL_DFLT)
+        val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: this.get(TRESORIER_DB_USR_DFLT)
+        val tresorier_db_pwd = System.getenv(tresorierDB + "_PASSWORD") ?: this.get(TRESORIER_DB_PWD_DFLT)
 
-        val tresorier_db_url = System.getenv(tresorierDB +"_URL") ?: default.getProperty("tresorier_db_url_dflt")
-        val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: default.getProperty("tresorier_db_usr_dflt")
-        val tresorier_db_pwd = System.getenv(tresorierDB + "_PASSWORD") ?: default.getProperty("tresorier_db_pwd_dflt")
+        val integration_db_url = System.getenv(integrationDB +"_URL") ?: this.get(INTEGRATION_DB_URL_DFLT)
+        val integration_db_usr = System.getenv(integrationDB + "_USERNAME") ?: this.get(INTEGRATION_DB_USR_DFLT)
+        val integration_db_pwd = System.getenv(integrationDB + "_PASSWORD") ?: this.get(INTEGRATION_DB_PWD_DFLT)
 
-        val test_db_url = default.getProperty("test_db_url")
-        val test_db_usr = default.getProperty("test_db_usr")
-        val test_db_pwd = default.getProperty("test_db_pwd")
+        properties.setProperty("TRESORIER_DB_URL", tresorier_db_url)
+        properties.setProperty("TRESORIER_DB_USR", tresorier_db_usr)
+        properties.setProperty("TRESORIER_DB_PWD", tresorier_db_pwd)
 
-        val integration_db_url = System.getenv(integrationDB +"_URL") ?: default.getProperty("integration_db_url_dflt")
-        val integration_db_usr = System.getenv(integrationDB + "_USERNAME") ?: default.getProperty("integration_db_usr_dflt")
-        val integration_db_pwd = System.getenv(integrationDB + "_PASSWORD") ?: default.getProperty("integration_db_pwd_dflt")
+        properties.setProperty("INTEGRATION_DB_URL", integration_db_url)
+        properties.setProperty("INTEGRATION_DB_USR", integration_db_usr)
+        properties.setProperty("INTEGRATION_DB_PWD", integration_db_pwd)
+    }
 
-        properties.setProperty("tresorier_db_url", tresorier_db_url)
-        properties.setProperty("tresorier_db_usr", tresorier_db_usr)
-        properties.setProperty("tresorier_db_pwd", tresorier_db_pwd)
+    fun getSystemProperties() {
+        for (propertyEnum in PropertiesEnum.values()){
+            val propertyName = propertyEnum.toString()
+            System.getenv(propertyName)?.let {
+                properties.setProperty(propertyName, it)
+            }
+        }
+    }
 
-        properties.setProperty("test_db_url", test_db_url)
-        properties.setProperty("test_db_usr", test_db_usr)
-        properties.setProperty("test_db_pwd", test_db_pwd)
+    companion object {
+        fun set(name : PropertiesEnum, value : String) {
+            return Properties.setPropertyInFile("gradle.properties", name.name, value)
+        }
 
-        properties.setProperty("integration_db_url", integration_db_url)
-        properties.setProperty("integration_db_usr", integration_db_usr)
-        properties.setProperty("integration_db_pwd", integration_db_pwd)
-
-        return properties
+        fun getPropertiesFromFile(fileRelativePath : String) : JavaProperties {
+            val properties = JavaProperties()
+            val path = System.getProperty("user.dir") + "/" + fileRelativePath;
+            val inputStream = FileInputStream(path)
+            properties.load(inputStream)
+            return properties
+        }
+    
+        fun setPropertyInFile(fileRelativePath : String, key : String, value : String) {
+            val path = System.getProperty("user.dir") + "/" + fileRelativePath;
+            val file = File(path) 
+            val content = file.readText().replace(Regex("${key}=.*"), "${key}=${value}");
+            file.writeText(content);
+        }
     }
 }

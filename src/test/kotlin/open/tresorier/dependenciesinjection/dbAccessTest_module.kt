@@ -6,6 +6,7 @@ import org.koin.dsl.module
 import java.sql.DriverManager
 import org.jooq.Configuration
 import open.tresorier.utils.Properties
+import open.tresorier.utils.PropertiesEnum.*
 import java.sql.Connection
 
 val dbAccessTest_module = module {
@@ -14,11 +15,11 @@ val dbAccessTest_module = module {
 
 object DBTestConfiguration {
 
-    private val properties = Properties.getProperties()
+    private val properties = Properties()
 
-    private val userName: String = properties.getProperty("test_db_usr")
-    private val password: String = properties.getProperty("test_db_pwd")
-    private val url: String = properties.getProperty("test_db_url")
+    private val userName: String = properties.get(TEST_DB_USR)
+    private val password: String = properties.get(TEST_DB_PWD)
+    private val url: String = properties.get(TEST_DB_URL)
 
     private val connection: Connection = DriverManager.getConnection(url, userName, password)
     val configuration: Configuration = DefaultConfiguration().set(connection).set(SQLDialect.H2)

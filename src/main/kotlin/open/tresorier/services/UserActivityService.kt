@@ -18,8 +18,8 @@ class UserActivityService(private val userActivityDao: IUserActivityDao) {
         return userActivityDao.update(userActivity)
     }
 
-    fun getById(userId: String): List<UserActivity> {
-        return userActivityDao.getByUserId(userId)
+    fun getByUser(user: Person): List<UserActivity> {
+        return userActivityDao.getByUserId(user.id)
     }
 
     fun getByDate(date: Long): List<UserActivity> {

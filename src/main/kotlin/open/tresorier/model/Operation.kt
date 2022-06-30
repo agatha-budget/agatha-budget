@@ -8,7 +8,7 @@ class Operation (
         var orderInDay: Long,
         var memo: String? = null,
         var pending: Boolean = false,
-        var locked: Boolean,
+        var locked: Boolean = false,
         var motherOperationId: String? = null,
         id: String? = null,
         deleted: Boolean? = null
