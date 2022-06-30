@@ -15,8 +15,8 @@ import open.tresorier.model.enum.ActionEnum
 
 class OperationService(
     private val operationDao: IOperationDao,
-    private val authorizationService: AuthorizationService,
     private val accountDao: IAccountDao,
+    private val authorizationService: AuthorizationService,
     private val userActivityService: UserActivityService) {
 
     fun createInitialOperation(person: Person, account: Account, day: Day, amount: Int){
@@ -141,7 +141,7 @@ class OperationService(
         val motherOperationId = motherOperation.id
         val account = accountDao.getById(motherOperation.accountId)
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val listAllOperations: List<Operation> = operationDao.findByAccount(account)
+        val listAllOperations: List<Operation> = operationDao.findByAccount(account, null)
         var listDaughterOperation = mutableListOf<Operation>()
         listAllOperations.forEach {
             if (it.motherOperationId == motherOperationId) {
@@ -149,5 +149,27 @@ class OperationService(
             }
         }
         return listDaughterOperation
+    }
+    fun findMotherOperationsByAccount(person: Person, account: Account) : List<Operation> {
+        val listAllOperations = this.findByAccount(person, account, null)
+        var listMotherOperations = mutableListOf<Operation>()
+        listAllOperations.forEach {
+            if (it.motherOperationId == null) {
+                listMotherOperations.add(it)
+            }
+        }
+        return listMotherOperations
+    }
+    fun findMotherOperationByDaugtherOperation(account: Account, daughterOperation: Operation) : Operation? {
+        if (daughterOperation.motherOperationId != null) {
+            val person = accountDao.getOwner(account)
+            val listMotherOperations = this.findMotherOperationsByAccount(person, account)
+            listMotherOperations.forEach {
+                if (daughterOperation.motherOperationId == it.id) {
+                    return it
+                }
+            }
+        }
+        return null
     }
 }
