@@ -8,5 +8,5 @@ interface IBankAgreementDao {
     fun update(agreement: BankAgreement) : BankAgreement
     fun getById(id: String): BankAgreement
     fun getOwner(bankAgreement: BankAgreement) : Person
-    fun getByPerson(person: Person): List<BankAgreement>
+    fun findByPerson(person: Person): List<BankAgreement>
 }

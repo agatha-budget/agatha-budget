@@ -2,11 +2,12 @@ package open.tresorier.banking.adapter
 
 import open.tresorier.banking.IBankingPort
 
+import open.tresorier.model.Account
 import open.tresorier.model.Person
 import open.tresorier.model.Operation
-import open.tresorier.model.Account
 import open.tresorier.model.banking.Bank
-
+import open.tresorier.model.banking.BankAccount
+import open.tresorier.model.banking.BankAgreement
 
 class MockBankingAdapter() : IBankingPort {
     
@@ -15,7 +16,11 @@ class MockBankingAdapter() : IBankingPort {
         return "url to redirect and save RequisitionId"
     }
 
-    override fun updateBankAccountList(person: Person) {
+    override fun revokeAgreement(person: Person, agreement: BankAgreement) {
+
+    }
+
+    override fun updateBankAccountList(agreement: BankAgreement) {
         // after user go to redirect after giving his agreement
         // for each requisition of person {
            // get accounts 

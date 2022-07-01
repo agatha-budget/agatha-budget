@@ -9,6 +9,6 @@ open class BankAgreement (
     val validUntil: Long = Time.in90Days(),
     var nordigenRequisitionId: String? = null,
     var archived: Boolean = false,
-    id: String? = null
+    id: String? = null,
     deleted: Boolean? = null
 ) : DbObject(id, deleted)

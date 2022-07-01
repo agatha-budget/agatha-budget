@@ -81,7 +81,8 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
             account.budgetId,
             account.name,
             account.archived,
-            account.deleted
+            account.deleted,
+            account.bankAccountId
         )
     }
 
@@ -92,6 +93,7 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
             jooqAccount.name,
             jooqAccount.budgetId,
             jooqAccount.archived,
+            jooqAccount.bankAccountId,
             jooqAccount.id,
             jooqAccount.deleted
         )
@@ -103,6 +105,7 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
             jooqAccountWithAmount.get(ACCOUNT.BUDGET_ID),
             jooqAccountWithAmount.get(amountSum).toInt(),
             jooqAccountWithAmount.get(ACCOUNT.ARCHIVED),
+            jooqAccountWithAmount.get(ACCOUNT.BANK_ACCOUNT_ID),
             jooqAccountWithAmount.get(ACCOUNT.ID),
             jooqAccountWithAmount.get(ACCOUNT.DELETED)
         )
