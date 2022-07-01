@@ -17,5 +17,7 @@ val test_adapter_module = module {
     single<IOperationDao> { H2OperationDao(get()) }
     single<IAllocationDao> { H2AllocationDao(get()) }
     single<IUserActivityDao> { H2UserActivityDao(get()) }
+    single<IBankAccountDao> { H2BankAccountDao(get()) }
+    single<IBankAgreementDao> { H2BankAgreementDao(get()) }
 }
 
