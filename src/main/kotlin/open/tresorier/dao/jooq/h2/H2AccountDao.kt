@@ -8,7 +8,7 @@ import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.*
 import org.jooq.Configuration
 import org.jooq.Field
-import org.jooq.Record6
+import org.jooq.Record7
 import org.jooq.impl.DSL
 import java.math.BigDecimal
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Account as JooqAccount
@@ -48,7 +48,7 @@ class H2AccountDao(val configuration: Configuration) : IAccountDao {
 
     override fun findByBudget(budget: Budget): List<AccountWithAmount> {
         val query = this.query
-            .select(ACCOUNT.ID, ACCOUNT.NAME, ACCOUNT.BUDGET_ID, amountSum, ACCOUNT.ARCHIVED, ACCOUNT.DELETED)
+            .select(ACCOUNT.ID, ACCOUNT.NAME, ACCOUNT.BUDGET_ID, amountSum, ACCOUNT.ARCHIVED, ACCOUNT.BANK_ACCOUNT_ID, ACCOUNT.DELETED)
             .from(ACCOUNT)
             .leftJoin(OPERATION).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
@@ -99,7 +99,7 @@ class H2AccountDao(val configuration: Configuration) : IAccountDao {
         )
     }
 
-    private fun toAccountWithAmount(jooqAccountWithAmount: Record6<String, String, String, BigDecimal, Boolean, Boolean>): AccountWithAmount {
+    private fun toAccountWithAmount(jooqAccountWithAmount: Record7<String, String, String, BigDecimal, Boolean, String, Boolean>): AccountWithAmount {
         return AccountWithAmount(
             jooqAccountWithAmount.get(ACCOUNT.NAME),
             jooqAccountWithAmount.get(ACCOUNT.BUDGET_ID),
