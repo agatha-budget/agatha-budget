@@ -323,7 +323,7 @@ class OperationServiceTest : ITest {
             madeleine, account, TestData.jan_14_2022, null, 1899, "Mamans et bébés", null, null
         )
 
-        val listMotherOperation = operationService.findMotherOperationsByAccount(madeleine, account)
+        val listMotherOperation = operationService.findMotherOperationsByAccount(madeleine, account, null)
 
         // an initial operation was created during account creation
         Assertions.assertEquals(4, listMotherOperation.size)
@@ -381,7 +381,7 @@ class OperationServiceTest : ITest {
             dorothy, account, TestData.jan_14_2022, null, 0, "Margaret Thatcher", null, motherOperation2
         )
 
-        val daughterOperationList = operationService.findAllDaughterOperations(dorothy, account)
+        val daughterOperationList = operationService.findAllDaughterOperations(dorothy, account, null)
 
         Assertions.assertEquals(3, daughterOperationList.size)
         Assertions.assertTrue(daughterOperationList[0].isEquals(daughterOperation3))
@@ -402,7 +402,7 @@ class OperationServiceTest : ITest {
         operationService.create(elizabeth, account, TestData.jan_14_2022, null, 1869, "The Moral Education of the Young", null, null)
         operationService.create(elizabeth, account, TestData.jan_14_2022, null, 1849, "major médecine", null, null)
 
-        val daughterOperationList = operationService.findAllDaughterOperations(elizabeth, account)
+        val daughterOperationList = operationService.findAllDaughterOperations(elizabeth, account, null)
 
         Assertions.assertEquals(0, daughterOperationList.size)
     }

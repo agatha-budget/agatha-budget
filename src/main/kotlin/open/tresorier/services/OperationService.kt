@@ -150,8 +150,8 @@ class OperationService(
         }
         return listDaughterOperation
     }
-    fun findMotherOperationsByAccount(person: Person, account: Account) : List<Operation> {
-        val listAllOperations = this.findByAccount(person, account, null)
+    fun findMotherOperationsByAccount(person: Person, account: Account, category: Category?) : List<Operation> {
+        val listAllOperations = this.findByAccount(person, account, category)
         var listMotherOperations = mutableListOf<Operation>()
         listAllOperations.forEach {
             if (it.motherOperationId == null) {
@@ -162,7 +162,7 @@ class OperationService(
     }
     fun findMotherOperationByDaugtherOperation(account: Account, daughterOperation: Operation) : Operation {
         val person = accountDao.getOwner(account)
-        val listMotherOperations = this.findMotherOperationsByAccount(person, account)
+        val listMotherOperations = this.findMotherOperationsByAccount(person, account, null)
         var motherOperation: Operation = daughterOperation
         listMotherOperations.forEach {
             if (daughterOperation.motherOperationId == it.id) {
@@ -171,8 +171,8 @@ class OperationService(
         }
         return motherOperation
     }
-    fun findAllDaughterOperations(person: Person, account: Account) : List<Operation> {
-        val listAllOperations = this.findByAccount(person, account, null)
+    fun findAllDaughterOperations(person: Person, account: Account, category: Category?) : List<Operation> {
+        val listAllOperations = this.findByAccount(person, account, category)
         var listDaughterOperations = mutableListOf<Operation>()
         listAllOperations.forEach {
             if (it.motherOperationId != null) {

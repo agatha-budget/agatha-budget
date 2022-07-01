@@ -346,6 +346,26 @@ fun main() {
         val operations = ServiceManager.operationService.findByBudget(user, budget, category)
         ctx.json(operations)
     }
+
+    app.before("/operation/mother", SuperTokens.middleware())
+    app.get("/operation/mother") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
+        val category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
+        val operations = ServiceManager.operationService.findMotherOperationsByAccount(user, account, category)
+        ctx.json(operations)
+    }
+
+    app.before("/operation/daughter", SuperTokens.middleware())
+    app.get("/operation/daughter") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
+        val category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
+        val operations = ServiceManager.operationService.findAllDaughterOperations(user, account, category)
+        ctx.json(operations)
+    }
     
     app.before("/operation/import", SuperTokens.middleware())
     app.post("/operation/import") { ctx ->
