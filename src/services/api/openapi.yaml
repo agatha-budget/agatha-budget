@@ -237,6 +237,87 @@ paths:
       security:
         - accessToken: []
           refreshTokenId: []
+  /banking/setup:
+    get:
+      tags:
+        - Banking
+      summary: get bank agreement portal URL
+      operationId: getLinkForBankAgreement
+      parameters:
+      - name: bankId
+        in: query
+        description: identifier of the wanted bank
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Agreement url created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: url of the portal
+        "400":
+          description: unknown user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: no billing to manage
+      security:
+        - accessToken: []
+          refreshTokenId: []
+  /banking:
+    put:
+      tags:
+        - Banking
+      summary: updateBankingInfo
+      operationId: updateBankAccountList
+      parameters:
+      - name: bankAgreementId
+        in: query
+        description: identifier of the wanted bank
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Agreement url created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: successfull operation
+        "400":
+          description: unknown user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: no billing to manage
+      security:
+        - accessToken: []
+          refreshTokenId: []
+  /banks:
+    get:
+      tags:
+        - Banking
+      summary: get availables banks list
+      operationId: getAvailableBanks
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bank'
   /budget:
     put:
       tags:
@@ -1337,6 +1418,21 @@ components:
           type: boolean
       xml:
         name: person
+    Bank:
+      required:
+      - name
+      - id
+      - logo
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        logo:
+          type: string
+      xml:
+        name: bank
   securitySchemes:
     accessToken:
       type: apiKey
