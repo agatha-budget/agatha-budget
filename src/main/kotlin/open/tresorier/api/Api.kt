@@ -314,7 +314,7 @@ fun main() {
         val amount : Int? = getOptionalQueryParam<Int>(ctx, "new_amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "new_memo")
         val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "new_pending")
-        val motherOperationId : String? = getOptionalQueryParam<String>(ctx, "motherOperationId")
+        val motherOperationId : String? = getOptionalQueryParam<String>(ctx, "new_mother_operation_id")
 
         val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo, pending, motherOperationId)
         ctx.json(updatedOperation)

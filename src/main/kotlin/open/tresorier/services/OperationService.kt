@@ -171,4 +171,14 @@ class OperationService(
         }
         return motherOperation
     }
+    fun findAllDaughterOperations(person: Person, account: Account) : List<Operation> {
+        val listAllOperations = this.findByAccount(person, account, null)
+        var listDaughterOperations = mutableListOf<Operation>()
+        listAllOperations.forEach {
+            if (it.motherOperationId != null) {
+                listDaughterOperations.add(it)
+            }
+        }
+        return listDaughterOperations
+    }
 }

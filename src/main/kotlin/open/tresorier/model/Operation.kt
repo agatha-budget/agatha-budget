@@ -26,6 +26,9 @@ class Operation (
                 if (!operation.memo.equals(this.memo)) {
                         return false
                 }
+                if (operation.motherOperationId != this.motherOperationId) {
+                        return false
+                }
                 return true
         }
 }
