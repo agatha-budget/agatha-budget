@@ -1,15 +1,13 @@
 <template>
   <div :class="this.$store.state.css">
-    <div class="profilePage menuLayout row col-md-4 offset-md-4 col-xl-8 offset-xl-2">
-        <div class="header fixed title">
-          {{ $t('CHART') }}
-        </div>
-        <div class="placeholder top">
-          {{ $t('CHART') }}
-        </div>
+    <div class="chartPage menuLayout row col-md-4 offset-md-4 col-xl-8 offset-xl-2">
+      <div class="header fixed title">{{ $t('CHART') }}</div>
+      <div class="placeholder top">{{ $t('CHART') }}</div>
+      <btn class="actionButton" v-on:click="changeGraph">{{ currentGraph }}</btn>
 
-        <BarChart :chartData="chartData"/>
+      <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
 
+      <div class="flexForm">
         <input type="radio" id="allocated" value="allocated" v-model="typeInformation">
         <label for="allocated">allocated</label>
         <input type="radio" id="spent" value="spent" v-model="typeInformation">
@@ -17,25 +15,36 @@
         <input type="radio" id="available" value="available" v-model="typeInformation">
         <label for="available">available</label>
         <span>Choisi : {{ typeInformation }}</span>
-        <Multiselect
-          v-model="masterCategoryId"
-          :groups="true"
-          :searchable="true"
-          :options="masterCategories"
-          :noResultsText="$t('NO_RESULT_FOUND')"
-          :placeholder="$t('SELECT_MASTER_CATEGORY')"
-        />
-        <btn class="actionButton" v-on:click="drawPieChart">recalculer pie</btn>
-        <btn class="actionButton" v-on:click="drawBarChart">recalculer bar</btn>
-        <PieChart :chartData="pieChartData"/>
-
-        <div class="placeholder bottom">
-            <NavMenu :page="'chart'" />
-        </div>
-        <div class="footer fixed">
-            <NavMenu :page="'chart'" />
-        </div>
       </div>
+
+      <Multiselect
+        v-model="masterCategoryId"
+        :groups="true"
+        :searchable="true"
+        :options="masterCategories"
+        :noResultsText="$t('NO_RESULT_FOUND')"
+        :placeholder="$t('SELECT_MASTER_CATEGORY')"
+      />
+
+      <btn v-if="currentGraph == 'pie'" class="actionButton" v-on:click="drawPieChart">recalculer pie</btn>
+      <btn v-if="currentGraph == 'bar'" class="actionButton" v-on:click="drawBarChart">recalculer bar</btn>
+      <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
+
+      <div class="row dateNav">
+        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
+        <div class="col-8 date-label">
+            <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
+        </div>
+        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
+      </div>
+
+      <div class="placeholder bottom">
+          <NavMenu :page="'chart'" />
+      </div>
+      <div class="footer fixed">
+          <NavMenu :page="'chart'" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -49,6 +58,7 @@ import StoreHandler from '@/store/StoreHandler'
 import BudgetDataService from '@/services/BudgetDataService'
 import { CategoryDataList, Budget, MasterCategory, GroupSelectOption } from '@/model/model'
 import Utils from '@/utils/Utils'
+import Time from '@/utils/Time'
 import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
@@ -70,6 +80,8 @@ interface ChartPageData {
     };
     typeInformation: string;
     masterCategoryId: string;
+    currentGraph: string;
+    budgetMonth: number;
 }
 
 export default defineComponent({
@@ -113,7 +125,9 @@ export default defineComponent({
         ]
       },
       typeInformation: 'spent',
-      masterCategoryId: ''
+      masterCategoryId: '',
+      currentGraph: 'pie',
+      budgetMonth: 202207
     }
   },
   computed: {
@@ -142,7 +156,7 @@ export default defineComponent({
   methods: {
     async getBudgetData () {
       if (this.budget) {
-        await BudgetDataService.getBudgetDataForMonth(this.budget, 202206).then(
+        await BudgetDataService.getBudgetDataForMonth(this.budget, this.budgetMonth).then(
           (categoryDataList) => {
             this.categoryDataList = categoryDataList
             console.log(categoryDataList)
@@ -253,6 +267,29 @@ export default defineComponent({
       }
       this.chartData.labels = this.getNames(this.masterCategoryId)
       this.chartData.datasets = [datasetsAllocation, datasetsSpent, datasetsAvailable]
+    },
+    changeGraph () {
+      switch (this.currentGraph) {
+        case 'pie':
+          this.currentGraph = 'bar'
+          break
+        case 'bar':
+          this.currentGraph = 'stackedBar'
+          break
+        default:
+          this.currentGraph = 'pie'
+      }
+    },
+    getMonthAsDate (monthAsInt: number): Date {
+      return Time.getMonthAsDate(monthAsInt)
+    },
+    goToNextMonth () {
+      this.getBudgetData()
+      this.budgetMonth = Time.getNextMonth(this.budgetMonth)
+    },
+    goToLastMonth () {
+      this.getBudgetData()
+      this.budgetMonth = Time.getLastMonth(this.budgetMonth)
     }
   }
 
