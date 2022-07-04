@@ -2120,14 +2120,13 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
         /**
          * 
          * @summary Find mother operation of a daughter operation
-         * @param {string} accountId id of the account whose operations you want to retrieve
-         * @param {string} [operationId] id of the daughter operation of mother operations you want to retrieve
+         * @param {string} operationId id of the daughter operation of mother operations you want to retrieve
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findMotherOperationsByDaughter: async (accountId: string, operationId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('findMotherOperationsByDaughter', 'accountId', accountId)
+        findMotherOperationsByDaughter: async (operationId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'operationId' is not null or undefined
+            assertParamExists('findMotherOperationsByDaughter', 'operationId', operationId)
             const localVarPath = `/operation/motherfromdaughter`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -2139,10 +2138,6 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            if (accountId !== undefined) {
-                localVarQueryParameter['account_id'] = accountId;
-            }
 
             if (operationId !== undefined) {
                 localVarQueryParameter['operation_id'] = operationId;
@@ -2432,13 +2427,12 @@ export const OperationApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Find mother operation of a daughter operation
-         * @param {string} accountId id of the account whose operations you want to retrieve
-         * @param {string} [operationId] id of the daughter operation of mother operations you want to retrieve
+         * @param {string} operationId id of the daughter operation of mother operations you want to retrieve
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findMotherOperationsByDaughter(accountId: string, operationId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findMotherOperationsByDaughter(accountId, operationId, options);
+        async findMotherOperationsByDaughter(operationId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.findMotherOperationsByDaughter(operationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -2566,13 +2560,12 @@ export const OperationApiFactory = function (configuration?: Configuration, base
         /**
          * 
          * @summary Find mother operation of a daughter operation
-         * @param {string} accountId id of the account whose operations you want to retrieve
-         * @param {string} [operationId] id of the daughter operation of mother operations you want to retrieve
+         * @param {string} operationId id of the daughter operation of mother operations you want to retrieve
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findMotherOperationsByDaughter(accountId: string, operationId?: string, options?: any): AxiosPromise<Array<Operation>> {
-            return localVarFp.findMotherOperationsByDaughter(accountId, operationId, options).then((request) => request(axios, basePath));
+        findMotherOperationsByDaughter(operationId: string, options?: any): AxiosPromise<Array<Operation>> {
+            return localVarFp.findMotherOperationsByDaughter(operationId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -2705,14 +2698,13 @@ export class OperationApi extends BaseAPI {
     /**
      * 
      * @summary Find mother operation of a daughter operation
-     * @param {string} accountId id of the account whose operations you want to retrieve
-     * @param {string} [operationId] id of the daughter operation of mother operations you want to retrieve
+     * @param {string} operationId id of the daughter operation of mother operations you want to retrieve
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public findMotherOperationsByDaughter(accountId: string, operationId?: string, options?: AxiosRequestConfig) {
-        return OperationApiFp(this.configuration).findMotherOperationsByDaughter(accountId, operationId, options).then((request) => request(this.axios, this.basePath));
+    public findMotherOperationsByDaughter(operationId: string, options?: AxiosRequestConfig) {
+        return OperationApiFp(this.configuration).findMotherOperationsByDaughter(operationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

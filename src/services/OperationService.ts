@@ -39,4 +39,48 @@ export default class OperationService {
     StoreHandler.updateAccounts(store)
     return response.data
   }
+
+  public static async getMotherOperationsByAccount(account: Account, categoryId: string | null): Promise<Operation[]> {
+    let data: Operation[] = []
+    if (account.id) {
+      let response
+      if (categoryId) {
+        response = await operationApi.findMotherOperationsByAccount(account.id, categoryId)
+      } else {
+        response = await operationApi.findMotherOperationsByAccount(account.id, undefined)
+      }
+      data = response.data
+    }
+    return data
+  }
+
+  public static async getDaughterOperationsByAccount(account: Account, categoryId: string | null): Promise<Operation[]> {
+    let data: Operation[] = []
+    if (account.id) {
+      let response
+      if (categoryId) {
+        response = await operationApi.findDaughterOperationsByAccount(account.id, categoryId)
+      } else {
+        response = await operationApi.findDaughterOperationsByAccount(account.id, undefined)
+      }
+      data = response.data
+    }
+    return data
+  }
+
+  // public static async  getMotherOperationByDaughter(account: Account, operationId: string): Promise<Operation> {
+  //   let data: Operation = 
+  //   if (account.id) {
+  //     let response = await operationApi.findMotherOperationsByDaughter(operationId)
+  //     data = response.data
+  //   }
+  //   return data
+  // }
+
+  public static async  getDaughterOperationByMother(operationId: string): Promise<Operation[]> {
+    let response = await operationApi.findDaughterOperationsByMother(operationId)
+    let data: Operation[] = response.data
+    return data
+  }
+  
 }

@@ -1215,18 +1215,10 @@ paths:
       summary: Find mother operation of a daughter operation
       operationId: findMotherOperationsByDaughter
       parameters:
-      - name: account_id
-        in: query
-        description: id of the account whose operations you want to retrieve
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
       - name: operation_id
         in: query
         description: id of the daughter operation of mother operations you want to retrieve
-        required: false
+        required: true
         style: form
         explode: true
         schema:
@@ -1237,7 +1229,6 @@ paths:
           content:
             application/json:
               schema:
-                type: array
                 items:
                   $ref: '#/components/schemas/Operation'
         "400":
