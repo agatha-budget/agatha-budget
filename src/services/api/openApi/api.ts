@@ -2431,7 +2431,7 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findMotherOperationsByDaughter(operationId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
+        async findMotherOperationsByDaughter(operationId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findMotherOperationsByDaughter(operationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2564,7 +2564,7 @@ export const OperationApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findMotherOperationsByDaughter(operationId: string, options?: any): AxiosPromise<Array<Operation>> {
+        findMotherOperationsByDaughter(operationId: string, options?: any): AxiosPromise<Operation> {
             return localVarFp.findMotherOperationsByDaughter(operationId, options).then((request) => request(axios, basePath));
         },
         /**

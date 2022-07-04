@@ -68,14 +68,11 @@ export default class OperationService {
     return data
   }
 
-  // public static async  getMotherOperationByDaughter(account: Account, operationId: string): Promise<Operation> {
-  //   let data: Operation = 
-  //   if (account.id) {
-  //     let response = await operationApi.findMotherOperationsByDaughter(operationId)
-  //     data = response.data
-  //   }
-  //   return data
-  // }
+  public static async  getMotherOperationByDaughter(operationId: string): Promise<Operation> {
+    let response = await operationApi.findMotherOperationsByDaughter(operationId)
+    let data = response.data
+    return data
+  }
 
   public static async  getDaughterOperationByMother(operationId: string): Promise<Operation[]> {
     let response = await operationApi.findDaughterOperationsByMother(operationId)
