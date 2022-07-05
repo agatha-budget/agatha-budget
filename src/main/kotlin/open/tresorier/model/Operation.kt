@@ -13,7 +13,10 @@ class Operation (
         id: String? = null,
         deleted: Boolean? = null
 ) : DbObject(id, deleted) {
-        fun isEquals(operation: Operation): Boolean {
+        fun isEquals(operation: Operation?): Boolean {
+                if (operation == null) {
+                        return false
+                }
                if (!operation.day.isEquals(this.day)) {
                         return false
                 }

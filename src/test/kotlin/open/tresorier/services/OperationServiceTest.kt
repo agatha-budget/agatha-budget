@@ -350,9 +350,11 @@ class OperationServiceTest : ITest {
             maria, account, TestData.jan_14_2022, null, 1950, "nombres magiques", null, motherOperation
         )
 
-        val operationFound = operationService.findMotherOperationByDaugtherOperation(account, daughterOperation)
+        val operationFound = operationService.findMotherOperationByDaugtherOperation(maria, daughterOperation)
+        val operationNull = operationService.findMotherOperationByDaugtherOperation(maria, motherOperation)
 
-        Assertions.assertTrue(operationFound.isEquals(motherOperation))
+        Assertions.assertTrue(motherOperation.isEquals(operationFound))
+        Assertions.assertTrue(operationNull == null)
     }
 
     @Test

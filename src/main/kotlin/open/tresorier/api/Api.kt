@@ -378,10 +378,12 @@ fun main() {
     app.before("/operation/motherfromdaughter", SuperTokens.middleware())
     app.get("/operation/motherfromdaughter") { ctx ->
         val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val daughterOperation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
-        val operation = ServiceManager.operationService.findMotherOperationByDaugtherOperation(account, daughterOperation)
-        ctx.json(operation)
+        val operation: Operation? = ServiceManager.operationService.findMotherOperationByDaugtherOperation(user, daughterOperation)
+        operation?.let {
+            ctx.json(operation)
+        }
+        ctx.json("null")
     }
     
     app.before("/operation/import", SuperTokens.middleware())
