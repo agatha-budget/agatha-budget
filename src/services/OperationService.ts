@@ -19,9 +19,10 @@ export default class OperationService {
     return data
   }
 
-  public static async addOperation (store: Store<StoreState>, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean) {
-    await operationApi.addOperation(accountId, day, categoryId, amount, memo, isPending)
+  public static async addOperation (store: Store<StoreState>, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean, motheroperationId?: string): Promise<Operation> {
+    const response = await operationApi.addOperation(accountId, day, categoryId, amount, memo, isPending, motheroperationId)
     StoreHandler.updateAccounts(store)
+    return response.data
   }
 
   public static async deleteOperation (store: Store<StoreState>, operation: Operation) {
@@ -29,9 +30,10 @@ export default class OperationService {
     StoreHandler.updateAccounts(store)
   }
 
-  public static async updateOperation (store: Store<StoreState>, operation: Operation, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean) {
-    await operationApi.updateOperation(operation.id, accountId, day, categoryId, amount, memo, isPending)
+  public static async updateOperation (store: Store<StoreState>, operation: Operation, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean, motheroperationId?: string): Promise<Operation> {
+    const response = await operationApi.updateOperation(operation.id, accountId, day, categoryId, amount, memo, isPending, motheroperationId)
     StoreHandler.updateAccounts(store)
+    return response.data
   }
 
   public static async importOfxFile (store: Store<StoreState>, accountId: string, ofxFileContent: string): Promise<string> {
@@ -40,7 +42,7 @@ export default class OperationService {
     return response.data
   }
 
-  public static async getMotherOperationsByAccount(account: Account, categoryId: string | null): Promise<Operation[]> {
+  public static async getMotherOperationsByAccount (account: Account, categoryId: string | null): Promise<Operation[]> {
     let data: Operation[] = []
     if (account.id) {
       let response
@@ -54,7 +56,7 @@ export default class OperationService {
     return data
   }
 
-  public static async getDaughterOperationsByAccount(account: Account, categoryId: string | null): Promise<Operation[]> {
+  public static async getDaughterOperationsByAccount (account: Account, categoryId: string | null): Promise<Operation[]> {
     let data: Operation[] = []
     if (account.id) {
       let response
@@ -68,16 +70,13 @@ export default class OperationService {
     return data
   }
 
-  public static async  getMotherOperationByDaughter(operationId: string): Promise<Operation> {
-    let response = await operationApi.findMotherOperationsByDaughter(operationId)
-    let data = response.data
-    return data
+  public static async getMotherOperationByDaughter (operationId: string): Promise<Operation> {
+    const response = await operationApi.findMotherOperationsByDaughter(operationId)
+    return response.data
   }
 
-  public static async  getDaughterOperationByMother(operationId: string): Promise<Operation[]> {
-    let response = await operationApi.findDaughterOperationsByMother(operationId)
-    let data: Operation[] = response.data
-    return data
+  public static async getDaughterOperationByMother (operationId: string): Promise<Operation[]> {
+    const response = await operationApi.findDaughterOperationsByMother(operationId)
+    return response.data
   }
-  
 }

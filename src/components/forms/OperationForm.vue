@@ -133,7 +133,7 @@
     </div>
 
     <div class="col-4 offset-1 col-md-3 offset-md-2">
-      <btn class="actionButton " v-on:click="addOperation">valider</btn>
+      <btn class="actionButton " v-on:click="addOperationMultipleCategories">valider</btn>
     </div>
     <div class="col-4 offset-2 col-md-3 offset-md-2">
       <btn class="actionButton" v-on:click="addCategory">ajouter enveloppe</btn>
@@ -244,7 +244,15 @@ export default defineComponent({
       return this.getAccountById(this.accountId)
     },
     totalAmount (): number {
-      return 0
+      let sum = 0
+      this.dataOperation.operationsData.forEach(daughterOperation => {
+        if (daughterOperation.incoming) {
+          sum += this.entireCalcul(daughterOperation.amountString)
+        } else {
+          sum -= this.entireCalcul(daughterOperation.amountString)
+        }
+      })
+      return sum
     }
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
@@ -345,6 +353,36 @@ export default defineComponent({
     },
     displayData () {
       console.log(this.dataOperation)
+    },
+    async addOperationMultipleCategories () {
+      // mother operation
+      const motherOperation = await OperationService.addOperation(this.$store,
+        this.accountId,
+        Time.getDayFromDateString(this.dataOperation.date),
+        undefined,
+        Utils.getCentsAmount(this.totalAmount),
+        this.dataOperation.memo,
+        this.dataOperation.isPending,
+        undefined
+      )
+      // daughters
+      this.dataOperation.operationsData.forEach(daugtherOperation => {
+        let amountCent
+        if (daugtherOperation.incoming) {
+          amountCent = Utils.getCentsAmount(this.entireCalcul(daugtherOperation.amountString))
+        } else {
+          amountCent = Utils.getCentsAmount(this.entireCalcul(daugtherOperation.amountString)) * -1
+        }
+        OperationService.addOperation(this.$store,
+          this.accountId,
+          Time.getDayFromDateString(this.dataOperation.date),
+          daugtherOperation.categoryId,
+          amountCent,
+          daugtherOperation.memo,
+          this.dataOperation.isPending,
+          motherOperation.id
+        )
+      })
     }
   }
 })
