@@ -288,11 +288,21 @@ export default defineComponent({
       return StoreHandler.getCategoriesByArchivedStatus(this.$store, true)
     },
     rebootAddOperationForm () {
+      this.date = Time.getCurrentDateString()
       this.memo = ''
       this.amountString = ''
       this.categoryId = ''
       this.incoming = false
       this.isPending = false
+      this.dataOperation.operationsData.forEach(daughter => {
+        daughter.incoming = false
+        daughter.amountString = ''
+        daughter.categoryId = ''
+        daughter.memo = ''
+      })
+      this.dataOperation.date = Time.getCurrentDateString()
+      this.dataOperation.isPending = false
+      this.dataOperation.memo = ''
     },
     createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
       const group: GroupSelectOption = {
@@ -383,6 +393,7 @@ export default defineComponent({
           motherOperation.id
         )
       })
+      this.rebootAddOperationForm()
     }
   }
 })
