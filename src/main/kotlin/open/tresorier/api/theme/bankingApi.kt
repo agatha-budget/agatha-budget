@@ -26,6 +26,14 @@ fun addBankingRoute(app : Javalin, personService: PersonService, bankingService:
         val bankId = "CREDIT_COOPERATIF_CCOPFRPPXXX" //getQueryParam<String>(ctx, "bankId")
         ctx.result(bankingService.getLinkForUserAgreement(person, bankId))
     }
+
+    //app.before("/banking/setup", SuperTokens.middleware())
+    app.get("/banking") { ctx ->
+        val person = personService.getById("person1")
+        val bankAgreementId = "bb98946e-4154-4d0a-ad81-2977eac99311" //getQueryParam<String>(ctx, "bankAgreementId")
+        val bankAgreement = bankingService.getAgreementById(bankAgreementId)
+        bankingService.updateBankAccountList(person, bankAgreement)
+    }
     
     return app
 }

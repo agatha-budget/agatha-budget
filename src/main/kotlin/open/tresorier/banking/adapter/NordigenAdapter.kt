@@ -16,10 +16,11 @@ import open.tresorier.model.banking.BankAgreement
 import open.tresorier.dao.IBankAgreementDao
 import open.tresorier.dao.IBankAccountDao
 
-class NordigenAdapter(bankAccountDao: IBankAccountDao, bankAgreementDao: IBankAgreementDao) : IBankingPort {
+class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankingPort {
 
     override fun getLinkForUserAgreement(person: Person, bankId: String) : String {
         val url = "https://ob.nordigen.com/api/v2/requisitions/"
+        val bankAgreement = BankAgreement(person.id, bankId)
 
         val headerProperties = mapOf(
             "Content-Type" to "application/json",
@@ -27,8 +28,6 @@ class NordigenAdapter(bankAccountDao: IBankAccountDao, bankAgreementDao: IBankAg
             "User-Agent" to "Agatha/1.0",
             "Authorization" to "Bearer ${this.getToken()}"
         )
-
-        var bankAgreement = BankAgreement(person.id, bankId)
 
         val bodyProperties = mapOf(
             "redirect" to "https://beta.agatha-budget.fr/bank?agreementId=${bankAgreement.id}",
@@ -45,19 +44,59 @@ class NordigenAdapter(bankAccountDao: IBankAccountDao, bankAgreementDao: IBankAg
         val response = JSONObject(connection.inputStream.reader().use { it.readText() })
         // create Requisition 
         bankAgreement.nordigenRequisitionId = response.get("id").toString()
+        this.bankAgreementDao.insert(bankAgreement)
         return response.get("link").toString()
     }
 
     override fun revokeAgreement(person: Person, agreement: BankAgreement) {
+        
 
     }
 
-    override fun updateBankAccountList(agreement: BankAgreement) {
-        // after user go to redirect after giving his agreement
-        // for each requisition of person {
-           // get accounts 
-        //}
-        //get bankAccounts with RequisitionId
+    override fun getBankAccountList(agreement: BankAgreement) : List<BankAccount> {
+        val url = "https://ob.nordigen.com/api/v2/requisitions/${agreement.nordigenRequisitionId}/"
+
+        val headerProperties = mapOf(
+            "Content-Type" to "application/json",
+            "Accept" to "application/json",
+            "User-Agent" to "Agatha/1.0",
+            "Authorization" to "Bearer ${this.getToken()}"
+        )
+
+        val connection = HTTPConnection.sendRequest("GET", url, headerProperties)
+
+        if (connection.responseCode !in HTTPConnection.validResponseCodes) {
+            throw BankingException("could not get Requisition for ${agreement.id} : ${connection.errorStream.reader().use { it.readText() }}")
+		}
+        val response = JSONObject(connection.inputStream.reader().use { it.readText() })
+        val accounts = response.getJSONArray("accounts")
+     
+        var accountList = listOf<BankAccount>()
+        for (i in 1..accounts.length()) {
+            val id = accounts.getString(i-1);
+            val bankAccount = BankAccount(this.getAccountName(id), agreement.id, id)
+            accountList = accountList + bankAccount 
+        }
+        return accountList
+    }
+
+    private fun getAccountName(id: String) : String {
+        val url = "https://ob.nordigen.com/api/v2/accounts/${id}/details/"
+
+        val headerProperties = mapOf(
+            "Content-Type" to "application/json",
+            "Accept" to "application/json",
+            "User-Agent" to "Agatha/1.0",
+            "Authorization" to "Bearer ${this.getToken()}"
+        )
+
+        val connection = HTTPConnection.sendRequest("GET", url, headerProperties)
+
+        if (connection.responseCode !in HTTPConnection.validResponseCodes) {
+            throw BankingException("could not get account details for ${id} : ${connection.errorStream.reader().use { it.readText() }}")
+		}
+        val response = JSONObject(connection.inputStream.reader().use { it.readText() })
+        return response.getJSONObject("account").getString("name")
     }
 
     override fun getOperations(account: Account) : List<Operation> {

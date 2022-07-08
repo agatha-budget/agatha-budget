@@ -20,12 +20,13 @@ class MockBankingAdapter() : IBankingPort {
 
     }
 
-    override fun updateBankAccountList(agreement: BankAgreement) {
+    override fun getBankAccountList(agreement: BankAgreement) : List<BankAccount> {
         // after user go to redirect after giving his agreement
         // for each requisition of person {
            // get accounts 
         //}
         //get bankAccounts with RequisitionId
+        return listOf()
     }
 
     override fun getOperations(account: Account) : List<Operation> {
