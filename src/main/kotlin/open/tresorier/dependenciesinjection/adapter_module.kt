@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val properties = Properties()
 val adapter_module = module {
     single<IMailingPort> { if (properties.get(ENVIRONMENT) == "prod") AweberAdapter() else MockMailingAdapter() }
-    single<IBankingPort> { if (properties.get(ENVIRONMENT) == "prod") NordigenAdapter(get(), get()) else MockBankingAdapter() }
+    single<IBankingPort> {NordigenAdapter(get(), get())}
     single<IPersonDao> { PgPersonDao((get())) }
     single<IBudgetDao> { PgBudgetDao((get())) }
     single<IAccountDao> { PgAccountDao((get())) }
@@ -22,4 +22,6 @@ val adapter_module = module {
     single<IOperationDao> { PgOperationDao((get())) }
     single<IAllocationDao> { PgAllocationDao(get()) }
     single<IUserActivityDao> { PgUserActivityDao(get()) }
+    single<IBankAgreementDao> { PgBankAgreementDao(get()) }
+    single<IBankAccountDao> { PgBankAccountDao(get()) }
 }

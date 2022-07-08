@@ -14,11 +14,12 @@ import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.services.BillingService
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.model.enum.PriceIdEnum
+import open.tresorier.api.theme.*
 
 fun main() {
 
     val properties = Properties()
-    val app = setUpApp(properties)
+    var app = setUpApp(properties)
 
     // Session Manager
     SuperTokens.config().withHosts(
@@ -27,6 +28,8 @@ fun main() {
     )
     // Dependencies injection
     ServiceManager.start()
+
+    app = addBankingRoute(app, ServiceManager.personService, ServiceManager.bankingService)
 
     app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
@@ -419,30 +422,4 @@ private fun setUpApp(properties: Properties): Javalin {
     }
 
     return app
-}
-
-private fun sendToAdminMessage(errorId : String) : String {
-    return " Send this code to your administrator for details : $errorId"
-}
-
-private fun getHerokuAssignedOrDefaultPort(): Int {
-    val herokuPort = System.getenv("PORT");
-    if (herokuPort != null) {
-        return Integer.parseInt(herokuPort);
-    }
-    return 7000;
-}
-
-private fun getUserFromAuth(ctx: Context): Person {
-    val validSession = SuperTokens.getFromContext(ctx)
-    val userId = validSession.userId
-    return ServiceManager.personService.getById(userId)
-}
-
-private inline fun <reified T: Any> getQueryParam(ctx: Context, paramName: String) : T {
-    return ctx.queryParam<T>(paramName).get()
-}
-
-private inline fun <reified T: Any> getOptionalQueryParam(ctx: Context, paramName: String) : T? {
-    return ctx.queryParam<T>(paramName).getOrNull()
 }
