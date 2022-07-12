@@ -69,6 +69,7 @@ a.navigationButton {
   padding: 3px 15px 3px 15px ;
   border-radius: @btnBorderRadius;
   text-align: center;
+  height: 32px;
 }
 
 .dualTab{
@@ -103,6 +104,19 @@ a.navigationButton {
   }
 }
 
+.actionLabelIcon {
+  text-align: left;
+  padding: 0 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  .text {
+    padding-top: 3px;
+  }
+}
+.actionLabelIcon:hover {
+  cursor: pointer;
+}
+
 .navBarBtn {
     font-size: 30px;
     background-color: @navigation;
@@ -120,7 +134,7 @@ a.navigationButton {
     }
 }
 
-.select{
+.select {
   background: @action;
   color: white;
 }

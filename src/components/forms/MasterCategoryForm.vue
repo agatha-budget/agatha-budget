@@ -9,7 +9,7 @@
       <th class="col-2">
         <button class="illustration btn fas fa-check" v-on:click="updateMasterCategory"/>
       </th>
-       <th class="col-2">
+       <th class="col-2 disappearForMobile">
         <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
       </th>
       <th class="col-2">

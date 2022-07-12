@@ -2,10 +2,10 @@
   <div :class="this.$store.state.css">
     <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
       <div class="header fixed">
-          <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" />
+          <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="this.realAmount"/>
       </div>
       <div class="placeholderTop">
-        <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount"/>
+        <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="this.realAmount"/>
       </div>
       <div class="content container operationTable table-hover">
         <div class="dualTab switchOperation">
@@ -16,26 +16,36 @@
         </div>
         <ImportOfx v-if="importBloc" :accountId="this.accountId" @close-import="closeImport"/>
         <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
+        <div v-on:click="onClickFilterButton" class="actionLabelIcon">
+          <span class="illustration btn fas fa-filter"/>
+          <div class="text">{{ $t("FILTER") }}</div>
+        </div>
+        <FilterCmpt v-if="filterBloc" @close-filter="closeFilter" @filtering-category="filter"/>
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
-          <span v-on:click="setAsEditing(operation)" :title="$t('EDIT')" v-else class="operation">
-            <div class="lineStart date col-3">
-              <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+          <span v-else class="operation">
+            <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row col-9">
+              <div class="lineStart date col-6">
+                <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+              </div>
+              <div class="col-6"/>
+              <div class="lineStart category col-6" :class="getClassDependingCategory(operation)">
+                {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+              </div>
+              <div class="amount col-5 offset-1 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
+                {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+              </div>
             </div>
-            <div class="col-9"></div>
-
-            <div class="lineStart category col-4" :class="getClassDependingCategory(operation)">
-              {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
-            </div>
-            <div class="amount col-2 offset-2 col-sm-2" :class="this.getClassDependingOnAmount(operation)">
-              {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
-            </div>
-            <div class="action col-2 offset-sm-2">
+            <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-1">
               <button class="illustration btn fas fa-pen"/>
-              <button class="illustration btn fas fa-trash" v-on:click="deleteOperation(operation)" :title="$t('DELETE')"/>
             </div>
-
-            <div class="lineStart memo col-5">{{ operation.memo }}</div>
+            <div v-on:click="deleteOperation(operation)" :title="$t('DELETE')" class="action col-1">
+              <button class="illustration btn fas fa-trash"/>
+            </div>
+            <div v-if="operation.pending" v-on:click="debited(operation)" :title="$t('DEBITED')" class="pending col-1">
+              <button class="illustration btn fas fa-hourglass-half"/>
+            </div>
+            <div class="lineStart memo col-12">{{ operation.memo }}</div>
           </span>
         </template>
       </div>
@@ -61,11 +71,15 @@ import Utils from '@/utils/Utils'
 import NavMenu from '@/components/NavigationMenu.vue'
 import AccountPageHeader from '@/components/AccountPageHeader.vue'
 import ImportOfx from '@/components/ImportOfx.vue'
+import FilterCmpt from '@/components/FilterCmpt.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
     importBloc: boolean;
     manualBloc: boolean;
+    filterBloc: boolean;
+    filteringCategoryId: string | null;
+    existingPendingOperation: boolean;
 }
 
 interface EditableOperation extends Operation {
@@ -78,7 +92,8 @@ export default defineComponent({
     OperationForm,
     NavMenu,
     AccountPageHeader,
-    ImportOfx
+    ImportOfx,
+    FilterCmpt
   },
   beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
@@ -102,7 +117,10 @@ export default defineComponent({
     return {
       operations: [],
       importBloc: false,
-      manualBloc: false
+      manualBloc: false,
+      filterBloc: false,
+      filteringCategoryId: null,
+      existingPendingOperation: false
     }
   },
   computed: {
@@ -117,12 +135,21 @@ export default defineComponent({
     totalAccount (): string {
       const value = this.account == null ? 0 : this.getEurosAmount(this.account.amount)
       return this.addSpacesInThousand(value)
+    },
+    realAmount (): string {
+      let value: number = this.account == null ? 0 : this.account.amount
+      this.operations.forEach((operation) => {
+        if (operation.pending === true) {
+          value -= operation.amount
+        }
+      })
+      return this.addSpacesInThousand(value / 100)
     }
   },
   methods: {
     async getAccountOperation () {
       if (this.account) {
-        return OperationService.getOperations(this.account).then(
+        return OperationService.getOperations(this.account, this.filteringCategoryId).then(
           (operations) => {
             this.operations = this.operationToEditableOperation(operations)
           }
@@ -138,6 +165,7 @@ export default defineComponent({
       })
     },
     setAsEditing (operation: EditableOperation) {
+      console.log(operation.pending)
       operation.editing = true
     },
     operationToEditableOperation (operations: Operation[]): EditableOperation[] {
@@ -150,6 +178,7 @@ export default defineComponent({
           categoryId: operation.categoryId,
           amount: operation.amount,
           memo: operation.memo,
+          pending: operation.pending,
           editing: false
         })
       )
@@ -174,6 +203,10 @@ export default defineComponent({
     getClassDependingCategory (operation: Operation): string {
       return (operation.categoryId === null) ? 'negative' : ''
     },
+    filter (categoryId: string) {
+      this.filteringCategoryId = categoryId
+      this.getAccountOperation()
+    },
     switchAddOperation (type: string) {
       if (type === 'import') {
         this.importBloc = !this.importBloc
@@ -187,14 +220,40 @@ export default defineComponent({
         }
       }
     },
+    debited (operation: Operation) {
+      if (operation) {
+        OperationService.updateOperation(this.$store, operation, this.accountId, operation.day, operation.categoryId, operation.amount, operation.memo, false)
+      }
+    },
+    pendingOperation (): boolean {
+      let operationPending = false
+      this.operations.forEach((operation) => {
+        if (operation.pending === true) {
+          operationPending = true
+        }
+      })
+      return operationPending
+    },
     closeImport () {
       this.importBloc = false
     },
     closeForm () {
       this.manualBloc = false
     },
+    closeFilter () {
+      this.filterBloc = false
+      this.filteringCategoryId = null
+      this.getAccountOperation()
+    },
     closeUpdate (operation: EditableOperation) {
       operation.editing = false
+    },
+    onClickFilterButton () {
+      this.filterBloc = !this.filterBloc
+      if (!this.filterBloc) {
+        this.filteringCategoryId = null
+        this.getAccountOperation()
+      }
     }
   }
 })
