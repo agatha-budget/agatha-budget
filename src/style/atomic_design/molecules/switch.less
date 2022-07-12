@@ -11,27 +11,32 @@
 	cursor: pointer;
 	box-sizing:content-box;
 
-	.switch-input {
+	.switch-input, .switch-input {
 		position: absolute;
 		top: 0;
 		left: 0;
 		opacity: 0;
 		box-sizing:content-box;
 	}
-	.switch-label {
+	.switch-label, .switch-label-pending {
 		position: relative;
 		display: block;
 		height: inherit;
 		font-size: 10px;
 		border-radius: 8px;
 		text-transform: uppercase;
-		background: @alert;
 		border-radius: inherit;
 		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.15);
 		box-sizing:content-box;
 		border-radius: 8px;
 	}
-	.switch-label:before, .switch-label:after {
+	.switch-label {
+		background: @alert;
+	}
+	.switch-label-pending {
+		background: @blackGrey;
+	}
+	.switch-label:before, .switch-label:after, .switch-label-pending:after, .switch-label-pending:before {
 		position: absolute;
 		top: 50%;
 		margin-top: -.5em;
@@ -42,12 +47,12 @@
 		transition: inherit;
 		box-sizing:content-box;
 	}
-	.switch-label:before {
+	.switch-label:before, .switch-label-pending:before {
 		content: attr(data-off);
 		right: 9px;
 		font-size: large;
 	}
-	.switch-label:after {
+	.switch-label:after, .switch-label-pending:after {
 		font-size: large;
 		content: attr(data-on);
 		left: 7px;
@@ -57,13 +62,23 @@
 		background: @validation;
 		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
 	}
+	.switch-input:checked ~ .switch-label-pending {
+		background: @navigation;
+		box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.15), inset 0 0 3px rgba(0, 0, 0, 0.2);
+	}
 	.switch-input:checked ~ .switch-label:before {
+		opacity: 0;
+	}
+	.switch-input:checked ~ .switch-label-pending:before {
 		opacity: 0;
 	}
 	.switch-input:checked ~ .switch-label:after {
 		opacity: 1;
 	}
-	.switch-handle {
+	.switch-input:checked ~ .switch-label-pending:after {
+		opacity: 1;
+	}
+	.switch-handle, .switch-handle-pending {
 		position: absolute;
 		top: 5px;
 		left: 5px;
@@ -73,7 +88,7 @@
 		border-radius: 8px;
 		box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 	}
-	.switch-handle:before {
+	.switch-handle:before, .switch-handle-pending:before {
 		content: "";
 		position: absolute;
 		top: 50%;
@@ -85,7 +100,17 @@
 		border-radius: 6px;
 		box-shadow: inset 0 1px rgba(0, 0, 0, 0.02);
 	}
+	.switch-handle:before {
+		background: linear-gradient(to bottom, @alert, #FFFFFF);
+	}
+	.switch-handle-pending:before {
+		background: linear-gradient(to bottom, @blackGrey, #FFFFFF);
+	}
 	.switch-input:checked ~ .switch-handle {
+		left: 25px;
+		box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
+	}
+	.switch-input:checked ~ .switch-handle-pending {
 		left: 25px;
 		box-shadow: -1px 1px 5px rgba(0, 0, 0, 0.2);
 	}
@@ -93,10 +118,13 @@
 	.switch-input:checked ~ .switch-handle:before {
 		background: linear-gradient(to bottom, @validation, #FFFFFF);
 	}
+	.switch-input:checked ~ .switch-handle-pending:before {
+		background: linear-gradient(to bottom, @navigation, #FFFFFF);
+	}
 	 
 	/* Transition
 	========================== */
-	.switch-label, .switch-handle {
+	.switch-label, .switch-handle, .switch-label-pending, .switch-handle-pending {
 		transition: All 0.3s ease;
 		-webkit-transition: All 0.3s ease;
 		-moz-transition: All 0.3s ease;

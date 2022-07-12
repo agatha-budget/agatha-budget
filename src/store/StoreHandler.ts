@@ -1,14 +1,16 @@
-import { Budget, Account, Category, MasterCategory } from '@/model/model'
+import { Person, Budget, Account, Category, MasterCategory } from '@/model/model'
 import AccountService from '@/services/AccountService'
 import BudgetService from '@/services/BudgetService'
 import CategoryService from '@/services/CategoryService'
 import MasterCategoryService from '@/services/MasterCategoryService'
+import PersonService from '@/services/PersonService'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 
 export default class StoreHandler {
   public static async initStore (store: Store<StoreState>) {
     await this.initBudget(store)
+    await this.initPerson(store)
   }
 
   public static resetStore (store: Store<StoreState>) {
@@ -17,6 +19,7 @@ export default class StoreHandler {
     store.dispatch('updateCategories', [])
     store.dispatch('updateMasterCategories', [])
     store.dispatch('updateStoreLoaded', false)
+    store.dispatch('updatePerson', null)
   }
 
   public static async updateOnBudgetChange (store: Store<StoreState>) {
@@ -91,5 +94,22 @@ export default class StoreHandler {
       }
     }
     return categories
+  }
+
+  public static getAccountById (store: Store<StoreState>, accountId: string): Account | null {
+    for (const account of store.state.accounts) {
+      if (account.id === accountId) {
+        return account
+      }
+    }
+    return null
+  }
+
+  public static initPerson (store: Store<StoreState>) {
+    PersonService.getPerson().then(
+      (person: Person) => {
+        store.dispatch('updatePerson', person)
+      }
+    )
   }
 }

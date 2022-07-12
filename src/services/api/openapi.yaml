@@ -214,7 +214,7 @@ paths:
       - name: package
         in: query
         description: chosen package
-        required: true
+        required: false
         style: form
         explode: true
         schema:
@@ -894,6 +894,13 @@ paths:
         explode: true
         schema:
           type: string
+      - name: new_pending
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
       responses:
         "200":
           description: successful operation
@@ -950,6 +957,13 @@ paths:
         explode: true
         schema:
           type: string
+      - name: pending
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
       responses:
         "200":
           description: successful operation
@@ -997,13 +1011,21 @@ paths:
     get:
       tags:
       - Operation
-      summary: Find operation by account
+      summary: Find operation by account and category
       operationId: findOperationsByAccount
       parameters:
       - name: account_id
         in: query
         description: id of the account whose operations you want to retrieve
         required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: category_id
+        in: query
+        description: if apply filter by category
+        required: false
         style: form
         explode: true
         schema:
@@ -1028,13 +1050,21 @@ paths:
     get:
       tags:
       - Operation
-      summary: Find operation by budget
+      summary: Find operation by budget and category
       operationId: findOperationsByBudget
       parameters:
-      - name: account_id
+      - name: budget_id
         in: query
         description: id of the budget whose operations you want to retrieve
         required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: category_id
+        in: query
+        description: if apply filter by category
+        required: false
         style: form
         explode: true
         schema:
@@ -1288,6 +1318,7 @@ components:
       - style
       - dyslexia
       - creationDate
+      - hasBillingId
       type: object
       properties:
         name:
@@ -1300,8 +1331,10 @@ components:
           type: string
         dyslexia:
           type: boolean
-        createDate:
+        creationDate:
           type: number
+        hasBillingId:
+          type: boolean
       xml:
         name: person
   securitySchemes:

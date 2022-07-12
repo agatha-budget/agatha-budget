@@ -1,7 +1,7 @@
 .operation {
   display: flex;
   flex-wrap: wrap;
-  padding: 8px 0 8px 0;
+  padding: 8px 0 8px 15px;
   text-align: left;
   cursor: pointer;
   .category {
@@ -11,15 +11,11 @@
       font-size: large;
       text-align: center;
   }
-  .action {
+  .action, .pending {
       display: flex;
       .btn {
           padding-left: 10px;
       }
-  }
-
-  .lineStart {
-    padding-left: 30px;
   }
 
   &:nth-child(even) {
@@ -31,11 +27,11 @@
   }
 
   @media (pointer: fine) { 
-    .btn {
+    .action {
         visibility: hidden;
     }
     &:hover{
-      .btn {
+      .action {
           visibility: visible;
       }
     }
