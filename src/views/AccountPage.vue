@@ -23,29 +23,50 @@
         <FilterCmpt v-if="filterBloc" @close-filter="closeFilter" @filtering-category="filter"/>
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
-          <span v-else class="operation">
-            <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row col-9">
+          <span v-else class="allOperation">
+            <div v-if="operation.daughters.length == 0" class="operation">
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row col-9">
+                <div class="lineStart date col-6">
+                  <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+                </div>
+                <div class="col-6"/>
+                <div class="lineStart category col-6" :class="getClassDependingCategory(operation)">
+                  {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+                </div>
+                <div class="amount col-5 offset-1 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
+                  {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                </div>
+              </div>
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-1">
+                <button class="illustration btn fas fa-pen"/>
+              </div>
+              <div v-on:click="deleteOperation(operation)" :title="$t('DELETE')" class="action col-1">
+                <button class="illustration btn fas fa-trash"/>
+              </div>
+              <div v-if="operation.pending" v-on:click="debited(operation)" :title="$t('DEBITED')" class="pending col-1">
+                <button class="illustration btn fas fa-hourglass-half"/>
+              </div>
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="lineStart memo col-12">{{ operation.memo }}</div>
+            </div>
+            <div v-else class="operation">
               <div class="lineStart date col-6">
                 <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
-              </div>
-              <div class="col-6"/>
-              <div class="lineStart category col-6" :class="getClassDependingCategory(operation)">
-                {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
               </div>
               <div class="amount col-5 offset-1 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
                 {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
               </div>
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="lineStart memo col-12 row">{{ operation.memo }}</div>
+              <div v-for="daughter in operation.daughters" :key="daughter" class="col-11 offset-1 flexForm">
+                <span class="illustration btn fas fa-carrot col-1"/>
+                <div class="category col-4" :class="getClassDependingCategoryDaugther(daughter.categoryId)">
+                  {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+                </div>
+                <div class="amount col-4 offset-1" :class="this.getClassDependingOnAmount(operation)">
+                  {{ addSpacesInThousand(this.getEurosAmount(daughter.amount)) }} €
+                </div>
+                <div class="memo col-11 offset-1">{{ daughter.memo }}</div>
+              </div>
             </div>
-            <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-1">
-              <button class="illustration btn fas fa-pen"/>
-            </div>
-            <div v-on:click="deleteOperation(operation)" :title="$t('DELETE')" class="action col-1">
-              <button class="illustration btn fas fa-trash"/>
-            </div>
-            <div v-if="operation.pending" v-on:click="debited(operation)" :title="$t('DEBITED')" class="pending col-1">
-              <button class="illustration btn fas fa-hourglass-half"/>
-            </div>
-            <div class="lineStart memo col-12">{{ operation.memo }}</div>
           </span>
         </template>
       </div>
@@ -75,6 +96,7 @@ import FilterCmpt from '@/components/FilterCmpt.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
+    daughterOperations: Operation[];
     importBloc: boolean;
     manualBloc: boolean;
     filterBloc: boolean;
@@ -84,6 +106,7 @@ interface AccountPageData {
 
 interface EditableOperation extends Operation {
   editing: boolean;
+  daughters: Operation[];
 }
 
 export default defineComponent({
@@ -104,7 +127,9 @@ export default defineComponent({
   },
   watch: {
     account: async function () {
-      this.getAccountOperation()
+      await this.getAccountOperation()
+      await this.getDaughterOperations()
+      console.log(this.operations)
     }
   },
   props: {
@@ -116,6 +141,7 @@ export default defineComponent({
   data (): AccountPageData {
     return {
       operations: [],
+      daughterOperations: [],
       importBloc: false,
       manualBloc: false,
       filterBloc: false,
@@ -156,6 +182,15 @@ export default defineComponent({
         )
       }
     },
+    async getDaughterOperations () {
+      console.log('bonjour')
+      this.operations.forEach(async operation => {
+        operation.daughters = await OperationService.getDaughterOperationByMother(operation.id)
+        if (operation.daughters.length > 0) {
+          console.log(operation.daughters)
+        }
+      })
+    },
     getDayAsDate (dayAsInt: number): Date {
       return Time.getDateFromDay(dayAsInt)
     },
@@ -179,7 +214,8 @@ export default defineComponent({
           amount: operation.amount,
           memo: operation.memo,
           pending: operation.pending,
-          editing: false
+          editing: false,
+          daughters: []
         })
       )
       return editableOperations
@@ -202,6 +238,9 @@ export default defineComponent({
     },
     getClassDependingCategory (operation: Operation): string {
       return (operation.categoryId === null) ? 'negative' : ''
+    },
+    getClassDependingCategoryDaugther (categoryId: string): string {
+      return categoryId === null ? 'negative' : ''
     },
     filter (categoryId: string) {
       this.filteringCategoryId = categoryId

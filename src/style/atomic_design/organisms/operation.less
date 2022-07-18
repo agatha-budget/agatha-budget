@@ -1,17 +1,32 @@
-.operation {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 8px 0 8px 15px;
-  text-align: left;
-  cursor: pointer;
-  .category {
-      font-weight: bold;
+// .allOperation {
+//   &:nth-child(even), .operation {
+//     background-color: @background;
+//   }
+  
+//   &:nth-child(odd), .operation {
+//     background-color: @darkerBackground;
+//   }
+  
+// }
+
+.allOperation {
+  .operation {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px 0 8px 15px;
+    text-align: left;
+    cursor: pointer;
+    background-color: @background;
+    border: solid black 1px;
   }
-  .amount {
+    .category {
+      font-weight: bold;
+    }
+    .amount {
       font-size: large;
       text-align: center;
-  }
-  .action, .pending {
+    }
+    .action, .pending {
       display: flex;
       .btn {
           padding-left: 10px;
