@@ -7,11 +7,22 @@
 
       <div v-if="currentGraph == 'pie'" class="flexForm">
         <div class="trialTab">
-          <btn v-if="typeInformation == 'allocated'" class="tabLeft active" >Alloué</btn>
+          <btn v-if="typeInformationPie == 'allocated'" class="tabLeft active" >Alloué</btn>
           <btn v-else class="tabLeft" v-on:click="switchTypeInformation('allocated')">Alloué</btn>
-          <btn v-if="typeInformation == 'spent'" class="tabCenter active" >Dépensé</btn>
+          <btn v-if="typeInformationPie == 'spent'" class="tabCenter active" >Dépensé</btn>
           <btn v-else class="tabCenter" v-on:click="switchTypeInformation('spent')">Dépensé</btn>
-          <btn v-if="typeInformation == 'available'" class="tabRight active">Disponible</btn>
+          <btn v-if="typeInformationPie == 'available'" class="tabRight active">Disponible</btn>
+          <btn v-else class="tabRight" v-on:click="switchTypeInformation('available')">Disponible</btn>
+        </div>
+      </div>
+
+      <div v-if="currentGraph == 'bar'" class="flexForm">
+        <div class="trialTab">
+          <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformation('allocated')">Alloué</btn>
+          <btn v-else class="tabLeft" v-on:click="switchTypeInformation('allocated')">Alloué</btn>
+          <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformation('spent')">Dépensé</btn>
+          <btn v-else class="tabCenter" v-on:click="switchTypeInformation('spent')">Dépensé</btn>
+          <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformation('available')">Disponible</btn>
           <btn v-else class="tabRight" v-on:click="switchTypeInformation('available')">Disponible</btn>
         </div>
       </div>
@@ -78,7 +89,8 @@ interface ChartPageData {
         data: number[];
       }[];
     };
-    typeInformation: string;
+    typeInformationPie: string;
+    typeInformationBar: string[];
     masterCategoryId: string;
     currentGraph: string;
     budgetMonth: number;
@@ -123,7 +135,8 @@ export default defineComponent({
           }
         ]
       },
-      typeInformation: 'spent',
+      typeInformationPie: 'spent',
+      typeInformationBar: ['allocated', 'spent', 'available'],
       masterCategoryId: '',
       currentGraph: 'pie',
       budgetMonth: 202207
@@ -242,38 +255,44 @@ export default defineComponent({
     },
     drawPieChart () {
       const labelList = this.getNames(this.masterCategoryId)
-      const dataList = this.getDatas(this.typeInformation, this.masterCategoryId)
+      const dataList = this.getDatas(this.typeInformationPie, this.masterCategoryId)
       const colorList = this.getColor(false, false, false)
       this.pieChartData.labels = labelList
       this.pieChartData.datasets[0].data = dataList
       this.pieChartData.datasets[0].backgroundColor = colorList
     },
     drawBarChart () {
-      const datasetsAllocation = {
-        label: 'Allocation',
-        backgroundColor: this.getColor(true, false, false),
-        data: this.getDatas('allocated', this.masterCategoryId)
+      this.chartData.datasets = []
+      if (this.typeInformationBar.indexOf('available') !== -1) {
+        const datasetsAvailable = {
+          label: 'Disponible',
+          backgroundColor: this.getColor(false, false, true),
+          data: this.getDatas('available', this.masterCategoryId)
+        }
+        this.chartData.datasets.splice(0, 0, datasetsAvailable)
       }
-      const datasetsSpent = {
-        label: 'Dépensé',
-        backgroundColor: this.getColor(false, true, false),
-        data: this.getDatas('spent', this.masterCategoryId)
+      if (this.typeInformationBar.indexOf('spent') !== -1) {
+        const datasetsSpent = {
+          label: 'Dépensé',
+          backgroundColor: this.getColor(false, true, false),
+          data: this.getDatas('spent', this.masterCategoryId)
+        }
+        this.chartData.datasets.splice(0, 0, datasetsSpent)
       }
-      const datasetsAvailable = {
-        label: 'Disponible',
-        backgroundColor: this.getColor(false, false, true),
-        data: this.getDatas('available', this.masterCategoryId)
+      if (this.typeInformationBar.indexOf('allocated') !== -1) {
+        const datasetsAllocation = {
+          label: 'Allocation',
+          backgroundColor: this.getColor(true, false, false),
+          data: this.getDatas('allocated', this.masterCategoryId)
+        }
+        this.chartData.datasets.splice(0, 0, datasetsAllocation)
       }
       this.chartData.labels = this.getNames(this.masterCategoryId)
-      this.chartData.datasets = [datasetsAllocation, datasetsSpent, datasetsAvailable]
     },
     changeGraph () {
       switch (this.currentGraph) {
         case 'pie':
           this.currentGraph = 'bar'
-          break
-        case 'bar':
-          this.currentGraph = 'stackedBar'
           break
         default:
           this.currentGraph = 'pie'
@@ -299,21 +318,41 @@ export default defineComponent({
       this.drawBarChart()
     },
     switchTypeInformation (newType: string) {
+      console.log(this.typeInformationBar)
+      console.log(newType)
       switch (newType) {
         case 'allocated':
-          this.typeInformation = 'allocated'
+          console.log(this.typeInformationBar.indexOf('allocated'))
+          this.typeInformationPie = 'allocated'
+          if (this.typeInformationBar.indexOf('allocated') === -1) {
+            this.typeInformationBar.splice(0, 0, 'allocated')
+          } else {
+            this.typeInformationBar.splice(this.typeInformationBar.indexOf('allocated'), 1)
+          }
           this.recalculate()
           break
         case 'spent':
-          this.typeInformation = 'spent'
+          console.log(this.typeInformationBar.indexOf('spent'))
+          this.typeInformationPie = 'spent'
+          if (this.typeInformationBar.indexOf('spent') === -1) {
+            this.typeInformationBar.splice(0, 0, 'spent')
+          } else {
+            this.typeInformationBar.splice(this.typeInformationBar.indexOf('spent'), 1)
+          }
           this.recalculate()
           break
         case 'available':
-          this.typeInformation = 'available'
+          console.log(this.typeInformationBar.indexOf('available'))
+          this.typeInformationPie = 'available'
+          if (this.typeInformationBar.indexOf('available') === -1) {
+            this.typeInformationBar.splice(0, 0, 'available')
+          } else {
+            this.typeInformationBar.splice(this.typeInformationBar.indexOf('available'), 1)
+          }
           this.recalculate()
           break
         default:
-          this.typeInformation = ''
+          this.typeInformationPie = ''
       }
     }
   }
