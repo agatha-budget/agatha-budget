@@ -46,6 +46,19 @@
       <btn class="tabRight active">TabRight</btn>
     </div>
 
+    <h3>TrialTab</h3>
+    <div class="trialTab">
+      <btn class="tabLeft" >TabLeft</btn>
+      <btn class="tabCenter" >TabCenter</btn>
+      <btn class="tabRight">TabRight</btn>
+    </div>
+
+    <div class="trialTab">
+      <btn class="tabLeft" >TabLeft</btn>
+      <btn class="tabCenter active" >TabCenter</btn>
+      <btn class="tabRight">TabRight</btn>
+    </div>
+
     <h3>Cross</h3>
 
       <div class="containerCross col-12">

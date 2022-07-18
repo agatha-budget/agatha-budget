@@ -6,12 +6,14 @@
       <btn class="actionButton" v-on:click="changeGraph">{{ currentGraph }}</btn>
 
       <div v-if="currentGraph == 'pie'" class="flexForm">
-        <input type="radio" id="allocated" value="allocated" v-model="typeInformation">
-        <label for="allocated">allocated</label>
-        <input type="radio" id="spent" value="spent" v-model="typeInformation">
-        <label for="spent">spent</label>
-        <input type="radio" id="available" value="available" v-model="typeInformation">
-        <label for="available">available</label>s
+        <div class="trialTab">
+          <btn v-if="typeInformation == 'allocated'" class="tabLeft active" >Alloué</btn>
+          <btn v-else class="tabLeft" v-on:click="switchTypeInformation('allocated')">Alloué</btn>
+          <btn v-if="typeInformation == 'spent'" class="tabCenter active" >Dépensé</btn>
+          <btn v-else class="tabCenter" v-on:click="switchTypeInformation('spent')">Dépensé</btn>
+          <btn v-if="typeInformation == 'available'" class="tabRight active">Disponible</btn>
+          <btn v-else class="tabRight" v-on:click="switchTypeInformation('available')">Disponible</btn>
+        </div>
       </div>
 
       <Multiselect
@@ -25,8 +27,6 @@
         @select="recalculate"
       />
 
-      <btn v-if="currentGraph == 'pie'" class="actionButton" v-on:click="drawPieChart">recalculer pie</btn>
-      <btn v-if="currentGraph == 'bar'" class="actionButton" v-on:click="drawBarChart">recalculer bar</btn>
       <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
       <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
 
@@ -99,8 +99,7 @@ export default defineComponent({
   created: async function () {
     StoreHandler.initStore(this.$store)
     await this.getBudgetData()
-    this.drawBarChart()
-    this.drawPieChart()
+    this.recalculate()
   },
   data (): ChartPageData {
     return {
@@ -298,6 +297,24 @@ export default defineComponent({
     recalculate () {
       this.drawPieChart()
       this.drawBarChart()
+    },
+    switchTypeInformation (newType: string) {
+      switch (newType) {
+        case 'allocated':
+          this.typeInformation = 'allocated'
+          this.recalculate()
+          break
+        case 'spent':
+          this.typeInformation = 'spent'
+          this.recalculate()
+          break
+        case 'available':
+          this.typeInformation = 'available'
+          this.recalculate()
+          break
+        default:
+          this.typeInformation = ''
+      }
     }
   }
 
