@@ -5,30 +5,30 @@
       <div class="placeholder top">{{ $t('CHART') }}</div>
       <btn class="actionButton" v-on:click="changeGraph">{{ currentGraph }}</btn>
 
-      <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
-
-      <div class="flexForm">
+      <div v-if="currentGraph == 'pie'" class="flexForm">
         <input type="radio" id="allocated" value="allocated" v-model="typeInformation">
         <label for="allocated">allocated</label>
         <input type="radio" id="spent" value="spent" v-model="typeInformation">
         <label for="spent">spent</label>
         <input type="radio" id="available" value="available" v-model="typeInformation">
-        <label for="available">available</label>
-        <span>Choisi : {{ typeInformation }}</span>
+        <label for="available">available</label>s
       </div>
 
       <Multiselect
+        v-on:change="recalculate"
         v-model="masterCategoryId"
         :groups="true"
         :searchable="true"
         :options="masterCategories"
         :noResultsText="$t('NO_RESULT_FOUND')"
         :placeholder="$t('SELECT_MASTER_CATEGORY')"
+        @select="recalculate"
       />
 
       <btn v-if="currentGraph == 'pie'" class="actionButton" v-on:click="drawPieChart">recalculer pie</btn>
       <btn v-if="currentGraph == 'bar'" class="actionButton" v-on:click="drawBarChart">recalculer bar</btn>
       <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
+      <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
 
       <div class="row dateNav">
         <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
@@ -283,13 +283,21 @@ export default defineComponent({
     getMonthAsDate (monthAsInt: number): Date {
       return Time.getMonthAsDate(monthAsInt)
     },
-    goToNextMonth () {
-      this.getBudgetData()
+    async goToNextMonth () {
       this.budgetMonth = Time.getNextMonth(this.budgetMonth)
+      console.log(this.budgetMonth)
+      await this.getBudgetData()
+      this.recalculate()
     },
-    goToLastMonth () {
-      this.getBudgetData()
+    async goToLastMonth () {
       this.budgetMonth = Time.getLastMonth(this.budgetMonth)
+      console.log(this.budgetMonth)
+      await this.getBudgetData()
+      this.recalculate()
+    },
+    recalculate () {
+      this.drawPieChart()
+      this.drawBarChart()
     }
   }
 
