@@ -3,40 +3,49 @@
     <div class="chartPage menuLayout row col-md-4 offset-md-4 col-xl-8 offset-xl-2">
       <div class="header fixed title">{{ $t('CHART') }}</div>
       <div class="placeholder top">{{ $t('CHART') }}</div>
-      <btn class="actionButton" v-on:click="changeGraph">{{ currentGraph }}</btn>
+
+      <div class="dualTab" v-on:click="changeGraph">
+        <btn v-if="currentGraph == 'pie'" class="tabLeft active" >Camembert</btn>
+        <btn v-else class="tabLeft" >Camembert</btn>
+        <btn v-if="currentGraph == 'bar'" class="tabRight active">Barres</btn>
+        <btn v-else class="tabRight">Barres</btn>
+      </div>
 
       <div v-if="currentGraph == 'pie'" class="flexForm">
         <div class="trialTab">
           <btn v-if="typeInformationPie == 'allocated'" class="tabLeft active" >Alloué</btn>
-          <btn v-else class="tabLeft" v-on:click="switchTypeInformation('allocated')">Alloué</btn>
+          <btn v-else class="tabLeft" v-on:click="switchTypeInformationPie('allocated')">Alloué</btn>
           <btn v-if="typeInformationPie == 'spent'" class="tabCenter active" >Dépensé</btn>
-          <btn v-else class="tabCenter" v-on:click="switchTypeInformation('spent')">Dépensé</btn>
+          <btn v-else class="tabCenter" v-on:click="switchTypeInformationPie('spent')">Dépensé</btn>
           <btn v-if="typeInformationPie == 'available'" class="tabRight active">Disponible</btn>
-          <btn v-else class="tabRight" v-on:click="switchTypeInformation('available')">Disponible</btn>
+          <btn v-else class="tabRight" v-on:click="switchTypeInformationPie('available')">Disponible</btn>
         </div>
       </div>
 
       <div v-if="currentGraph == 'bar'" class="flexForm">
         <div class="trialTab">
-          <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformation('allocated')">Alloué</btn>
-          <btn v-else class="tabLeft" v-on:click="switchTypeInformation('allocated')">Alloué</btn>
-          <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformation('spent')">Dépensé</btn>
-          <btn v-else class="tabCenter" v-on:click="switchTypeInformation('spent')">Dépensé</btn>
-          <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformation('available')">Disponible</btn>
-          <btn v-else class="tabRight" v-on:click="switchTypeInformation('available')">Disponible</btn>
+          <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformationBar('allocated')">Alloué</btn>
+          <btn v-else class="tabLeft" v-on:click="switchTypeInformationBar('allocated')">Alloué</btn>
+          <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformationBar('spent')">Dépensé</btn>
+          <btn v-else class="tabCenter" v-on:click="switchTypeInformationBar('spent')">Dépensé</btn>
+          <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformationBar('available')">Disponible</btn>
+          <btn v-else class="tabRight" v-on:click="switchTypeInformationBar('available')">Disponible</btn>
         </div>
       </div>
 
-      <Multiselect
-        v-on:change="recalculate"
-        v-model="masterCategoryId"
-        :groups="true"
-        :searchable="true"
-        :options="masterCategories"
-        :noResultsText="$t('NO_RESULT_FOUND')"
-        :placeholder="$t('SELECT_MASTER_CATEGORY')"
-        @select="recalculate"
-      />
+      <div class="multiselect">
+        <Multiselect
+          v-on:change="recalculate"
+          v-model="masterCategoryId"
+          :groups="true"
+          :searchable="true"
+          :options="masterCategories"
+          :noResultsText="$t('NO_RESULT_FOUND')"
+          :placeholder="$t('SELECT_MASTER_CATEGORY')"
+          :show-labels="false"
+          @select="recalculate"
+        />
+      </div>
 
       <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
       <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
@@ -139,7 +148,7 @@ export default defineComponent({
       typeInformationBar: ['allocated', 'spent', 'available'],
       masterCategoryId: '',
       currentGraph: 'pie',
-      budgetMonth: 202207
+      budgetMonth: Time.getCurrentMonth()
     }
   },
   computed: {
@@ -149,7 +158,7 @@ export default defineComponent({
     masterCategories (): GroupSelectOption[] {
       const optionsList = [
         {
-          label: this.$t('CHOOSE'),
+          label: this.$t('SELECT'),
           options: [
             { value: '', label: this.$t('ALL_BUDGET') }
           ]
@@ -317,13 +326,33 @@ export default defineComponent({
       this.drawPieChart()
       this.drawBarChart()
     },
-    switchTypeInformation (newType: string) {
+    switchTypeInformationPie (newType: string) {
+      switch (newType) {
+        case 'allocated':
+          console.log(this.typeInformationBar.indexOf('allocated'))
+          this.typeInformationPie = 'allocated'
+          this.recalculate()
+          break
+        case 'spent':
+          console.log(this.typeInformationBar.indexOf('spent'))
+          this.typeInformationPie = 'spent'
+          this.recalculate()
+          break
+        case 'available':
+          console.log(this.typeInformationBar.indexOf('available'))
+          this.typeInformationPie = 'available'
+          this.recalculate()
+          break
+        default:
+          this.typeInformationPie = ''
+      }
+    },
+    switchTypeInformationBar (newType: string) {
       console.log(this.typeInformationBar)
       console.log(newType)
       switch (newType) {
         case 'allocated':
           console.log(this.typeInformationBar.indexOf('allocated'))
-          this.typeInformationPie = 'allocated'
           if (this.typeInformationBar.indexOf('allocated') === -1) {
             this.typeInformationBar.splice(0, 0, 'allocated')
           } else {
@@ -333,7 +362,6 @@ export default defineComponent({
           break
         case 'spent':
           console.log(this.typeInformationBar.indexOf('spent'))
-          this.typeInformationPie = 'spent'
           if (this.typeInformationBar.indexOf('spent') === -1) {
             this.typeInformationBar.splice(0, 0, 'spent')
           } else {
@@ -343,7 +371,6 @@ export default defineComponent({
           break
         case 'available':
           console.log(this.typeInformationBar.indexOf('available'))
-          this.typeInformationPie = 'available'
           if (this.typeInformationBar.indexOf('available') === -1) {
             this.typeInformationBar.splice(0, 0, 'available')
           } else {
