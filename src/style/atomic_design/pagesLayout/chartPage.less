@@ -16,14 +16,12 @@
         width: 250px;
         padding: 0;
     }
-    .chart {
-        margin-left: auto;
-        margin-right: auto;
+    .draw {
         @media (max-width: 600px) {
+            margin:  auto;
             max-width: 400px;
         }
         @media (max-width: 992px) {
-            max-width: 500px;
         }
     }
     .dateNav {
@@ -36,6 +34,28 @@
             * {
                 color: @lighterBackground;
             }
+        }
+    }
+
+    // mobile version
+    @media (max-width: 992px) {
+        .computerVersion {
+            display: none;
+        }
+    }
+
+    // computer version
+    @media (min-width: 992px) {
+        .mobileVersion {
+            display: none;
+        }
+        .draw {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .dualTab, .trialTab, .multiselect, .dateNav {
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
     }
 }

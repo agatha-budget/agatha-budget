@@ -1,58 +1,106 @@
 <template>
   <div :class="this.$store.state.css">
-    <div class="chartPage menuLayout row ">
+    <div class="chartPage menuLayout row col-12 offset-0 col-sm-12 offset-sm-0 col-md-10 offset-md-1 col-lg-12 offset-lg-0 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2">
       <div class="header fixed title">{{ $t('CHART') }}</div>
       <div class="placeholder top">{{ $t('CHART') }}</div>
 
-      <div class="dualTab" v-on:click="changeGraph">
-        <div v-if="currentGraph == 'pie'">
-          <btn class="tabLeft active">{{ $t('PIE_CHART') }}</btn>
-          <btn class="tabRight">{{ $t('BAR_CHART') }}</btn>
+      <div class="mobileVersion">
+        <div class="dualTab" v-on:click="changeGraph">
+          <div v-if="currentGraph == 'pie'">
+            <btn class="tabLeft active">{{ $t('PIE_CHART') }}</btn>
+            <btn class="tabRight">{{ $t('BAR_CHART') }}</btn>
+          </div>
+          <div v-else>
+            <btn class="tabLeft">{{ $t('PIE_CHART') }}</btn>
+            <btn class="tabRight active">{{ $t('BAR_CHART') }}</btn>
+          </div>
         </div>
-        <div v-else>
-          <btn class="tabLeft">{{ $t('PIE_CHART') }}</btn>
-          <btn class="tabRight active">{{ $t('BAR_CHART') }}</btn>
+        <div v-if="currentGraph == 'pie'" class="trialTab">
+          <btn v-if="typeInformationPie == 'allocated'" class="tabLeft active" >{{ $t('ALLOCATED') }}</btn>
+          <btn v-else class="tabLeft" v-on:click="switchTypeInformationPie('allocated')">{{ $t('ALLOCATED') }}</btn>
+          <btn v-if="typeInformationPie == 'spent'" class="tabCenter active" >{{ $t('SPENT') }}</btn>
+          <btn v-else class="tabCenter" v-on:click="switchTypeInformationPie('spent')">{{ $t('SPENT') }}</btn>
+          <btn v-if="typeInformationPie == 'available'" class="tabRight active">{{ $t('SPENT') }}</btn>
+          <btn v-else class="tabRight" v-on:click="switchTypeInformationPie('available')">{{ $t('AVAILABLE') }}</btn>
+        </div>
+        <div v-if="currentGraph == 'bar'" class="trialTab">
+          <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
+          <btn v-else class="tabLeft" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
+          <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
+          <btn v-else class="tabCenter" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
+          <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
+          <btn v-else class="tabRight" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
+        </div>
+        <div class="multiselect">
+          <Multiselect
+            v-on:change="recalculate"
+            v-model="masterCategoryId"
+            :groups="true"
+            :searchable="true"
+            :options="masterCategories"
+            :noResultsText="$t('NO_RESULT_FOUND')"
+            :placeholder="$t('SELECT_MASTER_CATEGORY')"
+            :show-labels="false"
+            @select="recalculate"
+          />
         </div>
       </div>
 
-      <div v-if="currentGraph == 'pie'" class="trialTab">
-        <btn v-if="typeInformationPie == 'allocated'" class="tabLeft active" >{{ $t('ALLOCATED') }}</btn>
-        <btn v-else class="tabLeft" v-on:click="switchTypeInformationPie('allocated')">{{ $t('ALLOCATED') }}</btn>
-        <btn v-if="typeInformationPie == 'spent'" class="tabCenter active" >{{ $t('SPENT') }}</btn>
-        <btn v-else class="tabCenter" v-on:click="switchTypeInformationPie('spent')">{{ $t('SPENT') }}</btn>
-        <btn v-if="typeInformationPie == 'available'" class="tabRight active">{{ $t('SPENT') }}</btn>
-        <btn v-else class="tabRight" v-on:click="switchTypeInformationPie('available')">{{ $t('AVAILABLE') }}</btn>
-      </div>
-
-      <div v-if="currentGraph == 'bar'" class="trialTab">
-        <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
-        <btn v-else class="tabLeft" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
-        <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
-        <btn v-else class="tabCenter" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
-        <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
-        <btn v-else class="tabRight" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
-      </div>
-
-      <div class="multiselect">
-        <Multiselect
-          v-on:change="recalculate"
-          v-model="masterCategoryId"
-          :groups="true"
-          :searchable="true"
-          :options="masterCategories"
-          :noResultsText="$t('NO_RESULT_FOUND')"
-          :placeholder="$t('SELECT_MASTER_CATEGORY')"
-          :show-labels="false"
-          @select="recalculate"
-        />
-      </div>
-
-      <div class="chart">
+      <div class="draw col-lg-6">
         <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
         <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
       </div>
 
-      <div class="row dateNav">
+      <div class="computerVersion col-lg-6">
+        <div class="dualTab" v-on:click="changeGraph">
+          <div v-if="currentGraph == 'pie'">
+            <btn class="tabLeft active">{{ $t('PIE_CHART') }}</btn>
+            <btn class="tabRight">{{ $t('BAR_CHART') }}</btn>
+          </div>
+          <div v-else>
+            <btn class="tabLeft">{{ $t('PIE_CHART') }}</btn>
+            <btn class="tabRight active">{{ $t('BAR_CHART') }}</btn>
+          </div>
+        </div>
+        <div v-if="currentGraph == 'pie'" class="trialTab">
+          <btn v-if="typeInformationPie == 'allocated'" class="tabLeft active" >{{ $t('ALLOCATED') }}</btn>
+          <btn v-else class="tabLeft" v-on:click="switchTypeInformationPie('allocated')">{{ $t('ALLOCATED') }}</btn>
+          <btn v-if="typeInformationPie == 'spent'" class="tabCenter active" >{{ $t('SPENT') }}</btn>
+          <btn v-else class="tabCenter" v-on:click="switchTypeInformationPie('spent')">{{ $t('SPENT') }}</btn>
+          <btn v-if="typeInformationPie == 'available'" class="tabRight active">{{ $t('SPENT') }}</btn>
+          <btn v-else class="tabRight" v-on:click="switchTypeInformationPie('available')">{{ $t('AVAILABLE') }}</btn>
+        </div>
+        <div v-if="currentGraph == 'bar'" class="trialTab">
+          <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
+          <btn v-else class="tabLeft" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
+          <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
+          <btn v-else class="tabCenter" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
+          <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
+          <btn v-else class="tabRight" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
+        </div>
+        <div class="multiselect">
+          <Multiselect
+            v-on:change="recalculate"
+            v-model="masterCategoryId"
+            :groups="true"
+            :searchable="true"
+            :options="masterCategories"
+            :noResultsText="$t('NO_RESULT_FOUND')"
+            :placeholder="$t('SELECT_MASTER_CATEGORY')"
+            :show-labels="false"
+            @select="recalculate"
+          />
+        </div>
+        <div class="row dateNav">
+          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
+          <div class="col-8 date-label">
+              <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
+          </div>
+          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
+        </div>
+      </div>
+
+      <div class="row dateNav mobileVersion">
         <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
         <div class="col-8 date-label">
             <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
