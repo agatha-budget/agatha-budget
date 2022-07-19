@@ -1,35 +1,32 @@
 <template>
   <div :class="this.$store.state.css">
     <div class="chartPage menuLayout row col-12 offset-0 col-sm-12 offset-sm-0 col-md-10 offset-md-1 col-lg-12 offset-lg-0 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2">
-      <div class="header fixed title">{{ $t('CHART') }}</div>
-      <div class="placeholder top">{{ $t('CHART') }}</div>
+      <div class="header fixed title">
+        <select v-model="currentGraph">
+          <option value="pie">{{ $t('PIE_CHART') }}</option>
+          <option value="bar">{{ $t('BAR_CHART') }}</option>
+        </select>
+      </div>
+      <div class="placeholder top">
+        <select/>
+      </div>
 
       <div class="mobileVersion">
-        <div class="dualTab" v-on:click="changeGraph">
-          <div v-if="currentGraph == 'pie'">
-            <btn class="tabLeft active">{{ $t('PIE_CHART') }}</btn>
-            <btn class="tabRight">{{ $t('BAR_CHART') }}</btn>
-          </div>
-          <div v-else>
-            <btn class="tabLeft">{{ $t('PIE_CHART') }}</btn>
-            <btn class="tabRight active">{{ $t('BAR_CHART') }}</btn>
-          </div>
+        <div v-if="currentGraph == 'pie'">
+          <input type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
+          <label for="allocated">{{ $t('ALLOCATED') }}</label>
+          <input type="radio" id="spent" value="spent" v-model="typeInformationPie">
+          <label for="spent">{{ $t('SPENT') }}</label>
+          <input type="radio" id="available" value="available" v-model="typeInformationPie">
+          <label for="available">{{ $t('AVAILABLE') }}</label>
         </div>
-        <div v-if="currentGraph == 'pie'" class="trialTab">
-          <btn v-if="typeInformationPie == 'allocated'" class="tabLeft active" >{{ $t('ALLOCATED') }}</btn>
-          <btn v-else class="tabLeft" v-on:click="switchTypeInformationPie('allocated')">{{ $t('ALLOCATED') }}</btn>
-          <btn v-if="typeInformationPie == 'spent'" class="tabCenter active" >{{ $t('SPENT') }}</btn>
-          <btn v-else class="tabCenter" v-on:click="switchTypeInformationPie('spent')">{{ $t('SPENT') }}</btn>
-          <btn v-if="typeInformationPie == 'available'" class="tabRight active">{{ $t('SPENT') }}</btn>
-          <btn v-else class="tabRight" v-on:click="switchTypeInformationPie('available')">{{ $t('AVAILABLE') }}</btn>
-        </div>
-        <div v-if="currentGraph == 'bar'" class="trialTab">
-          <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
-          <btn v-else class="tabLeft" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
-          <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
-          <btn v-else class="tabCenter" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
-          <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
-          <btn v-else class="tabRight" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
+        <div v-if="currentGraph == 'bar'" v-on:click="recalculate">
+          <input type="checkbox" id="allocated" value="allocated" v-model="typeInformationBar">
+          <label for="allocated">{{ $t('ALLOCATED') }}</label>
+          <input type="checkbox" id="spent" value="spent" v-model="typeInformationBar">
+          <label for="spent">{{ $t('SPENT') }}</label>
+          <input type="checkbox" id="available" value="available" v-model="typeInformationBar">
+          <label for="available">{{ $t('AVAILABLE') }}</label>
         </div>
         <div class="multiselect">
           <Multiselect
@@ -52,31 +49,28 @@
       </div>
 
       <div class="computerVersion col-lg-6">
-        <div class="dualTab" v-on:click="changeGraph">
-          <div v-if="currentGraph == 'pie'">
-            <btn class="tabLeft active">{{ $t('PIE_CHART') }}</btn>
-            <btn class="tabRight">{{ $t('BAR_CHART') }}</btn>
+        <div class="row dateNav">
+          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
+          <div class="col-8 date-label">
+              <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
           </div>
-          <div v-else>
-            <btn class="tabLeft">{{ $t('PIE_CHART') }}</btn>
-            <btn class="tabRight active">{{ $t('BAR_CHART') }}</btn>
-          </div>
+          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
         </div>
-        <div v-if="currentGraph == 'pie'" class="trialTab">
-          <btn v-if="typeInformationPie == 'allocated'" class="tabLeft active" >{{ $t('ALLOCATED') }}</btn>
-          <btn v-else class="tabLeft" v-on:click="switchTypeInformationPie('allocated')">{{ $t('ALLOCATED') }}</btn>
-          <btn v-if="typeInformationPie == 'spent'" class="tabCenter active" >{{ $t('SPENT') }}</btn>
-          <btn v-else class="tabCenter" v-on:click="switchTypeInformationPie('spent')">{{ $t('SPENT') }}</btn>
-          <btn v-if="typeInformationPie == 'available'" class="tabRight active">{{ $t('SPENT') }}</btn>
-          <btn v-else class="tabRight" v-on:click="switchTypeInformationPie('available')">{{ $t('AVAILABLE') }}</btn>
+        <div v-if="currentGraph == 'pie'">
+          <input type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
+          <label for="allocated">{{ $t('ALLOCATED') }}</label>
+          <input type="radio" id="spent" value="spent" v-model="typeInformationPie">
+          <label for="spent">{{ $t('SPENT') }}</label>
+          <input type="radio" id="available" value="available" v-model="typeInformationPie">
+          <label for="available">{{ $t('AVAILABLE') }}</label>
         </div>
-        <div v-if="currentGraph == 'bar'" class="trialTab">
-          <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
-          <btn v-else class="tabLeft" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
-          <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
-          <btn v-else class="tabCenter" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
-          <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
-          <btn v-else class="tabRight" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
+        <div v-if="currentGraph == 'bar'" v-on:click="recalculate">
+          <input type="checkbox" id="allocated" value="allocated" v-model="typeInformationBar">
+          <label for="allocated">{{ $t('ALLOCATED') }}</label>
+          <input type="checkbox" id="spent" value="spent" v-model="typeInformationBar">
+          <label for="spent">{{ $t('SPENT') }}</label>
+          <input type="checkbox" id="available" value="available" v-model="typeInformationBar">
+          <label for="available">{{ $t('AVAILABLE') }}</label>
         </div>
         <div class="multiselect">
           <Multiselect
@@ -90,13 +84,6 @@
             :show-labels="false"
             @select="recalculate"
           />
-        </div>
-        <div class="row dateNav">
-          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
-          <div class="col-8 date-label">
-              <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
-          </div>
-          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
         </div>
       </div>
 
@@ -171,6 +158,14 @@ export default defineComponent({
     StoreHandler.initStore(this.$store)
     await this.getBudgetData()
     this.recalculate()
+  },
+  watch: {
+    typeInformationPie: function () {
+      this.drawPieChart()
+    },
+    typeInformationBar: function () {
+      this.drawBarChart()
+    }
   },
   data (): ChartPageData {
     return {
@@ -376,6 +371,7 @@ export default defineComponent({
       this.recalculate()
     },
     recalculate () {
+      console.log(this.typeInformationBar)
       this.drawPieChart()
       this.drawBarChart()
     },
