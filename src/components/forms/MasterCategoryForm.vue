@@ -3,7 +3,7 @@
     <tr>
       <th class="col-6">
         <div class="darkTextInput form-group">
-            <input type="text" class="form-control" v-model="name">
+            <input type="textInput" class="form-control" v-model="name">
         </div>
       </th>
       <th class="col-2">
