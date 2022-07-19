@@ -117,5 +117,8 @@
     "SEE_ALL_OFFERS": "voir toutes les offres",
     "MANAGE_SUBSCRIPTION": "gérer son abonnement",
     "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau",
-    "CHART": "graphique"
+    "CHART": "graphique",
+    "ALL_BUDGET": "ensemble du budget",
+    "PIE_CHART": "camembert",
+    "BAR_CHART": "diagramme barres"
 }

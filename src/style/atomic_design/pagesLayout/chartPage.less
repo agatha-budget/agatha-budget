@@ -1,11 +1,36 @@
 .chartPage {
     text-align: center;
+    .trialTab {
+        height: 52px;
+        text-align: center;
+    }
+    .dualTab {
+        text-align: center;
+        height: 42px;
+        * {
+            margin-bottom: 0;
+        }
+    }
     .multiselect {
         height: 40px;
+        width: 250px;
         padding: 0;
+    }
+    .chart {
+        margin-left: auto;
+        margin-right: auto;
+        @media (max-width: 600px) {
+            max-width: 400px;
+        }
+        @media (max-width: 992px) {
+            max-width: 500px;
+        }
     }
     .dateNav {
         height: 53.5px;
+        margin: 0 auto;
+        padding: 6px;
+        max-width: 400px;
         .date-label {
             background: @action;
             * {

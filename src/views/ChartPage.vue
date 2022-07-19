@@ -1,36 +1,36 @@
 <template>
   <div :class="this.$store.state.css">
-    <div class="chartPage menuLayout row col-md-4 offset-md-4 col-xl-8 offset-xl-2">
+    <div class="chartPage menuLayout row ">
       <div class="header fixed title">{{ $t('CHART') }}</div>
       <div class="placeholder top">{{ $t('CHART') }}</div>
 
       <div class="dualTab" v-on:click="changeGraph">
-        <btn v-if="currentGraph == 'pie'" class="tabLeft active" >Camembert</btn>
-        <btn v-else class="tabLeft" >Camembert</btn>
-        <btn v-if="currentGraph == 'bar'" class="tabRight active">Barres</btn>
-        <btn v-else class="tabRight">Barres</btn>
-      </div>
-
-      <div v-if="currentGraph == 'pie'" class="flexForm">
-        <div class="trialTab">
-          <btn v-if="typeInformationPie == 'allocated'" class="tabLeft active" >Alloué</btn>
-          <btn v-else class="tabLeft" v-on:click="switchTypeInformationPie('allocated')">Alloué</btn>
-          <btn v-if="typeInformationPie == 'spent'" class="tabCenter active" >Dépensé</btn>
-          <btn v-else class="tabCenter" v-on:click="switchTypeInformationPie('spent')">Dépensé</btn>
-          <btn v-if="typeInformationPie == 'available'" class="tabRight active">Disponible</btn>
-          <btn v-else class="tabRight" v-on:click="switchTypeInformationPie('available')">Disponible</btn>
+        <div v-if="currentGraph == 'pie'">
+          <btn class="tabLeft active">{{ $t('PIE_CHART') }}</btn>
+          <btn class="tabRight">{{ $t('BAR_CHART') }}</btn>
+        </div>
+        <div v-else>
+          <btn class="tabLeft">{{ $t('PIE_CHART') }}</btn>
+          <btn class="tabRight active">{{ $t('BAR_CHART') }}</btn>
         </div>
       </div>
 
-      <div v-if="currentGraph == 'bar'" class="flexForm">
-        <div class="trialTab">
-          <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformationBar('allocated')">Alloué</btn>
-          <btn v-else class="tabLeft" v-on:click="switchTypeInformationBar('allocated')">Alloué</btn>
-          <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformationBar('spent')">Dépensé</btn>
-          <btn v-else class="tabCenter" v-on:click="switchTypeInformationBar('spent')">Dépensé</btn>
-          <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformationBar('available')">Disponible</btn>
-          <btn v-else class="tabRight" v-on:click="switchTypeInformationBar('available')">Disponible</btn>
-        </div>
+      <div v-if="currentGraph == 'pie'" class="trialTab">
+        <btn v-if="typeInformationPie == 'allocated'" class="tabLeft active" >{{ $t('ALLOCATED') }}</btn>
+        <btn v-else class="tabLeft" v-on:click="switchTypeInformationPie('allocated')">{{ $t('ALLOCATED') }}</btn>
+        <btn v-if="typeInformationPie == 'spent'" class="tabCenter active" >{{ $t('SPENT') }}</btn>
+        <btn v-else class="tabCenter" v-on:click="switchTypeInformationPie('spent')">{{ $t('SPENT') }}</btn>
+        <btn v-if="typeInformationPie == 'available'" class="tabRight active">{{ $t('SPENT') }}</btn>
+        <btn v-else class="tabRight" v-on:click="switchTypeInformationPie('available')">{{ $t('AVAILABLE') }}</btn>
+      </div>
+
+      <div v-if="currentGraph == 'bar'" class="trialTab">
+        <btn v-if="typeInformationBar.indexOf('allocated') != -1" class="tabLeft active" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
+        <btn v-else class="tabLeft" v-on:click="switchTypeInformationBar('allocated')">{{ $t('ALLOCATED') }}</btn>
+        <btn v-if="typeInformationBar.indexOf('spent') != -1" class="tabCenter active" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
+        <btn v-else class="tabCenter" v-on:click="switchTypeInformationBar('spent')">{{ $t('SPENT') }}</btn>
+        <btn v-if="typeInformationBar.indexOf('available') != -1" class="tabRight active" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
+        <btn v-else class="tabRight" v-on:click="switchTypeInformationBar('available')">{{ $t('AVAILABLE') }}</btn>
       </div>
 
       <div class="multiselect">
@@ -47,8 +47,10 @@
         />
       </div>
 
-      <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
-      <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
+      <div class="chart">
+        <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
+        <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
+      </div>
 
       <div class="row dateNav">
         <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
@@ -172,6 +174,9 @@ export default defineComponent({
         }
       }
       return optionsList
+    },
+    isThisYear (): boolean {
+      return Time.monthIsThisYear(this.budgetMonth)
     }
   },
   methods: {
