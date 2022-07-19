@@ -9,12 +9,14 @@ import open.tresorier.exception.BankingException
 import org.json.JSONObject
 import open.tresorier.model.Account
 import open.tresorier.model.Person
+import open.tresorier.model.Day
 import open.tresorier.model.Operation
 import open.tresorier.model.banking.Bank
 import open.tresorier.model.banking.BankAccount
 import open.tresorier.model.banking.BankAgreement
 import open.tresorier.dao.IBankAgreementDao
 import open.tresorier.dao.IBankAccountDao
+import open.tresorier.utils.Time
 
 class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankingPort {
 
@@ -100,8 +102,54 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
     }
 
     override fun getOperations(account: Account) : List<Operation> {
+        // date format is 2022-07-07
+        val from="2022-01-01"
+        val url = "https://ob.nordigen.com/api/v2/accounts/${account.bankAccountId}/transactions/?date_from=${from}"
+
+        val headerProperties = mapOf(
+            "Content-Type" to "application/json",
+            "Accept" to "application/json",
+            "User-Agent" to "Agatha/1.0",
+            "Authorization" to "Bearer ${this.getToken()}"
+        )
+
+        val connection = HTTPConnection.sendRequest("GET", url, headerProperties)
+
+        if (connection.responseCode !in HTTPConnection.validResponseCodes) {
+            throw BankingException("could not get account transaction for ${account.id} : ${connection.errorStream.reader().use { it.readText() }}")
+		}
+        val response = JSONObject(connection.inputStream.reader().use { it.readText() })
         // add new transaction for account
-        return listOf<Operation>()
+
+        var operationList = listOf<Operation>()
+
+        var nordigenOperations = response.getJSONObject("transactions").getJSONArray("booked")
+        for (i in 1..nordigenOperations.length()) {
+            val nordigenOperation = nordigenOperations.getJSONObject(i-1);
+            val operation = this.createOperation(account, false, nordigenOperation)
+            operationList = operationList + operation 
+        }
+
+        nordigenOperations = response.getJSONObject("transactions").getJSONArray("pending")
+        for (i in 1..nordigenOperations.length()) {
+            val nordigenOperation = nordigenOperations.getJSONObject(i-1);
+            val operation = this.createOperation(account, true, nordigenOperation)
+            operationList = operationList + operation 
+        }
+
+        return operationList
+    }
+
+    private fun createOperation(account: Account, pending: Boolean, nordigenOperation: JSONObject) : Operation {
+        val day = Day.createFromComparable(nordigenOperation.getString("bookingDate").replace("-","").toInt())
+        val amount = nordigenOperation.getJSONObject("transactionAmount").getInt("amount") * 100
+        val orderInDay = Time.now()
+        val memo = nordigenOperation.getString("remittanceInformationUnstructuredArray")
+        val importIdentifier = day.toString() + amount + memo
+        return Operation(
+            account.id, day, null, amount, orderInDay, 
+            memo, pending, false, importIdentifier
+        )
     }
 
     override fun getAvailableBanks() : List<Bank> {

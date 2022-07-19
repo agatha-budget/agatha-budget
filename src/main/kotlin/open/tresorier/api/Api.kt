@@ -29,7 +29,10 @@ fun main() {
     // Dependencies injection
     ServiceManager.start()
 
-    app = addBankingRoute(app, ServiceManager.personService, ServiceManager.bankingService)
+    app = addBankingRoute(app,
+     ServiceManager.personService,
+     ServiceManager.bankingService,
+     ServiceManager.accountService)
 
     app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
