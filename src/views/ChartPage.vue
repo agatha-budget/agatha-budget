@@ -140,7 +140,7 @@ import PieChart from '@/components/charts/PieChart.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 import StoreHandler from '@/store/StoreHandler'
 import BudgetDataService from '@/services/BudgetDataService'
-import { CategoryDataList, Budget, MasterCategory, GroupSelectOption } from '@/model/model'
+import { CategoryDataList, Budget, GroupSelectOption } from '@/model/model'
 import Utils from '@/utils/Utils'
 import Time from '@/utils/Time'
 import Multiselect from '@vueform/multiselect'
@@ -255,7 +255,6 @@ export default defineComponent({
         await BudgetDataService.getBudgetDataForMonth(this.budget, this.budgetMonth).then(
           (categoryDataList) => {
             this.categoryDataList = categoryDataList
-            console.log(categoryDataList)
           }
         )
       }
@@ -277,7 +276,6 @@ export default defineComponent({
           }
         }
       }
-      console.log(listName) ///
       return listName
     },
     getDatas (type: string, masterCategorySelectedId: string): number[] {
@@ -318,10 +316,9 @@ export default defineComponent({
           listData.push(Utils.getEurosAmount(data))
         }
       }
-      console.log(listData) ///
       return listData
     },
-    getColor (allocated: boolean, spent: boolean, available: boolean): string[] {
+    getColor (allocated: boolean, spent: boolean, available: boolean, nb: number): string[] {
       let listColor: string[] = []
       if (allocated) {
         listColor.push('#b2babb')
@@ -332,15 +329,29 @@ export default defineComponent({
       if (available) {
         listColor.push('#45c1b8')
       }
-      if (!allocated && !spent && !available) {
-        listColor = ['#3498db', '#e74c3c', '#27ae60', '#f1c40f', '#fba619', '#8e44ad', '#fb19cb', '#935116', '#17202a', '#fdfefe']
+      if (nb !== 0) {
+        listColor = ['#3498db', '#e74c3c', '#f1c40f']
+        if (nb > 3) {
+          listColor.splice(2, 0, '#27ae60')
+          listColor.push('#fb19cb')
+          if (nb > 5) {
+            listColor.splice(2, 0, '#8e44ad')
+            if (nb > 6) {
+              listColor.splice(2, 0, '#fba619')
+              if (nb > 7) {
+                listColor.splice(6, 0, '#152c8c')
+                listColor.push('#935116', '#fdfefe', '#17202a')
+              }
+            }
+          }
+        }
       }
       return listColor
     },
     drawPieChart () {
       const labelList = this.getNames(this.masterCategoryId)
       const dataList = this.getDatas(this.typeInformationPie, this.masterCategoryId)
-      const colorList = this.getColor(false, false, false)
+      const colorList = this.getColor(false, false, false, dataList.length)
       this.pieChartData.labels = labelList
       this.pieChartData.datasets[0].data = dataList
       this.pieChartData.datasets[0].backgroundColor = colorList
@@ -350,7 +361,7 @@ export default defineComponent({
       if (this.typeInformationBar.indexOf('available') !== -1) {
         const datasetsAvailable = {
           label: 'Disponible',
-          backgroundColor: this.getColor(false, false, true),
+          backgroundColor: this.getColor(false, false, true, 0),
           data: this.getDatas('available', this.masterCategoryId)
         }
         this.chartData.datasets.splice(0, 0, datasetsAvailable)
@@ -358,7 +369,7 @@ export default defineComponent({
       if (this.typeInformationBar.indexOf('spent') !== -1) {
         const datasetsSpent = {
           label: 'Dépensé',
-          backgroundColor: this.getColor(false, true, false),
+          backgroundColor: this.getColor(false, true, false, 0),
           data: this.getDatas('spent', this.masterCategoryId)
         }
         this.chartData.datasets.splice(0, 0, datasetsSpent)
@@ -366,7 +377,7 @@ export default defineComponent({
       if (this.typeInformationBar.indexOf('allocated') !== -1) {
         const datasetsAllocation = {
           label: 'Allocation',
-          backgroundColor: this.getColor(true, false, false),
+          backgroundColor: this.getColor(true, false, false, 0),
           data: this.getDatas('allocated', this.masterCategoryId)
         }
         this.chartData.datasets.splice(0, 0, datasetsAllocation)
@@ -387,35 +398,29 @@ export default defineComponent({
     },
     async goToNextMonth () {
       this.budgetMonth = Time.getNextMonth(this.budgetMonth)
-      console.log(this.budgetMonth)
       await this.getBudgetData()
       this.recalculate()
     },
     async goToLastMonth () {
       this.budgetMonth = Time.getLastMonth(this.budgetMonth)
-      console.log(this.budgetMonth)
       await this.getBudgetData()
       this.recalculate()
     },
     recalculate () {
-      console.log(this.typeInformationBar)
       this.drawPieChart()
       this.drawBarChart()
     },
     switchTypeInformationPie (newType: string) {
       switch (newType) {
         case 'allocated':
-          console.log(this.typeInformationBar.indexOf('allocated'))
           this.typeInformationPie = 'allocated'
           this.recalculate()
           break
         case 'spent':
-          console.log(this.typeInformationBar.indexOf('spent'))
           this.typeInformationPie = 'spent'
           this.recalculate()
           break
         case 'available':
-          console.log(this.typeInformationBar.indexOf('available'))
           this.typeInformationPie = 'available'
           this.recalculate()
           break
@@ -424,11 +429,8 @@ export default defineComponent({
       }
     },
     switchTypeInformationBar (newType: string) {
-      console.log(this.typeInformationBar)
-      console.log(newType)
       switch (newType) {
         case 'allocated':
-          console.log(this.typeInformationBar.indexOf('allocated'))
           if (this.typeInformationBar.indexOf('allocated') === -1) {
             this.typeInformationBar.splice(0, 0, 'allocated')
           } else {
@@ -437,7 +439,6 @@ export default defineComponent({
           this.recalculate()
           break
         case 'spent':
-          console.log(this.typeInformationBar.indexOf('spent'))
           if (this.typeInformationBar.indexOf('spent') === -1) {
             this.typeInformationBar.splice(0, 0, 'spent')
           } else {
@@ -446,7 +447,6 @@ export default defineComponent({
           this.recalculate()
           break
         case 'available':
-          console.log(this.typeInformationBar.indexOf('available'))
           if (this.typeInformationBar.indexOf('available') === -1) {
             this.typeInformationBar.splice(0, 0, 'available')
           } else {
@@ -459,6 +459,5 @@ export default defineComponent({
       }
     }
   }
-
 })
 </script>
