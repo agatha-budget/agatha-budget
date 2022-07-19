@@ -2,7 +2,7 @@
   <div :class="this.$store.state.css">
     <div class="chartPage menuLayout row col-12 offset-0 col-sm-12 offset-sm-0 col-md-10 offset-md-1 col-lg-12 offset-lg-0 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2">
       <div class="header fixed title">
-        <select v-model="currentGraph">
+        <select v-model="currentGraph" class="selectGraph">
           <option value="pie">{{ $t('PIE_CHART') }}</option>
           <option value="bar">{{ $t('BAR_CHART') }}</option>
         </select>
@@ -12,21 +12,33 @@
       </div>
 
       <div class="mobileVersion">
-        <div v-if="currentGraph == 'pie'">
-          <input type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
-          <label for="allocated">{{ $t('ALLOCATED') }}</label>
-          <input type="radio" id="spent" value="spent" v-model="typeInformationPie">
-          <label for="spent">{{ $t('SPENT') }}</label>
-          <input type="radio" id="available" value="available" v-model="typeInformationPie">
-          <label for="available">{{ $t('AVAILABLE') }}</label>
+        <div v-if="currentGraph == 'pie'" class="radioSelect typeSelection">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
+            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="spent" value="spent" v-model="typeInformationPie">
+            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="available" value="available" v-model="typeInformationPie">
+            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
+          </div>
         </div>
-        <div v-if="currentGraph == 'bar'" v-on:click="recalculate">
-          <input type="checkbox" id="allocated" value="allocated" v-model="typeInformationBar">
-          <label for="allocated">{{ $t('ALLOCATED') }}</label>
-          <input type="checkbox" id="spent" value="spent" v-model="typeInformationBar">
-          <label for="spent">{{ $t('SPENT') }}</label>
-          <input type="checkbox" id="available" value="available" v-model="typeInformationBar">
-          <label for="available">{{ $t('AVAILABLE') }}</label>
+        <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="allocated" id="allocated" v-model="typeInformationBar">
+            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="spent" id="spent" v-model="typeInformationBar">
+            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="available" id="available" v-model="typeInformationBar">
+            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
+          </div>
         </div>
         <div class="multiselect">
           <Multiselect
@@ -56,21 +68,33 @@
           </div>
           <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
         </div>
-        <div v-if="currentGraph == 'pie'">
-          <input type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
-          <label for="allocated">{{ $t('ALLOCATED') }}</label>
-          <input type="radio" id="spent" value="spent" v-model="typeInformationPie">
-          <label for="spent">{{ $t('SPENT') }}</label>
-          <input type="radio" id="available" value="available" v-model="typeInformationPie">
-          <label for="available">{{ $t('AVAILABLE') }}</label>
+        <div v-if="currentGraph == 'pie'" class="radioSelect typeSelection">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
+            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="spent" value="spent" v-model="typeInformationPie">
+            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="available" value="available" v-model="typeInformationPie">
+            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
+          </div>
         </div>
-        <div v-if="currentGraph == 'bar'" v-on:click="recalculate">
-          <input type="checkbox" id="allocated" value="allocated" v-model="typeInformationBar">
-          <label for="allocated">{{ $t('ALLOCATED') }}</label>
-          <input type="checkbox" id="spent" value="spent" v-model="typeInformationBar">
-          <label for="spent">{{ $t('SPENT') }}</label>
-          <input type="checkbox" id="available" value="available" v-model="typeInformationBar">
-          <label for="available">{{ $t('AVAILABLE') }}</label>
+        <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="allocated" id="allocated" v-model="typeInformationBar">
+            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="spent" id="spent" v-model="typeInformationBar">
+            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="available" id="available" v-model="typeInformationBar">
+            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
+          </div>
         </div>
         <div class="multiselect">
           <Multiselect

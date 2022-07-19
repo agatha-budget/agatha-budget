@@ -1,14 +1,24 @@
 .chartPage {
     text-align: center;
-    .trialTab {
-        height: 52px;
-        text-align: center;
+    margin: 0;
+    .selectGraph {
+        color: @lighterBackground;
+        background: @action;
+        border-radius: 25px;
+        padding: 10px;
+        font-weight: 600;
+        border: 0;
     }
-    .dualTab {
-        text-align: center;
-        height: 42px;
-        * {
-            margin-bottom: 0;
+    .typeSelection {
+        .form-check {
+            max-width: 150px;
+            margin: auto;
+            input {
+                margin: 3px;
+            }
+            label {
+                text-align: left;
+            }
         }
     }
     .multiselect {
@@ -53,7 +63,7 @@
             margin-top: auto;
             margin-bottom: auto;
         }
-        .dualTab, .trialTab, .multiselect, .dateNav {
+        .multiselect, .dateNav {
             margin-top: 20px;
             margin-bottom: 20px;
         }
