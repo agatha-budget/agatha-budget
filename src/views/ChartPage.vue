@@ -8,59 +8,26 @@
         </select>
       </div>
       <div class="placeholder top">
-        <select/>
+        <select v-model="currentGraph" class="selectGraph">
+          <option value="pie">{{ $t('PIE_CHART') }}</option>
+          <option value="bar">{{ $t('BAR_CHART') }}</option>
+        </select>
       </div>
 
-      <div class="mobileVersion">
-        <div v-if="currentGraph == 'pie'" class="radioSelect typeSelection">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
-            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="spent" value="spent" v-model="typeInformationPie">
-            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="available" value="available" v-model="typeInformationPie">
-            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
-          </div>
+      <div class="row dateNav mobileVersion">
+        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
+        <div class="col-8 date-label">
+            <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
         </div>
-        <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="allocated" id="allocated" v-model="typeInformationBar">
-            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="spent" id="spent" v-model="typeInformationBar">
-            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="available" id="available" v-model="typeInformationBar">
-            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
-          </div>
-        </div>
-        <div class="multiselect">
-          <Multiselect
-            v-on:change="recalculate"
-            v-model="masterCategoryId"
-            :groups="true"
-            :searchable="true"
-            :options="masterCategories"
-            :noResultsText="$t('NO_RESULT_FOUND')"
-            :placeholder="$t('SELECT_MASTER_CATEGORY')"
-            :show-labels="false"
-            @select="recalculate"
-          />
-        </div>
+        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
       </div>
 
-      <div class="draw col-lg-6">
+      <div class="draw col-lg-7">
         <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
         <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
       </div>
 
-      <div class="computerVersion col-lg-6">
+      <div class="computerVersion col-lg-5">
         <div class="row dateNav">
           <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
           <div class="col-8 date-label">
@@ -111,12 +78,48 @@
         </div>
       </div>
 
-      <div class="row dateNav mobileVersion">
-        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
-        <div class="col-8 date-label">
-            <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
+      <div class="mobileVersion">
+        <div v-if="currentGraph == 'pie'" class="radioSelect typeSelection">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
+            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="spent" value="spent" v-model="typeInformationPie">
+            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="available" value="available" v-model="typeInformationPie">
+            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
+          </div>
         </div>
-        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
+        <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="allocated" id="allocated" v-model="typeInformationBar">
+            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="spent" id="spent" v-model="typeInformationBar">
+            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="available" id="available" v-model="typeInformationBar">
+            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
+          </div>
+        </div>
+        <div class="multiselect">
+          <Multiselect
+            v-on:change="recalculate"
+            v-model="masterCategoryId"
+            :groups="true"
+            :searchable="true"
+            :options="masterCategories"
+            :noResultsText="$t('NO_RESULT_FOUND')"
+            :placeholder="$t('SELECT_MASTER_CATEGORY')"
+            :show-labels="false"
+            @select="recalculate"
+          />
+        </div>
       </div>
 
       <div class="placeholder bottom">
@@ -213,7 +216,7 @@ export default defineComponent({
           }
         ]
       },
-      typeInformationPie: 'spent',
+      typeInformationPie: 'available',
       typeInformationBar: ['allocated', 'spent', 'available'],
       masterCategoryId: '',
       currentGraph: 'pie',

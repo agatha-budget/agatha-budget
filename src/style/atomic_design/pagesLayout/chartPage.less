@@ -1,6 +1,5 @@
 .chartPage {
     text-align: center;
-    margin: 0;
     .selectGraph {
         color: @lighterBackground;
         background: @action;
@@ -8,6 +7,7 @@
         padding: 10px;
         font-weight: 600;
         border: 0;
+        text-transform: capitalize;
     }
     .typeSelection {
         .form-check {
@@ -25,13 +25,19 @@
         height: 40px;
         width: 250px;
         padding: 0;
+        margin: 10px auto;
+        // border: none;
     }
     .draw {
         @media (max-width: 600px) {
             margin:  auto;
             max-width: 400px;
         }
-        @media (max-width: 992px) {
+        @media (min-width: 600px) {
+            @media (max-width: 992px) {
+                margin:  auto;
+                max-width: 500px;
+            }
         }
     }
     .dateNav {
@@ -49,9 +55,15 @@
 
     // mobile version
     @media (max-width: 992px) {
+        .mobileVersion {
+            height: min-content;
+        }
         .computerVersion {
             display: none;
         }
+    }
+    @media (max-width: 767px) {
+        margin: 0;
     }
 
     // computer version
