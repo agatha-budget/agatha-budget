@@ -303,6 +303,38 @@ paths:
       security:
         - accessToken: []
           refreshTokenId: []
+    get:
+      tags:
+        - Banking
+      summary: getBankTransactions
+      operationId: getBankTransactions
+      parameters:
+      - name: accountId
+        in: query
+        description: identifier of the wanted account
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Agreement url created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: successfull import of transaction
+        "400":
+          description: unknown user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: no billing to manage
+      security:
+        - accessToken: []
+          refreshTokenId: []
   /banks:
     get:
       tags:
@@ -550,9 +582,16 @@ paths:
         explode: true
         schema:
           type: string
-      - name: new_name
+      - name: name
         in: query
-        required: true
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: bankAccountId
+        in: query
+        required: false
         style: form
         explode: true
         schema:
