@@ -34,6 +34,10 @@ fun main() {
      ServiceManager.bankingService,
      ServiceManager.accountService)
 
+    app = addAccountRoute(app,
+     ServiceManager.accountService,
+     ServiceManager.budgetService)
+
     app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
 
@@ -180,40 +184,7 @@ fun main() {
         ctx.json(budgetData)
     }
 
-    app.before("/account", SuperTokens.middleware())
-    app.post("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val name = getQueryParam<String>(ctx, "name")
-        val amount = getQueryParam<Int>(ctx, "amount")
-        val day = Day.createFromComparable(getQueryParam<Int>(ctx, "day"))
-        val account = ServiceManager.accountService.create(user, budget, name, day, amount)
-        ctx.json(account)
-    }
-
-    app.put("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val formerName = account.name
-        val newName = getQueryParam<String>(ctx, "new_name")
-        ServiceManager.accountService.update(user, account, newName)
-        ctx.result("updated from $formerName to $newName")
-    }
-
-    app.delete("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        ServiceManager.accountService.delete(user, account)
-        ctx.result("account ${account.name} has been deleted")
-    }
-
-    app.before("/account/budget", SuperTokens.middleware())
-    app.get("/account/budget") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val accounts = ServiceManager.accountService.findByBudget(user, budget)
-        ctx.json(accounts)
-    }
+   
 
     app.before("/mcategory", SuperTokens.middleware())
     app.post("/mcategory") { ctx ->

@@ -2,8 +2,8 @@ package open.tresorier.services
 
 import open.tresorier.dao.*
 import open.tresorier.exception.TresorierIllegalException
-import open.tresorier.model.banking.BankAgreement
 import open.tresorier.model.*
+import open.tresorier.model.banking.*
 
 class AuthorizationService(
     private val accountDao: IAccountDao,
@@ -12,7 +12,8 @@ class AuthorizationService(
     private val categoryDao: ICategoryDao,
     private val masterCategoryDao: IMasterCategoryDao,
     private val operationDao: IOperationDao,
-    private val bankAgreementDao: IBankAgreementDao
+    private val bankAgreementDao: IBankAgreementDao,
+    private val bankAccountDao: IBankAccountDao
 
 ) {
 
@@ -72,6 +73,13 @@ class AuthorizationService(
         val owner = bankAgreementDao.getOwner(bankAgreement)
         if (owner.id != person.id) {
             throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with bankAgreement " + bankAgreement.id)
+        }
+    }
+
+    fun cancelIfUserIsUnauthorized(person: Person, bankAccount: BankAccount) {
+        val owner = bankAccountDao.getOwner(bankAccount)
+        if (owner.id != person.id) {
+            throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with bankAccount " + bankAccount.id)
         }
     }
 }
