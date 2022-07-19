@@ -153,6 +153,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             operation.orderInDay,
             operation.pending,
             operation.locked,
+            operation.importIdentifier
         )
     }
 
@@ -168,6 +169,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.memo,
             jooqOperation.pending,
             jooqOperation.locked,
+            jooqOperation.importIdentifier,
             jooqOperation.id,
         )
     }
@@ -190,6 +192,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             operationRecord.memo,
             operationRecord.pending,
             operationRecord.locked,
+            operationRecord.importIdentifier,
             operationRecord.id,
         )
     }

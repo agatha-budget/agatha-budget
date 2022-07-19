@@ -9,6 +9,7 @@ class Operation (
         var memo: String? = null,
         var pending: Boolean = false,
         var locked: Boolean = false,
+        var importIdentifier: String? = null,
         id: String? = null,
         deleted: Boolean? = null
 ) : DbObject(id, deleted) {

@@ -58,6 +58,7 @@ public class Keys {
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = UniqueKeys0.FLYWAY_SCHEMA_HISTORY_PK;
     public static final UniqueKey<MasterCategoryRecord> CONSTRAINT_D = UniqueKeys0.CONSTRAINT_D;
     public static final UniqueKey<OperationRecord> CONSTRAINT_9 = UniqueKeys0.CONSTRAINT_9;
+    public static final UniqueKey<OperationRecord> CONSTRAINT_932E = UniqueKeys0.CONSTRAINT_932E;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8 = UniqueKeys0.CONSTRAINT_8;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8C = UniqueKeys0.CONSTRAINT_8C;
     public static final UniqueKey<PersonRecord> CONSTRAINT_8C7 = UniqueKeys0.CONSTRAINT_8C7;
@@ -92,6 +93,7 @@ public class Keys {
         public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "flyway_schema_history_pk", new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
         public static final UniqueKey<MasterCategoryRecord> CONSTRAINT_D = Internal.createUniqueKey(MasterCategory.MASTER_CATEGORY, "CONSTRAINT_D", new TableField[] { MasterCategory.MASTER_CATEGORY.ID }, true);
         public static final UniqueKey<OperationRecord> CONSTRAINT_9 = Internal.createUniqueKey(Operation.OPERATION, "CONSTRAINT_9", new TableField[] { Operation.OPERATION.ID }, true);
+        public static final UniqueKey<OperationRecord> CONSTRAINT_932E = Internal.createUniqueKey(Operation.OPERATION, "CONSTRAINT_932E", new TableField[] { Operation.OPERATION.IMPORT_IDENTIFIER }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8 = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8C = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8C", new TableField[] { Person.PERSON.EMAIL }, true);
         public static final UniqueKey<PersonRecord> CONSTRAINT_8C7 = Internal.createUniqueKey(Person.PERSON, "CONSTRAINT_8C7", new TableField[] { Person.PERSON.BILLING_ID }, true);

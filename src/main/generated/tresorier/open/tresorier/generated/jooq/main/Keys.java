@@ -58,6 +58,7 @@ public class Keys {
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = UniqueKeys0.FLYWAY_SCHEMA_HISTORY_PK;
     public static final UniqueKey<MasterCategoryRecord> MASTER_CATEGORY_PKEY = UniqueKeys0.MASTER_CATEGORY_PKEY;
     public static final UniqueKey<OperationRecord> OPERATION_PKEY = UniqueKeys0.OPERATION_PKEY;
+    public static final UniqueKey<OperationRecord> OPERATION_IMPORT_IDENTIFIER_KEY = UniqueKeys0.OPERATION_IMPORT_IDENTIFIER_KEY;
     public static final UniqueKey<PersonRecord> PERSON_PKEY = UniqueKeys0.PERSON_PKEY;
     public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = UniqueKeys0.PERSON_EMAIL_KEY;
     public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = UniqueKeys0.PERSON_BILLING_ID_KEY;
@@ -92,6 +93,7 @@ public class Keys {
         public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "flyway_schema_history_pk", new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
         public static final UniqueKey<MasterCategoryRecord> MASTER_CATEGORY_PKEY = Internal.createUniqueKey(MasterCategory.MASTER_CATEGORY, "master_category_pkey", new TableField[] { MasterCategory.MASTER_CATEGORY.ID }, true);
         public static final UniqueKey<OperationRecord> OPERATION_PKEY = Internal.createUniqueKey(Operation.OPERATION, "operation_pkey", new TableField[] { Operation.OPERATION.ID }, true);
+        public static final UniqueKey<OperationRecord> OPERATION_IMPORT_IDENTIFIER_KEY = Internal.createUniqueKey(Operation.OPERATION, "operation_import_identifier_key", new TableField[] { Operation.OPERATION.IMPORT_IDENTIFIER }, true);
         public static final UniqueKey<PersonRecord> PERSON_PKEY = Internal.createUniqueKey(Person.PERSON, "person_pkey", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = Internal.createUniqueKey(Person.PERSON, "person_email_key", new TableField[] { Person.PERSON.EMAIL }, true);
         public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = Internal.createUniqueKey(Person.PERSON, "person_billing_id_key", new TableField[] { Person.PERSON.BILLING_ID }, true);

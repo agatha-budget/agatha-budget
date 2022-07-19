@@ -23,3 +23,5 @@ ADD COLUMN bank_account_id VARCHAR(36) DEFAULT NULL;
 ALTER TABLE account
 ADD FOREIGN KEY (bank_account_id) REFERENCES bank_account(id);
 
+ALTER TABLE operation
+ADD COLUMN import_identifier VARCHAR(36) DEFAULT NULL UNIQUE;
