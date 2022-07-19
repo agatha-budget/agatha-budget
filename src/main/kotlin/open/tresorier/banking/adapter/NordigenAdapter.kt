@@ -141,11 +141,13 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
     }
 
     private fun createOperation(account: Account, pending: Boolean, nordigenOperation: JSONObject) : Operation {
-        val day = Day.createFromComparable(nordigenOperation.getString("bookingDate").replace("-","").toInt())
-        val amount = nordigenOperation.getJSONObject("transactionAmount").getInt("amount") * 100
+        val date : String? = nordigenOperation.optString("bookingDate")
+        val day : Day = date?.let {Day.createFromComparable(it.replace("-","").toInt())} ?: Day.today()
+        val amount = (nordigenOperation.getJSONObject("transactionAmount").getFloat("amount") * 100).toInt()
         val orderInDay = Time.now()
-        val memo = nordigenOperation.getString("remittanceInformationUnstructuredArray")
-        val importIdentifier = day.toString() + amount + memo
+       // val memo = nordigenOperation.optJSONArray("remittanceInformationUnstructuredArray")?.getString(0)
+        val memo = nordigenOperation.optString("entryReference")
+        val importIdentifier = day.toString() + "__" + amount + "__" + memo
         return Operation(
             account.id, day, null, amount, orderInDay, 
             memo, pending, false, importIdentifier
