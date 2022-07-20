@@ -186,7 +186,7 @@ export default defineComponent({
   methods: {
     async getAccountOperation () {
       if (this.account) {
-        return OperationService.getOperations(this.account, this.filteringCategoryId).then(
+        return OperationService.getMotherOperationsByAccount(this.account, this.filteringCategoryId).then(
           (operations) => {
             this.operations = this.operationToEditableOperation(operations)
           }
@@ -270,10 +270,19 @@ export default defineComponent({
         }
       }
     },
-    debited (operation: Operation) {
+    async debited (operation: Operation) {
       if (operation) {
         console.log(operation)
-        OperationService.updateOperation(this.$store, operation, this.accountId, operation.day, operation.categoryId, operation.amount, operation.memo, false)
+        const daughters = await OperationService.getDaughterOperationByMother(operation.id)
+        console.log(daughters)
+        if (daughters.length !== 0) {
+          daughters.forEach(daughter => {
+            OperationService.updateOperation(this.$store, daughter, this.accountId, undefined, undefined, undefined, undefined, false)
+          })
+          OperationService.updateOperation(this.$store, operation, this.accountId, undefined, undefined, undefined, undefined, false)
+        } else {
+          OperationService.updateOperation(this.$store, operation, this.accountId, undefined, undefined, undefined, undefined, false)
+        }
       }
     },
     pendingOperation (): boolean {
