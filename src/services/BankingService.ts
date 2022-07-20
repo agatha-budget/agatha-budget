@@ -8,7 +8,7 @@ export default class BankingService {
     return response.data
   }
 
-  public static async getLinkForBankAgreement (bankId: string) {
+  public static async goToBankAgreement (bankId: string) {
     try {
       const agreementUrl = (await (bankingApi.getLinkForBankAgreement(bankId))).data
       window.location.href = agreementUrl

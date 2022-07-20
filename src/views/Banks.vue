@@ -17,8 +17,8 @@
         <p>{{ $t('SELECT_BANK_TO_AUTHORIZE_SYNCHRONISATION') }}</p>
         <template v-for="bank in this.availableBanks" :key="bank">
           <btn class="navigationButton bankButton" v-on:click="getBankAuthorization(bank.id)">
-            <img class="illustration col-4" alt="banklogo" :src=bank.logo />
-            <span class="illustrationLabel col-8">{{ bank.name }}</span>
+            <img class="illustration col-2" alt="banklogo" :src=bank.logo />
+            <span class="illustrationLabel col-10">{{ bank.name }}</span>
           </btn>
         </template>
 
@@ -62,7 +62,7 @@ export default defineComponent({
       )
     },
     getBankAuthorization (bankId: string) {
-      alert(bankId)
+      BankingService.goToBankAgreement(bankId)
     }
   }
 })
