@@ -34,7 +34,7 @@
       </div>
     </div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
-    <div class="col-8 col-sm-6 col-md-6 col-xxl-8 inline">
+    <div class="col-8 col-sm-6 col-md-6 inline">
       <label class="customSwitch">
           <input class="switch-input" type="checkbox" v-on:click="pending" v-model="dataOperation.isPending"/>
           <span class="switch-label-pending"/>
@@ -53,10 +53,10 @@
         <div>{{ $t("DEBITED") }}</div>
       </div>
     </div>
-    <div class="col-3">
-      <btn class="actionButton" v-on:click="addCategory">dans pls catégories</btn>
+    <div class="col-5 offset-1 col-sm-4 col-md-3 offset-md-0">
+      <btn class="actionButton" v-on:click="addCategory">ajouter catégorie</btn>
     </div>
-    <div class="action col-4 offset-4 col-md-2 offset-md-5">
+    <div class="action col-4 offset-1 col-md-2 offset-md-5">
       <btn v-if="this.operation" class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
       <btn v-else class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
     </div>
@@ -68,12 +68,13 @@
     <div class="containerCross col-12">
       <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
     </div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("DATE") }}</div>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("DATE") }}</div>
     <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="dataOperation.date"></div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("AMOUNT") }}</div>
-    <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">montantTotal {{ totalAmount }}</div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
-    <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("TOTAL_AMOUNT") }}</div>
+    <div class="sumAmountElement col-4 col-sm-3 col-md-2">{{ displaySumAmount(totalAmount) }} €</div>
+    <div class="col-4 col-sm-5 col-md-2"/>
+    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("MEMO") }}</div>
+    <div class="textInput form-group col-7 col-sm-6 col-md-3 col-xxl-2">
       <input id="newOperationMemo" class="form-control" v-model="dataOperation.memo">
     </div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("STATUS") }}</div>
@@ -98,11 +99,11 @@
     </div>
 
     <div v-for="daughterOperation in this.dataOperation.operationsData" :key="daughterOperation" class="flexForm form col-12">
-    <div class="containerCross col-12">
+    <div class="containerCross col-12 col-sm-11 col-md-12">
       <span class="cross fas fa-trash" v-on:click="removeCategory(dataOperation.operationsData.indexOf(daughterOperation))"/>
     </div>
-      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("ENVELOPE") }}</div>
-      <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-xxl-4">
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("ENVELOPE") }}</div>
+      <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3">
         <Multiselect
           v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].categoryId"
           :groups="true"
@@ -112,8 +113,8 @@
           :placeholder="$t('SELECT_CATEGORY')"
         />
       </div>
-      <div class="label col-4 offset-0 col-sm-3 offset-sm-0 col-md-2 offset-md-0">{{ $t("AMOUNT") }}</div>
-      <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-0">{{ $t("AMOUNT") }}</div>
+      <div class="amountElement col-7 col-sm-6 col-md-3">
         <div class="amountInput input-group flex-nowrap">
           <label class="customSwitch">
             <input class="switch-input" type="checkbox" v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].incoming"/>
@@ -123,20 +124,17 @@
           <input id="newOperationAmount" class="form-control" v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].amountString">
         </div>
       </div>
-      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("MEMO") }}</div>
-      <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("MEMO") }}</div>
+      <div class="textInput form-group col-7 col-sm-6 col-md-3">
         <input id="newOperationMemo" class="form-control" v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].memo">
       </div>
-      {{ daughterOperation.index }}
-      {{ dataOperation.operationsData.indexOf(daughterOperation) }}
-      <button v-on:click="displayData">clique-moi</button>
     </div>
 
     <div class="col-4 offset-1 col-md-3 offset-md-2">
       <btn class="actionButton " v-on:click="addOperationMultipleCategories">valider</btn>
     </div>
     <div class="col-4 offset-2 col-md-3 offset-md-2">
-      <btn class="actionButton" v-on:click="addCategory">ajouter enveloppe</btn>
+      <btn class="actionButton" v-on:click="addCategory">ajouter catégorie</btn>
     </div>
 
 </div>
@@ -394,6 +392,9 @@ export default defineComponent({
         )
       })
       this.rebootAddOperationForm()
+    },
+    displaySumAmount (number: number): string {
+      return Utils.addSpacesInThousand(number)
     }
   }
 })

@@ -15,14 +15,14 @@
           <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">{{ $t("BANK_IMPORT") }}</btn>
         </div>
         <ImportOfx v-if="importBloc" :accountId="this.accountId" @close-import="closeImport"/>
-        <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
+        <OperationForm v-if="manualBloc" class="operationForm container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
         <div v-on:click="onClickFilterButton" class="actionLabelIcon">
           <span class="illustration btn fas fa-filter"/>
           <div class="text">{{ $t("FILTER") }}</div>
         </div>
         <FilterCmpt v-if="filterBloc" @close-filter="closeFilter" @filtering-category="filter"/>
         <template v-for="operation in this.operations" :key="operation">
-          <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
+          <OperationForm class="operationForm inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
           <span v-else class="allOperation operation">
             <div v-if="operation.daughters.length == 0" class="row col-12">
               <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row col-9">
@@ -69,10 +69,10 @@
               </div>
               <div v-for="daughter in operation.daughters" :key="daughter" class="daughter row col-12">
                 <span class="illustration btn fas fa-level-up-alt col-1 offset-1 offset-sm-0"/>
-                <div class="lineStart category col-5 col-lg-4" :class="getClassDependingCategoryDaugther(daughter.categoryId)">
+                <div class="lineStart category col-5 col-sm-7 col-md-5c ol-lg-4" :class="getClassDependingCategoryDaugther(daughter.categoryId)">
                   {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                 </div>
-                <div class="amount col-4 offset-1 offset-sm-2 col-lg-2 offset-lg-0" :class="this.getClassDependingOnAmount(operation)">
+                <div class="amount col-4 col-lg-2" :class="this.getClassDependingOnAmount(operation)">
                   {{ addSpacesInThousand(this.getEurosAmount(daughter.amount)) }} €
                 </div>
                 <div class="memo col-10 offset-2 col-sm-11 offset-sm-1">{{ daughter.memo }}</div>
