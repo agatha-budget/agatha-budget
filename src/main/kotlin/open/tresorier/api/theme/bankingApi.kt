@@ -42,6 +42,10 @@ fun addBankingRoute(app : Javalin, personService: PersonService, bankingService:
         val account = accountService.getById(person, accountId)
         bankingService.synchronise(person, account)
     }
+
+    app.get("/banks") { ctx ->
+        ctx.json(bankingService.getAvailableBanks())
+    }
     
     return app
 }

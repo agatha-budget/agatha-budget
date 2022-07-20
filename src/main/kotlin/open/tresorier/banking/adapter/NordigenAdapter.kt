@@ -145,7 +145,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
         val day : Day = date?.let {Day.createFromComparable(it.replace("-","").toInt())} ?: Day.today()
         val amount = (nordigenOperation.getJSONObject("transactionAmount").getFloat("amount") * 100).toInt()
         val orderInDay = Time.now()
-       // val memo = nordigenOperation.optJSONArray("remittanceInformationUnstructuredArray")?.getString(0)
+        // val memo = nordigenOperation.optJSONArray("remittanceInformationUnstructuredArray")?.getString(0)
         val memo = nordigenOperation.optString("entryReference")
         val importIdentifier = day.toString() + "__" + amount + "__" + memo
         return Operation(
@@ -155,12 +155,39 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
     }
 
     override fun getAvailableBanks() : List<Bank> {
-        return listOf<Bank>(
-            Bank("CREDIT_COOPERATIF_CCOPFRPPXXX",
-             "Crédit Coopératif",
-             "https://cdn.nordigen.com/ais/CREDIT_COOPERATIF_CCOPFRPPXXX.png"
-            )
+
+        val url = "https://ob.nordigen.com/api/v2/institutions/?country=fr"
+
+        val headerProperties = mapOf(
+            "Content-Type" to "application/json",
+            "Accept" to "application/json",
+            "User-Agent" to "Agatha/1.0",
+            "Authorization" to "Bearer ${this.getToken()}"
         )
+
+        val connection = HTTPConnection.sendRequest("GET", url, headerProperties)
+
+        if (connection.responseCode !in HTTPConnection.validResponseCodes) {
+            throw BankingException("could not get the institutions")
+		}
+        val nordigenBanks = JSONArray(connection.inputStream.reader().use { it.readText() })
+        // add new transaction for account
+
+        var bankList = listOf<Bank>()
+
+        for (i in 1..nordigenBanks.length()) {
+            val nordigenBank = nordigenBanks.getJSONObject(i-1);
+            val bank = this.createBank(nordigenBank)
+            bankList += bank
+        }
+        return bankList
+    }
+
+    private fun createBank(nordigenBank: JSONObject) : Bank {
+        val id : String = nordigenBank.getString("id")
+        val name : String = nordigenBank.getString("name")
+        val logo : String = nordigenBank.getString("logo")
+        return Bank(id, name, logo)
     }
 
     fun getToken() : String {

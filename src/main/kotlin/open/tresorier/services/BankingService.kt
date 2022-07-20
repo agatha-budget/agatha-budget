@@ -12,7 +12,7 @@ import open.tresorier.dao.IBankAgreementDao
 import open.tresorier.dao.IBankAccountDao
 
 
-class BankingService(
+class BankingService (
     private val bankingAdapter: IBankingPort,
     private val authorizationService: AuthorizationService,
     private val operationDao: IOperationDao,
