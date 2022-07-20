@@ -2,16 +2,10 @@
   <div :class="this.$store.state.css">
     <div class="chartPage menuLayout row col-12 offset-0 col-sm-12 offset-sm-0 col-md-10 offset-md-1 col-lg-12 offset-lg-0 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2">
       <div class="header fixed title">
-        <select v-model="currentGraph" class="selectGraph">
-          <option value="pie">{{ $t('PIE_CHART') }}</option>
-          <option value="bar">{{ $t('BAR_CHART') }}</option>
-        </select>
+        <ChartPageHeader @change-graph="changeGraph"/>
       </div>
       <div class="placeholder top">
-        <select v-model="currentGraph" class="selectGraph">
-          <option value="pie">{{ $t('PIE_CHART') }}</option>
-          <option value="bar">{{ $t('BAR_CHART') }}</option>
-        </select>
+        <ChartPageHeader @change-graph="changeGraph"/>
       </div>
 
       <div class="row dateNav mobileVersion">
@@ -135,6 +129,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { redirectToLoginPageIfNotLogged } from '@/router'
+import ChartPageHeader from '@/components/ChartPageHeader.vue'
 import BarChart from '@/components/charts/BarChart.vue'
 import PieChart from '@/components/charts/PieChart.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
@@ -172,6 +167,7 @@ interface ChartPageData {
 export default defineComponent({
   name: 'Login',
   components: {
+    ChartPageHeader,
     BarChart,
     PieChart,
     NavMenu,
@@ -384,15 +380,6 @@ export default defineComponent({
       }
       this.chartData.labels = this.getNames(this.masterCategoryId)
     },
-    changeGraph () {
-      switch (this.currentGraph) {
-        case 'pie':
-          this.currentGraph = 'bar'
-          break
-        default:
-          this.currentGraph = 'pie'
-      }
-    },
     getMonthAsDate (monthAsInt: number): Date {
       return Time.getMonthAsDate(monthAsInt)
     },
@@ -457,6 +444,9 @@ export default defineComponent({
         default:
           this.typeInformationPie = ''
       }
+    },
+    changeGraph (newGraph: string) {
+      this.currentGraph = newGraph
     }
   }
 })
