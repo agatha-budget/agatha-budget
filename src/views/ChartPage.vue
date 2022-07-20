@@ -29,20 +29,7 @@
           </div>
           <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
         </div>
-        <div v-if="currentGraph == 'pie'" class="radioSelect typeSelection">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
-            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="spent" value="spent" v-model="typeInformationPie">
-            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="available" value="available" v-model="typeInformationPie">
-            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
-          </div>
-        </div>
+        <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie"/>
         <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="allocated" id="allocated" v-model="typeInformationBar">
@@ -73,20 +60,7 @@
       </div>
 
       <div class="mobileVersion">
-        <div v-if="currentGraph == 'pie'" class="radioSelect typeSelection">
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="allocated" value="allocated" v-model="typeInformationPie">
-            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="spent" value="spent" v-model="typeInformationPie">
-            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" id="available" value="available" v-model="typeInformationPie">
-            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
-          </div>
-        </div>
+        <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie" class="radioSelect typeSelection"/>
         <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="allocated" id="allocated" v-model="typeInformationBar">
@@ -132,6 +106,7 @@ import { redirectToLoginPageIfNotLogged } from '@/router'
 import ChartPageHeader from '@/components/headers/ChartPageHeader.vue'
 import BarChart from '@/components/charts/BarChart.vue'
 import PieChart from '@/components/charts/PieChart.vue'
+import RadioSelect from '@/components/RadioSelect.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 import StoreHandler from '@/store/StoreHandler'
 import BudgetDataService from '@/services/BudgetDataService'
@@ -162,6 +137,11 @@ interface ChartPageData {
     masterCategoryId: string;
     currentGraph: string;
     budgetMonth: number;
+    choicesTypeInformationPie: {
+      label: string;
+      value: string;
+      preSelected: boolean;
+    }[];
 }
 
 export default defineComponent({
@@ -170,6 +150,7 @@ export default defineComponent({
     ChartPageHeader,
     BarChart,
     PieChart,
+    RadioSelect,
     NavMenu,
     Multiselect
   },
@@ -216,7 +197,12 @@ export default defineComponent({
       typeInformationBar: ['allocated', 'spent', 'available'],
       masterCategoryId: '',
       currentGraph: 'pie',
-      budgetMonth: Time.getCurrentMonth()
+      budgetMonth: Time.getCurrentMonth(),
+      choicesTypeInformationPie: [
+        { label: 'alloué', value: 'allocated', preSelected: false },
+        { label: 'dépensé', value: 'spent', preSelected: false },
+        { label: 'disponible', value: 'available', preSelected: true }
+      ]
     }
   },
   computed: {
@@ -397,56 +383,11 @@ export default defineComponent({
       this.drawPieChart()
       this.drawBarChart()
     },
-    switchTypeInformationPie (newType: string) {
-      switch (newType) {
-        case 'allocated':
-          this.typeInformationPie = 'allocated'
-          this.recalculate()
-          break
-        case 'spent':
-          this.typeInformationPie = 'spent'
-          this.recalculate()
-          break
-        case 'available':
-          this.typeInformationPie = 'available'
-          this.recalculate()
-          break
-        default:
-          this.typeInformationPie = ''
-      }
-    },
-    switchTypeInformationBar (newType: string) {
-      switch (newType) {
-        case 'allocated':
-          if (this.typeInformationBar.indexOf('allocated') === -1) {
-            this.typeInformationBar.splice(0, 0, 'allocated')
-          } else {
-            this.typeInformationBar.splice(this.typeInformationBar.indexOf('allocated'), 1)
-          }
-          this.recalculate()
-          break
-        case 'spent':
-          if (this.typeInformationBar.indexOf('spent') === -1) {
-            this.typeInformationBar.splice(0, 0, 'spent')
-          } else {
-            this.typeInformationBar.splice(this.typeInformationBar.indexOf('spent'), 1)
-          }
-          this.recalculate()
-          break
-        case 'available':
-          if (this.typeInformationBar.indexOf('available') === -1) {
-            this.typeInformationBar.splice(0, 0, 'available')
-          } else {
-            this.typeInformationBar.splice(this.typeInformationBar.indexOf('available'), 1)
-          }
-          this.recalculate()
-          break
-        default:
-          this.typeInformationPie = ''
-      }
-    },
     changeGraph (newGraph: string) {
       this.currentGraph = newGraph
+    },
+    changeTypeInformationPie (newTypeInformationPie: string) {
+      this.typeInformationPie = newTypeInformationPie
     }
   }
 })
