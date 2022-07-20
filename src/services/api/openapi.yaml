@@ -589,7 +589,7 @@ paths:
         explode: true
         schema:
           type: string
-      - name: bankAccountId
+      - name: bank_account_id
         in: query
         required: false
         style: form
