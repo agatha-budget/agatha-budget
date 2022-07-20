@@ -9,10 +9,13 @@
         </div>
         <div class="content container">
           <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
-          <div class="header title"></div>
-          <btn class="navigationButton row" v-on:click="goSubscriptionPage">
+          <btn class="navigationButton row" v-on:click="goToSubscriptionPage">
             <span class="illustration fas fa-credit-card col-4"/>
             <span class="illustrationLabel col-8">{{ $t("SUBSCRIPTION") }}</span>
+          </btn>
+          <btn class="navigationButton row" v-on:click="goToBanksPage">
+            <span class="illustration fas fa-university col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("BANKS") }}</span>
           </btn>
           <btn class="navigationButton disabled row">
             <span class="illustration fas fa-book-open col-4"/>
@@ -61,8 +64,11 @@ export default defineComponent({
     logout () {
       PersonService.deleteSession(this.$store)
     },
-    goSubscriptionPage () {
+    goToSubscriptionPage () {
       router.push(RouterPages.subscription)
+    },
+    goToBanksPage () {
+      router.push(RouterPages.banks)
     }
   }
 })

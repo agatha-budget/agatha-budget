@@ -32,7 +32,7 @@
     <h3>DualTab</h3>
 
     <div class="dualTab">
-      <btn class="tabLeft" >TabLeft</btn>
+      <btn class="tabLeft">TabLeft</btn>
       <btn class="tabRight">TabRight</btn>
     </div>
 
