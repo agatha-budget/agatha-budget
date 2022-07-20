@@ -262,6 +262,12 @@ export interface Operation {
      * @memberof Operation
      */
     memo: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Operation
+     */
+    pending: boolean;
 }
 /**
  * 
