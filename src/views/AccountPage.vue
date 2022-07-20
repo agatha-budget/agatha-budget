@@ -69,7 +69,7 @@ import OperationService from '@/services/OperationService'
 import OperationForm from '@/components/forms/OperationForm.vue'
 import Utils from '@/utils/Utils'
 import NavMenu from '@/components/NavigationMenu.vue'
-import AccountPageHeader from '@/components/AccountPageHeader.vue'
+import AccountPageHeader from '@/components/headers/AccountPageHeader.vue'
 import ImportOfx from '@/components/ImportOfx.vue'
 import FilterCmpt from '@/components/FilterCmpt.vue'
 

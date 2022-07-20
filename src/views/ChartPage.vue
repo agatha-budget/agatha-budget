@@ -129,7 +129,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { redirectToLoginPageIfNotLogged } from '@/router'
-import ChartPageHeader from '@/components/ChartPageHeader.vue'
+import ChartPageHeader from '@/components/headers/ChartPageHeader.vue'
 import BarChart from '@/components/charts/BarChart.vue'
 import PieChart from '@/components/charts/PieChart.vue'
 import NavMenu from '@/components/NavigationMenu.vue'

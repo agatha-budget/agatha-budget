@@ -44,7 +44,7 @@ import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
 import MasterCategoryService from '@/services/MasterCategoryService'
 import StoreHandler from '@/store/StoreHandler'
-import BudgetHeader from '@/components/BudgetHeader.vue'
+import BudgetHeader from '@/components/headers/BudgetHeader.vue'
 
 interface BudgetCmptData {
     categoryDataList: CategoryDataList;
