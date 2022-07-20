@@ -23,8 +23,8 @@
         <FilterCmpt v-if="filterBloc" @close-filter="closeFilter" @filtering-category="filter"/>
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
-          <span v-else class="allOperation">
-            <div v-if="operation.daughters.length == 0" class="operation">
+          <span v-else class="allOperation operation">
+            <div v-if="operation.daughters.length == 0" class="row col-12">
               <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row col-9">
                 <div class="lineStart date col-6">
                   <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
@@ -48,23 +48,34 @@
               </div>
               <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="lineStart memo col-12">{{ operation.memo }}</div>
             </div>
-            <div v-else class="operation">
-              <div class="lineStart date col-6">
-                <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+            <div v-else class="row col-12">
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row col-9">
+                <div class="lineStart date col-6">
+                  <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+                </div>
+                <div class="amount col-5 offset-1 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
+                  {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                </div>
+                <div class="lineStart memo col-12 row"><div>{{ operation.memo }}</div></div>
               </div>
-              <div class="amount col-5 offset-1 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
-                {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-1">
+                <button class="illustration btn fas fa-pen"/>
               </div>
-              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="lineStart memo col-12 row">{{ operation.memo }}</div>
-              <div v-for="daughter in operation.daughters" :key="daughter" class="col-11 offset-1 flexForm">
-                <span class="illustration btn fas fa-carrot col-1"/>
-                <div class="category col-4" :class="getClassDependingCategoryDaugther(daughter.categoryId)">
+              <div v-on:click="deleteOperation(operation)" :title="$t('DELETE')" class="action col-1">
+                <button class="illustration btn fas fa-trash"/>
+              </div>
+              <div v-if="operation.pending" v-on:click="debited(operation)" :title="$t('DEBITED')" class="pending col-1">
+                <button class="illustration btn fas fa-hourglass-half"/>
+              </div>
+              <div v-for="daughter in operation.daughters" :key="daughter" class="daughter row col-12">
+                <span class="illustration btn fas fa-level-up-alt col-1 offset-1 offset-sm-0"/>
+                <div class="lineStart category col-5 col-lg-4" :class="getClassDependingCategoryDaugther(daughter.categoryId)">
                   {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                 </div>
-                <div class="amount col-4 offset-1" :class="this.getClassDependingOnAmount(operation)">
+                <div class="amount col-4 offset-1 offset-sm-2 col-lg-2 offset-lg-0" :class="this.getClassDependingOnAmount(operation)">
                   {{ addSpacesInThousand(this.getEurosAmount(daughter.amount)) }} €
                 </div>
-                <div class="memo col-11 offset-1">{{ daughter.memo }}</div>
+                <div class="memo col-10 offset-2 col-sm-11 offset-sm-1">{{ daughter.memo }}</div>
               </div>
             </div>
           </span>
@@ -261,6 +272,7 @@ export default defineComponent({
     },
     debited (operation: Operation) {
       if (operation) {
+        console.log(operation)
         OperationService.updateOperation(this.$store, operation, this.accountId, operation.day, operation.categoryId, operation.amount, operation.memo, false)
       }
     },

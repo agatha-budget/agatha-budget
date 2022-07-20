@@ -1,23 +1,10 @@
-// .allOperation {
-//   &:nth-child(even), .operation {
-//     background-color: @background;
-//   }
-  
-//   &:nth-child(odd), .operation {
-//     background-color: @darkerBackground;
-//   }
-  
-// }
-
 .allOperation {
-  .operation {
+  &.operation {
     display: flex;
     flex-wrap: wrap;
     padding: 8px 0 8px 15px;
     text-align: left;
     cursor: pointer;
-    background-color: @background;
-    border: solid black 1px;
   }
     .category {
       font-weight: bold;
@@ -31,7 +18,12 @@
       .btn {
           padding-left: 10px;
       }
-  }
+    }
+    .daughter {
+      .category, .amount {
+        border-top: solid @blackGrey 1px;
+      }
+    }
 
   &:nth-child(even) {
     background-color: @background;
