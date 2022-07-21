@@ -55,4 +55,5 @@ enum class PropertiesEnum {
 
     NORDIGEN_SECRET_ID,
     NORDIGEN_SECRET_KEY,
+    NORDIGEN_SUCCESS_URL,
 }

@@ -21,6 +21,8 @@ import open.tresorier.utils.Time
 class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankingPort {
 
     override fun getLinkForUserAgreement(person: Person, bankId: String) : String {
+        val properties = Properties()
+        val successUrl = properties.get(NORDIGEN_SUCCESS_URL)
         val url = "https://ob.nordigen.com/api/v2/requisitions/"
         val bankAgreement = BankAgreement(person.id, bankId)
 
@@ -32,7 +34,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
         )
 
         val bodyProperties = mapOf(
-            "redirect" to "https://beta.agatha-budget.fr/bank?agreementId=${bankAgreement.id}",
+            "redirect" to "${successUrl}?agreementId=${bankAgreement.id}",
             "institution_id" to bankId,
             "user_language" to "FR"
         )
