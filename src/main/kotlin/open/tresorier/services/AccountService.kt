@@ -47,10 +47,4 @@ class AccountService(private val accountDao: IAccountDao,
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         return accountDao.findByBudget(budget)
     }
-
-    fun getBankAccountById(person: Person, id: String) : BankAccount {
-        val bankAccount = bankAccountDao.getById(id)
-        authorizationService.cancelIfUserIsUnauthorized(person, bankAccount)
-        return bankAccount
-    }
 }

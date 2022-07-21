@@ -13,9 +13,10 @@ import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.services.AccountService
 import open.tresorier.services.BudgetService
+import open.tresorier.services.BankingService
 import open.tresorier.api.*
 
-fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService: BudgetService) : Javalin {
+fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService: BudgetService, bankingService: BankingService) : Javalin {
 
     app.before("/account", SuperTokens.middleware())
     app.post("/account") { ctx ->
@@ -33,7 +34,7 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val name = getOptionalQueryParam<String>(ctx, "name")
         val bankAccountId = getOptionalQueryParam<String>(ctx, "bank_accountId")
-        val bankAccount = bankAccountId?.let {accountService.getBankAccountById(user, bankAccountId)}
+        val bankAccount = bankAccountId?.let {bankingService.getBankAccountById(user, bankAccountId)}
         accountService.update(user, account, name, bankAccount)
         ctx.result("updated")
     }

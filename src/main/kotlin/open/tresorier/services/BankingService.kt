@@ -6,6 +6,7 @@ import open.tresorier.model.Budget
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.banking.Bank
 import open.tresorier.model.banking.BankAccount
+import open.tresorier.model.banking.PublicBankAccount
 import open.tresorier.model.banking.BankAgreement
 import open.tresorier.banking.IBankingPort
 import open.tresorier.dao.IOperationDao
@@ -32,6 +33,11 @@ class BankingService (
         bankAccounts.forEach { this.bankAccountDao.insert(it) }
     }
 
+    fun findBankAccountByBudget(person: Person, budget: Budget) : List<PublicBankAccount>{
+        this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
+        return bankAccountDao.findByBudget(budget)
+    }
+
     fun synchronise(person: Person, budget: Budget) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
         val accounts = this.accountDao.findByBudget(budget)
@@ -53,5 +59,11 @@ class BankingService (
 
     fun getAgreementById(id: String) : BankAgreement {
         return this.bankAgreementDao.getById(id)
+    }
+
+    fun getBankAccountById(person: Person, id: String) : BankAccount {
+        val bankAccount = bankAccountDao.getById(id)
+        authorizationService.cancelIfUserIsUnauthorized(person, bankAccount)
+        return bankAccount
     }
 }

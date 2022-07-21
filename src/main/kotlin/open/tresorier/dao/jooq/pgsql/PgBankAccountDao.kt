@@ -8,8 +8,10 @@ import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.generated.jooq.main.Tables.*
 import org.jooq.impl.DSL
 import open.tresorier.model.banking.BankAccount
+import open.tresorier.model.banking.PublicBankAccount
 import open.tresorier.model.banking.BankAgreement
 import open.tresorier.model.Person
+import open.tresorier.model.Budget
 import org.jooq.Configuration
 import open.tresorier.generated.jooq.main.tables.pojos.BankAccount as JooqBankAccount
 
@@ -65,6 +67,23 @@ class PgBankAccountDao(val configuration: Configuration) : IBankAccountDao {
             BankAccount?.let{BankAccountList.add(BankAccount)}
         }
         return BankAccountList
+    }
+
+    override fun findByBudget(budget: Budget): List<PublicBankAccount> {
+        val query = this.query
+            .select(BANK_ACCOUNT.NAME, BANK_AGREEMENT.BANK_ID)
+            .from(BANK_ACCOUNT)
+            .leftJoin(BANK_AGREEMENT).on(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
+            .where(BANK_AGREEMENT.BUDGET_ID.eq(budget.id))
+            .groupBy(BANK_ACCOUNT.ID)
+            .orderBy(BANK_ACCOUNT.NAME)
+        val jooqBankAccountList = query.fetch()
+        val accountList: MutableList<PublicBankAccount> = mutableListOf()
+        for (bankAccountRecord in jooqBankAccountList) {
+            val publicBankAccount = PublicBankAccount(bankAccountRecord.get(BANK_ACCOUNT.NAME), bankAccountRecord.get(BANK_AGREEMENT.BANK_ID)) 
+            accountList.add(publicBankAccount)
+        }
+        return accountList
     }
 
     private fun toJooqBankAccount(BankAccount: BankAccount): JooqBankAccount {

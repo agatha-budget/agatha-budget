@@ -36,7 +36,8 @@ fun main() {
 
     app = addAccountRoute(app,
      ServiceManager.accountService,
-     ServiceManager.budgetService)
+     ServiceManager.budgetService,
+     ServiceManager.bankingService)
 
     app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
