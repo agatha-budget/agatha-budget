@@ -8,12 +8,8 @@
         <ChartPageHeader @change-graph="changeGraph"/>
       </div>
 
-      <div class="row dateNav mobileVersion">
-        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
-        <div class="col-8 date-label">
-            <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
-        </div>
-        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
+      <div class="mobileVersion">
+        <DateNav @change-month="changeMonth"/>
       </div>
 
       <div class="draw col-lg-7">
@@ -22,13 +18,7 @@
       </div>
 
       <div class="computerVersion col-lg-5">
-        <div class="row dateNav">
-          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
-          <div class="col-8 date-label">
-              <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
-          </div>
-          <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
-        </div>
+        <DateNav @change-month="changeMonth"/>
         <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie"/>
         <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
           <div class="form-check">
@@ -107,6 +97,7 @@ import ChartPageHeader from '@/components/headers/ChartPageHeader.vue'
 import BarChart from '@/components/charts/BarChart.vue'
 import PieChart from '@/components/charts/PieChart.vue'
 import RadioSelect from '@/components/RadioSelect.vue'
+import DateNav from '@/components/DateNavigation.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 import StoreHandler from '@/store/StoreHandler'
 import BudgetDataService from '@/services/BudgetDataService'
@@ -151,6 +142,7 @@ export default defineComponent({
     BarChart,
     PieChart,
     RadioSelect,
+    DateNav,
     NavMenu,
     Multiselect
   },
@@ -226,9 +218,6 @@ export default defineComponent({
         }
       }
       return optionsList
-    },
-    isThisYear (): boolean {
-      return Time.monthIsThisYear(this.budgetMonth)
     }
   },
   methods: {
@@ -366,19 +355,6 @@ export default defineComponent({
       }
       this.chartData.labels = this.getNames(this.masterCategoryId)
     },
-    getMonthAsDate (monthAsInt: number): Date {
-      return Time.getMonthAsDate(monthAsInt)
-    },
-    async goToNextMonth () {
-      this.budgetMonth = Time.getNextMonth(this.budgetMonth)
-      await this.getBudgetData()
-      this.recalculate()
-    },
-    async goToLastMonth () {
-      this.budgetMonth = Time.getLastMonth(this.budgetMonth)
-      await this.getBudgetData()
-      this.recalculate()
-    },
     recalculate () {
       this.drawPieChart()
       this.drawBarChart()
@@ -388,6 +364,15 @@ export default defineComponent({
     },
     changeTypeInformationPie (newTypeInformationPie: string) {
       this.typeInformationPie = newTypeInformationPie
+    },
+    async changeMonth (message: string) {
+      if (message === 'next') {
+        this.budgetMonth = Time.getNextMonth(this.budgetMonth)
+      } else {
+        this.budgetMonth = Time.getLastMonth(this.budgetMonth)
+      }
+      await this.getBudgetData()
+      this.recalculate()
     }
   }
 })
