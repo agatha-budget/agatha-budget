@@ -107,7 +107,7 @@ interface ChartPageData {
       labels: string[];
       datasets: {
         label: string;
-        backgroundColor: string[];
+        backgroundColor: string;
         data: number[];
       }[];
     };
@@ -164,7 +164,7 @@ export default defineComponent({
       barChartData: {
         labels: [],
         datasets: [
-          { label: '', backgroundColor: [], data: [] }
+          { label: '', backgroundColor: '', data: [] }
         ]
       },
       categoryDataList: {},
@@ -276,18 +276,20 @@ export default defineComponent({
     getColorsPieChart (): string[] {
       return [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor]
     },
-    getColorsBarChart (allocated: boolean, spent: boolean, available: boolean): string[] {
-      const listColor: string[] = []
-      if (allocated) {
-        listColor.push(allocatedColor)
+    getColorsBarChart (type: string): string {
+      let color = ''
+      switch (type) {
+        case 'allocated':
+          color = allocatedColor
+          break
+        case 'spent':
+          color = spentColor
+          break
+        case 'available':
+          color = availableColor
+          break
       }
-      if (spent) {
-        listColor.push(spentColor)
-      }
-      if (available) {
-        listColor.push(availableColor)
-      }
-      return listColor
+      return color
     },
     drawPieChart () {
       const labelList = this.getLegend(this.masterCategoryId)
@@ -300,30 +302,35 @@ export default defineComponent({
     drawBarChart () {
       this.barChartData.datasets = []
       if (this.typeInformationBar.indexOf('available') !== -1) {
-        const datasetsAvailable = {
-          label: this.$t('AVAILABLE'),
-          backgroundColor: this.getColorsBarChart(false, false, true),
-          data: this.getDatas('available', this.masterCategoryId)
-        }
-        this.barChartData.datasets.splice(0, 0, datasetsAvailable)
+        this.getBarDatasets('available')
       }
       if (this.typeInformationBar.indexOf('spent') !== -1) {
-        const datasetsSpent = {
-          label: this.$t('SPENT'),
-          backgroundColor: this.getColorsBarChart(false, true, false),
-          data: this.getDatas('spent', this.masterCategoryId)
-        }
-        this.barChartData.datasets.splice(0, 0, datasetsSpent)
+        this.getBarDatasets('spent')
       }
       if (this.typeInformationBar.indexOf('allocated') !== -1) {
-        const datasetsAllocation = {
-          label: this.$t('ALLOCATED'),
-          backgroundColor: this.getColorsBarChart(true, false, false),
-          data: this.getDatas('allocated', this.masterCategoryId)
-        }
-        this.barChartData.datasets.splice(0, 0, datasetsAllocation)
+        this.getBarDatasets('allocated')
       }
       this.barChartData.labels = this.getLegend(this.masterCategoryId)
+    },
+    getBarDatasets (type: string) {
+      let legend = ''
+      switch (type) {
+        case 'allocated':
+          legend = this.$t('ALLOCATED')
+          break
+        case 'spent':
+          legend = this.$t('SPENT')
+          break
+        case 'available':
+          legend = this.$t('AVAILABLE')
+          break
+      }
+      const newDatasets = {
+        label: legend,
+        backgroundColor: this.getColorsBarChart(type),
+        data: this.getDatas(type, this.masterCategoryId)
+      }
+      this.barChartData.datasets.splice(0, 0, newDatasets)
     },
     recalculate () {
       this.drawPieChart()
