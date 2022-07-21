@@ -18,20 +18,6 @@
         <DateNav :fromPage="'chart'" @change-month="changeMonth"/>
         <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie"/>
         <CheckboxSelect v-if="currentGraph == 'bar'" :choices="choicesTypeInformationBar" @had-selection="changeTypeInformationBar" />
-        <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="allocated" id="allocated" v-model="typeInformationBar">
-            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="spent" id="spent" v-model="typeInformationBar">
-            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="available" id="available" v-model="typeInformationBar">
-            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
-          </div>
-        </div>
         <div class="multiselect">
           <Multiselect
             v-on:change="recalculate"
@@ -47,21 +33,8 @@
         </div>
       </div>
       <div class="mobileVersion">
-        <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie" class="radioSelect typeSelection"/>
-        <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="allocated" id="allocated" v-model="typeInformationBar">
-            <label class="form-check-label" for="allocated">{{ $t('ALLOCATED') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="spent" id="spent" v-model="typeInformationBar">
-            <label class="form-check-label" for="spent">{{ $t('SPENT') }}</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="available" id="available" v-model="typeInformationBar">
-            <label class="form-check-label" for="available">{{ $t('AVAILABLE') }}</label>
-          </div>
-        </div>
+        <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie"/>
+        <CheckboxSelect v-if="currentGraph == 'bar'" :choices="choicesTypeInformationBar" @had-selection="changeTypeInformationBar" />
         <div class="multiselect">
           <Multiselect
             v-on:change="recalculate"
@@ -193,9 +166,9 @@ export default defineComponent({
         { label: this.$t('AVAILABLE'), value: 'available', preSelected: true }
       ],
       choicesTypeInformationBar: [
-        { label: 'allo', value: 'allocated', preSelected: true },
-        { label: 'spen', value: 'spent', preSelected: true },
-        { label: 'avai', value: 'available', preSelected: true }
+        { label: this.$t('ALLOCATED'), value: 'allocated', preSelected: true },
+        { label: this.$t('SPENT'), value: 'spent', preSelected: true },
+        { label: this.$t('AVAILABLE'), value: 'available', preSelected: true }
       ]
     }
   },
