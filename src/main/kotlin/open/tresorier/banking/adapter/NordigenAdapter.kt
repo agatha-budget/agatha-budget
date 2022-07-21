@@ -104,6 +104,11 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
     }
 
     override fun getOperations(account: Account) : List<Operation> {
+        var operationList = listOf<Operation>()
+
+        if (account.bankAccountId == null) {
+            return operationList
+        }
         // date format is 2022-07-07
         val from="2022-01-01"
         val url = "https://ob.nordigen.com/api/v2/accounts/${account.bankAccountId}/transactions/?date_from=${from}"
@@ -122,8 +127,6 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
 		}
         val response = JSONObject(connection.inputStream.reader().use { it.readText() })
         // add new transaction for account
-
-        var operationList = listOf<Operation>()
 
         var nordigenOperations = response.getJSONObject("transactions").getJSONArray("booked")
         for (i in 1..nordigenOperations.length()) {

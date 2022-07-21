@@ -10,6 +10,7 @@ import open.tresorier.banking.IBankingPort
 import open.tresorier.dao.IOperationDao
 import open.tresorier.dao.IBankAgreementDao
 import open.tresorier.dao.IBankAccountDao
+import open.tresorier.dao.IAccountDao
 
 
 class BankingService (
@@ -17,6 +18,7 @@ class BankingService (
     private val authorizationService: AuthorizationService,
     private val operationDao: IOperationDao,
     private val bankAgreementDao: IBankAgreementDao,
+    private val accountDao: IAccountDao,
     private val bankAccountDao: IBankAccountDao) {
 
     fun getLinkForUserAgreement(person: Person, bankId: String) : String {
@@ -26,16 +28,16 @@ class BankingService (
     fun updateBankAccountList(person: Person, agreement: BankAgreement) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, agreement)
         val bankAccounts = this.bankingAdapter.getBankAccountList(agreement)
-        //throw TresorierException(bankAccounts.toString())
         bankAccounts.forEach { this.bankAccountDao.insert(it) }
     }
 
-    fun associate(bankAccount : BankAccount, account : Account) {
-        //associate bankAccounts with Account 
-    }
-
-    fun synchronise(person: Person) {
-        //this.bankingAdapter.getOperations(person)
+    fun synchronise(person: Person, budget : Budget) {
+        this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
+        val accounts = this.accountDao.findByBudget()
+        accounts.forEach {
+            val operations = this.bankingAdapter.getOperations(account)
+            operations.forEach { this.operationDao.insert(it)
+        }
     }
 
     fun synchronise(person: Person, account: Account) {
@@ -51,5 +53,4 @@ class BankingService (
     fun getAgreementById(id: String) : BankAgreement {
         return this.bankAgreementDao.getById(id)
     }
-    
 }

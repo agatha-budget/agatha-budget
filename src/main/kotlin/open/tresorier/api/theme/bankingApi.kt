@@ -19,16 +19,20 @@ import open.tresorier.model.enum.PriceIdEnum
 import open.tresorier.api.*
 
 
-fun addBankingRoute(app : Javalin, personService: PersonService, bankingService: BankingService, accountService: AccountService) : Javalin {
+fun addBankingRoute(app : Javalin, personService: PersonService, bankingService: BankingService, 
+    accountService: AccountService, budgetService: BudgetService) : Javalin {
 
-    app.before("/banking/setup", SuperTokens.middleware())
-    app.get("/banking/setup") { ctx ->
+    app.get("/banks") { ctx ->
+        ctx.json(bankingService.getAvailableBanks())
+    }
+
+    app.before("/banking", SuperTokens.middleware())
+    app.get("/banking") { ctx ->
         val person = getUserFromAuth(ctx)
         val bankId = getQueryParam<String>(ctx, "bankId")
         ctx.result(bankingService.getLinkForUserAgreement(person, bankId))
     }
 
-    app.before("/banking/", SuperTokens.middleware())
     app.put("/banking") { ctx ->
         val person = getUserFromAuth(ctx)
         val bankAgreementId = getQueryParam<String>(ctx, "bankAgreementId")
@@ -36,16 +40,28 @@ fun addBankingRoute(app : Javalin, personService: PersonService, bankingService:
         bankingService.updateBankAccountList(person, bankAgreement)
     }
 
-    app.get("/banking") { ctx ->
+    app.before("/bank/accounts", SuperTokens.middleware())
+    app.get("/bank/accounts") { ctx ->
         val person = getUserFromAuth(ctx)
-        val accountId = getQueryParam<String>(ctx, "accountId")
-        val account = accountService.getById(person, accountId)
-        bankingService.synchronise(person, account)
+        bankingService.synchronise(person, budget)
     }
 
-    app.get("/banks") { ctx ->
-        ctx.json(bankingService.getAvailableBanks())
+    app.before("/bank/operations", SuperTokens.middleware())
+    app.get("/bank/operations") { ctx ->
+        val person = getUserFromAuth(ctx)
+        val accountId = getOptionalQueryParam<String>(ctx, "accountId")
+        val budgetId = getOptionalQueryParam<String>(ctx, "budgetId")
+
+        if (accountId) {
+            val account = accountService.getById(person, accountId)
+            bankingService.synchronise(person, account)
+        } else if (budgetId) {
+            val budget = budgetService.getById(person, budgetId)
+            bankingService.synchronise(person, budget)
+        }
     }
+
+  
     
     return app
 }
