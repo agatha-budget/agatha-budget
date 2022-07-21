@@ -12,7 +12,7 @@
       </div>
       <div class="draw col-lg-7">
         <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
-        <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
+        <BarChart :chartData="barChartData" v-if="currentGraph == 'bar'"/>
       </div>
       <div class="computerVersion col-lg-5">
         <DateNav :fromPage="'chart'" @change-month="changeMonth"/>
@@ -76,10 +76,10 @@
         </div>
       </div>
       <div class="placeholder bottom">
-          <NavMenu :page="'chart'" />
+        <NavMenu :page="'chart'" />
       </div>
       <div class="footer fixed">
-          <NavMenu :page="'chart'" />
+        <NavMenu :page="'chart'" />
       </div>
     </div>
   </div>
@@ -96,14 +96,14 @@ import DateNav from '@/components/DateNavigation.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 import StoreHandler from '@/store/StoreHandler'
 import BudgetDataService from '@/services/BudgetDataService'
-import { CategoryDataList, Budget, GroupSelectOption } from '@/model/model'
+import { CategoryDataList, Budget, GroupSelectOption, Category } from '@/model/model'
 import Utils from '@/utils/Utils'
 import Time from '@/utils/Time'
 import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor } from '@/model/colorList'
 import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
-    chartData: {
+    barChartData: {
       labels: string[];
       datasets: {
         label: string;
@@ -161,24 +161,17 @@ export default defineComponent({
   },
   data (): ChartPageData {
     return {
-      chartData: {
+      barChartData: {
         labels: [],
         datasets: [
-          {
-            label: '',
-            backgroundColor: [],
-            data: []
-          }
+          { label: '', backgroundColor: [], data: [] }
         ]
       },
       categoryDataList: {},
       pieChartData: {
         labels: [],
         datasets: [
-          {
-            backgroundColor: [],
-            data: []
-          }
+          { backgroundColor: [], data: [] }
         ]
       },
       typeInformationPie: 'available',
@@ -187,9 +180,9 @@ export default defineComponent({
       currentGraph: 'pie',
       budgetMonth: Time.getCurrentMonth(),
       choicesTypeInformationPie: [
-        { label: 'alloué', value: 'allocated', preSelected: false },
-        { label: 'dépensé', value: 'spent', preSelected: false },
-        { label: 'disponible', value: 'available', preSelected: true }
+        { label: this.$t('ALLOCATED'), value: 'allocated', preSelected: false },
+        { label: this.$t('SPENT'), value: 'spent', preSelected: false },
+        { label: this.$t('AVAILABLE'), value: 'available', preSelected: true }
       ]
     }
   },
@@ -226,7 +219,7 @@ export default defineComponent({
         )
       }
     },
-    getNames (masterCategorySelectedId: string): string[] {
+    getLegend (masterCategorySelectedId: string): string[] {
       const listName: string[] = []
       const masterCategorySelected = StoreHandler.getMasterCategoryById(this.$store, masterCategorySelectedId)
       if (masterCategorySelected) {
@@ -251,39 +244,34 @@ export default defineComponent({
       if (masterCategorySelected) {
         const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategorySelected, false)
         for (const category of categories) {
-          switch (type) {
-            case 'allocated':
-              listData.push(Utils.getEurosAmount(this.categoryDataList[category.id]?.allocated))
-              break
-            case 'spent':
-              listData.push(Utils.getEurosAmount(this.categoryDataList[category.id]?.spent * (-1)))
-              break
-            case 'available':
-              listData.push(Utils.getEurosAmount(this.categoryDataList[category.id]?.available))
-              break
-          }
+          listData.push(Utils.getEurosAmount(this.getCategoryDatas(type, category)))
         }
       } else {
         for (const masterCategory of this.$store.state.masterCategories) {
           let data = 0
           const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
           for (const category of categories) {
-            switch (type) {
-              case 'allocated':
-                data += this.categoryDataList[category.id]?.allocated
-                break
-              case 'spent':
-                data += this.categoryDataList[category.id]?.spent * (-1)
-                break
-              case 'available':
-                data += this.categoryDataList[category.id]?.available
-                break
-            }
+            data += this.getCategoryDatas(type, category)
           }
           listData.push(Utils.getEurosAmount(data))
         }
       }
       return listData
+    },
+    getCategoryDatas (type: string, category: Category): number {
+      let data = 0
+      switch (type) {
+        case 'allocated':
+          data = this.categoryDataList[category.id]?.allocated
+          break
+        case 'spent':
+          data = this.categoryDataList[category.id]?.spent * (-1)
+          break
+        case 'available':
+          data = this.categoryDataList[category.id]?.available
+          break
+      }
+      return data
     },
     getColorsPieChart (): string[] {
       return [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor]
@@ -302,7 +290,7 @@ export default defineComponent({
       return listColor
     },
     drawPieChart () {
-      const labelList = this.getNames(this.masterCategoryId)
+      const labelList = this.getLegend(this.masterCategoryId)
       const dataList = this.getDatas(this.typeInformationPie, this.masterCategoryId)
       const colorList = this.getColorsPieChart()
       this.pieChartData.labels = labelList
@@ -310,32 +298,32 @@ export default defineComponent({
       this.pieChartData.datasets[0].backgroundColor = colorList
     },
     drawBarChart () {
-      this.chartData.datasets = []
+      this.barChartData.datasets = []
       if (this.typeInformationBar.indexOf('available') !== -1) {
         const datasetsAvailable = {
-          label: 'Disponible',
+          label: this.$t('AVAILABLE'),
           backgroundColor: this.getColorsBarChart(false, false, true),
           data: this.getDatas('available', this.masterCategoryId)
         }
-        this.chartData.datasets.splice(0, 0, datasetsAvailable)
+        this.barChartData.datasets.splice(0, 0, datasetsAvailable)
       }
       if (this.typeInformationBar.indexOf('spent') !== -1) {
         const datasetsSpent = {
-          label: 'Dépensé',
+          label: this.$t('SPENT'),
           backgroundColor: this.getColorsBarChart(false, true, false),
           data: this.getDatas('spent', this.masterCategoryId)
         }
-        this.chartData.datasets.splice(0, 0, datasetsSpent)
+        this.barChartData.datasets.splice(0, 0, datasetsSpent)
       }
       if (this.typeInformationBar.indexOf('allocated') !== -1) {
         const datasetsAllocation = {
-          label: 'Allocation',
+          label: this.$t('ALLOCATED'),
           backgroundColor: this.getColorsBarChart(true, false, false),
           data: this.getDatas('allocated', this.masterCategoryId)
         }
-        this.chartData.datasets.splice(0, 0, datasetsAllocation)
+        this.barChartData.datasets.splice(0, 0, datasetsAllocation)
       }
-      this.chartData.labels = this.getNames(this.masterCategoryId)
+      this.barChartData.labels = this.getLegend(this.masterCategoryId)
     },
     recalculate () {
       this.drawPieChart()
