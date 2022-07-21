@@ -914,12 +914,15 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary get bank agreement portal URL
          * @param {string} bankId identifier of the wanted bank
+         * @param {string} budgetId id of the current budget
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLinkForBankAgreement: async (bankId: string, options: any = {}): Promise<RequestArgs> => {
+        getLinkForBankAgreement: async (bankId: string, budgetId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'bankId' is not null or undefined
             assertParamExists('getLinkForBankAgreement', 'bankId', bankId)
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('getLinkForBankAgreement', 'budgetId', budgetId)
             const localVarPath = `/banking`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -938,6 +941,10 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
 
             if (bankId !== undefined) {
                 localVarQueryParameter['bankId'] = bankId;
+            }
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budgetId'] = budgetId;
             }
 
 
@@ -1069,11 +1076,12 @@ export const BankingApiFp = function(configuration?: Configuration) {
          * 
          * @summary get bank agreement portal URL
          * @param {string} bankId identifier of the wanted bank
+         * @param {string} budgetId id of the current budget
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLinkForBankAgreement(bankId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getLinkForBankAgreement(bankId, options);
+        async getLinkForBankAgreement(bankId: string, budgetId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLinkForBankAgreement(bankId, budgetId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1132,11 +1140,12 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
          * 
          * @summary get bank agreement portal URL
          * @param {string} bankId identifier of the wanted bank
+         * @param {string} budgetId id of the current budget
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLinkForBankAgreement(bankId: string, options?: any): AxiosPromise<string> {
-            return localVarFp.getLinkForBankAgreement(bankId, options).then((request) => request(axios, basePath));
+        getLinkForBankAgreement(bankId: string, budgetId: string, options?: any): AxiosPromise<string> {
+            return localVarFp.getLinkForBankAgreement(bankId, budgetId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1196,12 +1205,13 @@ export class BankingApi extends BaseAPI {
      * 
      * @summary get bank agreement portal URL
      * @param {string} bankId identifier of the wanted bank
+     * @param {string} budgetId id of the current budget
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BankingApi
      */
-    public getLinkForBankAgreement(bankId: string, options?: any) {
-        return BankingApiFp(this.configuration).getLinkForBankAgreement(bankId, options).then((request) => request(this.axios, this.basePath));
+    public getLinkForBankAgreement(bankId: string, budgetId: string, options?: any) {
+        return BankingApiFp(this.configuration).getLinkForBankAgreement(bankId, budgetId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

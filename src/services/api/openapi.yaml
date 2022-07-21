@@ -267,6 +267,14 @@ paths:
         explode: true
         schema:
           type: string
+      - name: budgetId
+        in: query
+        description: id of the current budget
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: Agreement url created
