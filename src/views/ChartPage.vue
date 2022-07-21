@@ -7,16 +7,13 @@
       <div class="placeholder top">
         <ChartPageHeader @change-graph="changeGraph"/>
       </div>
-
       <div class="mobileVersion">
         <DateNav :fromPage="'chart'" @change-month="changeMonth"/>
       </div>
-
       <div class="draw col-lg-7">
         <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
         <BarChart :chartData="chartData" v-if="currentGraph == 'bar'"/>
       </div>
-
       <div class="computerVersion col-lg-5">
         <DateNav :fromPage="'chart'" @change-month="changeMonth"/>
         <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie"/>
@@ -48,7 +45,6 @@
           />
         </div>
       </div>
-
       <div class="mobileVersion">
         <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie" class="radioSelect typeSelection"/>
         <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
@@ -79,7 +75,6 @@
           />
         </div>
       </div>
-
       <div class="placeholder bottom">
           <NavMenu :page="'chart'" />
       </div>
@@ -104,6 +99,7 @@ import BudgetDataService from '@/services/BudgetDataService'
 import { CategoryDataList, Budget, GroupSelectOption } from '@/model/model'
 import Utils from '@/utils/Utils'
 import Time from '@/utils/Time'
+import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor } from '@/model/colorList'
 import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
@@ -289,40 +285,26 @@ export default defineComponent({
       }
       return listData
     },
-    getColor (allocated: boolean, spent: boolean, available: boolean, nb: number): string[] {
-      let listColor: string[] = []
+    getColorsPieChart (): string[] {
+      return [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor]
+    },
+    getColorsBarChart (allocated: boolean, spent: boolean, available: boolean): string[] {
+      const listColor: string[] = []
       if (allocated) {
-        listColor.push('#b2babb')
+        listColor.push(allocatedColor)
       }
       if (spent) {
-        listColor.push('#dc7633')
+        listColor.push(spentColor)
       }
       if (available) {
-        listColor.push('#45c1b8')
-      }
-      if (nb !== 0) {
-        listColor = ['#3498db', '#e74c3c', '#f1c40f']
-        if (nb > 3) {
-          listColor.splice(2, 0, '#27ae60')
-          listColor.push('#fb19cb')
-          if (nb > 5) {
-            listColor.splice(2, 0, '#8e44ad')
-            if (nb > 6) {
-              listColor.splice(2, 0, '#fba619')
-              if (nb > 7) {
-                listColor.splice(6, 0, '#152c8c')
-                listColor.push('#935116', '#fdfefe', '#17202a')
-              }
-            }
-          }
-        }
+        listColor.push(availableColor)
       }
       return listColor
     },
     drawPieChart () {
       const labelList = this.getNames(this.masterCategoryId)
       const dataList = this.getDatas(this.typeInformationPie, this.masterCategoryId)
-      const colorList = this.getColor(false, false, false, dataList.length)
+      const colorList = this.getColorsPieChart()
       this.pieChartData.labels = labelList
       this.pieChartData.datasets[0].data = dataList
       this.pieChartData.datasets[0].backgroundColor = colorList
@@ -332,7 +314,7 @@ export default defineComponent({
       if (this.typeInformationBar.indexOf('available') !== -1) {
         const datasetsAvailable = {
           label: 'Disponible',
-          backgroundColor: this.getColor(false, false, true, 0),
+          backgroundColor: this.getColorsBarChart(false, false, true),
           data: this.getDatas('available', this.masterCategoryId)
         }
         this.chartData.datasets.splice(0, 0, datasetsAvailable)
@@ -340,7 +322,7 @@ export default defineComponent({
       if (this.typeInformationBar.indexOf('spent') !== -1) {
         const datasetsSpent = {
           label: 'Dépensé',
-          backgroundColor: this.getColor(false, true, false, 0),
+          backgroundColor: this.getColorsBarChart(false, true, false),
           data: this.getDatas('spent', this.masterCategoryId)
         }
         this.chartData.datasets.splice(0, 0, datasetsSpent)
@@ -348,7 +330,7 @@ export default defineComponent({
       if (this.typeInformationBar.indexOf('allocated') !== -1) {
         const datasetsAllocation = {
           label: 'Allocation',
-          backgroundColor: this.getColor(true, false, false, 0),
+          backgroundColor: this.getColorsBarChart(true, false, false),
           data: this.getDatas('allocated', this.masterCategoryId)
         }
         this.chartData.datasets.splice(0, 0, datasetsAllocation)
