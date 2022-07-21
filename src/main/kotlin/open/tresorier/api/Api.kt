@@ -30,9 +30,9 @@ fun main() {
     ServiceManager.start()
 
     app = addBankingRoute(app,
-     ServiceManager.personService,
      ServiceManager.bankingService,
-     ServiceManager.accountService)
+     ServiceManager.accountService,
+     ServiceManager.budgetService)
 
     app = addAccountRoute(app,
      ServiceManager.accountService,

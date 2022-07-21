@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAgreement extends TableImpl<BankAgreementRecord> {
 
-    private static final long serialVersionUID = -1198259849;
+    private static final long serialVersionUID = 985209207;
 
     /**
      * The reference instance of <code>public.bank_agreement</code>
@@ -52,9 +52,9 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
     public final TableField<BankAgreementRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>public.bank_agreement.person_id</code>.
+     * The column <code>public.bank_agreement.budget_id</code>.
      */
-    public final TableField<BankAgreementRecord, String> PERSON_ID = createField(DSL.name("person_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BankAgreementRecord, String> BUDGET_ID = createField(DSL.name("budget_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.bank_agreement.bank_id</code>.
@@ -131,11 +131,11 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
 
     @Override
     public List<ForeignKey<BankAgreementRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<BankAgreementRecord, ?>>asList(Keys.BANK_AGREEMENT__BANK_AGREEMENT_PERSON_ID_FKEY);
+        return Arrays.<ForeignKey<BankAgreementRecord, ?>>asList(Keys.BANK_AGREEMENT__BANK_AGREEMENT_BUDGET_ID_FKEY);
     }
 
-    public Person person() {
-        return new Person(this, Keys.BANK_AGREEMENT__BANK_AGREEMENT_PERSON_ID_FKEY);
+    public Budget budget() {
+        return new Budget(this, Keys.BANK_AGREEMENT__BANK_AGREEMENT_BUDGET_ID_FKEY);
     }
 
     @Override

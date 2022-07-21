@@ -5,9 +5,7 @@ import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.test.public_.tables.records.BankAccountRecord
 import open.tresorier.generated.jooq.test.public_.tables.daos.BankAccountDao
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
-import open.tresorier.generated.jooq.test.public_.Tables.PERSON
-import open.tresorier.generated.jooq.test.public_.Tables.BANK_AGREEMENT
-import open.tresorier.generated.jooq.test.public_.Tables.BANK_ACCOUNT
+import open.tresorier.generated.jooq.test.public_.Tables.*
 import org.jooq.impl.DSL
 import open.tresorier.model.banking.BankAccount
 import open.tresorier.model.banking.BankAgreement
@@ -48,7 +46,8 @@ class H2BankAccountDao(val configuration: Configuration) : IBankAccountDao {
     override fun getOwner(bankAccount: BankAccount) : Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
-                    .join(BANK_AGREEMENT).on(BANK_AGREEMENT.PERSON_ID.eq(PERSON.ID))
+                    .join(BUDGET).on(BUDGET.PERSON_ID.eq(PERSON.ID))
+                    .join(BANK_AGREEMENT).on(BANK_AGREEMENT.BUDGET_ID.eq(BUDGET.ID))
                     .join(BANK_ACCOUNT).on(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
                     .where(BANK_ACCOUNT.ID.eq(bankAccount.id))
                     .fetchAny().into(PERSON)

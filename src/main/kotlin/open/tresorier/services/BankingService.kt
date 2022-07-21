@@ -2,6 +2,7 @@ package open.tresorier.services
 
 import open.tresorier.model.Person
 import open.tresorier.model.Account
+import open.tresorier.model.Budget
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.banking.Bank
 import open.tresorier.model.banking.BankAccount
@@ -31,12 +32,12 @@ class BankingService (
         bankAccounts.forEach { this.bankAccountDao.insert(it) }
     }
 
-    fun synchronise(person: Person, budget : Budget) {
+    fun synchronise(person: Person, budget: Budget) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
-        val accounts = this.accountDao.findByBudget()
+        val accounts = this.accountDao.findByBudget(budget)
         accounts.forEach {
-            val operations = this.bankingAdapter.getOperations(account)
-            operations.forEach { this.operationDao.insert(it)
+            val operations = this.bankingAdapter.getOperations(it)
+            operations.forEach { this.operationDao.insert(it) }
         }
     }
 

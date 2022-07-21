@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAgreement extends TableImpl<BankAgreementRecord> {
 
-    private static final long serialVersionUID = 453832360;
+    private static final long serialVersionUID = 252590728;
 
     /**
      * The reference instance of <code>PUBLIC.BANK_AGREEMENT</code>
@@ -52,9 +52,9 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
     public final TableField<BankAgreementRecord, String> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.BANK_AGREEMENT.PERSON_ID</code>.
+     * The column <code>PUBLIC.BANK_AGREEMENT.BUDGET_ID</code>.
      */
-    public final TableField<BankAgreementRecord, String> PERSON_ID = createField(DSL.name("PERSON_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BankAgreementRecord, String> BUDGET_ID = createField(DSL.name("BUDGET_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.BANK_AGREEMENT.BANK_ID</code>.
@@ -134,8 +134,8 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
         return Arrays.<ForeignKey<BankAgreementRecord, ?>>asList(Keys.CONSTRAINT_49);
     }
 
-    public Person person() {
-        return new Person(this, Keys.CONSTRAINT_49);
+    public Budget budget() {
+        return new Budget(this, Keys.CONSTRAINT_49);
     }
 
     @Override

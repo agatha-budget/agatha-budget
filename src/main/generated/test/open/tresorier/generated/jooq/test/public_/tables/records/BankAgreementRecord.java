@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord> implements Record7<String, String, String, Long, String, Boolean, Boolean> {
 
-    private static final long serialVersionUID = -3646614;
+    private static final long serialVersionUID = -1598465622;
 
     /**
      * Setter for <code>PUBLIC.BANK_AGREEMENT.ID</code>.
@@ -37,17 +37,17 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
     }
 
     /**
-     * Setter for <code>PUBLIC.BANK_AGREEMENT.PERSON_ID</code>.
+     * Setter for <code>PUBLIC.BANK_AGREEMENT.BUDGET_ID</code>.
      */
-    public BankAgreementRecord setPersonId(String value) {
+    public BankAgreementRecord setBudgetId(String value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>PUBLIC.BANK_AGREEMENT.PERSON_ID</code>.
+     * Getter for <code>PUBLIC.BANK_AGREEMENT.BUDGET_ID</code>.
      */
-    public String getPersonId() {
+    public String getBudgetId() {
         return (String) get(1);
     }
 
@@ -156,7 +156,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
 
     @Override
     public Field<String> field2() {
-        return BankAgreement.BANK_AGREEMENT.PERSON_ID;
+        return BankAgreement.BANK_AGREEMENT.BUDGET_ID;
     }
 
     @Override
@@ -191,7 +191,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
 
     @Override
     public String component2() {
-        return getPersonId();
+        return getBudgetId();
     }
 
     @Override
@@ -226,7 +226,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
 
     @Override
     public String value2() {
-        return getPersonId();
+        return getBudgetId();
     }
 
     @Override
@@ -262,7 +262,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
 
     @Override
     public BankAgreementRecord value2(String value) {
-        setPersonId(value);
+        setBudgetId(value);
         return this;
     }
 
@@ -322,11 +322,11 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
     /**
      * Create a detached, initialised BankAgreementRecord
      */
-    public BankAgreementRecord(String id, String personId, String bankId, Long validUntil, String nordigenRequisitionId, Boolean archived, Boolean deleted) {
+    public BankAgreementRecord(String id, String budgetId, String bankId, Long validUntil, String nordigenRequisitionId, Boolean archived, Boolean deleted) {
         super(BankAgreement.BANK_AGREEMENT);
 
         set(0, id);
-        set(1, personId);
+        set(1, budgetId);
         set(2, bankId);
         set(3, validUntil);
         set(4, nordigenRequisitionId);

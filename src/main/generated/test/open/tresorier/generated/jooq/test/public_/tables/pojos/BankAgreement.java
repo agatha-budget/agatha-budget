@@ -13,10 +13,10 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAgreement implements Serializable {
 
-    private static final long serialVersionUID = 1157017737;
+    private static final long serialVersionUID = 1407468121;
 
     private final String  id;
-    private final String  personId;
+    private final String  budgetId;
     private final String  bankId;
     private final Long    validUntil;
     private final String  nordigenRequisitionId;
@@ -25,7 +25,7 @@ public class BankAgreement implements Serializable {
 
     public BankAgreement(BankAgreement value) {
         this.id = value.id;
-        this.personId = value.personId;
+        this.budgetId = value.budgetId;
         this.bankId = value.bankId;
         this.validUntil = value.validUntil;
         this.nordigenRequisitionId = value.nordigenRequisitionId;
@@ -35,7 +35,7 @@ public class BankAgreement implements Serializable {
 
     public BankAgreement(
         String  id,
-        String  personId,
+        String  budgetId,
         String  bankId,
         Long    validUntil,
         String  nordigenRequisitionId,
@@ -43,7 +43,7 @@ public class BankAgreement implements Serializable {
         Boolean deleted
     ) {
         this.id = id;
-        this.personId = personId;
+        this.budgetId = budgetId;
         this.bankId = bankId;
         this.validUntil = validUntil;
         this.nordigenRequisitionId = nordigenRequisitionId;
@@ -55,8 +55,8 @@ public class BankAgreement implements Serializable {
         return this.id;
     }
 
-    public String getPersonId() {
-        return this.personId;
+    public String getBudgetId() {
+        return this.budgetId;
     }
 
     public String getBankId() {
@@ -84,7 +84,7 @@ public class BankAgreement implements Serializable {
         StringBuilder sb = new StringBuilder("BankAgreement (");
 
         sb.append(id);
-        sb.append(", ").append(personId);
+        sb.append(", ").append(budgetId);
         sb.append(", ").append(bankId);
         sb.append(", ").append(validUntil);
         sb.append(", ").append(nordigenRequisitionId);

@@ -13,13 +13,14 @@ import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.services.PersonService
 import open.tresorier.services.AccountService
+import open.tresorier.services.BudgetService
 import open.tresorier.services.BankingService
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.model.enum.PriceIdEnum
 import open.tresorier.api.*
 
 
-fun addBankingRoute(app : Javalin, personService: PersonService, bankingService: BankingService, 
+fun addBankingRoute(app : Javalin, bankingService: BankingService, 
     accountService: AccountService, budgetService: BudgetService) : Javalin {
 
     app.get("/banks") { ctx ->
@@ -43,6 +44,8 @@ fun addBankingRoute(app : Javalin, personService: PersonService, bankingService:
     app.before("/bank/accounts", SuperTokens.middleware())
     app.get("/bank/accounts") { ctx ->
         val person = getUserFromAuth(ctx)
+        val budgetId = getQueryParam<String>(ctx, "budgetId")
+        val budget = budgetService.getById(person, budgetId)
         bankingService.synchronise(person, budget)
     }
 
@@ -52,10 +55,10 @@ fun addBankingRoute(app : Javalin, personService: PersonService, bankingService:
         val accountId = getOptionalQueryParam<String>(ctx, "accountId")
         val budgetId = getOptionalQueryParam<String>(ctx, "budgetId")
 
-        if (accountId) {
+        if (accountId != null) {
             val account = accountService.getById(person, accountId)
             bankingService.synchronise(person, account)
-        } else if (budgetId) {
+        } else if (budgetId != null) {
             val budget = budgetService.getById(person, budgetId)
             bankingService.synchronise(person, budget)
         }

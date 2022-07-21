@@ -6,10 +6,12 @@ import open.tresorier.generated.jooq.test.public_.tables.records.BankAgreementRe
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.generated.jooq.test.public_.tables.daos.BankAgreementDao
 import open.tresorier.generated.jooq.test.public_.Tables.PERSON
+import open.tresorier.generated.jooq.test.public_.Tables.BUDGET
 import open.tresorier.generated.jooq.test.public_.Tables.BANK_AGREEMENT
 import org.jooq.impl.DSL
 import open.tresorier.model.banking.BankAgreement
 import open.tresorier.model.Person
+import open.tresorier.model.Budget
 import org.jooq.Configuration
 import open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement as JooqBankAgreement
 
@@ -46,17 +48,17 @@ class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
     override fun getOwner(bankAgreement: BankAgreement) : Person {
         try {
             val owner: PersonRecord = this.query.select().from(PERSON)
-                    .join(BANK_AGREEMENT).on(BANK_AGREEMENT.PERSON_ID.eq(PERSON.ID))
-                    .where(BANK_AGREEMENT.ID.eq(bankAgreement.id))
-                    .fetchAny().into(PERSON)
+                .join(BUDGET).on(BUDGET.ID.eq(bankAgreement.budgetId))
+                .where(PERSON.ID.eq(BUDGET.ID))
+                .fetchAny().into(PERSON)
             return H2PersonDao.toPerson(owner)
         } catch (e : Exception) {
             throw TresorierException("the given object appears to have no owner")
         }
     }
 
-    override fun findByPerson(person: Person): List<BankAgreement> {
-        val jooqBankAgreementList = this.generatedDao.fetchByPersonId(person.id)
+    override fun findByBudget(budget: Budget): List<BankAgreement> {
+        val jooqBankAgreementList = this.generatedDao.fetchByBudgetId(budget.id)
         val bankAgreementList : MutableList<BankAgreement> = mutableListOf()
         for (jooqBankAgreement in jooqBankAgreementList){
             var bankAgreement = this.toBankAgreement(jooqBankAgreement)
@@ -68,7 +70,7 @@ class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
     private fun toJooqBankAgreement(bankAgreement: BankAgreement): JooqBankAgreement {
         return JooqBankAgreement(
             bankAgreement.id,
-            bankAgreement.personId,
+            bankAgreement.budgetId,
             bankAgreement.bankId,
             bankAgreement.validUntil,
             bankAgreement.nordigenRequisitionId,
@@ -79,7 +81,7 @@ class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
 
     private fun toBankAgreement(jooqBankAgreement: JooqBankAgreement): BankAgreement {
         return BankAgreement(
-            jooqBankAgreement.personId,
+            jooqBankAgreement.budgetId,
             jooqBankAgreement.bankId,
             jooqBankAgreement.validUntil,
             jooqBankAgreement.nordigenRequisitionId,

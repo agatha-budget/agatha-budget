@@ -4,7 +4,7 @@ import open.tresorier.utils.Time
 import open.tresorier.model.DbObject
 
 open class BankAgreement (
-    var personId: String,
+    var budgetId: String,
     var bankId: String,
     val validUntil: Long = Time.in90Days(),
     var nordigenRequisitionId: String? = null,

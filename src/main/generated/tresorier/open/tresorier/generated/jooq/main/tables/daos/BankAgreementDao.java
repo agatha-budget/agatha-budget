@@ -60,17 +60,17 @@ public class BankAgreementDao extends DAOImpl<BankAgreementRecord, open.tresorie
     }
 
     /**
-     * Fetch records that have <code>person_id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>budget_id BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.BankAgreement> fetchRangeOfPersonId(String lowerInclusive, String upperInclusive) {
-        return fetchRange(BankAgreement.BANK_AGREEMENT.PERSON_ID, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.BankAgreement> fetchRangeOfBudgetId(String lowerInclusive, String upperInclusive) {
+        return fetchRange(BankAgreement.BANK_AGREEMENT.BUDGET_ID, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>person_id IN (values)</code>
+     * Fetch records that have <code>budget_id IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.BankAgreement> fetchByPersonId(String... values) {
-        return fetch(BankAgreement.BANK_AGREEMENT.PERSON_ID, values);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.BankAgreement> fetchByBudgetId(String... values) {
+        return fetch(BankAgreement.BANK_AGREEMENT.BUDGET_ID, values);
     }
 
     /**
