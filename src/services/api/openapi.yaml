@@ -237,7 +237,22 @@ paths:
       security:
         - accessToken: []
           refreshTokenId: []
-  /banking/setup:
+  /banks:
+    get:
+      tags:
+        - Banking
+      summary: get availables banks list
+      operationId: getAvailableBanks
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bank'
+  /banking:
     get:
       tags:
         - Banking
@@ -270,7 +285,6 @@ paths:
       security:
         - accessToken: []
           refreshTokenId: []
-  /banking:
     put:
       tags:
         - Banking
@@ -303,15 +317,16 @@ paths:
       security:
         - accessToken: []
           refreshTokenId: []
+  /bank/accounts:
     get:
       tags:
         - Banking
-      summary: getBankTransactions
-      operationId: getBankTransactions
+      summary: get synchronised accounts list
+      operationId: getSynchronisedAccounts
       parameters:
-      - name: accountId
+      - name: budgetId
         in: query
-        description: identifier of the wanted account
+        description: to synchronise a specific account
         required: true
         style: form
         explode: true
@@ -319,7 +334,42 @@ paths:
           type: string
       responses:
         "200":
-          description: Agreement url created
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BankAccount'
+      security:
+        - accessToken: []
+          refreshTokenId: []
+  /bank/operations:
+    get:
+      tags:
+        - Banking
+      summary: getBankOperations
+      operationId: getBankOperations
+      parameters:
+      - name: accountId
+        in: query
+        description: to synchronise a specific account
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: budgetId
+        in: query
+        description: to synchronise all accounts from a budget (ignored if accountId is set)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: operation imported
           content:
             application/json:
               schema:
@@ -335,21 +385,6 @@ paths:
       security:
         - accessToken: []
           refreshTokenId: []
-  /banks:
-    get:
-      tags:
-        - Banking
-      summary: get availables banks list
-      operationId: getAvailableBanks
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Bank'
   /budget:
     put:
       tags:
@@ -1472,6 +1507,19 @@ components:
         id:
           type: string
         logo:
+          type: string
+      xml:
+        name: bank
+    BankAccount:
+      required:
+      - name
+      - bankId
+      - validUntil
+      type: object
+      properties:
+        name:
+          type: string
+        bankId:
           type: string
       xml:
         name: bank

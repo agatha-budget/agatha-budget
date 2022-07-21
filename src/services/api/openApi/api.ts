@@ -99,6 +99,25 @@ export interface Bank {
 /**
  * 
  * @export
+ * @interface BankAccount
+ */
+export interface BankAccount {
+    /**
+     * 
+     * @type {string}
+     * @memberof BankAccount
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BankAccount
+     */
+    bankId: string;
+}
+/**
+ * 
+ * @export
  * @interface Budget
  */
 export interface Budget {
@@ -849,15 +868,14 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary getBankTransactions
-         * @param {string} accountId identifier of the wanted account
+         * @summary getBankOperations
+         * @param {string} [accountId] to synchronise a specific account
+         * @param {string} [budgetId] to synchronise all accounts from a budget (ignored if accountId is set)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBankTransactions: async (accountId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('getBankTransactions', 'accountId', accountId)
-            const localVarPath = `/banking`;
+        getBankOperations: async (accountId?: string, budgetId?: string, options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/bank/operations`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -875,6 +893,10 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
 
             if (accountId !== undefined) {
                 localVarQueryParameter['accountId'] = accountId;
+            }
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budgetId'] = budgetId;
             }
 
 
@@ -898,7 +920,7 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
         getLinkForBankAgreement: async (bankId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'bankId' is not null or undefined
             assertParamExists('getLinkForBankAgreement', 'bankId', bankId)
-            const localVarPath = `/banking/setup`;
+            const localVarPath = `/banking`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -916,6 +938,47 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
 
             if (bankId !== undefined) {
                 localVarQueryParameter['bankId'] = bankId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary get synchronised accounts list
+         * @param {string} budgetId to synchronise a specific account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSynchronisedAccounts: async (budgetId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'budgetId' is not null or undefined
+            assertParamExists('getSynchronisedAccounts', 'budgetId', budgetId)
+            const localVarPath = `/bank/accounts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication accessToken required
+
+            // authentication refreshTokenId required
+
+            if (budgetId !== undefined) {
+                localVarQueryParameter['budgetId'] = budgetId;
             }
 
 
@@ -992,13 +1055,14 @@ export const BankingApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary getBankTransactions
-         * @param {string} accountId identifier of the wanted account
+         * @summary getBankOperations
+         * @param {string} [accountId] to synchronise a specific account
+         * @param {string} [budgetId] to synchronise all accounts from a budget (ignored if accountId is set)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBankTransactions(accountId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBankTransactions(accountId, options);
+        async getBankOperations(accountId?: string, budgetId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBankOperations(accountId, budgetId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1010,6 +1074,17 @@ export const BankingApiFp = function(configuration?: Configuration) {
          */
         async getLinkForBankAgreement(bankId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getLinkForBankAgreement(bankId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary get synchronised accounts list
+         * @param {string} budgetId to synchronise a specific account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSynchronisedAccounts(budgetId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BankAccount>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSynchronisedAccounts(budgetId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1044,13 +1119,14 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary getBankTransactions
-         * @param {string} accountId identifier of the wanted account
+         * @summary getBankOperations
+         * @param {string} [accountId] to synchronise a specific account
+         * @param {string} [budgetId] to synchronise all accounts from a budget (ignored if accountId is set)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBankTransactions(accountId: string, options?: any): AxiosPromise<string> {
-            return localVarFp.getBankTransactions(accountId, options).then((request) => request(axios, basePath));
+        getBankOperations(accountId?: string, budgetId?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.getBankOperations(accountId, budgetId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1061,6 +1137,16 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
          */
         getLinkForBankAgreement(bankId: string, options?: any): AxiosPromise<string> {
             return localVarFp.getLinkForBankAgreement(bankId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary get synchronised accounts list
+         * @param {string} budgetId to synchronise a specific account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSynchronisedAccounts(budgetId: string, options?: any): AxiosPromise<Array<BankAccount>> {
+            return localVarFp.getSynchronisedAccounts(budgetId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1095,14 +1181,15 @@ export class BankingApi extends BaseAPI {
 
     /**
      * 
-     * @summary getBankTransactions
-     * @param {string} accountId identifier of the wanted account
+     * @summary getBankOperations
+     * @param {string} [accountId] to synchronise a specific account
+     * @param {string} [budgetId] to synchronise all accounts from a budget (ignored if accountId is set)
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BankingApi
      */
-    public getBankTransactions(accountId: string, options?: any) {
-        return BankingApiFp(this.configuration).getBankTransactions(accountId, options).then((request) => request(this.axios, this.basePath));
+    public getBankOperations(accountId?: string, budgetId?: string, options?: any) {
+        return BankingApiFp(this.configuration).getBankOperations(accountId, budgetId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -1115,6 +1202,18 @@ export class BankingApi extends BaseAPI {
      */
     public getLinkForBankAgreement(bankId: string, options?: any) {
         return BankingApiFp(this.configuration).getLinkForBankAgreement(bankId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary get synchronised accounts list
+     * @param {string} budgetId to synchronise a specific account
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BankingApi
+     */
+    public getSynchronisedAccounts(budgetId: string, options?: any) {
+        return BankingApiFp(this.configuration).getSynchronisedAccounts(budgetId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
