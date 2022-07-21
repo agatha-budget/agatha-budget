@@ -9,7 +9,7 @@
       </div>
 
       <div class="mobileVersion">
-        <DateNav @change-month="changeMonth"/>
+        <DateNav :fromPage="'chart'" @change-month="changeMonth"/>
       </div>
 
       <div class="draw col-lg-7">
@@ -18,7 +18,7 @@
       </div>
 
       <div class="computerVersion col-lg-5">
-        <DateNav @change-month="changeMonth"/>
+        <DateNav :fromPage="'chart'" @change-month="changeMonth"/>
         <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie"/>
         <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
           <div class="form-check">
