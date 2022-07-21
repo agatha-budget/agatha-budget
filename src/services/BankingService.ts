@@ -1,4 +1,4 @@
-import { Bank } from '@/model/model'
+import { Bank, Budget, BankAccount } from '@/model/model'
 import { bankingApi } from '@/services/api/apis'
 import axios from 'axios'
 
@@ -8,9 +8,18 @@ export default class BankingService {
     return response.data
   }
 
-  public static async goToBankAgreement (bankId: string) {
+  public static async getSynchronisedAccount (budget: Budget): Promise<BankAccount[]> {
+    const response = await bankingApi.getSynchronisedAccounts(budget.id)
+    return response.data
+  }
+
+  public static async updateBankAccountList (bankAgreemendId: string) {
+    await bankingApi.updateBankAccountList(bankAgreemendId)
+  }
+
+  public static async goToBankAgreement (budget: Budget, bankId: string) {
     try {
-      const agreementUrl = (await (bankingApi.getLinkForBankAgreement(bankId))).data
+      const agreementUrl = (await (bankingApi.getLinkForBankAgreement(bankId, budget.id))).data
       window.location.href = agreementUrl
     } catch (exception) {
       if (axios.isAxiosError(exception)) {

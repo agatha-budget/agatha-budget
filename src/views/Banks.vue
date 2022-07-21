@@ -11,6 +11,11 @@
         <div class="banner">
           <div class="title">{{ $t('SYNCHRONISED_ACCOUNTS') }}</div>
         </div>
+
+        <template v-for="bankAccount in this.bankAccounts" :key="bankAccount">
+            <span>{{ bankAccount.name }}</span>
+        </template>
+
         <div class="banner">
           <div class="title">{{ $t('ADD_A_BANK') }}</div>
         </div>
@@ -34,23 +39,45 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import StoreHandler from '@/store/StoreHandler'
 import NavMenu from '@/components/NavigationMenu.vue'
 import BankingService from '@/services/BankingService'
-import { Bank } from '@/model/model'
+import { Bank, BankAccount, Budget } from '@/model/model'
 
 interface BanksData {
     availableBanks: Bank[];
+    bankAccounts: BankAccount[];
 }
 
 export default defineComponent({
   name: 'banksPage',
   components: { NavMenu },
   created: async function () {
+    StoreHandler.initBudget(this.$store)
     this.getAvailableBanks()
+    this.getSynchronisedAccount()
+    this.updateIfAgreement()
+  },
+  props: {
+    query: {
+      type: String,
+      required: false
+    }
   },
   data (): BanksData {
     return {
-      availableBanks: []
+      availableBanks: [],
+      bankAccounts: []
+    }
+  },
+  watch: {
+    budget: async function () {
+      this.getSynchronisedAccount()
+    }
+  },
+  computed: {
+    budget (): Budget | null {
+      return this.$store.state.budget
     }
   },
   methods: {
@@ -61,8 +88,25 @@ export default defineComponent({
         }
       )
     },
+    async getSynchronisedAccount () {
+      if (this.budget) {
+        BankingService.getSynchronisedAccount(this.budget).then(
+          (bankAccountList) => {
+            this.bankAccounts = bankAccountList
+          }
+        )
+      }
+    },
     getBankAuthorization (bankId: string) {
-      BankingService.goToBankAgreement(bankId)
+      if (this.budget) {
+        BankingService.goToBankAgreement(this.budget, bankId)
+      }
+    },
+    updateIfAgreement () {
+      if (this.$props.query != null) {
+        const agreementId = this.$props.query.split('?')[0]
+        BankingService.updateBankAccountList(agreementId)
+      }
     }
   }
 })

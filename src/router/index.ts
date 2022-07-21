@@ -43,7 +43,8 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: RouterPages.banks,
-    component: Banks
+    component: Banks,
+    props: route => ({ query: route.query.agreementId })
   },
   {
     path: RouterPages.redirectToAccountPage,
