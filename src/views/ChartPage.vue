@@ -17,6 +17,7 @@
       <div class="computerVersion col-lg-5">
         <DateNav :fromPage="'chart'" @change-month="changeMonth"/>
         <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie"/>
+        <CheckboxSelect v-if="currentGraph == 'bar'" :choices="choicesTypeInformationBar" @had-selection="changeTypeInformationBar" />
         <div v-if="currentGraph == 'bar'" class="checkboxSelect typeSelection">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="allocated" id="allocated" v-model="typeInformationBar">
@@ -92,6 +93,7 @@ import ChartPageHeader from '@/components/headers/ChartPageHeader.vue'
 import BarChart from '@/components/charts/BarChart.vue'
 import PieChart from '@/components/charts/PieChart.vue'
 import RadioSelect from '@/components/RadioSelect.vue'
+import CheckboxSelect from '@/components/CheckboxSelect.vue'
 import DateNav from '@/components/DateNavigation.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 import StoreHandler from '@/store/StoreHandler'
@@ -129,6 +131,11 @@ interface ChartPageData {
       value: string;
       preSelected: boolean;
     }[];
+    choicesTypeInformationBar: {
+      label: string;
+      value: string;
+      preSelected: boolean;
+    }[];
 }
 
 export default defineComponent({
@@ -138,6 +145,7 @@ export default defineComponent({
     BarChart,
     PieChart,
     RadioSelect,
+    CheckboxSelect,
     DateNav,
     NavMenu,
     Multiselect
@@ -183,6 +191,11 @@ export default defineComponent({
         { label: this.$t('ALLOCATED'), value: 'allocated', preSelected: false },
         { label: this.$t('SPENT'), value: 'spent', preSelected: false },
         { label: this.$t('AVAILABLE'), value: 'available', preSelected: true }
+      ],
+      choicesTypeInformationBar: [
+        { label: 'allo', value: 'allocated', preSelected: true },
+        { label: 'spen', value: 'spent', preSelected: true },
+        { label: 'avai', value: 'available', preSelected: true }
       ]
     }
   },
@@ -341,6 +354,9 @@ export default defineComponent({
     },
     changeTypeInformationPie (newTypeInformationPie: string) {
       this.typeInformationPie = newTypeInformationPie
+    },
+    changeTypeInformationBar (newTypeInformationBar: string[]) {
+      this.typeInformationBar = newTypeInformationBar
     },
     async changeMonth (message: string) {
       if (message === 'next') {
