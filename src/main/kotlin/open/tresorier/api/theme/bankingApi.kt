@@ -48,7 +48,7 @@ fun addBankingRoute(app : Javalin, bankingService: BankingService,
         val person = getUserFromAuth(ctx)
         val budgetId = getQueryParam<String>(ctx, "budgetId")
         val budget = budgetService.getById(person, budgetId)
-        bankingService.synchronise(person, budget)
+        ctx.json(bankingService.findBankAccountByBudget(person, budget))
     }
 
     app.before("/bank/operations", SuperTokens.middleware())
