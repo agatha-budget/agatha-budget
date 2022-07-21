@@ -9,6 +9,7 @@ import open.tresorier.exception.BankingException
 import org.json.JSONObject
 import open.tresorier.model.Account
 import open.tresorier.model.Person
+import open.tresorier.model.Budget
 import open.tresorier.model.Day
 import open.tresorier.model.Operation
 import open.tresorier.model.banking.Bank
@@ -20,11 +21,11 @@ import open.tresorier.utils.Time
 
 class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankingPort {
 
-    override fun getLinkForUserAgreement(person: Person, bankId: String) : String {
+    override fun getLinkForUserAgreement(budget: Budget, bankId: String) : String {
         val properties = Properties()
         val successUrl = properties.get(NORDIGEN_SUCCESS_URL)
         val url = "https://ob.nordigen.com/api/v2/requisitions/"
-        val bankAgreement = BankAgreement(person.id, bankId)
+        val bankAgreement = BankAgreement(budget.id, bankId)
 
         val headerProperties = mapOf(
             "Content-Type" to "application/json",

@@ -23,8 +23,9 @@ class BankingService (
     private val accountDao: IAccountDao,
     private val bankAccountDao: IBankAccountDao) {
 
-    fun getLinkForUserAgreement(person: Person, bankId: String) : String {
-        return this.bankingAdapter.getLinkForUserAgreement(person, bankId)
+    fun getLinkForUserAgreement(person: Person, budget: Budget, bankId: String) : String {
+        this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
+        return this.bankingAdapter.getLinkForUserAgreement(budget, bankId)
     }
 
     fun updateBankAccountList(person: Person, agreement: BankAgreement) {

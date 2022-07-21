@@ -30,8 +30,10 @@ fun addBankingRoute(app : Javalin, bankingService: BankingService,
     app.before("/banking", SuperTokens.middleware())
     app.get("/banking") { ctx ->
         val person = getUserFromAuth(ctx)
+        val budgetId = getQueryParam<String>(ctx, "budgetId")
+        val budget = budgetService.getById(person, budgetId)
         val bankId = getQueryParam<String>(ctx, "bankId")
-        ctx.result(bankingService.getLinkForUserAgreement(person, bankId))
+        ctx.result(bankingService.getLinkForUserAgreement(person, budget, bankId))
     }
 
     app.put("/banking") { ctx ->

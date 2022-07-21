@@ -4,6 +4,7 @@ import open.tresorier.banking.IBankingPort
 
 import open.tresorier.model.Account
 import open.tresorier.model.Person
+import open.tresorier.model.Budget
 import open.tresorier.model.Operation
 import open.tresorier.model.banking.Bank
 import open.tresorier.model.banking.BankAccount
@@ -11,7 +12,7 @@ import open.tresorier.model.banking.BankAgreement
 
 class MockBankingAdapter() : IBankingPort {
     
-    override fun getLinkForUserAgreement(person: Person, bankId: String) : String {
+    override fun getLinkForUserAgreement(budget: Budget, bankId: String) : String {
         // give personId in the redirect after agreement url.
         return "url to redirect and save RequisitionId"
     }
