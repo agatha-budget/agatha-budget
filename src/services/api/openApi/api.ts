@@ -45,6 +45,12 @@ export interface Account {
      * @memberof Account
      */
     amount: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Account
+     */
+    bankAccountId?: string;
 }
 /**
  * 
