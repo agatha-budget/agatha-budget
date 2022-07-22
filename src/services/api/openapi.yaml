@@ -1522,15 +1522,20 @@ components:
         name: bank
     BankAccount:
       required:
+      - id
       - name
       - bankId
       - validUntil
       type: object
       properties:
+        id:
+          type: string
         name:
           type: string
         bankId:
           type: string
+        validUntil:
+          type: number
       xml:
         name: bank
   securitySchemes:

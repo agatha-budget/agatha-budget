@@ -113,6 +113,12 @@ export interface BankAccount {
      * @type {string}
      * @memberof BankAccount
      */
+    id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof BankAccount
+     */
     name: string;
     /**
      * 
@@ -120,6 +126,12 @@ export interface BankAccount {
      * @memberof BankAccount
      */
     bankId: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof BankAccount
+     */
+    validUntil: number;
 }
 /**
  * 
