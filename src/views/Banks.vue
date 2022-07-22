@@ -17,6 +17,18 @@
         </template>
 
         <div class="banner">
+          <div class="title">{{ $t('ACCOUNT_ASSOCIATION') }}</div>
+        </div>
+
+        <template v-for="account of this.accounts" :key="account">
+            {{ account.name }}
+            <select class="form-select" aria-label="Default select example">
+              <option selected>{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
+              <option v-for="bankAccount in this.bankAccounts" :key="bankAccount" :value=bankAccount.id >{{ bankAccount.name }}</option>
+            </select>
+        </template>
+
+        <div class="banner">
           <div class="title">{{ $t('ADD_A_BANK') }}</div>
         </div>
         <p>{{ $t('SELECT_BANK_TO_AUTHORIZE_SYNCHRONISATION') }}</p>
@@ -42,7 +54,7 @@ import { defineComponent } from 'vue'
 import StoreHandler from '@/store/StoreHandler'
 import NavMenu from '@/components/NavigationMenu.vue'
 import BankingService from '@/services/BankingService'
-import { Bank, BankAccount, Budget } from '@/model/model'
+import { Bank, BankAccount, Budget, Account } from '@/model/model'
 
 interface BanksData {
     availableBanks: Bank[];
@@ -78,6 +90,9 @@ export default defineComponent({
   computed: {
     budget (): Budget | null {
       return this.$store.state.budget
+    },
+    accounts (): Account[] | null {
+      return this.$store.state.accounts
     }
   },
   methods: {
