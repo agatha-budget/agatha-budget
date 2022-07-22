@@ -1401,6 +1401,8 @@ components:
           type: string
         amount:
           type: number
+        bankAccountId:
+          type: string
     MasterCategory:
       required:
       - budgetId
