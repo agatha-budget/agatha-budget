@@ -186,7 +186,20 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-<<<<<<< HEAD
+     * Fetch records that have <code>MOTHER_OPERATION_ID BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMotherOperationId(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Operation.OPERATION.MOTHER_OPERATION_ID, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>MOTHER_OPERATION_ID IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByMotherOperationId(String... values) {
+        return fetch(Operation.OPERATION.MOTHER_OPERATION_ID, values);
+    }
+
+    /**
      * Fetch records that have <code>IMPORT_IDENTIFIER BETWEEN lowerInclusive AND upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfImportIdentifier(String lowerInclusive, String upperInclusive) {
@@ -205,18 +218,5 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
      */
     public open.tresorier.generated.jooq.test.public_.tables.pojos.Operation fetchOneByImportIdentifier(String value) {
         return fetchOne(Operation.OPERATION.IMPORT_IDENTIFIER, value);
-=======
-     * Fetch records that have <code>MOTHER_OPERATION_ID BETWEEN lowerInclusive AND upperInclusive</code>
-     */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMotherOperationId(String lowerInclusive, String upperInclusive) {
-        return fetchRange(Operation.OPERATION.MOTHER_OPERATION_ID, lowerInclusive, upperInclusive);
-    }
-
-    /**
-     * Fetch records that have <code>MOTHER_OPERATION_ID IN (values)</code>
-     */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByMotherOperationId(String... values) {
-        return fetch(Operation.OPERATION.MOTHER_OPERATION_ID, values);
->>>>>>> multipleCategories
     }
 }

@@ -16,7 +16,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row11;
+import org.jooq.Row12;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -33,11 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-<<<<<<< HEAD
-    private static final long serialVersionUID = 248844607;
-=======
-    private static final long serialVersionUID = 1636383545;
->>>>>>> multipleCategories
+    private static final long serialVersionUID = 1536576009;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -103,15 +99,14 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("locked"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
-<<<<<<< HEAD
-     * The column <code>public.operation.import_identifier</code>.
-     */
-    public final TableField<OperationRecord, String> IMPORT_IDENTIFIER = createField(DSL.name("import_identifier"), org.jooq.impl.SQLDataType.VARCHAR(150).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
-=======
      * The column <code>public.operation.mother_operation_id</code>.
      */
     public final TableField<OperationRecord, String> MOTHER_OPERATION_ID = createField(DSL.name("mother_operation_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
->>>>>>> multipleCategories
+
+    /**
+     * The column <code>public.operation.import_identifier</code>.
+     */
+    public final TableField<OperationRecord, String> IMPORT_IDENTIFIER = createField(DSL.name("import_identifier"), org.jooq.impl.SQLDataType.VARCHAR(150).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * Create a <code>public.operation</code> table reference
@@ -211,11 +206,11 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row12 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row12<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String, String> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 }

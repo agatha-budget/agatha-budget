@@ -13,11 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-<<<<<<< HEAD
-    private static final long serialVersionUID = 1963281335;
-=======
-    private static final long serialVersionUID = -1061950552;
->>>>>>> multipleCategories
+    private static final long serialVersionUID = -989964227;
 
     private final String  id;
     private final String  accountId;
@@ -29,11 +25,8 @@ public class Operation implements Serializable {
     private final Long    orderInDay;
     private final Boolean pending;
     private final Boolean locked;
-<<<<<<< HEAD
-    private final String  importIdentifier;
-=======
     private final String  motherOperationId;
->>>>>>> multipleCategories
+    private final String  importIdentifier;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -46,11 +39,8 @@ public class Operation implements Serializable {
         this.orderInDay = value.orderInDay;
         this.pending = value.pending;
         this.locked = value.locked;
-<<<<<<< HEAD
-        this.importIdentifier = value.importIdentifier;
-=======
         this.motherOperationId = value.motherOperationId;
->>>>>>> multipleCategories
+        this.importIdentifier = value.importIdentifier;
     }
 
     public Operation(
@@ -64,11 +54,8 @@ public class Operation implements Serializable {
         Long    orderInDay,
         Boolean pending,
         Boolean locked,
-<<<<<<< HEAD
+        String  motherOperationId,
         String  importIdentifier
-=======
-        String  motherOperationId
->>>>>>> multipleCategories
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -80,11 +67,8 @@ public class Operation implements Serializable {
         this.orderInDay = orderInDay;
         this.pending = pending;
         this.locked = locked;
-<<<<<<< HEAD
-        this.importIdentifier = importIdentifier;
-=======
         this.motherOperationId = motherOperationId;
->>>>>>> multipleCategories
+        this.importIdentifier = importIdentifier;
     }
 
     public String getId() {
@@ -127,13 +111,12 @@ public class Operation implements Serializable {
         return this.locked;
     }
 
-<<<<<<< HEAD
-    public String getImportIdentifier() {
-        return this.importIdentifier;
-=======
     public String getMotherOperationId() {
         return this.motherOperationId;
->>>>>>> multipleCategories
+    }
+
+    public String getImportIdentifier() {
+        return this.importIdentifier;
     }
 
     @Override
@@ -150,11 +133,8 @@ public class Operation implements Serializable {
         sb.append(", ").append(orderInDay);
         sb.append(", ").append(pending);
         sb.append(", ").append(locked);
-<<<<<<< HEAD
-        sb.append(", ").append(importIdentifier);
-=======
         sb.append(", ").append(motherOperationId);
->>>>>>> multipleCategories
+        sb.append(", ").append(importIdentifier);
 
         sb.append(")");
         return sb.toString();
