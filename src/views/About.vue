@@ -310,7 +310,7 @@
         <tr>
           <th class="col-6">
             <div class="darkTextInput form-group">
-                <input type="text" class="form-control" id="darkTextInput" placeholder="Master Category">
+                <input type="textInput" class="form-control" id="darkTextInput" placeholder="Master Category">
             </div>
           </th>
           <th class="col-3">
@@ -325,7 +325,7 @@
         <tr>
           <td class="col-6">
             <div class="textInput form-group">
-              <input type="text" class="form-control" id="textInput" placeholder="Category">
+              <input type="textInput" class="form-control" id="textInput" placeholder="Category">
             </div>
           </td>
           <td class="col-3">

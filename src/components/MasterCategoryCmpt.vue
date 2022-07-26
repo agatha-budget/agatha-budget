@@ -29,7 +29,7 @@
           <td class="col-2">
               <span v-if="archived">{{ getEurosAmount(this.categoryDataList[category.id]?.allocated ?? "") }}</span>
               <div v-else class="form-group numberInput">
-              <input  type="text" class="form-control"
+              <input  type="textInput" class="form-control"
                 v-bind:value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
                 v-on:change="updateAllocationOnChange(category.id, this.entireCalcul($event.target.value))"
               >
