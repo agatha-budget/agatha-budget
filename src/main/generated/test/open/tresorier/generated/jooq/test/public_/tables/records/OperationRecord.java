@@ -19,7 +19,11 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implements Record11<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String> {
 
+<<<<<<< HEAD
     private static final long serialVersionUID = -714859510;
+=======
+    private static final long serialVersionUID = -2099647689;
+>>>>>>> multipleCategories
 
     /**
      * Setter for <code>PUBLIC.OPERATION.ID</code>.
@@ -172,17 +176,29 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
     }
 
     /**
+<<<<<<< HEAD
      * Setter for <code>PUBLIC.OPERATION.IMPORT_IDENTIFIER</code>.
      */
     public OperationRecord setImportIdentifier(String value) {
+=======
+     * Setter for <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
+     */
+    public OperationRecord setMotherOperationId(String value) {
+>>>>>>> multipleCategories
         set(10, value);
         return this;
     }
 
     /**
+<<<<<<< HEAD
      * Getter for <code>PUBLIC.OPERATION.IMPORT_IDENTIFIER</code>.
      */
     public String getImportIdentifier() {
+=======
+     * Getter for <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
+     */
+    public String getMotherOperationId() {
+>>>>>>> multipleCategories
         return (String) get(10);
     }
 
@@ -261,7 +277,11 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public Field<String> field11() {
+<<<<<<< HEAD
         return Operation.OPERATION.IMPORT_IDENTIFIER;
+=======
+        return Operation.OPERATION.MOTHER_OPERATION_ID;
+>>>>>>> multipleCategories
     }
 
     @Override
@@ -316,7 +336,11 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public String component11() {
+<<<<<<< HEAD
         return getImportIdentifier();
+=======
+        return getMotherOperationId();
+>>>>>>> multipleCategories
     }
 
     @Override
@@ -371,7 +395,11 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public String value11() {
+<<<<<<< HEAD
         return getImportIdentifier();
+=======
+        return getMotherOperationId();
+>>>>>>> multipleCategories
     }
 
     @Override
@@ -436,7 +464,11 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public OperationRecord value11(String value) {
+<<<<<<< HEAD
         setImportIdentifier(value);
+=======
+        setMotherOperationId(value);
+>>>>>>> multipleCategories
         return this;
     }
 
@@ -470,7 +502,11 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
     /**
      * Create a detached, initialised OperationRecord
      */
+<<<<<<< HEAD
     public OperationRecord(String id, String accountId, Integer month, Integer day, String categoryId, String memo, Integer amount, Long orderInDay, Boolean pending, Boolean locked, String importIdentifier) {
+=======
+    public OperationRecord(String id, String accountId, Integer month, Integer day, String categoryId, String memo, Integer amount, Long orderInDay, Boolean pending, Boolean locked, String motherOperationId) {
+>>>>>>> multipleCategories
         super(Operation.OPERATION);
 
         set(0, id);
@@ -483,6 +519,10 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
         set(7, orderInDay);
         set(8, pending);
         set(9, locked);
+<<<<<<< HEAD
         set(10, importIdentifier);
+=======
+        set(10, motherOperationId);
+>>>>>>> multipleCategories
     }
 }

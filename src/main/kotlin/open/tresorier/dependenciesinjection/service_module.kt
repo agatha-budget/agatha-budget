@@ -11,7 +11,7 @@ val service_module = module {
     single { AccountService(get(), get(), get(), get()) }
     single { CategoryService(get(), get()) }
     single { MasterCategoryService(get(), get(), get()) }
-    single { OperationService(get(), get(), get()) }
+    single { OperationService(get(), get(), get(), get()) }
     single { AllocationService(get(), get()) }
     single { MailingService(get()) }
     single { BudgetDataService(get(), get(), get()) }

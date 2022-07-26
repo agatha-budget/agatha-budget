@@ -33,7 +33,11 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
+<<<<<<< HEAD
     private static final long serialVersionUID = -897711066;
+=======
+    private static final long serialVersionUID = -10090750;
+>>>>>>> multipleCategories
 
     /**
      * The reference instance of <code>PUBLIC.OPERATION</code>
@@ -99,9 +103,15 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("LOCKED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
+<<<<<<< HEAD
      * The column <code>PUBLIC.OPERATION.IMPORT_IDENTIFIER</code>.
      */
     public final TableField<OperationRecord, String> IMPORT_IDENTIFIER = createField(DSL.name("IMPORT_IDENTIFIER"), org.jooq.impl.SQLDataType.VARCHAR(150).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+=======
+     * The column <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
+     */
+    public final TableField<OperationRecord, String> MOTHER_OPERATION_ID = createField(DSL.name("MOTHER_OPERATION_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+>>>>>>> multipleCategories
 
     /**
      * Create a <code>PUBLIC.OPERATION</code> table reference
