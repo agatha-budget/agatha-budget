@@ -104,6 +104,7 @@ import NavMenu from '@/components/NavigationMenu.vue'
 import AccountPageHeader from '@/components/AccountPageHeader.vue'
 import ImportOfx from '@/components/ImportOfx.vue'
 import FilterCmpt from '@/components/FilterCmpt.vue'
+import { store } from '@/store'
 
 interface AccountPageData {
     operations: EditableOperation[];
@@ -140,7 +141,6 @@ export default defineComponent({
     account: async function () {
       await this.getAccountOperation()
       await this.getDaughterOperations()
-      console.log(this.operations)
     }
   },
   props: {
@@ -194,24 +194,26 @@ export default defineComponent({
       }
     },
     async getDaughterOperations () {
-      console.log('bonjour')
       this.operations.forEach(async operation => {
         operation.daughters = await OperationService.getDaughterOperationByMother(operation.id)
-        if (operation.daughters.length > 0) {
-          console.log(operation.daughters)
-        }
       })
     },
     getDayAsDate (dayAsInt: number): Date {
       return Time.getDateFromDay(dayAsInt)
     },
-    deleteOperation (operation: Operation) {
-      OperationService.deleteOperation(this.$store, operation).then(() => {
-        this.getAccountOperation()
-      })
+    async deleteOperation (operation: Operation) {
+      const daughters = await OperationService.getDaughterOperationByMother(operation.id)
+      if (daughters.length > 0) {
+        await OperationService.deleteOperation(this.$store, operation)
+        daughters.forEach(daughter => {
+          OperationService.deleteOperation(this.$store, daughter)
+        })
+      } else {
+        await OperationService.deleteOperation(this.$store, operation)
+      }
+      this.getAccountOperation()
     },
     setAsEditing (operation: EditableOperation) {
-      console.log(operation.pending)
       operation.editing = true
     },
     operationToEditableOperation (operations: Operation[]): EditableOperation[] {
@@ -272,16 +274,14 @@ export default defineComponent({
     },
     async debited (operation: Operation) {
       if (operation) {
-        console.log(operation)
         const daughters = await OperationService.getDaughterOperationByMother(operation.id)
-        console.log(daughters)
         if (daughters.length !== 0) {
           daughters.forEach(daughter => {
-            OperationService.updateOperation(this.$store, daughter, this.accountId, undefined, undefined, undefined, undefined, false)
+            OperationService.updateOperation(this.$store, daughter.id, this.accountId, undefined, undefined, undefined, undefined, false)
           })
-          OperationService.updateOperation(this.$store, operation, this.accountId, undefined, undefined, undefined, undefined, false)
+          OperationService.updateOperation(this.$store, operation.id, this.accountId, undefined, undefined, undefined, undefined, false)
         } else {
-          OperationService.updateOperation(this.$store, operation, this.accountId, undefined, undefined, undefined, undefined, false)
+          OperationService.updateOperation(this.$store, operation.id, this.accountId, undefined, undefined, undefined, undefined, false)
         }
       }
     },
