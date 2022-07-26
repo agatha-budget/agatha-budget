@@ -104,7 +104,6 @@ import NavMenu from '@/components/NavigationMenu.vue'
 import AccountPageHeader from '@/components/AccountPageHeader.vue'
 import ImportOfx from '@/components/ImportOfx.vue'
 import FilterCmpt from '@/components/FilterCmpt.vue'
-import { store } from '@/store'
 
 interface AccountPageData {
     operations: EditableOperation[];
@@ -191,6 +190,15 @@ export default defineComponent({
             this.operations = this.operationToEditableOperation(operations)
           }
         )
+      }
+    },
+    async getAccountOperationFilter () {
+      if (this.account) {
+        const operations = await OperationService.getMotherOperationsByAccount(this.account, this.filteringCategoryId)
+        const daughterOperations = await OperationService.getDaughterOperationsByAccount(this.account, this.filteringCategoryId)
+        daughterOperations.forEach(async operation => {
+          operations.push(await OperationService.getMotherOperationByDaughter(operation.id))
+        })
       }
     },
     async getDaughterOperations () {

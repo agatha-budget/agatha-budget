@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="col-5 offset-1 col-sm-4 col-md-3 offset-md-0">
-      <btn class="actionButton" v-on:click="addCategory">ajouter catégorie</btn>
+      <btn class="actionButton" v-on:click="addCategory">{{ $t('ADD_NEW_CATEGORY') }}</btn>
     </div>
     <div class="action col-4 offset-1 col-md-2 offset-md-5">
       <btn v-if="this.operation" class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
@@ -71,7 +71,7 @@
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("DATE") }}</div>
     <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="dataOperation.date"></div>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("TOTAL_AMOUNT") }}</div>
-    <div class="sumAmountElement col-4 col-sm-3 col-md-2">{{ Utils.addSpacesInThousand(totalAmount) }} €</div>
+    <div class="sumAmountElement col-4 col-sm-3 col-md-2">{{ addSpacesInThousand(totalAmount) }} €</div>
     <div class="col-4 col-sm-5 col-md-2"/>
     <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("MEMO") }}</div>
     <div class="textInput form-group col-7 col-sm-6 col-md-3 col-xxl-2">
@@ -135,7 +135,7 @@
       <btn v-else class="actionButton" v-on:click="addOperationMultipleCategories()" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
     </div>
     <div class="col-4 offset-2 col-md-3 offset-md-2">
-      <btn class="actionButton" v-on:click="addCategory">ajouter catégorie</btn>
+      <btn class="actionButton" v-on:click="addCategory">{{ $t('ADD_NEW_CATEGORY') }}</btn>
     </div>
 
 </div>
@@ -382,7 +382,7 @@ export default defineComponent({
         if (daughterOperation.incoming) {
           amountCent = Utils.getCentsAmount(this.entireCalcul(daughterOperation.amountString))
         } else {
-          amountCent = Utils.getCentsAmount(this.entireCalcul(daughterOperation.amountString)) * -1
+          amountCent = Utils.getCentsAmount(this.entireCalcul(daughterOperation.amountString)) * (-1)
         }
         OperationService.addOperation(this.$store,
           this.accountId,
@@ -447,6 +447,9 @@ export default defineComponent({
     signedCentsAmount (incoming: boolean, amountString: string): number {
       const amount = this.entireCalcul(amountString)
       return Utils.getCentsAmount((incoming) ? Math.abs(amount) : Math.abs(amount) * -1)
+    },
+    addSpacesInThousand (amount: number): string {
+      return Utils.addSpacesInThousand(amount)
     }
   }
 })
