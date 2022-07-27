@@ -75,7 +75,7 @@ class H2BankAccountDao(val configuration: Configuration) : IBankAccountDao {
             .from(BANK_ACCOUNT)
             .leftJoin(BANK_AGREEMENT).on(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
             .where(BANK_AGREEMENT.BUDGET_ID.eq(budget.id))
-            .groupBy(BANK_ACCOUNT.NAME, BANK_AGREEMENT.BANK_ID)
+            .groupBy(BANK_ACCOUNT.ID, BANK_ACCOUNT.NAME, BANK_AGREEMENT.BANK_ID, BANK_AGREEMENT.VALID_UNTIL)
             .orderBy(BANK_ACCOUNT.NAME)
         val jooqBankAccountList = query.fetch()
         val accountList: MutableList<PublicBankAccount> = mutableListOf()
