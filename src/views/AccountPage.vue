@@ -195,17 +195,15 @@ export default defineComponent({
     async getAccountOperationFilter () {
       console.log('getOperationFilter')
       if (this.account) {
-        const operations = await OperationService.getMotherOperationsByAccount(this.account, this.filteringCategoryId)
-        console.log(operations)
-        const daughterOperations = await OperationService.getDaughterOperationsByAccount(this.account, this.filteringCategoryId)
-        console.log(daughterOperations)
-        daughterOperations.forEach(async operation => {
-          console.log('forEach')
-          console.log(operation)
-          console.log(await OperationService.getMotherOperationByDaughter(operation.id))
-          operations.push(await OperationService.getMotherOperationByDaughter(operation.id))
+        const filteredOperations = await OperationService.getOperations(this.account, this.filteringCategoryId)
+        filteredOperations.forEach(async operation => {
+          const mother = await OperationService.getMotherOperationByDaughter(operation.id)
+          console.log(mother)
+          if (mother) {
+            filteredOperations.splice(filteredOperations.indexOf(operation), 1, mother)
+          }
         })
-        this.operations = this.operationToEditableOperation(operations)
+        this.operations = this.operationToEditableOperation(filteredOperations)
       }
     },
     async getDaughterOperations () {
