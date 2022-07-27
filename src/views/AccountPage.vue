@@ -193,12 +193,19 @@ export default defineComponent({
       }
     },
     async getAccountOperationFilter () {
+      console.log('getOperationFilter')
       if (this.account) {
         const operations = await OperationService.getMotherOperationsByAccount(this.account, this.filteringCategoryId)
+        console.log(operations)
         const daughterOperations = await OperationService.getDaughterOperationsByAccount(this.account, this.filteringCategoryId)
+        console.log(daughterOperations)
         daughterOperations.forEach(async operation => {
+          console.log('forEach')
+          console.log(operation)
+          console.log(await OperationService.getMotherOperationByDaughter(operation.id))
           operations.push(await OperationService.getMotherOperationByDaughter(operation.id))
         })
+        this.operations = this.operationToEditableOperation(operations)
       }
     },
     async getDaughterOperations () {
@@ -219,7 +226,8 @@ export default defineComponent({
       } else {
         await OperationService.deleteOperation(this.$store, operation)
       }
-      this.getAccountOperation()
+      await this.getAccountOperation()
+      this.getDaughterOperations()
     },
     setAsEditing (operation: EditableOperation) {
       operation.editing = true
@@ -263,9 +271,10 @@ export default defineComponent({
     getClassDependingCategoryDaugther (categoryId: string): string {
       return categoryId === null ? 'negative' : ''
     },
-    filter (categoryId: string) {
+    async filter (categoryId: string) {
       this.filteringCategoryId = categoryId
-      this.getAccountOperation()
+      await this.getAccountOperationFilter()
+      this.getDaughterOperations()
     },
     switchAddOperation (type: string) {
       if (type === 'import') {
@@ -279,6 +288,7 @@ export default defineComponent({
           this.importBloc = false
         }
       }
+      this.filterBloc = false
     },
     async debited (operation: Operation) {
       if (operation) {
@@ -308,19 +318,23 @@ export default defineComponent({
     closeForm () {
       this.manualBloc = false
     },
-    closeFilter () {
+    async closeFilter () {
       this.filterBloc = false
       this.filteringCategoryId = null
-      this.getAccountOperation()
+      await this.getAccountOperation()
+      this.getDaughterOperations()
     },
     closeUpdate (operation: EditableOperation) {
       operation.editing = false
     },
-    onClickFilterButton () {
+    async onClickFilterButton () {
       this.filterBloc = !this.filterBloc
+      this.manualBloc = false
+      this.importBloc = false
       if (!this.filterBloc) {
         this.filteringCategoryId = null
-        this.getAccountOperation()
+        await this.getAccountOperation()
+        this.getDaughterOperations()
       }
     }
   }
