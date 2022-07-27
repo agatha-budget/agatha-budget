@@ -1451,6 +1451,8 @@ components:
           type: string
         pending:
           type: boolean
+        motherOperationId:
+          type: string
     Allocation:
       required:
       - amount

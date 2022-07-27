@@ -410,38 +410,40 @@ export default defineComponent({
           undefined
         )
         // daughters
-        const daughtersDB = await OperationService.getDaughterOperationByMother(this.operation.id)
-        let difference = daughtersDB.length - this.dataOperation.operationsData.length
-        while (difference !== 0) {
-          if (difference > 0) {
-            const daughterOperations = await OperationService.getDaughterOperationByMother(this.operation.id)
-            OperationService.deleteOperation(this.$store, daughterOperations[-1])
-            difference--
-          } else if (difference < 0) {
-            daughtersDB.push(await OperationService.addOperation(this.$store, this.accountId))
-            difference++
-          } else {
-            difference = 0
+        if (this.account) {
+          const daughtersDB = await OperationService.findDaughterOperationsByMother(this.account, this.operation.id)
+          let difference = daughtersDB.length - this.dataOperation.operationsData.length
+          while (difference !== 0) {
+            if (difference > 0) {
+              const daughterOperations = await OperationService.findDaughterOperationsByMother(this.account, this.operation.id)
+              OperationService.deleteOperation(this.$store, daughterOperations[-1])
+              difference--
+            } else if (difference < 0) {
+              daughtersDB.push(await OperationService.addOperation(this.$store, this.accountId))
+              difference++
+            } else {
+              difference = 0
+            }
           }
+          this.dataOperation.operationsData.forEach(daughter => {
+            const index = this.dataOperation.operationsData.indexOf(daughter)
+            let amountCent
+            if (daughter.incoming) {
+              amountCent = Utils.getCentsAmount(this.entireCalcul(daughter.amountString))
+            } else {
+              amountCent = Utils.getCentsAmount(this.entireCalcul(daughter.amountString)) * -1
+            }
+            OperationService.updateOperation(this.$store,
+              daughtersDB[index].id,
+              this.accountId,
+              Time.getDayFromDateString(this.dataOperation.date),
+              daughter.categoryId,
+              amountCent,
+              daughter.memo,
+              this.dataOperation.isPending
+            )
+          })
         }
-        this.dataOperation.operationsData.forEach(daughter => {
-          const index = this.dataOperation.operationsData.indexOf(daughter)
-          let amountCent
-          if (daughter.incoming) {
-            amountCent = Utils.getCentsAmount(this.entireCalcul(daughter.amountString))
-          } else {
-            amountCent = Utils.getCentsAmount(this.entireCalcul(daughter.amountString)) * -1
-          }
-          OperationService.updateOperation(this.$store,
-            daughtersDB[index].id,
-            this.accountId,
-            Time.getDayFromDateString(this.dataOperation.date),
-            daughter.categoryId,
-            amountCent,
-            daughter.memo,
-            this.dataOperation.isPending
-          )
-        })
       }
     },
     signedCentsAmount (incoming: boolean, amountString: string): number {

@@ -70,13 +70,35 @@ export default class OperationService {
     return data
   }
 
-  public static async getMotherOperationByDaughter (operationId: string): Promise<Operation> {
-    const response = await operationApi.findMotherOperationsByDaughter(operationId)
-    return response.data
+  // public static async getMotherOperationByDaughter (operationId: string): Promise<Operation> {
+  //   const response = await operationApi.findMotherOperationsByDaughter(operationId)
+  //   return response.data
+  // }
+
+  // public static async getDaughterOperationByMother (operationId: string): Promise<Operation[]> {
+  //   const response = await operationApi.findDaughterOperationsByMother(operationId)
+  //   return response.data
+  // }
+
+  public static async findMotherOperationByDaughter (account: Account, operationId: string): Promise<Operation | null> {
+    const allMotherOperations = await this.getMotherOperationsByAccount(account, null)
+    let mother = null
+    allMotherOperations.forEach(operation => {
+      if (operation.id === operationId) {
+        mother = operation
+      }
+    })
+    return mother
   }
 
-  public static async getDaughterOperationByMother (operationId: string): Promise<Operation[]> {
-    const response = await operationApi.findDaughterOperationsByMother(operationId)
-    return response.data
+  public static async findDaughterOperationsByMother (account: Account, operationId: string): Promise<Operation[]> {
+    const allDaughterOperations = await this.getDaughterOperationsByAccount(account, null)
+    const daughters: Operation[] = []
+    allDaughterOperations.forEach(operation => {
+      if (operation.motherOperationId === operationId) {
+        daughters.push(operation)
+      }
+    })
+    return daughters
   }
 }

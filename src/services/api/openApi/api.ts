@@ -243,6 +243,12 @@ export interface Operation {
      * @memberof Operation
      */
     'pending': boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof Operation
+     */
+    'motherOperationId': string;
 }
 /**
  * 

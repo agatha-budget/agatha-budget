@@ -197,10 +197,12 @@ export default defineComponent({
       if (this.account) {
         const filteredOperations = await OperationService.getOperations(this.account, this.filteringCategoryId)
         filteredOperations.forEach(async operation => {
-          const mother = await OperationService.getMotherOperationByDaughter(operation.id)
-          console.log(mother)
-          if (mother) {
-            filteredOperations.splice(filteredOperations.indexOf(operation), 1, mother)
+          if (this.account) {
+            const mother = await OperationService.findMotherOperationByDaughter(this.account, operation.id)
+            console.log(mother)
+            if (mother) {
+              filteredOperations.splice(filteredOperations.indexOf(operation), 1, mother)
+            }
           }
         })
         this.operations = this.operationToEditableOperation(filteredOperations)
@@ -208,24 +210,28 @@ export default defineComponent({
     },
     async getDaughterOperations () {
       this.operations.forEach(async operation => {
-        operation.daughters = await OperationService.getDaughterOperationByMother(operation.id)
+        if (this.account) {
+          operation.daughters = await OperationService.findDaughterOperationsByMother(this.account, operation.id)
+        }
       })
     },
     getDayAsDate (dayAsInt: number): Date {
       return Time.getDateFromDay(dayAsInt)
     },
     async deleteOperation (operation: Operation) {
-      const daughters = await OperationService.getDaughterOperationByMother(operation.id)
-      if (daughters.length > 0) {
-        await OperationService.deleteOperation(this.$store, operation)
-        daughters.forEach(daughter => {
-          OperationService.deleteOperation(this.$store, daughter)
-        })
-      } else {
-        await OperationService.deleteOperation(this.$store, operation)
+      if (this.account) {
+        const daughters = await OperationService.findDaughterOperationsByMother(this.account, operation.id)
+        if (daughters.length > 0) {
+          await OperationService.deleteOperation(this.$store, operation)
+          daughters.forEach(daughter => {
+            OperationService.deleteOperation(this.$store, daughter)
+          })
+        } else {
+          await OperationService.deleteOperation(this.$store, operation)
+        }
+        await this.getAccountOperation()
+        this.getDaughterOperations()
       }
-      await this.getAccountOperation()
-      this.getDaughterOperations()
     },
     setAsEditing (operation: EditableOperation) {
       operation.editing = true
@@ -241,6 +247,7 @@ export default defineComponent({
           amount: operation.amount,
           memo: operation.memo,
           pending: operation.pending,
+          motherOperationId: operation.motherOperationId,
           editing: false,
           daughters: []
         })
@@ -289,8 +296,8 @@ export default defineComponent({
       this.filterBloc = false
     },
     async debited (operation: Operation) {
-      if (operation) {
-        const daughters = await OperationService.getDaughterOperationByMother(operation.id)
+      if (operation && this.account) {
+        const daughters = await OperationService.findDaughterOperationsByMother(this.account, operation.id)
         if (daughters.length !== 0) {
           daughters.forEach(daughter => {
             OperationService.updateOperation(this.$store, daughter.id, this.accountId, undefined, undefined, undefined, undefined, false)
