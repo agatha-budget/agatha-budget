@@ -62,12 +62,12 @@ export default {
   data (): BarChartData {
     return {
       chartDataDefault: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        labels: [],
         datasets: [
           {
-            label: 'GitHub Commits',
-            backgroundColor: '#f87979',
-            data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
+            label: '',
+            backgroundColor: '',
+            data: []
           }
         ]
       },

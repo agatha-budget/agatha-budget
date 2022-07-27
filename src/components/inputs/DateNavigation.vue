@@ -2,7 +2,7 @@
     <div class="row dateNav">
         <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
         <div class="col-8 date-label" :class="this.toBeBudgetedClass()">
-            <p class="title">{{ $d(this.getMonthAsDate(budgetMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(budgetMonth), 'year') }}</span></p>
+            <p class="title">{{ $d(this.getMonthAsDate(selectedMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(selectedMonth), 'year') }}</span></p>
             <p class="title" v-if="this.money > 0"> {{ addSpacesInThousand(money) }} € {{$t('TO_BE_BUDGETED')}}</p>
             <p class="title" v-else-if="this.money < 0"> {{ addSpacesInThousand(-1 * money) }} € {{$t('TO_BE_PULLED_OUT')}}</p>
         </div>
@@ -16,7 +16,7 @@ import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
 
 interface DateNavData {
-  budgetMonth: number;
+  selectedMonth: number;
 }
 
 export default defineComponent({
@@ -35,12 +35,12 @@ export default defineComponent({
   },
   data (): DateNavData {
     return {
-      budgetMonth: Time.getCurrentMonth()
+      selectedMonth: Time.getCurrentMonth()
     }
   },
   computed: {
     isThisYear (): boolean {
-      return Time.monthIsThisYear(this.budgetMonth)
+      return Time.monthIsThisYear(this.selectedMonth)
     }
   },
   methods: {
@@ -49,11 +49,11 @@ export default defineComponent({
     },
     async goToNextMonth () {
       this.$emit('changeMonth', 'next')
-      this.budgetMonth = Time.getNextMonth(this.budgetMonth)
+      this.selectedMonth = Time.getNextMonth(this.selectedMonth)
     },
     async goToLastMonth () {
       this.$emit('changeMonth', 'last')
-      this.budgetMonth = Time.getLastMonth(this.budgetMonth)
+      this.selectedMonth = Time.getLastMonth(this.selectedMonth)
     },
     toBeBudgetedClass (): string {
       if (this.$props.fromPage === 'budget') {

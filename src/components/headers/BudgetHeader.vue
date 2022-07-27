@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import DateNav from '@/components/DateNavigation.vue'
+import DateNav from '@/components/inputs/DateNavigation.vue'
 import Utils from '@/utils/Utils'
 
 interface BudgetHeaderData {
