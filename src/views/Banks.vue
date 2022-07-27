@@ -22,11 +22,17 @@
 
         <template v-for="account of this.accounts" :key="account">
             {{ account.name }}
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" v-model="bankAssociation[account.id]">
               <option selected>{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
-              <option v-for="bankAccount in this.bankAccounts" :key="bankAccount" :value=bankAccount.id >{{ bankAccount.name }}</option>
+              <template v-for="bankAccount in this.bankAccounts" :key="bankAccount">
+                <option :value=bankAccount.id>
+                {{ bankAccount.name }}
+                </option>
+              </template>
             </select>
         </template>
+
+        <btn class="actionButton" v-on:click="associateBankAccount()">{{ $t('SAVE') }}</btn>
 
         <div class="banner">
           <div class="title">{{ $t('ADD_A_BANK') }}</div>
@@ -56,9 +62,14 @@ import NavMenu from '@/components/NavigationMenu.vue'
 import BankingService from '@/services/BankingService'
 import { Bank, BankAccount, Budget, Account } from '@/model/model'
 
+interface BankAssociationList {
+  [accountId: string]: string | null;
+}
+
 interface BanksData {
-    availableBanks: Bank[];
-    bankAccounts: BankAccount[];
+  availableBanks: Bank[];
+  bankAccounts: BankAccount[];
+  bankAssociation: BankAssociationList;
 }
 
 export default defineComponent({
@@ -79,12 +90,16 @@ export default defineComponent({
   data (): BanksData {
     return {
       availableBanks: [],
-      bankAccounts: []
+      bankAccounts: [],
+      bankAssociation: {}
     }
   },
   watch: {
     budget: async function () {
       this.getSynchronisedAccount()
+    },
+    accounts: async function () {
+      this.updateAssociationData()
     }
   },
   computed: {
@@ -121,6 +136,14 @@ export default defineComponent({
       if (this.$props.query != null) {
         const agreementId = this.$props.query.split('?')[0]
         BankingService.updateBankAccountList(agreementId)
+      }
+    },
+    updateAssociationData () {
+      if (this.accounts) {
+        for (const i in this.accounts) {
+          const account = this.accounts[i]
+          this.bankAssociation[account.id] = account.bankAccountId || null
+        }
       }
     }
   }
