@@ -329,12 +329,12 @@ paths:
     get:
       tags:
         - Banking
-      summary: get synchronised accounts list
-      operationId: getSynchronisedAccounts
+      summary: get authorized accounts list
+      operationId: getAuthorizedsedAccounts
       parameters:
       - name: budgetId
         in: query
-        description: to synchronise a specific account
+        description: budget
         required: true
         style: form
         explode: true
