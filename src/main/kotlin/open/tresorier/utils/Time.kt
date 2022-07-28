@@ -9,6 +9,10 @@ object Time {
         return System.currentTimeMillis()
     }
 
+    fun in90Days() : Long {
+        return now() + 90 * 86400000
+    }
+
     fun twoMonthAgo() : Long {
         return now() - 2 * 2629743000
     }

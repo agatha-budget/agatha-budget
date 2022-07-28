@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 538245875;
+    private static final long serialVersionUID = 143318494;
 
     private final String  id;
     private final String  accountId;
@@ -25,6 +25,8 @@ public class Operation implements Serializable {
     private final Long    orderInDay;
     private final Boolean pending;
     private final Boolean locked;
+    private final String  motherOperationId;
+    private final String  importIdentifier;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -37,6 +39,8 @@ public class Operation implements Serializable {
         this.orderInDay = value.orderInDay;
         this.pending = value.pending;
         this.locked = value.locked;
+        this.motherOperationId = value.motherOperationId;
+        this.importIdentifier = value.importIdentifier;
     }
 
     public Operation(
@@ -49,7 +53,9 @@ public class Operation implements Serializable {
         Integer amount,
         Long    orderInDay,
         Boolean pending,
-        Boolean locked
+        Boolean locked,
+        String  motherOperationId,
+        String  importIdentifier
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -61,6 +67,8 @@ public class Operation implements Serializable {
         this.orderInDay = orderInDay;
         this.pending = pending;
         this.locked = locked;
+        this.motherOperationId = motherOperationId;
+        this.importIdentifier = importIdentifier;
     }
 
     public String getId() {
@@ -103,6 +111,14 @@ public class Operation implements Serializable {
         return this.locked;
     }
 
+    public String getMotherOperationId() {
+        return this.motherOperationId;
+    }
+
+    public String getImportIdentifier() {
+        return this.importIdentifier;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Operation (");
@@ -117,6 +133,8 @@ public class Operation implements Serializable {
         sb.append(", ").append(orderInDay);
         sb.append(", ").append(pending);
         sb.append(", ").append(locked);
+        sb.append(", ").append(motherOperationId);
+        sb.append(", ").append(importIdentifier);
 
         sb.append(")");
         return sb.toString();

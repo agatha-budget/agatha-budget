@@ -14,11 +14,12 @@ import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.services.BillingService
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.model.enum.PriceIdEnum
+import open.tresorier.api.theme.*
 
 fun main() {
 
     val properties = Properties()
-    val app = setUpApp(properties)
+    var app = setUpApp(properties)
 
     // Session Manager
     SuperTokens.config().withHosts(
@@ -27,6 +28,16 @@ fun main() {
     )
     // Dependencies injection
     ServiceManager.start()
+
+    app = addBankingRoute(app,
+     ServiceManager.bankingService,
+     ServiceManager.accountService,
+     ServiceManager.budgetService)
+
+    app = addAccountRoute(app,
+     ServiceManager.accountService,
+     ServiceManager.budgetService,
+     ServiceManager.bankingService)
 
     app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
@@ -174,40 +185,7 @@ fun main() {
         ctx.json(budgetData)
     }
 
-    app.before("/account", SuperTokens.middleware())
-    app.post("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val name = getQueryParam<String>(ctx, "name")
-        val amount = getQueryParam<Int>(ctx, "amount")
-        val day = Day.createFromComparable(getQueryParam<Int>(ctx, "day"))
-        val account = ServiceManager.accountService.create(user, budget, name, day, amount)
-        ctx.json(account)
-    }
-
-    app.put("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val formerName = account.name
-        val newName = getQueryParam<String>(ctx, "new_name")
-        ServiceManager.accountService.update(user, account, newName)
-        ctx.result("updated from $formerName to $newName")
-    }
-
-    app.delete("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        ServiceManager.accountService.delete(user, account)
-        ctx.result("account ${account.name} has been deleted")
-    }
-
-    app.before("/account/budget", SuperTokens.middleware())
-    app.get("/account/budget") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val accounts = ServiceManager.accountService.findByBudget(user, budget)
-        ctx.json(accounts)
-    }
+   
 
     app.before("/mcategory", SuperTokens.middleware())
     app.post("/mcategory") { ctx ->
@@ -290,8 +268,10 @@ fun main() {
         val amount : Int? = getOptionalQueryParam<Int>(ctx, "amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "memo")
         val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "pending")
-
-        val operation: Operation = ServiceManager.operationService.create(user, account, day, category, amount, memo, pending)
+        val motherOperation : Operation? = getOptionalQueryParam<String>(ctx, "mother_operation_id")?.let{
+            ServiceManager.operationService.getById(user, it)
+        }
+        val operation: Operation = ServiceManager.operationService.create(user, account, day, category, amount, memo, pending, motherOperation)
         ctx.json(operation)
     }
 
@@ -312,8 +292,9 @@ fun main() {
         val amount : Int? = getOptionalQueryParam<Int>(ctx, "new_amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "new_memo")
         val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "new_pending")
+        val motherOperationId : String? = getOptionalQueryParam<String>(ctx, "new_mother_operation_id")
 
-        val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo, pending)
+        val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo, pending, motherOperationId)
         ctx.json(updatedOperation)
     }
 
@@ -342,6 +323,45 @@ fun main() {
         val  category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
         val operations = ServiceManager.operationService.findByBudget(user, budget, category)
         ctx.json(operations)
+    }
+
+    app.before("/operation/mothers", SuperTokens.middleware())
+    app.get("/operation/mothers") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
+        val category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
+        val operations = ServiceManager.operationService.findMotherOperationsByAccount(user, account, category)
+        ctx.json(operations)
+    }
+
+    app.before("/operation/daughters", SuperTokens.middleware())
+    app.get("/operation/daughters") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
+        val category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
+        val operations = ServiceManager.operationService.findAllDaughterOperations(user, account, category)
+        ctx.json(operations)
+    }
+
+    app.before("/operation/daugthersfrommother", SuperTokens.middleware())
+    app.get("/operation/daugthersfrommother") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val motherOperation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
+        val operations = ServiceManager.operationService.findDaughterOperations(user, motherOperation)
+        ctx.json(operations)
+    }
+
+    app.before("/operation/motherfromdaughter", SuperTokens.middleware())
+    app.get("/operation/motherfromdaughter") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val daughterOperation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
+        val operation: Operation? = ServiceManager.operationService.findMotherOperationByDaugtherOperation(user, daughterOperation)
+        operation?.let {
+            ctx.json(operation)
+        }
+        ctx.json("null")
     }
     
     app.before("/operation/import", SuperTokens.middleware())
@@ -432,30 +452,4 @@ private fun setUpApp(properties: Properties): Javalin {
     }
 
     return app
-}
-
-private fun sendToAdminMessage(errorId : String) : String {
-    return " Send this code to your administrator for details : $errorId"
-}
-
-private fun getHerokuAssignedOrDefaultPort(): Int {
-    val herokuPort = System.getenv("PORT");
-    if (herokuPort != null) {
-        return Integer.parseInt(herokuPort);
-    }
-    return 7000;
-}
-
-private fun getUserFromAuth(ctx: Context): Person {
-    val validSession = SuperTokens.getFromContext(ctx)
-    val userId = validSession.userId
-    return ServiceManager.personService.getById(userId)
-}
-
-private inline fun <reified T: Any> getQueryParam(ctx: Context, paramName: String) : T {
-    return ctx.queryParam<T>(paramName).get()
-}
-
-private inline fun <reified T: Any> getOptionalQueryParam(ctx: Context, paramName: String) : T? {
-    return ctx.queryParam<T>(paramName).getOrNull()
 }

@@ -6,6 +6,8 @@ package open.tresorier.generated.jooq.main;
 
 import open.tresorier.generated.jooq.main.tables.Account;
 import open.tresorier.generated.jooq.main.tables.Allocation;
+import open.tresorier.generated.jooq.main.tables.BankAccount;
+import open.tresorier.generated.jooq.main.tables.BankAgreement;
 import open.tresorier.generated.jooq.main.tables.Budget;
 import open.tresorier.generated.jooq.main.tables.Category;
 import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
@@ -31,6 +33,16 @@ public class Tables {
      * The table <code>public.allocation</code>.
      */
     public static final Allocation ALLOCATION = Allocation.ALLOCATION;
+
+    /**
+     * The table <code>public.bank_account</code>.
+     */
+    public static final BankAccount BANK_ACCOUNT = BankAccount.BANK_ACCOUNT;
+
+    /**
+     * The table <code>public.bank_agreement</code>.
+     */
+    public static final BankAgreement BANK_AGREEMENT = BankAgreement.BANK_AGREEMENT;
 
     /**
      * The table <code>public.budget</code>.
