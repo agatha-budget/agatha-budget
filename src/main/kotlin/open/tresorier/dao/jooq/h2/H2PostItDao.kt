@@ -15,12 +15,13 @@ class H2PostItDao(val configuration: Configuration) : IPostItDao {
     private val generatedDao: PostItDao = PostItDao(configuration)
     private val query = DSL.using(configuration)
 
-    override fun update(postIt: PostIt): PostIt {
+    override fun insertOrUpdate(postIt: PostIt): PostIt {
         val jooqPostIt = this.toJooqPostIt(postIt)
         try {
-            this.generatedDao.update(jooqPostIt)
+            val existingPostIt : PostItRecord? = this.getRecordByIdentifiers(postIt.budgetId, postIt.month)
+            existingPostIt?.let { this.generatedDao.update(jooqPostIt) } ?: this.generatedDao.insert(jooqPostIt)
         } catch(e: Exception) {
-            throw TresorierException("could not update post-it : $postIt", e)
+            throw TresorierException("could not insert post-it : $postIt", e)
         }
         return postIt
     }

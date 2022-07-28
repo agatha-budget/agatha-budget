@@ -385,15 +385,21 @@ fun main() {
 
     app.before("/postIt", SuperTokens.middleware())
     app.post("/postIt") { ctx ->
+        val user = getUserFromAuth(ctx)
         val month: Month = Month.createFromComparable(getQueryParam<Int>(ctx, "month"))
-        val budgetId: String = getQueryParam<String>(ctx, "budget_id")
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val text: String = getQueryParam<String>(ctx, "text")
+        val postIt = ServiceManager.postItService.insertOrUpdate(user, month, budget, text)
+        ctx.json(postIt)
     }
 
     app.before("/postIt", SuperTokens.middleware())
     app.get("/postIt") { ctx ->
+        val user = getUserFromAuth(ctx)
         val month: Month = Month.createFromComparable(getQueryParam<Int>(ctx, "month"))
-        val budgetId: String = getQueryParam<String>(ctx, "budget_id")
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+        val postIt = ServiceManager.postItService.getByIdentifiers(user, budget, month)
+        ctx.json(postIt)
     }
 }
 

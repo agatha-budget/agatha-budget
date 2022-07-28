@@ -5,10 +5,10 @@ import open.tresorier.model.*
 
 class PostItService(private val postItDao: IPostItDao, private val authorizationService: AuthorizationService) {
 
-    fun update(person: Person, postIt: PostIt, budget: Budget, newText: String): PostIt {
+    fun insertOrUpdate(person: Person, month: Month, budget: Budget, text: String): PostIt {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
-        newText?.let {postIt.text = it}
-        return postItDao.update(postIt)
+        val newPostIt = PostIt(month, budget.id, text)
+        return postItDao.insertOrUpdate(newPostIt)
     }
     fun getByIdentifiers(person: Person, budget: Budget, month: Month): PostIt {
         val postIt = postItDao.getByIdentifiers(budget, month)
