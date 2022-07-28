@@ -26,10 +26,10 @@ class PgPostItDao(val configuration: Configuration) : IPostItDao {
         return postIt
     }
 
-    override fun getByIdentifiers(budget: Budget, month: Month): PostIt? {
+    override fun getByIdentifiers(budget: Budget, month: Month): PostIt {
         val postItRecord : PostItRecord ? = getRecordByIdentifiers(budget.id, month)
         return postItRecord?.let {this.toPostIt(it)}
-            ?: null
+            ?: PostIt(month, budget.id, "")
     }
 
     private fun getRecordByIdentifiers(budgetId: String, month: Month): PostItRecord ? {
