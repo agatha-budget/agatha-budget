@@ -334,6 +334,7 @@ fun main() {
         val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
         val category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
         val operations = ServiceManager.operationService.findByAccount(user, account, category)
+        throw TresorierException("trying to figure out : $operations") 
         ctx.json(operations)
     }
 
