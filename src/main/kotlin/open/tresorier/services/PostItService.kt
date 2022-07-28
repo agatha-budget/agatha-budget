@@ -11,8 +11,8 @@ class PostItService(private val postItDao: IPostItDao, private val authorization
         return postItDao.insertOrUpdate(newPostIt)
     }
     fun getByIdentifiers(person: Person, budget: Budget, month: Month): PostIt {
-        val postIt = postItDao.getByIdentifiers(budget, month)
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
+        val postIt = postItDao.getByIdentifiers(budget, month)
         return postIt        
     }
 }

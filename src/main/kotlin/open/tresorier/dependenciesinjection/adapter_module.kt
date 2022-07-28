@@ -24,4 +24,5 @@ val adapter_module = module {
     single<IUserActivityDao> { PgUserActivityDao(get()) }
     single<IBankAgreementDao> { PgBankAgreementDao(get()) }
     single<IBankAccountDao> { PgBankAccountDao(get()) }
+    single<IPostItDao> { PgPostItDao(get()) }
 }

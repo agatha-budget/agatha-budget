@@ -1,4 +1,4 @@
-package open.tresorier.dao.jooq.h2
+package open.tresorier.dao.jooq.pgsql
 
 import open.tresorier.dao.IPostItDao
 import open.tresorier.exception.TresorierException
