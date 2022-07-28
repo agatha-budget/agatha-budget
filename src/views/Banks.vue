@@ -9,21 +9,13 @@
         </div>
 
         <div class="banner">
-          <div class="title">{{ $t('SYNCHRONISED_ACCOUNTS') }}</div>
-        </div>
-
-        <template v-for="bankAccount in this.bankAccounts" :key="bankAccount">
-            <span>{{ bankAccount.name }}</span>
-        </template>
-
-        <div class="banner">
           <div class="title">{{ $t('ACCOUNT_ASSOCIATION') }}</div>
         </div>
 
         <template v-for="account of this.accounts" :key="account">
             {{ account.name }}
             <select class="form-select" v-model="bankAssociation[account.id]">
-              <option selected>{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
+              <option value=null >{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
               <template v-for="bankAccount in this.bankAccounts" :key="bankAccount">
                 <option :value=bankAccount.id>
                 {{ bankAccount.name }}
@@ -32,7 +24,15 @@
             </select>
         </template>
 
-        <btn class="actionButton" v-on:click="associateBankAccount()">{{ $t('SAVE') }}</btn>
+        <btn class="actionButton" v-on:click="saveAssociation()">{{ $t('SAVE') }}</btn>
+
+        <div class="banner">
+          <div class="title">{{ $t('SYNCHRONISED_BANKS') }}</div>
+        </div>
+
+        <template v-for="bankAccount in this.bankAccounts" :key="bankAccount">
+            <span>{{ bankAccount.name }}</span>
+        </template>
 
         <div class="banner">
           <div class="title">{{ $t('ADD_A_BANK') }}</div>
@@ -61,6 +61,7 @@ import StoreHandler from '@/store/StoreHandler'
 import NavMenu from '@/components/NavigationMenu.vue'
 import BankingService from '@/services/BankingService'
 import { Bank, BankAccount, Budget, Account } from '@/model/model'
+import AccountService from '@/services/AccountService'
 
 interface BankAssociationList {
   [accountId: string]: string | null;
@@ -144,6 +145,18 @@ export default defineComponent({
           const account = this.accounts[i]
           this.bankAssociation[account.id] = account.bankAccountId || null
         }
+      }
+    },
+    saveAssociation () {
+      if (this.accounts) {
+        for (const i in this.accounts) {
+          const account = this.accounts[i]
+          const bankAccountId = this.bankAssociation[account.id] || undefined
+          if (account.bankAccountId !== bankAccountId) {
+            AccountService.updateAccount(this.$store, account.id, undefined, bankAccountId)
+          }
+        }
+        StoreHandler.updateAccounts(this.$store)
       }
     }
   }
