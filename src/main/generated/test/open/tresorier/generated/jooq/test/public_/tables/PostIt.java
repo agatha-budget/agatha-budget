@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PostIt extends TableImpl<PostItRecord> {
 
-    private static final long serialVersionUID = -2010520761;
+    private static final long serialVersionUID = -868819809;
 
     /**
      * The reference instance of <code>PUBLIC.POST_IT</code>
@@ -113,11 +113,11 @@ public class PostIt extends TableImpl<PostItRecord> {
 
     @Override
     public List<ForeignKey<PostItRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<PostItRecord, ?>>asList(Keys.CONSTRAINT_1);
+        return Arrays.<ForeignKey<PostItRecord, ?>>asList(Keys.CONSTRAINT_13);
     }
 
     public Budget budget() {
-        return new Budget(this, Keys.CONSTRAINT_1);
+        return new Budget(this, Keys.CONSTRAINT_13);
     }
 
     @Override

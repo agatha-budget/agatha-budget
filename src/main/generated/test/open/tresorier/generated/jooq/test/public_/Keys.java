@@ -81,7 +81,7 @@ public class Keys {
     public static final ForeignKey<MasterCategoryRecord, BudgetRecord> CONSTRAINT_D3 = ForeignKeys0.CONSTRAINT_D3;
     public static final ForeignKey<OperationRecord, AccountRecord> CONSTRAINT_93 = ForeignKeys0.CONSTRAINT_93;
     public static final ForeignKey<OperationRecord, CategoryRecord> CONSTRAINT_932 = ForeignKeys0.CONSTRAINT_932;
-    public static final ForeignKey<PostItRecord, BudgetRecord> CONSTRAINT_1 = ForeignKeys0.CONSTRAINT_1;
+    public static final ForeignKey<PostItRecord, BudgetRecord> CONSTRAINT_13 = ForeignKeys0.CONSTRAINT_13;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -116,6 +116,6 @@ public class Keys {
         public static final ForeignKey<MasterCategoryRecord, BudgetRecord> CONSTRAINT_D3 = Internal.createForeignKey(Keys.CONSTRAINT_7, MasterCategory.MASTER_CATEGORY, "CONSTRAINT_D3", new TableField[] { MasterCategory.MASTER_CATEGORY.BUDGET_ID }, true);
         public static final ForeignKey<OperationRecord, AccountRecord> CONSTRAINT_93 = Internal.createForeignKey(Keys.CONSTRAINT_E, Operation.OPERATION, "CONSTRAINT_93", new TableField[] { Operation.OPERATION.ACCOUNT_ID }, true);
         public static final ForeignKey<OperationRecord, CategoryRecord> CONSTRAINT_932 = Internal.createForeignKey(Keys.CONSTRAINT_3, Operation.OPERATION, "CONSTRAINT_932", new TableField[] { Operation.OPERATION.CATEGORY_ID }, true);
-        public static final ForeignKey<PostItRecord, BudgetRecord> CONSTRAINT_1 = Internal.createForeignKey(Keys.CONSTRAINT_7, PostIt.POST_IT, "CONSTRAINT_1", new TableField[] { PostIt.POST_IT.BUDGET_ID }, true);
+        public static final ForeignKey<PostItRecord, BudgetRecord> CONSTRAINT_13 = Internal.createForeignKey(Keys.CONSTRAINT_7, PostIt.POST_IT, "CONSTRAINT_13", new TableField[] { PostIt.POST_IT.BUDGET_ID }, true);
     }
 }
