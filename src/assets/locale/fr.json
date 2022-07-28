@@ -116,5 +116,12 @@
     "TRANSFER_FROM": " transfert depuis ",
     "SEE_ALL_OFFERS": "voir toutes les offres",
     "MANAGE_SUBSCRIPTION": "gérer son abonnement",
-    "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau"
+    "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau",
+    "ACCOUNT_ASSOCIATION": "association des comptes",
+    "ADD_A_BANK": "ajouter une banque",
+    "BANKS":"banques",
+    "SAVE": "sauvegarder",
+    "NO_ASSOCIATED_BANK_ACCOUNT": "ne pas associer de compte bancaire",
+    "SYNCHRONISED_BANKS":"autorisations bancaires",
+    "SELECT_BANK_TO_AUTHORIZE_SYNCHRONISATION": "sélectionner une banque pour autoriser la synchronisation"
 }
