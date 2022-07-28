@@ -1,6 +1,6 @@
-const allocatedColor = '#b2babb'
-const spentColor = '#dc7633'
-const availableColor = '#45c1b8'
+const allocatedColor = '#b2babb' // grey
+const spentColor = '#dc7633' // orange
+const availableColor = '#45c1b8' // green
 const redColor = '#e74c3c'
 const blueColor = '#3498db'
 const orangeColor = '#fba619'
