@@ -31,7 +31,7 @@ class OperationServiceTest : ITest {
         val account: Account = accountService.create(
             mileva, budget, "personal account", TestData.jan_14_2022, 10000
         )
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, "null")
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -53,7 +53,7 @@ class OperationServiceTest : ITest {
         val account: Account = accountService.create(
             emilie, budget, "personal account", TestData.jan_14_2022, 1000
         )
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, "null")
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
