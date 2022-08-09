@@ -11,17 +11,15 @@
     </div>
     <div class="content">
       <btn v-on:click="editFunction" class="actionButton">Editer/enregistrer</btn>
-      <btn v-if="edit" class="buttonGradation row">
+      <btn v-if="edit" v-on:click="this.createMasterCategory()" class="buttonGradation row">
         <span class="illustration fas fa-plus col-1"/>
-        <span class="illustrationLabel col-11">ajouter une catégorie</span>
+        <span class="illustrationLabel col-11">{{ $t("ADD_MASTER_CATEGORY") }}</span>
       </btn>
       <div id="budgetTables">
         <template class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
           <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit"/>
         </template>
         <div class="budget-tools">
-          <div><span type="button" class="actionLabelIcon" v-on:click="this.createMasterCategory()"> > {{ $t("ADD_MASTER_CATEGORY") }}</span></div>
-          <div><span class="tooltiped actionLabelIcon" > > {{ $t("ADD_CATEGORY") }}<span class="tooltiptext">{{ $t("CLICK_ON_THE_MASTER_CATEGORY") }}</span></span></div>
           <div v-on:click="this.archiveVisible = !this.archiveVisible" class="actionLabelIcon">
             <span v-if="this.archiveVisible" type="button" > > {{ $t("HIDE_ARCHIVE") }}</span>
             <span v-else type="button"> > {{ $t("SHOW_ARCHIVE") }}</span>

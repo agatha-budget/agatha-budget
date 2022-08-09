@@ -53,13 +53,12 @@ export default defineComponent({
       required: false
     }
   },
-  emits: ['loosesFocus'],
+  emits: [],
   methods: {
     updateMasterCategory () {
       MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
         () => {
           StoreHandler.updateMasterCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     },
@@ -67,7 +66,6 @@ export default defineComponent({
       MasterCategoryService.archiveMasterCategory(this.masterCategory.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     },
@@ -75,7 +73,6 @@ export default defineComponent({
       MasterCategoryService.unarchiveMasterCategory(this.masterCategory.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     }

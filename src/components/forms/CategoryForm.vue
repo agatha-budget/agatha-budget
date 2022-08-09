@@ -45,13 +45,12 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['loosesFocus', 'emptyEnvelope'],
+  emits: ['emptyEnvelope'],
   methods: {
     updateCategory () {
       CategoryService.updateCategory(this.category.id, this.name).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     },
@@ -60,7 +59,6 @@ export default defineComponent({
       CategoryService.archiveCategory(this.category.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     },
@@ -68,7 +66,6 @@ export default defineComponent({
       CategoryService.unarchiveCategory(this.category.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     }
