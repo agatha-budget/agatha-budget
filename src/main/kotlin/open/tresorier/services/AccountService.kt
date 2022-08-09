@@ -31,6 +31,12 @@ class AccountService(private val accountDao: IAccountDao,
         return accountDao.update(account)
     }
 
+    fun removeBankAssociation(person: Person, account: Account): Account {
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        account.bankAccountId = null
+        return accountDao.update(account)
+    }
+
     fun getById(person: Person, id: String): Account {
         val account = accountDao.getById(id)
         authorizationService.cancelIfUserIsUnauthorized(person, account)
