@@ -33,7 +33,7 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val name = getOptionalQueryParam<String>(ctx, "name")
-        val bankAccountId = getOptionalQueryParam<String>(ctx, "bank_accountId")
+        val bankAccountId = getOptionalQueryParam<String>(ctx, "bank_account_id")
         val bankAccount = bankAccountId?.let {bankingService.getBankAccountById(user, bankAccountId)}
         accountService.update(user, account, name, bankAccount)
         ctx.result("updated")
