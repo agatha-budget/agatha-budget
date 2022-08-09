@@ -84,6 +84,13 @@ export default class Time {
     return year === currentYear
   }
 
+  public static getDateStringFromTimestamp (timestamp: number): string {
+    const date = new Date(timestamp * 1) // *1 (to ensure that it is treated as a number)
+    console.log(timestamp)
+    console.log(date.getTime())
+    return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+  }
+
   private static formatDate (date: Date): string {
     return date.toISOString().split('T')[0]
   }

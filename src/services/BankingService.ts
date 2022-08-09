@@ -8,8 +8,8 @@ export default class BankingService {
     return response.data
   }
 
-  public static async getSynchronisedAccount (budget: Budget): Promise<BankAccount[]> {
-    const response = await bankingApi.getSynchronisedAccounts(budget.id)
+  public static async getAuthorizedAccounts (budget: Budget): Promise<BankAccount[]> {
+    const response = await bankingApi.getAuthorizedAccounts(budget.id)
     return response.data
   }
 

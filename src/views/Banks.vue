@@ -16,7 +16,7 @@
             {{ account.name }}
             <select class="form-select" v-model="bankAssociation[account.id]">
               <option value=null >{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
-              <template v-for="bankAccount in this.bankAccounts" :key="bankAccount">
+              <template v-for="bankAccount of this.bankAccounts" :key="bankAccount">
                 <option :value=bankAccount.id>
                 {{ bankAccount.name }}
                 </option>
@@ -30,8 +30,14 @@
           <div class="title">{{ $t('SYNCHRONISED_BANKS') }}</div>
         </div>
 
-        <template v-for="bankAccount in this.bankAccounts" :key="bankAccount">
-            <span>{{ bankAccount.name }}</span>
+        <template v-for="(validUntilList, bankId) of this.authorizedBanks" :key="bankId">
+            <img class="illustration col-2" alt="banklogo" :src="getLogo(bankId)"/>
+            <template v-for="(bankAccountArray, validUntil) of validUntilList" :key="validUntil">
+              {{ getDateStringFromTimestamp(validUntil) }}
+              <template v-for="bankAccount of bankAccountArray" :key="bankAccount">
+                {{ bankAccount.name }}
+              </template>
+            </template>
         </template>
 
         <div class="banner">
@@ -62,9 +68,14 @@ import NavMenu from '@/components/NavigationMenu.vue'
 import BankingService from '@/services/BankingService'
 import { Bank, BankAccount, Budget, Account } from '@/model/model'
 import AccountService from '@/services/AccountService'
+import Time from '@/utils/Time'
 
-interface BankAssociationList {
-  [accountId: string]: string | null;
+interface BankAuthorizationList {
+  [bankId: string]: BankAccountByValidDateList;
+}
+
+interface BankAccountByValidDateList {
+  [validUntil: number]: BankAccount[];
 }
 
 interface BanksData {
@@ -73,13 +84,17 @@ interface BanksData {
   bankAssociation: BankAssociationList;
 }
 
+interface BankAssociationList {
+  [accountId: string]: string | null;
+}
+
 export default defineComponent({
   name: 'banksPage',
   components: { NavMenu },
   created: async function () {
     StoreHandler.initBudget(this.$store)
     this.getAvailableBanks()
-    this.getSynchronisedAccount()
+    this.getAuthorizedAccounts()
     this.updateIfAgreement()
   },
   props: {
@@ -97,7 +112,7 @@ export default defineComponent({
   },
   watch: {
     budget: async function () {
-      this.getSynchronisedAccount()
+      this.getAuthorizedAccounts()
     },
     accounts: async function () {
       this.updateAssociationData()
@@ -109,19 +124,22 @@ export default defineComponent({
     },
     accounts (): Account[] | null {
       return this.$store.state.accounts
+    },
+    authorizedBanks (): BankAuthorizationList | null {
+      return this.groupAccountByBankAndValidUntil(this.bankAccounts)
     }
   },
   methods: {
-    async getAvailableBanks () {
+    getAvailableBanks () {
       BankingService.getAvailableBanks().then(
         (bankList) => {
           this.availableBanks = bankList
         }
       )
     },
-    async getSynchronisedAccount () {
+    getAuthorizedAccounts () {
       if (this.budget) {
-        BankingService.getSynchronisedAccount(this.budget).then(
+        BankingService.getAuthorizedAccounts(this.budget).then(
           (bankAccountList) => {
             this.bankAccounts = bankAccountList
           }
@@ -158,6 +176,35 @@ export default defineComponent({
         }
         StoreHandler.updateAccounts(this.$store)
       }
+    },
+    groupAccountByBankAndValidUntil (bankAccounts: BankAccount[]): BankAuthorizationList {
+      const banks: BankAuthorizationList = {}
+      bankAccounts.forEach(function (bankAccount) {
+        if (bankAccount.bankId in banks) {
+          const bankIdList = banks[bankAccount.bankId]
+          if (bankAccount.validUntil in bankIdList) {
+            bankIdList[bankAccount.validUntil].push(bankAccount)
+          } else {
+            bankIdList[bankAccount.validUntil] = [bankAccount]
+          }
+        } else {
+          const validUntilList: BankAccountByValidDateList = {}
+          validUntilList[bankAccount.validUntil] = [bankAccount]
+          banks[bankAccount.bankId] = validUntilList
+        }
+      })
+      return banks
+    },
+    getLogo (bankId: string): string {
+      for (const bank of this.availableBanks) {
+        if (bank.id === bankId) {
+          return bank.logo
+        }
+      }
+      return 'not found'
+    },
+    getDateStringFromTimestamp (timestamp: number): string {
+      return Time.getDateStringFromTimestamp(timestamp)
     }
   }
 })
