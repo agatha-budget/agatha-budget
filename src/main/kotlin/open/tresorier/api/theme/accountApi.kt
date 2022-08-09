@@ -9,6 +9,7 @@ import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.exception.SuspendedUserException
 import open.tresorier.model.*
+import open.tresorier.model.bank.*
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.services.AccountService
@@ -34,8 +35,8 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val name = getOptionalQueryParam<String>(ctx, "name")
         val bankAccountId = getOptionalQueryParam<String>(ctx, "bank_account_id")
-        var bankAccount = null
-        if (bankAccountId == "null" ) {
+        var bankAccount: BankAccount? = null
+        if (bankAccountId == "remove" ) {
             accountService.removeBankAssociation(user, account)
         } else {
             bankAccount = bankAccountId?.let {bankingService.getBankAccountById(user, bankAccountId)}
