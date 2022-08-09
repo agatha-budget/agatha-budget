@@ -330,7 +330,7 @@ paths:
       tags:
         - Banking
       summary: get authorized accounts list
-      operationId: getAuthorizedsedAccounts
+      operationId: getAuthorizedAccounts
       parameters:
       - name: budgetId
         in: query

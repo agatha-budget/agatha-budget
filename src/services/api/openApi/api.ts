@@ -861,9 +861,9 @@ export const BankingApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAuthorizedsedAccounts: async (budgetId: string, options: any = {}): Promise<RequestArgs> => {
+        getAuthorizedAccounts: async (budgetId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'budgetId' is not null or undefined
-            assertParamExists('getAuthorizedsedAccounts', 'budgetId', budgetId)
+            assertParamExists('getAuthorizedAccounts', 'budgetId', budgetId)
             const localVarPath = `/bank/accounts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1075,8 +1075,8 @@ export const BankingApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAuthorizedsedAccounts(budgetId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BankAccount>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAuthorizedsedAccounts(budgetId, options);
+        async getAuthorizedAccounts(budgetId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BankAccount>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAuthorizedAccounts(budgetId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1141,8 +1141,8 @@ export const BankingApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAuthorizedsedAccounts(budgetId: string, options?: any): AxiosPromise<Array<BankAccount>> {
-            return localVarFp.getAuthorizedsedAccounts(budgetId, options).then((request) => request(axios, basePath));
+        getAuthorizedAccounts(budgetId: string, options?: any): AxiosPromise<Array<BankAccount>> {
+            return localVarFp.getAuthorizedAccounts(budgetId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1203,8 +1203,8 @@ export class BankingApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BankingApi
      */
-    public getAuthorizedsedAccounts(budgetId: string, options?: any) {
-        return BankingApiFp(this.configuration).getAuthorizedsedAccounts(budgetId, options).then((request) => request(this.axios, this.basePath));
+    public getAuthorizedAccounts(budgetId: string, options?: any) {
+        return BankingApiFp(this.configuration).getAuthorizedAccounts(budgetId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
