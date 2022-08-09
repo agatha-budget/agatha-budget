@@ -10,7 +10,11 @@
       <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
     </div>
     <div class="content">
-    <btn v-on:click="editFunction" class="actionButton">Editer/enregistrer</btn>
+      <btn v-on:click="editFunction" class="actionButton">Editer/enregistrer</btn>
+      <btn v-if="edit" class="buttonGradation row">
+        <span class="illustration fas fa-plus col-1"/>
+        <span class="illustrationLabel col-11">ajouter une catégorie</span>
+      </btn>
       <div id="budgetTables">
         <template class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
           <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit"/>

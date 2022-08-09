@@ -5,13 +5,10 @@
           <input type="textInput" class="form-control" v-model="name">
       </div>
     </th>
-    <th class="col-2">
-      <button class="illustration btn fas fa-check" v-on:click="updateCategory"/>
+    <th class="col-3">
+      <button class="illustration btn fas fa-exchange-alt" v-on:click="changeMasterCategory"/>
     </th>
-    <th class="col-2 disappearForMobile">
-      <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-    </th>
-    <th class="col-2">
+    <th class="col-3">
       <button class="illustration btn fas fa-archive" v-on:click="archiveCategory"/>
     </th>
   </tr>
@@ -19,13 +16,9 @@
     <td class="col-6">
       <span class="name">{{ this.name }}</span>
     </td>
-    <td class="col-2">
+    <td class="col-6">
       <button class="illustration btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
     </td>
-    <td class="col-2">
-      <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-    </td>
-    <td class="col-2 disappearForMobile"/>
   </tr>
 </template>
 
