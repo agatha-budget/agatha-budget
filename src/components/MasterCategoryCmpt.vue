@@ -1,6 +1,6 @@
 <template>
   <table class="budgetTable table" v-if="this.categories.length > 0">
-    <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
+    <MasterCategoryForm v-if="edit" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
     <thead v-else class="masterCategory">
         <tr>
           <th class="col-6 name">
@@ -19,8 +19,8 @@
       </thead>
     <tbody >
       <template v-for="category of this.categories" :key="category">
-        <CategoryForm class="categoryBudget" v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus" @empty-envelope="emptyEnvelope"/>
-        <tr class="categoryBudget" v-else>
+        <CategoryForm class="categoryBudget" v-if="edit" :category="category" @looses-focus="loosesFocus" @empty-envelope="emptyEnvelope"/>
+        <tr v-else class="categoryBudget">
           <td class="col-6 name">
             <div>
               <span  v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="action illustration btn fas fa-pen"/></span>
@@ -45,6 +45,16 @@
           </td>
         </tr>
       </template>
+
+      <div v-if="focusOn === masterCategory.id && !archived">
+        <tr>
+          <div class="actionLabelIcon">
+            <span class="illustration btn fas fa-plus"/>
+            <div class="text">ajouter une enveloppe</div>
+          </div>
+        </tr>
+      </div>
+
     </tbody>
   </table>
 </template>
@@ -76,6 +86,11 @@ export default defineComponent({
       required: true
     },
     archived: {
+      type: Boolean as () => boolean,
+      required: false,
+      default: false
+    },
+    edit: {
       type: Boolean as () => boolean,
       required: false,
       default: false

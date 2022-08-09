@@ -10,9 +10,10 @@
       <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
     </div>
     <div class="content">
+    <btn v-on:click="editFunction" class="actionButton">Editer/enregistrer</btn>
       <div id="budgetTables">
         <template class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
-          <master-category-cmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" />
+          <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit"/>
         </template>
         <div class="budget-tools">
           <div><span type="button" class="actionLabelIcon" v-on:click="this.createMasterCategory()"> > {{ $t("ADD_MASTER_CATEGORY") }}</span></div>
@@ -25,7 +26,7 @@
         <div v-if="this.archiveVisible" id="archive_section" >
           <div class="title">{{ $t("ARCHIVE") }}</div>
           <template v-for="masterCategory in this.$store.state.masterCategories" :key="masterCategory" >
-            <master-category-cmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :archived="true" />
+            <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :archived="true" />
           </template>
         </div>
       </div>
@@ -54,6 +55,7 @@ interface BudgetCmptData {
     budgetMonth: number;
     amountInBudget: number;
     archiveVisible: boolean;
+    edit: boolean;
 }
 
 export default defineComponent({
@@ -91,7 +93,8 @@ export default defineComponent({
       formerAllocations: {},
       budgetMonth: this.$props.month,
       amountInBudget: 0,
-      archiveVisible: false
+      archiveVisible: false,
+      edit: false
     }
   },
   computed: {
@@ -205,6 +208,10 @@ export default defineComponent({
         this.categoryDataList[categoryId].available = 0
         AllocationService.updateAllocation(this.budgetMonth, categoryId, this.formerAllocations[categoryId])
       }
+    },
+    editFunction () {
+      this.edit = !this.edit
+      console.log(this.edit)
     }
   }
 })
