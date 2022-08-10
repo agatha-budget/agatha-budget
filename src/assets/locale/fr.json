@@ -119,6 +119,7 @@
     "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau",
     "CHART": "graphique",
     "ALL_BUDGET": "ensemble du budget",
-    "PIE_CHART": "camembert",
-    "BAR_CHART": "diagramme barre"
+    "PIE_CHART": "Répartition",
+    "BAR_CHART": "Alloué / Dépensé",
+    "SELECT_MASTER_CATEGORY": "sélectionner une catégorie"
 }

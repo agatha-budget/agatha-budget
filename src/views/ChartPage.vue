@@ -156,7 +156,7 @@ export default defineComponent({
         ]
       },
       typeInformationPie: 'available',
-      typeInformationBar: ['allocated', 'spent', 'available'],
+      typeInformationBar: ['allocated', 'spent'],
       masterCategoryId: '',
       currentGraph: 'pie',
       budgetMonth: Time.getCurrentMonth(),
@@ -168,7 +168,7 @@ export default defineComponent({
       choicesTypeInformationBar: [
         { label: this.$t('ALLOCATED'), value: 'allocated', preSelected: true },
         { label: this.$t('SPENT'), value: 'spent', preSelected: true },
-        { label: this.$t('AVAILABLE'), value: 'available', preSelected: true }
+        { label: this.$t('AVAILABLE'), value: 'available', preSelected: false }
       ]
     }
   },
