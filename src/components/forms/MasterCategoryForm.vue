@@ -6,12 +6,18 @@
             <input type="textInput" class="form-control" v-model="name">
         </div>
       </th>
-      <th class="col-3">
-        <button class="illustration btn fas fa-palette" v-on:click="chooseColor"/>
-      </th>
-      <th class="col-3">
-        <button class="illustration btn fas fa-archive" v-on:click="archiveMasterCategory"/>
-      </th>
+        <th v-if="colorPicker" class="col-3">
+          <input type="color" v-model="color"/>
+        </th>
+        <th v-if="colorPicker" class="col-3">
+          <button class="illustration btn fas fa-check" v-on:click="validColor"/>
+        </th>
+        <th v-if="!colorPicker" class="col-3">
+          <button class="illustration btn fas fa-palette" v-on:click="chooseColor"/>
+        </th>
+        <th v-if="!colorPicker" class="col-3">
+          <button class="illustration btn fas fa-archive" v-on:click="archiveMasterCategory"/>
+        </th>
     </tr>
   </thead>
   <thead v-else class="masterCategory edit">
@@ -34,13 +40,17 @@ import { MasterCategory } from '@/model/model'
 
 interface MasterCategoryFormData {
   name: string;
+  color: string;
+  colorPicker: boolean;
 }
 
 export default defineComponent({
   name: 'MasterCategoryForm',
   data (): MasterCategoryFormData {
     return {
-      name: this.masterCategory.name
+      name: this.masterCategory.name,
+      color: this.masterCategory.color !== 'null' ? this.masterCategory.color : '#000000',
+      colorPicker: false
     }
   },
   props: {
@@ -73,6 +83,19 @@ export default defineComponent({
       MasterCategoryService.unarchiveMasterCategory(this.masterCategory.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
+        }
+      )
+    },
+    chooseColor () {
+      this.colorPicker = !this.colorPicker
+      console.log(this.colorPicker)
+    },
+    validColor () {
+      console.log(this.color)
+      MasterCategoryService.updateColorMasterCategory(this.masterCategory.id, this.color).then(
+        () => {
+          StoreHandler.updateCategories(this.$store)
+          this.colorPicker = false
         }
       )
     }
