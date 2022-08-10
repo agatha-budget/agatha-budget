@@ -123,5 +123,10 @@
     "SAVE": "sauvegarder",
     "NO_ASSOCIATED_BANK_ACCOUNT": "ne pas associer de compte bancaire",
     "SYNCHRONISED_BANKS":"autorisations bancaires",
-    "SELECT_BANK_TO_AUTHORIZE_SYNCHRONISATION": "sélectionner une banque pour autoriser la synchronisation"
+    "SELECT_BANK_TO_AUTHORIZE_SYNCHRONISATION": "sélectionner une banque pour autoriser la synchronisation",
+    "CHART": "graphique",
+    "ALL_BUDGET": "ensemble du budget",
+    "PIE_CHART": "Répartition",
+    "BAR_CHART": "Alloué / Dépensé",
+    "SELECT_MASTER_CATEGORY": "sélectionner une catégorie"
 }

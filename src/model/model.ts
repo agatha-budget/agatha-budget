@@ -24,6 +24,12 @@ interface GroupSelectOption {
     options: SelectOption[];
 }
 
+interface ChoiceElement {
+    label: string;
+    value: string;
+    preSelected: boolean;
+}
+
 const incomeCategoryId = 'universal_income_category'
 const transfertCategoryId = 'universal_transfert_category'
 const newMasterCategoryName = 'Ω - Nouvelle Catégorie'
@@ -32,5 +38,6 @@ const newCategoryName = ' Nouvelle Enveloppe'
 export {
   Person, Operation, CategoryData, BudgetData, Account, Bank, BankAccount, Budget, Category,
   MasterCategory, CategoryDataList, incomeCategoryId, transfertCategoryId,
-  newMasterCategoryName, newCategoryName, GroupSelectOption, SelectOption
+  newMasterCategoryName, newCategoryName, GroupSelectOption, SelectOption,
+  ChoiceElement
 }

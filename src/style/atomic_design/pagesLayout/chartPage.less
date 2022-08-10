@@ -1,0 +1,87 @@
+.chartPage {
+    text-align: center;
+    .selectGraph {
+        color: @lighterBackground;
+        background: @action;
+        border-radius: 25px;
+        padding: 10px;
+        font-weight: 600;
+        border: 0;
+        text-transform: capitalize;
+    }
+    
+    .typeSelection {
+        .form-check {
+            max-width: 150px;
+            margin: auto;
+            input {
+                margin: 3px;
+            }
+            label {
+                text-align: left;
+            }
+        }
+    }
+    .multiselect {
+        height: 40px;
+        width: 250px;
+        padding: 0;
+        margin: 10px auto;
+        // border: none;
+    }
+    .draw {
+        @media (max-width: 600px) {
+            margin:  auto;
+            max-width: 400px;
+        }
+        @media (min-width: 600px) {
+            @media (max-width: 992px) {
+                margin:  auto;
+                max-width: 500px;
+            }
+        }
+    }
+    .dateNav {
+        height: 53.5px;
+        margin: 0 auto;
+        padding: 6px;
+        max-width: 400px;
+    }
+
+    // mobile version
+    @media (max-width: 992px) {
+
+        .dateNav {
+            margin: 15px auto;
+        }
+
+        canvas {
+            margin: 15px auto;
+        }
+
+        .mobileVersion {
+            height: min-content;
+        }
+        .computerVersion {
+            display: none;
+        }
+    }
+    @media (max-width: 767px) {
+        margin: 0;
+    }
+
+    // computer version
+    @media (min-width: 992px) {
+        .mobileVersion {
+            display: none;
+        }
+        .draw {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+        .multiselect, .dateNav {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    }
+}

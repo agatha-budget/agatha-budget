@@ -7,6 +7,7 @@ import Signup from '../views/Signup.vue'
 import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
 import AccountPage from '../views/AccountPage.vue'
 import Subscription from '../views/Subscription.vue'
+import ChartPage from '../views/ChartPage.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { AxiosError } from 'axios'
@@ -21,7 +22,8 @@ export enum RouterPages {
   banks = '/bank',
   subscription = '/subscription',
   invalidSubscription = '/invalidSubscription',
-  redirectToAccountPage = '/redirectToAccountPage'
+  redirectToAccountPage = '/redirectToAccountPage',
+  chartPage = '/chart'
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -71,6 +73,10 @@ const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: RouterPages.chartPage,
+    component: ChartPage
   }
 ]
 
