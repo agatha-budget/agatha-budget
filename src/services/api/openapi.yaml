@@ -19,7 +19,7 @@ servers:
 - url: http://localhost:7000/
   description: local
 paths:
-  /person:
+  /signup:
     post:
       tags:
       - Person
@@ -69,6 +69,7 @@ paths:
               schema:
                 type: string
                 example: the email is already registered
+  /person:
     get:
       tags:
       - Person

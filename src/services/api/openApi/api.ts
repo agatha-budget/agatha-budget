@@ -2558,7 +2558,7 @@ export const PersonApiAxiosParamCreator = function (configuration?: Configuratio
             assertParamExists('createPerson', 'email', email)
             // verify required parameter 'profile' is not null or undefined
             assertParamExists('createPerson', 'profile', profile)
-            const localVarPath = `/person`;
+            const localVarPath = `/signup`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
