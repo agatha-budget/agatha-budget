@@ -19,21 +19,18 @@ class AccountService(private val accountDao: IAccountDao,
         return account
     }
 
-    fun update(person: Person, account: Account, name: String?, bankAccount: BankAccount?): Account {
+    fun update(person: Person, account: Account, name: String): Account {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        name?.let {
-            account.name = it
-        }
-        bankAccount?.let { 
-            authorizationService.cancelIfUserIsUnauthorized(person, it) 
-            account.bankAccountId = it.id
-        }
+        account.name = name
         return accountDao.update(account)
     }
 
-    fun removeBankAssociation(person: Person, account: Account): Account {
+    fun updateBankAssociation(person: Person, account: Account, bankAccount: BankAccount?): Account {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        account.bankAccountId = null
+        if (bankAccount != null) {
+            authorizationService.cancelIfUserIsUnauthorized(person, bankAccount)
+        }
+        account.bankAccountId = bankAccount?.id
         return accountDao.update(account)
     }
 
