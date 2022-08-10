@@ -17,7 +17,7 @@
       </btn>
       <div id="budgetTables">
         <template class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
-          <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit"/>
+          <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" @empty-master-category="emptyMasterCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit"/>
         </template>
         <div class="budget-tools">
           <div v-on:click="this.archiveVisible = !this.archiveVisible" class="actionLabelIcon">
@@ -28,7 +28,7 @@
         <div v-if="this.archiveVisible" id="archive_section" >
           <div class="title">{{ $t("ARCHIVE") }}</div>
           <template v-for="masterCategory in this.$store.state.masterCategories" :key="masterCategory" >
-            <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :archived="true" />
+            <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit" :archived="true" />
           </template>
         </div>
       </div>
@@ -209,6 +209,15 @@ export default defineComponent({
         this.formerAllocations[categoryId] -= this.categoryDataList[categoryId].available
         this.categoryDataList[categoryId].available = 0
         AllocationService.updateAllocation(this.budgetMonth, categoryId, this.formerAllocations[categoryId])
+      }
+    },
+    emptyMasterCategory (masterCategoryId: string) {
+      const masterCategory = StoreHandler.getMasterCategoryById(this.$store, masterCategoryId)
+      if (masterCategory) {
+        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+        categories.forEach(category => {
+          this.emptyCategory(category.id)
+        })
       }
     },
     editFunction () {

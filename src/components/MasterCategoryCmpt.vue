@@ -1,6 +1,6 @@
 <template>
   <table class="budgetTable table" v-if="this.categories.length > 0">
-    <MasterCategoryForm v-if="edit" :masterCategory="masterCategory" :archived="archived" @create-category="createCategory"/>
+    <MasterCategoryForm v-if="edit" :masterCategory="masterCategory" :archived="archived" @create-category="createCategory" @empty-master-category="emptyMasterCategory"/>
     <thead v-else class="masterCategory" :style="{'background': color}">
         <tr>
           <th class="col-6 name">
@@ -44,7 +44,7 @@
         </tr>
       </template>
 
-      <div v-if="focusOn === masterCategory.id && !archived">
+      <div v-if="!archived">
         <tr>
           <div class="actionLabelIcon">
             <span class="illustration btn fas fa-plus"/>
@@ -66,6 +66,7 @@ import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
 import MasterCategoryForm from '@/components/forms/MasterCategoryForm.vue'
+import { navigationColor } from '@/model/colorList'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
@@ -73,7 +74,7 @@ export default defineComponent({
     CategoryForm,
     MasterCategoryForm
   },
-  emits: ['updateAllocation', 'emptyCategory'],
+  emits: ['updateAllocation', 'emptyCategory', 'emptyMasterCategory'],
   props: {
     masterCategory: {
       type: Object as () => MasterCategory,
@@ -96,8 +97,7 @@ export default defineComponent({
   },
   data () {
     return {
-      focusOn: '',
-      color: this.masterCategory.color !== 'null' ? this.masterCategory.color : '#003249'
+      color: this.masterCategory.color !== 'null' ? this.masterCategory.color : navigationColor
     }
   },
   computed: {
@@ -128,11 +128,11 @@ export default defineComponent({
         }
       )
     },
-    putFocusOn (categoryId: string) {
-      this.focusOn = categoryId
-    },
     emptyEnvelope (categoryId: string) {
       this.$emit('emptyCategory', categoryId)
+    },
+    emptyMasterCategory (masterCategoryId: string) {
+      this.$emit('emptyMasterCategory', masterCategoryId)
     },
     addSpacesInThousand (number: number): string {
       return Utils.addSpacesInThousand(number)

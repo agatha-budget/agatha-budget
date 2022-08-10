@@ -20,7 +20,7 @@
         </th>
     </tr>
   </thead>
-  <thead v-else class="masterCategory edit">
+  <thead v-else class="masterCategory edit" :style="{'background': color}">
     <tr>
       <th class="col-6">
         <span class="name">{{ this.name }}</span>
@@ -37,6 +37,7 @@ import { defineComponent } from 'vue'
 import StoreHandler from '@/store/StoreHandler'
 import MasterCategoryService from '@/services/MasterCategoryService'
 import { MasterCategory } from '@/model/model'
+import { navigationColor } from '@/model/colorList'
 
 interface MasterCategoryFormData {
   name: string;
@@ -49,7 +50,7 @@ export default defineComponent({
   data (): MasterCategoryFormData {
     return {
       name: this.masterCategory.name,
-      color: this.masterCategory.color !== 'null' ? this.masterCategory.color : '#000000',
+      color: this.masterCategory.color !== 'null' ? this.masterCategory.color : navigationColor,
       colorPicker: false
     }
   },
@@ -63,7 +64,7 @@ export default defineComponent({
       required: false
     }
   },
-  emits: [],
+  emits: ['emptyMasterCategory'],
   methods: {
     updateMasterCategory () {
       MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
@@ -73,6 +74,7 @@ export default defineComponent({
       )
     },
     archiveMasterCategory () {
+      this.$emit('emptyMasterCategory', this.masterCategory.id)
       MasterCategoryService.archiveMasterCategory(this.masterCategory.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
