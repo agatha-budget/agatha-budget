@@ -70,7 +70,7 @@ open class AllocationDaoTest : ITest {
     fun getAllAllocationsOfBudget() {
         val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, "null")
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -95,7 +95,7 @@ open class AllocationDaoTest : ITest {
     fun getAllAllocationsOfBudgetUntilMonth() {
         val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, "null")
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)

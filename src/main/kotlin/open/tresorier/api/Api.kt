@@ -203,10 +203,11 @@ fun main() {
 
         //optional
         val newName = getOptionalQueryParam<String>(ctx, "new_name")
+        val newColor = getOptionalQueryParam<String>(ctx, "new_color")
         val newArchived = getOptionalQueryParam<Boolean>(ctx, "new_archived")
         val newDeleted = getOptionalQueryParam<Boolean>(ctx, "new_deleted")
 
-        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName, newArchived, newDeleted)
+        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName, newColor, newArchived, newDeleted)
         ctx.json(updatedMasterCategory)
     }
 
@@ -309,7 +310,7 @@ fun main() {
     app.get("/operation/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
+        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id") 
         val category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
         val operations = ServiceManager.operationService.findByAccount(user, account, category)
         ctx.json(operations)
