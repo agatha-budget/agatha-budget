@@ -59,7 +59,7 @@ a.navigationButton {
 
 
 
-.actionButton{
+.actionButton {
   background: rgb(221, 221, 221);
   color: rgb(0, 0, 0);
   border: 1px solid @navigation;
@@ -82,19 +82,24 @@ a.navigationButton {
   }
 }
 
-.dualTab{
+.dualTab, .trialTab {
   btn{  
     border: 1px solid @action;
     color: @dark;
 
-    &.tabLeft{
+    &.tabLeft {
       border-radius: 15px 0px 0px 15px;
       margin-right: 0;
     }
 
-    &.tabRight{
+    &.tabRight {
       border-radius: 0px 15px 15px 0px;
       margin-left: 0;
+    }
+
+    &.tabCenter {
+      margin-left: 0;
+      margin-right: 0;
     }
 
     &.active{

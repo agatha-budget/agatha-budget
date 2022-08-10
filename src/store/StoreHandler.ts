@@ -67,6 +67,15 @@ export default class StoreHandler {
     )
   }
 
+  public static getMasterCategoryById (store: Store<StoreState>, masterCategoryId: string): MasterCategory | null {
+    for (const masterCategory of store.state.masterCategories) {
+      if (masterCategory.id === masterCategoryId) {
+        return masterCategory
+      }
+    }
+    return null
+  }
+
   public static getCategoryById (store: Store<StoreState>, categoryId: string): Category | null {
     for (const category of store.state.categories) {
       if (category.id === categoryId) {
