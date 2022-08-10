@@ -40,6 +40,14 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         ctx.result("updated")
     }
 
+    app.delete("/account") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
+        accountService.delete(user, account)
+        ctx.result("account ${account.name} has been deleted")
+    }
+
+    app.before("/account/bank", SuperTokens.middleware())
     app.put("/account/bank") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
@@ -47,13 +55,6 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         val bankAccount = bankAccountId?.let {bankingService.getBankAccountById(user, bankAccountId)}
         accountService.updateBankAssociation(user, account, bankAccount)
         ctx.result("updated")
-    }
-
-    app.delete("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        accountService.delete(user, account)
-        ctx.result("account ${account.name} has been deleted")
     }
 
     app.before("/account/budget", SuperTokens.middleware())
