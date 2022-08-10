@@ -116,5 +116,10 @@
     "TRANSFER_FROM": " transfert depuis ",
     "SEE_ALL_OFFERS": "voir toutes les offres",
     "MANAGE_SUBSCRIPTION": "gérer son abonnement",
-    "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau"
+    "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau",
+    "CHART": "graphique",
+    "ALL_BUDGET": "ensemble du budget",
+    "PIE_CHART": "Répartition",
+    "BAR_CHART": "Alloué / Dépensé",
+    "SELECT_MASTER_CATEGORY": "sélectionner une catégorie"
 }

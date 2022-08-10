@@ -19,10 +19,6 @@
             <span class="illustrationLabel col-8">{{ $t("FREE_RESOURCES") }}</span>
           </btn>
           <btn class="navigationButton disabled row">
-            <span class="illustration fas fa-chart-area col-4"/>
-            <span class="illustrationLabel col-8">{{ $t("GRAPH") }}</span>
-          </btn>
-          <btn class="navigationButton disabled row">
             <span class="illustration fas fa-palette col-4"/>
             <span class="illustrationLabel col-8">{{ $t("APPEARANCE") }}</span>
           </btn>
@@ -30,6 +26,10 @@
             <span class="illustration fas fa-question col-4"/>
             <span class="illustrationLabel col-8">{{ $t("SUPPORT") }}</span>
           </a>
+          <btn class="navigationButton row" v-on:click="logout">
+            <span class="illustration fas fa-sign-out-alt col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("LOGOUT") }}</span>
+          </btn>
         </div>
         <div class="placeholder bottom">
           <NavMenu :page="'profile'" />
