@@ -9,7 +9,7 @@ import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.exception.SuspendedUserException
 import open.tresorier.model.*
-import open.tresorier.model.bank.*
+import open.tresorier.model.banking.*
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.services.AccountService
