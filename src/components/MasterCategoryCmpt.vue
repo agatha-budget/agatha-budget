@@ -1,7 +1,7 @@
 <template>
   <table class="budgetTable table" v-if="this.categories.length > 0">
     <MasterCategoryForm v-if="edit" :masterCategory="masterCategory" :archived="archived" @create-category="createCategory"/>
-    <thead v-else class="masterCategory">
+    <thead v-else class="masterCategory" :style="{'background': color}">
         <tr>
           <th class="col-6 name">
             <span>{{ masterCategory?.name }}</span>
@@ -96,7 +96,8 @@ export default defineComponent({
   },
   data () {
     return {
-      focusOn: ''
+      focusOn: '',
+      color: this.masterCategory.color !== 'null' ? this.masterCategory.color : '#003249'
     }
   },
   computed: {

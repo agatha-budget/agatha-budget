@@ -1,9 +1,9 @@
 <template>
-  <thead v-if="!this.archived" class="masterCategory edit">
+  <thead v-if="!this.archived" class="masterCategory edit" :style="{'background': color}">
     <tr>
       <th class="col-6">
         <div class="darkTextInput form-group">
-            <input type="textInput" class="form-control" v-model="name">
+            <input type="textInput" class="form-control" v-model="name" :style="{'background': color}">
         </div>
       </th>
         <th v-if="colorPicker" class="col-3">
@@ -94,7 +94,7 @@ export default defineComponent({
       console.log(this.color)
       MasterCategoryService.updateColorMasterCategory(this.masterCategory.id, this.color).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          StoreHandler.updateMasterCategories(this.$store)
           this.colorPicker = false
         }
       )
