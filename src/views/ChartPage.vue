@@ -248,13 +248,13 @@ export default defineComponent({
       let data = 0
       switch (type) {
         case 'allocated':
-          data = this.categoryDataList[category.id]?.allocated
+          data = this.categoryDataList[category.id]?.allocated || 0
           break
         case 'spent':
-          data = this.categoryDataList[category.id]?.spent * (-1)
+          data = this.categoryDataList[category.id]?.spent * (-1) || 0
           break
         case 'available':
-          data = this.categoryDataList[category.id]?.available
+          data = this.categoryDataList[category.id]?.available || 0
           break
       }
       return data
