@@ -78,41 +78,22 @@ import { allocatedColor, spentColor, availableColor, redColor, blueColor, orange
 import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
-    barChartData: {
-      labels: string[];
-      datasets: {
-        label: string;
-        backgroundColor: string;
-        data: number[];
-      }[];
-    };
+    barChartData: { labels: string[]; datasets: { label: string; backgroundColor: string;data: number[] }[] };
     categoryDataList: CategoryDataList;
-    pieChartData: {
-      labels: string[];
-      datasets: {
-        backgroundColor: string[];
-        data: number[];
-      }[];
-    };
+    pieChartData: { labels: string[]; datasets: { backgroundColor: string[]; data: number[] }[] };
     typeInformationPie: string;
     typeInformationBar: string[];
     masterCategoryId: string;
     currentGraph: string;
     budgetMonth: number;
-    choicesTypeInformationPie: {
-      label: string;
-      value: string;
-      preSelected: boolean;
-    }[];
-    choicesTypeInformationBar: {
-      label: string;
-      value: string;
-      preSelected: boolean;
-    }[];
+    choicesTypeInformationPie: { label: string; value: string; preSelected: boolean }[];
+    choicesTypeInformationBar: { label: string; value: string; preSelected: boolean }[];
+    predefinedListColor: string[];
+    colorListMasterCategories: string[];
 }
 
 export default defineComponent({
-  name: 'Login',
+  name: 'ChartPage',
   components: {
     ChartPageHeader,
     BarChart,
@@ -131,6 +112,7 @@ export default defineComponent({
     StoreHandler.initStore(this.$store)
     await this.getBudgetData()
     this.recalculate()
+    this.getcolorsMasterCategories()
   },
   watch: {
     typeInformationPie: function () {
@@ -144,16 +126,12 @@ export default defineComponent({
     return {
       barChartData: {
         labels: [],
-        datasets: [
-          { label: '', backgroundColor: '', data: [] }
-        ]
+        datasets: [{ label: '', backgroundColor: '', data: [] }]
       },
       categoryDataList: {},
       pieChartData: {
         labels: [],
-        datasets: [
-          { backgroundColor: [], data: [] }
-        ]
+        datasets: [{ backgroundColor: [], data: [] }]
       },
       typeInformationPie: 'available',
       typeInformationBar: ['allocated', 'spent'],
@@ -169,7 +147,9 @@ export default defineComponent({
         { label: this.$t('ALLOCATED'), value: 'allocated', preSelected: true },
         { label: this.$t('SPENT'), value: 'spent', preSelected: true },
         { label: this.$t('AVAILABLE'), value: 'available', preSelected: false }
-      ]
+      ],
+      predefinedListColor: [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor],
+      colorListMasterCategories: []
     }
   },
   computed: {
@@ -234,12 +214,15 @@ export default defineComponent({
         }
       } else {
         for (const masterCategory of this.$store.state.masterCategories) {
-          let data = 0
           const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
-          for (const category of categories) {
-            data += this.getCategoryDatas(type, category)
+          const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
+          if (!(categories.length === 0 && archivedCategories.length > 0)) {
+            let data = 0
+            for (const category of categories) {
+              data += this.getCategoryDatas(type, category)
+            }
+            listData.push(Utils.getEurosAmount(data))
           }
-          listData.push(Utils.getEurosAmount(data))
         }
       }
       return listData
@@ -259,8 +242,18 @@ export default defineComponent({
       }
       return data
     },
-    getColorsPieChart (): string[] {
-      return [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor]
+    getcolorsMasterCategories () {
+      for (const masterCategory of this.$store.state.masterCategories) {
+        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+        const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
+        if (!(categories.length === 0 && archivedCategories.length > 0)) {
+          if (masterCategory.color === 'null') {
+            this.colorListMasterCategories.push(this.predefinedListColor[this.getRandomInt(10)])
+          } else {
+            this.colorListMasterCategories.push(masterCategory.color)
+          }
+        }
+      }
     },
     getColorsBarChart (type: string): string {
       let color = ''
@@ -280,7 +273,10 @@ export default defineComponent({
     drawPieChart () {
       const labelList = this.getLegend(this.masterCategoryId)
       const dataList = this.getDatas(this.typeInformationPie, this.masterCategoryId)
-      const colorList = this.getColorsPieChart()
+      let colorList: string[] = this.colorListMasterCategories
+      if (this.masterCategoryId !== '') {
+        colorList = this.predefinedListColor
+      }
       this.pieChartData.labels = labelList
       this.pieChartData.datasets[0].data = dataList
       this.pieChartData.datasets[0].backgroundColor = colorList
@@ -339,6 +335,9 @@ export default defineComponent({
       }
       await this.getBudgetData()
       this.recalculate()
+    },
+    getRandomInt (max: number): number {
+      return Math.floor(Math.random() * max)
     }
   }
 })
