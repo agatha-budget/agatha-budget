@@ -23,11 +23,27 @@ export default class AccountService {
     )
   }
 
-  public static async updateAccount (store: Store<StoreState>, id: string, newName?: string, bankAccountId?: string) {
-    accountApi.updateAccount(id, newName, bankAccountId).then(
+  public static async updateAccount (store: Store<StoreState>, id: string, newName?: string) {
+    accountApi.updateAccount(id, newName).then(
       () => {
         StoreHandler.updateAccounts(store)
       }
     )
+  }
+
+  public static async updateAccountBankAssociation (store: Store<StoreState>, id: string, bankAccountId: string, importHistory: boolean) {
+    if (bankAccountId === 'none') {
+      accountApi.updateAccountBankAssociation(id, false).then(
+        () => {
+          StoreHandler.updateAccounts(store)
+        }
+      )
+    } else {
+      accountApi.updateAccountBankAssociation(id, importHistory, bankAccountId).then(
+        () => {
+          StoreHandler.updateAccounts(store)
+        }
+      )
+    }
   }
 }

@@ -13,15 +13,23 @@
         </div>
 
         <template v-for="account of this.accounts" :key="account">
-            {{ account.name }}
-            <select class="form-select" v-model="bankAssociation[account.id]">
-              <option value=null >{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
-              <template v-for="bankAccount of this.bankAccounts" :key="bankAccount">
-                <option :value=bankAccount.id>
-                {{ bankAccount.name }}
-                </option>
-              </template>
-            </select>
+            <div class="col-md-4">{{ account.name }}</div>
+            <div class="col-md-4">
+              <select class="form-select" v-model="bankAssociation[account.id].bankAccountId">
+                <option value="none" selected>{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
+                <template v-for="bankAccount of this.bankAccounts" :key="bankAccount">
+                  <option :value=bankAccount.id>
+                  {{ bankAccount.name }}
+                  </option>
+                </template>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <div v-if="displayImportHistoryOption(account)">
+                <input id="importHistory" class="form-check-input" type="checkbox" v-model="bankAssociation[account.id].importHistory" >
+                <label class="form-check-label" for="importHistory">{{ $t('IMPORT_HISTORY') }}</label>
+              </div>
+            </div>
         </template>
 
         <btn class="actionButton" v-on:click="saveAssociation()">{{ $t('SAVE') }}</btn>
@@ -40,10 +48,8 @@
             </template>
         </template>
 
-        <div class="banner">
-          <div class="title">{{ $t('ADD_A_BANK') }}</div>
-        </div>
-        <p>{{ $t('SELECT_BANK_TO_AUTHORIZE_SYNCHRONISATION') }}</p>
+        {{ $t('ADD_A_BANK') }}
+
         <template v-for="bank in this.availableBanks" :key="bank">
           <btn class="navigationButton bankButton" v-on:click="getBankAuthorization(bank.id)">
             <img class="illustration col-2" alt="banklogo" :src=bank.logo />
@@ -85,7 +91,12 @@ interface BanksData {
 }
 
 interface BankAssociationList {
-  [accountId: string]: string | null;
+  [accountId: string]: BankAssociationData;
+}
+
+interface BankAssociationData {
+  bankAccountId: string;
+  importHistory: boolean;
 }
 
 export default defineComponent({
@@ -161,17 +172,26 @@ export default defineComponent({
       if (this.accounts) {
         for (const i in this.accounts) {
           const account = this.accounts[i]
-          this.bankAssociation[account.id] = account.bankAccountId || null
+          this.bankAssociation[account.id] = {
+            bankAccountId: account.bankAccountId || 'none',
+            importHistory: false
+          }
         }
       }
+    },
+    displayImportHistoryOption (account: Account): boolean {
+      return (this.bankAssociation[account.id].bankAccountId !== account.bankAccountId && this.bankAssociation[account.id].bankAccountId !== 'none')
     },
     saveAssociation () {
       if (this.accounts) {
         for (const i in this.accounts) {
           const account = this.accounts[i]
-          const bankAccountId = this.bankAssociation[account.id] || undefined
+          const bankAccountId = this.bankAssociation[account.id].bankAccountId
+          const importHistory = this.bankAssociation[account.id].importHistory
           if (account.bankAccountId !== bankAccountId) {
-            AccountService.updateAccount(this.$store, account.id, undefined, bankAccountId)
+            console.log(this.bankAssociation[account.id])
+            console.log(bankAccountId)
+            AccountService.updateAccountBankAssociation(this.$store, account.id, bankAccountId, importHistory)
           }
         }
         StoreHandler.updateAccounts(this.$store)

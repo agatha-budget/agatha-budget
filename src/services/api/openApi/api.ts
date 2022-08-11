@@ -540,13 +540,16 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
          * 
          * @summary edit bank association
          * @param {string} accountId 
+         * @param {boolean} importHistory 
          * @param {string} [bankAccountId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateAccountBankAssociation: async (accountId: string, bankAccountId?: string, options: any = {}): Promise<RequestArgs> => {
+        updateAccountBankAssociation: async (accountId: string, importHistory: boolean, bankAccountId?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('updateAccountBankAssociation', 'accountId', accountId)
+            // verify required parameter 'importHistory' is not null or undefined
+            assertParamExists('updateAccountBankAssociation', 'importHistory', importHistory)
             const localVarPath = `/account/bank`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -565,6 +568,10 @@ export const AccountApiAxiosParamCreator = function (configuration?: Configurati
 
             if (bankAccountId !== undefined) {
                 localVarQueryParameter['bank_account_id'] = bankAccountId;
+            }
+
+            if (importHistory !== undefined) {
+                localVarQueryParameter['import_history'] = importHistory;
             }
 
 
@@ -640,12 +647,13 @@ export const AccountApiFp = function(configuration?: Configuration) {
          * 
          * @summary edit bank association
          * @param {string} accountId 
+         * @param {boolean} importHistory 
          * @param {string} [bankAccountId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateAccountBankAssociation(accountId: string, bankAccountId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAccountBankAssociation(accountId, bankAccountId, options);
+        async updateAccountBankAssociation(accountId: string, importHistory: boolean, bankAccountId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAccountBankAssociation(accountId, importHistory, bankAccountId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -706,12 +714,13 @@ export const AccountApiFactory = function (configuration?: Configuration, basePa
          * 
          * @summary edit bank association
          * @param {string} accountId 
+         * @param {boolean} importHistory 
          * @param {string} [bankAccountId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateAccountBankAssociation(accountId: string, bankAccountId?: string, options?: any): AxiosPromise<string> {
-            return localVarFp.updateAccountBankAssociation(accountId, bankAccountId, options).then((request) => request(axios, basePath));
+        updateAccountBankAssociation(accountId: string, importHistory: boolean, bankAccountId?: string, options?: any): AxiosPromise<string> {
+            return localVarFp.updateAccountBankAssociation(accountId, importHistory, bankAccountId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -779,13 +788,14 @@ export class AccountApi extends BaseAPI {
      * 
      * @summary edit bank association
      * @param {string} accountId 
+     * @param {boolean} importHistory 
      * @param {string} [bankAccountId] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AccountApi
      */
-    public updateAccountBankAssociation(accountId: string, bankAccountId?: string, options?: any) {
-        return AccountApiFp(this.configuration).updateAccountBankAssociation(accountId, bankAccountId, options).then((request) => request(this.axios, this.basePath));
+    public updateAccountBankAssociation(accountId: string, importHistory: boolean, bankAccountId?: string, options?: any) {
+        return AccountApiFp(this.configuration).updateAccountBankAssociation(accountId, importHistory, bankAccountId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 
