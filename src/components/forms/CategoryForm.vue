@@ -2,7 +2,7 @@
   <tr v-if="!this.category.archived">
     <th class="col-6">
       <div class="form-group">
-          <input type="textInput" class="form-control" v-model="name">
+          <input type="textInput" class="form-control" v-model="name" v-on:change="changeName">
       </div>
     </th>
     <th class="col-3">
@@ -64,6 +64,14 @@ export default defineComponent({
     },
     unarchiveCategory () {
       CategoryService.unarchiveCategory(this.category.id).then(
+        () => {
+          StoreHandler.updateCategories(this.$store)
+        }
+      )
+    },
+    changeName () {
+      console.log('change name', this.name)
+      CategoryService.updateCategory(this.category.id, this.name).then(
         () => {
           StoreHandler.updateCategories(this.$store)
         }

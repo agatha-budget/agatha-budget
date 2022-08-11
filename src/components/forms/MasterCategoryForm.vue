@@ -3,7 +3,7 @@
     <tr>
       <th class="col-6">
         <div class="darkTextInput form-group">
-            <input type="textInput" class="form-control" v-model="name" :style="{'background': color}">
+            <input type="textInput" class="form-control" v-model="name" v-on:change="changeName" :style="{'background': color}">
         </div>
       </th>
         <th v-if="colorPicker" class="col-3">
@@ -98,6 +98,14 @@ export default defineComponent({
         () => {
           StoreHandler.updateMasterCategories(this.$store)
           this.colorPicker = false
+        }
+      )
+    },
+    changeName () {
+      console.log('change name', this.name)
+      MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
+        () => {
+          StoreHandler.updateMasterCategories(this.$store)
         }
       )
     }
