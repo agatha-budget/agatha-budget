@@ -8,7 +8,7 @@ val service_module = module {
     single { PersonService(get(), get(), get(), get()) }
     single { BillingService(get()) }
     single { BudgetService(get(), get(), get(), get()) }
-    single { AccountService(get(), get(), get(), get()) }
+    single { AccountService(get(), get(), get(), get(), get()) }
     single { CategoryService(get(), get()) }
     single { MasterCategoryService(get(), get(), get()) }
     single { OperationService(get(), get(), get(), get()) }

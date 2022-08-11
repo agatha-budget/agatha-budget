@@ -51,7 +51,7 @@ class BankingService (
     fun synchronise(person: Person, account: Account) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, account)
         val operations = this.bankingAdapter.getOperations(account)
-        operations.forEach { this.operationDao.insert(it) }
+        operations.forEach { this.operationDao.insert(it)}
     }
 
     fun getAvailableBanks() : List<Bank> {

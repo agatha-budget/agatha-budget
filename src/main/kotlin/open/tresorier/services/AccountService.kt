@@ -9,7 +9,8 @@ import open.tresorier.model.banking.*
 class AccountService(private val accountDao: IAccountDao, 
         private val bankAccountDao: IBankAccountDao,
         private val authorizationService: AuthorizationService,
-        private val operationService: OperationService) {
+        private val operationService: OperationService,
+        private val bankingService: BankingService) {
 
     fun create(person: Person, budget: Budget, name: String, day: Day, amount: Int): Account {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
@@ -25,10 +26,13 @@ class AccountService(private val accountDao: IAccountDao,
         return accountDao.update(account)
     }
 
-    fun updateBankAssociation(person: Person, account: Account, bankAccount: BankAccount?): Account {
+    fun updateBankAssociation(person: Person, account: Account, bankAccount: BankAccount?, importHistory: Boolean): Account {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         if (bankAccount != null) {
             authorizationService.cancelIfUserIsUnauthorized(person, bankAccount)
+            if (importHistory) {
+                bankingService.synchronise(person, account)
+            }
         }
         account.bankAccountId = bankAccount?.id
         return accountDao.update(account)
