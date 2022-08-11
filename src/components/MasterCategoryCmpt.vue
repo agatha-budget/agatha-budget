@@ -21,7 +21,7 @@
         <tr v-else class="categoryBudget">
           <td class="col-6 name">
             <div>
-              <span>{{ category.name}}</span>
+              <span>{{ category.name }}</span>
             </div>
           </td>
           <td class="col-2">
@@ -44,14 +44,12 @@
         </tr>
       </template>
 
-      <div v-if="!archived">
-        <tr>
-          <div class="actionLabelIcon">
-            <span class="illustration btn fas fa-plus"/>
-            <div v-on:click="createCategory" class="text">ajouter une enveloppe</div>
+      <tr v-if="!archived && edit" class="categoryBudget">
+        <div class="actionLabelIcon">
+          <span class="illustration btn fas fa-plus"/>
+          <div v-on:click="createCategory" class="text">{{ $t("ADD_CATEGORY") }}</div>
           </div>
-        </tr>
-      </div>
+      </tr>
 
     </tbody>
   </table>

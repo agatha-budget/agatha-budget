@@ -42,7 +42,6 @@
     "LOADING": "En route !",
     "ADD_MASTER_CATEGORY": "ajouter une catégorie",
     "ADD_CATEGORY": "ajouter une enveloppe",
-    "CLICK_ON_THE_MASTER_CATEGORY" : "pour ajouter une enveloppe, cliquer sur la catégorie concernée puis sur le +",
     "HIDE_ARCHIVE": "cacher les archives",
     "SHOW_ARCHIVE": "afficher les archives",
     "CHECKING_ACCOUNT": "compte courant",
@@ -121,5 +120,6 @@
     "ALL_BUDGET": "ensemble du budget",
     "PIE_CHART": "Répartition",
     "BAR_CHART": "Alloué / Dépensé",
-    "SELECT_MASTER_CATEGORY": "sélectionner une catégorie"
+    "SELECT_MASTER_CATEGORY": "sélectionner une catégorie",
+    "SAVE_CHANGE": "enregistrer les modifications"
 }
