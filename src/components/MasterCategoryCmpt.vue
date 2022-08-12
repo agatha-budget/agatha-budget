@@ -43,11 +43,9 @@
           </td>
         </tr>
       </template>
-      <tr v-if="!archived && edit" class="categoryBudget">
-        <div class="actionLabelIcon">
-          <span class="illustration btn fas fa-plus"/>
-          <div v-on:click="createCategory" class="text">{{ $t("ADD_CATEGORY") }}</div>
-          </div>
+      <tr v-if="!archived && edit" class="categoryBudget actionLabelIcon addCategoryRow">
+        <span class="illustration btn fas fa-plus"/>
+        <div v-on:click="createCategory" class="text">{{ $t("ADD_CATEGORY") }}</div>
       </tr>
 
     </tbody>
