@@ -43,7 +43,6 @@
           </td>
         </tr>
       </template>
-
       <tr v-if="!archived && edit" class="categoryBudget">
         <div class="actionLabelIcon">
           <span class="illustration btn fas fa-plus"/>

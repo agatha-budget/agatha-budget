@@ -5,11 +5,11 @@
           <input type="textInput" class="form-control" v-model="name" v-on:change="changeName">
       </div>
     </th>
-    <th class="col-3">
-      <button class="illustration btn fas fa-exchange-alt" v-on:click="changeMasterCategory"/>
-    </th>
-    <th class="col-3">
+    <th class="col-3 icon">
       <button class="illustration btn fas fa-archive" v-on:click="archiveCategory"/>
+    </th>
+    <th class="col-3 text" v-on:click="archiveCategory">
+      {{ $t('TO_ARCHIVE') }}
     </th>
   </tr>
   <tr v-else>
