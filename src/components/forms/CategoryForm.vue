@@ -70,7 +70,6 @@ export default defineComponent({
       )
     },
     changeName () {
-      console.log('change name', this.name)
       CategoryService.updateCategory(this.category.id, this.name).then(
         () => {
           StoreHandler.updateCategories(this.$store)

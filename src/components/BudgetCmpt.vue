@@ -205,7 +205,7 @@ export default defineComponent({
       }
     },
     emptyCategory (categoryId: string) {
-      if (this.categoryDataList[categoryId].available !== 0) {
+      if (this.categoryDataList[categoryId] && this.categoryDataList[categoryId].available !== 0) {
         this.categoryDataList[categoryId].allocated -= this.categoryDataList[categoryId].available
         this.formerAllocations[categoryId] -= this.categoryDataList[categoryId].available
         this.categoryDataList[categoryId].available = 0
