@@ -9,6 +9,7 @@
       </div>
       <div class="mobileVersion">
         <DateNav :fromPage="'chart'" @change-month="changeMonth"/>
+        <div class="deficitMessage">{{ deficitMessage }}</div>
       </div>
       <div class="draw col-lg-7">
         <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
@@ -31,6 +32,7 @@
             @select="recalculate"
           />
         </div>
+        <div class="deficitMessage ">{{ deficitMessage }}</div>
       </div>
       <div class="mobileVersion">
         <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie"/>
@@ -99,16 +101,12 @@ interface ChartPageData {
     masterCategoryId: string;
     currentGraph: string;
     budgetMonth: number;
-    choicesTypeInformationPie: {
-      label: string;
-      value: string;
-      preSelected: boolean;
-    }[];
-    choicesTypeInformationBar: {
-      label: string;
-      value: string;
-      preSelected: boolean;
-    }[];
+    choicesTypeInformationPie: { label: string; value: string; preSelected: boolean }[];
+    choicesTypeInformationBar: { label: string; value: string; preSelected: boolean }[];
+    predefinedListColor: string[];
+    colorListMasterCategories: string[];
+    deficitCategories: string[];
+    deficitMessage: string;
 }
 
 export default defineComponent({
@@ -138,6 +136,9 @@ export default defineComponent({
     },
     typeInformationBar: function () {
       this.drawBarChart()
+    },
+    deficitCategories: function () {
+      this.writeAlertMessage()
     }
   },
   data (): ChartPageData {
@@ -169,7 +170,11 @@ export default defineComponent({
         { label: this.$t('ALLOCATED'), value: 'allocated', preSelected: true },
         { label: this.$t('SPENT'), value: 'spent', preSelected: true },
         { label: this.$t('AVAILABLE'), value: 'available', preSelected: false }
-      ]
+      ],
+      predefinedListColor: [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor],
+      colorListMasterCategories: [],
+      deficitCategories: [],
+      deficitMessage: ''
     }
   },
   computed: {
@@ -225,21 +230,36 @@ export default defineComponent({
       return listName
     },
     getDatas (type: string, masterCategorySelectedId: string): number[] {
+      this.deficitCategories = []
       const listData: number[] = []
       const masterCategorySelected = StoreHandler.getMasterCategoryById(this.$store, masterCategorySelectedId)
       if (masterCategorySelected) {
         const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategorySelected, false)
         for (const category of categories) {
-          listData.push(Utils.getEurosAmount(this.getCategoryDatas(type, category)))
+          const data = this.getCategoryDatas(type, category)
+          if (data >= 0 || this.currentGraph === 'bar') {
+            listData.push(Utils.getEurosAmount(data))
+          } else {
+            listData.push(0)
+            this.deficitCategories.push(category.name)
+          }
         }
       } else {
         for (const masterCategory of this.$store.state.masterCategories) {
-          let data = 0
           const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
-          for (const category of categories) {
-            data += this.getCategoryDatas(type, category)
+          const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
+          if (!(categories.length === 0 && archivedCategories.length > 0)) {
+            let data = 0
+            for (const category of categories) {
+              data += this.getCategoryDatas(type, category)
+            }
+            if (data >= 0 || this.currentGraph === 'bar') {
+              listData.push(Utils.getEurosAmount(data))
+            } else {
+              listData.push(0)
+              this.deficitCategories.push(masterCategory.name)
+            }
           }
-          listData.push(Utils.getEurosAmount(data))
         }
       }
       return listData
@@ -319,11 +339,15 @@ export default defineComponent({
       this.barChartData.datasets.splice(0, 0, newDatasets)
     },
     recalculate () {
-      this.drawPieChart()
-      this.drawBarChart()
+      if (this.currentGraph === 'pie') {
+        this.drawPieChart()
+      } else {
+        this.drawBarChart()
+      }
     },
     changeGraph (newGraph: string) {
       this.currentGraph = newGraph
+      this.recalculate()
     },
     changeTypeInformationPie (newTypeInformationPie: string) {
       this.typeInformationPie = newTypeInformationPie
@@ -339,6 +363,22 @@ export default defineComponent({
       }
       await this.getBudgetData()
       this.recalculate()
+    },
+    getRandomInt (max: number): number {
+      return Math.floor(Math.random() * max)
+    },
+    writeAlertMessage () {
+      if (this.deficitCategories.length === 0) {
+        this.deficitMessage = ''
+      } else if (this.deficitCategories.length === 1) {
+        this.deficitMessage = 'La catégorie ' + this.deficitCategories[0] + ' est déficitaire. Elle n\'est donc pas affichée.'
+      } else {
+        this.deficitMessage = 'Les catégories : ' + this.deficitCategories[0]
+        for (let i = 1; i < this.deficitCategories.length; i++) {
+          this.deficitMessage = this.deficitMessage + ', ' + this.deficitCategories[i]
+        }
+        this.deficitMessage += ' sont déficitaires. Elles ne sont donc pas affichées.'
+      }
     }
   }
 })
