@@ -12,9 +12,9 @@
           <div class="title">{{ $t('ACCOUNT_ASSOCIATION') }}</div>
         </div>
 
-        <template v-for="account of this.accounts" :key="account">
-            <div class="col-md-4">{{ account.name }}</div>
-            <div class="col-md-4">
+        <template class="associationForm" v-for="account of this.accounts" :key="account">
+            <div class="subtitle col-md-4">{{ account.name }}</div>
+            <div class="col-md-4 col-8 offset-2 offset-md-0">
               <select class="form-select" v-model="bankAssociation[account.id].bankAccountId">
                 <option value="none" selected>{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
                 <template v-for="bankAccount of this.bankAccounts" :key="bankAccount">
@@ -24,11 +24,11 @@
                 </template>
               </select>
             </div>
-            <div class="col-md-4">
-              <div v-if="displayImportHistoryOption(account)">
-                <input id="importHistory" class="form-check-input" type="checkbox" v-model="bankAssociation[account.id].importHistory" >
+            <div class="col-md-4 col-8 offset-2 offset-md-0 historyCheckBox">
+              <template  v-if="displayImportHistoryOption(account)">
                 <label class="form-check-label" for="importHistory">{{ $t('IMPORT_HISTORY') }}</label>
-              </div>
+                <input id="importHistory" class="form-check-input" type="checkbox" v-model="bankAssociation[account.id].importHistory" >
+              </template>
             </div>
         </template>
 
@@ -39,24 +39,39 @@
         </div>
 
         <template v-for="(validUntilList, bankId) of this.authorizedBanks" :key="bankId">
-            <img class="illustration col-2" alt="banklogo" :src="getLogo(bankId)"/>
-            <template v-for="(bankAccountArray, validUntil) of validUntilList" :key="validUntil">
-              {{ getDateStringFromTimestamp(validUntil) }}
-              <template v-for="bankAccount of bankAccountArray" :key="bankAccount">
-                {{ bankAccount.name }}
-              </template>
-            </template>
+            <div class="container bordered row col-8 offset-2">
+              <div class="col-md-6">
+                <img class="illustration banklogo" alt="banklogo" :src="getLogo(bankId)"/>
+              </div>
+              <div class="col-md-6">
+                <template v-for="(bankAccountArray, validUntil) of validUntilList" :key="validUntil">
+                  <div>
+                  {{ getDateStringFromTimestamp(validUntil) }}
+                  </div>
+                  <div v-for="bankAccount of bankAccountArray" :key="bankAccount">
+                    {{ bankAccount.name }}
+                  </div>
+                </template>
+              </div>
+            </div>
         </template>
 
-        {{ $t('ADD_A_BANK') }}
+        <div class="container bordered col-8 offset-2">
+          <div class="subtitle">{{ $t('ADD_BANK_AUTHORIZATION') }}</div>
+          <p>{{ $t('WHY_ADD_AUTHORIZATION_TEXT_P1') }}</p>
+          <p class="bold">{{ $t('WHY_ADD_AUTHORIZATION_TEXT_P2') }}</p>
+          <p>{{ $t('WHY_ADD_AUTHORIZATION_TEXT_P3') }}</p>
 
-        <template v-for="bank in this.availableBanks" :key="bank">
-          <btn class="navigationButton bankButton" v-on:click="getBankAuthorization(bank.id)">
-            <img class="illustration col-2" alt="banklogo" :src=bank.logo />
-            <span class="illustrationLabel col-10">{{ bank.name }}</span>
-          </btn>
-        </template>
-
+          <Multiselect
+            v-model="selectedBankId"
+            :groups="false"
+            :searchable="true"
+            :options="bankOptions"
+            :noResultsText="$t('NO_RESULT_FOUND')"
+            :placeholder="$t('SELECT_BANK')"
+          />
+          <btn class="actionButton" v-on:click="getBankAuthorization">{{ $t('AUTHORIZE') }}</btn>
+        </div>
         <div class="placeholder bottom">
           <NavMenu :page="'profile'" />
         </div>
@@ -72,9 +87,10 @@ import { defineComponent } from 'vue'
 import StoreHandler from '@/store/StoreHandler'
 import NavMenu from '@/components/NavigationMenu.vue'
 import BankingService from '@/services/BankingService'
-import { Bank, BankAccount, Budget, Account } from '@/model/model'
+import { Bank, BankAccount, Budget, Account, SelectOption } from '@/model/model'
 import AccountService from '@/services/AccountService'
 import Time from '@/utils/Time'
+import Multiselect from '@vueform/multiselect'
 
 interface BankAuthorizationList {
   [bankId: string]: BankAccountByValidDateList;
@@ -88,6 +104,7 @@ interface BanksData {
   availableBanks: Bank[];
   bankAccounts: BankAccount[];
   bankAssociation: BankAssociationList;
+  selectedBankId: string|null;
 }
 
 interface BankAssociationList {
@@ -101,7 +118,7 @@ interface BankAssociationData {
 
 export default defineComponent({
   name: 'banksPage',
-  components: { NavMenu },
+  components: { NavMenu, Multiselect },
   created: async function () {
     StoreHandler.initBudget(this.$store)
     this.getAvailableBanks()
@@ -118,7 +135,8 @@ export default defineComponent({
     return {
       availableBanks: [],
       bankAccounts: [],
-      bankAssociation: {}
+      bankAssociation: {},
+      selectedBankId: null
     }
   },
   watch: {
@@ -138,6 +156,14 @@ export default defineComponent({
     },
     authorizedBanks (): BankAuthorizationList | null {
       return this.groupAccountByBankAndValidUntil(this.bankAccounts)
+    },
+    bankOptions (): SelectOption[] {
+      const optionsList = []
+      for (const bank of this.availableBanks) {
+        const option = { value: bank.id, label: bank.name }
+        optionsList.push(option)
+      }
+      return optionsList
     }
   },
   methods: {
@@ -157,9 +183,9 @@ export default defineComponent({
         )
       }
     },
-    getBankAuthorization (bankId: string) {
-      if (this.budget) {
-        BankingService.goToBankAgreement(this.budget, bankId)
+    getBankAuthorization () {
+      if (this.budget && this.selectedBankId) {
+        BankingService.goToBankAgreement(this.budget, this.selectedBankId)
       }
     },
     updateIfAgreement () {

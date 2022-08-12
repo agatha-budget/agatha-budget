@@ -208,6 +208,18 @@
       </div>
     </div>
 
+    <h3>Container bordered</h3>
+    <div class="container bordered">
+      <div class="numberInput form-group">
+        <label for="textInput">Number</label>
+        <input type="number" class="form-control" id="textInput" placeholder="0">
+      </div>
+      <div class="numberInput form-group">
+        <label for="textInput">Number</label>
+        <input type="number" class="form-control" id="textInput" placeholder="0">
+      </div>
+    </div>
+
   </div>
 </div>
 
