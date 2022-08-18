@@ -2,7 +2,7 @@ CREATE TABLE bank_agreement (
     id VARCHAR(36) NOT NULL PRIMARY KEY,
     budget_id VARCHAR(36) NOT NULL,
     bank_id VARCHAR(36) NOT NULL,
-    valid_until BIGINT DEFAULT 0,
+    timestamp BIGINT DEFAULT 0,
     nordigen_requisition_id VARCHAR(36) DEFAULT NULL,
     archived BOOLEAN DEFAULT false,
     deleted BOOLEAN DEFAULT false,

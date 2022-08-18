@@ -6,5 +6,5 @@ open class PublicBankAccount (
     var id: String,
     var name: String,
     var bankId: String,
-    var validUntil: Long
+    var timestamp: Long
 )

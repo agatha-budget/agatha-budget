@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord> implements Record7<String, String, String, Long, String, Boolean, Boolean> {
 
-    private static final long serialVersionUID = -1598465622;
+    private static final long serialVersionUID = 1633503651;
 
     /**
      * Setter for <code>PUBLIC.BANK_AGREEMENT.ID</code>.
@@ -67,17 +67,17 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
     }
 
     /**
-     * Setter for <code>PUBLIC.BANK_AGREEMENT.VALID_UNTIL</code>.
+     * Setter for <code>PUBLIC.BANK_AGREEMENT.TIMESTAMP</code>.
      */
-    public BankAgreementRecord setValidUntil(Long value) {
+    public BankAgreementRecord setTimestamp(Long value) {
         set(3, value);
         return this;
     }
 
     /**
-     * Getter for <code>PUBLIC.BANK_AGREEMENT.VALID_UNTIL</code>.
+     * Getter for <code>PUBLIC.BANK_AGREEMENT.TIMESTAMP</code>.
      */
-    public Long getValidUntil() {
+    public Long getTimestamp() {
         return (Long) get(3);
     }
 
@@ -166,7 +166,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
 
     @Override
     public Field<Long> field4() {
-        return BankAgreement.BANK_AGREEMENT.VALID_UNTIL;
+        return BankAgreement.BANK_AGREEMENT.TIMESTAMP;
     }
 
     @Override
@@ -201,7 +201,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
 
     @Override
     public Long component4() {
-        return getValidUntil();
+        return getTimestamp();
     }
 
     @Override
@@ -236,7 +236,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
 
     @Override
     public Long value4() {
-        return getValidUntil();
+        return getTimestamp();
     }
 
     @Override
@@ -274,7 +274,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
 
     @Override
     public BankAgreementRecord value4(Long value) {
-        setValidUntil(value);
+        setTimestamp(value);
         return this;
     }
 
@@ -322,13 +322,13 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
     /**
      * Create a detached, initialised BankAgreementRecord
      */
-    public BankAgreementRecord(String id, String budgetId, String bankId, Long validUntil, String nordigenRequisitionId, Boolean archived, Boolean deleted) {
+    public BankAgreementRecord(String id, String budgetId, String bankId, Long timestamp, String nordigenRequisitionId, Boolean archived, Boolean deleted) {
         super(BankAgreement.BANK_AGREEMENT);
 
         set(0, id);
         set(1, budgetId);
         set(2, bankId);
-        set(3, validUntil);
+        set(3, timestamp);
         set(4, nordigenRequisitionId);
         set(5, archived);
         set(6, deleted);

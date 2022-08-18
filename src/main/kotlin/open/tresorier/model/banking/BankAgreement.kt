@@ -6,7 +6,7 @@ import open.tresorier.model.DbObject
 open class BankAgreement (
     var budgetId: String,
     var bankId: String,
-    val validUntil: Long = Time.in90Days(),
+    val timestamp: Long = Time.now(),
     var nordigenRequisitionId: String? = null,
     var archived: Boolean = false,
     id: String? = null,

@@ -13,12 +13,12 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAgreement implements Serializable {
 
-    private static final long serialVersionUID = 1108122392;
+    private static final long serialVersionUID = -636190752;
 
     private final String  id;
     private final String  budgetId;
     private final String  bankId;
-    private final Long    validUntil;
+    private final Long    timestamp;
     private final String  nordigenRequisitionId;
     private final Boolean archived;
     private final Boolean deleted;
@@ -27,7 +27,7 @@ public class BankAgreement implements Serializable {
         this.id = value.id;
         this.budgetId = value.budgetId;
         this.bankId = value.bankId;
-        this.validUntil = value.validUntil;
+        this.timestamp = value.timestamp;
         this.nordigenRequisitionId = value.nordigenRequisitionId;
         this.archived = value.archived;
         this.deleted = value.deleted;
@@ -37,7 +37,7 @@ public class BankAgreement implements Serializable {
         String  id,
         String  budgetId,
         String  bankId,
-        Long    validUntil,
+        Long    timestamp,
         String  nordigenRequisitionId,
         Boolean archived,
         Boolean deleted
@@ -45,7 +45,7 @@ public class BankAgreement implements Serializable {
         this.id = id;
         this.budgetId = budgetId;
         this.bankId = bankId;
-        this.validUntil = validUntil;
+        this.timestamp = timestamp;
         this.nordigenRequisitionId = nordigenRequisitionId;
         this.archived = archived;
         this.deleted = deleted;
@@ -63,8 +63,8 @@ public class BankAgreement implements Serializable {
         return this.bankId;
     }
 
-    public Long getValidUntil() {
-        return this.validUntil;
+    public Long getTimestamp() {
+        return this.timestamp;
     }
 
     public String getNordigenRequisitionId() {
@@ -86,7 +86,7 @@ public class BankAgreement implements Serializable {
         sb.append(id);
         sb.append(", ").append(budgetId);
         sb.append(", ").append(bankId);
-        sb.append(", ").append(validUntil);
+        sb.append(", ").append(timestamp);
         sb.append(", ").append(nordigenRequisitionId);
         sb.append(", ").append(archived);
         sb.append(", ").append(deleted);

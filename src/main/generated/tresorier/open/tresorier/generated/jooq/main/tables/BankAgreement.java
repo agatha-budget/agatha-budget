@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAgreement extends TableImpl<BankAgreementRecord> {
 
-    private static final long serialVersionUID = 985209207;
+    private static final long serialVersionUID = -357204622;
 
     /**
      * The reference instance of <code>public.bank_agreement</code>
@@ -62,9 +62,9 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
     public final TableField<BankAgreementRecord, String> BANK_ID = createField(DSL.name("bank_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>public.bank_agreement.valid_until</code>.
+     * The column <code>public.bank_agreement.timestamp</code>.
      */
-    public final TableField<BankAgreementRecord, Long> VALID_UNTIL = createField(DSL.name("valid_until"), org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<BankAgreementRecord, Long> TIMESTAMP = createField(DSL.name("timestamp"), org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>public.bank_agreement.nordigen_requisition_id</code>.

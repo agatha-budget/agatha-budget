@@ -88,17 +88,17 @@ public class BankAgreementDao extends DAOImpl<BankAgreementRecord, open.tresorie
     }
 
     /**
-     * Fetch records that have <code>valid_until BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>timestamp BETWEEN lowerInclusive AND upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.BankAgreement> fetchRangeOfValidUntil(Long lowerInclusive, Long upperInclusive) {
-        return fetchRange(BankAgreement.BANK_AGREEMENT.VALID_UNTIL, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.BankAgreement> fetchRangeOfTimestamp(Long lowerInclusive, Long upperInclusive) {
+        return fetchRange(BankAgreement.BANK_AGREEMENT.TIMESTAMP, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>valid_until IN (values)</code>
+     * Fetch records that have <code>timestamp IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.main.tables.pojos.BankAgreement> fetchByValidUntil(Long... values) {
-        return fetch(BankAgreement.BANK_AGREEMENT.VALID_UNTIL, values);
+    public List<open.tresorier.generated.jooq.main.tables.pojos.BankAgreement> fetchByTimestamp(Long... values) {
+        return fetch(BankAgreement.BANK_AGREEMENT.TIMESTAMP, values);
     }
 
     /**

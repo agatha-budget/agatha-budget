@@ -70,7 +70,7 @@ class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
             bankAgreement.id,
             bankAgreement.budgetId,
             bankAgreement.bankId,
-            bankAgreement.validUntil,
+            bankAgreement.timestamp,
             bankAgreement.nordigenRequisitionId,
             bankAgreement.archived,
             bankAgreement.deleted
@@ -81,7 +81,7 @@ class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
         return BankAgreement(
             jooqBankAgreement.budgetId,
             jooqBankAgreement.bankId,
-            jooqBankAgreement.validUntil,
+            jooqBankAgreement.timestamp,
             jooqBankAgreement.nordigenRequisitionId,
             jooqBankAgreement.archived,
             jooqBankAgreement.id,
