@@ -131,7 +131,7 @@ export interface BankAccount {
      * @type {number}
      * @memberof BankAccount
      */
-    validUntil: number;
+    timestamp: number;
 }
 /**
  * 
