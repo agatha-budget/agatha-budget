@@ -153,9 +153,8 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
         val day : Day = date?.let {Day.createFromComparable(it.replace("-","").toInt())} ?: Day.today()
         val amount = (nordigenOperation.getJSONObject("transactionAmount").getFloat("amount") * 100).toInt()
         val orderInDay = Time.now()
-        // val memo = nordigenOperation.optJSONArray("remittanceInformationUnstructuredArray")?.getString(0)
-        val memo = nordigenOperation.optString("entryReference")
-        val importIdentifier = day.toString() + "__" + amount + "__" + memo
+        val memo = nordigenOperation.optJSONArray("remittanceInformationUnstructuredArray")?.getString(0)
+        val importIdentifier = day.toString() + "__" + amount + "__" + nordigenOperation.optString("entryReference")
         return Operation(
             account.id, day, null, amount, orderInDay, 
             memo, pending, false, null, importIdentifier
