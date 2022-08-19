@@ -30,12 +30,13 @@ class AccountService(private val accountDao: IAccountDao,
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         if (bankAccount != null) {
             authorizationService.cancelIfUserIsUnauthorized(person, bankAccount)
-            if (importHistory) {
-                bankingService.synchronise(person, account)
-            }
         }
         account.bankAccountId = bankAccount?.id
-        return accountDao.update(account)
+        accountDao.update(account)
+        if (importHistory) {
+            bankingService.synchronise(person, account)
+        }
+        return account
     }
 
     fun getById(person: Person, id: String): Account {
