@@ -44,7 +44,14 @@ class BankingService (
         val accounts = this.accountDao.findByBudget(budget)
         accounts.forEach {
             val operations = this.bankingAdapter.getOperations(it)
-            operations.forEach { this.operationDao.insert(it) }
+            operations.forEach { 
+                try {
+                    this.operationDao.insert(it) 
+                } catch (e: Exception) {
+                     /* ignore exception, enough for now to handle not importing the same operation twice
+                    it will return an exception for not unique import identifier and ignored  */ 
+                }
+            }
         }
     }
 
