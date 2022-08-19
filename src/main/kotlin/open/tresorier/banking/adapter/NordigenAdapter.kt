@@ -158,7 +158,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
         val importIdentifier = day.toString() + "__" + amount + "__" + memo
         return Operation(
             account.id, day, null, amount, orderInDay, 
-            memo, pending, false, importIdentifier
+            memo, pending, false, null, importIdentifier
         )
     }
 
