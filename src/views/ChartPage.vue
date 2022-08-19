@@ -80,22 +80,9 @@ import { allocatedColor, spentColor, availableColor, redColor, blueColor, orange
 import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
-    barChartData: {
-      labels: string[];
-      datasets: {
-        label: string;
-        backgroundColor: string;
-        data: number[];
-      }[];
-    };
+    barChartData: { labels: string[]; datasets: { label: string; backgroundColor: string;data: number[] }[] };
     categoryDataList: CategoryDataList;
-    pieChartData: {
-      labels: string[];
-      datasets: {
-        backgroundColor: string[];
-        data: number[];
-      }[];
-    };
+    pieChartData: { labels: string[]; datasets: { backgroundColor: string[]; data: number[] }[] };
     typeInformationPie: string;
     typeInformationBar: string[];
     masterCategoryId: string;
@@ -110,7 +97,7 @@ interface ChartPageData {
 }
 
 export default defineComponent({
-  name: 'Login',
+  name: 'ChartPage',
   components: {
     ChartPageHeader,
     BarChart,
@@ -129,6 +116,7 @@ export default defineComponent({
     StoreHandler.initStore(this.$store)
     await this.getBudgetData()
     this.recalculate()
+    this.getcolorsMasterCategories()
   },
   watch: {
     typeInformationPie: function () {
@@ -145,16 +133,12 @@ export default defineComponent({
     return {
       barChartData: {
         labels: [],
-        datasets: [
-          { label: '', backgroundColor: '', data: [] }
-        ]
+        datasets: [{ label: '', backgroundColor: '', data: [] }]
       },
       categoryDataList: {},
       pieChartData: {
         labels: [],
-        datasets: [
-          { backgroundColor: [], data: [] }
-        ]
+        datasets: [{ backgroundColor: [], data: [] }]
       },
       typeInformationPie: 'available',
       typeInformationBar: ['allocated', 'spent'],
@@ -279,8 +263,18 @@ export default defineComponent({
       }
       return data
     },
-    getColorsPieChart (): string[] {
-      return [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor]
+    getcolorsMasterCategories () {
+      for (const masterCategory of this.$store.state.masterCategories) {
+        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+        const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
+        if (!(categories.length === 0 && archivedCategories.length > 0)) {
+          if (masterCategory.color === 'null') {
+            this.colorListMasterCategories.push(this.predefinedListColor[this.getRandomInt(10)])
+          } else {
+            this.colorListMasterCategories.push(masterCategory.color)
+          }
+        }
+      }
     },
     getColorsBarChart (type: string): string {
       let color = ''
@@ -300,7 +294,10 @@ export default defineComponent({
     drawPieChart () {
       const labelList = this.getLegend(this.masterCategoryId)
       const dataList = this.getDatas(this.typeInformationPie, this.masterCategoryId)
-      const colorList = this.getColorsPieChart()
+      let colorList: string[] = this.colorListMasterCategories
+      if (this.masterCategoryId !== '') {
+        colorList = this.predefinedListColor
+      }
       this.pieChartData.labels = labelList
       this.pieChartData.datasets[0].data = dataList
       this.pieChartData.datasets[0].backgroundColor = colorList
@@ -371,13 +368,13 @@ export default defineComponent({
       if (this.deficitCategories.length === 0) {
         this.deficitMessage = ''
       } else if (this.deficitCategories.length === 1) {
-        this.deficitMessage = 'La catégorie ' + this.deficitCategories[0] + ' est déficitaire. Elle n\'est donc pas affichée.'
+        this.deficitMessage = this.$t('THE_CATEGORY') + this.deficitCategories[0] + this.$t('IS_IN_DEFICIT')
       } else {
-        this.deficitMessage = 'Les catégories : ' + this.deficitCategories[0]
+        this.deficitMessage = this.$t('CATEGORIES') + this.deficitCategories[0]
         for (let i = 1; i < this.deficitCategories.length; i++) {
           this.deficitMessage = this.deficitMessage + ', ' + this.deficitCategories[i]
         }
-        this.deficitMessage += ' sont déficitaires. Elles ne sont donc pas affichées.'
+        this.deficitMessage += this.$t('ARE_IN_DEFICIT')
       }
     }
   }

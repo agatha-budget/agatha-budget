@@ -1,13 +1,11 @@
 <template>
   <table class="budgetTable table" v-if="this.categories.length > 0">
-    <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
-    <thead v-else class="masterCategory">
+    <MasterCategoryForm v-if="edit" :masterCategory="masterCategory" :archived="archived" @create-category="createCategory" @empty-master-category="emptyMasterCategory"/>
+    <thead v-else class="masterCategory" :style="{'background': color}">
         <tr>
           <th class="col-6 name">
-            <span v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}</span>
+            <span>{{ masterCategory?.name }}</span>
             <span class="action">
-              <button class="illustration btn fas fa-pen" v-on:click="this.putFocusOn(masterCategory.id)"/>
-              <button class="illustration btn fas fa-plus" v-on:click="createCategory"/>
             </span>
           </th>
           <th class="col-2">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.allocated))}}</th>
@@ -19,11 +17,11 @@
       </thead>
     <tbody >
       <template v-for="category of this.categories" :key="category">
-        <CategoryForm class="categoryBudget" v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus" @empty-envelope="emptyEnvelope"/>
-        <tr class="categoryBudget" v-else>
+        <CategoryForm class="categoryBudget" v-if="edit" :category="category" @empty-envelope="emptyEnvelope"/>
+        <tr v-else class="categoryBudget">
           <td class="col-6 name">
             <div>
-              <span  v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="action illustration btn fas fa-pen"/></span>
+              <span>{{ category.name }}</span>
             </div>
           </td>
           <td class="col-2">
@@ -45,6 +43,11 @@
           </td>
         </tr>
       </template>
+      <tr v-if="!archived && edit" class="categoryBudget actionLabelIcon addCategoryRow">
+        <span class="illustration btn fas fa-plus"/>
+        <div v-on:click="createCategory" class="text">{{ $t("ADD_CATEGORY") }}</div>
+      </tr>
+
     </tbody>
   </table>
 </template>
@@ -58,6 +61,7 @@ import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
 import MasterCategoryForm from '@/components/forms/MasterCategoryForm.vue'
+import { navigationColor } from '@/model/colorList'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
@@ -65,7 +69,7 @@ export default defineComponent({
     CategoryForm,
     MasterCategoryForm
   },
-  emits: ['updateAllocation', 'emptyCategory'],
+  emits: ['updateAllocation', 'emptyCategory', 'emptyMasterCategory'],
   props: {
     masterCategory: {
       type: Object as () => MasterCategory,
@@ -79,11 +83,16 @@ export default defineComponent({
       type: Boolean as () => boolean,
       required: false,
       default: false
+    },
+    edit: {
+      type: Boolean as () => boolean,
+      required: false,
+      default: false
     }
   },
   data () {
     return {
-      focusOn: ''
+      color: this.masterCategory.color !== 'null' ? this.masterCategory.color : navigationColor
     }
   },
   computed: {
@@ -114,14 +123,11 @@ export default defineComponent({
         }
       )
     },
-    putFocusOn (categoryId: string) {
-      this.focusOn = categoryId
-    },
-    loosesFocus () {
-      this.focusOn = ''
-    },
     emptyEnvelope (categoryId: string) {
       this.$emit('emptyCategory', categoryId)
+    },
+    emptyMasterCategory (masterCategoryId: string) {
+      this.$emit('emptyMasterCategory', masterCategoryId)
     },
     addSpacesInThousand (number: number): string {
       return Utils.addSpacesInThousand(number)

@@ -1,35 +1,33 @@
 <template>
-  <thead v-if="!this.archived" class="masterCategory edit">
+  <thead v-if="!this.archived" class="masterCategory edit" :style="{'background': color}">
     <tr>
       <th class="col-6">
         <div class="darkTextInput form-group">
-            <input type="textInput" class="form-control" v-model="name">
+            <input type="textInput" class="form-control" v-model="name" v-on:change="changeName" :style="{'background': color}">
         </div>
       </th>
-      <th class="col-2">
-        <button class="illustration btn fas fa-check" v-on:click="updateMasterCategory"/>
-      </th>
-       <th class="col-2 disappearForMobile">
-        <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-      </th>
-      <th class="col-2">
-        <button class="illustration btn fas fa-archive" v-on:click="archiveMasterCategory"/>
-      </th>
+        <th v-if="colorPicker" class="col-3">
+          <input type="color" v-model="color"/>
+        </th>
+        <th v-if="colorPicker" class="col-3">
+          <button class="illustration btn fas fa-check" v-on:click="validColor"/>
+        </th>
+        <th v-if="!colorPicker" class="col-3">
+          <button class="illustration btn fas fa-palette" v-on:click="chooseColor"/>
+        </th>
+        <th v-if="!colorPicker" class="col-3">
+          <button class="illustration btn fas fa-archive" v-on:click="archiveMasterCategory"/>
+        </th>
     </tr>
   </thead>
-  <thead v-else class="masterCategory edit">
+  <thead v-else class="masterCategory edit" :style="{'background': color}">
     <tr>
       <th class="col-6">
         <span class="name">{{ this.name }}</span>
       </th>
-      <th class="col-2">
+      <th class="col-6">
         <button class="illustration btn fas fa-level-up-alt" v-on:click="unarchiveMasterCategory"/>
         </th>
-      <th class="col-2">
-        <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-      </th>
-      <th class="col-2">
-      </th>
     </tr>
   </thead>
 </template>
@@ -39,16 +37,21 @@ import { defineComponent } from 'vue'
 import StoreHandler from '@/store/StoreHandler'
 import MasterCategoryService from '@/services/MasterCategoryService'
 import { MasterCategory } from '@/model/model'
+import { navigationColor } from '@/model/colorList'
 
 interface MasterCategoryFormData {
   name: string;
+  color: string;
+  colorPicker: boolean;
 }
 
 export default defineComponent({
   name: 'MasterCategoryForm',
   data (): MasterCategoryFormData {
     return {
-      name: this.masterCategory.name
+      name: this.masterCategory.name,
+      color: this.masterCategory.color !== 'null' ? this.masterCategory.color : navigationColor,
+      colorPicker: false
     }
   },
   props: {
@@ -61,21 +64,20 @@ export default defineComponent({
       required: false
     }
   },
-  emits: ['loosesFocus'],
+  emits: ['emptyMasterCategory'],
   methods: {
     updateMasterCategory () {
       MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
         () => {
           StoreHandler.updateMasterCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     },
     archiveMasterCategory () {
+      this.$emit('emptyMasterCategory', this.masterCategory.id)
       MasterCategoryService.archiveMasterCategory(this.masterCategory.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     },
@@ -83,7 +85,27 @@ export default defineComponent({
       MasterCategoryService.unarchiveMasterCategory(this.masterCategory.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
+        }
+      )
+    },
+    chooseColor () {
+      this.colorPicker = !this.colorPicker
+      console.log(this.colorPicker)
+    },
+    validColor () {
+      console.log(this.color)
+      MasterCategoryService.updateColorMasterCategory(this.masterCategory.id, this.color).then(
+        () => {
+          StoreHandler.updateMasterCategories(this.$store)
+          this.colorPicker = false
+        }
+      )
+    },
+    changeName () {
+      console.log('change name', this.name)
+      MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
+        () => {
+          StoreHandler.updateMasterCategories(this.$store)
         }
       )
     }
