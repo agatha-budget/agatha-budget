@@ -130,20 +130,22 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
         // add new transaction for account
 
         var nordigenOperations = response.getJSONObject("transactions").getJSONArray("booked")
-        for (i in 1..nordigenOperations.length()) {
-            val nordigenOperation = nordigenOperations.getJSONObject(i-1);
-            val operation = this.createOperation(account, false, nordigenOperation)
-            operationList = operationList + operation 
-        }
+        operationList = createOperations(account, nordigenOperations, operationList, false)
 
         nordigenOperations = response.getJSONObject("transactions").getJSONArray("pending")
-        for (i in 1..nordigenOperations.length()) {
-            val nordigenOperation = nordigenOperations.getJSONObject(i-1);
-            val operation = this.createOperation(account, true, nordigenOperation)
-            operationList = operationList + operation 
-        }
+        operationList = createOperations(account, nordigenOperations, operationList, true)
 
         return operationList
+    }
+
+    private fun createOperations(account: Account, nordigenOperations: JSONArray, operationList: List<Operation>, pending: Boolean) : List<Operation> {
+        var newOperationList = operationList
+        for (i in 1..nordigenOperations.length()) {
+            val nordigenOperation = nordigenOperations.getJSONObject(i-1);
+            val operation = this.createOperation(account, pending, nordigenOperation)
+            newOperationList = newOperationList + operation 
+        }
+        return newOperationList
     }
 
     private fun createOperation(account: Account, pending: Boolean, nordigenOperation: JSONObject) : Operation {
