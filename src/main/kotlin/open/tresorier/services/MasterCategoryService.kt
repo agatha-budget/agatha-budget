@@ -11,7 +11,7 @@ class MasterCategoryService(private val masterCategoryDao: IMasterCategoryDao, p
 
     fun create(person: Person, budget: Budget, name: String): MasterCategory {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
-        val masterCategory = MasterCategory(name, budget.id, "null")
+        val masterCategory = MasterCategory(name, budget.id, null)
         val inserted = masterCategoryDao.insert(masterCategory)
         val category = Category(Category.NEW_CATEGORY_NAME, inserted.id)
         categoryDao.insert(category)
