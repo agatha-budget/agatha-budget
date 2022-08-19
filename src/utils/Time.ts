@@ -89,6 +89,10 @@ export default class Time {
     return date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
   }
 
+  public static after90Days (timestamp: number): number {
+    return (timestamp * 1) + (90 * 86400000)
+  }
+
   private static formatDate (date: Date): string {
     return date.toISOString().split('T')[0]
   }

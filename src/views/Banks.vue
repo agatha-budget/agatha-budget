@@ -38,15 +38,15 @@
           <div class="title">{{ $t('SYNCHRONISED_BANKS') }}</div>
         </div>
 
-        <template v-for="(validUntilList, bankId) of this.authorizedBanks" :key="bankId">
+        <template v-for="(timestampList, bankId) of this.authorizedBanks" :key="bankId">
             <div class="container bordered row col-8 offset-2">
               <div class="col-md-6">
                 <img class="illustration banklogo" alt="banklogo" :src="getLogo(bankId)"/>
               </div>
               <div class="col-md-6">
-                <template v-for="(bankAccountArray, validUntil) of validUntilList" :key="validUntil">
-                  <div>
-                  {{ getDateStringFromTimestamp(validUntil) }}
+                <template v-for="(bankAccountArray, timestamp) of timestampList" :key="timestamp">
+                  <div class="subtext">
+                  {{ $t('EXPIRE_ON') }} {{ getExpirationDateFromTimestamp(timestamp) }}
                   </div>
                   <div v-for="bankAccount of bankAccountArray" :key="bankAccount">
                     {{ bankAccount.name }}
@@ -93,11 +93,11 @@ import Time from '@/utils/Time'
 import Multiselect from '@vueform/multiselect'
 
 interface BankAuthorizationList {
-  [bankId: string]: BankAccountByValidDateList;
+  [bankId: string]: BankAccountByTimestampList;
 }
 
-interface BankAccountByValidDateList {
-  [validUntil: number]: BankAccount[];
+interface BankAccountByTimestampList {
+  [timestamp: number]: BankAccount[];
 }
 
 interface BanksData {
@@ -155,7 +155,7 @@ export default defineComponent({
       return this.$store.state.accounts
     },
     authorizedBanks (): BankAuthorizationList | null {
-      return this.groupAccountByBankAndValidUntil(this.bankAccounts)
+      return this.groupAccountByBankAndTimestamp(this.bankAccounts)
     },
     bankOptions (): SelectOption[] {
       const optionsList = []
@@ -215,28 +215,26 @@ export default defineComponent({
           const bankAccountId = this.bankAssociation[account.id].bankAccountId
           const importHistory = this.bankAssociation[account.id].importHistory
           if (account.bankAccountId !== bankAccountId) {
-            console.log(this.bankAssociation[account.id])
-            console.log(bankAccountId)
             AccountService.updateAccountBankAssociation(this.$store, account.id, bankAccountId, importHistory)
           }
         }
         StoreHandler.updateAccounts(this.$store)
       }
     },
-    groupAccountByBankAndValidUntil (bankAccounts: BankAccount[]): BankAuthorizationList {
+    groupAccountByBankAndTimestamp (bankAccounts: BankAccount[]): BankAuthorizationList {
       const banks: BankAuthorizationList = {}
       bankAccounts.forEach(function (bankAccount) {
         if (bankAccount.bankId in banks) {
           const bankIdList = banks[bankAccount.bankId]
-          if (bankAccount.validUntil in bankIdList) {
-            bankIdList[bankAccount.validUntil].push(bankAccount)
+          if (bankAccount.timestamp in bankIdList) {
+            bankIdList[bankAccount.timestamp].push(bankAccount)
           } else {
-            bankIdList[bankAccount.validUntil] = [bankAccount]
+            bankIdList[bankAccount.timestamp] = [bankAccount]
           }
         } else {
-          const validUntilList: BankAccountByValidDateList = {}
-          validUntilList[bankAccount.validUntil] = [bankAccount]
-          banks[bankAccount.bankId] = validUntilList
+          const timeStampList: BankAccountByTimestampList = {}
+          timeStampList[bankAccount.timestamp] = [bankAccount]
+          banks[bankAccount.bankId] = timeStampList
         }
       })
       return banks
@@ -249,8 +247,9 @@ export default defineComponent({
       }
       return 'not found'
     },
-    getDateStringFromTimestamp (timestamp: number): string {
-      return Time.getDateStringFromTimestamp(timestamp)
+    getExpirationDateFromTimestamp (timestamp: number): string {
+      const expirationTimestamp = Time.after90Days(timestamp)
+      return Time.getDateStringFromTimestamp(expirationTimestamp)
     }
   }
 })

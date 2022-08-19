@@ -122,7 +122,7 @@
     "BANKS":"banques",
     "SAVE": "sauvegarder",
     "NO_ASSOCIATED_BANK_ACCOUNT": "ne pas associer de compte bancaire",
-    "SYNCHRONISED_BANKS":"autorisations bancaires",
+    "SYNCHRONISED_BANKS":"synchronisations bancaires",
     "SELECT_BANK_TO_AUTHORIZE_SYNCHRONISATION": "sélectionner une banque pour autoriser la synchronisation",
     "CHART": "graphique",
     "ALL_BUDGET": "ensemble du budget",
@@ -131,9 +131,10 @@
     "SELECT_MASTER_CATEGORY": "sélectionner une catégorie",
     "IMPORT_HISTORY": "importer l'historique",
     "SELECT_BANK": "sélectionner votre banque",
-    "ADD_BANK_AUTHORIZATION": "ajouter une autorisation bancaire",
+    "ADD_BANK_AUTHORIZATION": "ajouter une synchronisation bancaire",
     "WHY_ADD_AUTHORIZATION_TEXT_P1": "Afin de faciliter le suivi de vos comptes, vous avez la possibilité de synchroniser Agatha et vos comptes bancaires. Vos dépenses seront ainsi mises à jour automatiquement.",
     "WHY_ADD_AUTHORIZATION_TEXT_P2": "L'autorisation ne donne à Agatha qu'un droit de lecture sur vos transactions, soldes et coordonnées, aucune opération bancaire ne peut être effectuée par ce biais.",
     "WHY_ADD_AUTHORIZATION_TEXT_P3": "Les autorisations ne sont valables que 90 jours et devront donc être renouvellées.",
-    "AUTHORIZE":"autoriser"
+    "AUTHORIZE":"autoriser",
+    "EXPIRE_ON":"expire le"
 }
