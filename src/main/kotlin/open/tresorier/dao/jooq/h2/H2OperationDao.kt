@@ -154,7 +154,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             operation.pending,
             operation.locked,
             operation.motherOperationId,
-            operation.importIdentifier
+            operation.importIdentifier,
+            operation.importTimestamp
         )
     }
 
@@ -172,6 +173,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.locked,
             jooqOperation.motherOperationId,
             jooqOperation.importIdentifier,
+            jooqOperation.importTimestamp,
             jooqOperation.id,
         )
     }
@@ -196,6 +198,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             operationRecord.locked,
             operationRecord.motherOperationId,
             operationRecord.importIdentifier,
+            operationRecord.importTimestamp,
             operationRecord.id,
         )
     }

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 143318494;
+    private static final long serialVersionUID = 808450859;
 
     private final String  id;
     private final String  accountId;
@@ -27,6 +27,7 @@ public class Operation implements Serializable {
     private final Boolean locked;
     private final String  motherOperationId;
     private final String  importIdentifier;
+    private final Long    importTimestamp;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -41,6 +42,7 @@ public class Operation implements Serializable {
         this.locked = value.locked;
         this.motherOperationId = value.motherOperationId;
         this.importIdentifier = value.importIdentifier;
+        this.importTimestamp = value.importTimestamp;
     }
 
     public Operation(
@@ -55,7 +57,8 @@ public class Operation implements Serializable {
         Boolean pending,
         Boolean locked,
         String  motherOperationId,
-        String  importIdentifier
+        String  importIdentifier,
+        Long    importTimestamp
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -69,6 +72,7 @@ public class Operation implements Serializable {
         this.locked = locked;
         this.motherOperationId = motherOperationId;
         this.importIdentifier = importIdentifier;
+        this.importTimestamp = importTimestamp;
     }
 
     public String getId() {
@@ -119,6 +123,10 @@ public class Operation implements Serializable {
         return this.importIdentifier;
     }
 
+    public Long getImportTimestamp() {
+        return this.importTimestamp;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Operation (");
@@ -135,6 +143,7 @@ public class Operation implements Serializable {
         sb.append(", ").append(locked);
         sb.append(", ").append(motherOperationId);
         sb.append(", ").append(importIdentifier);
+        sb.append(", ").append(importTimestamp);
 
         sb.append(")");
         return sb.toString();

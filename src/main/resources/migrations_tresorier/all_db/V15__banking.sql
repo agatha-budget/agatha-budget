@@ -25,3 +25,6 @@ ADD FOREIGN KEY (bank_account_id) REFERENCES bank_account(id);
 
 ALTER TABLE operation
 ADD COLUMN import_identifier VARCHAR(150) DEFAULT NULL UNIQUE;
+
+ALTER TABLE operation
+ADD COLUMN import_timestamp BIGINT DEFAULT NULL;

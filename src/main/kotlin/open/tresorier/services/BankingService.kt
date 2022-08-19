@@ -47,7 +47,7 @@ class BankingService (
             operations.forEach { 
                 try {
                     this.operationDao.insert(it) 
-                } catch (e: Exception) {
+                } catch (e: Throwable) {
                      /* ignore exception, enough for now to handle not importing the same operation twice
                     it will return an exception for not unique import identifier and ignored  */ 
                 }
