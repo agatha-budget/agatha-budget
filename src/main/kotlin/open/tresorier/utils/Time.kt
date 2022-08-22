@@ -2,6 +2,7 @@ package open.tresorier.utils
 
 import open.tresorier.model.Month
 import java.util.*
+import java.text.SimpleDateFormat
 
 object Time {
 
@@ -41,6 +42,12 @@ object Time {
         val date = Calendar.getInstance(TimeZone.getTimeZone("GMT"))
         date.set(givenMonth.year, givenMonth.month -1, 1, 0,0,0)
         return date.timeInMillis/1000
+    }
+
+    fun getDateStringFromTimestamp(timestamp: Long) : String {
+        val date = Date(timestamp)
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        return format.format(date)
     }
 
 }
