@@ -13,7 +13,7 @@ import open.tresorier.dao.IOperationDao
 import open.tresorier.dao.IBankAgreementDao
 import open.tresorier.dao.IBankAccountDao
 import open.tresorier.dao.IAccountDao
-
+import open.tresorier.dao.IBudgetDao
 
 class BankingService (
     private val bankingAdapter: IBankingPort,
@@ -21,7 +21,8 @@ class BankingService (
     private val operationDao: IOperationDao,
     private val bankAgreementDao: IBankAgreementDao,
     private val accountDao: IAccountDao,
-    private val bankAccountDao: IBankAccountDao) {
+    private val bankAccountDao: IBankAccountDao,
+    private val budgetDao: IBudgetDao) {
 
     fun getLinkForUserAgreement(person: Person, budget: Budget, bankId: String) : String {
         this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
@@ -39,26 +40,33 @@ class BankingService (
         return bankAccountDao.findByBudget(budget)
     }
 
-    fun synchronise(person: Person, budget: Budget) {
+    fun synchronise(person: Person) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
-        val accounts = this.accountDao.findByBudget(budget)
-        accounts.forEach {
-            val operations = this.bankingAdapter.getOperations(it)
-            operations.forEach { 
-                try {
-                    this.operationDao.insert(it) 
-                } catch (e: Throwable) {
-                     /* ignore exception, enough for now to handle not importing the same operation twice
-                    it will return an exception for not unique import identifier and ignored  */ 
-                }
+        val budgets = this.budgetDao.findByPersonId(person.id)
+        budges.forEach {
+            val accounts = this.accountDao.findByBudget(budget)
+            accounts.forEach {
+                synchronseAccount(account)
             }
         }
     }
 
     fun synchronise(person: Person, account: Account) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, account)
+        synchronseAccount(account)
+        
+    }
+
+    fun synchronseAccount(account: Account) {
         val operations = this.bankingAdapter.getOperations(account)
-        operations.forEach { this.operationDao.insert(it)}
+        operations.forEach { 
+            try {
+                this.operationDao.insert(it) 
+            } catch (e: Throwable) {
+                 /* ignore exception, enough for now to handle not importing the same operation twice
+                it will return an exception for not unique import identifier and ignored  */ 
+            }
+        }
     }
 
     fun getAvailableBanks() : List<Bank> {
