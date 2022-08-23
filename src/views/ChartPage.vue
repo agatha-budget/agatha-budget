@@ -76,7 +76,7 @@ import BudgetDataService from '@/services/BudgetDataService'
 import { CategoryDataList, Budget, GroupSelectOption, Category } from '@/model/model'
 import Utils from '@/utils/Utils'
 import Time from '@/utils/Time'
-import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor } from '@/model/colorList'
+import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor, lightGreyColor, darkGreyColor, lightGreenColor, salmonColor, lavenderColor, bordeauxColor } from '@/model/colorList'
 import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
@@ -155,7 +155,7 @@ export default defineComponent({
         { label: this.$t('SPENT'), value: 'spent', preSelected: true },
         { label: this.$t('AVAILABLE'), value: 'available', preSelected: false }
       ],
-      predefinedListColor: [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor],
+      predefinedListColor: [redColor, blueColor, orangeColor, darkGreyColor, purpleColor, greenColor, pinkColor, navyColor, lightGreyColor, salmonColor, brownColor, blackColor, bordeauxColor, lavenderColor, yellowColor, lightGreenColor],
       colorListMasterCategories: [],
       deficitCategories: [],
       deficitMessage: ''
