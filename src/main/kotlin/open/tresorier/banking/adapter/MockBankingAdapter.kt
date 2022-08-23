@@ -30,7 +30,7 @@ class MockBankingAdapter() : IBankingPort {
         return listOf()
     }
 
-    override fun getOperations(account: Account) : List<Operation> {
+    override fun getOperations(account: Account, _from: Long?) : List<Operation> {
         // add new transaction for account
         return listOf()
     }

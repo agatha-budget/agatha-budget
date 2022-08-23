@@ -104,14 +104,14 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
         return response.getJSONObject("account").getString("name")
     }
 
-    override fun getOperations(account: Account) : List<Operation> {
+    override fun getOperations(account: Account, _from: Long?) : List<Operation> {
         var operationList = listOf<Operation>()
 
         if (account.bankAccountId == null) {
             return operationList
         }
         // date format is 2022-07-07
-        val from="2022-01-01"
+        val from = if (_from != null) Time.getDateStringFromTimestamp(_from) else "2022-01-01"
         val url = "https://ob.nordigen.com/api/v2/accounts/${account.bankAccountId}/transactions/?date_from=${from}"
 
         val headerProperties = mapOf(
