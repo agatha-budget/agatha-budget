@@ -50,11 +50,11 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
     }
 
     private fun initCategoriesUserProfile(budget: Budget) {
-        val masterCategoryGoal = MasterCategory("_Objectifs", budget.id, "null")
-        val masterCategoryVIP = MasterCategory("_Priorités au quotidien", budget.id, "null")
-        val masterCategoryFixed = MasterCategory("Frais Fixes", budget.id, "null")
-        val masterCategoryVariable = MasterCategory("Frais Variables", budget.id, "null")
-        val masterCategoryProvision = MasterCategory("Provisions", budget.id, "null")
+        val masterCategoryGoal = MasterCategory("_Objectifs", budget.id, null)
+        val masterCategoryVIP = MasterCategory("_Priorités au quotidien", budget.id, null)
+        val masterCategoryFixed = MasterCategory("Frais Fixes", budget.id, null)
+        val masterCategoryVariable = MasterCategory("Frais Variables", budget.id, null)
+        val masterCategoryProvision = MasterCategory("Provisions", budget.id, null)
         
         val masterCategories = listOf(masterCategoryGoal, masterCategoryVIP, masterCategoryFixed, masterCategoryVariable, masterCategoryProvision)
         for (masterCategory in masterCategories) {
@@ -88,13 +88,13 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
     }
 
     private fun initCategoriesCompanyProfile(budget: Budget) {
-        val masterCategoryIncoming = MasterCategory("1 - Entrées", budget.id, "null")
-        val masterCategoryGoal = MasterCategory("2 - Projets d'avenir", budget.id, "null")
-        val masterCategoryProvision = MasterCategory("3 - Provisions", budget.id, "null")
-        val masterCategoryVariable = MasterCategory("4 - Frais variables", budget.id, "null")
-        val masterCategoryFixed = MasterCategory("5 - Frais fixes", budget.id, "null")
-        val masterCategoryHumanRessources = MasterCategory("6 - Ressources humaines", budget.id, "null")
-        val masterCategoryTaxes = MasterCategory("7 - TVA", budget.id, "null")
+        val masterCategoryIncoming = MasterCategory("1 - Entrées", budget.id, null)
+        val masterCategoryGoal = MasterCategory("2 - Projets d'avenir", budget.id, null)
+        val masterCategoryProvision = MasterCategory("3 - Provisions", budget.id, null)
+        val masterCategoryVariable = MasterCategory("4 - Frais variables", budget.id, null)
+        val masterCategoryFixed = MasterCategory("5 - Frais fixes", budget.id, null)
+        val masterCategoryHumanRessources = MasterCategory("6 - Ressources humaines", budget.id, null)
+        val masterCategoryTaxes = MasterCategory("7 - TVA", budget.id, null)
         
         val masterCategories = listOf(masterCategoryIncoming, masterCategoryGoal, masterCategoryProvision, masterCategoryVariable, masterCategoryFixed, masterCategoryHumanRessources, masterCategoryTaxes)
         for (masterCategory in masterCategories) {
