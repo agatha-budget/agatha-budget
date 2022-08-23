@@ -264,12 +264,14 @@ export default defineComponent({
       return data
     },
     getcolorsMasterCategories () {
+      let indexColor = 0
       for (const masterCategory of this.$store.state.masterCategories) {
         const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
         const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
         if (!(categories.length === 0 && archivedCategories.length > 0)) {
           if (masterCategory.color === null) {
-            this.colorListMasterCategories.push(this.predefinedListColor[this.getRandomInt(10)])
+            this.colorListMasterCategories.push(this.predefinedListColor[indexColor])
+            indexColor < 10 ? indexColor++ : indexColor = 0
           } else {
             this.colorListMasterCategories.push(masterCategory.color)
           }
@@ -360,9 +362,6 @@ export default defineComponent({
       }
       await this.getBudgetData()
       this.recalculate()
-    },
-    getRandomInt (max: number): number {
-      return Math.floor(Math.random() * max)
     },
     writeAlertMessage () {
       if (this.deficitCategories.length === 0) {
