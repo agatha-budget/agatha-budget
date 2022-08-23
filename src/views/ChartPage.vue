@@ -76,7 +76,7 @@ import BudgetDataService from '@/services/BudgetDataService'
 import { CategoryDataList, Budget, GroupSelectOption, Category } from '@/model/model'
 import Utils from '@/utils/Utils'
 import Time from '@/utils/Time'
-import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor } from '@/model/colorList'
+import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor, lightGreyColor, darkGreyColor, lightGreenColor, salmonColor, lavenderColor, bordeauxColor } from '@/model/colorList'
 import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
@@ -155,7 +155,7 @@ export default defineComponent({
         { label: this.$t('SPENT'), value: 'spent', preSelected: true },
         { label: this.$t('AVAILABLE'), value: 'available', preSelected: false }
       ],
-      predefinedListColor: [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor],
+      predefinedListColor: [redColor, blueColor, orangeColor, darkGreyColor, purpleColor, greenColor, pinkColor, navyColor, lightGreyColor, salmonColor, brownColor, blackColor, bordeauxColor, lavenderColor, yellowColor, lightGreenColor],
       colorListMasterCategories: [],
       deficitCategories: [],
       deficitMessage: ''
@@ -264,12 +264,14 @@ export default defineComponent({
       return data
     },
     getcolorsMasterCategories () {
+      let indexColor = 0
       for (const masterCategory of this.$store.state.masterCategories) {
         const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
         const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
         if (!(categories.length === 0 && archivedCategories.length > 0)) {
           if (masterCategory.color === null) {
-            this.colorListMasterCategories.push(this.predefinedListColor[this.getRandomInt(10)])
+            this.colorListMasterCategories.push(this.predefinedListColor[indexColor])
+            indexColor < 10 ? indexColor++ : indexColor = 0
           } else {
             this.colorListMasterCategories.push(masterCategory.color)
           }
@@ -360,9 +362,6 @@ export default defineComponent({
       }
       await this.getBudgetData()
       this.recalculate()
-    },
-    getRandomInt (max: number): number {
-      return Math.floor(Math.random() * max)
     },
     writeAlertMessage () {
       if (this.deficitCategories.length === 0) {
