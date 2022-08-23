@@ -5,7 +5,7 @@ import org.koin.dsl.module
 
 val service_module = module {
     single { AuthorizationService(get(), get(), get(), get(), get(), get(), get(), get()) }
-    single { PersonService(get(), get(), get(), get()) }
+    single { PersonService(get(), get(), get(), get(), get()) }
     single { BillingService(get()) }
     single { BudgetService(get(), get(), get(), get()) }
     single { AccountService(get(), get(), get(), get(), get()) }
@@ -16,6 +16,6 @@ val service_module = module {
     single { MailingService(get()) }
     single { BudgetDataService(get(), get(), get()) }
     single { UserActivityService(get()) }
-    single { BankingService(get(), get(), get(), get(), get(), get()) }
+    single { BankingService(get(), get(), get(), get(), get(), get(), get()) }
 
 }

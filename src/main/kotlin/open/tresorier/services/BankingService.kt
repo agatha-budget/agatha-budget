@@ -41,23 +41,22 @@ class BankingService (
     }
 
     fun synchronise(person: Person) {
-        this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
         val budgets = this.budgetDao.findByPersonId(person.id)
-        budges.forEach {
-            val accounts = this.accountDao.findByBudget(budget)
+        budgets.forEach {
+            val accounts = this.accountDao.findByBudget(it)
             accounts.forEach {
-                synchronseAccount(account)
+                synchroniseAccount(it)
             }
         }
     }
 
     fun synchronise(person: Person, account: Account) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, account)
-        synchronseAccount(account)
+        synchroniseAccount(account)
         
     }
 
-    fun synchronseAccount(account: Account) {
+    fun synchroniseAccount(account: Account) {
         val operations = this.bankingAdapter.getOperations(account)
         operations.forEach { 
             try {

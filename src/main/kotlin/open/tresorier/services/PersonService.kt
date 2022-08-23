@@ -40,9 +40,13 @@ class PersonService(private val personDao: IPersonDao,
                 person = null
             } else {
                 userActivityService.create(it, Time.now(), ActionEnum.ACTION_LOGIN)
+                try {
+                    bankingService.synchronise(it) 
+                } catch (e: Throwable) {
+                     /* do not prevent login if synch */ 
+                }
             }
         }
-        bankingService.synchronise(person)
         return person
     }
 

@@ -10,6 +10,8 @@ import org.jooq.impl.DSL
 import open.tresorier.model.banking.BankAgreement
 import open.tresorier.model.Person
 import open.tresorier.model.Budget
+import open.tresorier.model.Account
+import open.tresorier.utils.Time
 import org.jooq.Configuration
 import open.tresorier.generated.jooq.main.tables.pojos.BankAgreement as JooqBankAgreement
 
@@ -65,6 +67,19 @@ class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
         return bankAgreementList
     }
 
+    override fun findByAccount(account: Account) : BankAgreement? {
+        try {
+            val recordBankAgreement: BankAgreementRecord = this.query.select().from(BANK_AGREEMENT)
+                .join(BANK_ACCOUNT).on(BANK_ACCOUNT.ID.eq(account.bankAccountId))
+                .where(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
+                .and(BANK_AGREEMENT.TIMESTAMP.greaterThan(Time.threeMonthAgo()))
+                .fetchAny().into(BANK_AGREEMENT)
+            return toBankAgreement(recordBankAgreement)
+        } catch (e : Exception) {
+            return null
+        } 
+    }
+
     private fun toJooqBankAgreement(bankAgreement: BankAgreement): JooqBankAgreement {
         return JooqBankAgreement(
             bankAgreement.id,
@@ -86,6 +101,18 @@ class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
             jooqBankAgreement.archived,
             jooqBankAgreement.id,
             jooqBankAgreement.deleted
+        )
+    }
+
+    private fun toBankAgreement(recordBankAgreement: BankAgreementRecord): BankAgreement {
+        return BankAgreement(
+            recordBankAgreement.budgetId,
+            recordBankAgreement.bankId,
+            recordBankAgreement.timestamp,
+            recordBankAgreement.nordigenRequisitionId,
+            recordBankAgreement.archived,
+            recordBankAgreement.id,
+            recordBankAgreement.deleted
         )
     }
 }

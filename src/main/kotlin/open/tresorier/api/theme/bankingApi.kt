@@ -55,18 +55,13 @@ fun addBankingRoute(app : Javalin, bankingService: BankingService,
     app.get("/bank/operations") { ctx ->
         val person = getUserFromAuth(ctx)
         val accountId = getOptionalQueryParam<String>(ctx, "accountId")
-        val budgetId = getOptionalQueryParam<String>(ctx, "budgetId")
-
         if (accountId != null) {
             val account = accountService.getById(person, accountId)
             bankingService.synchronise(person, account)
-        } else if (budgetId != null) {
-            val budget = budgetService.getById(person, budgetId)
-            bankingService.synchronise(person, budget)
+        } else {
+            bankingService.synchronise(person)
         }
     }
-
-  
     
     return app
 }

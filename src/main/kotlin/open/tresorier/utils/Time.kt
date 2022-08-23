@@ -14,6 +14,10 @@ object Time {
         return now() - 2 * 2629743000
     }
 
+    fun threeMonthAgo() : Long {
+        return now() - 3 * 2629743000
+    }
+
     fun aWeekAgo() : Long {
         return now() - 7 * 86400000
     }
