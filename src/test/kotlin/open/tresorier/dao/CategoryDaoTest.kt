@@ -20,9 +20,9 @@ open class CategoryDaoTest : ITest {
     @Test fun testGetAllCategoriesFromBudget() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -74,9 +74,9 @@ open class CategoryDaoTest : ITest {
     @Test fun archiveAllDependingCategories() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -109,9 +109,9 @@ open class CategoryDaoTest : ITest {
     @Test fun unarchiveAllDependingCategories() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -141,9 +141,9 @@ open class CategoryDaoTest : ITest {
     @Test fun unarchiveAllDependingCategoriesSomeWereNotArchived() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -171,9 +171,9 @@ open class CategoryDaoTest : ITest {
     @Test fun archiveAllDependingCategoriesSomeWereAlreadyArchived() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -201,9 +201,9 @@ open class CategoryDaoTest : ITest {
     @Test fun archiveAllDependingCategoriesWhenThereIsNone() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         categoryDao.updateArchivedStatusByMasterCategory(masterCategoryDream, true)

@@ -51,7 +51,7 @@ open class OperationDaoTest : ITest {
     fun getSpendingByMonthByCategoryForAllMonths() {
         val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -91,7 +91,7 @@ open class OperationDaoTest : ITest {
     fun getSpendingByMonthByCategoryUntilFebruary() {
         val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -133,7 +133,7 @@ open class OperationDaoTest : ITest {
     fun getByAccountOrderedByDate() {
         val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -144,7 +144,7 @@ open class OperationDaoTest : ITest {
 
         val budget2= Budget("personal budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget2)
-        val masterCategory2 = MasterCategory("Fixed expense", budget2.id)
+        val masterCategory2 = MasterCategory("Fixed expense", budget2.id, null)
         masterCategoryDao.insert(masterCategory2)
         val category2 = Category("oftenAllocatedCategory", masterCategory2.id)
         categoryDao.insert(category2)
@@ -173,7 +173,7 @@ open class OperationDaoTest : ITest {
     fun getByBudgetInMultipleAccount() {
         val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -184,7 +184,7 @@ open class OperationDaoTest : ITest {
 
         val budget2= Budget("personal budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget2)
-        val masterCategory2 = MasterCategory("Fixed expense", budget2.id)
+        val masterCategory2 = MasterCategory("Fixed expense", budget2.id, null)
         masterCategoryDao.insert(masterCategory2)
         val category2 = Category("oftenAllocatedCategory", masterCategory2.id)
         categoryDao.insert(category2)
@@ -218,7 +218,7 @@ open class OperationDaoTest : ITest {
     fun getByBudgetAndCategory() {
         val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("firstCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -249,7 +249,7 @@ open class OperationDaoTest : ITest {
     fun getByBudgetAndCategoryWithNoOperation () {
         val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("firstCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -275,7 +275,7 @@ open class OperationDaoTest : ITest {
     fun getByBudgetAndUnknownCategory () {
         val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("firstCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -302,7 +302,7 @@ open class OperationDaoTest : ITest {
     fun getByBudgetAndCategoryWithUncategorizedOperation () {
         val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("category", masterCategory.id)
         categoryDao.insert(category)
@@ -329,7 +329,7 @@ open class OperationDaoTest : ITest {
     fun getByAccountAndCategory() {
         val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("firstCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -360,7 +360,7 @@ open class OperationDaoTest : ITest {
     fun getByAccountAndCategoryWithNoOperation () {
         val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("firstCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -386,7 +386,7 @@ open class OperationDaoTest : ITest {
     fun getByAccountAndUnknownCategory () {
         val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("firstCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -413,7 +413,7 @@ open class OperationDaoTest : ITest {
     fun getByAccountAndCategoryWithUncategorizedOperation () {
         val budget = Budget("firstBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("category", masterCategory.id)
         categoryDao.insert(category)
@@ -440,7 +440,7 @@ open class OperationDaoTest : ITest {
     fun getAmountForBudget() {
         val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -451,7 +451,7 @@ open class OperationDaoTest : ITest {
 
         val budget2= Budget("personal budget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget2)
-        val masterCategory2 = MasterCategory("Fixed expense", budget2.id)
+        val masterCategory2 = MasterCategory("Fixed expense", budget2.id, null)
         masterCategoryDao.insert(masterCategory2)
         val category2 = Category("oftenAllocatedCategory", masterCategory2.id)
         categoryDao.insert(category2)
