@@ -92,7 +92,7 @@ export default defineComponent({
   },
   data () {
     return {
-      color: this.masterCategory.color !== 'null' ? this.masterCategory.color : navigationColor
+      color: this.masterCategory.color !== null ? this.masterCategory.color : 'navigationColor'
     }
   },
   computed: {
