@@ -268,7 +268,7 @@ export default defineComponent({
         const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
         const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
         if (!(categories.length === 0 && archivedCategories.length > 0)) {
-          if (masterCategory.color === 'null') {
+          if (masterCategory.color === null) {
             this.colorListMasterCategories.push(this.predefinedListColor[this.getRandomInt(10)])
           } else {
             this.colorListMasterCategories.push(masterCategory.color)
