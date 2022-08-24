@@ -11,18 +11,19 @@ class MasterCategoryService(private val masterCategoryDao: IMasterCategoryDao, p
 
     fun create(person: Person, budget: Budget, name: String): MasterCategory {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
-        val masterCategory = MasterCategory(name, budget.id)
+        val masterCategory = MasterCategory(name, budget.id, null)
         val inserted = masterCategoryDao.insert(masterCategory)
         val category = Category(Category.NEW_CATEGORY_NAME, inserted.id)
         categoryDao.insert(category)
         return inserted
     }
 
-    fun update(person: Person, masterCategory: MasterCategory, newName: String?, newArchived: Boolean?, newDeleted: Boolean?): MasterCategory {
+    fun update(person: Person, masterCategory: MasterCategory, newName: String?, newColor: String?, newArchived: Boolean?, newDeleted: Boolean?): MasterCategory {
         authorizationService.cancelIfUserIsUnauthorized(person, masterCategory)
         newArchived?.let{this.archiveCategories(masterCategory, it)}
         newName?.let{masterCategory.name = it}
         newDeleted?.let{masterCategory.deleted = it}
+        newColor?.let{masterCategory.color = it}
         return masterCategoryDao.update(masterCategory)
     }
 

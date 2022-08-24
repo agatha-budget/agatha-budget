@@ -71,7 +71,8 @@ class H2MasterCategoryDao(val configuration: Configuration) : IMasterCategoryDao
             masterCategory.id,
             masterCategory.budgetId,
             masterCategory.name,
-            masterCategory.deleted
+            masterCategory.deleted,
+            masterCategory.color
         )
     }
 
@@ -81,6 +82,7 @@ class H2MasterCategoryDao(val configuration: Configuration) : IMasterCategoryDao
         else MasterCategory(
             jooqMasterCategory.name,
             jooqMasterCategory.budgetId,
+            jooqMasterCategory.color,
             jooqMasterCategory.id,
             jooqMasterCategory.deleted
         )

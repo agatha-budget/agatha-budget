@@ -100,4 +100,18 @@ public class MasterCategoryDao extends DAOImpl<MasterCategoryRecord, open.tresor
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.MasterCategory> fetchByDeleted(Boolean... values) {
         return fetch(MasterCategory.MASTER_CATEGORY.DELETED, values);
     }
+
+    /**
+     * Fetch records that have <code>COLOR BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.MasterCategory> fetchRangeOfColor(String lowerInclusive, String upperInclusive) {
+        return fetchRange(MasterCategory.MASTER_CATEGORY.COLOR, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>COLOR IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.MasterCategory> fetchByColor(String... values) {
+        return fetch(MasterCategory.MASTER_CATEGORY.COLOR, values);
+    }
 }
