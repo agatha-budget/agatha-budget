@@ -133,8 +133,7 @@
     "THE_CATEGORY": "La catégorie ",
     "CATEGORIES": "Les catégories : ",
     "IS_IN_DEFICIT": " est déficitaire. Elle n'est donc pas affichée.",
-    "ARE_IN_DEFICIT": " sont déficiataires. Elles ne sont donc pas affichées."
-    "SELECT_MASTER_CATEGORY": "sélectionner une catégorie",
+    "ARE_IN_DEFICIT": " sont déficiataires. Elles ne sont donc pas affichées.",
     "IMPORT_HISTORY": "importer l'historique",
     "SELECT_BANK": "sélectionner votre banque",
     "ADD_BANK_AUTHORIZATION": "ajouter une synchronisation bancaire",
