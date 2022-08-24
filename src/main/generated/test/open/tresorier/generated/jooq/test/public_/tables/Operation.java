@@ -16,7 +16,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row10;
+import org.jooq.Row12;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 1735395615;
+    private static final long serialVersionUID = -234364949;
 
     /**
      * The reference instance of <code>PUBLIC.OPERATION</code>
@@ -99,6 +99,16 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("LOCKED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
 
     /**
+     * The column <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
+     */
+    public final TableField<OperationRecord, String> MOTHER_OPERATION_ID = createField(DSL.name("MOTHER_OPERATION_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>PUBLIC.OPERATION.IMPORT_IDENTIFIER</code>.
+     */
+    public final TableField<OperationRecord, String> IMPORT_IDENTIFIER = createField(DSL.name("IMPORT_IDENTIFIER"), org.jooq.impl.SQLDataType.VARCHAR(150).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+
+    /**
      * Create a <code>PUBLIC.OPERATION</code> table reference
      */
     public Operation() {
@@ -143,7 +153,7 @@ public class Operation extends TableImpl<OperationRecord> {
 
     @Override
     public List<UniqueKey<OperationRecord>> getKeys() {
-        return Arrays.<UniqueKey<OperationRecord>>asList(Keys.CONSTRAINT_9);
+        return Arrays.<UniqueKey<OperationRecord>>asList(Keys.CONSTRAINT_9, Keys.CONSTRAINT_932E);
     }
 
     @Override
@@ -196,11 +206,11 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row10 type methods
+    // Row12 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row10<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean> fieldsRow() {
-        return (Row10) super.fieldsRow();
+    public Row12<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String, String> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 }

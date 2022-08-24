@@ -6,21 +6,27 @@ package open.tresorier.generated.jooq.main;
 
 import open.tresorier.generated.jooq.main.tables.Account;
 import open.tresorier.generated.jooq.main.tables.Allocation;
+import open.tresorier.generated.jooq.main.tables.BankAccount;
+import open.tresorier.generated.jooq.main.tables.BankAgreement;
 import open.tresorier.generated.jooq.main.tables.Budget;
 import open.tresorier.generated.jooq.main.tables.Category;
 import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.main.tables.MasterCategory;
 import open.tresorier.generated.jooq.main.tables.Operation;
 import open.tresorier.generated.jooq.main.tables.Person;
+import open.tresorier.generated.jooq.main.tables.PostIt;
 import open.tresorier.generated.jooq.main.tables.UserActivity;
 import open.tresorier.generated.jooq.main.tables.records.AccountRecord;
 import open.tresorier.generated.jooq.main.tables.records.AllocationRecord;
+import open.tresorier.generated.jooq.main.tables.records.BankAccountRecord;
+import open.tresorier.generated.jooq.main.tables.records.BankAgreementRecord;
 import open.tresorier.generated.jooq.main.tables.records.BudgetRecord;
 import open.tresorier.generated.jooq.main.tables.records.CategoryRecord;
 import open.tresorier.generated.jooq.main.tables.records.FlywaySchemaHistoryRecord;
 import open.tresorier.generated.jooq.main.tables.records.MasterCategoryRecord;
 import open.tresorier.generated.jooq.main.tables.records.OperationRecord;
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord;
+import open.tresorier.generated.jooq.main.tables.records.PostItRecord;
 import open.tresorier.generated.jooq.main.tables.records.UserActivityRecord;
 
 import org.jooq.ForeignKey;
@@ -47,14 +53,18 @@ public class Keys {
 
     public static final UniqueKey<AccountRecord> ACCOUNT_PKEY = UniqueKeys0.ACCOUNT_PKEY;
     public static final UniqueKey<AllocationRecord> COMPOSITE_ID = UniqueKeys0.COMPOSITE_ID;
+    public static final UniqueKey<BankAccountRecord> BANK_ACCOUNT_PKEY = UniqueKeys0.BANK_ACCOUNT_PKEY;
+    public static final UniqueKey<BankAgreementRecord> BANK_AGREEMENT_PKEY = UniqueKeys0.BANK_AGREEMENT_PKEY;
     public static final UniqueKey<BudgetRecord> BUDGET_PKEY = UniqueKeys0.BUDGET_PKEY;
     public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = UniqueKeys0.CATEGORY_PKEY;
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = UniqueKeys0.FLYWAY_SCHEMA_HISTORY_PK;
     public static final UniqueKey<MasterCategoryRecord> MASTER_CATEGORY_PKEY = UniqueKeys0.MASTER_CATEGORY_PKEY;
     public static final UniqueKey<OperationRecord> OPERATION_PKEY = UniqueKeys0.OPERATION_PKEY;
+    public static final UniqueKey<OperationRecord> OPERATION_IMPORT_IDENTIFIER_KEY = UniqueKeys0.OPERATION_IMPORT_IDENTIFIER_KEY;
     public static final UniqueKey<PersonRecord> PERSON_PKEY = UniqueKeys0.PERSON_PKEY;
     public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = UniqueKeys0.PERSON_EMAIL_KEY;
     public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = UniqueKeys0.PERSON_BILLING_ID_KEY;
+    public static final UniqueKey<PostItRecord> DOUBLE_KEY = UniqueKeys0.DOUBLE_KEY;
     public static final UniqueKey<UserActivityRecord> USER_ACTIVITY_PKEY = UniqueKeys0.USER_ACTIVITY_PKEY;
 
     // -------------------------------------------------------------------------
@@ -62,12 +72,16 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final ForeignKey<AccountRecord, BudgetRecord> ACCOUNT__ACCOUNT_BUDGET_ID_FKEY = ForeignKeys0.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY;
+    public static final ForeignKey<AccountRecord, BankAccountRecord> ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY = ForeignKeys0.ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY;
     public static final ForeignKey<AllocationRecord, CategoryRecord> ALLOCATION__ALLOCATION_CATEGORY_ID_FKEY = ForeignKeys0.ALLOCATION__ALLOCATION_CATEGORY_ID_FKEY;
+    public static final ForeignKey<BankAccountRecord, BankAgreementRecord> BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY = ForeignKeys0.BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY;
+    public static final ForeignKey<BankAgreementRecord, BudgetRecord> BANK_AGREEMENT__BANK_AGREEMENT_BUDGET_ID_FKEY = ForeignKeys0.BANK_AGREEMENT__BANK_AGREEMENT_BUDGET_ID_FKEY;
     public static final ForeignKey<BudgetRecord, PersonRecord> BUDGET__BUDGET_PERSON_ID_FKEY = ForeignKeys0.BUDGET__BUDGET_PERSON_ID_FKEY;
     public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY = ForeignKeys0.CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY;
     public static final ForeignKey<MasterCategoryRecord, BudgetRecord> MASTER_CATEGORY__MASTER_CATEGORY_BUDGET_ID_FKEY = ForeignKeys0.MASTER_CATEGORY__MASTER_CATEGORY_BUDGET_ID_FKEY;
     public static final ForeignKey<OperationRecord, AccountRecord> OPERATION__OPERATION_ACCOUNT_ID_FKEY = ForeignKeys0.OPERATION__OPERATION_ACCOUNT_ID_FKEY;
     public static final ForeignKey<OperationRecord, CategoryRecord> OPERATION__OPERATION_CATEGORY_ID_FKEY = ForeignKeys0.OPERATION__OPERATION_CATEGORY_ID_FKEY;
+    public static final ForeignKey<PostItRecord, BudgetRecord> POST_IT__POST_IT_BUDGET_ID_FKEY = ForeignKeys0.POST_IT__POST_IT_BUDGET_ID_FKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -76,24 +90,32 @@ public class Keys {
     private static class UniqueKeys0 {
         public static final UniqueKey<AccountRecord> ACCOUNT_PKEY = Internal.createUniqueKey(Account.ACCOUNT, "account_pkey", new TableField[] { Account.ACCOUNT.ID }, true);
         public static final UniqueKey<AllocationRecord> COMPOSITE_ID = Internal.createUniqueKey(Allocation.ALLOCATION, "composite_id", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID, Allocation.ALLOCATION.MONTH }, true);
+        public static final UniqueKey<BankAccountRecord> BANK_ACCOUNT_PKEY = Internal.createUniqueKey(BankAccount.BANK_ACCOUNT, "bank_account_pkey", new TableField[] { BankAccount.BANK_ACCOUNT.ID }, true);
+        public static final UniqueKey<BankAgreementRecord> BANK_AGREEMENT_PKEY = Internal.createUniqueKey(BankAgreement.BANK_AGREEMENT, "bank_agreement_pkey", new TableField[] { BankAgreement.BANK_AGREEMENT.ID }, true);
         public static final UniqueKey<BudgetRecord> BUDGET_PKEY = Internal.createUniqueKey(Budget.BUDGET, "budget_pkey", new TableField[] { Budget.BUDGET.ID }, true);
         public static final UniqueKey<CategoryRecord> CATEGORY_PKEY = Internal.createUniqueKey(Category.CATEGORY, "category_pkey", new TableField[] { Category.CATEGORY.ID }, true);
         public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, "flyway_schema_history_pk", new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
         public static final UniqueKey<MasterCategoryRecord> MASTER_CATEGORY_PKEY = Internal.createUniqueKey(MasterCategory.MASTER_CATEGORY, "master_category_pkey", new TableField[] { MasterCategory.MASTER_CATEGORY.ID }, true);
         public static final UniqueKey<OperationRecord> OPERATION_PKEY = Internal.createUniqueKey(Operation.OPERATION, "operation_pkey", new TableField[] { Operation.OPERATION.ID }, true);
+        public static final UniqueKey<OperationRecord> OPERATION_IMPORT_IDENTIFIER_KEY = Internal.createUniqueKey(Operation.OPERATION, "operation_import_identifier_key", new TableField[] { Operation.OPERATION.IMPORT_IDENTIFIER }, true);
         public static final UniqueKey<PersonRecord> PERSON_PKEY = Internal.createUniqueKey(Person.PERSON, "person_pkey", new TableField[] { Person.PERSON.ID }, true);
         public static final UniqueKey<PersonRecord> PERSON_EMAIL_KEY = Internal.createUniqueKey(Person.PERSON, "person_email_key", new TableField[] { Person.PERSON.EMAIL }, true);
         public static final UniqueKey<PersonRecord> PERSON_BILLING_ID_KEY = Internal.createUniqueKey(Person.PERSON, "person_billing_id_key", new TableField[] { Person.PERSON.BILLING_ID }, true);
+        public static final UniqueKey<PostItRecord> DOUBLE_KEY = Internal.createUniqueKey(PostIt.POST_IT, "double_key", new TableField[] { PostIt.POST_IT.BUDGET_ID, PostIt.POST_IT.MONTH }, true);
         public static final UniqueKey<UserActivityRecord> USER_ACTIVITY_PKEY = Internal.createUniqueKey(UserActivity.USER_ACTIVITY, "user_activity_pkey", new TableField[] { UserActivity.USER_ACTIVITY.ID }, true);
     }
 
     private static class ForeignKeys0 {
         public static final ForeignKey<AccountRecord, BudgetRecord> ACCOUNT__ACCOUNT_BUDGET_ID_FKEY = Internal.createForeignKey(Keys.BUDGET_PKEY, Account.ACCOUNT, "account_budget_id_fkey", new TableField[] { Account.ACCOUNT.BUDGET_ID }, true);
+        public static final ForeignKey<AccountRecord, BankAccountRecord> ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY = Internal.createForeignKey(Keys.BANK_ACCOUNT_PKEY, Account.ACCOUNT, "account_bank_account_id_fkey", new TableField[] { Account.ACCOUNT.BANK_ACCOUNT_ID }, true);
         public static final ForeignKey<AllocationRecord, CategoryRecord> ALLOCATION__ALLOCATION_CATEGORY_ID_FKEY = Internal.createForeignKey(Keys.CATEGORY_PKEY, Allocation.ALLOCATION, "allocation_category_id_fkey", new TableField[] { Allocation.ALLOCATION.CATEGORY_ID }, true);
+        public static final ForeignKey<BankAccountRecord, BankAgreementRecord> BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY = Internal.createForeignKey(Keys.BANK_AGREEMENT_PKEY, BankAccount.BANK_ACCOUNT, "bank_account_agreement_id_fkey", new TableField[] { BankAccount.BANK_ACCOUNT.AGREEMENT_ID }, true);
+        public static final ForeignKey<BankAgreementRecord, BudgetRecord> BANK_AGREEMENT__BANK_AGREEMENT_BUDGET_ID_FKEY = Internal.createForeignKey(Keys.BUDGET_PKEY, BankAgreement.BANK_AGREEMENT, "bank_agreement_budget_id_fkey", new TableField[] { BankAgreement.BANK_AGREEMENT.BUDGET_ID }, true);
         public static final ForeignKey<BudgetRecord, PersonRecord> BUDGET__BUDGET_PERSON_ID_FKEY = Internal.createForeignKey(Keys.PERSON_PKEY, Budget.BUDGET, "budget_person_id_fkey", new TableField[] { Budget.BUDGET.PERSON_ID }, true);
         public static final ForeignKey<CategoryRecord, MasterCategoryRecord> CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY = Internal.createForeignKey(Keys.MASTER_CATEGORY_PKEY, Category.CATEGORY, "category_master_category_id_fkey", new TableField[] { Category.CATEGORY.MASTER_CATEGORY_ID }, true);
         public static final ForeignKey<MasterCategoryRecord, BudgetRecord> MASTER_CATEGORY__MASTER_CATEGORY_BUDGET_ID_FKEY = Internal.createForeignKey(Keys.BUDGET_PKEY, MasterCategory.MASTER_CATEGORY, "master_category_budget_id_fkey", new TableField[] { MasterCategory.MASTER_CATEGORY.BUDGET_ID }, true);
         public static final ForeignKey<OperationRecord, AccountRecord> OPERATION__OPERATION_ACCOUNT_ID_FKEY = Internal.createForeignKey(Keys.ACCOUNT_PKEY, Operation.OPERATION, "operation_account_id_fkey", new TableField[] { Operation.OPERATION.ACCOUNT_ID }, true);
         public static final ForeignKey<OperationRecord, CategoryRecord> OPERATION__OPERATION_CATEGORY_ID_FKEY = Internal.createForeignKey(Keys.CATEGORY_PKEY, Operation.OPERATION, "operation_category_id_fkey", new TableField[] { Operation.OPERATION.CATEGORY_ID }, true);
+        public static final ForeignKey<PostItRecord, BudgetRecord> POST_IT__POST_IT_BUDGET_ID_FKEY = Internal.createForeignKey(Keys.BUDGET_PKEY, PostIt.POST_IT, "post_it_budget_id_fkey", new TableField[] { PostIt.POST_IT.BUDGET_ID }, true);
     }
 }

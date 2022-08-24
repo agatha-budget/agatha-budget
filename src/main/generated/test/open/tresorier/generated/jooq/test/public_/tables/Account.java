@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row5;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -31,7 +31,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account extends TableImpl<AccountRecord> {
 
-    private static final long serialVersionUID = -213084198;
+    private static final long serialVersionUID = 12167075;
 
     /**
      * The reference instance of <code>PUBLIC.ACCOUNT</code>
@@ -70,6 +70,11 @@ public class Account extends TableImpl<AccountRecord> {
      * The column <code>PUBLIC.ACCOUNT.DELETED</code>.
      */
     public final TableField<AccountRecord, Boolean> DELETED = createField(DSL.name("DELETED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>PUBLIC.ACCOUNT.BANK_ACCOUNT_ID</code>.
+     */
+    public final TableField<AccountRecord, String> BANK_ACCOUNT_ID = createField(DSL.name("BANK_ACCOUNT_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
      * Create a <code>PUBLIC.ACCOUNT</code> table reference
@@ -121,11 +126,15 @@ public class Account extends TableImpl<AccountRecord> {
 
     @Override
     public List<ForeignKey<AccountRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<AccountRecord, ?>>asList(Keys.CONSTRAINT_E4);
+        return Arrays.<ForeignKey<AccountRecord, ?>>asList(Keys.CONSTRAINT_E4, Keys.CONSTRAINT_E49);
     }
 
     public Budget budget() {
         return new Budget(this, Keys.CONSTRAINT_E4);
+    }
+
+    public BankAccount bankAccount() {
+        return new BankAccount(this, Keys.CONSTRAINT_E49);
     }
 
     @Override
@@ -155,11 +164,11 @@ public class Account extends TableImpl<AccountRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<String, String, String, Boolean, Boolean> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row6<String, String, String, Boolean, Boolean, String> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 }

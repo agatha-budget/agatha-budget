@@ -9,12 +9,15 @@ import java.util.List;
 
 import open.tresorier.generated.jooq.main.tables.Account;
 import open.tresorier.generated.jooq.main.tables.Allocation;
+import open.tresorier.generated.jooq.main.tables.BankAccount;
+import open.tresorier.generated.jooq.main.tables.BankAgreement;
 import open.tresorier.generated.jooq.main.tables.Budget;
 import open.tresorier.generated.jooq.main.tables.Category;
 import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.main.tables.MasterCategory;
 import open.tresorier.generated.jooq.main.tables.Operation;
 import open.tresorier.generated.jooq.main.tables.Person;
+import open.tresorier.generated.jooq.main.tables.PostIt;
 import open.tresorier.generated.jooq.main.tables.UserActivity;
 
 import org.jooq.Catalog;
@@ -28,7 +31,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -375544890;
+    private static final long serialVersionUID = 2033055557;
 
     /**
      * The reference instance of <code>public</code>
@@ -44,6 +47,16 @@ public class Public extends SchemaImpl {
      * The table <code>public.allocation</code>.
      */
     public final Allocation ALLOCATION = Allocation.ALLOCATION;
+
+    /**
+     * The table <code>public.bank_account</code>.
+     */
+    public final BankAccount BANK_ACCOUNT = BankAccount.BANK_ACCOUNT;
+
+    /**
+     * The table <code>public.bank_agreement</code>.
+     */
+    public final BankAgreement BANK_AGREEMENT = BankAgreement.BANK_AGREEMENT;
 
     /**
      * The table <code>public.budget</code>.
@@ -76,6 +89,11 @@ public class Public extends SchemaImpl {
     public final Person PERSON = Person.PERSON;
 
     /**
+     * The table <code>public.post_it</code>.
+     */
+    public final PostIt POST_IT = PostIt.POST_IT;
+
+    /**
      * The table <code>public.user_activity</code>.
      */
     public final UserActivity USER_ACTIVITY = UserActivity.USER_ACTIVITY;
@@ -98,12 +116,15 @@ public class Public extends SchemaImpl {
         return Arrays.<Table<?>>asList(
             Account.ACCOUNT,
             Allocation.ALLOCATION,
+            BankAccount.BANK_ACCOUNT,
+            BankAgreement.BANK_AGREEMENT,
             Budget.BUDGET,
             Category.CATEGORY,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             MasterCategory.MASTER_CATEGORY,
             Operation.OPERATION,
             Person.PERSON,
+            PostIt.POST_IT,
             UserActivity.USER_ACTIVITY);
     }
 }

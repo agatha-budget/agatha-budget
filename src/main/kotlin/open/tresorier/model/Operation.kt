@@ -9,10 +9,15 @@ class Operation (
         var memo: String? = null,
         var pending: Boolean = false,
         var locked: Boolean = false,
+        var motherOperationId: String? = null,
+        var importIdentifier: String? = null,
         id: String? = null,
         deleted: Boolean? = null
 ) : DbObject(id, deleted) {
-        fun isEquals(operation: Operation): Boolean {
+        fun isEquals(operation: Operation?): Boolean {
+                if (operation == null) {
+                        return false
+                }
                if (!operation.day.isEquals(this.day)) {
                         return false
                 }
@@ -23,6 +28,9 @@ class Operation (
                         return false
                 }
                 if (!operation.memo.equals(this.memo)) {
+                        return false
+                }
+                if (operation.motherOperationId != this.motherOperationId) {
                         return false
                 }
                 return true
