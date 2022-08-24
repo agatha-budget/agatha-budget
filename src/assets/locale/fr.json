@@ -121,6 +121,7 @@
     "ADD_A_BANK": "ajouter une banque",
     "BANKS":"banques",
     "SAVE": "sauvegarder",
+    "UPDATE": "mettre à jour",
     "NO_ASSOCIATED_BANK_ACCOUNT": "ne pas associer de compte bancaire",
     "SYNCHRONISED_BANKS":"synchronisations bancaires",
     "SELECT_BANK_TO_AUTHORIZE_SYNCHRONISATION": "sélectionner une banque pour autoriser la synchronisation",

@@ -32,7 +32,7 @@
             </div>
         </template>
 
-        <btn class="actionButton" v-on:click="saveAssociation()">{{ $t('SAVE') }}</btn>
+        <btn class="actionButton" v-on:click="saveAssociation()">{{ $t('UPDATE') }}</btn>
 
         <div class="banner">
           <div class="title">{{ $t('SYNCHRONISED_BANKS') }}</div>

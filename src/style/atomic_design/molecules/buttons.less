@@ -24,6 +24,9 @@ a.navigationButton {
   * {
     color: @white;
   }
+  span:first-letter{
+    text-transform: capitalize
+  }
   &.disabled {
     background: @darkerBackground;
     color: @dark;
@@ -67,6 +70,10 @@ a.navigationButton {
   border-radius: @btnBorderRadius;
   text-align: center;
   height: 32px;
+  width: fit-content;
+  &:first-letter{
+    text-transform: capitalize
+  }
 }
 
 .buttonGradation {
