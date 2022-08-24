@@ -91,6 +91,7 @@ import { Bank, BankAccount, Budget, Account, SelectOption } from '@/model/model'
 import AccountService from '@/services/AccountService'
 import Time from '@/utils/Time'
 import Multiselect from '@vueform/multiselect'
+import router, { RouterPages } from '@/router'
 
 interface BankAuthorizationList {
   [bankId: string]: BankAccountByTimestampList;
@@ -192,6 +193,7 @@ export default defineComponent({
       if (this.$props.query != null) {
         const agreementId = this.$props.query.split('?')[0]
         BankingService.updateBankAccountList(agreementId)
+        router.push(RouterPages.banks)
       }
     },
     updateAssociationData () {
