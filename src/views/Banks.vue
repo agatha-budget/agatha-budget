@@ -14,7 +14,7 @@
 
         <template class="associationForm" v-for="account of this.accounts" :key="account">
             <div class="subtitle col-md-4">{{ account.name }}</div>
-            <div class="col-md-4 col-8 offset-2 offset-md-0">
+            <div class="col-md-4 col-8 offset-2 offset-md-0 bankSelector">
               <select class="form-select" v-model="bankAssociation[account.id].bankAccountId">
                 <option value="none" selected>{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
                 <template v-for="bankAccount of this.bankAccounts" :key="bankAccount">
