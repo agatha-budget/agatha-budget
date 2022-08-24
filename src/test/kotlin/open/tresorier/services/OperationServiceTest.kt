@@ -345,14 +345,18 @@ class OperationServiceTest : ITest {
         var motherOperation: Operation = operationService.create(
             maria, account, TestData.jan_14_2022, null, 0, " 2, 8, 20, 28, 50, 82 et 126", null, null
         )
-        operationService.create(maria, account, TestData.jan_14_2022, null, 1940, "structure en couche", null, null)
+        var daughterOperation0: Operation = operationService.create(
+            maria, account, TestData.jan_14_2022, null, 1940, "structure en couche", null, motherOperation
+        )
         var daughterOperation: Operation = operationService.create(
             maria, account, TestData.jan_14_2022, null, 1950, "nombres magiques", null, motherOperation
         )
 
+        val operationFound0 = operationService.findMotherOperationByDaugtherOperation(maria, daughterOperation0)
         val operationFound = operationService.findMotherOperationByDaugtherOperation(maria, daughterOperation)
         val operationNull = operationService.findMotherOperationByDaugtherOperation(maria, motherOperation)
 
+        Assertions.assertTrue(motherOperation.isEquals(operationFound0))
         Assertions.assertTrue(motherOperation.isEquals(operationFound))
         Assertions.assertTrue(operationNull == null)
     }

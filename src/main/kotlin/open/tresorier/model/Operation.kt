@@ -15,6 +15,11 @@ class Operation (
         id: String? = null,
         deleted: Boolean? = null
 ) : DbObject(id, deleted) {
+
+        override fun toString(): String {
+                return "amount: $amount, memo: $memo, motherOperation: $motherOperationId"
+            }
+
         fun isEquals(operation: Operation?): Boolean {
                 if (operation == null) {
                         return false
