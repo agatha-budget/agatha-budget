@@ -8,6 +8,7 @@ import open.tresorier.generated.jooq.test.public_.tables.Account;
 import open.tresorier.generated.jooq.test.public_.tables.Allocation;
 import open.tresorier.generated.jooq.test.public_.tables.Budget;
 import open.tresorier.generated.jooq.test.public_.tables.Category;
+import open.tresorier.generated.jooq.test.public_.tables.CategoryIdentifier;
 import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.test.public_.tables.MasterCategory;
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
@@ -40,6 +41,11 @@ public class Tables {
      * The table <code>PUBLIC.CATEGORY</code>.
      */
     public static final Category CATEGORY = Category.CATEGORY;
+
+    /**
+     * The table <code>PUBLIC.CATEGORY_IDENTIFIER</code>.
+     */
+    public static final CategoryIdentifier CATEGORY_IDENTIFIER = CategoryIdentifier.CATEGORY_IDENTIFIER;
 
     /**
      * The table <code>PUBLIC.flyway_schema_history</code>.

@@ -11,6 +11,7 @@ import open.tresorier.generated.jooq.main.tables.Account;
 import open.tresorier.generated.jooq.main.tables.Allocation;
 import open.tresorier.generated.jooq.main.tables.Budget;
 import open.tresorier.generated.jooq.main.tables.Category;
+import open.tresorier.generated.jooq.main.tables.CategoryIdentifier;
 import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.main.tables.MasterCategory;
 import open.tresorier.generated.jooq.main.tables.Operation;
@@ -28,7 +29,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -375544890;
+    private static final long serialVersionUID = 635536987;
 
     /**
      * The reference instance of <code>public</code>
@@ -54,6 +55,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.category</code>.
      */
     public final Category CATEGORY = Category.CATEGORY;
+
+    /**
+     * The table <code>public.category_identifier</code>.
+     */
+    public final CategoryIdentifier CATEGORY_IDENTIFIER = CategoryIdentifier.CATEGORY_IDENTIFIER;
 
     /**
      * The table <code>public.flyway_schema_history</code>.
@@ -100,6 +106,7 @@ public class Public extends SchemaImpl {
             Allocation.ALLOCATION,
             Budget.BUDGET,
             Category.CATEGORY,
+            CategoryIdentifier.CATEGORY_IDENTIFIER,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             MasterCategory.MASTER_CATEGORY,
             Operation.OPERATION,

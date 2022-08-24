@@ -17,5 +17,6 @@ val test_adapter_module = module {
     single<IOperationDao> { H2OperationDao(get()) }
     single<IAllocationDao> { H2AllocationDao(get()) }
     single<IUserActivityDao> { H2UserActivityDao(get()) }
+    single<ICategoryIdentifierDao> { H2CategoryIdentifierDao(get()) }
 }
 

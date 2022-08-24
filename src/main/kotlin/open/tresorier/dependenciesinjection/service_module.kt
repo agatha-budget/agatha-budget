@@ -16,4 +16,5 @@ val service_module = module {
     single { MailingService(get()) }
     single { BudgetDataService(get(), get(), get()) }
     single { UserActivityService(get()) }
+    // single { CategoryIdentifierService(get()) }
 }

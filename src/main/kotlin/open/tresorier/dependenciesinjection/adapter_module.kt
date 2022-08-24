@@ -19,4 +19,5 @@ val adapter_module = module {
     single<IOperationDao> { PgOperationDao((get())) }
     single<IAllocationDao> { PgAllocationDao(get()) }
     single<IUserActivityDao> { PgUserActivityDao(get()) }
+    single<ICategoryIdentifierDao> { PgCategoryIdentifierDao(get()) }
 }
