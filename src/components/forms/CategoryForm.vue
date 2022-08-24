@@ -2,30 +2,23 @@
   <tr v-if="!this.category.archived">
     <th class="col-6">
       <div class="form-group">
-          <input type="text" class="form-control" v-model="name">
+          <input type="textInput" class="form-control" v-model="name" v-on:change="changeName">
       </div>
     </th>
-    <th class="col-2">
-      <button class="illustration btn fas fa-check" v-on:click="updateCategory"/>
-    </th>
-    <th class="col-2 disappearForMobile">
-      <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-    </th>
-    <th class="col-2">
+    <th class="col-3 icon">
       <button class="illustration btn fas fa-archive" v-on:click="archiveCategory"/>
+    </th>
+    <th class="col-3 text" v-on:click="archiveCategory">
+      {{ $t('TO_ARCHIVE') }}
     </th>
   </tr>
   <tr v-else>
     <td class="col-6">
       <span class="name">{{ this.name }}</span>
     </td>
-    <td class="col-2">
+    <td class="col-6">
       <button class="illustration btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
     </td>
-    <td class="col-2">
-      <button class="illustration btn fas fa-times" v-on:click="this.$emit('loosesFocus')"/>
-    </td>
-    <td class="col-2 disappearForMobile"/>
   </tr>
 </template>
 
@@ -52,13 +45,12 @@ export default defineComponent({
       required: true
     }
   },
-  emits: ['loosesFocus', 'emptyEnvelope'],
+  emits: ['emptyEnvelope'],
   methods: {
     updateCategory () {
       CategoryService.updateCategory(this.category.id, this.name).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     },
@@ -67,7 +59,6 @@ export default defineComponent({
       CategoryService.archiveCategory(this.category.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
         }
       )
     },
@@ -75,7 +66,13 @@ export default defineComponent({
       CategoryService.unarchiveCategory(this.category.id).then(
         () => {
           StoreHandler.updateCategories(this.$store)
-          this.$emit('loosesFocus')
+        }
+      )
+    },
+    changeName () {
+      CategoryService.updateCategory(this.category.id, this.name).then(
+        () => {
+          StoreHandler.updateCategories(this.$store)
         }
       )
     }

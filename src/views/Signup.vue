@@ -2,7 +2,7 @@
   <div id="sign_up_page">
     <div class="form">
       <img id="logo" alt="Vue logo" src="../assets/logo.png" />
-      <input class="form-control" type="text" id="name" v-model="name" :placeholder="$t('NAME')">
+      <input class="form-control" type="textInput" id="name" v-model="name" :placeholder="$t('NAME')">
       <input class="form-control" id="email" v-model="email" :placeholder="$t('EMAIL')">
       <input class="form-control" type="password" id="password" v-model="password" :placeholder="$t('PASSWORD')">
       <input class="form-control" type="password" id="passwordConfirm" v-model="passwordConfirm" :placeholder="$t('PASSWORD_CONFIRMATION')">

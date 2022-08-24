@@ -26,6 +26,11 @@
     <h3>Action Button</h3>
     <btn class="actionButton">Valider</btn>
 
+    <btn class="buttonGradation">
+      <span class="illustration fas fa-book col-4"/>
+      <span class="illustrationLabel col-8">Action</span>
+    </btn>
+
   </div>
   <div class="col-md-6">
 
@@ -44,6 +49,19 @@
     <div class="dualTab">
       <btn class="tabLeft">TabLeft</btn>
       <btn class="tabRight active">TabRight</btn>
+    </div>
+
+    <h3>TrialTab</h3>
+    <div class="trialTab">
+      <btn class="tabLeft" >TabLeft</btn>
+      <btn class="tabCenter" >TabCenter</btn>
+      <btn class="tabRight">TabRight</btn>
+    </div>
+
+    <div class="trialTab">
+      <btn class="tabLeft" >TabLeft</btn>
+      <btn class="tabCenter active" >TabCenter</btn>
+      <btn class="tabRight">TabRight</btn>
     </div>
 
     <h3>Cross</h3>
@@ -69,13 +87,13 @@
     <h3>Radio // from Bootstrap</h3>
     <div class="radioSelect">
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+        <input class="form-check-input" type="radio" id="exampleRadios1" value="option1" checked v-model="radio">
         <label class="form-check-label" for="exampleRadios1">
           Default radio
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+        <input class="form-check-input" type="radio" id="exampleRadios2" value="option2" v-model="radio">
         <label class="form-check-label" for="exampleRadios2">
           Second default radio
         </label>
@@ -84,6 +102,28 @@
         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
         <label class="form-check-label" for="exampleRadios3">
           Disabled radio
+        </label>
+      </div>
+    </div>
+
+    <h3>Checkbox // from Bootstrap</h3>
+    <div class="checkboxSelect">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="checkbox">
+        <label class="form-check-label" for="flexCheckDefault">
+          Default checkbox
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked v-model="checkbox">
+        <label class="form-check-label" for="flexCheckChecked">
+          Checked checkbox
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
+        <label class="form-check-label" for="flexCheckDisabled">
+          Disabled checkbox
         </label>
       </div>
     </div>
@@ -275,7 +315,7 @@
         <tr>
           <th class="col-6">
             <div class="darkTextInput form-group">
-                <input type="text" class="form-control" id="darkTextInput" placeholder="Master Category">
+                <input type="textInput" class="form-control" id="darkTextInput" placeholder="Master Category">
             </div>
           </th>
           <th class="col-3">
@@ -290,7 +330,7 @@
         <tr>
           <td class="col-6">
             <div class="textInput form-group">
-              <input type="text" class="form-control" id="textInput" placeholder="Category">
+              <input type="textInput" class="form-control" id="textInput" placeholder="Category">
             </div>
           </td>
           <td class="col-3">
@@ -304,7 +344,7 @@
     </table>
     <h3>Budget Header</h3>
     <table class="budgetTable">
-        <thead class="masterCategory collapsed col-6 offset-6">
+        <thead class="masterCategory collapsed">
           <tr>
             <th class="col-6">Alloué</th>
             <th class="col-6">Disponible</th>
@@ -324,15 +364,26 @@
   </div>
 </div>
 
+<div class="designContainer col-8 offset-2 row">
+  <h2>Charts</h2>
+
+  aaaa
+  <BarChart/>
+  ooooo
+
+</div>
+
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Multiselect from '@vueform/multiselect'
+import BarChart from '@/components/charts/BarChart.vue'
 
 export default defineComponent({
   name: 'About',
   components: {
-    Multiselect
+    Multiselect,
+    BarChart
   },
   data () {
     return {

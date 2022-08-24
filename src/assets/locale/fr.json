@@ -27,6 +27,7 @@
     "I18N_INCOME": "Argent à répartir",
     "TO_BE_BUDGETED": "à distribuer",
     "ARCHIVE": "archive",
+    "TO_ARCHIVE": "archiver",
     "EDIT": "éditer",
     "ADD": "ajouter",
     "DELETE": "supprimer",
@@ -42,7 +43,6 @@
     "LOADING": "En route !",
     "ADD_MASTER_CATEGORY": "ajouter une catégorie",
     "ADD_CATEGORY": "ajouter une enveloppe",
-    "CLICK_ON_THE_MASTER_CATEGORY" : "pour ajouter une enveloppe, cliquer sur la catégorie concernée puis sur le +",
     "HIDE_ARCHIVE": "cacher les archives",
     "SHOW_ARCHIVE": "afficher les archives",
     "CHECKING_ACCOUNT": "compte courant",
@@ -118,5 +118,15 @@
     "MANAGE_SUBSCRIPTION": "gérer son abonnement",
     "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau",
     "TOTAL_AMOUNT": "montant total",
-    "ADD_NEW_CATEGORY": "ajouter catégorie"
+    "ADD_NEW_CATEGORY": "ajouter catégorie",
+    "CHART": "graphique",
+    "ALL_BUDGET": "ensemble du budget",
+    "PIE_CHART": "Répartition",
+    "BAR_CHART": "Alloué / Dépensé",
+    "SELECT_MASTER_CATEGORY": "sélectionner une catégorie",
+    "SAVE_CHANGE": "enregistrer les modifications",
+    "THE_CATEGORY": "La catégorie ",
+    "CATEGORIES": "Les catégories : ",
+    "IS_IN_DEFICIT": " est déficitaire. Elle n'est donc pas affichée.",
+    "ARE_IN_DEFICIT": " sont déficiataires. Elles ne sont donc pas affichées."
 }

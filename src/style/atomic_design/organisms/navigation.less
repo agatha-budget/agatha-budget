@@ -2,7 +2,7 @@
     margin-bottom: 20px;
     text-align: center;
     .date-label {
-        background: @validation;
+        background: @action;
         border-radius: 25px;
         font-weight: bold;
         padding: 8px  15px 8px 15px;
@@ -12,16 +12,19 @@
         .month {
             text-transform: capitalize;
         }
+        * {
+            color: @lighterBackground;
+        }
         &.negative {
             background: @alert;
-            *{
-                color: @white;
-            }
         }
         &.positive {
             background: @warning;
-            *{
-                color: @white;
+        }
+        &.null {
+            background: @validation;
+            * {
+                color: @dark
             }
         }
     }   

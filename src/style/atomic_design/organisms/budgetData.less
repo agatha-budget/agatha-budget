@@ -20,7 +20,7 @@
         display: none;
     }
     .name, .action {
-        cursor: pointer;
+        cursor: default;
         &:hover {
             .action {
                 display: inline;
@@ -59,13 +59,31 @@
             text-align: left;
         }
         .illustration{
-            color: @navigation;
+            color: @action;
         }
         .numberInput {
             input {
                 text-align: center;
                 padding-left: 0;
                 padding-right: 0;
+            }
+        }
+        .icon {
+            text-align: right;
+        }
+        .text {
+            text-align: left;
+            color: @action;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .actionLabelIcon {
+            .text {
+                padding: 0;
+            }
+            *{
+                color: @action;
             }
         }
     }
