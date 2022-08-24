@@ -363,6 +363,44 @@ fun main() {
         val allocation = ServiceManager.allocationService.insertOrUpdate(user, month, category, amount)
         ctx.json(allocation)
     }
+
+    app.before("/cidentifier", SuperTokens.middleware())
+    app.post("/cidentifier") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+        val pattern: String = getQueryParam<String>(ctx, "pattern")
+        val categoryId: String = getQueryParam<String>(ctx, "category_id")
+        val categoryIdentifier = ServiceManager.categoryIdentifierService.create(user, budget, pattern, categoryId)
+        ctx.json(categoryIdentifier)
+    }
+
+    app.before("/cidentifier", SuperTokens.middleware())
+    app.put("/cidentifier") { ctx ->
+        // required
+        val user = getUserFromAuth(ctx)
+        var categoryIdentifier: CategoryIdentifier = ServiceManager.categoryIdentifierService.getById(user, getQueryParam<String>(ctx, "category_identifier_id"))
+        // optional
+        val pattern: String? = getOptionalQueryParam<String>(ctx, "pattern")
+        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
+
+        categoryIdentifier = ServiceManager.categoryIdentifierService.update(user, categoryIdentifier, pattern, categoryId)
+        ctx.json(categoryIdentifier)
+    }
+
+    app.before("/cidentifier", SuperTokens.middleware())
+    app.delete("/cidentifier") { ctx ->
+        val user = getUserFromAuth(ctx)
+        var categoryIdentifier: CategoryIdentifier = ServiceManager.categoryIdentifierService.getById(user, getQueryParam<String>(ctx, "category_identifier_id"))
+        ServiceManager.categoryIdentifierService.delete(user, categoryIdentifier)
+    }
+
+    app.before("/cidentifier", SuperTokens.middleware())
+    app.get("/cidentifier") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
+        val categoryIdentifierList = ServiceManager.categoryIdentifierService.getByBudget(user, budget)
+        ctx.json(categoryIdentifierList)
+    }
 }
 
 private fun setUpApp(properties: Properties): Javalin {

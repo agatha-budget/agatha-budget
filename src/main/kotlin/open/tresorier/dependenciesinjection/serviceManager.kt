@@ -18,6 +18,7 @@ object ServiceManager : KoinComponent {
     val billingService: BillingService by inject()
     val mailingService: MailingService by inject()
     val userActivityService: UserActivityService by inject()
+    val categoryIdentifierService: CategoryIdentifierService by inject()
 
     fun start(){
         startKoin{
