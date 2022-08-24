@@ -848,6 +848,13 @@ paths:
         explode: true
         schema:
           type: boolean
+      - name: new_color
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
       responses:
         "200":
           description: successful operation
@@ -955,7 +962,7 @@ paths:
         style: form
         explode: true
         schema:
-          type: number
+          type: string
       - name: new_archived
         in: query
         required: false
@@ -1369,6 +1376,87 @@ paths:
               schema:
                 type: string
                 example: invalid category id
+  /postIt:
+    post:
+      tags:
+      - Post it
+      summary: Add a new post-it or update an existing one
+      operationId: updatePostIt
+      parameters:
+      - name: month
+        in: query
+        description: month of the post-it (march 2022 => 202203)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: budget_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: text
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: post-it was correctly updated
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+                example: invalid budget id
+    get:
+      tags:
+      - Post-it
+      summary: Get post-it by month and budget
+      operationId: getPostIt
+      parameters:
+      - name: month
+        in: query
+        description: month of the post-it (march 2022 => 202203)
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: number
+      - name: budget_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PostIt'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              example: invalid budget id
 components:
   schemas:
     Budget:
@@ -1452,6 +1540,7 @@ components:
       - deleted
       - id
       - name
+      - color
       type: object
       properties:
         name:
@@ -1462,6 +1551,8 @@ components:
           type: string
         deleted:
           type: boolean
+        color:
+          type: string
     Category:
       required:
       - archived
@@ -1548,6 +1639,19 @@ components:
           type: boolean
       xml:
         name: person
+    PostIt:
+      required:
+      - month
+      - budgetId
+      - text
+      type: object
+      properties:
+        month:
+          type: number
+        budgetId:
+          type: string
+        text:
+          type: string
     Bank:
       required:
       - name

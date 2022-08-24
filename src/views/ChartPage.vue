@@ -9,6 +9,7 @@
       </div>
       <div class="mobileVersion">
         <DateNav :fromPage="'chart'" @change-month="changeMonth"/>
+        <div class="deficitMessage">{{ deficitMessage }}</div>
       </div>
       <div class="draw col-lg-7">
         <PieChart :chartData="pieChartData" v-if="currentGraph == 'pie'"/>
@@ -31,6 +32,7 @@
             @select="recalculate"
           />
         </div>
+        <div class="deficitMessage ">{{ deficitMessage }}</div>
       </div>
       <div class="mobileVersion">
         <RadioSelect v-if="currentGraph == 'pie'" :choices="choicesTypeInformationPie" @had-selection="changeTypeInformationPie"/>
@@ -74,45 +76,28 @@ import BudgetDataService from '@/services/BudgetDataService'
 import { CategoryDataList, Budget, GroupSelectOption, Category } from '@/model/model'
 import Utils from '@/utils/Utils'
 import Time from '@/utils/Time'
-import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor } from '@/model/colorList'
+import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor, lightGreyColor, darkGreyColor, lightGreenColor, salmonColor, lavenderColor, bordeauxColor } from '@/model/colorList'
 import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
-    barChartData: {
-      labels: string[];
-      datasets: {
-        label: string;
-        backgroundColor: string;
-        data: number[];
-      }[];
-    };
+    barChartData: { labels: string[]; datasets: { label: string; backgroundColor: string;data: number[] }[] };
     categoryDataList: CategoryDataList;
-    pieChartData: {
-      labels: string[];
-      datasets: {
-        backgroundColor: string[];
-        data: number[];
-      }[];
-    };
+    pieChartData: { labels: string[]; datasets: { backgroundColor: string[]; data: number[] }[] };
     typeInformationPie: string;
     typeInformationBar: string[];
     masterCategoryId: string;
     currentGraph: string;
     budgetMonth: number;
-    choicesTypeInformationPie: {
-      label: string;
-      value: string;
-      preSelected: boolean;
-    }[];
-    choicesTypeInformationBar: {
-      label: string;
-      value: string;
-      preSelected: boolean;
-    }[];
+    choicesTypeInformationPie: { label: string; value: string; preSelected: boolean }[];
+    choicesTypeInformationBar: { label: string; value: string; preSelected: boolean }[];
+    predefinedListColor: string[];
+    colorListMasterCategories: string[];
+    deficitCategories: string[];
+    deficitMessage: string;
 }
 
 export default defineComponent({
-  name: 'Login',
+  name: 'ChartPage',
   components: {
     ChartPageHeader,
     BarChart,
@@ -131,6 +116,7 @@ export default defineComponent({
     StoreHandler.initStore(this.$store)
     await this.getBudgetData()
     this.recalculate()
+    this.getcolorsMasterCategories()
   },
   watch: {
     typeInformationPie: function () {
@@ -138,22 +124,21 @@ export default defineComponent({
     },
     typeInformationBar: function () {
       this.drawBarChart()
+    },
+    deficitCategories: function () {
+      this.writeAlertMessage()
     }
   },
   data (): ChartPageData {
     return {
       barChartData: {
         labels: [],
-        datasets: [
-          { label: '', backgroundColor: '', data: [] }
-        ]
+        datasets: [{ label: '', backgroundColor: '', data: [] }]
       },
       categoryDataList: {},
       pieChartData: {
         labels: [],
-        datasets: [
-          { backgroundColor: [], data: [] }
-        ]
+        datasets: [{ backgroundColor: [], data: [] }]
       },
       typeInformationPie: 'available',
       typeInformationBar: ['allocated', 'spent'],
@@ -169,7 +154,11 @@ export default defineComponent({
         { label: this.$t('ALLOCATED'), value: 'allocated', preSelected: true },
         { label: this.$t('SPENT'), value: 'spent', preSelected: true },
         { label: this.$t('AVAILABLE'), value: 'available', preSelected: false }
-      ]
+      ],
+      predefinedListColor: [redColor, blueColor, orangeColor, darkGreyColor, purpleColor, greenColor, pinkColor, navyColor, lightGreyColor, salmonColor, brownColor, blackColor, bordeauxColor, lavenderColor, yellowColor, lightGreenColor],
+      colorListMasterCategories: [],
+      deficitCategories: [],
+      deficitMessage: ''
     }
   },
   computed: {
@@ -225,21 +214,36 @@ export default defineComponent({
       return listName
     },
     getDatas (type: string, masterCategorySelectedId: string): number[] {
+      this.deficitCategories = []
       const listData: number[] = []
       const masterCategorySelected = StoreHandler.getMasterCategoryById(this.$store, masterCategorySelectedId)
       if (masterCategorySelected) {
         const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategorySelected, false)
         for (const category of categories) {
-          listData.push(Utils.getEurosAmount(this.getCategoryDatas(type, category)))
+          const data = this.getCategoryDatas(type, category)
+          if (data >= 0 || this.currentGraph === 'bar') {
+            listData.push(Utils.getEurosAmount(data))
+          } else {
+            listData.push(0)
+            this.deficitCategories.push(category.name)
+          }
         }
       } else {
         for (const masterCategory of this.$store.state.masterCategories) {
-          let data = 0
           const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
-          for (const category of categories) {
-            data += this.getCategoryDatas(type, category)
+          const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
+          if (!(categories.length === 0 && archivedCategories.length > 0)) {
+            let data = 0
+            for (const category of categories) {
+              data += this.getCategoryDatas(type, category)
+            }
+            if (data >= 0 || this.currentGraph === 'bar') {
+              listData.push(Utils.getEurosAmount(data))
+            } else {
+              listData.push(0)
+              this.deficitCategories.push(masterCategory.name)
+            }
           }
-          listData.push(Utils.getEurosAmount(data))
         }
       }
       return listData
@@ -248,19 +252,31 @@ export default defineComponent({
       let data = 0
       switch (type) {
         case 'allocated':
-          data = this.categoryDataList[category.id]?.allocated
+          data = this.categoryDataList[category.id]?.allocated || 0
           break
         case 'spent':
-          data = this.categoryDataList[category.id]?.spent * (-1)
+          data = this.categoryDataList[category.id]?.spent * (-1) || 0
           break
         case 'available':
-          data = this.categoryDataList[category.id]?.available
+          data = this.categoryDataList[category.id]?.available || 0
           break
       }
       return data
     },
-    getColorsPieChart (): string[] {
-      return [redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor]
+    getcolorsMasterCategories () {
+      let indexColor = 0
+      for (const masterCategory of this.$store.state.masterCategories) {
+        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+        const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
+        if (!(categories.length === 0 && archivedCategories.length > 0)) {
+          if (masterCategory.color === null) {
+            this.colorListMasterCategories.push(this.predefinedListColor[indexColor])
+            indexColor < 10 ? indexColor++ : indexColor = 0
+          } else {
+            this.colorListMasterCategories.push(masterCategory.color)
+          }
+        }
+      }
     },
     getColorsBarChart (type: string): string {
       let color = ''
@@ -280,7 +296,10 @@ export default defineComponent({
     drawPieChart () {
       const labelList = this.getLegend(this.masterCategoryId)
       const dataList = this.getDatas(this.typeInformationPie, this.masterCategoryId)
-      const colorList = this.getColorsPieChart()
+      let colorList: string[] = this.colorListMasterCategories
+      if (this.masterCategoryId !== '') {
+        colorList = this.predefinedListColor
+      }
       this.pieChartData.labels = labelList
       this.pieChartData.datasets[0].data = dataList
       this.pieChartData.datasets[0].backgroundColor = colorList
@@ -319,11 +338,15 @@ export default defineComponent({
       this.barChartData.datasets.splice(0, 0, newDatasets)
     },
     recalculate () {
-      this.drawPieChart()
-      this.drawBarChart()
+      if (this.currentGraph === 'pie') {
+        this.drawPieChart()
+      } else {
+        this.drawBarChart()
+      }
     },
     changeGraph (newGraph: string) {
       this.currentGraph = newGraph
+      this.recalculate()
     },
     changeTypeInformationPie (newTypeInformationPie: string) {
       this.typeInformationPie = newTypeInformationPie
@@ -339,6 +362,19 @@ export default defineComponent({
       }
       await this.getBudgetData()
       this.recalculate()
+    },
+    writeAlertMessage () {
+      if (this.deficitCategories.length === 0) {
+        this.deficitMessage = ''
+      } else if (this.deficitCategories.length === 1) {
+        this.deficitMessage = this.$t('THE_CATEGORY') + this.deficitCategories[0] + this.$t('IS_IN_DEFICIT')
+      } else {
+        this.deficitMessage = this.$t('CATEGORIES') + this.deficitCategories[0]
+        for (let i = 1; i < this.deficitCategories.length; i++) {
+          this.deficitMessage = this.deficitMessage + ', ' + this.deficitCategories[i]
+        }
+        this.deficitMessage += this.$t('ARE_IN_DEFICIT')
+      }
     }
   }
 })

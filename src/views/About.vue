@@ -26,6 +26,11 @@
     <h3>Action Button</h3>
     <btn class="actionButton">Valider</btn>
 
+    <btn class="buttonGradation">
+      <span class="illustration fas fa-book col-4"/>
+      <span class="illustrationLabel col-8">Action</span>
+    </btn>
+
   </div>
   <div class="col-md-6">
 
@@ -351,7 +356,7 @@
     </table>
     <h3>Budget Header</h3>
     <table class="budgetTable">
-        <thead class="masterCategory collapsed col-6 offset-6">
+        <thead class="masterCategory collapsed">
           <tr>
             <th class="col-6">Alloué</th>
             <th class="col-6">Disponible</th>
