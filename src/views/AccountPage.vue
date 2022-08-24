@@ -37,10 +37,10 @@
                   {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
                 </div>
               </div>
-              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-1">
+              <div v-if="filteringCategoryId === null" v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-1">
                 <button class="illustration btn fas fa-pen"/>
               </div>
-              <div v-on:click="deleteOperation(operation)" :title="$t('DELETE')" class="action col-1">
+              <div v-if="filteringCategoryId === null" v-on:click="deleteOperation(operation)" :title="$t('DELETE')" class="action col-1">
                 <button class="illustration btn fas fa-trash"/>
               </div>
               <div v-if="operation.pending" v-on:click="debited(operation)" :title="$t('DEBITED')" class="pending col-1">
@@ -219,7 +219,7 @@ export default defineComponent({
       return Time.getDateFromDay(dayAsInt)
     },
     async deleteOperation (operation: Operation) {
-      if (this.account) {
+      if (this.account && !this.filteringCategoryId) {
         const daughters = await OperationService.findDaughterOperationsByMother(this.account, operation.id)
         if (daughters.length > 0) {
           await OperationService.deleteOperation(this.$store, operation)
@@ -234,7 +234,9 @@ export default defineComponent({
       }
     },
     setAsEditing (operation: EditableOperation) {
-      operation.editing = true
+      if (!this.filteringCategoryId) {
+        operation.editing = true
+      }
     },
     operationToEditableOperation (operations: Operation[]): EditableOperation[] {
       const editableOperations: EditableOperation[] = []
