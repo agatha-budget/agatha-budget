@@ -7,18 +7,18 @@
         <thead class="masterCategory collapsed col-6 offset-6">
           <tr>
             <th class="col-6"></th>
-            <th class="col-2">{{ $t("ALLOCATED") }}</th>
-            <th class="col-2 spent">{{ $t("SPENT") }}</th>
-            <th class="col-2">{{ $t("AVAILABLE") }}</th>
+            <th class="col-2 amountCol">{{ $t("ALLOCATED") }}</th>
+            <th class="col-2 amountCol spent">{{ $t("SPENT") }}</th>
+            <th class="col-2 amountCol ">{{ $t("AVAILABLE") }}</th>
           </tr>
         </thead>
         <!-- Total for all table-->
         <thead class="masterCategory collapsed">
           <tr>
-            <th class="col-6">{{ $t("TOTAL") }}</th>
-            <th class="col-2">{{ addSpacesInThousand(totalAllocated) }}</th>
-            <th class="col-2 spent">{{ addSpacesInThousand(totalSpent) }}</th>
-            <th class="col-2">{{ addSpacesInThousand(totalAvailable) }}</th>
+            <th>{{ $t("TOTAL") }}</th>
+            <th class="amountCol">{{ addSpacesInThousand(totalAllocated) }}</th>
+            <th class="amountCol spent">{{ addSpacesInThousand(totalSpent) }}</th>
+            <th class="amountCol">{{ addSpacesInThousand(totalAvailable) }}</th>
           </tr>
         </thead>
       </table>

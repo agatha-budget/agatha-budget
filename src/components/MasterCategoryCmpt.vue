@@ -8,9 +8,9 @@
             <span class="action">
             </span>
           </th>
-          <th class="col-2">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.allocated))}}</th>
-          <th class="col-2 spent">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.spent)) }}</th>
-          <th class="col-2"><span :class="masterCategoryData.available < 0 ? 'negative' : ''">
+          <th class="col-2 amountCol">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.allocated))}}</th>
+          <th class="col-2 amountCol spent">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.spent)) }}</th>
+          <th class="col-2 amountCol"><span :class="masterCategoryData.available < 0 ? 'negative' : ''">
           {{ addSpacesInThousand(getEurosAmount(masterCategoryData.available)) }}
         </span></th>
         </tr>
