@@ -45,7 +45,10 @@ class BankingService (
         budgets.forEach {
             val accounts = this.accountDao.findByBudget(it)
             accounts.forEach {
-                synchroniseAccount(it)
+                val agreement = this.bankAgreementDao.findByAccount(it)
+                if (agreement != null) {
+                    synchroniseAccount(it, agreement.timestamp)
+                }
             }
         }
     }
@@ -56,8 +59,8 @@ class BankingService (
         
     }
 
-    fun synchroniseAccount(account: Account) {
-        val operations = this.bankingAdapter.getOperations(account)
+    fun synchroniseAccount(account: Account, from: Long? = null) {
+        val operations = this.bankingAdapter.getOperations(account, from)
         operations.forEach { 
             try {
                 this.operationDao.insert(it) 
