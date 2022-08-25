@@ -1,7 +1,7 @@
 <template>
   <table class="budgetTable table" v-if="this.categories.length > 0">
     <MasterCategoryForm v-if="edit" :masterCategory="masterCategory" :archived="archived" @create-category="createCategory" @empty-master-category="emptyMasterCategory"/>
-    <thead v-else class="masterCategory" :style="{'background': color}">
+    <thead v-else class="masterCategory" :style=style>
         <tr>
           <th class="col-6 name">
             <span>{{ masterCategory?.name }}</span>
@@ -61,7 +61,7 @@ import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
 import MasterCategoryForm from '@/components/forms/MasterCategoryForm.vue'
-import { navigationColor } from '@/model/colorList'
+import { Color } from '@/utils/Color'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
@@ -90,11 +90,6 @@ export default defineComponent({
       default: false
     }
   },
-  data () {
-    return {
-      color: this.masterCategory.color !== null ? this.masterCategory.color : 'navigationColor'
-    }
-  },
   computed: {
     categories (): Category[] {
       return StoreHandler.getCategoriesByMasterCategory(this.$store, this.masterCategory, this.archived)
@@ -107,6 +102,9 @@ export default defineComponent({
         masterCategoryData.available += this.categoryDataList[category.id]?.available ?? 0
       }
       return masterCategoryData
+    },
+    style (): string {
+      return this.masterCategory.color !== null ? 'background : linear-gradient(to right, ' + Color.shadeColor(this.masterCategory.color, -50) + ',' + this.masterCategory.color + ')' : ''
     }
   },
   methods: {

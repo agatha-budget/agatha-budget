@@ -76,7 +76,7 @@ import BudgetDataService from '@/services/BudgetDataService'
 import { CategoryDataList, Budget, GroupSelectOption, Category } from '@/model/model'
 import Utils from '@/utils/Utils'
 import Time from '@/utils/Time'
-import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor, lightGreyColor, darkGreyColor, lightGreenColor, salmonColor, lavenderColor, bordeauxColor } from '@/model/colorList'
+import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor, lightGreyColor, darkGreyColor, lightGreenColor, salmonColor, lavenderColor, bordeauxColor } from '@/utils/Color'
 import Multiselect from '@vueform/multiselect'
 
 interface ChartPageData {
