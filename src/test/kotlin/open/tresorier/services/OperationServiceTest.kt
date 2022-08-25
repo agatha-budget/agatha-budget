@@ -278,7 +278,7 @@ class OperationServiceTest : ITest {
     }
 
     @Test 
-    fun testFindDaugtherOperationWhitoutDaughterOperation() {
+    fun testFindDaughterOperationWhitoutDaughterOperation() {
         val valentina: Person = personService.createPerson(
             "Valentina Terechkova", "Vostok-6", "valentina@cosmonaute.ru", ProfileEnum.PROFILE_USER
         )
@@ -333,7 +333,7 @@ class OperationServiceTest : ITest {
     }
 
     @Test
-    fun testFindMotherOperationByDaugtherOperation() {
+    fun testFindMotherOperationByDaughterOperation() {
         val maria: Person = personService.createPerson(
             "Maria Goeppert-Mayer", "physique1963", "maria@nobel.de", ProfileEnum.PROFILE_USER
         )
@@ -352,64 +352,12 @@ class OperationServiceTest : ITest {
             maria, account, TestData.jan_14_2022, null, 1950, "nombres magiques", null, motherOperation
         )
 
-        val operationFound0 = operationService.findMotherOperationByDaugtherOperation(maria, daughterOperation0)
-        val operationFound = operationService.findMotherOperationByDaugtherOperation(maria, daughterOperation)
-        val operationNull = operationService.findMotherOperationByDaugtherOperation(maria, motherOperation)
+        val operationFound0 = operationService.findMotherOperationByDaughterOperation(maria, daughterOperation0)
+        val operationFound = operationService.findMotherOperationByDaughterOperation(maria, daughterOperation)
+        val operationNull = operationService.findMotherOperationByDaughterOperation(maria, motherOperation)
 
         Assertions.assertTrue(motherOperation.isEquals(operationFound0))
         Assertions.assertTrue(motherOperation.isEquals(operationFound))
         Assertions.assertTrue(operationNull == null)
-    }
-
-    @Test
-    fun testFindDaughterOperationsByAccount() {
-        val dorothy: Person = personService.createPerson(
-            "Dorothy Crowfoot-Hodgkin", "chimie1964", "dorothy@nobel.uk", ProfileEnum.PROFILE_USER
-        )
-        dorothy.billingStatus = true
-        val budget: Budget = budgetService.findByUser(dorothy)[0]
-        val account: Account = accountService.create(
-            dorothy, budget, "personal account", TestData.jan_14_2022, 1875
-        )
-        var motherOperation1: Operation = operationService.create(
-            dorothy, account, TestData.jan_14_2022, null, 0, "Royal Society", null, null
-        )
-        var motherOperation2: Operation = operationService.create(
-            dorothy, account, TestData.jan_14_2022, null, 0, "Oxford", null, null
-        )
-        var daughterOperation1: Operation = operationService.create(
-            dorothy, account, TestData.jan_14_2022, null, 0, "cristallographie", null, motherOperation1
-        )
-        var daughterOperation2: Operation = operationService.create(
-            dorothy, account, TestData.jan_14_2022, null, 0, "insuline", null, motherOperation1
-        )
-        var daughterOperation3: Operation = operationService.create(
-            dorothy, account, TestData.jan_14_2022, null, 0, "Margaret Thatcher", null, motherOperation2
-        )
-
-        val daughterOperationList = operationService.findAllDaughterOperations(dorothy, account, null)
-
-        Assertions.assertEquals(3, daughterOperationList.size)
-        Assertions.assertTrue(daughterOperationList[0].isEquals(daughterOperation3))
-        Assertions.assertTrue(daughterOperationList[1].isEquals(daughterOperation2))
-        Assertions.assertTrue(daughterOperationList[2].isEquals(daughterOperation1))
-    }
-
-    @Test
-    fun testFindDaughterOperationsByAccountWithoutOperations() {
-        val elizabeth: Person = personService.createPerson(
-            "Elizabeth Blackwell", "abolitionniste", "elizabeth@medecin.uk", ProfileEnum.PROFILE_USER
-        )
-        elizabeth.billingStatus = true
-        val budget: Budget = budgetService.findByUser(elizabeth)[0]
-        val account: Account = accountService.create(
-            elizabeth, budget, "personal account", TestData.jan_14_2022, 1875
-        )
-        operationService.create(elizabeth, account, TestData.jan_14_2022, null, 1869, "The Moral Education of the Young", null, null)
-        operationService.create(elizabeth, account, TestData.jan_14_2022, null, 1849, "major médecine", null, null)
-
-        val daughterOperationList = operationService.findAllDaughterOperations(elizabeth, account, null)
-
-        Assertions.assertEquals(0, daughterOperationList.size)
     }
 }

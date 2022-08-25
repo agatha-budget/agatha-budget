@@ -160,30 +160,14 @@ class OperationService(
         }
         return listMotherOperations
     }
-    fun findMotherOperationByDaugtherOperation(person: Person, daughterOperation: Operation) : Operation? {
-        if (daughterOperation.motherOperationId != null) {
-            val account = accountDao.getById(daughterOperation.accountId)
-            val motherOperationID = daughterOperation.motherOperationId
-            authorizationService.cancelIfUserIsUnauthorized(person, account)
-            val listAllOperations: List<Operation> = operationDao.findByAccount(account, null)
-            var motherOperation: Operation? = null 
-            listAllOperations.forEach {
-                if (motherOperationID == it.id) {
-                    motherOperation = it
-                }
-            }
+    fun findMotherOperationByDaughterOperation(person: Person, daughterOperation: Operation) : Operation? {
+        val account = accountDao.getById(daughterOperation.accountId)
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        val motherOperationId = daughterOperation.motherOperationId
+        if (motherOperationId != null) {
+            val motherOperation = operationDao.getById(motherOperationId)
             return motherOperation
         }
         return null
-    }
-    fun findAllDaughterOperations(person: Person, account: Account, category: Category?) : List<Operation> {
-        val listAllOperations = this.findByAccount(person, account, category)
-        var listDaughterOperations = mutableListOf<Operation>()
-        listAllOperations.forEach {
-            if (it.motherOperationId != null) {
-                listDaughterOperations.add(it)
-            }
-        }
-        return listDaughterOperations
     }
 }
