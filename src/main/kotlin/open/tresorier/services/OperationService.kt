@@ -135,13 +135,11 @@ class OperationService(
     fun findDaughterOperations(person: Person, motherOperation: Operation): List<Operation> {
         val account = accountDao.getById(motherOperation.accountId)
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val listDaughterOperation = operationDao.findDaughterOperations(motherOperation)
-        return listDaughterOperation
+        return operationDao.findDaughterOperations(motherOperation)
     }
     fun findMotherOperationsByAccount(person: Person, account: Account, category: Category?) : List<Operation> {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        var listMotherOperations = operationDao.findMotherOperationsByAccount(account, category)
-        return listMotherOperations
+        return operationDao.findMotherOperationsByAccount(account, category)
     }
     fun findMotherOperationByDaughterOperation(person: Person, daughterOperation: Operation) : Operation? {
         val account = accountDao.getById(daughterOperation.accountId)
