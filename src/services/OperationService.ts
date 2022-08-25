@@ -26,12 +26,6 @@ export default class OperationService {
   }
 
   public static async deleteOperation (store: Store<StoreState>, operation: Operation) {
-    const daughters = await this.getDaughtersFromMother(operation)
-    if (daughters.length > 0) {
-      daughters.forEach(daughter => {
-        operationApi.deleteOperation(daughter.id)
-      })
-    }
     await operationApi.deleteOperation(operation.id)
     StoreHandler.updateAccounts(store)
   }
