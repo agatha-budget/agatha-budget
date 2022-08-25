@@ -90,10 +90,8 @@ export default defineComponent({
     },
     chooseColor () {
       this.colorPicker = !this.colorPicker
-      console.log(this.colorPicker)
     },
     validColor () {
-      console.log(this.color)
       MasterCategoryService.updateColorMasterCategory(this.masterCategory.id, this.color).then(
         () => {
           StoreHandler.updateMasterCategories(this.$store)
@@ -102,7 +100,6 @@ export default defineComponent({
       )
     },
     changeName () {
-      console.log('change name', this.name)
       MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
         () => {
           StoreHandler.updateMasterCategories(this.$store)

@@ -411,11 +411,11 @@ export default defineComponent({
         )
         // daughters
         if (this.account) {
-          const daughtersDB = await OperationService.findDaughterOperationsByMother(this.account, this.operation.id)
+          const daughtersDB = await OperationService.getDaughtersFromMother(this.operation)
           let difference = daughtersDB.length - this.dataOperation.operationsData.length
           while (difference !== 0) {
             if (difference > 0) {
-              const daughterOperations = await OperationService.findDaughterOperationsByMother(this.account, this.operation.id)
+              const daughterOperations = await OperationService.getDaughtersFromMother(this.operation)
               OperationService.deleteOperation(this.$store, daughterOperations[-1])
               difference--
             } else if (difference < 0) {

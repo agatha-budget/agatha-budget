@@ -193,13 +193,11 @@ export default defineComponent({
       }
     },
     async getAccountOperationFilter () {
-      console.log('getOperationFilter')
       if (this.account) {
         const filteredOperations = await OperationService.getOperations(this.account, this.filteringCategoryId)
         filteredOperations.forEach(async operation => {
           if (this.account) {
-            const mother = await OperationService.findMotherOperationByDaughter(this.account, operation.id)
-            console.log(mother)
+            const mother = await OperationService.getMotherFromDaughter(operation)
             if (mother) {
               filteredOperations.splice(filteredOperations.indexOf(operation), 1, mother)
             }
@@ -211,7 +209,7 @@ export default defineComponent({
     async getDaughterOperations () {
       this.operations.forEach(async operation => {
         if (this.account) {
-          operation.daughters = await OperationService.findDaughterOperationsByMother(this.account, operation.id)
+          operation.daughters = await OperationService.getDaughtersFromMother(operation)
         }
       })
     },
@@ -220,17 +218,8 @@ export default defineComponent({
     },
     async deleteOperation (operation: Operation) {
       if (this.account && !this.filteringCategoryId) {
-        const daughters = await OperationService.findDaughterOperationsByMother(this.account, operation.id)
-        if (daughters.length > 0) {
-          await OperationService.deleteOperation(this.$store, operation)
-          daughters.forEach(daughter => {
-            OperationService.deleteOperation(this.$store, daughter)
-          })
-        } else {
-          await OperationService.deleteOperation(this.$store, operation)
-        }
-        await this.getAccountOperation()
-        this.getDaughterOperations()
+        await OperationService.deleteOperation(this.$store, operation)
+        this.getAccountOperation()
       }
     },
     setAsEditing (operation: EditableOperation) {
@@ -299,7 +288,7 @@ export default defineComponent({
     },
     async debited (operation: Operation) {
       if (operation && this.account) {
-        const daughters = await OperationService.findDaughterOperationsByMother(this.account, operation.id)
+        const daughters = await OperationService.getDaughtersFromMother(operation)
         if (daughters.length !== 0) {
           daughters.forEach(daughter => {
             OperationService.updateOperation(this.$store, daughter.id, this.accountId, undefined, undefined, undefined, undefined, false)
