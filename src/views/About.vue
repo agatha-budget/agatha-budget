@@ -8,28 +8,28 @@
     <button class="navBarBtn btn fas fa-home disabled" :title="$t('HOME')"/>
 
     <h3>NavigationButtons</h3>
-    <btn class="navigationButton">navigation button</btn>
+    <button class="navigationButton">navigation button</button>
 
-    <btn class="navigationButton disabled">navigation button</btn>
+    <button class="navigationButton disabled">navigation button</button>
 
     <h3>IllustratedNavigationButtons </h3>
-    <btn class="navigationButton row">
+    <button class="navigationButton row">
       <span class="illustration fas fa-book col-4"/>
       <span class="illustrationLabel col-8">{{ $t("FREE_RESOURCES") }}</span>
-    </btn>
+    </button>
 
-    <btn class="navigationButton disabled row">
+    <button class="navigationButton disabled row">
       <span class="illustration fas fa-book col-4"/>
       <span class="illustrationLabel col-8">{blbnnilbbibi</span>
-    </btn>
+    </button>
 
     <h3>Action Button</h3>
-    <btn class="actionButton">Valider</btn>
+    <button class="actionButton">Valider</button>
 
-    <btn class="buttonGradation">
+    <button class="buttonGradation">
       <span class="illustration fas fa-book col-4"/>
       <span class="illustrationLabel col-8">Action</span>
-    </btn>
+    </button>
 
   </div>
   <div class="col-md-6">
@@ -37,31 +37,31 @@
     <h3>DualTab</h3>
 
     <div class="dualTab">
-      <btn class="tabLeft">TabLeft</btn>
-      <btn class="tabRight">TabRight</btn>
+      <button class="tabLeft">TabLeft</button>
+      <button class="tabRight">TabRight</button>
     </div>
 
     <div class="dualTab">
-        <btn class="tabLeft active">TabLeft</btn>
-        <btn class="tabRight">TabRight</btn>
+        <button class="tabLeft active">TabLeft</button>
+        <button class="tabRight">TabRight</button>
     </div>
 
     <div class="dualTab">
-      <btn class="tabLeft">TabLeft</btn>
-      <btn class="tabRight active">TabRight</btn>
+      <button class="tabLeft">TabLeft</button>
+      <button class="tabRight active">TabRight</button>
     </div>
 
     <h3>TrialTab</h3>
     <div class="trialTab">
-      <btn class="tabLeft" >TabLeft</btn>
-      <btn class="tabCenter" >TabCenter</btn>
-      <btn class="tabRight">TabRight</btn>
+      <button class="tabLeft" >TabLeft</button>
+      <button class="tabCenter" >TabCenter</button>
+      <button class="tabRight">TabRight</button>
     </div>
 
     <div class="trialTab">
-      <btn class="tabLeft" >TabLeft</btn>
-      <btn class="tabCenter active" >TabCenter</btn>
-      <btn class="tabRight">TabRight</btn>
+      <button class="tabLeft" >TabLeft</button>
+      <button class="tabCenter active" >TabCenter</button>
+      <button class="tabRight">TabRight</button>
     </div>
 
     <h3>Cross</h3>

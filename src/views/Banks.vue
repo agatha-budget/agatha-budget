@@ -32,7 +32,7 @@
             </div>
         </template>
 
-        <btn class="actionButton" v-on:click="saveAssociation()">{{ $t('UPDATE') }}</btn>
+        <button class="actionButton" v-on:click="saveAssociation()">{{ $t('UPDATE') }}</button>
 
         <div class="banner">
           <div class="title">{{ $t('SYNCHRONISED_BANKS') }}</div>
@@ -70,7 +70,7 @@
             :noResultsText="$t('NO_RESULT_FOUND')"
             :placeholder="$t('SELECT_BANK')"
           />
-          <btn class="actionButton" v-on:click="getBankAuthorization">{{ $t('AUTHORIZE') }}</btn>
+          <button class="actionButton" v-on:click="getBankAuthorization">{{ $t('AUTHORIZE') }}</button>
         </div>
         <div class="placeholder bottom">
           <NavMenu :page="'profile'" />

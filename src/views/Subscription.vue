@@ -13,8 +13,8 @@
       <div v-if="this.managementPage">
         <p>{{ $t('MANAGE_SUBSCRIPTION') }} : </p>
         <p v-if="!billingStatus">{{ $t('DEFERMENT_SUBSCRIPTION') }}</p>
-        <btn  class="actionButton" v-on:click="this.getInformation">{{ $t('MANAGE_SUBSCRIPTION') }}</btn>
-        <btn class="navigationButton" v-on:click="this.changePage">{{ $t('SEE_ALL_OFFERS') }}</btn>
+        <button  class="actionButton" v-on:click="this.getInformation">{{ $t('MANAGE_SUBSCRIPTION') }}</button>
+        <button class="navigationButton" v-on:click="this.changePage">{{ $t('SEE_ALL_OFFERS') }}</button>
       </div>
       <div v-else>
         <div v-if="profile == 'PROFILE_USER'" class="content">
@@ -26,8 +26,8 @@
               <div class="title">{{ $t('ESSENTIAL') }}</div>
             </div>
             <p>{{ $t('TEXT_ESSENTIAL') }}</p>
-            <btn class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_ESSENTIAL')">{{ $t('PRICE_MONTHLY_ESSENTIAL') }}</btn>
-            <btn class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_ESSENTIAL')">{{ $t('PRICE_ANNUAL_ESSENTIAL') }}</btn>
+            <button class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_ESSENTIAL')">{{ $t('PRICE_MONTHLY_ESSENTIAL') }}</button>
+            <button class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_ESSENTIAL')">{{ $t('PRICE_ANNUAL_ESSENTIAL') }}</button>
           </div>
           <div class="integral">
             <div class="banner">
@@ -35,8 +35,8 @@
               <div class="title">{{ $t('INTEGRAL') }}</div>
             </div>
             <p>{{ $t('TEXT_INTEGRAL') }}</p>
-            <btn class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_INTEGRAL')">{{ $t('PRICE_MONTHLY_INTEGRAL') }}</btn>
-            <btn class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_INTEGRAL')">{{ $t('PRICE_ANNUAL_INTEGRAL') }}</btn>
+            <button class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_INTEGRAL')">{{ $t('PRICE_MONTHLY_INTEGRAL') }}</button>
+            <button class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_INTEGRAL')">{{ $t('PRICE_ANNUAL_INTEGRAL') }}</button>
           </div>
           <div class="solidarity">
             <div class="banner">
@@ -44,7 +44,7 @@
               <div class="title">{{ $t('SOLIDARITY') }}</div>
             </div>
             <p v-on:click="this.goToContactPage">{{ $t('TEXT_FOR_USER') }}{{ $t('PLEASE_CONTACT_US') }}</p>
-            <btn class="actionButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_MONTHLY_SOLIDARITY') }}</btn>
+            <button class="actionButton disabled" v-on:click="this.goToContactPage">{{ $t('PRICE_MONTHLY_SOLIDARITY') }}</button>
           </div>
         </div>
         <div v-else class="content">
@@ -54,8 +54,8 @@
               <div class="title">{{ $t('BUSINESS_SIDE') }}</div>
             </div>
             <p>{{ $t('TEXT_COMPANY') }}</p>
-            <btn class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_COMPANY')">{{ $t('PRICE_MONTHLY_COMPANY') }}</btn>
-            <btn class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_COMPANY')">{{ $t('PRICE_ANNUAL_COMPANY') }}</btn>
+            <button class="actionButton" v-on:click="this.goToBillingPortal('MONTHLY_COMPANY')">{{ $t('PRICE_MONTHLY_COMPANY') }}</button>
+            <button class="actionButton" v-on:click="this.goToBillingPortal('ANNUAL_COMPANY')">{{ $t('PRICE_ANNUAL_COMPANY') }}</button>
           </div>
           <div class="personalSide">
             <div class="container header">
@@ -63,8 +63,8 @@
               <div class="title">{{ $t('PERSONAL_SIDE') }}</div>
             </div>
             <p v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SIDE') }}{{ $t('PLEASE_CONTACT_US') }}</p>
-            <btn class="actionButton" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_MONTHLY') }}</btn>
-            <btn class="actionButton" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_ANNUAL') }}</btn>
+            <button class="actionButton" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_MONTHLY') }}</button>
+            <button class="actionButton" v-on:click="this.goToContactPage">{{ $t('PRICE_PERSONAL_SIDE_ANNUAL') }}</button>
           </div>
           <div class="coaching">
             <div class="container header">
@@ -72,11 +72,11 @@
               <div class="title">{{ $t('PERSONAL_SUPPORT') }}</div>
             </div>
             <p v-on:click="this.goToContactPage">{{ $t('TEXT_PERSONAL_SUPPORT') }}{{ $t('PLEASE_CONTACT_US_AND_RDV') }}</p>
-            <btn class="actionButton" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_1H') }}</btn>
-            <btn class="actionButton" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_5H') }}</btn>
+            <button class="actionButton" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_1H') }}</button>
+            <button class="actionButton" v-on:click="this.goToContactPage">{{ $t('PRICE_COACHING_5H') }}</button>
           </div>
         </div>
-        <btn class="actionButton" v-if="hasBillingId" v-on:click="this.changePage">{{ $t('MANAGE_SUBSCRIPTION') }}</btn>
+        <button class="actionButton" v-if="hasBillingId" v-on:click="this.changePage">{{ $t('MANAGE_SUBSCRIPTION') }}</button>
       </div>
       <div class="placeholder bottom">
         <NavMenu/>
