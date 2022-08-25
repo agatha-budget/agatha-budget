@@ -125,6 +125,7 @@ export default defineComponent({
     this.getAvailableBanks()
     this.getAuthorizedAccounts()
     this.updateIfAgreement()
+    this.updateAssociationData()
   },
   props: {
     query: {
