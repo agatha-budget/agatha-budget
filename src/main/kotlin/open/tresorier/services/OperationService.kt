@@ -59,6 +59,12 @@ class OperationService(
 
     fun delete(person: Person, operation: Operation) {
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
+        val daughters = operationDao.findDaughterOperations(operation)
+        if (daughters.size > 0) {
+            daughters.forEach {
+                operationDao.delete(it)
+            }
+        }
         operationDao.delete(operation)
     }
 
