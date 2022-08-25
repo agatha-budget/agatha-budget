@@ -20,10 +20,10 @@ class MasterCategoryService(private val masterCategoryDao: IMasterCategoryDao, p
 
     fun update(person: Person, masterCategory: MasterCategory, newName: String?, newColor: String?, newArchived: Boolean?, newDeleted: Boolean?): MasterCategory {
         authorizationService.cancelIfUserIsUnauthorized(person, masterCategory)
-        newArchived?.let{this.archiveCategories(masterCategory, it)}
-        newName?.let{masterCategory.name = it}
-        newDeleted?.let{masterCategory.deleted = it}
-        newColor?.let{masterCategory.color = it}
+        newArchived?.let{ this.archiveCategories(masterCategory, it) }
+        newName?.let{ masterCategory.name = it }
+        newDeleted?.let{ masterCategory.deleted = it }
+        newColor?.let{ masterCategory.color = if (it === "null") null else it }
         return masterCategoryDao.update(masterCategory)
     }
 
