@@ -29,12 +29,7 @@ class OperationService(
     fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?, pending: Boolean?, motherOperation: Operation?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         val order = Time.now()
-        var operation: Operation
-        if (motherOperation != null) {
-            operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false, motherOperation.id)
-        } else {
-            operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false, null)
-        }
+        var operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false, motherOperation?.id)
         return operationDao.insert(operation)
     }
 
