@@ -11,7 +11,6 @@ export default class MasterCategoryService {
   }
 
   public static async updateColorMasterCategory (masterCategoryId: string, newColor: string) {
-    console.log('service update color')
     await masterCategoryApi.updateMasterCategory(masterCategoryId, undefined, undefined, undefined, newColor)
   }
 

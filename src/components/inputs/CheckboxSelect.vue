@@ -23,7 +23,6 @@ export default defineComponent({
       if (element.preSelected) {
         this.result.push(element.value)
       }
-      console.log(this.result)
     })
   },
   watch: {

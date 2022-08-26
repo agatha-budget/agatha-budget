@@ -15,37 +15,69 @@
           <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">{{ $t("BANK_IMPORT") }}</btn>
         </div>
         <ImportOfx v-if="importBloc" :accountId="this.accountId" @close-import="closeImport"/>
-        <OperationForm v-if="manualBloc" class="operationCreate container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
+        <OperationForm v-if="manualBloc" class="operationForm container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
         <div v-on:click="onClickFilterButton" class="actionLabelIcon">
           <span class="illustration btn fas fa-filter"/>
           <div class="text">{{ $t("FILTER") }}</div>
         </div>
         <FilterCmpt v-if="filterBloc" @close-filter="closeFilter" @filtering-category="filter"/>
         <template v-for="operation in this.operations" :key="operation">
-          <OperationForm class="inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
-          <span v-else class="operation">
-            <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row col-9">
-              <div class="lineStart date col-6">
-                <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+          <OperationForm class="operationForm inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
+          <span v-else class="allOperation operation">
+            <div v-if="operation.daughters.length == 0" class="row col-12">
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row col-9">
+                <div class="lineStart date col-6">
+                  <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+                </div>
+                <div class="col-6"/>
+                <div class="lineStart category col-6" :class="getClassDependingCategory(operation)">
+                  {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+                </div>
+                <div class="amount col-5 offset-1 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
+                  {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                </div>
               </div>
-              <div class="col-6"/>
-              <div class="lineStart category col-6" :class="getClassDependingCategory(operation)">
-                {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+              <div v-if="filteringCategoryId === null" v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-1">
+                <button class="illustration btn fas fa-pen"/>
               </div>
-              <div class="amount col-5 offset-1 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
-                {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+              <div v-if="filteringCategoryId === null" v-on:click="deleteOperation(operation)" :title="$t('DELETE')" class="action col-1">
+                <button class="illustration btn fas fa-trash"/>
+              </div>
+              <div v-if="operation.pending" v-on:click="debited(operation)" :title="$t('DEBITED')" class="pending col-1">
+                <button class="illustration btn fas fa-hourglass-half"/>
+              </div>
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="lineStart memo col-12">{{ operation.memo }}</div>
+            </div>
+            <div v-else class="row col-12">
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row col-9">
+                <div class="lineStart date col-6">
+                  <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+                </div>
+                <div class="amount col-5 offset-1 col-sm-3 offset-sm-3" :class="this.getClassDependingOnAmount(operation)">
+                  {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                </div>
+                <div class="lineStart memo col-12 row"><div>{{ operation.memo }}</div></div>
+              </div>
+              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-1">
+                <button class="illustration btn fas fa-pen"/>
+              </div>
+              <div v-on:click="deleteOperation(operation)" :title="$t('DELETE')" class="action col-1">
+                <button class="illustration btn fas fa-trash"/>
+              </div>
+              <div v-if="operation.pending" v-on:click="debited(operation)" :title="$t('DEBITED')" class="pending col-1">
+                <button class="illustration btn fas fa-hourglass-half"/>
+              </div>
+              <div v-for="daughter in operation.daughters" :key="daughter" class="daughter row col-12">
+                <span class="illustration btn fas fa-level-up-alt col-1 offset-1 offset-sm-0"/>
+                <div class="lineStart category col-5 col-sm-7 col-md-5c ol-lg-4" :class="getClassDependingCategoryDaughter(daughter.categoryId)">
+                  {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+                </div>
+                <div class="amount col-4 col-lg-2" :class="this.getClassDependingOnAmount(operation)">
+                  {{ addSpacesInThousand(this.getEurosAmount(daughter.amount)) }} €
+                </div>
+                <div class="memo col-10 offset-2 col-sm-11 offset-sm-1">{{ daughter.memo }}</div>
               </div>
             </div>
-            <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-1">
-              <button class="illustration btn fas fa-pen"/>
-            </div>
-            <div v-on:click="deleteOperation(operation)" :title="$t('DELETE')" class="action col-1">
-              <button class="illustration btn fas fa-trash"/>
-            </div>
-            <div v-if="operation.pending" v-on:click="debited(operation)" :title="$t('DEBITED')" class="pending col-1">
-              <button class="illustration btn fas fa-hourglass-half"/>
-            </div>
-            <div class="lineStart memo col-12">{{ operation.memo }}</div>
           </span>
         </template>
       </div>
@@ -75,6 +107,7 @@ import FilterCmpt from '@/components/FilterCmpt.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
+    daughterOperations: Operation[];
     importBloc: boolean;
     manualBloc: boolean;
     filterBloc: boolean;
@@ -84,6 +117,7 @@ interface AccountPageData {
 
 interface EditableOperation extends Operation {
   editing: boolean;
+  daughters: Operation[];
 }
 
 export default defineComponent({
@@ -104,7 +138,8 @@ export default defineComponent({
   },
   watch: {
     account: async function () {
-      this.getAccountOperation()
+      await this.getAccountOperation()
+      await this.getDaughterOperations()
     }
   },
   props: {
@@ -116,6 +151,7 @@ export default defineComponent({
   data (): AccountPageData {
     return {
       operations: [],
+      daughterOperations: [],
       importBloc: false,
       manualBloc: false,
       filterBloc: false,
@@ -149,24 +185,48 @@ export default defineComponent({
   methods: {
     async getAccountOperation () {
       if (this.account) {
-        return OperationService.getOperations(this.account, this.filteringCategoryId).then(
+        return OperationService.getMotherOperationsByAccount(this.account, this.filteringCategoryId).then(
           (operations) => {
             this.operations = this.operationToEditableOperation(operations)
+            this.getDaughterOperations()
           }
         )
       }
     },
+    async getAccountOperationFilter () {
+      if (this.account) {
+        const filteredOperations = await OperationService.getOperations(this.account, this.filteringCategoryId)
+        filteredOperations.forEach(async operation => {
+          if (this.account) {
+            const mother = await OperationService.getMotherFromDaughter(operation)
+            if (mother) {
+              filteredOperations.splice(filteredOperations.indexOf(operation), 1, mother)
+            }
+          }
+        })
+        this.operations = this.operationToEditableOperation(filteredOperations)
+      }
+    },
+    async getDaughterOperations () {
+      this.operations.forEach(async operation => {
+        if (this.account) {
+          operation.daughters = await OperationService.getDaughtersFromMother(operation)
+        }
+      })
+    },
     getDayAsDate (dayAsInt: number): Date {
       return Time.getDateFromDay(dayAsInt)
     },
-    deleteOperation (operation: Operation) {
-      OperationService.deleteOperation(this.$store, operation).then(() => {
+    async deleteOperation (operation: Operation) {
+      if (this.account && !this.filteringCategoryId) {
+        await OperationService.deleteOperation(this.$store, operation)
         this.getAccountOperation()
-      })
+      }
     },
     setAsEditing (operation: EditableOperation) {
-      console.log(operation.pending)
-      operation.editing = true
+      if (!this.filteringCategoryId) {
+        operation.editing = true
+      }
     },
     operationToEditableOperation (operations: Operation[]): EditableOperation[] {
       const editableOperations: EditableOperation[] = []
@@ -179,7 +239,9 @@ export default defineComponent({
           amount: operation.amount,
           memo: operation.memo,
           pending: operation.pending,
-          editing: false
+          motherOperationId: operation.motherOperationId,
+          editing: false,
+          daughters: []
         })
       )
       return editableOperations
@@ -203,9 +265,13 @@ export default defineComponent({
     getClassDependingCategory (operation: Operation): string {
       return (operation.categoryId === null) ? 'negative' : ''
     },
-    filter (categoryId: string) {
+    getClassDependingCategoryDaughter (categoryId: string): string {
+      return categoryId === null ? 'negative' : ''
+    },
+    async filter (categoryId: string) {
       this.filteringCategoryId = categoryId
-      this.getAccountOperation()
+      await this.getAccountOperationFilter()
+      await this.getDaughterOperations()
     },
     switchAddOperation (type: string) {
       if (type === 'import') {
@@ -219,10 +285,19 @@ export default defineComponent({
           this.importBloc = false
         }
       }
+      this.filterBloc = false
     },
-    debited (operation: Operation) {
-      if (operation) {
-        OperationService.updateOperation(this.$store, operation, this.accountId, operation.day, operation.categoryId, operation.amount, operation.memo, false)
+    async debited (operation: Operation) {
+      if (operation && this.account) {
+        const daughters = await OperationService.getDaughtersFromMother(operation)
+        if (daughters.length !== 0) {
+          daughters.forEach(daughter => {
+            OperationService.updateOperation(this.$store, daughter.id, this.accountId, undefined, undefined, undefined, undefined, false)
+          })
+          OperationService.updateOperation(this.$store, operation.id, this.accountId, undefined, undefined, undefined, undefined, false)
+        } else {
+          OperationService.updateOperation(this.$store, operation.id, this.accountId, undefined, undefined, undefined, undefined, false)
+        }
       }
     },
     pendingOperation (): boolean {
@@ -240,19 +315,23 @@ export default defineComponent({
     closeForm () {
       this.manualBloc = false
     },
-    closeFilter () {
+    async closeFilter () {
       this.filterBloc = false
       this.filteringCategoryId = null
-      this.getAccountOperation()
+      await this.getAccountOperation()
+      await this.getDaughterOperations()
     },
     closeUpdate (operation: EditableOperation) {
       operation.editing = false
     },
-    onClickFilterButton () {
+    async onClickFilterButton () {
       this.filterBloc = !this.filterBloc
+      this.manualBloc = false
+      this.importBloc = false
       if (!this.filterBloc) {
         this.filteringCategoryId = null
-        this.getAccountOperation()
+        await this.getAccountOperation()
+        await this.getDaughterOperations()
       }
     }
   }
