@@ -12,6 +12,7 @@ import open.tresorier.model.banking.PublicBankAccount
 import open.tresorier.model.banking.BankAgreement
 import open.tresorier.model.Person
 import open.tresorier.model.Budget
+import open.tresorier.utils.Time
 import org.jooq.Configuration
 import open.tresorier.generated.jooq.test.public_.tables.pojos.BankAccount as JooqBankAccount
 
@@ -75,6 +76,7 @@ class H2BankAccountDao(val configuration: Configuration) : IBankAccountDao {
             .from(BANK_ACCOUNT)
             .leftJoin(BANK_AGREEMENT).on(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
             .where(BANK_AGREEMENT.BUDGET_ID.eq(budget.id))
+            .and(BANK_AGREEMENT.TIMESTAMP.gt(Time.threeMonthAgo()))
             .groupBy(BANK_ACCOUNT.ID, BANK_ACCOUNT.NAME, BANK_AGREEMENT.BANK_ID, BANK_AGREEMENT.TIMESTAMP)
             .orderBy(BANK_ACCOUNT.NAME)
         val jooqBankAccountList = query.fetch()

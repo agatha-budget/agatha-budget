@@ -55,8 +55,7 @@ class BankingService (
 
     fun synchronise(person: Person, account: Account) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, account)
-        synchroniseAccount(account)
-        
+        synchroniseAccount(account)  
     }
 
     fun synchroniseAccount(account: Account, from: Long? = null) {
