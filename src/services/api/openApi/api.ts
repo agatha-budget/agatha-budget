@@ -310,13 +310,13 @@ export interface Operation {
      * @type {boolean}
      * @memberof Operation
      */
-    'pending': boolean;
+    pending: boolean;
     /**
      * 
      * @type {string}
      * @memberof Operation
      */
-    'motherOperationId': string;
+    motherOperationId: string;
 }
 /**
  * 
@@ -2508,7 +2508,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addOperation: async (accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, pending?: boolean, motherOperationId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        addOperation: async (accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, pending?: boolean, motherOperationId?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('addOperation', 'accountId', accountId)
             const localVarPath = `/operation`;
@@ -2606,7 +2606,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findDaughterOperationsByMother: async (operationId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        findDaughterOperationsByMother: async (operationId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'operationId' is not null or undefined
             assertParamExists('findDaughterOperationsByMother', 'operationId', operationId)
             const localVarPath = `/operation/daughtersfrommother`;
@@ -2627,7 +2627,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -2644,7 +2644,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findMotherOperationsByAccount: async (accountId: string, categoryId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        findMotherOperationsByAccount: async (accountId: string, categoryId?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('findMotherOperationsByAccount', 'accountId', accountId)
             const localVarPath = `/operation/mothers`;
@@ -2669,7 +2669,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -2685,7 +2685,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findMotherOperationsByDaughter: async (operationId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        findMotherOperationsByDaughter: async (operationId: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'operationId' is not null or undefined
             assertParamExists('findMotherOperationsByDaughter', 'operationId', operationId)
             const localVarPath = `/operation/motherfromdaughter`;
@@ -2706,7 +2706,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
 
 
     
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
@@ -2854,7 +2854,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOperation: async (operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateOperation: async (operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'operationId' is not null or undefined
             assertParamExists('updateOperation', 'operationId', operationId)
             const localVarPath = `/operation`;
@@ -2935,7 +2935,7 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addOperation(accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, pending?: boolean, motherOperationId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
+        async addOperation(accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, pending?: boolean, motherOperationId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.addOperation(accountId, day, categoryId, amount, memo, pending, motherOperationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2957,7 +2957,7 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findDaughterOperationsByMother(operationId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
+        async findDaughterOperationsByMother(operationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findDaughterOperationsByMother(operationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2969,7 +2969,7 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findMotherOperationsByAccount(accountId: string, categoryId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
+        async findMotherOperationsByAccount(accountId: string, categoryId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findMotherOperationsByAccount(accountId, categoryId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2980,7 +2980,7 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findMotherOperationsByDaughter(operationId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
+        async findMotherOperationsByDaughter(operationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findMotherOperationsByDaughter(operationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3034,7 +3034,7 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
+        async updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateOperation(operationId, newAccountId, newDay, newCategoryId, newAmount, newMemo, newPending, newMotherOperationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3179,7 +3179,7 @@ export class OperationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public addOperation(accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, pending?: boolean, motherOperationId?: string, options?: AxiosRequestConfig) {
+    public addOperation(accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, pending?: boolean, motherOperationId?: string, options?: any) {
         return OperationApiFp(this.configuration).addOperation(accountId, day, categoryId, amount, memo, pending, motherOperationId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -3203,7 +3203,7 @@ export class OperationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public findDaughterOperationsByMother(operationId: string, options?: AxiosRequestConfig) {
+    public findDaughterOperationsByMother(operationId: string, options?: any) {
         return OperationApiFp(this.configuration).findDaughterOperationsByMother(operationId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -3216,7 +3216,7 @@ export class OperationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public findMotherOperationsByAccount(accountId: string, categoryId?: string, options?: AxiosRequestConfig) {
+    public findMotherOperationsByAccount(accountId: string, categoryId?: string, options?: any) {
         return OperationApiFp(this.configuration).findMotherOperationsByAccount(accountId, categoryId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -3228,7 +3228,7 @@ export class OperationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public findMotherOperationsByDaughter(operationId: string, options?: AxiosRequestConfig) {
+    public findMotherOperationsByDaughter(operationId: string, options?: any) {
         return OperationApiFp(this.configuration).findMotherOperationsByDaughter(operationId, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -3286,7 +3286,7 @@ export class OperationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: AxiosRequestConfig) {
+    public updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: any) {
         return OperationApiFp(this.configuration).updateOperation(operationId, newAccountId, newDay, newCategoryId, newAmount, newMemo, newPending, newMotherOperationId, options).then((request) => request(this.axios, this.basePath));
     }
 }
