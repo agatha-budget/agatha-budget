@@ -9,6 +9,8 @@ import java.util.List;
 
 import open.tresorier.generated.jooq.main.tables.Account;
 import open.tresorier.generated.jooq.main.tables.Allocation;
+import open.tresorier.generated.jooq.main.tables.BankAccount;
+import open.tresorier.generated.jooq.main.tables.BankAgreement;
 import open.tresorier.generated.jooq.main.tables.Budget;
 import open.tresorier.generated.jooq.main.tables.Category;
 import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
@@ -28,7 +30,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -375544890;
+    private static final long serialVersionUID = 1777539622;
 
     /**
      * The reference instance of <code>public</code>
@@ -44,6 +46,16 @@ public class Public extends SchemaImpl {
      * The table <code>public.allocation</code>.
      */
     public final Allocation ALLOCATION = Allocation.ALLOCATION;
+
+    /**
+     * The table <code>public.bank_account</code>.
+     */
+    public final BankAccount BANK_ACCOUNT = BankAccount.BANK_ACCOUNT;
+
+    /**
+     * The table <code>public.bank_agreement</code>.
+     */
+    public final BankAgreement BANK_AGREEMENT = BankAgreement.BANK_AGREEMENT;
 
     /**
      * The table <code>public.budget</code>.
@@ -98,6 +110,8 @@ public class Public extends SchemaImpl {
         return Arrays.<Table<?>>asList(
             Account.ACCOUNT,
             Allocation.ALLOCATION,
+            BankAccount.BANK_ACCOUNT,
+            BankAgreement.BANK_AGREEMENT,
             Budget.BUDGET,
             Category.CATEGORY,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,

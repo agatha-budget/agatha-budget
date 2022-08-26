@@ -16,7 +16,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row11;
+import org.jooq.Row13;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -33,7 +33,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 1636383545;
+    private static final long serialVersionUID = 416295966;
 
     /**
      * The reference instance of <code>public.operation</code>
@@ -104,6 +104,16 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, String> MOTHER_OPERATION_ID = createField(DSL.name("mother_operation_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
 
     /**
+     * The column <code>public.operation.import_identifier</code>.
+     */
+    public final TableField<OperationRecord, String> IMPORT_IDENTIFIER = createField(DSL.name("import_identifier"), org.jooq.impl.SQLDataType.VARCHAR(150).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+
+    /**
+     * The column <code>public.operation.import_timestamp</code>.
+     */
+    public final TableField<OperationRecord, Long> IMPORT_TIMESTAMP = createField(DSL.name("import_timestamp"), org.jooq.impl.SQLDataType.BIGINT, this, "");
+
+    /**
      * Create a <code>public.operation</code> table reference
      */
     public Operation() {
@@ -148,7 +158,7 @@ public class Operation extends TableImpl<OperationRecord> {
 
     @Override
     public List<UniqueKey<OperationRecord>> getKeys() {
-        return Arrays.<UniqueKey<OperationRecord>>asList(Keys.OPERATION_PKEY);
+        return Arrays.<UniqueKey<OperationRecord>>asList(Keys.OPERATION_PKEY, Keys.OPERATION_IMPORT_IDENTIFIER_KEY);
     }
 
     @Override
@@ -201,11 +211,11 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row13 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row13<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String, String, Long> fieldsRow() {
+        return (Row13) super.fieldsRow();
     }
 }

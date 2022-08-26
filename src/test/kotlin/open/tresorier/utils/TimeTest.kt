@@ -31,4 +31,15 @@ class TimeTest {
         val inTheFuture = Time.now() + 3600000
         assertFalse(Time.isMoreThanAMonthAgo(inTheFuture))
     }
+
+    @Test fun testGetDateStringFromTimestamp(){
+        val timestamp : Long = 1661182355000
+        assertEquals("2022-08-22", Time.getDateStringFromTimestamp(timestamp))
+    }
+
+    @Test fun testGetDateStringFromNegativeTimestamp(){
+        val invalidTimestamp : Long = -1661182355000
+        assertEquals("1917-05-12", Time.getDateStringFromTimestamp(invalidTimestamp))
+    }
+
 }

@@ -10,6 +10,8 @@ object TestData {
     val budget5Id: String = "budget5"
     val account1Id: String = "account1"
 
+    val oldTimestamp: Long = 1234555
+
     val jan_2020: Month =  Month(1,2020)
     val feb_2020: Month =  Month(2,2020)
     val mar_2020: Month =  Month(3,2020)

@@ -76,11 +76,13 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
             Category("Eau", masterCategoryFixed.id),
             Category("Alimentation/Courses", masterCategoryVariable.id),
             Category("Divers loisirs", masterCategoryVariable.id),
+            Category("Transport", masterCategoryVariable.id),
+            Category("Inconnnu/Liquide", masterCategoryVariable.id),
             Category("Tabac", masterCategoryVariable.id),
             Category("Essence", masterCategoryVariable.id),
             Category("Voiture", masterCategoryProvision.id),
             Category("Téléphone", masterCategoryProvision.id),
-            Category("Noël", masterCategoryProvision.id)
+            Category("Cadeaux", masterCategoryProvision.id)
         )
         for (category in categories) {
             categoryDao.insert(category)
