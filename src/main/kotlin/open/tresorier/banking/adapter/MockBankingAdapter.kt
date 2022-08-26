@@ -17,10 +17,6 @@ class MockBankingAdapter() : IBankingPort {
         return "url to redirect and save RequisitionId"
     }
 
-    override fun revokeAgreement(person: Person, agreement: BankAgreement) {
-
-    }
-
     override fun getBankAccountList(agreement: BankAgreement) : List<BankAccount> {
         // after user go to redirect after giving his agreement
         // for each requisition of person {

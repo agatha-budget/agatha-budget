@@ -53,11 +53,6 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
         return response.get("link").toString()
     }
 
-    override fun revokeAgreement(person: Person, agreement: BankAgreement) {
-        
-
-    }
-
     override fun getBankAccountList(agreement: BankAgreement) : List<BankAccount> {
         val url = "https://ob.nordigen.com/api/v2/requisitions/${agreement.nordigenRequisitionId}/"
 
@@ -222,5 +217,4 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
         val response = JSONObject(connection.inputStream.reader().use { it.readText() })
         return response.get("access").toString()
     }
-
 }
