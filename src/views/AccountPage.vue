@@ -68,7 +68,7 @@
                 <button class="illustration btn fas fa-hourglass-half"/>
               </div>
               <div v-for="daughter in operation.daughters" :key="daughter" class="daughter row col-12">
-                <span class="illustration btn fas fa-level-up-alt col-1 offset-1 offset-sm-0"/>
+                <div class="col-1 offset-1 offset-sm-0"><span class="illustration btn fas fa-level-up-alt"/></div>
                 <div class="lineStart category col-5 col-sm-7 col-md-5c ol-lg-4" :class="getClassDependingCategoryDaughter(daughter.categoryId)">
                   {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                 </div>
