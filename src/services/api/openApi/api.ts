@@ -2051,7 +2051,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
         findDaughterOperationsByMother: async (operationId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'operationId' is not null or undefined
             assertParamExists('findDaughterOperationsByMother', 'operationId', operationId)
-            const localVarPath = `/operation/daugthersfrommother`;
+            const localVarPath = `/operation/daughtersfrommother`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

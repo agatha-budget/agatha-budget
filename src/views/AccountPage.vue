@@ -69,7 +69,7 @@
               </div>
               <div v-for="daughter in operation.daughters" :key="daughter" class="daughter row col-12">
                 <span class="illustration btn fas fa-level-up-alt col-1 offset-1 offset-sm-0"/>
-                <div class="lineStart category col-5 col-sm-7 col-md-5c ol-lg-4" :class="getClassDependingCategoryDaugther(daughter.categoryId)">
+                <div class="lineStart category col-5 col-sm-7 col-md-5c ol-lg-4" :class="getClassDependingCategoryDaughter(daughter.categoryId)">
                   {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                 </div>
                 <div class="amount col-4 col-lg-2" :class="this.getClassDependingOnAmount(operation)">
@@ -188,6 +188,7 @@ export default defineComponent({
         return OperationService.getMotherOperationsByAccount(this.account, this.filteringCategoryId).then(
           (operations) => {
             this.operations = this.operationToEditableOperation(operations)
+            this.getDaughterOperations()
           }
         )
       }
@@ -264,13 +265,13 @@ export default defineComponent({
     getClassDependingCategory (operation: Operation): string {
       return (operation.categoryId === null) ? 'negative' : ''
     },
-    getClassDependingCategoryDaugther (categoryId: string): string {
+    getClassDependingCategoryDaughter (categoryId: string): string {
       return categoryId === null ? 'negative' : ''
     },
     async filter (categoryId: string) {
       this.filteringCategoryId = categoryId
       await this.getAccountOperationFilter()
-      this.getDaughterOperations()
+      await this.getDaughterOperations()
     },
     switchAddOperation (type: string) {
       if (type === 'import') {
@@ -318,7 +319,7 @@ export default defineComponent({
       this.filterBloc = false
       this.filteringCategoryId = null
       await this.getAccountOperation()
-      this.getDaughterOperations()
+      await this.getDaughterOperations()
     },
     closeUpdate (operation: EditableOperation) {
       operation.editing = false
@@ -330,7 +331,7 @@ export default defineComponent({
       if (!this.filterBloc) {
         this.filteringCategoryId = null
         await this.getAccountOperation()
-        this.getDaughterOperations()
+        await this.getDaughterOperations()
       }
     }
   }

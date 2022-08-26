@@ -1145,7 +1145,7 @@ paths:
               schema:
                 type: string
                 example: invalid account id
-  /operation/daugthersfrommother:
+  /operation/daughtersfrommother:
     get:
       tags:
       - Operation
