@@ -1,5 +1,5 @@
 <template>
-  <thead v-if="!this.archived" class="masterCategory edit" :style="{'background': color}">
+  <thead v-if="!this.archived" class="masterCategory edit" :style=style>
     <tr>
       <th class="col-6">
         <div class="darkTextInput form-group">
@@ -8,6 +8,7 @@
       </th>
         <th v-if="colorPicker" class="col-3">
           <input type="color" v-model="color"/>
+          <button class="ban-color illustration btn fas fa-ban" v-on:click="removeColor"/>
         </th>
         <th v-if="colorPicker" class="col-3">
           <button class="illustration btn fas fa-check" v-on:click="validColor"/>
@@ -20,7 +21,7 @@
         </th>
     </tr>
   </thead>
-  <thead v-else class="masterCategory edit" :style="{'background': color}">
+  <thead v-else class="masterCategory edit" :style=style>
     <tr>
       <th class="col-6">
         <span class="name">{{ this.name }}</span>
@@ -37,7 +38,7 @@ import { defineComponent } from 'vue'
 import StoreHandler from '@/store/StoreHandler'
 import MasterCategoryService from '@/services/MasterCategoryService'
 import { MasterCategory } from '@/model/model'
-import { navigationColor } from '@/model/colorList'
+import { navigationColor, Color } from '@/utils/Color'
 
 interface MasterCategoryFormData {
   name: string;
@@ -65,6 +66,11 @@ export default defineComponent({
     }
   },
   emits: ['emptyMasterCategory'],
+  computed: {
+    style (): string {
+      return this.masterCategory.color !== null ? 'background : linear-gradient(to right, ' + Color.shadeColor(this.color, -50) + ',' + this.color + ')' : ''
+    }
+  },
   methods: {
     updateMasterCategory () {
       MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
@@ -90,6 +96,14 @@ export default defineComponent({
     },
     chooseColor () {
       this.colorPicker = !this.colorPicker
+    },
+    removeColor () {
+      MasterCategoryService.updateColorMasterCategory(this.masterCategory.id, 'null').then(
+        () => {
+          StoreHandler.updateMasterCategories(this.$store)
+          this.colorPicker = false
+        }
+      )
     },
     validColor () {
       MasterCategoryService.updateColorMasterCategory(this.masterCategory.id, this.color).then(

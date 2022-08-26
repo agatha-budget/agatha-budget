@@ -10,7 +10,7 @@
       <div v-else>
         <div v-if="fileSelected">
           <p class="text">{{ $t('FILE_IS_SELECTED') }}</p>
-          <btn v-on:click="importOfxFile()" class="actionButton">{{ $t('IMPORT') }}</btn>
+          <button v-on:click="importOfxFile()" class="actionButton">{{ $t('IMPORT') }}</button>
         </div>
         <div v-else>
           <div class="ofxForm">

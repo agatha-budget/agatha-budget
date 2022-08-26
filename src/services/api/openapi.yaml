@@ -237,6 +237,162 @@ paths:
       security:
         - accessToken: []
           refreshTokenId: []
+  /banks:
+    get:
+      tags:
+        - Banking
+      summary: get availables banks list
+      operationId: getAvailableBanks
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Bank'
+  /banking:
+    get:
+      tags:
+        - Banking
+      summary: get bank agreement portal URL
+      operationId: getLinkForBankAgreement
+      parameters:
+      - name: bankId
+        in: query
+        description: identifier of the wanted bank
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: budgetId
+        in: query
+        description: id of the current budget
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Agreement url created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: url of the portal
+        "400":
+          description: unknown user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: no billing to manage
+      security:
+        - accessToken: []
+          refreshTokenId: []
+    put:
+      tags:
+        - Banking
+      summary: updateBankingInfo
+      operationId: updateBankAccountList
+      parameters:
+      - name: bankAgreementId
+        in: query
+        description: identifier of the wanted bank
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Agreement url created
+          content:
+            application/json:
+              schema:
+                type: string
+                example: successfull operation
+        "400":
+          description: unknown user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: no billing to manage
+      security:
+        - accessToken: []
+          refreshTokenId: []
+  /bank/accounts:
+    get:
+      tags:
+        - Banking
+      summary: get authorized accounts list
+      operationId: getAuthorizedAccounts
+      parameters:
+      - name: budgetId
+        in: query
+        description: budget
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BankAccount'
+      security:
+        - accessToken: []
+          refreshTokenId: []
+  /bank/operations:
+    get:
+      tags:
+        - Banking
+      summary: getBankOperations
+      operationId: getBankOperations
+      parameters:
+      - name: accountId
+        in: query
+        description: to synchronise a specific account
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: budgetId
+        in: query
+        description: to synchronise all accounts from a budget (ignored if accountId is set)
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: operation imported
+          content:
+            application/json:
+              schema:
+                type: string
+                example: successfull import of transaction
+        "400":
+          description: unknown user
+          content:
+            application/json:
+              schema:
+                type: string
+                example: no billing to manage
+      security:
+        - accessToken: []
+          refreshTokenId: []
   /budget:
     put:
       tags:
@@ -469,9 +625,9 @@ paths:
         explode: true
         schema:
           type: string
-      - name: new_name
+      - name: name
         in: query
-        required: true
+        required: false
         style: form
         explode: true
         schema:
@@ -576,6 +732,56 @@ paths:
               schema:
                 type: string
                 example: invalid account id
+  /account/bank:
+    put:
+      tags:
+      - Account
+      summary: edit bank association
+      operationId: updateAccountBankAssociation
+      parameters:
+      - name: account_id
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: bank_account_id
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: import_history
+        in: query
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: account was successfully updated
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: string
+              examples:
+                a:
+                  summary: invalid account
+                  value: invalid account id
+                b:
+                  summary: invalid budget
+                  value: invalid budget id
   /account/budget:
     get:
       tags:
@@ -1439,6 +1645,8 @@ components:
           type: string
         amount:
           type: number
+        bankAccountId:
+          type: string
     MasterCategory:
       required:
       - budgetId
@@ -1560,6 +1768,39 @@ components:
           type: string
         text:
           type: string
+    Bank:
+      required:
+      - name
+      - id
+      - logo
+      type: object
+      properties:
+        name:
+          type: string
+        id:
+          type: string
+        logo:
+          type: string
+      xml:
+        name: bank
+    BankAccount:
+      required:
+      - id
+      - name
+      - bankId
+      - timestamp
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        bankId:
+          type: string
+        timestamp:
+          type: number
+      xml:
+        name: bank
   securitySchemes:
     accessToken:
       type: apiKey

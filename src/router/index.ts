@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
+import Banks from '../views/Banks.vue'
 import Signup from '../views/Signup.vue'
 import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
 import AccountPage from '../views/AccountPage.vue'
@@ -18,6 +19,7 @@ export enum RouterPages {
   account = '/account',
   about = '/about',
   profile = '/profile',
+  banks = '/bank',
   subscription = '/subscription',
   invalidSubscription = '/invalidSubscription',
   redirectToAccountPage = '/redirectToAccountPage',
@@ -40,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.profile,
     component: Profile
+  },
+  {
+    path: RouterPages.banks,
+    component: Banks,
+    props: route => ({ query: route.query.agreementId })
   },
   {
     path: RouterPages.redirectToAccountPage,
