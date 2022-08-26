@@ -29,12 +29,7 @@ class OperationService(
     fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?, pending: Boolean?, motherOperation: Operation?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         val order = Time.now()
-        var operation: Operation
-        if (motherOperation != null) {
-            operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false, motherOperation.id)
-        } else {
-            operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false, null)
-        }
+        var operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false, motherOperation?.id)
         return operationDao.insert(operation)
     }
 
@@ -64,6 +59,12 @@ class OperationService(
 
     fun delete(person: Person, operation: Operation) {
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
+        val daughters = operationDao.findDaughterOperations(operation)
+        if (daughters.size > 0) {
+            daughters.forEach {
+                operationDao.delete(it)
+            }
+        }
         operationDao.delete(operation)
     }
 
@@ -138,52 +139,21 @@ class OperationService(
         return operationCreated
     }
     fun findDaughterOperations(person: Person, motherOperation: Operation): List<Operation> {
-        val motherOperationId = motherOperation.id
         val account = accountDao.getById(motherOperation.accountId)
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val listAllOperations: List<Operation> = operationDao.findByAccount(account, null)
-        var listDaughterOperation = mutableListOf<Operation>()
-        listAllOperations.forEach {
-            if (it.motherOperationId == motherOperationId) {
-                listDaughterOperation.add(it)
-            }
-        }
-        return listDaughterOperation
+        return operationDao.findDaughterOperations(motherOperation)
     }
     fun findMotherOperationsByAccount(person: Person, account: Account, category: Category?) : List<Operation> {
-        val listAllOperations = this.findByAccount(person, account, category)
-        var listMotherOperations = mutableListOf<Operation>()
-        listAllOperations.forEach {
-            if (it.motherOperationId == null) {
-                listMotherOperations.add(it)
-            }
-        }
-        return listMotherOperations
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        return operationDao.findMotherOperationsByAccount(account, category)
     }
-    fun findMotherOperationByDaugtherOperation(person: Person, daughterOperation: Operation) : Operation? {
-        if (daughterOperation.motherOperationId != null) {
-            val account = accountDao.getById(daughterOperation.accountId)
-            val motherOperationID = daughterOperation.motherOperationId
-            authorizationService.cancelIfUserIsUnauthorized(person, account)
-            val listAllOperations: List<Operation> = operationDao.findByAccount(account, null)
-            var motherOperation: Operation? = null 
-            listAllOperations.forEach {
-                if (motherOperationID == it.id) {
-                    motherOperation = it
-                }
-            }
-            return motherOperation
+    fun findMotherOperationByDaughterOperation(person: Person, daughterOperation: Operation) : Operation? {
+        val account = accountDao.getById(daughterOperation.accountId)
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        val motherOperationId = daughterOperation.motherOperationId
+        if (motherOperationId != null) {
+            return operationDao.getById(motherOperationId)
         }
         return null
-    }
-    fun findAllDaughterOperations(person: Person, account: Account, category: Category?) : List<Operation> {
-        val listAllOperations = this.findByAccount(person, account, category)
-        var listDaughterOperations = mutableListOf<Operation>()
-        listAllOperations.forEach {
-            if (it.motherOperationId != null) {
-                listDaughterOperations.add(it)
-            }
-        }
-        return listDaughterOperations
     }
 }

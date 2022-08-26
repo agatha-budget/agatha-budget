@@ -336,18 +336,8 @@ fun main() {
         ctx.json(operations)
     }
 
-    app.before("/operation/daughters", SuperTokens.middleware())
-    app.get("/operation/daughters") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
-        val category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
-        val operations = ServiceManager.operationService.findAllDaughterOperations(user, account, category)
-        ctx.json(operations)
-    }
-
-    app.before("/operation/daugthersfrommother", SuperTokens.middleware())
-    app.get("/operation/daugthersfrommother") { ctx ->
+    app.before("/operation/daughtersfrommother", SuperTokens.middleware())
+    app.get("/operation/daughtersfrommother") { ctx ->
         val user = getUserFromAuth(ctx)
         val motherOperation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
         val operations = ServiceManager.operationService.findDaughterOperations(user, motherOperation)
@@ -358,7 +348,7 @@ fun main() {
     app.get("/operation/motherfromdaughter") { ctx ->
         val user = getUserFromAuth(ctx)
         val daughterOperation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
-        val operation: Operation? = ServiceManager.operationService.findMotherOperationByDaugtherOperation(user, daughterOperation)
+        val operation: Operation? = ServiceManager.operationService.findMotherOperationByDaughterOperation(user, daughterOperation)
         operation?.let {
             ctx.json(operation)
         }
