@@ -223,7 +223,6 @@ export default defineComponent({
     },
     editFunction () {
       this.edit = !this.edit
-      console.log(this.edit)
     },
     saveChange () {
       this.editFunction()
