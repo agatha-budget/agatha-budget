@@ -198,4 +198,39 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByMotherOperationId(String... values) {
         return fetch(Operation.OPERATION.MOTHER_OPERATION_ID, values);
     }
+
+    /**
+     * Fetch records that have <code>IMPORT_IDENTIFIER BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfImportIdentifier(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Operation.OPERATION.IMPORT_IDENTIFIER, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>IMPORT_IDENTIFIER IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByImportIdentifier(String... values) {
+        return fetch(Operation.OPERATION.IMPORT_IDENTIFIER, values);
+    }
+
+    /**
+     * Fetch a unique record that has <code>IMPORT_IDENTIFIER = value</code>
+     */
+    public open.tresorier.generated.jooq.test.public_.tables.pojos.Operation fetchOneByImportIdentifier(String value) {
+        return fetchOne(Operation.OPERATION.IMPORT_IDENTIFIER, value);
+    }
+
+    /**
+     * Fetch records that have <code>IMPORT_TIMESTAMP BETWEEN lowerInclusive AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfImportTimestamp(Long lowerInclusive, Long upperInclusive) {
+        return fetchRange(Operation.OPERATION.IMPORT_TIMESTAMP, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>IMPORT_TIMESTAMP IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByImportTimestamp(Long... values) {
+        return fetch(Operation.OPERATION.IMPORT_TIMESTAMP, values);
+    }
 }

@@ -10,6 +10,8 @@ class Operation (
         var pending: Boolean = false,
         var locked: Boolean = false,
         var motherOperationId: String? = null,
+        var importIdentifier: String? = null,
+        var importTimestamp: Long? = null,
         id: String? = null,
         deleted: Boolean? = null
 ) : DbObject(id, deleted) {

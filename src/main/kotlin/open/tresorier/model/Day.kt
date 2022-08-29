@@ -2,6 +2,7 @@ package open.tresorier.model
 
 import com.fasterxml.jackson.annotation.JsonValue
 import open.tresorier.exception.TresorierException
+import java.time.LocalDateTime
 
 class Day (
     var month: Month,
@@ -18,6 +19,17 @@ class Day (
     }
 
     companion object {
+
+        fun today() : Day {
+            val date = LocalDateTime.now()
+        
+            val year = date.year
+            val month = date.monthValue // because the form count month from 1 - 12 (not the case in JS)
+            val day = date.dayOfMonth
+        
+            return Day(Month(month, year), day)
+        }
+
         fun cancelIfEndLessThanStart(start: Day, end: Day){
             this.cancelIfEndLessThanStart(start.comparable, end.comparable)
         }
