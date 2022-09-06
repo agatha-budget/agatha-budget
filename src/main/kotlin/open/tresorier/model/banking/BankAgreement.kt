@@ -11,4 +11,10 @@ open class BankAgreement (
     var archived: Boolean = false,
     id: String? = null,
     deleted: Boolean? = null
-) : DbObject(id, deleted)
+) : DbObject(id, deleted){
+
+    override fun toString(): String {
+        return "id: $id, budgetId: $budgetId, timestamp: $timestamp, nordigenRequisitionId: $nordigenRequisitionId"
+    }
+}
+
