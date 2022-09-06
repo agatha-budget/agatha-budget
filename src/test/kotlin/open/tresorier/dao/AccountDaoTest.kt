@@ -111,4 +111,25 @@ open class AccountDaoTest : ITest {
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())
     }
+
+    @Test
+    fun getRealAmountWithDaughterOperation() {
+        val budget = Budget("with daughters", TestData.person1Id, ProfileEnum.PROFILE_USER)
+        budgetDao.insert(budget)
+        val account = Account("account with daughters", budget.id)
+        accountDao.insert(account)
+        val motherOperation = Operation(account.id, TestData.feb_02_2021, null, 50, 1, "mother", false, false)
+        operationDao.insert(motherOperation)
+        val daughterOperation1 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 26, 2, "daughter1", false, false, motherOperation.id)
+        operationDao.insert(daughterOperation1)
+        val daughterOperation2 = Operation(account.id, TestData.feb_02_2021, Category.INCOME_ID, 24, 3, "daughter2", false, false, motherOperation.id)
+        operationDao.insert(daughterOperation2)
+
+        val accountList = accountDao.findByBudget(budget)
+        val expectedList = listOf(
+            AccountWithAmount.createFromAccount(account, 50)
+        )
+
+        Assertions.assertEquals(expectedList.toString(), accountList.toString())
+    }
 }
