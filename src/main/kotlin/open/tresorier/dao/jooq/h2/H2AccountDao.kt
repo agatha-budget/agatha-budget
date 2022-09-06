@@ -51,6 +51,7 @@ class H2AccountDao(val configuration: Configuration) : IAccountDao {
             .select(ACCOUNT.ID, ACCOUNT.NAME, ACCOUNT.BUDGET_ID, amountSum, ACCOUNT.ARCHIVED, ACCOUNT.BANK_ACCOUNT_ID, ACCOUNT.DELETED)
             .from(ACCOUNT)
             .leftJoin(OPERATION).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
+            .and(OPERATION.MOTHER_OPERATION_ID.isNull)
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
             .groupBy(ACCOUNT.ID)
             .orderBy(ACCOUNT.NAME)
