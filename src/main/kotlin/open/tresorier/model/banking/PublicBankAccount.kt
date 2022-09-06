@@ -7,4 +7,9 @@ open class PublicBankAccount (
     var name: String,
     var bankId: String,
     var timestamp: Long
-)
+){
+
+    override fun toString(): String {
+        return "name: $name, bankId: $bankId, id: $id, timestamp: $timestamp"
+    }
+}
