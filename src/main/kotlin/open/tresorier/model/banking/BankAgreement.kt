@@ -14,7 +14,7 @@ open class BankAgreement (
 ) : DbObject(id, deleted){
 
     override fun toString(): String {
-        return "id: $id, budgetId: $budgetId, timestamp: $timestamp, nordigenRequisitionId: $nordigenRequisitionId"
+        return "id: $id, budgetId: $budgetId, timestamp: $timestamp, nordigenRequisitionId: $nordigenRequisitionId, bankId: $bankId"
     }
 }
 
