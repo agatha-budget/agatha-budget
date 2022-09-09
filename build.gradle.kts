@@ -37,10 +37,10 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "1.4.10"
+    kotlin("jvm") version "1.6.21"
     id("org.jetbrains.dokka") version "1.4.0-rc"
     id("org.flywaydb.flyway") version "7.5.3"
-    id("nu.studer.jooq") version "5.2"
+    id("nu.studer.jooq") version "6.+"
     jacoco
     application
 }
@@ -84,7 +84,7 @@ val koin_version= "3.0.1-beta-2"
 val junit_version="5.1.1"
 val postgres_version="42.2.12"
 val h2_version="1.4.200"
-val jooq_version="3.13.4"
+val jooq_version="3.16.4"
 val mock_version="1.10.5"
 val slf4j_version="1.7.30"
 val logback_version="1.2.3"
@@ -138,7 +138,6 @@ dependencies {
 
     // Jooq
     implementation("org.jooq:jooq:$jooq_version")
-    implementation("org.jooq:jooq-meta:$jooq_version")
     implementation("org.jooq:jooq-codegen:$jooq_version")
 
     // Logging

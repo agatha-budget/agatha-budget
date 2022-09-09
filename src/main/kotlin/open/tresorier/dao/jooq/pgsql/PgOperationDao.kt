@@ -89,7 +89,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
         return rawResult?.toInt() ?: 0
     }
 
-    override fun findByAccount(account: Account, category: Category?): List<Operation> {
+    override fun findByAccount(account: Account, category: Category?): List<OperationWithDaughters> {
         val query = this.query
             .select()
             .from(OPERATION)
@@ -108,43 +108,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
         return operationList
     }
 
-    override fun findDaughterOperations(motherOperation: Operation): List<Operation> {
-        val query = this.query
-            .select()
-            .from(OPERATION)
-            .where(OPERATION.MOTHER_OPERATION_ID.eq(motherOperation.id))
-            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
-        val jooqOperationList = query.fetch().into(OPERATION)
-        val operationList: MutableList<Operation> = mutableListOf()
-        for (operationRecord : OperationRecord in jooqOperationList) {
-            val operation = this.toOperation(operationRecord)
-            operationList.add(operation)
-        }
-
-        return operationList
-    }
-    
-    override fun findMotherOperationsByAccount(account: Account, category: Category?): List<Operation> {
-        val query = this.query
-            .select()
-            .from(OPERATION)
-            .where(OPERATION.ACCOUNT_ID.eq(account.id))
-            .and(OPERATION.MOTHER_OPERATION_ID.isNull())
-        category?.let{
-            query.and(OPERATION.CATEGORY_ID.eq(it.id))
-        }
-        query.orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
-        val jooqOperationList = query.fetch().into(OPERATION)
-        val operationList: MutableList<Operation> = mutableListOf()
-        for (operationRecord : OperationRecord in jooqOperationList) {
-            val operation = this.toOperation(operationRecord)
-            operationList.add(operation)
-        }
-
-        return operationList
-    }
-
-    override fun findByBudget(budget: Budget, category: Category?): List<Operation> {
+    override fun findByBudget(budget: Budget, category: Category?): List<OperationWithDaughters> {
         val query = this.query
             .select()
             .from(OPERATION)

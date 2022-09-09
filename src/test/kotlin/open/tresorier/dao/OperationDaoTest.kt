@@ -487,4 +487,78 @@ open class OperationDaoTest : ITest {
         val amountNow = operationDao.findAmountByBudget(budget)
         Assertions.assertEquals(0, amountNow)
     }
+
+    @Test
+    fun getOperationWithDaughterForBudget() {
+        val budget = Budget("DreamFactory", "Dreamer", ProfileEnum.PROFILE_USER)
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Clouds", budget.id, null)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("Cumulus", masterCategory.id)
+        categoryDao.insert(category)
+        val category2 = Category("Cumulonimbus", masterCategory.id)
+        categoryDao.insert(category2)
+        val account = Account("SkyAccount", budget.id)
+        accountDao.insert(account)
+        val operationList = listOf(
+                Operation(account.id, TestData.nov_02_2020, null, 4000, 1),
+                Operation(account.id, TestData.nov_03_2020, category.id, 2000, 2),
+                Operation(account.id, TestData.feb_02_2021, category2.id, 1500, 3),
+                Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
+        )
+        val operationDaugthers = listOf (
+            Operation(account.id, TestData.nov_02_2020, category.id, 3000, 1, null, false, false, operationList[0]),
+            Operation(account.id, TestData.nov_02_2020, category2.id, 1000, 1, null, false, false, operationList[0]),
+
+        )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        for (operation in operationDaugthers) {
+            operationDao.insert(operation)
+        }
+        val result = operationDao.findByAccount(account)
+
+        Assertions.assertEquals(4, result.size)
+        Assertions.assertEquals(4000, result[0].amount)
+        Assertions.assertEquals(2, result[0].daugthers.size)
+    }
+
+    @Test
+    fun getOperationWithDaughterInCategoryForBudget() {
+        val budget = Budget("DreamFactory", "Dreamer", ProfileEnum.PROFILE_USER)
+        budgetDao.insert(budget)
+        val masterCategory = MasterCategory("Clouds", budget.id, null)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("Cumulus", masterCategory.id)
+        categoryDao.insert(category)
+        val category2 = Category("Cumulonimbus", masterCategory.id)
+        categoryDao.insert(category2)
+        val account = Account("SkyAccount", budget.id)
+        accountDao.insert(account)
+        val operationList = listOf(
+                Operation(account.id, TestData.nov_02_2020, null, 4000, 1),
+                Operation(account.id, TestData.nov_03_2020, category.id, 2000, 2),
+                Operation(account.id, TestData.feb_02_2021, category2.id, 1500, 3),
+                Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
+        )
+        val operationDaugthers = listOf (
+            Operation(account.id, TestData.nov_02_2020, category.id, 3000, 1, null, false, false, operationList[0]),
+            Operation(account.id, TestData.nov_02_2020, category2.id, 1000, 1, null, false, false, operationList[0]),
+
+        )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        for (operation in operationDaugthers) {
+            operationDao.insert(operation)
+        }
+        val result = operationDao.findByAccount(account, category2)
+
+        Assertions.assertEquals(2, result.size)
+        Assertions.assertEquals(4000, result[0].amount)
+        Assertions.assertEquals(2, result[0].daugthers.size)
+        Assertions.assertEquals(1500, result[1].amount)
+    }
+
 }
