@@ -18,10 +18,11 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsRecord> implements Record9<String, String, String, String, String, String, String, String, String> {
 
-    private static final long serialVersionUID = 644667509;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
      */
     public TableConstraintsRecord setConstraintCatalog(String value) {
         set(0, value);
@@ -29,14 +30,16 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
      */
     public String getConstraintCatalog() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
      */
     public TableConstraintsRecord setConstraintSchema(String value) {
         set(1, value);
@@ -44,14 +47,16 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
      */
     public String getConstraintSchema() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_NAME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_NAME</code>.
      */
     public TableConstraintsRecord setConstraintName(String value) {
         set(2, value);
@@ -59,14 +64,16 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_NAME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_NAME</code>.
      */
     public String getConstraintName() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_TYPE</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_TYPE</code>.
      */
     public TableConstraintsRecord setConstraintType(String value) {
         set(3, value);
@@ -74,14 +81,16 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_TYPE</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_TYPE</code>.
      */
     public String getConstraintType() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_CATALOG</code>.
      */
     public TableConstraintsRecord setTableCatalog(String value) {
         set(4, value);
@@ -89,14 +98,16 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_CATALOG</code>.
      */
     public String getTableCatalog() {
         return (String) get(4);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_SCHEMA</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_SCHEMA</code>.
      */
     public TableConstraintsRecord setTableSchema(String value) {
         set(5, value);
@@ -104,7 +115,8 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_SCHEMA</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_SCHEMA</code>.
      */
     public String getTableSchema() {
         return (String) get(5);
@@ -126,7 +138,8 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.IS_DEFERRABLE</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.IS_DEFERRABLE</code>.
      */
     public TableConstraintsRecord setIsDeferrable(String value) {
         set(7, value);
@@ -134,14 +147,16 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.IS_DEFERRABLE</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.IS_DEFERRABLE</code>.
      */
     public String getIsDeferrable() {
         return (String) get(7);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INITIALLY_DEFERRED</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INITIALLY_DEFERRED</code>.
      */
     public TableConstraintsRecord setInitiallyDeferred(String value) {
         set(8, value);
@@ -149,7 +164,8 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INITIALLY_DEFERRED</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INITIALLY_DEFERRED</code>.
      */
     public String getInitiallyDeferred() {
         return (String) get(8);
@@ -389,14 +405,33 @@ public class TableConstraintsRecord extends TableRecordImpl<TableConstraintsReco
     public TableConstraintsRecord(String constraintCatalog, String constraintSchema, String constraintName, String constraintType, String tableCatalog, String tableSchema, String tableName, String isDeferrable, String initiallyDeferred) {
         super(TableConstraints.TABLE_CONSTRAINTS);
 
-        set(0, constraintCatalog);
-        set(1, constraintSchema);
-        set(2, constraintName);
-        set(3, constraintType);
-        set(4, tableCatalog);
-        set(5, tableSchema);
-        set(6, tableName);
-        set(7, isDeferrable);
-        set(8, initiallyDeferred);
+        setConstraintCatalog(constraintCatalog);
+        setConstraintSchema(constraintSchema);
+        setConstraintName(constraintName);
+        setConstraintType(constraintType);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setIsDeferrable(isDeferrable);
+        setInitiallyDeferred(initiallyDeferred);
+    }
+
+    /**
+     * Create a detached, initialised TableConstraintsRecord
+     */
+    public TableConstraintsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.TableConstraints value) {
+        super(TableConstraints.TABLE_CONSTRAINTS);
+
+        if (value != null) {
+            setConstraintCatalog(value.getConstraintCatalog());
+            setConstraintSchema(value.getConstraintSchema());
+            setConstraintName(value.getConstraintName());
+            setConstraintType(value.getConstraintType());
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setIsDeferrable(value.getIsDeferrable());
+            setInitiallyDeferred(value.getInitiallyDeferred());
+        }
     }
 }

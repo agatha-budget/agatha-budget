@@ -18,10 +18,11 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord> implements Record12<String, Integer, Double, Double, Double, Double, Double, Integer, Integer, Long, Double, Double> {
 
-    private static final long serialVersionUID = -1637194901;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.SQL_STATEMENT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.SQL_STATEMENT</code>.
      */
     public QueryStatisticsRecord setSqlStatement(String value) {
         set(0, value);
@@ -29,14 +30,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.SQL_STATEMENT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.SQL_STATEMENT</code>.
      */
     public String getSqlStatement() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.EXECUTION_COUNT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.EXECUTION_COUNT</code>.
      */
     public QueryStatisticsRecord setExecutionCount(Integer value) {
         set(1, value);
@@ -44,14 +47,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.EXECUTION_COUNT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.EXECUTION_COUNT</code>.
      */
     public Integer getExecutionCount() {
         return (Integer) get(1);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_EXECUTION_TIME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_EXECUTION_TIME</code>.
      */
     public QueryStatisticsRecord setMinExecutionTime(Double value) {
         set(2, value);
@@ -59,14 +64,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_EXECUTION_TIME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_EXECUTION_TIME</code>.
      */
     public Double getMinExecutionTime() {
         return (Double) get(2);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_EXECUTION_TIME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_EXECUTION_TIME</code>.
      */
     public QueryStatisticsRecord setMaxExecutionTime(Double value) {
         set(3, value);
@@ -74,14 +81,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_EXECUTION_TIME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_EXECUTION_TIME</code>.
      */
     public Double getMaxExecutionTime() {
         return (Double) get(3);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_EXECUTION_TIME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_EXECUTION_TIME</code>.
      */
     public QueryStatisticsRecord setCumulativeExecutionTime(Double value) {
         set(4, value);
@@ -89,14 +98,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_EXECUTION_TIME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_EXECUTION_TIME</code>.
      */
     public Double getCumulativeExecutionTime() {
         return (Double) get(4);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_EXECUTION_TIME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_EXECUTION_TIME</code>.
      */
     public QueryStatisticsRecord setAverageExecutionTime(Double value) {
         set(5, value);
@@ -104,14 +115,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_EXECUTION_TIME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_EXECUTION_TIME</code>.
      */
     public Double getAverageExecutionTime() {
         return (Double) get(5);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_EXECUTION_TIME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_EXECUTION_TIME</code>.
      */
     public QueryStatisticsRecord setStdDevExecutionTime(Double value) {
         set(6, value);
@@ -119,14 +132,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_EXECUTION_TIME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_EXECUTION_TIME</code>.
      */
     public Double getStdDevExecutionTime() {
         return (Double) get(6);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_ROW_COUNT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_ROW_COUNT</code>.
      */
     public QueryStatisticsRecord setMinRowCount(Integer value) {
         set(7, value);
@@ -134,14 +149,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_ROW_COUNT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_ROW_COUNT</code>.
      */
     public Integer getMinRowCount() {
         return (Integer) get(7);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_ROW_COUNT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_ROW_COUNT</code>.
      */
     public QueryStatisticsRecord setMaxRowCount(Integer value) {
         set(8, value);
@@ -149,14 +166,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_ROW_COUNT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_ROW_COUNT</code>.
      */
     public Integer getMaxRowCount() {
         return (Integer) get(8);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_ROW_COUNT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_ROW_COUNT</code>.
      */
     public QueryStatisticsRecord setCumulativeRowCount(Long value) {
         set(9, value);
@@ -164,14 +183,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_ROW_COUNT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_ROW_COUNT</code>.
      */
     public Long getCumulativeRowCount() {
         return (Long) get(9);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_ROW_COUNT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_ROW_COUNT</code>.
      */
     public QueryStatisticsRecord setAverageRowCount(Double value) {
         set(10, value);
@@ -179,14 +200,16 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_ROW_COUNT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_ROW_COUNT</code>.
      */
     public Double getAverageRowCount() {
         return (Double) get(10);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_ROW_COUNT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_ROW_COUNT</code>.
      */
     public QueryStatisticsRecord setStdDevRowCount(Double value) {
         set(11, value);
@@ -194,7 +217,8 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_ROW_COUNT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_ROW_COUNT</code>.
      */
     public Double getStdDevRowCount() {
         return (Double) get(11);
@@ -500,17 +524,39 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
     public QueryStatisticsRecord(String sqlStatement, Integer executionCount, Double minExecutionTime, Double maxExecutionTime, Double cumulativeExecutionTime, Double averageExecutionTime, Double stdDevExecutionTime, Integer minRowCount, Integer maxRowCount, Long cumulativeRowCount, Double averageRowCount, Double stdDevRowCount) {
         super(QueryStatistics.QUERY_STATISTICS);
 
-        set(0, sqlStatement);
-        set(1, executionCount);
-        set(2, minExecutionTime);
-        set(3, maxExecutionTime);
-        set(4, cumulativeExecutionTime);
-        set(5, averageExecutionTime);
-        set(6, stdDevExecutionTime);
-        set(7, minRowCount);
-        set(8, maxRowCount);
-        set(9, cumulativeRowCount);
-        set(10, averageRowCount);
-        set(11, stdDevRowCount);
+        setSqlStatement(sqlStatement);
+        setExecutionCount(executionCount);
+        setMinExecutionTime(minExecutionTime);
+        setMaxExecutionTime(maxExecutionTime);
+        setCumulativeExecutionTime(cumulativeExecutionTime);
+        setAverageExecutionTime(averageExecutionTime);
+        setStdDevExecutionTime(stdDevExecutionTime);
+        setMinRowCount(minRowCount);
+        setMaxRowCount(maxRowCount);
+        setCumulativeRowCount(cumulativeRowCount);
+        setAverageRowCount(averageRowCount);
+        setStdDevRowCount(stdDevRowCount);
+    }
+
+    /**
+     * Create a detached, initialised QueryStatisticsRecord
+     */
+    public QueryStatisticsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.QueryStatistics value) {
+        super(QueryStatistics.QUERY_STATISTICS);
+
+        if (value != null) {
+            setSqlStatement(value.getSqlStatement());
+            setExecutionCount(value.getExecutionCount());
+            setMinExecutionTime(value.getMinExecutionTime());
+            setMaxExecutionTime(value.getMaxExecutionTime());
+            setCumulativeExecutionTime(value.getCumulativeExecutionTime());
+            setAverageExecutionTime(value.getAverageExecutionTime());
+            setStdDevExecutionTime(value.getStdDevExecutionTime());
+            setMinRowCount(value.getMinRowCount());
+            setMaxRowCount(value.getMaxRowCount());
+            setCumulativeRowCount(value.getCumulativeRowCount());
+            setAverageRowCount(value.getAverageRowCount());
+            setStdDevRowCount(value.getStdDevRowCount());
+        }
     }
 }

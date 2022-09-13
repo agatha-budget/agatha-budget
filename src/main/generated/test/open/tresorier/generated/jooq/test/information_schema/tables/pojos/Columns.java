@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Columns implements Serializable {
 
-    private static final long serialVersionUID = -607908678;
+    private static final long serialVersionUID = 1L;
 
     private final String  tableCatalog;
     private final String  tableSchema;
@@ -151,130 +151,229 @@ public class Columns implements Serializable {
         this.isVisible = isVisible;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_NAME</code>.
+     */
     public String getColumnName() {
         return this.columnName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.ORDINAL_POSITION</code>.
+     */
     public Integer getOrdinalPosition() {
         return this.ordinalPosition;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_CATALOG</code>.
+     */
     public String getDomainCatalog() {
         return this.domainCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_SCHEMA</code>.
+     */
     public String getDomainSchema() {
         return this.domainSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_NAME</code>.
+     */
     public String getDomainName() {
         return this.domainName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_DEFAULT</code>.
+     */
     public String getColumnDefault() {
         return this.columnDefault;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_NULLABLE</code>.
+     */
     public String getIsNullable() {
         return this.isNullable;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DATA_TYPE</code>.
+     */
     public Integer getDataType() {
         return this.dataType;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_MAXIMUM_LENGTH</code>.
+     */
     public Integer getCharacterMaximumLength() {
         return this.characterMaximumLength;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_OCTET_LENGTH</code>.
+     */
     public Integer getCharacterOctetLength() {
         return this.characterOctetLength;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION</code>.
+     */
     public Integer getNumericPrecision() {
         return this.numericPrecision;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION_RADIX</code>.
+     */
     public Integer getNumericPrecisionRadix() {
         return this.numericPrecisionRadix;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_SCALE</code>.
+     */
     public Integer getNumericScale() {
         return this.numericScale;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DATETIME_PRECISION</code>.
+     */
     public Integer getDatetimePrecision() {
         return this.datetimePrecision;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_TYPE</code>.
+     */
     public String getIntervalType() {
         return this.intervalType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_PRECISION</code>.
+     */
     public Integer getIntervalPrecision() {
         return this.intervalPrecision;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_NAME</code>.
+     */
     public String getCharacterSetName() {
         return this.characterSetName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_NAME</code>.
+     */
     public String getCollationName() {
         return this.collationName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.TYPE_NAME</code>.
+     */
     public String getTypeName() {
         return this.typeName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.NULLABLE</code>.
+     */
     public Integer getNullable() {
         return this.nullable;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_COMPUTED</code>.
+     */
     public Boolean getIsComputed() {
         return this.isComputed;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.SELECTIVITY</code>.
+     */
     public Integer getSelectivity() {
         return this.selectivity;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHECK_CONSTRAINT</code>.
+     */
     public String getCheckConstraint() {
         return this.checkConstraint;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.SEQUENCE_NAME</code>.
+     */
     public String getSequenceName() {
         return this.sequenceName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.SOURCE_DATA_TYPE</code>.
+     */
     public Short getSourceDataType() {
         return this.sourceDataType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_TYPE</code>.
+     */
     public String getColumnType() {
         return this.columnType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_ON_UPDATE</code>.
+     */
     public String getColumnOnUpdate() {
         return this.columnOnUpdate;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_VISIBLE</code>.
+     */
     public String getIsVisible() {
         return this.isVisible;
     }

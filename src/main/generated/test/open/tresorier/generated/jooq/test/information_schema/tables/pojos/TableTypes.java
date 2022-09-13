@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TableTypes implements Serializable {
 
-    private static final long serialVersionUID = -1167474813;
+    private static final long serialVersionUID = 1L;
 
     private final String type;
 
@@ -27,6 +27,9 @@ public class TableTypes implements Serializable {
         this.type = type;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_TYPES.TYPE</code>.
+     */
     public String getType() {
         return this.type;
     }

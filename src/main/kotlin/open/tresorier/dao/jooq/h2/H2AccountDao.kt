@@ -5,14 +5,13 @@ import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.test.public_.Tables.*
 import open.tresorier.generated.jooq.test.public_.tables.daos.AccountDao
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
+import open.tresorier.generated.jooq.test.public_.tables.pojos.Account as JooqAccount
 import open.tresorier.model.*
 import org.jooq.Configuration
 import org.jooq.Field
 import org.jooq.Record7
 import org.jooq.impl.DSL
 import java.math.BigDecimal
-import open.tresorier.generated.jooq.test.public_.tables.pojos.Account as JooqAccount
-
 
 class H2AccountDao(val configuration: Configuration) : IAccountDao {
 

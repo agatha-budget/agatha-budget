@@ -18,10 +18,11 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord> implements Record14<String, String, String, String, String, String, String, String, Short, Short, Short, String, String, Short> {
 
-    private static final long serialVersionUID = -1734249502;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_CATALOG</code>.
      */
     public CrossReferencesRecord setPktableCatalog(String value) {
         set(0, value);
@@ -29,14 +30,16 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_CATALOG</code>.
      */
     public String getPktableCatalog() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_SCHEMA</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_SCHEMA</code>.
      */
     public CrossReferencesRecord setPktableSchema(String value) {
         set(1, value);
@@ -44,7 +47,8 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_SCHEMA</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_SCHEMA</code>.
      */
     public String getPktableSchema() {
         return (String) get(1);
@@ -66,7 +70,8 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKCOLUMN_NAME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKCOLUMN_NAME</code>.
      */
     public CrossReferencesRecord setPkcolumnName(String value) {
         set(3, value);
@@ -74,14 +79,16 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKCOLUMN_NAME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKCOLUMN_NAME</code>.
      */
     public String getPkcolumnName() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_CATALOG</code>.
      */
     public CrossReferencesRecord setFktableCatalog(String value) {
         set(4, value);
@@ -89,14 +96,16 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_CATALOG</code>.
      */
     public String getFktableCatalog() {
         return (String) get(4);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_SCHEMA</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_SCHEMA</code>.
      */
     public CrossReferencesRecord setFktableSchema(String value) {
         set(5, value);
@@ -104,7 +113,8 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_SCHEMA</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_SCHEMA</code>.
      */
     public String getFktableSchema() {
         return (String) get(5);
@@ -126,7 +136,8 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKCOLUMN_NAME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKCOLUMN_NAME</code>.
      */
     public CrossReferencesRecord setFkcolumnName(String value) {
         set(7, value);
@@ -134,14 +145,16 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKCOLUMN_NAME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKCOLUMN_NAME</code>.
      */
     public String getFkcolumnName() {
         return (String) get(7);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.ORDINAL_POSITION</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.ORDINAL_POSITION</code>.
      */
     public CrossReferencesRecord setOrdinalPosition(Short value) {
         set(8, value);
@@ -149,7 +162,8 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.ORDINAL_POSITION</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.ORDINAL_POSITION</code>.
      */
     public Short getOrdinalPosition() {
         return (Short) get(8);
@@ -216,7 +230,8 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.DEFERRABILITY</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.DEFERRABILITY</code>.
      */
     public CrossReferencesRecord setDeferrability(Short value) {
         set(13, value);
@@ -224,7 +239,8 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.DEFERRABILITY</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.DEFERRABILITY</code>.
      */
     public Short getDeferrability() {
         return (Short) get(13);
@@ -574,19 +590,43 @@ public class CrossReferencesRecord extends TableRecordImpl<CrossReferencesRecord
     public CrossReferencesRecord(String pktableCatalog, String pktableSchema, String pktableName, String pkcolumnName, String fktableCatalog, String fktableSchema, String fktableName, String fkcolumnName, Short ordinalPosition, Short updateRule, Short deleteRule, String fkName, String pkName, Short deferrability) {
         super(CrossReferences.CROSS_REFERENCES);
 
-        set(0, pktableCatalog);
-        set(1, pktableSchema);
-        set(2, pktableName);
-        set(3, pkcolumnName);
-        set(4, fktableCatalog);
-        set(5, fktableSchema);
-        set(6, fktableName);
-        set(7, fkcolumnName);
-        set(8, ordinalPosition);
-        set(9, updateRule);
-        set(10, deleteRule);
-        set(11, fkName);
-        set(12, pkName);
-        set(13, deferrability);
+        setPktableCatalog(pktableCatalog);
+        setPktableSchema(pktableSchema);
+        setPktableName(pktableName);
+        setPkcolumnName(pkcolumnName);
+        setFktableCatalog(fktableCatalog);
+        setFktableSchema(fktableSchema);
+        setFktableName(fktableName);
+        setFkcolumnName(fkcolumnName);
+        setOrdinalPosition(ordinalPosition);
+        setUpdateRule(updateRule);
+        setDeleteRule(deleteRule);
+        setFkName(fkName);
+        setPkName(pkName);
+        setDeferrability(deferrability);
+    }
+
+    /**
+     * Create a detached, initialised CrossReferencesRecord
+     */
+    public CrossReferencesRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.CrossReferences value) {
+        super(CrossReferences.CROSS_REFERENCES);
+
+        if (value != null) {
+            setPktableCatalog(value.getPktableCatalog());
+            setPktableSchema(value.getPktableSchema());
+            setPktableName(value.getPktableName());
+            setPkcolumnName(value.getPkcolumnName());
+            setFktableCatalog(value.getFktableCatalog());
+            setFktableSchema(value.getFktableSchema());
+            setFktableName(value.getFktableName());
+            setFkcolumnName(value.getFkcolumnName());
+            setOrdinalPosition(value.getOrdinalPosition());
+            setUpdateRule(value.getUpdateRule());
+            setDeleteRule(value.getDeleteRule());
+            setFkName(value.getFkName());
+            setPkName(value.getPkName());
+            setDeferrability(value.getDeferrability());
+        }
     }
 }

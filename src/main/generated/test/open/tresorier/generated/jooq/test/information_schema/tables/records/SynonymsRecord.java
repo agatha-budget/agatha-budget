@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SynonymsRecord extends TableRecordImpl<SynonymsRecord> implements Record9<String, String, String, String, String, String, String, String, Integer> {
 
-    private static final long serialVersionUID = -998381812;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_CATALOG</code>.
@@ -389,14 +389,33 @@ public class SynonymsRecord extends TableRecordImpl<SynonymsRecord> implements R
     public SynonymsRecord(String synonymCatalog, String synonymSchema, String synonymName, String synonymFor, String synonymForSchema, String typeName, String status, String remarks, Integer id) {
         super(Synonyms.SYNONYMS);
 
-        set(0, synonymCatalog);
-        set(1, synonymSchema);
-        set(2, synonymName);
-        set(3, synonymFor);
-        set(4, synonymForSchema);
-        set(5, typeName);
-        set(6, status);
-        set(7, remarks);
-        set(8, id);
+        setSynonymCatalog(synonymCatalog);
+        setSynonymSchema(synonymSchema);
+        setSynonymName(synonymName);
+        setSynonymFor(synonymFor);
+        setSynonymForSchema(synonymForSchema);
+        setTypeName(typeName);
+        setStatus(status);
+        setRemarks(remarks);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised SynonymsRecord
+     */
+    public SynonymsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Synonyms value) {
+        super(Synonyms.SYNONYMS);
+
+        if (value != null) {
+            setSynonymCatalog(value.getSynonymCatalog());
+            setSynonymSchema(value.getSynonymSchema());
+            setSynonymName(value.getSynonymName());
+            setSynonymFor(value.getSynonymFor());
+            setSynonymForSchema(value.getSynonymForSchema());
+            setTypeName(value.getTypeName());
+            setStatus(value.getStatus());
+            setRemarks(value.getRemarks());
+            setId(value.getId());
+        }
     }
 }

@@ -15,7 +15,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
 
-    private static final long serialVersionUID = -595619441;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.TABLE_CATALOG</code>.
@@ -183,7 +183,8 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_MAXIMUM_LENGTH</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_MAXIMUM_LENGTH</code>.
      */
     public ColumnsRecord setCharacterMaximumLength(Integer value) {
         set(11, value);
@@ -191,14 +192,16 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_MAXIMUM_LENGTH</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_MAXIMUM_LENGTH</code>.
      */
     public Integer getCharacterMaximumLength() {
         return (Integer) get(11);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_OCTET_LENGTH</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_OCTET_LENGTH</code>.
      */
     public ColumnsRecord setCharacterOctetLength(Integer value) {
         set(12, value);
@@ -206,7 +209,8 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_OCTET_LENGTH</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_OCTET_LENGTH</code>.
      */
     public Integer getCharacterOctetLength() {
         return (Integer) get(12);
@@ -228,7 +232,8 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION_RADIX</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION_RADIX</code>.
      */
     public ColumnsRecord setNumericPrecisionRadix(Integer value) {
         set(14, value);
@@ -236,7 +241,8 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION_RADIX</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION_RADIX</code>.
      */
     public Integer getNumericPrecisionRadix() {
         return (Integer) get(14);
@@ -514,37 +520,79 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
     public ColumnsRecord(String tableCatalog, String tableSchema, String tableName, String columnName, Integer ordinalPosition, String domainCatalog, String domainSchema, String domainName, String columnDefault, String isNullable, Integer dataType, Integer characterMaximumLength, Integer characterOctetLength, Integer numericPrecision, Integer numericPrecisionRadix, Integer numericScale, Integer datetimePrecision, String intervalType, Integer intervalPrecision, String characterSetName, String collationName, String typeName, Integer nullable, Boolean isComputed, Integer selectivity, String checkConstraint, String sequenceName, String remarks, Short sourceDataType, String columnType, String columnOnUpdate, String isVisible) {
         super(Columns.COLUMNS);
 
-        set(0, tableCatalog);
-        set(1, tableSchema);
-        set(2, tableName);
-        set(3, columnName);
-        set(4, ordinalPosition);
-        set(5, domainCatalog);
-        set(6, domainSchema);
-        set(7, domainName);
-        set(8, columnDefault);
-        set(9, isNullable);
-        set(10, dataType);
-        set(11, characterMaximumLength);
-        set(12, characterOctetLength);
-        set(13, numericPrecision);
-        set(14, numericPrecisionRadix);
-        set(15, numericScale);
-        set(16, datetimePrecision);
-        set(17, intervalType);
-        set(18, intervalPrecision);
-        set(19, characterSetName);
-        set(20, collationName);
-        set(21, typeName);
-        set(22, nullable);
-        set(23, isComputed);
-        set(24, selectivity);
-        set(25, checkConstraint);
-        set(26, sequenceName);
-        set(27, remarks);
-        set(28, sourceDataType);
-        set(29, columnType);
-        set(30, columnOnUpdate);
-        set(31, isVisible);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setColumnName(columnName);
+        setOrdinalPosition(ordinalPosition);
+        setDomainCatalog(domainCatalog);
+        setDomainSchema(domainSchema);
+        setDomainName(domainName);
+        setColumnDefault(columnDefault);
+        setIsNullable(isNullable);
+        setDataType(dataType);
+        setCharacterMaximumLength(characterMaximumLength);
+        setCharacterOctetLength(characterOctetLength);
+        setNumericPrecision(numericPrecision);
+        setNumericPrecisionRadix(numericPrecisionRadix);
+        setNumericScale(numericScale);
+        setDatetimePrecision(datetimePrecision);
+        setIntervalType(intervalType);
+        setIntervalPrecision(intervalPrecision);
+        setCharacterSetName(characterSetName);
+        setCollationName(collationName);
+        setTypeName(typeName);
+        setNullable(nullable);
+        setIsComputed(isComputed);
+        setSelectivity(selectivity);
+        setCheckConstraint(checkConstraint);
+        setSequenceName(sequenceName);
+        setRemarks(remarks);
+        setSourceDataType(sourceDataType);
+        setColumnType(columnType);
+        setColumnOnUpdate(columnOnUpdate);
+        setIsVisible(isVisible);
+    }
+
+    /**
+     * Create a detached, initialised ColumnsRecord
+     */
+    public ColumnsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Columns value) {
+        super(Columns.COLUMNS);
+
+        if (value != null) {
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setColumnName(value.getColumnName());
+            setOrdinalPosition(value.getOrdinalPosition());
+            setDomainCatalog(value.getDomainCatalog());
+            setDomainSchema(value.getDomainSchema());
+            setDomainName(value.getDomainName());
+            setColumnDefault(value.getColumnDefault());
+            setIsNullable(value.getIsNullable());
+            setDataType(value.getDataType());
+            setCharacterMaximumLength(value.getCharacterMaximumLength());
+            setCharacterOctetLength(value.getCharacterOctetLength());
+            setNumericPrecision(value.getNumericPrecision());
+            setNumericPrecisionRadix(value.getNumericPrecisionRadix());
+            setNumericScale(value.getNumericScale());
+            setDatetimePrecision(value.getDatetimePrecision());
+            setIntervalType(value.getIntervalType());
+            setIntervalPrecision(value.getIntervalPrecision());
+            setCharacterSetName(value.getCharacterSetName());
+            setCollationName(value.getCollationName());
+            setTypeName(value.getTypeName());
+            setNullable(value.getNullable());
+            setIsComputed(value.getIsComputed());
+            setSelectivity(value.getSelectivity());
+            setCheckConstraint(value.getCheckConstraint());
+            setSequenceName(value.getSequenceName());
+            setRemarks(value.getRemarks());
+            setSourceDataType(value.getSourceDataType());
+            setColumnType(value.getColumnType());
+            setColumnOnUpdate(value.getColumnOnUpdate());
+            setIsVisible(value.getIsVisible());
+        }
     }
 }

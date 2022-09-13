@@ -40,7 +40,8 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
     }
 
     /**
-     * Fetch records that have <code>category_id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>category_id BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchRangeOfCategoryId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Allocation.ALLOCATION.CATEGORY_ID, lowerInclusive, upperInclusive);
@@ -54,7 +55,8 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
     }
 
     /**
-     * Fetch records that have <code>month BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>month BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchRangeOfMonth(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(Allocation.ALLOCATION.MONTH, lowerInclusive, upperInclusive);
@@ -68,7 +70,8 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
     }
 
     /**
-     * Fetch records that have <code>amount BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>amount BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Allocation> fetchRangeOfAmount(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(Allocation.ALLOCATION.AMOUNT, lowerInclusive, upperInclusive);

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Indexes implements Serializable {
 
-    private static final long serialVersionUID = -133877808;
+    private static final long serialVersionUID = 1L;
 
     private final String  tableCatalog;
     private final String  tableSchema;
@@ -111,90 +111,156 @@ public class Indexes implements Serializable {
         this.affinity = affinity;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.NON_UNIQUE</code>.
+     */
     public Boolean getNonUnique() {
         return this.nonUnique;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.INDEX_NAME</code>.
+     */
     public String getIndexName() {
         return this.indexName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.ORDINAL_POSITION</code>.
+     */
     public Short getOrdinalPosition() {
         return this.ordinalPosition;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.COLUMN_NAME</code>.
+     */
     public String getColumnName() {
         return this.columnName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.CARDINALITY</code>.
+     */
     public Integer getCardinality() {
         return this.cardinality;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.PRIMARY_KEY</code>.
+     */
     public Boolean getPrimaryKey_() {
         return this.primaryKey;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.INDEX_TYPE_NAME</code>.
+     */
     public String getIndexTypeName() {
         return this.indexTypeName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.IS_GENERATED</code>.
+     */
     public Boolean getIsGenerated() {
         return this.isGenerated;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.INDEX_TYPE</code>.
+     */
     public Short getIndexType() {
         return this.indexType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.ASC_OR_DESC</code>.
+     */
     public String getAscOrDesc() {
         return this.ascOrDesc;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.PAGES</code>.
+     */
     public Integer getPages() {
         return this.pages;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.FILTER_CONDITION</code>.
+     */
     public String getFilterCondition() {
         return this.filterCondition;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.SQL</code>.
+     */
     public String getSql() {
         return this.sql;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.SORT_TYPE</code>.
+     */
     public Integer getSortType() {
         return this.sortType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.CONSTRAINT_NAME</code>.
+     */
     public String getConstraintName() {
         return this.constraintName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.INDEX_CLASS</code>.
+     */
     public String getIndexClass() {
         return this.indexClass;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.AFFINITY</code>.
+     */
     public Boolean getAffinity() {
         return this.affinity;
     }

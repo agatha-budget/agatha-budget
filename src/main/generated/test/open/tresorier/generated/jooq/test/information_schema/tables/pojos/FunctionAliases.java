@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FunctionAliases implements Serializable {
 
-    private static final long serialVersionUID = 1144427428;
+    private static final long serialVersionUID = 1L;
 
     private final String  aliasCatalog;
     private final String  aliasSchema;
@@ -71,50 +71,88 @@ public class FunctionAliases implements Serializable {
         this.source = source;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_CATALOG</code>.
+     */
     public String getAliasCatalog() {
         return this.aliasCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_SCHEMA</code>.
+     */
     public String getAliasSchema() {
         return this.aliasSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_NAME</code>.
+     */
     public String getAliasName() {
         return this.aliasName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.JAVA_CLASS</code>.
+     */
     public String getJavaClass() {
         return this.javaClass;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.JAVA_METHOD</code>.
+     */
     public String getJavaMethod() {
         return this.javaMethod;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.DATA_TYPE</code>.
+     */
     public Integer getDataType() {
         return this.dataType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.TYPE_NAME</code>.
+     */
     public String getTypeName() {
         return this.typeName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.COLUMN_COUNT</code>.
+     */
     public Integer getColumnCount() {
         return this.columnCount;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.RETURNS_RESULT</code>.
+     */
     public Short getReturnsResult() {
         return this.returnsResult;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.SOURCE</code>.
+     */
     public String getSource() {
         return this.source;
     }

@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ConstantsRecord extends TableRecordImpl<ConstantsRecord> implements Record7<String, String, String, Integer, String, String, Integer> {
 
-    private static final long serialVersionUID = -940183189;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_CATALOG</code>.
@@ -315,12 +315,29 @@ public class ConstantsRecord extends TableRecordImpl<ConstantsRecord> implements
     public ConstantsRecord(String constantCatalog, String constantSchema, String constantName, Integer dataType, String remarks, String sql, Integer id) {
         super(Constants.CONSTANTS);
 
-        set(0, constantCatalog);
-        set(1, constantSchema);
-        set(2, constantName);
-        set(3, dataType);
-        set(4, remarks);
-        set(5, sql);
-        set(6, id);
+        setConstantCatalog(constantCatalog);
+        setConstantSchema(constantSchema);
+        setConstantName(constantName);
+        setDataType(dataType);
+        setRemarks(remarks);
+        setSql(sql);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised ConstantsRecord
+     */
+    public ConstantsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Constants value) {
+        super(Constants.CONSTANTS);
+
+        if (value != null) {
+            setConstantCatalog(value.getConstantCatalog());
+            setConstantSchema(value.getConstantSchema());
+            setConstantName(value.getConstantName());
+            setDataType(value.getDataType());
+            setRemarks(value.getRemarks());
+            setSql(value.getSql());
+            setId(value.getId());
+        }
     }
 }

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account implements Serializable {
 
-    private static final long serialVersionUID = 802388883;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  budgetId;
@@ -47,26 +47,44 @@ public class Account implements Serializable {
         this.bankAccountId = bankAccountId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.ACCOUNT.ID</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>PUBLIC.ACCOUNT.BUDGET_ID</code>.
+     */
     public String getBudgetId() {
         return this.budgetId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.ACCOUNT.NAME</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>PUBLIC.ACCOUNT.ARCHIVED</code>.
+     */
     public Boolean getArchived() {
         return this.archived;
     }
 
+    /**
+     * Getter for <code>PUBLIC.ACCOUNT.DELETED</code>.
+     */
     public Boolean getDeleted() {
         return this.deleted;
     }
 
+    /**
+     * Getter for <code>PUBLIC.ACCOUNT.BANK_ACCOUNT_ID</code>.
+     */
     public String getBankAccountId() {
         return this.bankAccountId;
     }

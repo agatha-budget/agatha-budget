@@ -25,6 +25,7 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -34,7 +35,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
 
-    private static final long serialVersionUID = 392310675;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>PUBLIC.flyway_schema_history</code>
@@ -52,73 +53,52 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
     /**
      * The column <code>PUBLIC.flyway_schema_history.installed_rank</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, Integer> INSTALLED_RANK = createField(DSL.name("installed_rank"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FlywaySchemaHistoryRecord, Integer> INSTALLED_RANK = createField(DSL.name("installed_rank"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.flyway_schema_history.version</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, String> VERSION = createField(DSL.name("version"), org.jooq.impl.SQLDataType.VARCHAR(50), this, "");
+    public final TableField<FlywaySchemaHistoryRecord, String> VERSION = createField(DSL.name("version"), SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>PUBLIC.flyway_schema_history.description</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, String> DESCRIPTION = createField(DSL.name("description"), org.jooq.impl.SQLDataType.VARCHAR(200).nullable(false), this, "");
+    public final TableField<FlywaySchemaHistoryRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(200).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.flyway_schema_history.type</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, String> TYPE = createField(DSL.name("type"), org.jooq.impl.SQLDataType.VARCHAR(20).nullable(false), this, "");
+    public final TableField<FlywaySchemaHistoryRecord, String> TYPE = createField(DSL.name("type"), SQLDataType.VARCHAR(20).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.flyway_schema_history.script</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, String> SCRIPT = createField(DSL.name("script"), org.jooq.impl.SQLDataType.VARCHAR(1000).nullable(false), this, "");
+    public final TableField<FlywaySchemaHistoryRecord, String> SCRIPT = createField(DSL.name("script"), SQLDataType.VARCHAR(1000).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.flyway_schema_history.checksum</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, Integer> CHECKSUM = createField(DSL.name("checksum"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<FlywaySchemaHistoryRecord, Integer> CHECKSUM = createField(DSL.name("checksum"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>PUBLIC.flyway_schema_history.installed_by</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, String> INSTALLED_BY = createField(DSL.name("installed_by"), org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<FlywaySchemaHistoryRecord, String> INSTALLED_BY = createField(DSL.name("installed_by"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.flyway_schema_history.installed_on</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, LocalDateTime> INSTALLED_ON = createField(DSL.name("installed_on"), org.jooq.impl.SQLDataType.LOCALDATETIME.nullable(false).defaultValue(org.jooq.impl.DSL.field("CURRENT_TIMESTAMP", org.jooq.impl.SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<FlywaySchemaHistoryRecord, LocalDateTime> INSTALLED_ON = createField(DSL.name("installed_on"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("CURRENT_TIMESTAMP", SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>PUBLIC.flyway_schema_history.execution_time</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, Integer> EXECUTION_TIME = createField(DSL.name("execution_time"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<FlywaySchemaHistoryRecord, Integer> EXECUTION_TIME = createField(DSL.name("execution_time"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.flyway_schema_history.success</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, Boolean> SUCCESS = createField(DSL.name("success"), org.jooq.impl.SQLDataType.BOOLEAN.nullable(false), this, "");
-
-    /**
-     * Create a <code>PUBLIC.flyway_schema_history</code> table reference
-     */
-    public FlywaySchemaHistory() {
-        this(DSL.name("flyway_schema_history"), null);
-    }
-
-    /**
-     * Create an aliased <code>PUBLIC.flyway_schema_history</code> table reference
-     */
-    public FlywaySchemaHistory(String alias) {
-        this(DSL.name(alias), FLYWAY_SCHEMA_HISTORY);
-    }
-
-    /**
-     * Create an aliased <code>PUBLIC.flyway_schema_history</code> table reference
-     */
-    public FlywaySchemaHistory(Name alias) {
-        this(alias, FLYWAY_SCHEMA_HISTORY);
-    }
+    public final TableField<FlywaySchemaHistoryRecord, Boolean> SUCCESS = createField(DSL.name("success"), SQLDataType.BOOLEAN.nullable(false), this, "");
 
     private FlywaySchemaHistory(Name alias, Table<FlywaySchemaHistoryRecord> aliased) {
         this(alias, aliased, null);
@@ -128,28 +108,46 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
+    /**
+     * Create an aliased <code>PUBLIC.flyway_schema_history</code> table
+     * reference
+     */
+    public FlywaySchemaHistory(String alias) {
+        this(DSL.name(alias), FLYWAY_SCHEMA_HISTORY);
+    }
+
+    /**
+     * Create an aliased <code>PUBLIC.flyway_schema_history</code> table
+     * reference
+     */
+    public FlywaySchemaHistory(Name alias) {
+        this(alias, FLYWAY_SCHEMA_HISTORY);
+    }
+
+    /**
+     * Create a <code>PUBLIC.flyway_schema_history</code> table reference
+     */
+    public FlywaySchemaHistory() {
+        this(DSL.name("flyway_schema_history"), null);
+    }
+
     public <O extends Record> FlywaySchemaHistory(Table<O> child, ForeignKey<O, FlywaySchemaHistoryRecord> key) {
         super(child, key, FLYWAY_SCHEMA_HISTORY);
     }
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FLYWAY_SCHEMA_HISTORY_S_IDX);
+        return Arrays.asList(Indexes.FLYWAY_SCHEMA_HISTORY_S_IDX);
     }
 
     @Override
     public UniqueKey<FlywaySchemaHistoryRecord> getPrimaryKey() {
         return Keys.FLYWAY_SCHEMA_HISTORY_PK;
-    }
-
-    @Override
-    public List<UniqueKey<FlywaySchemaHistoryRecord>> getKeys() {
-        return Arrays.<UniqueKey<FlywaySchemaHistoryRecord>>asList(Keys.FLYWAY_SCHEMA_HISTORY_PK);
     }
 
     @Override

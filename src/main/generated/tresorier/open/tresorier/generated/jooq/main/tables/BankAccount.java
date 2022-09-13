@@ -22,6 +22,7 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -31,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAccount extends TableImpl<BankAccountRecord> {
 
-    private static final long serialVersionUID = 859586271;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>public.bank_account</code>
@@ -49,28 +50,29 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
     /**
      * The column <code>public.bank_account.id</code>.
      */
-    public final TableField<BankAccountRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BankAccountRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.bank_account.name</code>.
      */
-    public final TableField<BankAccountRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BankAccountRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.bank_account.agreement_id</code>.
      */
-    public final TableField<BankAccountRecord, String> AGREEMENT_ID = createField(DSL.name("agreement_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BankAccountRecord, String> AGREEMENT_ID = createField(DSL.name("agreement_id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.bank_account.deleted</code>.
      */
-    public final TableField<BankAccountRecord, Boolean> DELETED = createField(DSL.name("deleted"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<BankAccountRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
 
-    /**
-     * Create a <code>public.bank_account</code> table reference
-     */
-    public BankAccount() {
-        this(DSL.name("bank_account"), null);
+    private BankAccount(Name alias, Table<BankAccountRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private BankAccount(Name alias, Table<BankAccountRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -87,12 +89,11 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
         this(alias, BANK_ACCOUNT);
     }
 
-    private BankAccount(Name alias, Table<BankAccountRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private BankAccount(Name alias, Table<BankAccountRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>public.bank_account</code> table reference
+     */
+    public BankAccount() {
+        this(DSL.name("bank_account"), null);
     }
 
     public <O extends Record> BankAccount(Table<O> child, ForeignKey<O, BankAccountRecord> key) {
@@ -101,7 +102,7 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -110,17 +111,21 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
     }
 
     @Override
-    public List<UniqueKey<BankAccountRecord>> getKeys() {
-        return Arrays.<UniqueKey<BankAccountRecord>>asList(Keys.BANK_ACCOUNT_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<BankAccountRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<BankAccountRecord, ?>>asList(Keys.BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY);
+        return Arrays.asList(Keys.BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY);
     }
 
+    private transient BankAgreement _bankAgreement;
+
+    /**
+     * Get the implicit join path to the <code>public.bank_agreement</code>
+     * table.
+     */
     public BankAgreement bankAgreement() {
-        return new BankAgreement(this, Keys.BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY);
+        if (_bankAgreement == null)
+            _bankAgreement = new BankAgreement(this, Keys.BANK_ACCOUNT__BANK_ACCOUNT_AGREEMENT_ID_FKEY);
+
+        return _bankAgreement;
     }
 
     @Override

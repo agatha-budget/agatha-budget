@@ -19,6 +19,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -28,7 +29,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sessions extends TableImpl<SessionsRecord> {
 
-    private static final long serialVersionUID = -1783548342;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.SESSIONS</code>
@@ -46,83 +47,62 @@ public class Sessions extends TableImpl<SessionsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.ID</code>.
      */
-    public final TableField<SessionsRecord, Integer> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<SessionsRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.USER_NAME</code>.
      */
-    public final TableField<SessionsRecord, String> USER_NAME = createField(DSL.name("USER_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> USER_NAME = createField(DSL.name("USER_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.SERVER</code>.
      */
-    public final TableField<SessionsRecord, String> SERVER = createField(DSL.name("SERVER"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> SERVER = createField(DSL.name("SERVER"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_ADDR</code>.
      */
-    public final TableField<SessionsRecord, String> CLIENT_ADDR = createField(DSL.name("CLIENT_ADDR"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> CLIENT_ADDR = createField(DSL.name("CLIENT_ADDR"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_INFO</code>.
      */
-    public final TableField<SessionsRecord, String> CLIENT_INFO = createField(DSL.name("CLIENT_INFO"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> CLIENT_INFO = createField(DSL.name("CLIENT_INFO"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.SESSION_START</code>.
      */
-    public final TableField<SessionsRecord, OffsetDateTime> SESSION_START = createField(DSL.name("SESSION_START"), org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.precision(9), this, "");
+    public final TableField<SessionsRecord, OffsetDateTime> SESSION_START = createField(DSL.name("SESSION_START"), SQLDataType.TIMESTAMPWITHTIMEZONE(9), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.ISOLATION_LEVEL</code>.
      */
-    public final TableField<SessionsRecord, String> ISOLATION_LEVEL = createField(DSL.name("ISOLATION_LEVEL"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> ISOLATION_LEVEL = createField(DSL.name("ISOLATION_LEVEL"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.STATEMENT</code>.
      */
-    public final TableField<SessionsRecord, String> STATEMENT = createField(DSL.name("STATEMENT"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> STATEMENT = createField(DSL.name("STATEMENT"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.STATEMENT_START</code>.
      */
-    public final TableField<SessionsRecord, OffsetDateTime> STATEMENT_START = createField(DSL.name("STATEMENT_START"), org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE.precision(9), this, "");
+    public final TableField<SessionsRecord, OffsetDateTime> STATEMENT_START = createField(DSL.name("STATEMENT_START"), SQLDataType.TIMESTAMPWITHTIMEZONE(9), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.CONTAINS_UNCOMMITTED</code>.
      */
-    public final TableField<SessionsRecord, Boolean> CONTAINS_UNCOMMITTED = createField(DSL.name("CONTAINS_UNCOMMITTED"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<SessionsRecord, Boolean> CONTAINS_UNCOMMITTED = createField(DSL.name("CONTAINS_UNCOMMITTED"), SQLDataType.BOOLEAN, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.STATE</code>.
      */
-    public final TableField<SessionsRecord, String> STATE = createField(DSL.name("STATE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> STATE = createField(DSL.name("STATE"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.BLOCKER_ID</code>.
      */
-    public final TableField<SessionsRecord, Integer> BLOCKER_ID = createField(DSL.name("BLOCKER_ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
-
-    /**
-     * Create a <code>INFORMATION_SCHEMA.SESSIONS</code> table reference
-     */
-    public Sessions() {
-        this(DSL.name("SESSIONS"), null);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.SESSIONS</code> table reference
-     */
-    public Sessions(String alias) {
-        this(DSL.name(alias), SESSIONS);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.SESSIONS</code> table reference
-     */
-    public Sessions(Name alias) {
-        this(alias, SESSIONS);
-    }
+    public final TableField<SessionsRecord, Integer> BLOCKER_ID = createField(DSL.name("BLOCKER_ID"), SQLDataType.INTEGER, this, "");
 
     private Sessions(Name alias, Table<SessionsRecord> aliased) {
         this(alias, aliased, null);
@@ -132,13 +112,36 @@ public class Sessions extends TableImpl<SessionsRecord> {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.SESSIONS</code> table
+     * reference
+     */
+    public Sessions(String alias) {
+        this(DSL.name(alias), SESSIONS);
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.SESSIONS</code> table
+     * reference
+     */
+    public Sessions(Name alias) {
+        this(alias, SESSIONS);
+    }
+
+    /**
+     * Create a <code>INFORMATION_SCHEMA.SESSIONS</code> table reference
+     */
+    public Sessions() {
+        this(DSL.name("SESSIONS"), null);
+    }
+
     public <O extends Record> Sessions(Table<O> child, ForeignKey<O, SessionsRecord> key) {
         super(child, key, SESSIONS);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override

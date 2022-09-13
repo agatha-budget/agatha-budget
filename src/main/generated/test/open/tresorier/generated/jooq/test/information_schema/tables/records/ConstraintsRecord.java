@@ -18,10 +18,11 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ConstraintsRecord extends TableRecordImpl<ConstraintsRecord> implements Record13<String, String, String, String, String, String, String, String, String, String, String, String, Integer> {
 
-    private static final long serialVersionUID = 264964389;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.CONSTRAINTS.CONSTRAINT_CATALOG</code>.
      */
     public ConstraintsRecord setConstraintCatalog(String value) {
         set(0, value);
@@ -29,7 +30,8 @@ public class ConstraintsRecord extends TableRecordImpl<ConstraintsRecord> implem
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CONSTRAINTS.CONSTRAINT_CATALOG</code>.
      */
     public String getConstraintCatalog() {
         return (String) get(0);
@@ -537,18 +539,41 @@ public class ConstraintsRecord extends TableRecordImpl<ConstraintsRecord> implem
     public ConstraintsRecord(String constraintCatalog, String constraintSchema, String constraintName, String constraintType, String tableCatalog, String tableSchema, String tableName, String uniqueIndexName, String checkExpression, String columnList, String remarks, String sql, Integer id) {
         super(Constraints.CONSTRAINTS);
 
-        set(0, constraintCatalog);
-        set(1, constraintSchema);
-        set(2, constraintName);
-        set(3, constraintType);
-        set(4, tableCatalog);
-        set(5, tableSchema);
-        set(6, tableName);
-        set(7, uniqueIndexName);
-        set(8, checkExpression);
-        set(9, columnList);
-        set(10, remarks);
-        set(11, sql);
-        set(12, id);
+        setConstraintCatalog(constraintCatalog);
+        setConstraintSchema(constraintSchema);
+        setConstraintName(constraintName);
+        setConstraintType(constraintType);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setUniqueIndexName(uniqueIndexName);
+        setCheckExpression(checkExpression);
+        setColumnList(columnList);
+        setRemarks(remarks);
+        setSql(sql);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised ConstraintsRecord
+     */
+    public ConstraintsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Constraints value) {
+        super(Constraints.CONSTRAINTS);
+
+        if (value != null) {
+            setConstraintCatalog(value.getConstraintCatalog());
+            setConstraintSchema(value.getConstraintSchema());
+            setConstraintName(value.getConstraintName());
+            setConstraintType(value.getConstraintType());
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setUniqueIndexName(value.getUniqueIndexName());
+            setCheckExpression(value.getCheckExpression());
+            setColumnList(value.getColumnList());
+            setRemarks(value.getRemarks());
+            setSql(value.getSql());
+            setId(value.getId());
+        }
     }
 }

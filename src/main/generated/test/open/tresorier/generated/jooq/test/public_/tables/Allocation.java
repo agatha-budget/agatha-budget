@@ -24,6 +24,7 @@ import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -33,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation extends TableImpl<AllocationRecord> {
 
-    private static final long serialVersionUID = 375893924;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>PUBLIC.ALLOCATION</code>
@@ -51,23 +52,24 @@ public class Allocation extends TableImpl<AllocationRecord> {
     /**
      * The column <code>PUBLIC.ALLOCATION.CATEGORY_ID</code>.
      */
-    public final TableField<AllocationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<AllocationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.ALLOCATION.MONTH</code>.
      */
-    public final TableField<AllocationRecord, Integer> MONTH = createField(DSL.name("MONTH"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<AllocationRecord, Integer> MONTH = createField(DSL.name("MONTH"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.ALLOCATION.AMOUNT</code>.
      */
-    public final TableField<AllocationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<AllocationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.field("0", SQLDataType.INTEGER)), this, "");
 
-    /**
-     * Create a <code>PUBLIC.ALLOCATION</code> table reference
-     */
-    public Allocation() {
-        this(DSL.name("ALLOCATION"), null);
+    private Allocation(Name alias, Table<AllocationRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Allocation(Name alias, Table<AllocationRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -84,12 +86,11 @@ public class Allocation extends TableImpl<AllocationRecord> {
         this(alias, ALLOCATION);
     }
 
-    private Allocation(Name alias, Table<AllocationRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Allocation(Name alias, Table<AllocationRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>PUBLIC.ALLOCATION</code> table reference
+     */
+    public Allocation() {
+        this(DSL.name("ALLOCATION"), null);
     }
 
     public <O extends Record> Allocation(Table<O> child, ForeignKey<O, AllocationRecord> key) {
@@ -98,7 +99,7 @@ public class Allocation extends TableImpl<AllocationRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -107,24 +108,27 @@ public class Allocation extends TableImpl<AllocationRecord> {
     }
 
     @Override
-    public List<UniqueKey<AllocationRecord>> getKeys() {
-        return Arrays.<UniqueKey<AllocationRecord>>asList(Keys.COMPOSITE_ID);
-    }
-
-    @Override
     public List<ForeignKey<AllocationRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<AllocationRecord, ?>>asList(Keys.CONSTRAINT_A);
+        return Arrays.asList(Keys.CONSTRAINT_A);
     }
 
+    private transient Category _category;
+
+    /**
+     * Get the implicit join path to the <code>PUBLIC.CATEGORY</code> table.
+     */
     public Category category() {
-        return new Category(this, Keys.CONSTRAINT_A);
+        if (_category == null)
+            _category = new Category(this, Keys.CONSTRAINT_A);
+
+        return _category;
     }
 
     @Override
     public List<Check<AllocationRecord>> getChecks() {
-        return Arrays.<Check<AllocationRecord>>asList(
-              Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_ALLOCATION"), "((\"MONTH\" % 100) < 13)", true)
-            , Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_ALLOCATION"), "((\"MONTH\" % 100) > 0)", true)
+        return Arrays.asList(
+            Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_ALLOCATION"), "((\"MONTH\" % 100) < 13)", true),
+            Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_ALLOCATION"), "((\"MONTH\" % 100) > 0)", true)
         );
     }
 

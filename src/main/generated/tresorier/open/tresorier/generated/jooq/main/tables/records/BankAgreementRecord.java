@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord> implements Record7<String, String, String, Long, String, Boolean, Boolean> {
 
-    private static final long serialVersionUID = 1584904869;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.bank_agreement.id</code>.
@@ -325,12 +325,29 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
     public BankAgreementRecord(String id, String budgetId, String bankId, Long timestamp, String nordigenRequisitionId, Boolean archived, Boolean deleted) {
         super(BankAgreement.BANK_AGREEMENT);
 
-        set(0, id);
-        set(1, budgetId);
-        set(2, bankId);
-        set(3, timestamp);
-        set(4, nordigenRequisitionId);
-        set(5, archived);
-        set(6, deleted);
+        setId(id);
+        setBudgetId(budgetId);
+        setBankId(bankId);
+        setTimestamp(timestamp);
+        setNordigenRequisitionId(nordigenRequisitionId);
+        setArchived(archived);
+        setDeleted(deleted);
+    }
+
+    /**
+     * Create a detached, initialised BankAgreementRecord
+     */
+    public BankAgreementRecord(open.tresorier.generated.jooq.main.tables.pojos.BankAgreement value) {
+        super(BankAgreement.BANK_AGREEMENT);
+
+        if (value != null) {
+            setId(value.getId());
+            setBudgetId(value.getBudgetId());
+            setBankId(value.getBankId());
+            setTimestamp(value.getTimestamp());
+            setNordigenRequisitionId(value.getNordigenRequisitionId());
+            setArchived(value.getArchived());
+            setDeleted(value.getDeleted());
+        }
     }
 }

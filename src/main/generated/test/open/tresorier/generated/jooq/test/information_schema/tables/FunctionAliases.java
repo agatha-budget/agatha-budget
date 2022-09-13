@@ -17,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,10 +27,11 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FunctionAliases extends TableImpl<FunctionAliasesRecord> {
 
-    private static final long serialVersionUID = 1021809798;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code>
+     * The reference instance of
+     * <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code>
      */
     public static final FunctionAliases FUNCTION_ALIASES = new FunctionAliases();
 
@@ -42,85 +44,66 @@ public class FunctionAliases extends TableImpl<FunctionAliasesRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_CATALOG</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_CATALOG</code>.
      */
-    public final TableField<FunctionAliasesRecord, String> ALIAS_CATALOG = createField(DSL.name("ALIAS_CATALOG"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<FunctionAliasesRecord, String> ALIAS_CATALOG = createField(DSL.name("ALIAS_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_SCHEMA</code>.
      */
-    public final TableField<FunctionAliasesRecord, String> ALIAS_SCHEMA = createField(DSL.name("ALIAS_SCHEMA"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<FunctionAliasesRecord, String> ALIAS_SCHEMA = createField(DSL.name("ALIAS_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_NAME</code>.
      */
-    public final TableField<FunctionAliasesRecord, String> ALIAS_NAME = createField(DSL.name("ALIAS_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<FunctionAliasesRecord, String> ALIAS_NAME = createField(DSL.name("ALIAS_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.JAVA_CLASS</code>.
      */
-    public final TableField<FunctionAliasesRecord, String> JAVA_CLASS = createField(DSL.name("JAVA_CLASS"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<FunctionAliasesRecord, String> JAVA_CLASS = createField(DSL.name("JAVA_CLASS"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.JAVA_METHOD</code>.
      */
-    public final TableField<FunctionAliasesRecord, String> JAVA_METHOD = createField(DSL.name("JAVA_METHOD"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<FunctionAliasesRecord, String> JAVA_METHOD = createField(DSL.name("JAVA_METHOD"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.DATA_TYPE</code>.
      */
-    public final TableField<FunctionAliasesRecord, Integer> DATA_TYPE = createField(DSL.name("DATA_TYPE"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<FunctionAliasesRecord, Integer> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.TYPE_NAME</code>.
      */
-    public final TableField<FunctionAliasesRecord, String> TYPE_NAME = createField(DSL.name("TYPE_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<FunctionAliasesRecord, String> TYPE_NAME = createField(DSL.name("TYPE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.COLUMN_COUNT</code>.
      */
-    public final TableField<FunctionAliasesRecord, Integer> COLUMN_COUNT = createField(DSL.name("COLUMN_COUNT"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<FunctionAliasesRecord, Integer> COLUMN_COUNT = createField(DSL.name("COLUMN_COUNT"), SQLDataType.INTEGER, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.RETURNS_RESULT</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.RETURNS_RESULT</code>.
      */
-    public final TableField<FunctionAliasesRecord, Short> RETURNS_RESULT = createField(DSL.name("RETURNS_RESULT"), org.jooq.impl.SQLDataType.SMALLINT, this, "");
+    public final TableField<FunctionAliasesRecord, Short> RETURNS_RESULT = createField(DSL.name("RETURNS_RESULT"), SQLDataType.SMALLINT, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.REMARKS</code>.
      */
-    public final TableField<FunctionAliasesRecord, String> REMARKS = createField(DSL.name("REMARKS"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<FunctionAliasesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ID</code>.
      */
-    public final TableField<FunctionAliasesRecord, Integer> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<FunctionAliasesRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.SOURCE</code>.
      */
-    public final TableField<FunctionAliasesRecord, String> SOURCE = createField(DSL.name("SOURCE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * Create a <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code> table reference
-     */
-    public FunctionAliases() {
-        this(DSL.name("FUNCTION_ALIASES"), null);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code> table reference
-     */
-    public FunctionAliases(String alias) {
-        this(DSL.name(alias), FUNCTION_ALIASES);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code> table reference
-     */
-    public FunctionAliases(Name alias) {
-        this(alias, FUNCTION_ALIASES);
-    }
+    public final TableField<FunctionAliasesRecord, String> SOURCE = createField(DSL.name("SOURCE"), SQLDataType.VARCHAR(2147483647), this, "");
 
     private FunctionAliases(Name alias, Table<FunctionAliasesRecord> aliased) {
         this(alias, aliased, null);
@@ -130,13 +113,36 @@ public class FunctionAliases extends TableImpl<FunctionAliasesRecord> {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code> table
+     * reference
+     */
+    public FunctionAliases(String alias) {
+        this(DSL.name(alias), FUNCTION_ALIASES);
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code> table
+     * reference
+     */
+    public FunctionAliases(Name alias) {
+        this(alias, FUNCTION_ALIASES);
+    }
+
+    /**
+     * Create a <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code> table reference
+     */
+    public FunctionAliases() {
+        this(DSL.name("FUNCTION_ALIASES"), null);
+    }
+
     public <O extends Record> FunctionAliases(Table<O> child, ForeignKey<O, FunctionAliasesRecord> key) {
         super(child, key, FUNCTION_ALIASES);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override

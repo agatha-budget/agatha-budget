@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ReferentialConstraints implements Serializable {
 
-    private static final long serialVersionUID = -190123996;
+    private static final long serialVersionUID = 1L;
 
     private final String constraintCatalog;
     private final String constraintSchema;
@@ -59,38 +59,74 @@ public class ReferentialConstraints implements Serializable {
         this.deleteRule = deleteRule;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     */
     public String getConstraintCatalog() {
         return this.constraintCatalog;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
+     */
     public String getConstraintSchema() {
         return this.constraintSchema;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_NAME</code>.
+     */
     public String getConstraintName() {
         return this.constraintName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_CATALOG</code>.
+     */
     public String getUniqueConstraintCatalog() {
         return this.uniqueConstraintCatalog;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_SCHEMA</code>.
+     */
     public String getUniqueConstraintSchema() {
         return this.uniqueConstraintSchema;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_NAME</code>.
+     */
     public String getUniqueConstraintName() {
         return this.uniqueConstraintName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.MATCH_OPTION</code>.
+     */
     public String getMatchOption() {
         return this.matchOption;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UPDATE_RULE</code>.
+     */
     public String getUpdateRule() {
         return this.updateRule;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.DELETE_RULE</code>.
+     */
     public String getDeleteRule() {
         return this.deleteRule;
     }

@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SchemataRecord extends TableRecordImpl<SchemataRecord> implements Record8<String, String, String, String, String, Boolean, String, Integer> {
 
-    private static final long serialVersionUID = -1052361019;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.SCHEMATA.CATALOG_NAME</code>.
@@ -66,7 +66,8 @@ public class SchemataRecord extends TableRecordImpl<SchemataRecord> implements R
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_NAME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_NAME</code>.
      */
     public SchemataRecord setDefaultCharacterSetName(String value) {
         set(3, value);
@@ -74,14 +75,16 @@ public class SchemataRecord extends TableRecordImpl<SchemataRecord> implements R
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_NAME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_NAME</code>.
      */
     public String getDefaultCharacterSetName() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_COLLATION_NAME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_COLLATION_NAME</code>.
      */
     public SchemataRecord setDefaultCollationName(String value) {
         set(4, value);
@@ -89,7 +92,8 @@ public class SchemataRecord extends TableRecordImpl<SchemataRecord> implements R
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_COLLATION_NAME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_COLLATION_NAME</code>.
      */
     public String getDefaultCollationName() {
         return (String) get(4);
@@ -352,13 +356,31 @@ public class SchemataRecord extends TableRecordImpl<SchemataRecord> implements R
     public SchemataRecord(String catalogName, String schemaName, String schemaOwner, String defaultCharacterSetName, String defaultCollationName, Boolean isDefault, String remarks, Integer id) {
         super(Schemata.SCHEMATA);
 
-        set(0, catalogName);
-        set(1, schemaName);
-        set(2, schemaOwner);
-        set(3, defaultCharacterSetName);
-        set(4, defaultCollationName);
-        set(5, isDefault);
-        set(6, remarks);
-        set(7, id);
+        setCatalogName(catalogName);
+        setSchemaName(schemaName);
+        setSchemaOwner(schemaOwner);
+        setDefaultCharacterSetName(defaultCharacterSetName);
+        setDefaultCollationName(defaultCollationName);
+        setIsDefault(isDefault);
+        setRemarks(remarks);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised SchemataRecord
+     */
+    public SchemataRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Schemata value) {
+        super(Schemata.SCHEMATA);
+
+        if (value != null) {
+            setCatalogName(value.getCatalogName());
+            setSchemaName(value.getSchemaName());
+            setSchemaOwner(value.getSchemaOwner());
+            setDefaultCharacterSetName(value.getDefaultCharacterSetName());
+            setDefaultCollationName(value.getDefaultCollationName());
+            setIsDefault(value.getIsDefault());
+            setRemarks(value.getRemarks());
+            setId(value.getId());
+        }
     }
 }

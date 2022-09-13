@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class LocksRecord extends TableRecordImpl<LocksRecord> implements Record4<String, String, Integer, String> {
 
-    private static final long serialVersionUID = -776706494;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.LOCKS.TABLE_SCHEMA</code>.
@@ -204,9 +204,23 @@ public class LocksRecord extends TableRecordImpl<LocksRecord> implements Record4
     public LocksRecord(String tableSchema, String tableName, Integer sessionId, String lockType) {
         super(Locks.LOCKS);
 
-        set(0, tableSchema);
-        set(1, tableName);
-        set(2, sessionId);
-        set(3, lockType);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setSessionId(sessionId);
+        setLockType(lockType);
+    }
+
+    /**
+     * Create a detached, initialised LocksRecord
+     */
+    public LocksRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Locks value) {
+        super(Locks.LOCKS);
+
+        if (value != null) {
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setSessionId(value.getSessionId());
+            setLockType(value.getLockType());
+        }
     }
 }

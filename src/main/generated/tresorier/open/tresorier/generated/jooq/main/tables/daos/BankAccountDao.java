@@ -5,6 +5,7 @@ package open.tresorier.generated.jooq.main.tables.daos;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import open.tresorier.generated.jooq.main.tables.BankAccount;
 import open.tresorier.generated.jooq.main.tables.records.BankAccountRecord;
@@ -39,7 +40,8 @@ public class BankAccountDao extends DAOImpl<BankAccountRecord, open.tresorier.ge
     }
 
     /**
-     * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>id BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.BankAccount> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(BankAccount.BANK_ACCOUNT.ID, lowerInclusive, upperInclusive);
@@ -60,7 +62,15 @@ public class BankAccountDao extends DAOImpl<BankAccountRecord, open.tresorier.ge
     }
 
     /**
-     * Fetch records that have <code>name BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>id = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.main.tables.pojos.BankAccount> fetchOptionalById(String value) {
+        return fetchOptional(BankAccount.BANK_ACCOUNT.ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>name BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.BankAccount> fetchRangeOfName(String lowerInclusive, String upperInclusive) {
         return fetchRange(BankAccount.BANK_ACCOUNT.NAME, lowerInclusive, upperInclusive);
@@ -74,7 +84,8 @@ public class BankAccountDao extends DAOImpl<BankAccountRecord, open.tresorier.ge
     }
 
     /**
-     * Fetch records that have <code>agreement_id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>agreement_id BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.BankAccount> fetchRangeOfAgreementId(String lowerInclusive, String upperInclusive) {
         return fetchRange(BankAccount.BANK_ACCOUNT.AGREEMENT_ID, lowerInclusive, upperInclusive);
@@ -88,7 +99,8 @@ public class BankAccountDao extends DAOImpl<BankAccountRecord, open.tresorier.ge
     }
 
     /**
-     * Fetch records that have <code>deleted BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>deleted BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.BankAccount> fetchRangeOfDeleted(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(BankAccount.BANK_ACCOUNT.DELETED, lowerInclusive, upperInclusive);

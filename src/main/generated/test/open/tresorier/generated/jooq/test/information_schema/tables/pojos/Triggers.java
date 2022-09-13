@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Triggers implements Serializable {
 
-    private static final long serialVersionUID = -1037816037;
+    private static final long serialVersionUID = 1L;
 
     private final String  triggerCatalog;
     private final String  triggerSchema;
@@ -79,58 +79,100 @@ public class Triggers implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_CATALOG</code>.
+     */
     public String getTriggerCatalog() {
         return this.triggerCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_SCHEMA</code>.
+     */
     public String getTriggerSchema() {
         return this.triggerSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_NAME</code>.
+     */
     public String getTriggerName() {
         return this.triggerName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_TYPE</code>.
+     */
     public String getTriggerType() {
         return this.triggerType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.BEFORE</code>.
+     */
     public Boolean getBefore() {
         return this.before;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.JAVA_CLASS</code>.
+     */
     public String getJavaClass() {
         return this.javaClass;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.QUEUE_SIZE</code>.
+     */
     public Integer getQueueSize() {
         return this.queueSize;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.NO_WAIT</code>.
+     */
     public Boolean getNoWait() {
         return this.noWait;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.SQL</code>.
+     */
     public String getSql() {
         return this.sql;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

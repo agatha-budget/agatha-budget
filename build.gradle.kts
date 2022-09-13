@@ -37,17 +37,17 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "1.6.21"
+    kotlin("jvm") version "1.4.10"
     id("org.jetbrains.dokka") version "1.4.0-rc"
     id("org.flywaydb.flyway") version "7.5.3"
-    id("nu.studer.jooq") version "6.+"
+    id("nu.studer.jooq") version "7.+"
     jacoco
     application
 }
 
 repositories {
     mavenCentral();
-    jcenter()
+    jcenter() // deprecated in Gradle 8 but necessary for supertoken javalin API
 }
 
 val generatedDir = "src/main/generated"
@@ -84,7 +84,7 @@ val koin_version= "3.0.1-beta-2"
 val junit_version="5.1.1"
 val postgres_version="42.2.12"
 val h2_version="1.4.200"
-val jooq_version="3.16.4"
+val jooq_version="3.17.4"
 val mock_version="1.10.5"
 val slf4j_version="1.7.30"
 val logback_version="1.2.3"
@@ -229,18 +229,6 @@ jooq {
                      database.apply {
                          name = "org.jooq.meta.postgres.PostgresDatabase"
                          inputSchema = "public"
-                         forcedTypes.addAll(
-                             arrayOf(
-                                 ForcedType()
-                                     .withName("varchar")
-                                     .withIncludeExpression(".*")
-                                     .withIncludeTypes("JSONB?"),
-                                 ForcedType()
-                                     .withName("varchar")
-                                     .withIncludeExpression(".*")
-                                     .withIncludeTypes("INET")
-                             ).toList()
-                         )
                      }
                      generate.apply {
                          isDeprecated = false
@@ -271,18 +259,6 @@ jooq {
                     name = "org.jooq.codegen.JavaGenerator"
                     database.apply {
                         name = "org.jooq.meta.h2.H2Database"
-                        forcedTypes.addAll(
-                            arrayOf(
-                                ForcedType()
-                                    .withName("varchar")
-                                    .withIncludeExpression(".*")
-                                    .withIncludeTypes("JSONB?"),
-                                ForcedType()
-                                    .withName("varchar")
-                                    .withIncludeExpression(".*")
-                                    .withIncludeTypes("INET")
-                            ).toList()
-                        )
                     }
                     generate.apply {
                         isDeprecated = false

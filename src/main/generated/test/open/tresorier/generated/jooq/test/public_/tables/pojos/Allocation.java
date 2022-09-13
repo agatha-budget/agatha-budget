@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Allocation implements Serializable {
 
-    private static final long serialVersionUID = 1377942493;
+    private static final long serialVersionUID = 1L;
 
     private final String  categoryId;
     private final Integer month;
@@ -35,14 +35,23 @@ public class Allocation implements Serializable {
         this.amount = amount;
     }
 
+    /**
+     * Getter for <code>PUBLIC.ALLOCATION.CATEGORY_ID</code>.
+     */
     public String getCategoryId() {
         return this.categoryId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.ALLOCATION.MONTH</code>.
+     */
     public Integer getMonth() {
         return this.month;
     }
 
+    /**
+     * Getter for <code>PUBLIC.ALLOCATION.AMOUNT</code>.
+     */
     public Integer getAmount() {
         return this.amount;
     }

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SessionState implements Serializable {
 
-    private static final long serialVersionUID = 756569971;
+    private static final long serialVersionUID = 1L;
 
     private final String key;
     private final String sql;
@@ -31,10 +31,16 @@ public class SessionState implements Serializable {
         this.sql = sql;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.KEY</code>.
+     */
     public String getKey() {
         return this.key;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.SQL</code>.
+     */
     public String getSql() {
         return this.sql;
     }

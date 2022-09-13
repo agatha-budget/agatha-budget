@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class RolesRecord extends TableRecordImpl<RolesRecord> implements Record3<String, String, Integer> {
 
-    private static final long serialVersionUID = -66070619;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.ROLES.NAME</code>.
@@ -167,8 +167,21 @@ public class RolesRecord extends TableRecordImpl<RolesRecord> implements Record3
     public RolesRecord(String name, String remarks, Integer id) {
         super(Roles.ROLES);
 
-        set(0, name);
-        set(1, remarks);
-        set(2, id);
+        setName(name);
+        setRemarks(remarks);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised RolesRecord
+     */
+    public RolesRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Roles value) {
+        super(Roles.ROLES);
+
+        if (value != null) {
+            setName(value.getName());
+            setRemarks(value.getRemarks());
+            setId(value.getId());
+        }
     }
 }

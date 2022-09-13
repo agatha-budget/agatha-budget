@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Rights implements Serializable {
 
-    private static final long serialVersionUID = 360243339;
+    private static final long serialVersionUID = 1L;
 
     private final String  grantee;
     private final String  granteetype;
@@ -51,30 +51,51 @@ public class Rights implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.GRANTEE</code>.
+     */
     public String getGrantee() {
         return this.grantee;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.GRANTEETYPE</code>.
+     */
     public String getGranteetype() {
         return this.granteetype;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.GRANTEDROLE</code>.
+     */
     public String getGrantedrole() {
         return this.grantedrole;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.RIGHTS</code>.
+     */
     public String getRights() {
         return this.rights;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

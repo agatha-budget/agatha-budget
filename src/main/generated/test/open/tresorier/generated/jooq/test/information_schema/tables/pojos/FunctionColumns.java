@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FunctionColumns implements Serializable {
 
-    private static final long serialVersionUID = -1429398025;
+    private static final long serialVersionUID = 1L;
 
     private final String  aliasCatalog;
     private final String  aliasSchema;
@@ -91,70 +91,123 @@ public class FunctionColumns implements Serializable {
         this.columnDefault = columnDefault;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.ALIAS_CATALOG</code>.
+     */
     public String getAliasCatalog() {
         return this.aliasCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.ALIAS_SCHEMA</code>.
+     */
     public String getAliasSchema() {
         return this.aliasSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.ALIAS_NAME</code>.
+     */
     public String getAliasName() {
         return this.aliasName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.JAVA_CLASS</code>.
+     */
     public String getJavaClass() {
         return this.javaClass;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.JAVA_METHOD</code>.
+     */
     public String getJavaMethod() {
         return this.javaMethod;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.COLUMN_COUNT</code>.
+     */
     public Integer getColumnCount() {
         return this.columnCount;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.POS</code>.
+     */
     public Integer getPos() {
         return this.pos;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.COLUMN_NAME</code>.
+     */
     public String getColumnName() {
         return this.columnName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.DATA_TYPE</code>.
+     */
     public Integer getDataType() {
         return this.dataType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.TYPE_NAME</code>.
+     */
     public String getTypeName() {
         return this.typeName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.PRECISION</code>.
+     */
     public Integer getPrecision() {
         return this.precision;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.SCALE</code>.
+     */
     public Short getScale() {
         return this.scale;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.RADIX</code>.
+     */
     public Short getRadix() {
         return this.radix;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.NULLABLE</code>.
+     */
     public Short getNullable() {
         return this.nullable;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.COLUMN_TYPE</code>.
+     */
     public Short getColumnType() {
         return this.columnType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.COLUMN_DEFAULT</code>.
+     */
     public String getColumnDefault() {
         return this.columnDefault;
     }

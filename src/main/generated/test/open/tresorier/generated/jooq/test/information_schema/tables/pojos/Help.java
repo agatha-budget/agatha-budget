@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Help implements Serializable {
 
-    private static final long serialVersionUID = 502343099;
+    private static final long serialVersionUID = 1L;
 
     private final Integer id;
     private final String  section;
@@ -43,22 +43,37 @@ public class Help implements Serializable {
         this.text = text;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.HELP.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.HELP.SECTION</code>.
+     */
     public String getSection() {
         return this.section;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.HELP.TOPIC</code>.
+     */
     public String getTopic() {
         return this.topic;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.HELP.SYNTAX</code>.
+     */
     public String getSyntax() {
         return this.syntax;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.HELP.TEXT</code>.
+     */
     public String getText() {
         return this.text;
     }

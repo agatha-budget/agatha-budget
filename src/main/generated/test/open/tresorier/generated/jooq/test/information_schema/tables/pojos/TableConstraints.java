@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TableConstraints implements Serializable {
 
-    private static final long serialVersionUID = -2040587224;
+    private static final long serialVersionUID = 1L;
 
     private final String constraintCatalog;
     private final String constraintSchema;
@@ -59,38 +59,73 @@ public class TableConstraints implements Serializable {
         this.initiallyDeferred = initiallyDeferred;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     */
     public String getConstraintCatalog() {
         return this.constraintCatalog;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
+     */
     public String getConstraintSchema() {
         return this.constraintSchema;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_NAME</code>.
+     */
     public String getConstraintName() {
         return this.constraintName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_TYPE</code>.
+     */
     public String getConstraintType() {
         return this.constraintType;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.IS_DEFERRABLE</code>.
+     */
     public String getIsDeferrable() {
         return this.isDeferrable;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INITIALLY_DEFERRED</code>.
+     */
     public String getInitiallyDeferred() {
         return this.initiallyDeferred;
     }

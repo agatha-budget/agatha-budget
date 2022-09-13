@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Synonyms implements Serializable {
 
-    private static final long serialVersionUID = 685533529;
+    private static final long serialVersionUID = 1L;
 
     private final String  synonymCatalog;
     private final String  synonymSchema;
@@ -59,38 +59,65 @@ public class Synonyms implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_CATALOG</code>.
+     */
     public String getSynonymCatalog() {
         return this.synonymCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_SCHEMA</code>.
+     */
     public String getSynonymSchema() {
         return this.synonymSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_NAME</code>.
+     */
     public String getSynonymName() {
         return this.synonymName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_FOR</code>.
+     */
     public String getSynonymFor() {
         return this.synonymFor;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_FOR_SCHEMA</code>.
+     */
     public String getSynonymForSchema() {
         return this.synonymForSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.TYPE_NAME</code>.
+     */
     public String getTypeName() {
         return this.typeName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.STATUS</code>.
+     */
     public String getStatus() {
         return this.status;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

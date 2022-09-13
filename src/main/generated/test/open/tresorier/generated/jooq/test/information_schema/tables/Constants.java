@@ -17,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Constants extends TableImpl<ConstantsRecord> {
 
-    private static final long serialVersionUID = -317474722;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.CONSTANTS</code>
@@ -44,58 +45,37 @@ public class Constants extends TableImpl<ConstantsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_CATALOG</code>.
      */
-    public final TableField<ConstantsRecord, String> CONSTANT_CATALOG = createField(DSL.name("CONSTANT_CATALOG"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ConstantsRecord, String> CONSTANT_CATALOG = createField(DSL.name("CONSTANT_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_SCHEMA</code>.
      */
-    public final TableField<ConstantsRecord, String> CONSTANT_SCHEMA = createField(DSL.name("CONSTANT_SCHEMA"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ConstantsRecord, String> CONSTANT_SCHEMA = createField(DSL.name("CONSTANT_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_NAME</code>.
      */
-    public final TableField<ConstantsRecord, String> CONSTANT_NAME = createField(DSL.name("CONSTANT_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ConstantsRecord, String> CONSTANT_NAME = createField(DSL.name("CONSTANT_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.DATA_TYPE</code>.
      */
-    public final TableField<ConstantsRecord, Integer> DATA_TYPE = createField(DSL.name("DATA_TYPE"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<ConstantsRecord, Integer> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.REMARKS</code>.
      */
-    public final TableField<ConstantsRecord, String> REMARKS = createField(DSL.name("REMARKS"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ConstantsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.SQL</code>.
      */
-    public final TableField<ConstantsRecord, String> SQL = createField(DSL.name("SQL"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ConstantsRecord, String> SQL = createField(DSL.name("SQL"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.ID</code>.
      */
-    public final TableField<ConstantsRecord, Integer> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
-
-    /**
-     * Create a <code>INFORMATION_SCHEMA.CONSTANTS</code> table reference
-     */
-    public Constants() {
-        this(DSL.name("CONSTANTS"), null);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.CONSTANTS</code> table reference
-     */
-    public Constants(String alias) {
-        this(DSL.name(alias), CONSTANTS);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.CONSTANTS</code> table reference
-     */
-    public Constants(Name alias) {
-        this(alias, CONSTANTS);
-    }
+    public final TableField<ConstantsRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
 
     private Constants(Name alias, Table<ConstantsRecord> aliased) {
         this(alias, aliased, null);
@@ -105,13 +85,36 @@ public class Constants extends TableImpl<ConstantsRecord> {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.CONSTANTS</code> table
+     * reference
+     */
+    public Constants(String alias) {
+        this(DSL.name(alias), CONSTANTS);
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.CONSTANTS</code> table
+     * reference
+     */
+    public Constants(Name alias) {
+        this(alias, CONSTANTS);
+    }
+
+    /**
+     * Create a <code>INFORMATION_SCHEMA.CONSTANTS</code> table reference
+     */
+    public Constants() {
+        this(DSL.name("CONSTANTS"), null);
+    }
+
     public <O extends Record> Constants(Table<O> child, ForeignKey<O, ConstantsRecord> key) {
         super(child, key, CONSTANTS);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override

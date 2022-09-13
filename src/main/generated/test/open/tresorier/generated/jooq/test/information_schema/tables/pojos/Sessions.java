@@ -14,7 +14,7 @@ import java.time.OffsetDateTime;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sessions implements Serializable {
 
-    private static final long serialVersionUID = -170983991;
+    private static final long serialVersionUID = 1L;
 
     private final Integer        id;
     private final String         userName;
@@ -72,50 +72,86 @@ public class Sessions implements Serializable {
         this.blockerId = blockerId;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.USER_NAME</code>.
+     */
     public String getUserName() {
         return this.userName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SERVER</code>.
+     */
     public String getServer() {
         return this.server;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_ADDR</code>.
+     */
     public String getClientAddr() {
         return this.clientAddr;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_INFO</code>.
+     */
     public String getClientInfo() {
         return this.clientInfo;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SESSION_START</code>.
+     */
     public OffsetDateTime getSessionStart() {
         return this.sessionStart;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.ISOLATION_LEVEL</code>.
+     */
     public String getIsolationLevel() {
         return this.isolationLevel;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.STATEMENT</code>.
+     */
     public String getStatement() {
         return this.statement;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.STATEMENT_START</code>.
+     */
     public OffsetDateTime getStatementStart() {
         return this.statementStart;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.CONTAINS_UNCOMMITTED</code>.
+     */
     public Boolean getContainsUncommitted() {
         return this.containsUncommitted;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.STATE</code>.
+     */
     public String getState() {
         return this.state;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.BLOCKER_ID</code>.
+     */
     public Integer getBlockerId() {
         return this.blockerId;
     }

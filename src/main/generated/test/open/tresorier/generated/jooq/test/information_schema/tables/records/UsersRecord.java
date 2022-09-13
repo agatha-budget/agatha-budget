@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UsersRecord extends TableRecordImpl<UsersRecord> implements Record4<String, String, String, Integer> {
 
-    private static final long serialVersionUID = -1205441938;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.USERS.NAME</code>.
@@ -204,9 +204,23 @@ public class UsersRecord extends TableRecordImpl<UsersRecord> implements Record4
     public UsersRecord(String name, String admin, String remarks, Integer id) {
         super(Users.USERS);
 
-        set(0, name);
-        set(1, admin);
-        set(2, remarks);
-        set(3, id);
+        setName(name);
+        setAdmin(admin);
+        setRemarks(remarks);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised UsersRecord
+     */
+    public UsersRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Users value) {
+        super(Users.USERS);
+
+        if (value != null) {
+            setName(value.getName());
+            setAdmin(value.getAdmin());
+            setRemarks(value.getRemarks());
+            setId(value.getId());
+        }
     }
 }

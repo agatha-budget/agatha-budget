@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Category implements Serializable {
 
-    private static final long serialVersionUID = -1569802160;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  masterCategoryId;
@@ -43,22 +43,37 @@ public class Category implements Serializable {
         this.deleted = deleted;
     }
 
+    /**
+     * Getter for <code>PUBLIC.CATEGORY.ID</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>PUBLIC.CATEGORY.MASTER_CATEGORY_ID</code>.
+     */
     public String getMasterCategoryId() {
         return this.masterCategoryId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.CATEGORY.NAME</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>PUBLIC.CATEGORY.ARCHIVED</code>.
+     */
     public Boolean getArchived() {
         return this.archived;
     }
 
+    /**
+     * Getter for <code>PUBLIC.CATEGORY.DELETED</code>.
+     */
     public Boolean getDeleted() {
         return this.deleted;
     }

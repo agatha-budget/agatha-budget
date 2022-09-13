@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FlywaySchemaHistory implements Serializable {
 
-    private static final long serialVersionUID = 1978032370;
+    private static final long serialVersionUID = 1L;
 
     private final Integer       installedRank;
     private final String        version;
@@ -64,42 +64,72 @@ public class FlywaySchemaHistory implements Serializable {
         this.success = success;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.installed_rank</code>.
+     */
     public Integer getInstalledRank() {
         return this.installedRank;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.version</code>.
+     */
     public String getVersion() {
         return this.version;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.description</code>.
+     */
     public String getDescription() {
         return this.description;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.type</code>.
+     */
     public String getType() {
         return this.type;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.script</code>.
+     */
     public String getScript() {
         return this.script;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.checksum</code>.
+     */
     public Integer getChecksum() {
         return this.checksum;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.installed_by</code>.
+     */
     public String getInstalledBy() {
         return this.installedBy;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.installed_on</code>.
+     */
     public LocalDateTime getInstalledOn() {
         return this.installedOn;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.execution_time</code>.
+     */
     public Integer getExecutionTime() {
         return this.executionTime;
     }
 
+    /**
+     * Getter for <code>PUBLIC.flyway_schema_history.success</code>.
+     */
     public Boolean getSuccess() {
         return this.success;
     }

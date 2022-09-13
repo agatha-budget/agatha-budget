@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SequencesRecord extends TableRecordImpl<SequencesRecord> implements Record12<String, String, String, Long, Long, Boolean, String, Long, Long, Long, Boolean, Integer> {
 
-    private static final long serialVersionUID = -939610405;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_CATALOG</code>.
@@ -500,17 +500,39 @@ public class SequencesRecord extends TableRecordImpl<SequencesRecord> implements
     public SequencesRecord(String sequenceCatalog, String sequenceSchema, String sequenceName, Long currentValue, Long increment, Boolean isGenerated, String remarks, Long cache, Long minValue, Long maxValue, Boolean isCycle, Integer id) {
         super(Sequences.SEQUENCES);
 
-        set(0, sequenceCatalog);
-        set(1, sequenceSchema);
-        set(2, sequenceName);
-        set(3, currentValue);
-        set(4, increment);
-        set(5, isGenerated);
-        set(6, remarks);
-        set(7, cache);
-        set(8, minValue);
-        set(9, maxValue);
-        set(10, isCycle);
-        set(11, id);
+        setSequenceCatalog(sequenceCatalog);
+        setSequenceSchema(sequenceSchema);
+        setSequenceName(sequenceName);
+        setCurrentValue(currentValue);
+        setIncrement(increment);
+        setIsGenerated(isGenerated);
+        setRemarks(remarks);
+        setCache(cache);
+        setMinValue(minValue);
+        setMaxValue(maxValue);
+        setIsCycle(isCycle);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised SequencesRecord
+     */
+    public SequencesRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Sequences value) {
+        super(Sequences.SEQUENCES);
+
+        if (value != null) {
+            setSequenceCatalog(value.getSequenceCatalog());
+            setSequenceSchema(value.getSequenceSchema());
+            setSequenceName(value.getSequenceName());
+            setCurrentValue(value.getCurrentValue());
+            setIncrement(value.getIncrement());
+            setIsGenerated(value.getIsGenerated());
+            setRemarks(value.getRemarks());
+            setCache(value.getCache());
+            setMinValue(value.getMinValue());
+            setMaxValue(value.getMaxValue());
+            setIsCycle(value.getIsCycle());
+            setId(value.getId());
+        }
     }
 }

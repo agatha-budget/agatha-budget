@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class HelpRecord extends TableRecordImpl<HelpRecord> implements Record5<Integer, String, String, String, String> {
 
-    private static final long serialVersionUID = -1886189429;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.HELP.ID</code>.
@@ -241,10 +241,25 @@ public class HelpRecord extends TableRecordImpl<HelpRecord> implements Record5<I
     public HelpRecord(Integer id, String section, String topic, String syntax, String text) {
         super(Help.HELP);
 
-        set(0, id);
-        set(1, section);
-        set(2, topic);
-        set(3, syntax);
-        set(4, text);
+        setId(id);
+        setSection(section);
+        setTopic(topic);
+        setSyntax(syntax);
+        setText(text);
+    }
+
+    /**
+     * Create a detached, initialised HelpRecord
+     */
+    public HelpRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Help value) {
+        super(Help.HELP);
+
+        if (value != null) {
+            setId(value.getId());
+            setSection(value.getSection());
+            setTopic(value.getTopic());
+            setSyntax(value.getSyntax());
+            setText(value.getText());
+        }
     }
 }

@@ -18,10 +18,11 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialConstraintsRecord> implements Record9<String, String, String, String, String, String, String, String, String> {
 
-    private static final long serialVersionUID = -339222968;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
      */
     public ReferentialConstraintsRecord setConstraintCatalog(String value) {
         set(0, value);
@@ -29,14 +30,16 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
      */
     public String getConstraintCatalog() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
      */
     public ReferentialConstraintsRecord setConstraintSchema(String value) {
         set(1, value);
@@ -44,14 +47,16 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
      */
     public String getConstraintSchema() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_NAME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_NAME</code>.
      */
     public ReferentialConstraintsRecord setConstraintName(String value) {
         set(2, value);
@@ -59,14 +64,16 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_NAME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_NAME</code>.
      */
     public String getConstraintName() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_CATALOG</code>.
      */
     public ReferentialConstraintsRecord setUniqueConstraintCatalog(String value) {
         set(3, value);
@@ -74,14 +81,16 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_CATALOG</code>.
      */
     public String getUniqueConstraintCatalog() {
         return (String) get(3);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_SCHEMA</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_SCHEMA</code>.
      */
     public ReferentialConstraintsRecord setUniqueConstraintSchema(String value) {
         set(4, value);
@@ -89,14 +98,16 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_SCHEMA</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_SCHEMA</code>.
      */
     public String getUniqueConstraintSchema() {
         return (String) get(4);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_NAME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_NAME</code>.
      */
     public ReferentialConstraintsRecord setUniqueConstraintName(String value) {
         set(5, value);
@@ -104,14 +115,16 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_NAME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_NAME</code>.
      */
     public String getUniqueConstraintName() {
         return (String) get(5);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.MATCH_OPTION</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.MATCH_OPTION</code>.
      */
     public ReferentialConstraintsRecord setMatchOption(String value) {
         set(6, value);
@@ -119,14 +132,16 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.MATCH_OPTION</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.MATCH_OPTION</code>.
      */
     public String getMatchOption() {
         return (String) get(6);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UPDATE_RULE</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UPDATE_RULE</code>.
      */
     public ReferentialConstraintsRecord setUpdateRule(String value) {
         set(7, value);
@@ -134,14 +149,16 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UPDATE_RULE</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UPDATE_RULE</code>.
      */
     public String getUpdateRule() {
         return (String) get(7);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.DELETE_RULE</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.DELETE_RULE</code>.
      */
     public ReferentialConstraintsRecord setDeleteRule(String value) {
         set(8, value);
@@ -149,7 +166,8 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.DELETE_RULE</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.DELETE_RULE</code>.
      */
     public String getDeleteRule() {
         return (String) get(8);
@@ -389,14 +407,33 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
     public ReferentialConstraintsRecord(String constraintCatalog, String constraintSchema, String constraintName, String uniqueConstraintCatalog, String uniqueConstraintSchema, String uniqueConstraintName, String matchOption, String updateRule, String deleteRule) {
         super(ReferentialConstraints.REFERENTIAL_CONSTRAINTS);
 
-        set(0, constraintCatalog);
-        set(1, constraintSchema);
-        set(2, constraintName);
-        set(3, uniqueConstraintCatalog);
-        set(4, uniqueConstraintSchema);
-        set(5, uniqueConstraintName);
-        set(6, matchOption);
-        set(7, updateRule);
-        set(8, deleteRule);
+        setConstraintCatalog(constraintCatalog);
+        setConstraintSchema(constraintSchema);
+        setConstraintName(constraintName);
+        setUniqueConstraintCatalog(uniqueConstraintCatalog);
+        setUniqueConstraintSchema(uniqueConstraintSchema);
+        setUniqueConstraintName(uniqueConstraintName);
+        setMatchOption(matchOption);
+        setUpdateRule(updateRule);
+        setDeleteRule(deleteRule);
+    }
+
+    /**
+     * Create a detached, initialised ReferentialConstraintsRecord
+     */
+    public ReferentialConstraintsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.ReferentialConstraints value) {
+        super(ReferentialConstraints.REFERENTIAL_CONSTRAINTS);
+
+        if (value != null) {
+            setConstraintCatalog(value.getConstraintCatalog());
+            setConstraintSchema(value.getConstraintSchema());
+            setConstraintName(value.getConstraintName());
+            setUniqueConstraintCatalog(value.getUniqueConstraintCatalog());
+            setUniqueConstraintSchema(value.getUniqueConstraintSchema());
+            setUniqueConstraintName(value.getUniqueConstraintName());
+            setMatchOption(value.getMatchOption());
+            setUpdateRule(value.getUpdateRule());
+            setDeleteRule(value.getDeleteRule());
+        }
     }
 }

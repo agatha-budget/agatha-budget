@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class InDoubt implements Serializable {
 
-    private static final long serialVersionUID = -961579619;
+    private static final long serialVersionUID = 1L;
 
     private final String transaction;
     private final String state;
@@ -31,10 +31,16 @@ public class InDoubt implements Serializable {
         this.state = state;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION</code>.
+     */
     public String getTransaction() {
         return this.transaction;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.STATE</code>.
+     */
     public String getState() {
         return this.state;
     }

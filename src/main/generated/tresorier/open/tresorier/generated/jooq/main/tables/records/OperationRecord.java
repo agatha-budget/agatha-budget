@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implements Record13<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String, String, Long> {
 
-    private static final long serialVersionUID = 1506387715;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.operation.id</code>.
@@ -547,18 +547,41 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
     public OperationRecord(String id, String accountId, Integer month, Integer day, String categoryId, String memo, Integer amount, Long orderInDay, Boolean pending, Boolean locked, String motherOperationId, String importIdentifier, Long importTimestamp) {
         super(Operation.OPERATION);
 
-        set(0, id);
-        set(1, accountId);
-        set(2, month);
-        set(3, day);
-        set(4, categoryId);
-        set(5, memo);
-        set(6, amount);
-        set(7, orderInDay);
-        set(8, pending);
-        set(9, locked);
-        set(10, motherOperationId);
-        set(11, importIdentifier);
-        set(12, importTimestamp);
+        setId(id);
+        setAccountId(accountId);
+        setMonth(month);
+        setDay(day);
+        setCategoryId(categoryId);
+        setMemo(memo);
+        setAmount(amount);
+        setOrderInDay(orderInDay);
+        setPending(pending);
+        setLocked(locked);
+        setMotherOperationId(motherOperationId);
+        setImportIdentifier(importIdentifier);
+        setImportTimestamp(importTimestamp);
+    }
+
+    /**
+     * Create a detached, initialised OperationRecord
+     */
+    public OperationRecord(open.tresorier.generated.jooq.main.tables.pojos.Operation value) {
+        super(Operation.OPERATION);
+
+        if (value != null) {
+            setId(value.getId());
+            setAccountId(value.getAccountId());
+            setMonth(value.getMonth());
+            setDay(value.getDay());
+            setCategoryId(value.getCategoryId());
+            setMemo(value.getMemo());
+            setAmount(value.getAmount());
+            setOrderInDay(value.getOrderInDay());
+            setPending(value.getPending());
+            setLocked(value.getLocked());
+            setMotherOperationId(value.getMotherOperationId());
+            setImportIdentifier(value.getImportIdentifier());
+            setImportTimestamp(value.getImportTimestamp());
+        }
     }
 }

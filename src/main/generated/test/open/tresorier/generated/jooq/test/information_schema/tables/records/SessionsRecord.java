@@ -20,7 +20,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SessionsRecord extends TableRecordImpl<SessionsRecord> implements Record12<Integer, String, String, String, String, OffsetDateTime, String, String, OffsetDateTime, Boolean, String, Integer> {
 
-    private static final long serialVersionUID = 151683416;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.SESSIONS.ID</code>.
@@ -502,17 +502,39 @@ public class SessionsRecord extends TableRecordImpl<SessionsRecord> implements R
     public SessionsRecord(Integer id, String userName, String server, String clientAddr, String clientInfo, OffsetDateTime sessionStart, String isolationLevel, String statement, OffsetDateTime statementStart, Boolean containsUncommitted, String state, Integer blockerId) {
         super(Sessions.SESSIONS);
 
-        set(0, id);
-        set(1, userName);
-        set(2, server);
-        set(3, clientAddr);
-        set(4, clientInfo);
-        set(5, sessionStart);
-        set(6, isolationLevel);
-        set(7, statement);
-        set(8, statementStart);
-        set(9, containsUncommitted);
-        set(10, state);
-        set(11, blockerId);
+        setId(id);
+        setUserName(userName);
+        setServer(server);
+        setClientAddr(clientAddr);
+        setClientInfo(clientInfo);
+        setSessionStart(sessionStart);
+        setIsolationLevel(isolationLevel);
+        setStatement(statement);
+        setStatementStart(statementStart);
+        setContainsUncommitted(containsUncommitted);
+        setState(state);
+        setBlockerId(blockerId);
+    }
+
+    /**
+     * Create a detached, initialised SessionsRecord
+     */
+    public SessionsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Sessions value) {
+        super(Sessions.SESSIONS);
+
+        if (value != null) {
+            setId(value.getId());
+            setUserName(value.getUserName());
+            setServer(value.getServer());
+            setClientAddr(value.getClientAddr());
+            setClientInfo(value.getClientInfo());
+            setSessionStart(value.getSessionStart());
+            setIsolationLevel(value.getIsolationLevel());
+            setStatement(value.getStatement());
+            setStatementStart(value.getStatementStart());
+            setContainsUncommitted(value.getContainsUncommitted());
+            setState(value.getState());
+            setBlockerId(value.getBlockerId());
+        }
     }
 }

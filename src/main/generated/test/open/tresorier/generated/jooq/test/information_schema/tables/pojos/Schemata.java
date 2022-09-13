@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Schemata implements Serializable {
 
-    private static final long serialVersionUID = 1369656584;
+    private static final long serialVersionUID = 1L;
 
     private final String  catalogName;
     private final String  schemaName;
@@ -55,34 +55,60 @@ public class Schemata implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.CATALOG_NAME</code>.
+     */
     public String getCatalogName() {
         return this.catalogName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.SCHEMA_NAME</code>.
+     */
     public String getSchemaName() {
         return this.schemaName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.SCHEMA_OWNER</code>.
+     */
     public String getSchemaOwner() {
         return this.schemaOwner;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_NAME</code>.
+     */
     public String getDefaultCharacterSetName() {
         return this.defaultCharacterSetName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_COLLATION_NAME</code>.
+     */
     public String getDefaultCollationName() {
         return this.defaultCollationName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.IS_DEFAULT</code>.
+     */
     public Boolean getIsDefault() {
         return this.isDefault;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

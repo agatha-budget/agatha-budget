@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Constraints implements Serializable {
 
-    private static final long serialVersionUID = 1327053803;
+    private static final long serialVersionUID = 1L;
 
     private final String  constraintCatalog;
     private final String  constraintSchema;
@@ -75,54 +75,94 @@ public class Constraints implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CONSTRAINTS.CONSTRAINT_CATALOG</code>.
+     */
     public String getConstraintCatalog() {
         return this.constraintCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
+     */
     public String getConstraintSchema() {
         return this.constraintSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.CONSTRAINT_NAME</code>.
+     */
     public String getConstraintName() {
         return this.constraintName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.CONSTRAINT_TYPE</code>.
+     */
     public String getConstraintType() {
         return this.constraintType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.UNIQUE_INDEX_NAME</code>.
+     */
     public String getUniqueIndexName() {
         return this.uniqueIndexName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.CHECK_EXPRESSION</code>.
+     */
     public String getCheckExpression() {
         return this.checkExpression;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.COLUMN_LIST</code>.
+     */
     public String getColumnList() {
         return this.columnList;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.SQL</code>.
+     */
     public String getSql() {
         return this.sql;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTRAINTS.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

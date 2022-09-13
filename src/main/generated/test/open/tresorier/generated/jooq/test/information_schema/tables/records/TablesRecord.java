@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TablesRecord extends TableRecordImpl<TablesRecord> implements Record12<String, String, String, String, String, String, String, Long, Integer, String, String, Long> {
 
-    private static final long serialVersionUID = 899718957;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.TABLES.TABLE_CATALOG</code>.
@@ -500,17 +500,39 @@ public class TablesRecord extends TableRecordImpl<TablesRecord> implements Recor
     public TablesRecord(String tableCatalog, String tableSchema, String tableName, String tableType, String storageType, String sql, String remarks, Long lastModification, Integer id, String typeName, String tableClass, Long rowCountEstimate) {
         super(Tables.TABLES);
 
-        set(0, tableCatalog);
-        set(1, tableSchema);
-        set(2, tableName);
-        set(3, tableType);
-        set(4, storageType);
-        set(5, sql);
-        set(6, remarks);
-        set(7, lastModification);
-        set(8, id);
-        set(9, typeName);
-        set(10, tableClass);
-        set(11, rowCountEstimate);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setTableType(tableType);
+        setStorageType(storageType);
+        setSql(sql);
+        setRemarks(remarks);
+        setLastModification(lastModification);
+        setId(id);
+        setTypeName(typeName);
+        setTableClass(tableClass);
+        setRowCountEstimate(rowCountEstimate);
+    }
+
+    /**
+     * Create a detached, initialised TablesRecord
+     */
+    public TablesRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Tables value) {
+        super(Tables.TABLES);
+
+        if (value != null) {
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setTableType(value.getTableType());
+            setStorageType(value.getStorageType());
+            setSql(value.getSql());
+            setRemarks(value.getRemarks());
+            setLastModification(value.getLastModification());
+            setId(value.getId());
+            setTypeName(value.getTypeName());
+            setTableClass(value.getTableClass());
+            setRowCountEstimate(value.getRowCountEstimate());
+        }
     }
 }

@@ -30,7 +30,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 1777539622;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>public</code>
@@ -107,7 +107,7 @@ public class Public extends SchemaImpl {
 
     @Override
     public final List<Table<?>> getTables() {
-        return Arrays.<Table<?>>asList(
+        return Arrays.asList(
             Account.ACCOUNT,
             Allocation.ALLOCATION,
             BankAccount.BANK_ACCOUNT,
@@ -118,6 +118,7 @@ public class Public extends SchemaImpl {
             MasterCategory.MASTER_CATEGORY,
             Operation.OPERATION,
             Person.PERSON,
-            UserActivity.USER_ACTIVITY);
+            UserActivity.USER_ACTIVITY
+        );
     }
 }

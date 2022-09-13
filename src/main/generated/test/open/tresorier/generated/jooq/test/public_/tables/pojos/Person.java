@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person implements Serializable {
 
-    private static final long serialVersionUID = -632980967;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  email;
@@ -71,50 +71,86 @@ public class Person implements Serializable {
         this.dyslexia = dyslexia;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.ID</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.EMAIL</code>.
+     */
     public String getEmail() {
         return this.email;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.NAME</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.PASSWORD</code>.
+     */
     public String getPassword() {
         return this.password;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.UNLOCKINGDATE</code>.
+     */
     public Long getUnlockingdate() {
         return this.unlockingdate;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.LOGINATTEMPTCOUNT</code>.
+     */
     public Integer getLoginattemptcount() {
         return this.loginattemptcount;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.DELETED</code>.
+     */
     public Boolean getDeleted() {
         return this.deleted;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.BILLING_ID</code>.
+     */
     public String getBillingId() {
         return this.billingId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.BILLING_STATUS</code>.
+     */
     public Boolean getBillingStatus() {
         return this.billingStatus;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.CREATION_DATE</code>.
+     */
     public Long getCreationDate() {
         return this.creationDate;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.STYLE</code>.
+     */
     public String getStyle() {
         return this.style;
     }
 
+    /**
+     * Getter for <code>PUBLIC.PERSON.DYSLEXIA</code>.
+     */
     public Boolean getDyslexia() {
         return this.dyslexia;
     }

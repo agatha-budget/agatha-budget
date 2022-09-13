@@ -5,6 +5,7 @@ package open.tresorier.generated.jooq.test.public_.tables.daos;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import open.tresorier.generated.jooq.test.public_.tables.BankAgreement;
 import open.tresorier.generated.jooq.test.public_.tables.records.BankAgreementRecord;
@@ -39,7 +40,8 @@ public class BankAgreementDao extends DAOImpl<BankAgreementRecord, open.tresorie
     }
 
     /**
-     * Fetch records that have <code>ID BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>ID BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(BankAgreement.BANK_AGREEMENT.ID, lowerInclusive, upperInclusive);
@@ -60,7 +62,15 @@ public class BankAgreementDao extends DAOImpl<BankAgreementRecord, open.tresorie
     }
 
     /**
-     * Fetch records that have <code>BUDGET_ID BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>ID = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement> fetchOptionalById(String value) {
+        return fetchOptional(BankAgreement.BANK_AGREEMENT.ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>BUDGET_ID BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement> fetchRangeOfBudgetId(String lowerInclusive, String upperInclusive) {
         return fetchRange(BankAgreement.BANK_AGREEMENT.BUDGET_ID, lowerInclusive, upperInclusive);
@@ -74,7 +84,8 @@ public class BankAgreementDao extends DAOImpl<BankAgreementRecord, open.tresorie
     }
 
     /**
-     * Fetch records that have <code>BANK_ID BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>BANK_ID BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement> fetchRangeOfBankId(String lowerInclusive, String upperInclusive) {
         return fetchRange(BankAgreement.BANK_AGREEMENT.BANK_ID, lowerInclusive, upperInclusive);
@@ -88,7 +99,8 @@ public class BankAgreementDao extends DAOImpl<BankAgreementRecord, open.tresorie
     }
 
     /**
-     * Fetch records that have <code>TIMESTAMP BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>TIMESTAMP BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement> fetchRangeOfTimestamp(Long lowerInclusive, Long upperInclusive) {
         return fetchRange(BankAgreement.BANK_AGREEMENT.TIMESTAMP, lowerInclusive, upperInclusive);
@@ -102,7 +114,8 @@ public class BankAgreementDao extends DAOImpl<BankAgreementRecord, open.tresorie
     }
 
     /**
-     * Fetch records that have <code>NORDIGEN_REQUISITION_ID BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>NORDIGEN_REQUISITION_ID BETWEEN
+     * lowerInclusive AND upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement> fetchRangeOfNordigenRequisitionId(String lowerInclusive, String upperInclusive) {
         return fetchRange(BankAgreement.BANK_AGREEMENT.NORDIGEN_REQUISITION_ID, lowerInclusive, upperInclusive);
@@ -116,7 +129,8 @@ public class BankAgreementDao extends DAOImpl<BankAgreementRecord, open.tresorie
     }
 
     /**
-     * Fetch records that have <code>ARCHIVED BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>ARCHIVED BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement> fetchRangeOfArchived(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(BankAgreement.BANK_AGREEMENT.ARCHIVED, lowerInclusive, upperInclusive);
@@ -130,7 +144,8 @@ public class BankAgreementDao extends DAOImpl<BankAgreementRecord, open.tresorie
     }
 
     /**
-     * Fetch records that have <code>DELETED BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>DELETED BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement> fetchRangeOfDeleted(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(BankAgreement.BANK_AGREEMENT.DELETED, lowerInclusive, upperInclusive);

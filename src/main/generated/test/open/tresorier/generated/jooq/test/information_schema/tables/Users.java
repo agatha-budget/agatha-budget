@@ -17,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Users extends TableImpl<UsersRecord> {
 
-    private static final long serialVersionUID = 1696294305;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.USERS</code>
@@ -44,28 +45,29 @@ public class Users extends TableImpl<UsersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.USERS.NAME</code>.
      */
-    public final TableField<UsersRecord, String> NAME = createField(DSL.name("NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<UsersRecord, String> NAME = createField(DSL.name("NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.USERS.ADMIN</code>.
      */
-    public final TableField<UsersRecord, String> ADMIN = createField(DSL.name("ADMIN"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<UsersRecord, String> ADMIN = createField(DSL.name("ADMIN"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.USERS.REMARKS</code>.
      */
-    public final TableField<UsersRecord, String> REMARKS = createField(DSL.name("REMARKS"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<UsersRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.USERS.ID</code>.
      */
-    public final TableField<UsersRecord, Integer> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<UsersRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
 
-    /**
-     * Create a <code>INFORMATION_SCHEMA.USERS</code> table reference
-     */
-    public Users() {
-        this(DSL.name("USERS"), null);
+    private Users(Name alias, Table<UsersRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Users(Name alias, Table<UsersRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -82,12 +84,11 @@ public class Users extends TableImpl<UsersRecord> {
         this(alias, USERS);
     }
 
-    private Users(Name alias, Table<UsersRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Users(Name alias, Table<UsersRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>INFORMATION_SCHEMA.USERS</code> table reference
+     */
+    public Users() {
+        this(DSL.name("USERS"), null);
     }
 
     public <O extends Record> Users(Table<O> child, ForeignKey<O, UsersRecord> key) {
@@ -96,7 +97,7 @@ public class Users extends TableImpl<UsersRecord> {
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override

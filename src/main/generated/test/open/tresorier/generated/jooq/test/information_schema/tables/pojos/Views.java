@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Views implements Serializable {
 
-    private static final long serialVersionUID = 1087518753;
+    private static final long serialVersionUID = 1L;
 
     private final String  tableCatalog;
     private final String  tableSchema;
@@ -59,38 +59,65 @@ public class Views implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.VIEW_DEFINITION</code>.
+     */
     public String getViewDefinition() {
         return this.viewDefinition;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.CHECK_OPTION</code>.
+     */
     public String getCheckOption() {
         return this.checkOption;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.IS_UPDATABLE</code>.
+     */
     public String getIsUpdatable() {
         return this.isUpdatable;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.STATUS</code>.
+     */
     public String getStatus() {
         return this.status;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

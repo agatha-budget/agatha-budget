@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Collations implements Serializable {
 
-    private static final long serialVersionUID = 1709005773;
+    private static final long serialVersionUID = 1L;
 
     private final String name;
     private final String key;
@@ -31,10 +31,16 @@ public class Collations implements Serializable {
         this.key = key;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLLATIONS.NAME</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLLATIONS.KEY</code>.
+     */
     public String getKey() {
         return this.key;
     }

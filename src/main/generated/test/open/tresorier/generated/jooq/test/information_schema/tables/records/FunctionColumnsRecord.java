@@ -18,10 +18,11 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FunctionColumnsRecord extends TableRecordImpl<FunctionColumnsRecord> implements Record17<String, String, String, String, String, Integer, Integer, String, Integer, String, Integer, Short, Short, Short, Short, String, String> {
 
-    private static final long serialVersionUID = -1186538754;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.ALIAS_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.ALIAS_CATALOG</code>.
      */
     public FunctionColumnsRecord setAliasCatalog(String value) {
         set(0, value);
@@ -29,7 +30,8 @@ public class FunctionColumnsRecord extends TableRecordImpl<FunctionColumnsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.ALIAS_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.ALIAS_CATALOG</code>.
      */
     public String getAliasCatalog() {
         return (String) get(0);
@@ -261,7 +263,8 @@ public class FunctionColumnsRecord extends TableRecordImpl<FunctionColumnsRecord
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.COLUMN_DEFAULT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.COLUMN_DEFAULT</code>.
      */
     public FunctionColumnsRecord setColumnDefault(String value) {
         set(16, value);
@@ -269,7 +272,8 @@ public class FunctionColumnsRecord extends TableRecordImpl<FunctionColumnsRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.COLUMN_DEFAULT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS.COLUMN_DEFAULT</code>.
      */
     public String getColumnDefault() {
         return (String) get(16);
@@ -685,22 +689,49 @@ public class FunctionColumnsRecord extends TableRecordImpl<FunctionColumnsRecord
     public FunctionColumnsRecord(String aliasCatalog, String aliasSchema, String aliasName, String javaClass, String javaMethod, Integer columnCount, Integer pos, String columnName, Integer dataType, String typeName, Integer precision, Short scale, Short radix, Short nullable, Short columnType, String remarks, String columnDefault) {
         super(FunctionColumns.FUNCTION_COLUMNS);
 
-        set(0, aliasCatalog);
-        set(1, aliasSchema);
-        set(2, aliasName);
-        set(3, javaClass);
-        set(4, javaMethod);
-        set(5, columnCount);
-        set(6, pos);
-        set(7, columnName);
-        set(8, dataType);
-        set(9, typeName);
-        set(10, precision);
-        set(11, scale);
-        set(12, radix);
-        set(13, nullable);
-        set(14, columnType);
-        set(15, remarks);
-        set(16, columnDefault);
+        setAliasCatalog(aliasCatalog);
+        setAliasSchema(aliasSchema);
+        setAliasName(aliasName);
+        setJavaClass(javaClass);
+        setJavaMethod(javaMethod);
+        setColumnCount(columnCount);
+        setPos(pos);
+        setColumnName(columnName);
+        setDataType(dataType);
+        setTypeName(typeName);
+        setPrecision(precision);
+        setScale(scale);
+        setRadix(radix);
+        setNullable(nullable);
+        setColumnType(columnType);
+        setRemarks(remarks);
+        setColumnDefault(columnDefault);
+    }
+
+    /**
+     * Create a detached, initialised FunctionColumnsRecord
+     */
+    public FunctionColumnsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.FunctionColumns value) {
+        super(FunctionColumns.FUNCTION_COLUMNS);
+
+        if (value != null) {
+            setAliasCatalog(value.getAliasCatalog());
+            setAliasSchema(value.getAliasSchema());
+            setAliasName(value.getAliasName());
+            setJavaClass(value.getJavaClass());
+            setJavaMethod(value.getJavaMethod());
+            setColumnCount(value.getColumnCount());
+            setPos(value.getPos());
+            setColumnName(value.getColumnName());
+            setDataType(value.getDataType());
+            setTypeName(value.getTypeName());
+            setPrecision(value.getPrecision());
+            setScale(value.getScale());
+            setRadix(value.getRadix());
+            setNullable(value.getNullable());
+            setColumnType(value.getColumnType());
+            setRemarks(value.getRemarks());
+            setColumnDefault(value.getColumnDefault());
+        }
     }
 }

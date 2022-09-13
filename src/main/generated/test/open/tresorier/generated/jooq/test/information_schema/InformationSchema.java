@@ -53,7 +53,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class InformationSchema extends SchemaImpl {
 
-    private static final long serialVersionUID = 1984675689;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA</code>
@@ -240,7 +240,7 @@ public class InformationSchema extends SchemaImpl {
 
     @Override
     public final List<Table<?>> getTables() {
-        return Arrays.<Table<?>>asList(
+        return Arrays.asList(
             Catalogs.CATALOGS,
             Collations.COLLATIONS,
             ColumnPrivileges.COLUMN_PRIVILEGES,
@@ -273,6 +273,7 @@ public class InformationSchema extends SchemaImpl {
             Triggers.TRIGGERS,
             TypeInfo.TYPE_INFO,
             Users.USERS,
-            Views.VIEWS);
+            Views.VIEWS
+        );
     }
 }

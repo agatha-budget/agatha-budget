@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Settings implements Serializable {
 
-    private static final long serialVersionUID = 1789286802;
+    private static final long serialVersionUID = 1L;
 
     private final String name;
     private final String value;
@@ -31,10 +31,16 @@ public class Settings implements Serializable {
         this.value = value;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SETTINGS.NAME</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SETTINGS.VALUE</code>.
+     */
     public String getValue() {
         return this.value;
     }

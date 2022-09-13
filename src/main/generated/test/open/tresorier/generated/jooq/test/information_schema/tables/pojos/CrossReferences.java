@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CrossReferences implements Serializable {
 
-    private static final long serialVersionUID = 2038956171;
+    private static final long serialVersionUID = 1L;
 
     private final String pktableCatalog;
     private final String pktableSchema;
@@ -79,58 +79,108 @@ public class CrossReferences implements Serializable {
         this.deferrability = deferrability;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_CATALOG</code>.
+     */
     public String getPktableCatalog() {
         return this.pktableCatalog;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_SCHEMA</code>.
+     */
     public String getPktableSchema() {
         return this.pktableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKTABLE_NAME</code>.
+     */
     public String getPktableName() {
         return this.pktableName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PKCOLUMN_NAME</code>.
+     */
     public String getPkcolumnName() {
         return this.pkcolumnName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_CATALOG</code>.
+     */
     public String getFktableCatalog() {
         return this.fktableCatalog;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_SCHEMA</code>.
+     */
     public String getFktableSchema() {
         return this.fktableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKTABLE_NAME</code>.
+     */
     public String getFktableName() {
         return this.fktableName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FKCOLUMN_NAME</code>.
+     */
     public String getFkcolumnName() {
         return this.fkcolumnName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.ORDINAL_POSITION</code>.
+     */
     public Short getOrdinalPosition() {
         return this.ordinalPosition;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.UPDATE_RULE</code>.
+     */
     public Short getUpdateRule() {
         return this.updateRule;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.DELETE_RULE</code>.
+     */
     public Short getDeleteRule() {
         return this.deleteRule;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.FK_NAME</code>.
+     */
     public String getFkName() {
         return this.fkName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CROSS_REFERENCES.PK_NAME</code>.
+     */
     public String getPkName() {
         return this.pkName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.CROSS_REFERENCES.DEFERRABILITY</code>.
+     */
     public Short getDeferrability() {
         return this.deferrability;
     }

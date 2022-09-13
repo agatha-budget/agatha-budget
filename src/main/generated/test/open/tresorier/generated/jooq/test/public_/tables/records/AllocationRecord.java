@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> implements Record3<String, Integer, Integer> {
 
-    private static final long serialVersionUID = 1965020276;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>PUBLIC.ALLOCATION.CATEGORY_ID</code>.
@@ -177,8 +177,21 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> impl
     public AllocationRecord(String categoryId, Integer month, Integer amount) {
         super(Allocation.ALLOCATION);
 
-        set(0, categoryId);
-        set(1, month);
-        set(2, amount);
+        setCategoryId(categoryId);
+        setMonth(month);
+        setAmount(amount);
+    }
+
+    /**
+     * Create a detached, initialised AllocationRecord
+     */
+    public AllocationRecord(open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation value) {
+        super(Allocation.ALLOCATION);
+
+        if (value != null) {
+            setCategoryId(value.getCategoryId());
+            setMonth(value.getMonth());
+            setAmount(value.getAmount());
+        }
     }
 }

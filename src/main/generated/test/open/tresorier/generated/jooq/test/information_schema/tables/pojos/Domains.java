@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Domains implements Serializable {
 
-    private static final long serialVersionUID = 2093676795;
+    private static final long serialVersionUID = 1L;
 
     private final String  domainCatalog;
     private final String  domainSchema;
@@ -79,58 +79,100 @@ public class Domains implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_CATALOG</code>.
+     */
     public String getDomainCatalog() {
         return this.domainCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_SCHEMA</code>.
+     */
     public String getDomainSchema() {
         return this.domainSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_NAME</code>.
+     */
     public String getDomainName() {
         return this.domainName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.COLUMN_DEFAULT</code>.
+     */
     public String getColumnDefault() {
         return this.columnDefault;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.IS_NULLABLE</code>.
+     */
     public String getIsNullable() {
         return this.isNullable;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DATA_TYPE</code>.
+     */
     public Integer getDataType() {
         return this.dataType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.PRECISION</code>.
+     */
     public Integer getPrecision() {
         return this.precision;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.SCALE</code>.
+     */
     public Integer getScale() {
         return this.scale;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.TYPE_NAME</code>.
+     */
     public String getTypeName() {
         return this.typeName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.SELECTIVITY</code>.
+     */
     public Integer getSelectivity() {
         return this.selectivity;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.CHECK_CONSTRAINT</code>.
+     */
     public String getCheckConstraint() {
         return this.checkConstraint;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.SQL</code>.
+     */
     public String getSql() {
         return this.sql;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

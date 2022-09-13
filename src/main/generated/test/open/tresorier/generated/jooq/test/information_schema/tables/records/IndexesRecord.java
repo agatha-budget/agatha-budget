@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class IndexesRecord extends TableRecordImpl<IndexesRecord> implements Record22<String, String, String, Boolean, String, Short, String, Integer, Boolean, String, Boolean, Short, String, Integer, String, String, String, Integer, Integer, String, String, Boolean> {
 
-    private static final long serialVersionUID = 1927344907;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.INDEXES.TABLE_CATALOG</code>.
@@ -870,27 +870,59 @@ public class IndexesRecord extends TableRecordImpl<IndexesRecord> implements Rec
     public IndexesRecord(String tableCatalog, String tableSchema, String tableName, Boolean nonUnique, String indexName, Short ordinalPosition, String columnName, Integer cardinality, Boolean primaryKey, String indexTypeName, Boolean isGenerated, Short indexType, String ascOrDesc, Integer pages, String filterCondition, String remarks, String sql, Integer id, Integer sortType, String constraintName, String indexClass, Boolean affinity) {
         super(Indexes.INDEXES);
 
-        set(0, tableCatalog);
-        set(1, tableSchema);
-        set(2, tableName);
-        set(3, nonUnique);
-        set(4, indexName);
-        set(5, ordinalPosition);
-        set(6, columnName);
-        set(7, cardinality);
-        set(8, primaryKey);
-        set(9, indexTypeName);
-        set(10, isGenerated);
-        set(11, indexType);
-        set(12, ascOrDesc);
-        set(13, pages);
-        set(14, filterCondition);
-        set(15, remarks);
-        set(16, sql);
-        set(17, id);
-        set(18, sortType);
-        set(19, constraintName);
-        set(20, indexClass);
-        set(21, affinity);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setNonUnique(nonUnique);
+        setIndexName(indexName);
+        setOrdinalPosition(ordinalPosition);
+        setColumnName(columnName);
+        setCardinality(cardinality);
+        setPrimaryKey_(primaryKey);
+        setIndexTypeName(indexTypeName);
+        setIsGenerated(isGenerated);
+        setIndexType(indexType);
+        setAscOrDesc(ascOrDesc);
+        setPages(pages);
+        setFilterCondition(filterCondition);
+        setRemarks(remarks);
+        setSql(sql);
+        setId(id);
+        setSortType(sortType);
+        setConstraintName(constraintName);
+        setIndexClass(indexClass);
+        setAffinity(affinity);
+    }
+
+    /**
+     * Create a detached, initialised IndexesRecord
+     */
+    public IndexesRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Indexes value) {
+        super(Indexes.INDEXES);
+
+        if (value != null) {
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setNonUnique(value.getNonUnique());
+            setIndexName(value.getIndexName());
+            setOrdinalPosition(value.getOrdinalPosition());
+            setColumnName(value.getColumnName());
+            setCardinality(value.getCardinality());
+            setPrimaryKey_(value.getPrimaryKey_());
+            setIndexTypeName(value.getIndexTypeName());
+            setIsGenerated(value.getIsGenerated());
+            setIndexType(value.getIndexType());
+            setAscOrDesc(value.getAscOrDesc());
+            setPages(value.getPages());
+            setFilterCondition(value.getFilterCondition());
+            setRemarks(value.getRemarks());
+            setSql(value.getSql());
+            setId(value.getId());
+            setSortType(value.getSortType());
+            setConstraintName(value.getConstraintName());
+            setIndexClass(value.getIndexClass());
+            setAffinity(value.getAffinity());
+        }
     }
 }

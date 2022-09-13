@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class InDoubtRecord extends TableRecordImpl<InDoubtRecord> implements Record2<String, String> {
 
-    private static final long serialVersionUID = 1270015744;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION</code>.
@@ -130,7 +130,19 @@ public class InDoubtRecord extends TableRecordImpl<InDoubtRecord> implements Rec
     public InDoubtRecord(String transaction, String state) {
         super(InDoubt.IN_DOUBT);
 
-        set(0, transaction);
-        set(1, state);
+        setTransaction(transaction);
+        setState(state);
+    }
+
+    /**
+     * Create a detached, initialised InDoubtRecord
+     */
+    public InDoubtRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.InDoubt value) {
+        super(InDoubt.IN_DOUBT);
+
+        if (value != null) {
+            setTransaction(value.getTransaction());
+            setState(value.getState());
+        }
     }
 }

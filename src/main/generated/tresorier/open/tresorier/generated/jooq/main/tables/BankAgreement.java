@@ -22,6 +22,7 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -31,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAgreement extends TableImpl<BankAgreementRecord> {
 
-    private static final long serialVersionUID = 1371616486;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>public.bank_agreement</code>
@@ -49,43 +50,44 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
     /**
      * The column <code>public.bank_agreement.id</code>.
      */
-    public final TableField<BankAgreementRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BankAgreementRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.bank_agreement.budget_id</code>.
      */
-    public final TableField<BankAgreementRecord, String> BUDGET_ID = createField(DSL.name("budget_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BankAgreementRecord, String> BUDGET_ID = createField(DSL.name("budget_id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.bank_agreement.bank_id</code>.
      */
-    public final TableField<BankAgreementRecord, String> BANK_ID = createField(DSL.name("bank_id"), org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<BankAgreementRecord, String> BANK_ID = createField(DSL.name("bank_id"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>public.bank_agreement.timestamp</code>.
      */
-    public final TableField<BankAgreementRecord, Long> TIMESTAMP = createField(DSL.name("timestamp"), org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<BankAgreementRecord, Long> TIMESTAMP = createField(DSL.name("timestamp"), SQLDataType.BIGINT.defaultValue(DSL.field("0", SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>public.bank_agreement.nordigen_requisition_id</code>.
      */
-    public final TableField<BankAgreementRecord, String> NORDIGEN_REQUISITION_ID = createField(DSL.name("nordigen_requisition_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<BankAgreementRecord, String> NORDIGEN_REQUISITION_ID = createField(DSL.name("nordigen_requisition_id"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL::character varying", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>public.bank_agreement.archived</code>.
      */
-    public final TableField<BankAgreementRecord, Boolean> ARCHIVED = createField(DSL.name("archived"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<BankAgreementRecord, Boolean> ARCHIVED = createField(DSL.name("archived"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.bank_agreement.deleted</code>.
      */
-    public final TableField<BankAgreementRecord, Boolean> DELETED = createField(DSL.name("deleted"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<BankAgreementRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
 
-    /**
-     * Create a <code>public.bank_agreement</code> table reference
-     */
-    public BankAgreement() {
-        this(DSL.name("bank_agreement"), null);
+    private BankAgreement(Name alias, Table<BankAgreementRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private BankAgreement(Name alias, Table<BankAgreementRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -102,12 +104,11 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
         this(alias, BANK_AGREEMENT);
     }
 
-    private BankAgreement(Name alias, Table<BankAgreementRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private BankAgreement(Name alias, Table<BankAgreementRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>public.bank_agreement</code> table reference
+     */
+    public BankAgreement() {
+        this(DSL.name("bank_agreement"), null);
     }
 
     public <O extends Record> BankAgreement(Table<O> child, ForeignKey<O, BankAgreementRecord> key) {
@@ -116,7 +117,7 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -125,17 +126,20 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
     }
 
     @Override
-    public List<UniqueKey<BankAgreementRecord>> getKeys() {
-        return Arrays.<UniqueKey<BankAgreementRecord>>asList(Keys.BANK_AGREEMENT_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<BankAgreementRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<BankAgreementRecord, ?>>asList(Keys.BANK_AGREEMENT__BANK_AGREEMENT_BUDGET_ID_FKEY);
+        return Arrays.asList(Keys.BANK_AGREEMENT__BANK_AGREEMENT_BUDGET_ID_FKEY);
     }
 
+    private transient Budget _budget;
+
+    /**
+     * Get the implicit join path to the <code>public.budget</code> table.
+     */
     public Budget budget() {
-        return new Budget(this, Keys.BANK_AGREEMENT__BANK_AGREEMENT_BUDGET_ID_FKEY);
+        if (_budget == null)
+            _budget = new Budget(this, Keys.BANK_AGREEMENT__BANK_AGREEMENT_BUDGET_ID_FKEY);
+
+        return _budget;
     }
 
     @Override

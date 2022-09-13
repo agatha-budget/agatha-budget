@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SettingsRecord extends TableRecordImpl<SettingsRecord> implements Record2<String, String> {
 
-    private static final long serialVersionUID = 12349386;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.SETTINGS.NAME</code>.
@@ -130,7 +130,19 @@ public class SettingsRecord extends TableRecordImpl<SettingsRecord> implements R
     public SettingsRecord(String name, String value) {
         super(Settings.SETTINGS);
 
-        set(0, name);
-        set(1, value);
+        setName(name);
+        setValue(value);
+    }
+
+    /**
+     * Create a detached, initialised SettingsRecord
+     */
+    public SettingsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Settings value) {
+        super(Settings.SETTINGS);
+
+        if (value != null) {
+            setName(value.getName());
+            setValue(value.getValue());
+        }
     }
 }

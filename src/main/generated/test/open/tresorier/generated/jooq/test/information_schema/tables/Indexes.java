@@ -17,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Indexes extends TableImpl<IndexesRecord> {
 
-    private static final long serialVersionUID = -753856735;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.INDEXES</code>
@@ -44,118 +45,119 @@ public class Indexes extends TableImpl<IndexesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_CATALOG</code>.
      */
-    public final TableField<IndexesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_SCHEMA</code>.
      */
-    public final TableField<IndexesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.NON_UNIQUE</code>.
      */
-    public final TableField<IndexesRecord, Boolean> NON_UNIQUE = createField(DSL.name("NON_UNIQUE"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<IndexesRecord, Boolean> NON_UNIQUE = createField(DSL.name("NON_UNIQUE"), SQLDataType.BOOLEAN, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.ORDINAL_POSITION</code>.
      */
-    public final TableField<IndexesRecord, Short> ORDINAL_POSITION = createField(DSL.name("ORDINAL_POSITION"), org.jooq.impl.SQLDataType.SMALLINT, this, "");
+    public final TableField<IndexesRecord, Short> ORDINAL_POSITION = createField(DSL.name("ORDINAL_POSITION"), SQLDataType.SMALLINT, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.COLUMN_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> COLUMN_NAME = createField(DSL.name("COLUMN_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> COLUMN_NAME = createField(DSL.name("COLUMN_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.CARDINALITY</code>.
      */
-    public final TableField<IndexesRecord, Integer> CARDINALITY = createField(DSL.name("CARDINALITY"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<IndexesRecord, Integer> CARDINALITY = createField(DSL.name("CARDINALITY"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.PRIMARY_KEY</code>.
      */
-    public final TableField<IndexesRecord, Boolean> PRIMARY_KEY = createField(DSL.name("PRIMARY_KEY"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<IndexesRecord, Boolean> PRIMARY_KEY = createField(DSL.name("PRIMARY_KEY"), SQLDataType.BOOLEAN, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_TYPE_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_TYPE_NAME = createField(DSL.name("INDEX_TYPE_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> INDEX_TYPE_NAME = createField(DSL.name("INDEX_TYPE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.IS_GENERATED</code>.
      */
-    public final TableField<IndexesRecord, Boolean> IS_GENERATED = createField(DSL.name("IS_GENERATED"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<IndexesRecord, Boolean> IS_GENERATED = createField(DSL.name("IS_GENERATED"), SQLDataType.BOOLEAN, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_TYPE</code>.
      */
-    public final TableField<IndexesRecord, Short> INDEX_TYPE = createField(DSL.name("INDEX_TYPE"), org.jooq.impl.SQLDataType.SMALLINT, this, "");
+    public final TableField<IndexesRecord, Short> INDEX_TYPE = createField(DSL.name("INDEX_TYPE"), SQLDataType.SMALLINT, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.ASC_OR_DESC</code>.
      */
-    public final TableField<IndexesRecord, String> ASC_OR_DESC = createField(DSL.name("ASC_OR_DESC"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> ASC_OR_DESC = createField(DSL.name("ASC_OR_DESC"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.PAGES</code>.
      */
-    public final TableField<IndexesRecord, Integer> PAGES = createField(DSL.name("PAGES"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<IndexesRecord, Integer> PAGES = createField(DSL.name("PAGES"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.FILTER_CONDITION</code>.
      */
-    public final TableField<IndexesRecord, String> FILTER_CONDITION = createField(DSL.name("FILTER_CONDITION"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> FILTER_CONDITION = createField(DSL.name("FILTER_CONDITION"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.REMARKS</code>.
      */
-    public final TableField<IndexesRecord, String> REMARKS = createField(DSL.name("REMARKS"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.SQL</code>.
      */
-    public final TableField<IndexesRecord, String> SQL = createField(DSL.name("SQL"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> SQL = createField(DSL.name("SQL"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.ID</code>.
      */
-    public final TableField<IndexesRecord, Integer> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<IndexesRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.SORT_TYPE</code>.
      */
-    public final TableField<IndexesRecord, Integer> SORT_TYPE = createField(DSL.name("SORT_TYPE"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<IndexesRecord, Integer> SORT_TYPE = createField(DSL.name("SORT_TYPE"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.CONSTRAINT_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_CLASS</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_CLASS = createField(DSL.name("INDEX_CLASS"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> INDEX_CLASS = createField(DSL.name("INDEX_CLASS"), SQLDataType.VARCHAR(2147483647), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.AFFINITY</code>.
      */
-    public final TableField<IndexesRecord, Boolean> AFFINITY = createField(DSL.name("AFFINITY"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<IndexesRecord, Boolean> AFFINITY = createField(DSL.name("AFFINITY"), SQLDataType.BOOLEAN, this, "");
 
-    /**
-     * Create a <code>INFORMATION_SCHEMA.INDEXES</code> table reference
-     */
-    public Indexes() {
-        this(DSL.name("INDEXES"), null);
+    private Indexes(Name alias, Table<IndexesRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Indexes(Name alias, Table<IndexesRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -172,12 +174,11 @@ public class Indexes extends TableImpl<IndexesRecord> {
         this(alias, INDEXES);
     }
 
-    private Indexes(Name alias, Table<IndexesRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Indexes(Name alias, Table<IndexesRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>INFORMATION_SCHEMA.INDEXES</code> table reference
+     */
+    public Indexes() {
+        this(DSL.name("INDEXES"), null);
     }
 
     public <O extends Record> Indexes(Table<O> child, ForeignKey<O, IndexesRecord> key) {
@@ -186,7 +187,7 @@ public class Indexes extends TableImpl<IndexesRecord> {
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override

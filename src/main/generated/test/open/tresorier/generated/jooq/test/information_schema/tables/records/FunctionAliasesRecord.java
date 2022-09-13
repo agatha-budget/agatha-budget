@@ -18,10 +18,11 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class FunctionAliasesRecord extends TableRecordImpl<FunctionAliasesRecord> implements Record12<String, String, String, String, String, Integer, String, Integer, Short, String, Integer, String> {
 
-    private static final long serialVersionUID = -337903400;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_CATALOG</code>.
      */
     public FunctionAliasesRecord setAliasCatalog(String value) {
         set(0, value);
@@ -29,7 +30,8 @@ public class FunctionAliasesRecord extends TableRecordImpl<FunctionAliasesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.ALIAS_CATALOG</code>.
      */
     public String getAliasCatalog() {
         return (String) get(0);
@@ -141,7 +143,8 @@ public class FunctionAliasesRecord extends TableRecordImpl<FunctionAliasesRecord
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.RETURNS_RESULT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.RETURNS_RESULT</code>.
      */
     public FunctionAliasesRecord setReturnsResult(Short value) {
         set(8, value);
@@ -149,7 +152,8 @@ public class FunctionAliasesRecord extends TableRecordImpl<FunctionAliasesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.RETURNS_RESULT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.FUNCTION_ALIASES.RETURNS_RESULT</code>.
      */
     public Short getReturnsResult() {
         return (Short) get(8);
@@ -500,17 +504,39 @@ public class FunctionAliasesRecord extends TableRecordImpl<FunctionAliasesRecord
     public FunctionAliasesRecord(String aliasCatalog, String aliasSchema, String aliasName, String javaClass, String javaMethod, Integer dataType, String typeName, Integer columnCount, Short returnsResult, String remarks, Integer id, String source) {
         super(FunctionAliases.FUNCTION_ALIASES);
 
-        set(0, aliasCatalog);
-        set(1, aliasSchema);
-        set(2, aliasName);
-        set(3, javaClass);
-        set(4, javaMethod);
-        set(5, dataType);
-        set(6, typeName);
-        set(7, columnCount);
-        set(8, returnsResult);
-        set(9, remarks);
-        set(10, id);
-        set(11, source);
+        setAliasCatalog(aliasCatalog);
+        setAliasSchema(aliasSchema);
+        setAliasName(aliasName);
+        setJavaClass(javaClass);
+        setJavaMethod(javaMethod);
+        setDataType(dataType);
+        setTypeName(typeName);
+        setColumnCount(columnCount);
+        setReturnsResult(returnsResult);
+        setRemarks(remarks);
+        setId(id);
+        setSource(source);
+    }
+
+    /**
+     * Create a detached, initialised FunctionAliasesRecord
+     */
+    public FunctionAliasesRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.FunctionAliases value) {
+        super(FunctionAliases.FUNCTION_ALIASES);
+
+        if (value != null) {
+            setAliasCatalog(value.getAliasCatalog());
+            setAliasSchema(value.getAliasSchema());
+            setAliasName(value.getAliasName());
+            setJavaClass(value.getJavaClass());
+            setJavaMethod(value.getJavaMethod());
+            setDataType(value.getDataType());
+            setTypeName(value.getTypeName());
+            setColumnCount(value.getColumnCount());
+            setReturnsResult(value.getReturnsResult());
+            setRemarks(value.getRemarks());
+            setId(value.getId());
+            setSource(value.getSource());
+        }
     }
 }

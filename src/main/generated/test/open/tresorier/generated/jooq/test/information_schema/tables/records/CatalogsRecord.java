@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CatalogsRecord extends TableRecordImpl<CatalogsRecord> implements Record1<String> {
 
-    private static final long serialVersionUID = -710305178;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.CATALOGS.CATALOG_NAME</code>.
@@ -93,6 +93,17 @@ public class CatalogsRecord extends TableRecordImpl<CatalogsRecord> implements R
     public CatalogsRecord(String catalogName) {
         super(Catalogs.CATALOGS);
 
-        set(0, catalogName);
+        setCatalogName(catalogName);
+    }
+
+    /**
+     * Create a detached, initialised CatalogsRecord
+     */
+    public CatalogsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Catalogs value) {
+        super(Catalogs.CATALOGS);
+
+        if (value != null) {
+            setCatalogName(value.getCatalogName());
+        }
     }
 }

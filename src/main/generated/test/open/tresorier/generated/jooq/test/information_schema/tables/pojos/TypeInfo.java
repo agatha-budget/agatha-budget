@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TypeInfo implements Serializable {
 
-    private static final long serialVersionUID = 1020109758;
+    private static final long serialVersionUID = 1L;
 
     private final String  typeName;
     private final Integer dataType;
@@ -79,58 +79,100 @@ public class TypeInfo implements Serializable {
         this.searchable = searchable;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.TYPE_NAME</code>.
+     */
     public String getTypeName() {
         return this.typeName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.DATA_TYPE</code>.
+     */
     public Integer getDataType() {
         return this.dataType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.PRECISION</code>.
+     */
     public Integer getPrecision() {
         return this.precision;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.PREFIX</code>.
+     */
     public String getPrefix() {
         return this.prefix;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.SUFFIX</code>.
+     */
     public String getSuffix() {
         return this.suffix;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.PARAMS</code>.
+     */
     public String getParams() {
         return this.params;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.AUTO_INCREMENT</code>.
+     */
     public Boolean getAutoIncrement() {
         return this.autoIncrement;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.MINIMUM_SCALE</code>.
+     */
     public Short getMinimumScale() {
         return this.minimumScale;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.MAXIMUM_SCALE</code>.
+     */
     public Short getMaximumScale() {
         return this.maximumScale;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.RADIX</code>.
+     */
     public Integer getRadix() {
         return this.radix;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.POS</code>.
+     */
     public Integer getPos() {
         return this.pos;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.CASE_SENSITIVE</code>.
+     */
     public Boolean getCaseSensitive() {
         return this.caseSensitive;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.NULLABLE</code>.
+     */
     public Short getNullable() {
         return this.nullable;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TYPE_INFO.SEARCHABLE</code>.
+     */
     public Short getSearchable() {
         return this.searchable;
     }

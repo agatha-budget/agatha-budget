@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sequences implements Serializable {
 
-    private static final long serialVersionUID = 1103535685;
+    private static final long serialVersionUID = 1L;
 
     private final String  sequenceCatalog;
     private final String  sequenceSchema;
@@ -71,50 +71,86 @@ public class Sequences implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_CATALOG</code>.
+     */
     public String getSequenceCatalog() {
         return this.sequenceCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_SCHEMA</code>.
+     */
     public String getSequenceSchema() {
         return this.sequenceSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_NAME</code>.
+     */
     public String getSequenceName() {
         return this.sequenceName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.CURRENT_VALUE</code>.
+     */
     public Long getCurrentValue() {
         return this.currentValue;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.INCREMENT</code>.
+     */
     public Long getIncrement() {
         return this.increment;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.IS_GENERATED</code>.
+     */
     public Boolean getIsGenerated() {
         return this.isGenerated;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.CACHE</code>.
+     */
     public Long getCache() {
         return this.cache;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.MIN_VALUE</code>.
+     */
     public Long getMinValue() {
         return this.minValue;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.MAX_VALUE</code>.
+     */
     public Long getMaxValue() {
         return this.maxValue;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.IS_CYCLE</code>.
+     */
     public Boolean getIsCycle() {
         return this.isCycle;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

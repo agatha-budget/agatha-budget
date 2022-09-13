@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class RightsRecord extends TableRecordImpl<RightsRecord> implements Record7<String, String, String, String, String, String, Integer> {
 
-    private static final long serialVersionUID = -1507927418;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.RIGHTS.GRANTEE</code>.
@@ -315,12 +315,29 @@ public class RightsRecord extends TableRecordImpl<RightsRecord> implements Recor
     public RightsRecord(String grantee, String granteetype, String grantedrole, String rights, String tableSchema, String tableName, Integer id) {
         super(Rights.RIGHTS);
 
-        set(0, grantee);
-        set(1, granteetype);
-        set(2, grantedrole);
-        set(3, rights);
-        set(4, tableSchema);
-        set(5, tableName);
-        set(6, id);
+        setGrantee(grantee);
+        setGranteetype(granteetype);
+        setGrantedrole(grantedrole);
+        setRights(rights);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised RightsRecord
+     */
+    public RightsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Rights value) {
+        super(Rights.RIGHTS);
+
+        if (value != null) {
+            setGrantee(value.getGrantee());
+            setGranteetype(value.getGranteetype());
+            setGrantedrole(value.getGrantedrole());
+            setRights(value.getRights());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setId(value.getId());
+        }
     }
 }

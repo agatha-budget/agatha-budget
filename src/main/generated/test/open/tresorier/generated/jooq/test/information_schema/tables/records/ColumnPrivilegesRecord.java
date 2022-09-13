@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesRecord> implements Record8<String, String, String, String, String, String, String, String> {
 
-    private static final long serialVersionUID = -1543233920;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.GRANTOR</code>.
@@ -51,7 +51,8 @@ public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesReco
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_CATALOG</code>.
      */
     public ColumnPrivilegesRecord setTableCatalog(String value) {
         set(2, value);
@@ -59,14 +60,16 @@ public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_CATALOG</code>.
      */
     public String getTableCatalog() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_SCHEMA</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_SCHEMA</code>.
      */
     public ColumnPrivilegesRecord setTableSchema(String value) {
         set(3, value);
@@ -74,7 +77,8 @@ public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_SCHEMA</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_SCHEMA</code>.
      */
     public String getTableSchema() {
         return (String) get(3);
@@ -111,7 +115,8 @@ public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesReco
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.PRIVILEGE_TYPE</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.PRIVILEGE_TYPE</code>.
      */
     public ColumnPrivilegesRecord setPrivilegeType(String value) {
         set(6, value);
@@ -119,14 +124,16 @@ public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.PRIVILEGE_TYPE</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.PRIVILEGE_TYPE</code>.
      */
     public String getPrivilegeType() {
         return (String) get(6);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.IS_GRANTABLE</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.IS_GRANTABLE</code>.
      */
     public ColumnPrivilegesRecord setIsGrantable(String value) {
         set(7, value);
@@ -134,7 +141,8 @@ public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesReco
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.IS_GRANTABLE</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.IS_GRANTABLE</code>.
      */
     public String getIsGrantable() {
         return (String) get(7);
@@ -352,13 +360,31 @@ public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesReco
     public ColumnPrivilegesRecord(String grantor, String grantee, String tableCatalog, String tableSchema, String tableName, String columnName, String privilegeType, String isGrantable) {
         super(ColumnPrivileges.COLUMN_PRIVILEGES);
 
-        set(0, grantor);
-        set(1, grantee);
-        set(2, tableCatalog);
-        set(3, tableSchema);
-        set(4, tableName);
-        set(5, columnName);
-        set(6, privilegeType);
-        set(7, isGrantable);
+        setGrantor(grantor);
+        setGrantee(grantee);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setColumnName(columnName);
+        setPrivilegeType(privilegeType);
+        setIsGrantable(isGrantable);
+    }
+
+    /**
+     * Create a detached, initialised ColumnPrivilegesRecord
+     */
+    public ColumnPrivilegesRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.ColumnPrivileges value) {
+        super(ColumnPrivileges.COLUMN_PRIVILEGES);
+
+        if (value != null) {
+            setGrantor(value.getGrantor());
+            setGrantee(value.getGrantee());
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setColumnName(value.getColumnName());
+            setPrivilegeType(value.getPrivilegeType());
+            setIsGrantable(value.getIsGrantable());
+        }
     }
 }

@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Constants implements Serializable {
 
-    private static final long serialVersionUID = 1759112712;
+    private static final long serialVersionUID = 1L;
 
     private final String  constantCatalog;
     private final String  constantSchema;
@@ -51,30 +51,51 @@ public class Constants implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_CATALOG</code>.
+     */
     public String getConstantCatalog() {
         return this.constantCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_SCHEMA</code>.
+     */
     public String getConstantSchema() {
         return this.constantSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_NAME</code>.
+     */
     public String getConstantName() {
         return this.constantName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTANTS.DATA_TYPE</code>.
+     */
     public Integer getDataType() {
         return this.dataType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTANTS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTANTS.SQL</code>.
+     */
     public String getSql() {
         return this.sql;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CONSTANTS.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

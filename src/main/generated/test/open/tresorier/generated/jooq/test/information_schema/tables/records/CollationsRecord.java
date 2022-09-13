@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CollationsRecord extends TableRecordImpl<CollationsRecord> implements Record2<String, String> {
 
-    private static final long serialVersionUID = -1133012176;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLLATIONS.NAME</code>.
@@ -130,7 +130,19 @@ public class CollationsRecord extends TableRecordImpl<CollationsRecord> implemen
     public CollationsRecord(String name, String key) {
         super(Collations.COLLATIONS);
 
-        set(0, name);
-        set(1, key);
+        setName(name);
+        setKey(key);
+    }
+
+    /**
+     * Create a detached, initialised CollationsRecord
+     */
+    public CollationsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Collations value) {
+        super(Collations.COLLATIONS);
+
+        if (value != null) {
+            setName(value.getName());
+            setKey(value.getKey());
+        }
     }
 }

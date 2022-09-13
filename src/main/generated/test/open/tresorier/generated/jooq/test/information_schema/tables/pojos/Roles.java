@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Roles implements Serializable {
 
-    private static final long serialVersionUID = -532846639;
+    private static final long serialVersionUID = 1L;
 
     private final String  name;
     private final String  remarks;
@@ -35,14 +35,23 @@ public class Roles implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.ROLES.NAME</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.ROLES.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.ROLES.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

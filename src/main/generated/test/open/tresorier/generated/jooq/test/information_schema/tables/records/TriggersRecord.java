@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TriggersRecord extends TableRecordImpl<TriggersRecord> implements Record14<String, String, String, String, String, String, String, Boolean, String, Integer, Boolean, String, String, Integer> {
 
-    private static final long serialVersionUID = -696319353;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_CATALOG</code>.
@@ -574,19 +574,43 @@ public class TriggersRecord extends TableRecordImpl<TriggersRecord> implements R
     public TriggersRecord(String triggerCatalog, String triggerSchema, String triggerName, String triggerType, String tableCatalog, String tableSchema, String tableName, Boolean before, String javaClass, Integer queueSize, Boolean noWait, String remarks, String sql, Integer id) {
         super(Triggers.TRIGGERS);
 
-        set(0, triggerCatalog);
-        set(1, triggerSchema);
-        set(2, triggerName);
-        set(3, triggerType);
-        set(4, tableCatalog);
-        set(5, tableSchema);
-        set(6, tableName);
-        set(7, before);
-        set(8, javaClass);
-        set(9, queueSize);
-        set(10, noWait);
-        set(11, remarks);
-        set(12, sql);
-        set(13, id);
+        setTriggerCatalog(triggerCatalog);
+        setTriggerSchema(triggerSchema);
+        setTriggerName(triggerName);
+        setTriggerType(triggerType);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setBefore(before);
+        setJavaClass(javaClass);
+        setQueueSize(queueSize);
+        setNoWait(noWait);
+        setRemarks(remarks);
+        setSql(sql);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised TriggersRecord
+     */
+    public TriggersRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Triggers value) {
+        super(Triggers.TRIGGERS);
+
+        if (value != null) {
+            setTriggerCatalog(value.getTriggerCatalog());
+            setTriggerSchema(value.getTriggerSchema());
+            setTriggerName(value.getTriggerName());
+            setTriggerType(value.getTriggerType());
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setBefore(value.getBefore());
+            setJavaClass(value.getJavaClass());
+            setQueueSize(value.getQueueSize());
+            setNoWait(value.getNoWait());
+            setRemarks(value.getRemarks());
+            setSql(value.getSql());
+            setId(value.getId());
+        }
     }
 }

@@ -5,7 +5,7 @@ with pkgs;
 mkShell {
 # seems we should use jdk11_headless for server env
 buildInputs = [
-kotlin postgresql gradle jdk python38
+kotlin postgresql_13 gradle jdk python38
 ];
 
 shellHook = ''

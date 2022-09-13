@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserActivityRecord extends UpdatableRecordImpl<UserActivityRecord> implements Record4<String, String, Long, String> {
 
-    private static final long serialVersionUID = -242492236;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.user_activity.id</code>.
@@ -214,9 +214,23 @@ public class UserActivityRecord extends UpdatableRecordImpl<UserActivityRecord> 
     public UserActivityRecord(String id, String userId, Long date, String action) {
         super(UserActivity.USER_ACTIVITY);
 
-        set(0, id);
-        set(1, userId);
-        set(2, date);
-        set(3, action);
+        setId(id);
+        setUserId(userId);
+        setDate(date);
+        setAction(action);
+    }
+
+    /**
+     * Create a detached, initialised UserActivityRecord
+     */
+    public UserActivityRecord(open.tresorier.generated.jooq.main.tables.pojos.UserActivity value) {
+        super(UserActivity.USER_ACTIVITY);
+
+        if (value != null) {
+            setId(value.getId());
+            setUserId(value.getUserId());
+            setDate(value.getDate());
+            setAction(value.getAction());
+        }
     }
 }

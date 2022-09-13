@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Catalogs implements Serializable {
 
-    private static final long serialVersionUID = -1197865790;
+    private static final long serialVersionUID = 1L;
 
     private final String catalogName;
 
@@ -27,6 +27,9 @@ public class Catalogs implements Serializable {
         this.catalogName = catalogName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.CATALOGS.CATALOG_NAME</code>.
+     */
     public String getCatalogName() {
         return this.catalogName;
     }

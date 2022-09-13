@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TypeInfoRecord extends TableRecordImpl<TypeInfoRecord> implements Record14<String, Integer, Integer, String, String, String, Boolean, Short, Short, Integer, Integer, Boolean, Short, Short> {
 
-    private static final long serialVersionUID = -1844983423;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.TYPE_INFO.TYPE_NAME</code>.
@@ -574,19 +574,43 @@ public class TypeInfoRecord extends TableRecordImpl<TypeInfoRecord> implements R
     public TypeInfoRecord(String typeName, Integer dataType, Integer precision, String prefix, String suffix, String params, Boolean autoIncrement, Short minimumScale, Short maximumScale, Integer radix, Integer pos, Boolean caseSensitive, Short nullable, Short searchable) {
         super(TypeInfo.TYPE_INFO);
 
-        set(0, typeName);
-        set(1, dataType);
-        set(2, precision);
-        set(3, prefix);
-        set(4, suffix);
-        set(5, params);
-        set(6, autoIncrement);
-        set(7, minimumScale);
-        set(8, maximumScale);
-        set(9, radix);
-        set(10, pos);
-        set(11, caseSensitive);
-        set(12, nullable);
-        set(13, searchable);
+        setTypeName(typeName);
+        setDataType(dataType);
+        setPrecision(precision);
+        setPrefix(prefix);
+        setSuffix(suffix);
+        setParams(params);
+        setAutoIncrement(autoIncrement);
+        setMinimumScale(minimumScale);
+        setMaximumScale(maximumScale);
+        setRadix(radix);
+        setPos(pos);
+        setCaseSensitive(caseSensitive);
+        setNullable(nullable);
+        setSearchable(searchable);
+    }
+
+    /**
+     * Create a detached, initialised TypeInfoRecord
+     */
+    public TypeInfoRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.TypeInfo value) {
+        super(TypeInfo.TYPE_INFO);
+
+        if (value != null) {
+            setTypeName(value.getTypeName());
+            setDataType(value.getDataType());
+            setPrecision(value.getPrecision());
+            setPrefix(value.getPrefix());
+            setSuffix(value.getSuffix());
+            setParams(value.getParams());
+            setAutoIncrement(value.getAutoIncrement());
+            setMinimumScale(value.getMinimumScale());
+            setMaximumScale(value.getMaximumScale());
+            setRadix(value.getRadix());
+            setPos(value.getPos());
+            setCaseSensitive(value.getCaseSensitive());
+            setNullable(value.getNullable());
+            setSearchable(value.getSearchable());
+        }
     }
 }

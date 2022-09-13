@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables implements Serializable {
 
-    private static final long serialVersionUID = -739436835;
+    private static final long serialVersionUID = 1L;
 
     private final String  tableCatalog;
     private final String  tableSchema;
@@ -71,50 +71,86 @@ public class Tables implements Serializable {
         this.rowCountEstimate = rowCountEstimate;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_TYPE</code>.
+     */
     public String getTableType() {
         return this.tableType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.STORAGE_TYPE</code>.
+     */
     public String getStorageType() {
         return this.storageType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.SQL</code>.
+     */
     public String getSql() {
         return this.sql;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.LAST_MODIFICATION</code>.
+     */
     public Long getLastModification() {
         return this.lastModification;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TYPE_NAME</code>.
+     */
     public String getTypeName() {
         return this.typeName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_CLASS</code>.
+     */
     public String getTableClass() {
         return this.tableClass;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.ROW_COUNT_ESTIMATE</code>.
+     */
     public Long getRowCountEstimate() {
         return this.rowCountEstimate;
     }

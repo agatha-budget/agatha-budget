@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ViewsRecord extends TableRecordImpl<ViewsRecord> implements Record9<String, String, String, String, String, String, String, String, Integer> {
 
-    private static final long serialVersionUID = 1627868169;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.VIEWS.TABLE_CATALOG</code>.
@@ -389,14 +389,33 @@ public class ViewsRecord extends TableRecordImpl<ViewsRecord> implements Record9
     public ViewsRecord(String tableCatalog, String tableSchema, String tableName, String viewDefinition, String checkOption, String isUpdatable, String status, String remarks, Integer id) {
         super(Views.VIEWS);
 
-        set(0, tableCatalog);
-        set(1, tableSchema);
-        set(2, tableName);
-        set(3, viewDefinition);
-        set(4, checkOption);
-        set(5, isUpdatable);
-        set(6, status);
-        set(7, remarks);
-        set(8, id);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setViewDefinition(viewDefinition);
+        setCheckOption(checkOption);
+        setIsUpdatable(isUpdatable);
+        setStatus(status);
+        setRemarks(remarks);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised ViewsRecord
+     */
+    public ViewsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Views value) {
+        super(Views.VIEWS);
+
+        if (value != null) {
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setViewDefinition(value.getViewDefinition());
+            setCheckOption(value.getCheckOption());
+            setIsUpdatable(value.getIsUpdatable());
+            setStatus(value.getStatus());
+            setRemarks(value.getRemarks());
+            setId(value.getId());
+        }
     }
 }

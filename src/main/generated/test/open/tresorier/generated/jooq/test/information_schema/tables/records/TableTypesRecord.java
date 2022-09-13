@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TableTypesRecord extends TableRecordImpl<TableTypesRecord> implements Record1<String> {
 
-    private static final long serialVersionUID = 1236766020;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.TABLE_TYPES.TYPE</code>.
@@ -93,6 +93,17 @@ public class TableTypesRecord extends TableRecordImpl<TableTypesRecord> implemen
     public TableTypesRecord(String type) {
         super(TableTypes.TABLE_TYPES);
 
-        set(0, type);
+        setType(type);
+    }
+
+    /**
+     * Create a detached, initialised TableTypesRecord
+     */
+    public TableTypesRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.TableTypes value) {
+        super(TableTypes.TABLE_TYPES);
+
+        if (value != null) {
+            setType(value.getType());
+        }
     }
 }

@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class SessionStateRecord extends TableRecordImpl<SessionStateRecord> implements Record2<String, String> {
 
-    private static final long serialVersionUID = -735942316;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.SESSION_STATE.KEY</code>.
@@ -130,7 +130,19 @@ public class SessionStateRecord extends TableRecordImpl<SessionStateRecord> impl
     public SessionStateRecord(String key, String sql) {
         super(SessionState.SESSION_STATE);
 
-        set(0, key);
-        set(1, sql);
+        setKey(key);
+        setSql(sql);
+    }
+
+    /**
+     * Create a detached, initialised SessionStateRecord
+     */
+    public SessionStateRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.SessionState value) {
+        super(SessionState.SESSION_STATE);
+
+        if (value != null) {
+            setKey(value.getKey());
+            setSql(value.getSql());
+        }
     }
 }

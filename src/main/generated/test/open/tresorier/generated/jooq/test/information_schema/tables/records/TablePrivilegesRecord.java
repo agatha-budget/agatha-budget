@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TablePrivilegesRecord extends TableRecordImpl<TablePrivilegesRecord> implements Record7<String, String, String, String, String, String, String> {
 
-    private static final long serialVersionUID = 762872077;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.GRANTOR</code>.
@@ -51,7 +51,8 @@ public class TablePrivilegesRecord extends TableRecordImpl<TablePrivilegesRecord
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
      */
     public TablePrivilegesRecord setTableCatalog(String value) {
         set(2, value);
@@ -59,7 +60,8 @@ public class TablePrivilegesRecord extends TableRecordImpl<TablePrivilegesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
      */
     public String getTableCatalog() {
         return (String) get(2);
@@ -96,7 +98,8 @@ public class TablePrivilegesRecord extends TableRecordImpl<TablePrivilegesRecord
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
      */
     public TablePrivilegesRecord setPrivilegeType(String value) {
         set(5, value);
@@ -104,7 +107,8 @@ public class TablePrivilegesRecord extends TableRecordImpl<TablePrivilegesRecord
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
      */
     public String getPrivilegeType() {
         return (String) get(5);
@@ -315,12 +319,29 @@ public class TablePrivilegesRecord extends TableRecordImpl<TablePrivilegesRecord
     public TablePrivilegesRecord(String grantor, String grantee, String tableCatalog, String tableSchema, String tableName, String privilegeType, String isGrantable) {
         super(TablePrivileges.TABLE_PRIVILEGES);
 
-        set(0, grantor);
-        set(1, grantee);
-        set(2, tableCatalog);
-        set(3, tableSchema);
-        set(4, tableName);
-        set(5, privilegeType);
-        set(6, isGrantable);
+        setGrantor(grantor);
+        setGrantee(grantee);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setPrivilegeType(privilegeType);
+        setIsGrantable(isGrantable);
+    }
+
+    /**
+     * Create a detached, initialised TablePrivilegesRecord
+     */
+    public TablePrivilegesRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.TablePrivileges value) {
+        super(TablePrivileges.TABLE_PRIVILEGES);
+
+        if (value != null) {
+            setGrantor(value.getGrantor());
+            setGrantee(value.getGrantee());
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setPrivilegeType(value.getPrivilegeType());
+            setIsGrantable(value.getIsGrantable());
+        }
     }
 }

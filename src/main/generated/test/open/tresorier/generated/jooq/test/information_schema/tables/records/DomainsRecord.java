@@ -18,7 +18,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DomainsRecord extends TableRecordImpl<DomainsRecord> implements Record14<String, String, String, String, String, Integer, Integer, Integer, String, Integer, String, String, String, Integer> {
 
-    private static final long serialVersionUID = 2008475713;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_CATALOG</code>.
@@ -574,19 +574,43 @@ public class DomainsRecord extends TableRecordImpl<DomainsRecord> implements Rec
     public DomainsRecord(String domainCatalog, String domainSchema, String domainName, String columnDefault, String isNullable, Integer dataType, Integer precision, Integer scale, String typeName, Integer selectivity, String checkConstraint, String remarks, String sql, Integer id) {
         super(Domains.DOMAINS);
 
-        set(0, domainCatalog);
-        set(1, domainSchema);
-        set(2, domainName);
-        set(3, columnDefault);
-        set(4, isNullable);
-        set(5, dataType);
-        set(6, precision);
-        set(7, scale);
-        set(8, typeName);
-        set(9, selectivity);
-        set(10, checkConstraint);
-        set(11, remarks);
-        set(12, sql);
-        set(13, id);
+        setDomainCatalog(domainCatalog);
+        setDomainSchema(domainSchema);
+        setDomainName(domainName);
+        setColumnDefault(columnDefault);
+        setIsNullable(isNullable);
+        setDataType(dataType);
+        setPrecision(precision);
+        setScale(scale);
+        setTypeName(typeName);
+        setSelectivity(selectivity);
+        setCheckConstraint(checkConstraint);
+        setRemarks(remarks);
+        setSql(sql);
+        setId(id);
+    }
+
+    /**
+     * Create a detached, initialised DomainsRecord
+     */
+    public DomainsRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.Domains value) {
+        super(Domains.DOMAINS);
+
+        if (value != null) {
+            setDomainCatalog(value.getDomainCatalog());
+            setDomainSchema(value.getDomainSchema());
+            setDomainName(value.getDomainName());
+            setColumnDefault(value.getColumnDefault());
+            setIsNullable(value.getIsNullable());
+            setDataType(value.getDataType());
+            setPrecision(value.getPrecision());
+            setScale(value.getScale());
+            setTypeName(value.getTypeName());
+            setSelectivity(value.getSelectivity());
+            setCheckConstraint(value.getCheckConstraint());
+            setRemarks(value.getRemarks());
+            setSql(value.getSql());
+            setId(value.getId());
+        }
     }
 }

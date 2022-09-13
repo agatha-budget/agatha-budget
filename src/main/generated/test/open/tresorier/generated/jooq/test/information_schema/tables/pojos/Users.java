@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Users implements Serializable {
 
-    private static final long serialVersionUID = 2090638430;
+    private static final long serialVersionUID = 1L;
 
     private final String  name;
     private final String  admin;
@@ -39,18 +39,30 @@ public class Users implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.USERS.NAME</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.USERS.ADMIN</code>.
+     */
     public String getAdmin() {
         return this.admin;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.USERS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.USERS.ID</code>.
+     */
     public Integer getId() {
         return this.id;
     }

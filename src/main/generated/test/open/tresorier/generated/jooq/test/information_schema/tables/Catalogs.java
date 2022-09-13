@@ -17,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Catalogs extends TableImpl<CatalogsRecord> {
 
-    private static final long serialVersionUID = 1634341055;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.CATALOGS</code>
@@ -44,28 +45,7 @@ public class Catalogs extends TableImpl<CatalogsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.CATALOGS.CATALOG_NAME</code>.
      */
-    public final TableField<CatalogsRecord, String> CATALOG_NAME = createField(DSL.name("CATALOG_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * Create a <code>INFORMATION_SCHEMA.CATALOGS</code> table reference
-     */
-    public Catalogs() {
-        this(DSL.name("CATALOGS"), null);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.CATALOGS</code> table reference
-     */
-    public Catalogs(String alias) {
-        this(DSL.name(alias), CATALOGS);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.CATALOGS</code> table reference
-     */
-    public Catalogs(Name alias) {
-        this(alias, CATALOGS);
-    }
+    public final TableField<CatalogsRecord, String> CATALOG_NAME = createField(DSL.name("CATALOG_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
 
     private Catalogs(Name alias, Table<CatalogsRecord> aliased) {
         this(alias, aliased, null);
@@ -75,13 +55,36 @@ public class Catalogs extends TableImpl<CatalogsRecord> {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.CATALOGS</code> table
+     * reference
+     */
+    public Catalogs(String alias) {
+        this(DSL.name(alias), CATALOGS);
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.CATALOGS</code> table
+     * reference
+     */
+    public Catalogs(Name alias) {
+        this(alias, CATALOGS);
+    }
+
+    /**
+     * Create a <code>INFORMATION_SCHEMA.CATALOGS</code> table reference
+     */
+    public Catalogs() {
+        this(DSL.name("CATALOGS"), null);
+    }
+
     public <O extends Record> Catalogs(Table<O> child, ForeignKey<O, CatalogsRecord> key) {
         super(child, key, CATALOGS);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override
