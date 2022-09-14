@@ -12,4 +12,5 @@ interface IOperationDao {
     fun findByAccount(account: Account, category: Category?) : List<OperationWithDaughters>
     fun findByBudget(budget: Budget, category: Category?) : List<OperationWithDaughters>
     fun getOwner(operation: Operation) : Person
+    fun findDaughterOperations(motherOperation: Operation): List<Operation>
 }

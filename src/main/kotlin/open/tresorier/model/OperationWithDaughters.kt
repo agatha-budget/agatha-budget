@@ -9,7 +9,7 @@ class OperationWithDaughters (
         memo: String? = null,
         pending: Boolean = false,
         locked: Boolean = false,
-        var daugthers: List<Operation> = [],
+        var daugthers: List<Operation> = listOf(),
         id: String? = null,
         deleted: Boolean? = null
 ) : Operation(accountId, day, categoryId, amount, orderInDay, memo, pending, locked, null, null, null, id, deleted) {

@@ -150,6 +150,21 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         }
     }
 
+    override fun findDaughterOperations(motherOperation: Operation): List<Operation> {
+        val query = this.query
+            .select()
+            .from(OPERATION)
+            .where(OPERATION.MOTHER_OPERATION_ID.eq(motherOperation.id))
+            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
+        val jooqOperationList = query.fetch().into(OPERATION)
+        val operationList: MutableList<Operation> = mutableListOf()
+        for (operationRecord : OperationRecord in jooqOperationList) {
+            val operation = this.toOperation(operationRecord)
+            operationList.add(operation)
+        }
+        return operationList
+    }
+
     private fun toJooqOperation(operation: Operation): JooqOperation {
         return JooqOperation(
             operation.id,
