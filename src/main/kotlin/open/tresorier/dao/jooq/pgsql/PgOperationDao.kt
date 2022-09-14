@@ -85,7 +85,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
         month?.let{ query.and(OPERATION.MONTH.lessOrEqual(it.comparable))}
-        val rawResult = query.fetchOne().get(spendingSum)
+        val rawResult = query.fetchOne()?.get(spendingSum)
         return rawResult?.toInt() ?: 0
     }
 
@@ -129,15 +129,15 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
     }
 
     override fun getOwner(operation: Operation): Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
                 .join(ACCOUNT).on(ACCOUNT.ID.eq(operation.accountId))
                 .join(BUDGET).on(BUDGET.ID.eq(ACCOUNT.BUDGET_ID))
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                .fetchAny().into(PERSON)
-            return PgPersonDao.toPerson(owner)
-        } catch (e: Exception) {
+                .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return PgPersonDao.toPerson(ownerRecord)
         }
     }
 

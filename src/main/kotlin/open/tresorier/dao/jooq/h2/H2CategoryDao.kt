@@ -74,19 +74,15 @@ class H2CategoryDao(val configuration: Configuration) : ICategoryDao {
     }
 
     override fun getOwner(category: Category): Person? {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(category.masterCategoryId))
-                .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
-                .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                .fetchAny().into(PERSON)
-            return H2PersonDao.toPerson(owner)
-        } catch (e : Exception) {
-            if (e is NullPointerException){
-                return null
-            } else {
-                throw TresorierException("an error occurred while retriving the owner")
-            }
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(category.masterCategoryId))
+            .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
+            .where(PERSON.ID.eq(BUDGET.PERSON_ID))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
+            throw TresorierException("the given object appears to have no owner")
+        } else {
+            return H2PersonDao.toPerson(ownerRecord)
         }
     }
 

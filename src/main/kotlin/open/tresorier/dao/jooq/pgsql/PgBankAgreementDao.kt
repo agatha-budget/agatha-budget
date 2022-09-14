@@ -46,14 +46,14 @@ class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
     }
 
     override fun getOwner(bankAgreement: BankAgreement) : Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(BUDGET).on(BUDGET.ID.eq(bankAgreement.budgetId))
-                .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                .fetchAny().into(PERSON)
-            return PgPersonDao.toPerson(owner)
-        } catch (e : Exception) {
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(BUDGET).on(BUDGET.ID.eq(bankAgreement.budgetId))
+            .where(PERSON.ID.eq(BUDGET.ID))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return PgPersonDao.toPerson(ownerRecord)
         }
     }
 
@@ -69,11 +69,11 @@ class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
 
     override fun findByAccount(account: Account) : BankAgreement? {
         try {
-            val recordBankAgreement: BankAgreementRecord = this.query.select().from(BANK_AGREEMENT)
+            val recordBankAgreement: BankAgreementRecord? = this.query.select().from(BANK_AGREEMENT)
                 .join(BANK_ACCOUNT).on(BANK_ACCOUNT.ID.eq(account.bankAccountId))
                 .where(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
                 .and(BANK_AGREEMENT.TIMESTAMP.greaterThan(Time.threeMonthAgo()))
-                .fetchAny().into(BANK_AGREEMENT)
+                .fetchAny()?.into(BANK_AGREEMENT)
             return toBankAgreement(recordBankAgreement)
         } catch (e : Exception) {
             return null
@@ -104,7 +104,10 @@ class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
         )
     }
 
-    private fun toBankAgreement(recordBankAgreement: BankAgreementRecord): BankAgreement {
+    private fun toBankAgreement(recordBankAgreement: BankAgreementRecord?): BankAgreement? {
+        if (recordBankAgreement == null) {
+            return null
+        }
         return BankAgreement(
             recordBankAgreement.budgetId,
             recordBankAgreement.bankId,

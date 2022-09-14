@@ -54,14 +54,14 @@ class PgBudgetDao (val configuration : Configuration) : IBudgetDao {
     }
 
     override fun getOwner(budget: Budget): Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                    .join(BUDGET).on(BUDGET.PERSON_ID.eq(PERSON.ID))
-                    .where(BUDGET.ID.eq(budget.id))
-                    .fetchAny().into(PERSON)
-            return PgPersonDao.toPerson(owner)
-        } catch (e : Exception) {
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(BUDGET).on(BUDGET.PERSON_ID.eq(PERSON.ID))
+            .where(BUDGET.ID.eq(budget.id))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return PgPersonDao.toPerson(ownerRecord)
         }
     }
 

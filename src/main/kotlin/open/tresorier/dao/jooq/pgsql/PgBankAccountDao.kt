@@ -47,16 +47,16 @@ class PgBankAccountDao(val configuration: Configuration) : IBankAccountDao {
     }
 
     override fun getOwner(bankAccount: BankAccount) : Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                    .join(BUDGET).on(BUDGET.PERSON_ID.eq(PERSON.ID))
-                    .join(BANK_AGREEMENT).on(BANK_AGREEMENT.BUDGET_ID.eq(BUDGET.ID))
-                    .join(BANK_ACCOUNT).on(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
-                    .where(BANK_ACCOUNT.ID.eq(bankAccount.id))
-                    .fetchAny().into(PERSON)
-            return PgPersonDao.toPerson(owner)
-        } catch (e : Exception) {
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(BUDGET).on(BUDGET.PERSON_ID.eq(PERSON.ID))
+            .join(BANK_AGREEMENT).on(BANK_AGREEMENT.BUDGET_ID.eq(BUDGET.ID))
+            .join(BANK_ACCOUNT).on(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
+            .where(BANK_ACCOUNT.ID.eq(bankAccount.id))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return PgPersonDao.toPerson(ownerRecord)
         }
     }
 

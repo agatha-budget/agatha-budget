@@ -44,16 +44,16 @@ class H2AllocationDao(val configuration: Configuration) : IAllocationDao {
     }
 
     override fun getOwner(allocation: Allocation): Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(CATEGORY).on(CATEGORY.ID.eq(allocation.categoryId))
-                .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
-                .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
-                .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                .fetchAny().into(PERSON)
-            return H2PersonDao.toPerson(owner)
-        } catch (e: Exception) {
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(CATEGORY).on(CATEGORY.ID.eq(allocation.categoryId))
+            .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
+            .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
+            .where(PERSON.ID.eq(BUDGET.PERSON_ID))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return H2PersonDao.toPerson(ownerRecord)
         }
     }
 
