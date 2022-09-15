@@ -42,12 +42,12 @@ class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
 
     override fun getById(id: String): BankAgreement {
         val jooqBankAgreement = this.generatedDao.fetchOneById(id)
-        return this.toBankAgreement(jooqBankAgreement) ?: throw TresorierException("no bankAgreement found for the following id : $id")
+        return this.toBankAgreement(jooqBankAgreement)
     }
 
-    override fun getOwner(bankAgreement: BankAgreement) : Person {
+    override fun getOwner(agreement: BankAgreement) : Person {
         val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
-            .join(BUDGET).on(BUDGET.ID.eq(bankAgreement.budgetId))
+            .join(BUDGET).on(BUDGET.ID.eq(agreement.budgetId))
             .where(PERSON.ID.eq(BUDGET.ID))
             .fetchAny()?.into(PERSON)
         if (ownerRecord == null) {
@@ -62,7 +62,7 @@ class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
         val bankAgreementList : MutableList<BankAgreement> = mutableListOf()
         for (jooqBankAgreement in jooqBankAgreementList){
             var bankAgreement = this.toBankAgreement(jooqBankAgreement)
-            bankAgreement?.let{bankAgreementList.add(bankAgreement)}
+            bankAgreement.let{bankAgreementList.add(bankAgreement)}
         }
         return bankAgreementList
     }

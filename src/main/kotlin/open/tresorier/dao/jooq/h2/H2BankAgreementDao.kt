@@ -48,9 +48,9 @@ class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
         return this.toBankAgreement(jooqBankAgreement) ?: throw TresorierException("no bankAgreement found for the following id : $id")
     }
 
-    override fun getOwner(bankAgreement: BankAgreement) : Person {
+    override fun getOwner(agreement: BankAgreement) : Person {
         val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
-            .join(BUDGET).on(BUDGET.ID.eq(bankAgreement.budgetId))
+            .join(BUDGET).on(BUDGET.ID.eq(agreement.budgetId))
             .where(PERSON.ID.eq(BUDGET.ID))
             .fetchAny()?.into(PERSON)
         if (ownerRecord == null) {

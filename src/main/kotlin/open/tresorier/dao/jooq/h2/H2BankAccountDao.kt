@@ -43,7 +43,7 @@ class H2BankAccountDao(val configuration: Configuration) : IBankAccountDao {
 
     override fun getById(id: String): BankAccount {
         val jooqBankAccount = this.generatedDao.fetchOneById(id)
-        return this.toBankAccount(jooqBankAccount) ?: throw TresorierException("no BankAccount found for the following id : $id")
+        return this.toBankAccount(jooqBankAccount)
     }
 
     override fun getOwner(bankAccount: BankAccount) : Person {
@@ -65,7 +65,7 @@ class H2BankAccountDao(val configuration: Configuration) : IBankAccountDao {
         val BankAccountList : MutableList<BankAccount> = mutableListOf()
         for (jooqBankAccount in jooqBankAccountList){
             var BankAccount = this.toBankAccount(jooqBankAccount)
-            BankAccount?.let{BankAccountList.add(BankAccount)}
+            BankAccount.let{BankAccountList.add(BankAccount)}
         }
         return BankAccountList
     }
