@@ -303,36 +303,6 @@ class OperationServiceTest : ITest {
     }
 
     @Test
-    fun testFindMotherOperationByAccount() {
-        val madeleine: Person = personService.createPerson(
-            "Madeleine Brès", "allaitement", "madeleine@medecine.fr", ProfileEnum.PROFILE_USER
-        )
-        madeleine.billingStatus = true
-        val budget: Budget = budgetService.findByUser(madeleine)[0]
-        val account: Account = accountService.create(
-            madeleine, budget, "personal account", TestData.jan_14_2022, 1875
-        )
-        var operation1: Operation = operationService.create(
-            madeleine, account, TestData.jan_14_2022, null, 0, "De la mamelle et de l'allaitement", null, null
-        )
-        var operation2: Operation = operationService.create(
-            madeleine, account, TestData.jan_14_2022, null, 1877, "L'Allaitement artificiel et le biberon", null, null
-        )
-        operationService.create(madeleine, account, TestData.jan_14_2022, null, 1882, "Analyse du lait des femmes galibies", null, operation1)
-        var operation3: Operation = operationService.create(
-            madeleine, account, TestData.jan_14_2022, null, 1899, "Mamans et bébés", null, null
-        )
-
-        val listMotherOperation = operationService.findMotherOperationsByAccount(madeleine, account, null)
-
-        // an initial operation was created during account creation
-        Assertions.assertEquals(4, listMotherOperation.size)
-        Assertions.assertTrue(listMotherOperation[0].isEquals(operation3))
-        Assertions.assertTrue(listMotherOperation[1].isEquals(operation2))
-        Assertions.assertTrue(listMotherOperation[2].isEquals(operation1))
-    }
-
-    @Test
     fun testFindMotherOperationByDaughterOperation() {
         val maria: Person = personService.createPerson(
             "Maria Goeppert-Mayer", "physique1963", "maria@nobel.de", ProfileEnum.PROFILE_USER
@@ -406,13 +376,13 @@ class OperationServiceTest : ITest {
         var motherOperation2: Operation = operationService.create(
             dorothy, account, TestData.jan_14_2022, null, 0, "Oxford", null, null
         )
-        var daughterOperation1: Operation = operationService.create(
+        operationService.create(
             dorothy, account, TestData.jan_14_2022, null, 0, "cristallographie", null, motherOperation1
         )
-        var daughterOperation2: Operation = operationService.create(
+        operationService.create(
             dorothy, account, TestData.jan_14_2022, null, 0, "insuline", null, motherOperation1
         )
-        var daughterOperation3: Operation = operationService.create(
+        operationService.create(
             dorothy, account, TestData.jan_14_2022, null, 0, "Margaret Thatcher", null, motherOperation2
         )
 

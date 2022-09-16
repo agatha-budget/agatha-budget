@@ -507,8 +507,8 @@ open class OperationDaoTest : ITest {
                 Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
         )
         val operationDaugthers = listOf (
-            Operation(account.id, TestData.nov_02_2020, category.id, 3000, 1, null, false, false, operationList[0]),
-            Operation(account.id, TestData.nov_02_2020, category2.id, 1000, 1, null, false, false, operationList[0]),
+            Operation(account.id, TestData.nov_02_2020, category.id, 3000, 1, null, false, false, operationList[0].id),
+            Operation(account.id, TestData.nov_02_2020, category2.id, 1000, 1, null, false, false, operationList[0].id),
 
         )
         for (operation in operationList) {
@@ -543,8 +543,8 @@ open class OperationDaoTest : ITest {
                 Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
         )
         val operationDaugthers = listOf (
-            Operation(account.id, TestData.nov_02_2020, category.id, 3000, 1, null, false, false, operationList[0]),
-            Operation(account.id, TestData.nov_02_2020, category2.id, 1000, 1, null, false, false, operationList[0]),
+            Operation(account.id, TestData.nov_02_2020, category.id, 3000, 1, null, false, false, operationList[0].id),
+            Operation(account.id, TestData.nov_02_2020, category2.id, 1000, 1, null, false, false, operationList[0].id),
 
         )
         for (operation in operationList) {
