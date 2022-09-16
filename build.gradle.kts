@@ -37,15 +37,15 @@ buildscript {
 }
 
 // Lib Versions
-val kotlin_version="1.4.10"
+val kotlin_version="1.7.10"
 val dokka_version="1.4.0-rc"  // documentation generator
+val flyway_version="7.5.3"
+val jooq_gradle_plugin_version="7.+" // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
 val koin_version= "3.0.1-beta-2"
 val junit_version="5.1.1"
 val postgres_version="42.2.12"
 val h2_version="1.4.200"
 val jooq_version="3.17.4"
-val jooq_gradle_plugin_version="7.+" // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
-val flyway_version="7.5.3"
 val mock_version="1.10.5"
 val slf4j_version="1.7.30"
 val logback_version="1.2.3"
@@ -57,12 +57,18 @@ val stripe_version="20.85.0"
 val json_version="20220320"
 
 plugins {  // refer to lib version to ensure using the right number
-    kotlin("jvm") version "1.4.10"
+    kotlin("jvm") version "1.7.10"
     id("org.jetbrains.dokka") version "1.4.0-rc"
     id("org.flywaydb.flyway") version "7.5.3"
     id("nu.studer.jooq") version "7.+"
     jacoco
     application
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 repositories {
@@ -88,6 +94,7 @@ sourceSets {
         }
     }
 }
+
 
 val intTestImplementation by configurations.getting {
     extendsFrom(configurations.implementation.get())
