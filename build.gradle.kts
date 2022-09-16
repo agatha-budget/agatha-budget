@@ -294,6 +294,11 @@ tasks.register("generateJooq") {
 
 tasks.named("generateTresorierJooq") {mustRunAfter("migrateTresorierDatabase")}
 tasks.named("generateTestJooq") {mustRunAfter("migrateTestDatabase")}
+tasks.named("compileKotlin") {
+    mustRunAfter("generateTresorierJooq")
+    mustRunAfter("generateTestJooq")
+}
+
 
 tasks.named("test") {
     dependsOn("migrateTestDatabase")

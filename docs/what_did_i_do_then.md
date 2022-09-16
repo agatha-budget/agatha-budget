@@ -44,6 +44,20 @@ stripe listen --forward-to localhost:7000/webhook
 *how often* : 1
 
 --------------
+## ‘compileKotlin’ task (current target is 1.8)
+
+*how long* : 3h
+
+*what happened* : major update of kotlin and a few lib
+
+*why* : 
+
+*what did i do to fix it* : 
+https://ittutoria.net/solutions-for-error-compilejava-task-current-target-is-11-and-compilekotlin-task-current-target-is-1-8-jvm-target-compatibility-should-be-set-to-the-same-ja/
+
+*how often* :
+
+--------------
 ## Bug description
 
 *how long* :
