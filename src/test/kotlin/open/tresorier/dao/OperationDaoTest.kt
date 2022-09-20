@@ -528,7 +528,7 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getOperationWithDaughterInCategoryForBudget() {
-        val christine = Person("Christine de Pisan", "CiteDesDames", "no@adress.yet")
+        val christine = Person("Christine de Pisan", "CiteDesDames", "no@adress.mi")
         personDao.insert(christine)
         val budget = Budget("DreamFactory", christine.id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
