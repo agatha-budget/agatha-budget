@@ -20,7 +20,7 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
             return person
 
         } catch (e: Exception) {
-            throw TresorierException("could not create new person", e)
+            throw TresorierException("could not create new person : " + person.toString() + "TO" + jooqPerson.toString() + e.message , e)
         }
     }
 
