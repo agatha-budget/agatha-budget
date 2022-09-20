@@ -490,7 +490,9 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getOperationWithDaughterForBudget() {
-        val budget = Budget("DreamFactory", "Dreamer", ProfileEnum.PROFILE_USER)
+        val christine = Person("Christine de Pisan", "CiteDesDames", "no@adress.yet")
+        personDao.insert(christine)
+        val budget = Budget("DreamFactory", christine.id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Clouds", budget.id, null)
         masterCategoryDao.insert(masterCategory)
@@ -526,7 +528,9 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getOperationWithDaughterInCategoryForBudget() {
-        val budget = Budget("DreamFactory", "Dreamer", ProfileEnum.PROFILE_USER)
+        val christine = Person("Christine de Pisan", "CiteDesDames", "no@adress.yet")
+        personDao.insert(christine)
+        val budget = Budget("DreamFactory", christine.id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Clouds", budget.id, null)
         masterCategoryDao.insert(masterCategory)
