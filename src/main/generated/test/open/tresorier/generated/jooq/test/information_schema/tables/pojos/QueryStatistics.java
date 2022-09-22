@@ -22,8 +22,8 @@ public class QueryStatistics implements Serializable {
     private final Double  cumulativeExecutionTime;
     private final Double  averageExecutionTime;
     private final Double  stdDevExecutionTime;
-    private final Integer minRowCount;
-    private final Integer maxRowCount;
+    private final Long    minRowCount;
+    private final Long    maxRowCount;
     private final Long    cumulativeRowCount;
     private final Double  averageRowCount;
     private final Double  stdDevRowCount;
@@ -51,8 +51,8 @@ public class QueryStatistics implements Serializable {
         Double  cumulativeExecutionTime,
         Double  averageExecutionTime,
         Double  stdDevExecutionTime,
-        Integer minRowCount,
-        Integer maxRowCount,
+        Long    minRowCount,
+        Long    maxRowCount,
         Long    cumulativeRowCount,
         Double  averageRowCount,
         Double  stdDevRowCount
@@ -131,7 +131,7 @@ public class QueryStatistics implements Serializable {
      * Getter for
      * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_ROW_COUNT</code>.
      */
-    public Integer getMinRowCount() {
+    public Long getMinRowCount() {
         return this.minRowCount;
     }
 
@@ -139,7 +139,7 @@ public class QueryStatistics implements Serializable {
      * Getter for
      * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_ROW_COUNT</code>.
      */
-    public Integer getMaxRowCount() {
+    public Long getMaxRowCount() {
         return this.maxRowCount;
     }
 

@@ -43,14 +43,14 @@ public class Settings extends TableImpl<SettingsRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SETTINGS.NAME</code>.
+     * The column <code>INFORMATION_SCHEMA.SETTINGS.SETTING_NAME</code>.
      */
-    public final TableField<SettingsRecord, String> NAME = createField(DSL.name("NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SettingsRecord, String> SETTING_NAME = createField(DSL.name("SETTING_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SETTINGS.VALUE</code>.
+     * The column <code>INFORMATION_SCHEMA.SETTINGS.SETTING_VALUE</code>.
      */
-    public final TableField<SettingsRecord, String> VALUE = createField(DSL.name("VALUE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SettingsRecord, String> SETTING_VALUE = createField(DSL.name("SETTING_VALUE"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Settings(Name alias, Table<SettingsRecord> aliased) {
         this(alias, aliased, null);

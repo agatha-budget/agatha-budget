@@ -21,32 +21,32 @@ public class InDoubtRecord extends TableRecordImpl<InDoubtRecord> implements Rec
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION</code>.
+     * Setter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_NAME</code>.
      */
-    public InDoubtRecord setTransaction(String value) {
+    public InDoubtRecord setTransactionName(String value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION</code>.
+     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_NAME</code>.
      */
-    public String getTransaction() {
+    public String getTransactionName() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.IN_DOUBT.STATE</code>.
+     * Setter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_STATE</code>.
      */
-    public InDoubtRecord setState(String value) {
+    public InDoubtRecord setTransactionState(String value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.STATE</code>.
+     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_STATE</code>.
      */
-    public String getState() {
+    public String getTransactionState() {
         return (String) get(1);
     }
 
@@ -66,43 +66,43 @@ public class InDoubtRecord extends TableRecordImpl<InDoubtRecord> implements Rec
 
     @Override
     public Field<String> field1() {
-        return InDoubt.IN_DOUBT.TRANSACTION;
+        return InDoubt.IN_DOUBT.TRANSACTION_NAME;
     }
 
     @Override
     public Field<String> field2() {
-        return InDoubt.IN_DOUBT.STATE;
+        return InDoubt.IN_DOUBT.TRANSACTION_STATE;
     }
 
     @Override
     public String component1() {
-        return getTransaction();
+        return getTransactionName();
     }
 
     @Override
     public String component2() {
-        return getState();
+        return getTransactionState();
     }
 
     @Override
     public String value1() {
-        return getTransaction();
+        return getTransactionName();
     }
 
     @Override
     public String value2() {
-        return getState();
+        return getTransactionState();
     }
 
     @Override
     public InDoubtRecord value1(String value) {
-        setTransaction(value);
+        setTransactionName(value);
         return this;
     }
 
     @Override
     public InDoubtRecord value2(String value) {
-        setState(value);
+        setTransactionState(value);
         return this;
     }
 
@@ -127,11 +127,11 @@ public class InDoubtRecord extends TableRecordImpl<InDoubtRecord> implements Rec
     /**
      * Create a detached, initialised InDoubtRecord
      */
-    public InDoubtRecord(String transaction, String state) {
+    public InDoubtRecord(String transactionName, String transactionState) {
         super(InDoubt.IN_DOUBT);
 
-        setTransaction(transaction);
-        setState(state);
+        setTransactionName(transactionName);
+        setTransactionState(transactionState);
     }
 
     /**
@@ -141,8 +141,8 @@ public class InDoubtRecord extends TableRecordImpl<InDoubtRecord> implements Rec
         super(InDoubt.IN_DOUBT);
 
         if (value != null) {
-            setTransaction(value.getTransaction());
-            setState(value.getState());
+            setTransactionName(value.getTransactionName());
+            setTransactionState(value.getTransactionState());
         }
     }
 }

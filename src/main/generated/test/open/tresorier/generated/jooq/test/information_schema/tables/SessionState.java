@@ -43,14 +43,14 @@ public class SessionState extends TableImpl<SessionStateRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SESSION_STATE.KEY</code>.
+     * The column <code>INFORMATION_SCHEMA.SESSION_STATE.STATE_KEY</code>.
      */
-    public final TableField<SessionStateRecord, String> KEY = createField(DSL.name("KEY"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionStateRecord, String> STATE_KEY = createField(DSL.name("STATE_KEY"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SESSION_STATE.SQL</code>.
+     * The column <code>INFORMATION_SCHEMA.SESSION_STATE.STATE_COMMAND</code>.
      */
-    public final TableField<SessionStateRecord, String> SQL = createField(DSL.name("SQL"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionStateRecord, String> STATE_COMMAND = createField(DSL.name("STATE_COMMAND"), SQLDataType.VARCHAR(1048576), this, "");
 
     private SessionState(Name alias, Table<SessionStateRecord> aliased) {
         this(alias, aliased, null);

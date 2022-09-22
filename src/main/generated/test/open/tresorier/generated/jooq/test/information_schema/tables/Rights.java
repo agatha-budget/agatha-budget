@@ -11,7 +11,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -45,37 +45,32 @@ public class Rights extends TableImpl<RightsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.GRANTEE</code>.
      */
-    public final TableField<RightsRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.GRANTEETYPE</code>.
      */
-    public final TableField<RightsRecord, String> GRANTEETYPE = createField(DSL.name("GRANTEETYPE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> GRANTEETYPE = createField(DSL.name("GRANTEETYPE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.GRANTEDROLE</code>.
      */
-    public final TableField<RightsRecord, String> GRANTEDROLE = createField(DSL.name("GRANTEDROLE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> GRANTEDROLE = createField(DSL.name("GRANTEDROLE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.RIGHTS</code>.
      */
-    public final TableField<RightsRecord, String> RIGHTS_ = createField(DSL.name("RIGHTS"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> RIGHTS_ = createField(DSL.name("RIGHTS"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.TABLE_SCHEMA</code>.
      */
-    public final TableField<RightsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.TABLE_NAME</code>.
      */
-    public final TableField<RightsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.RIGHTS.ID</code>.
-     */
-    public final TableField<RightsRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
+    public final TableField<RightsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Rights(Name alias, Table<RightsRecord> aliased) {
         this(alias, aliased, null);
@@ -142,11 +137,11 @@ public class Rights extends TableImpl<RightsRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, String, String, String, String, String, Integer> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row6<String, String, String, String, String, String> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 }

@@ -55,9 +55,9 @@ public class Allocation extends TableImpl<AllocationRecord> {
     public final TableField<AllocationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.ALLOCATION.MONTH</code>.
+     * The column <code>PUBLIC.ALLOCATION.DATE_MONTH</code>.
      */
-    public final TableField<AllocationRecord, Integer> MONTH = createField(DSL.name("MONTH"), SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<AllocationRecord, Integer> DATE_MONTH = createField(DSL.name("DATE_MONTH"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.ALLOCATION.AMOUNT</code>.
@@ -127,8 +127,8 @@ public class Allocation extends TableImpl<AllocationRecord> {
     @Override
     public List<Check<AllocationRecord>> getChecks() {
         return Arrays.asList(
-            Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_ALLOCATION"), "((\"MONTH\" % 100) < 13)", true),
-            Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_ALLOCATION"), "((\"MONTH\" % 100) > 0)", true)
+            Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_ALLOCATION"), "MOD(\"DATE_MONTH\", 100) < 13", true),
+            Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_ALLOCATION"), "MOD(\"DATE_MONTH\", 100) > 0", true)
         );
     }
 

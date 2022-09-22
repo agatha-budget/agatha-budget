@@ -21,32 +21,32 @@ public class SettingsRecord extends TableRecordImpl<SettingsRecord> implements R
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.SETTINGS.NAME</code>.
+     * Setter for <code>INFORMATION_SCHEMA.SETTINGS.SETTING_NAME</code>.
      */
-    public SettingsRecord setName(String value) {
+    public SettingsRecord setSettingName(String value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SETTINGS.NAME</code>.
+     * Getter for <code>INFORMATION_SCHEMA.SETTINGS.SETTING_NAME</code>.
      */
-    public String getName() {
+    public String getSettingName() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.SETTINGS.VALUE</code>.
+     * Setter for <code>INFORMATION_SCHEMA.SETTINGS.SETTING_VALUE</code>.
      */
-    public SettingsRecord setValue(String value) {
+    public SettingsRecord setSettingValue(String value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SETTINGS.VALUE</code>.
+     * Getter for <code>INFORMATION_SCHEMA.SETTINGS.SETTING_VALUE</code>.
      */
-    public String getValue() {
+    public String getSettingValue() {
         return (String) get(1);
     }
 
@@ -66,43 +66,43 @@ public class SettingsRecord extends TableRecordImpl<SettingsRecord> implements R
 
     @Override
     public Field<String> field1() {
-        return Settings.SETTINGS.NAME;
+        return Settings.SETTINGS.SETTING_NAME;
     }
 
     @Override
     public Field<String> field2() {
-        return Settings.SETTINGS.VALUE;
+        return Settings.SETTINGS.SETTING_VALUE;
     }
 
     @Override
     public String component1() {
-        return getName();
+        return getSettingName();
     }
 
     @Override
     public String component2() {
-        return getValue();
+        return getSettingValue();
     }
 
     @Override
     public String value1() {
-        return getName();
+        return getSettingName();
     }
 
     @Override
     public String value2() {
-        return getValue();
+        return getSettingValue();
     }
 
     @Override
     public SettingsRecord value1(String value) {
-        setName(value);
+        setSettingName(value);
         return this;
     }
 
     @Override
     public SettingsRecord value2(String value) {
-        setValue(value);
+        setSettingValue(value);
         return this;
     }
 
@@ -127,11 +127,11 @@ public class SettingsRecord extends TableRecordImpl<SettingsRecord> implements R
     /**
      * Create a detached, initialised SettingsRecord
      */
-    public SettingsRecord(String name, String value) {
+    public SettingsRecord(String settingName, String settingValue) {
         super(Settings.SETTINGS);
 
-        setName(name);
-        setValue(value);
+        setSettingName(settingName);
+        setSettingValue(settingValue);
     }
 
     /**
@@ -141,8 +141,8 @@ public class SettingsRecord extends TableRecordImpl<SettingsRecord> implements R
         super(Settings.SETTINGS);
 
         if (value != null) {
-            setName(value.getName());
-            setValue(value.getValue());
+            setSettingName(value.getSettingName());
+            setSettingValue(value.getSettingValue());
         }
     }
 }

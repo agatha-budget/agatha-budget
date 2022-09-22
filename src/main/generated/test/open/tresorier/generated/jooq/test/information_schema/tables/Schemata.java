@@ -11,7 +11,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row8;
+import org.jooq.Row9;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -45,51 +45,58 @@ public class Schemata extends TableImpl<SchemataRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.SCHEMATA.CATALOG_NAME</code>.
      */
-    public final TableField<SchemataRecord, String> CATALOG_NAME = createField(DSL.name("CATALOG_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SchemataRecord, String> CATALOG_NAME = createField(DSL.name("CATALOG_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SCHEMATA.SCHEMA_NAME</code>.
      */
-    public final TableField<SchemataRecord, String> SCHEMA_NAME = createField(DSL.name("SCHEMA_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SchemataRecord, String> SCHEMA_NAME = createField(DSL.name("SCHEMA_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SCHEMATA.SCHEMA_OWNER</code>.
      */
-    public final TableField<SchemataRecord, String> SCHEMA_OWNER = createField(DSL.name("SCHEMA_OWNER"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SchemataRecord, String> SCHEMA_OWNER = createField(DSL.name("SCHEMA_OWNER"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_CATALOG</code>.
+     */
+    public final TableField<SchemataRecord, String> DEFAULT_CHARACTER_SET_CATALOG = createField(DSL.name("DEFAULT_CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_SCHEMA</code>.
+     */
+    public final TableField<SchemataRecord, String> DEFAULT_CHARACTER_SET_SCHEMA = createField(DSL.name("DEFAULT_CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_NAME</code>.
      */
-    public final TableField<SchemataRecord, String> DEFAULT_CHARACTER_SET_NAME = createField(DSL.name("DEFAULT_CHARACTER_SET_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SchemataRecord, String> DEFAULT_CHARACTER_SET_NAME = createField(DSL.name("DEFAULT_CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.SCHEMATA.SQL_PATH</code>.
+     */
+    public final TableField<SchemataRecord, String> SQL_PATH = createField(DSL.name("SQL_PATH"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_COLLATION_NAME</code>.
      */
-    public final TableField<SchemataRecord, String> DEFAULT_COLLATION_NAME = createField(DSL.name("DEFAULT_COLLATION_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.SCHEMATA.IS_DEFAULT</code>.
-     */
-    public final TableField<SchemataRecord, Boolean> IS_DEFAULT = createField(DSL.name("IS_DEFAULT"), SQLDataType.BOOLEAN, this, "");
+    public final TableField<SchemataRecord, String> DEFAULT_COLLATION_NAME = createField(DSL.name("DEFAULT_COLLATION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SCHEMATA.REMARKS</code>.
      */
-    public final TableField<SchemataRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.SCHEMATA.ID</code>.
-     */
-    public final TableField<SchemataRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
+    public final TableField<SchemataRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Schemata(Name alias, Table<SchemataRecord> aliased) {
         this(alias, aliased, null);
     }
 
     private Schemata(Name alias, Table<SchemataRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
     }
 
     /**
@@ -151,11 +158,11 @@ public class Schemata extends TableImpl<SchemataRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row8 type methods
+    // Row9 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<String, String, String, String, String, Boolean, String, Integer> fieldsRow() {
-        return (Row8) super.fieldsRow();
+    public Row9<String, String, String, String, String, String, String, String, String> fieldsRow() {
+        return (Row9) super.fieldsRow();
     }
 }

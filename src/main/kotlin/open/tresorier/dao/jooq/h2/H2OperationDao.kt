@@ -67,14 +67,14 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
 
     override fun findTotalSpendingByMonth(budget: Budget, maxMonth: Month?) : List<Spending> {
         val query = this.query
-            .select(OPERATION.CATEGORY_ID, OPERATION.MONTH , spendingSum )
+            .select(OPERATION.CATEGORY_ID, OPERATION.DATE_MONTH , spendingSum )
             .from(MASTER_CATEGORY)
             .join(CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
             .join(OPERATION).on(OPERATION.CATEGORY_ID.eq(CATEGORY.ID))
             .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
-        maxMonth?.let{ query.and( OPERATION.MONTH.lessOrEqual(it.comparable))}
-        query.groupBy(OPERATION.CATEGORY_ID, OPERATION.MONTH)
-            .orderBy(OPERATION.MONTH.asc())
+        maxMonth?.let{ query.and( OPERATION.DATE_MONTH.lessOrEqual(it.comparable))}
+        query.groupBy(OPERATION.CATEGORY_ID, OPERATION.DATE_MONTH)
+            .orderBy(OPERATION.DATE_MONTH.asc())
         val jooqSpendingList = query.fetch()
         val spendingList: MutableList<Spending> = mutableListOf()
         for (spendingRecord in jooqSpendingList) {
@@ -90,7 +90,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             .from(OPERATION)
             .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
-        month?.let{ query.and(OPERATION.MONTH.lessOrEqual(it.comparable))}
+        month?.let{ query.and(OPERATION.DATE_MONTH.lessOrEqual(it.comparable))}
         val rawResult = query.fetchOne()?.get(spendingSum)
         return rawResult?.toInt() ?: 0
     }
@@ -107,8 +107,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
     override fun findByAccount(account: Account, category: Category?): List<OperationWithDaughters> {
         val query = this.query
             .select(
-                operation.ID, operation.ACCOUNT_ID, operation.MONTH, operation.
-                DAY, operation.CATEGORY_ID, operation.AMOUNT, operation.ORDER_IN_DAY, operation.MEMO,
+                operation.ID, operation.ACCOUNT_ID, operation.DATE_MONTH, operation.DATE_DAY,
+                operation.CATEGORY_ID, operation.AMOUNT, operation.ORDER_IN_DAY, operation.MEMO,
                 operation.PENDING, operation.LOCKED, daughters)
             .from(operation)
             .where(operation.ACCOUNT_ID.eq(account.id))
@@ -116,7 +116,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         category?.let{
             query.and(operation.CATEGORY_ID.eq(it.id))
         }
-        query.orderBy(operation.MONTH.desc(), operation.DAY.desc(), operation.ORDER_IN_DAY.desc())
+        query.orderBy(operation.DATE_MONTH.desc(), operation.DATE_DAY.desc(), operation.ORDER_IN_DAY.desc())
         val jooqOperationList = query.fetch()
         val operationList: MutableList<OperationWithDaughters> = mutableListOf()
         for (operationRecord : OperationWithDaughtersRecord in jooqOperationList) {
@@ -130,8 +130,8 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
     override fun findByBudget(budget: Budget, category: Category?): List<OperationWithDaughters> {
         val query = this.query
             .select(
-                operation.ID, operation.ACCOUNT_ID, operation.MONTH, operation.
-                DAY, operation.CATEGORY_ID, operation.AMOUNT, operation.ORDER_IN_DAY, operation.MEMO,
+                operation.ID, operation.ACCOUNT_ID, operation.DATE_MONTH, operation.DATE_DAY,
+                operation.CATEGORY_ID, operation.AMOUNT, operation.ORDER_IN_DAY, operation.MEMO,
                 operation.PENDING, operation.LOCKED, daughters)
             .from(operation)
             .join(ACCOUNT).on(operation.ACCOUNT_ID.eq(ACCOUNT.ID))
@@ -140,7 +140,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         category?.let{
             query.and(operation.CATEGORY_ID.eq(it.id))
         }
-        query.orderBy(operation.MONTH.desc(), operation.DAY.desc(), operation.ORDER_IN_DAY.desc())
+        query.orderBy(operation.DATE_MONTH.desc(), operation.DATE_DAY.desc(), operation.ORDER_IN_DAY.desc())
         val jooqOperationList = query.fetch()
         val operationList: MutableList<OperationWithDaughters> = mutableListOf()
         for (operationRecord : OperationWithDaughtersRecord in jooqOperationList) {
@@ -168,7 +168,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         val query = this.query
             .selectFrom(OPERATION)
             .where(OPERATION.MOTHER_OPERATION_ID.eq(motherOperation.id))
-            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
+            .orderBy(OPERATION.DATE_MONTH.desc(), OPERATION.DATE_DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
         val jooqOperationList = query.fetch().into(OPERATION)
         val operationList: MutableList<Operation> = mutableListOf()
         for (operationRecord : OperationRecord in jooqOperationList) {
@@ -201,7 +201,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             null
         else Operation(
             jooqOperation.accountId,
-            Day(Month.createFromComparable(jooqOperation.month), jooqOperation.day),
+            Day(Month.createFromComparable(jooqOperation.dateMonth), jooqOperation.dateDay),
             jooqOperation.categoryId,
             jooqOperation.amount,
             jooqOperation.orderInDay,
@@ -217,7 +217,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
 
     private fun toSpending(jooqSpending: Record3<String, Int, BigDecimal>) : Spending {
         return Spending(
-            Month.createFromComparable(jooqSpending.get(OPERATION.MONTH)),
+            Month.createFromComparable(jooqSpending.get(OPERATION.DATE_MONTH)),
             jooqSpending.get(OPERATION.CATEGORY_ID),
             jooqSpending.get(spendingSum).toInt()
         )
@@ -226,7 +226,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
     private fun toOperation(operationRecord: OperationRecord): Operation {
         return Operation(
             operationRecord.accountId,
-            Day(Month.createFromComparable(operationRecord.month), operationRecord.day),
+            Day(Month.createFromComparable(operationRecord.dateMonth), operationRecord.dateDay),
             operationRecord.categoryId,
             operationRecord.amount,
             operationRecord.orderInDay,
@@ -248,7 +248,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
         }
         return OperationWithDaughters(
             record.get(OPERATION.ACCOUNT_ID),
-            Day(Month.createFromComparable(record.get(OPERATION.MONTH)), record.get(OPERATION.DAY)),
+            Day(Month.createFromComparable(record.get(OPERATION.DATE_MONTH)), record.get(OPERATION.DATE_DAY)),
             record.get(OPERATION.CATEGORY_ID),
             record.get(OPERATION.AMOUNT),
             record.get(OPERATION.ORDER_IN_DAY),

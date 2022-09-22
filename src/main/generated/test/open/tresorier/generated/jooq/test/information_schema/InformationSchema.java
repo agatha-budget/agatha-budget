@@ -8,25 +8,29 @@ import java.util.Arrays;
 import java.util.List;
 
 import open.tresorier.generated.jooq.test.DefaultCatalog;
-import open.tresorier.generated.jooq.test.information_schema.tables.Catalogs;
+import open.tresorier.generated.jooq.test.information_schema.tables.CheckConstraints;
 import open.tresorier.generated.jooq.test.information_schema.tables.Collations;
 import open.tresorier.generated.jooq.test.information_schema.tables.ColumnPrivileges;
 import open.tresorier.generated.jooq.test.information_schema.tables.Columns;
 import open.tresorier.generated.jooq.test.information_schema.tables.Constants;
-import open.tresorier.generated.jooq.test.information_schema.tables.Constraints;
-import open.tresorier.generated.jooq.test.information_schema.tables.CrossReferences;
+import open.tresorier.generated.jooq.test.information_schema.tables.ConstraintColumnUsage;
+import open.tresorier.generated.jooq.test.information_schema.tables.DomainConstraints;
 import open.tresorier.generated.jooq.test.information_schema.tables.Domains;
-import open.tresorier.generated.jooq.test.information_schema.tables.FunctionAliases;
-import open.tresorier.generated.jooq.test.information_schema.tables.FunctionColumns;
-import open.tresorier.generated.jooq.test.information_schema.tables.Help;
+import open.tresorier.generated.jooq.test.information_schema.tables.ElementTypes;
+import open.tresorier.generated.jooq.test.information_schema.tables.EnumValues;
+import open.tresorier.generated.jooq.test.information_schema.tables.Fields;
 import open.tresorier.generated.jooq.test.information_schema.tables.InDoubt;
+import open.tresorier.generated.jooq.test.information_schema.tables.IndexColumns;
 import open.tresorier.generated.jooq.test.information_schema.tables.Indexes;
+import open.tresorier.generated.jooq.test.information_schema.tables.InformationSchemaCatalogName;
 import open.tresorier.generated.jooq.test.information_schema.tables.KeyColumnUsage;
 import open.tresorier.generated.jooq.test.information_schema.tables.Locks;
+import open.tresorier.generated.jooq.test.information_schema.tables.Parameters;
 import open.tresorier.generated.jooq.test.information_schema.tables.QueryStatistics;
 import open.tresorier.generated.jooq.test.information_schema.tables.ReferentialConstraints;
 import open.tresorier.generated.jooq.test.information_schema.tables.Rights;
 import open.tresorier.generated.jooq.test.information_schema.tables.Roles;
+import open.tresorier.generated.jooq.test.information_schema.tables.Routines;
 import open.tresorier.generated.jooq.test.information_schema.tables.Schemata;
 import open.tresorier.generated.jooq.test.information_schema.tables.Sequences;
 import open.tresorier.generated.jooq.test.information_schema.tables.SessionState;
@@ -35,10 +39,8 @@ import open.tresorier.generated.jooq.test.information_schema.tables.Settings;
 import open.tresorier.generated.jooq.test.information_schema.tables.Synonyms;
 import open.tresorier.generated.jooq.test.information_schema.tables.TableConstraints;
 import open.tresorier.generated.jooq.test.information_schema.tables.TablePrivileges;
-import open.tresorier.generated.jooq.test.information_schema.tables.TableTypes;
 import open.tresorier.generated.jooq.test.information_schema.tables.Tables;
 import open.tresorier.generated.jooq.test.information_schema.tables.Triggers;
-import open.tresorier.generated.jooq.test.information_schema.tables.TypeInfo;
 import open.tresorier.generated.jooq.test.information_schema.tables.Users;
 import open.tresorier.generated.jooq.test.information_schema.tables.Views;
 
@@ -61,9 +63,9 @@ public class InformationSchema extends SchemaImpl {
     public static final InformationSchema INFORMATION_SCHEMA = new InformationSchema();
 
     /**
-     * The table <code>INFORMATION_SCHEMA.CATALOGS</code>.
+     * The table <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS</code>.
      */
-    public final Catalogs CATALOGS = Catalogs.CATALOGS;
+    public final CheckConstraints CHECK_CONSTRAINTS = CheckConstraints.CHECK_CONSTRAINTS;
 
     /**
      * The table <code>INFORMATION_SCHEMA.COLLATIONS</code>.
@@ -86,14 +88,14 @@ public class InformationSchema extends SchemaImpl {
     public final Constants CONSTANTS = Constants.CONSTANTS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.CONSTRAINTS</code>.
+     * The table <code>INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE</code>.
      */
-    public final Constraints CONSTRAINTS = Constraints.CONSTRAINTS;
+    public final ConstraintColumnUsage CONSTRAINT_COLUMN_USAGE = ConstraintColumnUsage.CONSTRAINT_COLUMN_USAGE;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.CROSS_REFERENCES</code>.
+     * The table <code>INFORMATION_SCHEMA.DOMAIN_CONSTRAINTS</code>.
      */
-    public final CrossReferences CROSS_REFERENCES = CrossReferences.CROSS_REFERENCES;
+    public final DomainConstraints DOMAIN_CONSTRAINTS = DomainConstraints.DOMAIN_CONSTRAINTS;
 
     /**
      * The table <code>INFORMATION_SCHEMA.DOMAINS</code>.
@@ -101,19 +103,19 @@ public class InformationSchema extends SchemaImpl {
     public final Domains DOMAINS = Domains.DOMAINS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code>.
+     * The table <code>INFORMATION_SCHEMA.ELEMENT_TYPES</code>.
      */
-    public final FunctionAliases FUNCTION_ALIASES = FunctionAliases.FUNCTION_ALIASES;
+    public final ElementTypes ELEMENT_TYPES = ElementTypes.ELEMENT_TYPES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS</code>.
+     * The table <code>INFORMATION_SCHEMA.ENUM_VALUES</code>.
      */
-    public final FunctionColumns FUNCTION_COLUMNS = FunctionColumns.FUNCTION_COLUMNS;
+    public final EnumValues ENUM_VALUES = EnumValues.ENUM_VALUES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.HELP</code>.
+     * The table <code>INFORMATION_SCHEMA.FIELDS</code>.
      */
-    public final Help HELP = Help.HELP;
+    public final Fields FIELDS = Fields.FIELDS;
 
     /**
      * The table <code>INFORMATION_SCHEMA.IN_DOUBT</code>.
@@ -121,9 +123,20 @@ public class InformationSchema extends SchemaImpl {
     public final InDoubt IN_DOUBT = InDoubt.IN_DOUBT;
 
     /**
+     * The table <code>INFORMATION_SCHEMA.INDEX_COLUMNS</code>.
+     */
+    public final IndexColumns INDEX_COLUMNS = IndexColumns.INDEX_COLUMNS;
+
+    /**
      * The table <code>INFORMATION_SCHEMA.INDEXES</code>.
      */
     public final Indexes INDEXES = Indexes.INDEXES;
+
+    /**
+     * The table
+     * <code>INFORMATION_SCHEMA.INFORMATION_SCHEMA_CATALOG_NAME</code>.
+     */
+    public final InformationSchemaCatalogName INFORMATION_SCHEMA_CATALOG_NAME = InformationSchemaCatalogName.INFORMATION_SCHEMA_CATALOG_NAME;
 
     /**
      * The table <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE</code>.
@@ -134,6 +147,11 @@ public class InformationSchema extends SchemaImpl {
      * The table <code>INFORMATION_SCHEMA.LOCKS</code>.
      */
     public final Locks LOCKS = Locks.LOCKS;
+
+    /**
+     * The table <code>INFORMATION_SCHEMA.PARAMETERS</code>.
+     */
+    public final Parameters PARAMETERS = Parameters.PARAMETERS;
 
     /**
      * The table <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code>.
@@ -154,6 +172,11 @@ public class InformationSchema extends SchemaImpl {
      * The table <code>INFORMATION_SCHEMA.ROLES</code>.
      */
     public final Roles ROLES = Roles.ROLES;
+
+    /**
+     * The table <code>INFORMATION_SCHEMA.ROUTINES</code>.
+     */
+    public final Routines ROUTINES = Routines.ROUTINES;
 
     /**
      * The table <code>INFORMATION_SCHEMA.SCHEMATA</code>.
@@ -196,11 +219,6 @@ public class InformationSchema extends SchemaImpl {
     public final TablePrivileges TABLE_PRIVILEGES = TablePrivileges.TABLE_PRIVILEGES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.TABLE_TYPES</code>.
-     */
-    public final TableTypes TABLE_TYPES = TableTypes.TABLE_TYPES;
-
-    /**
      * The table <code>INFORMATION_SCHEMA.TABLES</code>.
      */
     public final Tables TABLES = Tables.TABLES;
@@ -209,11 +227,6 @@ public class InformationSchema extends SchemaImpl {
      * The table <code>INFORMATION_SCHEMA.TRIGGERS</code>.
      */
     public final Triggers TRIGGERS = Triggers.TRIGGERS;
-
-    /**
-     * The table <code>INFORMATION_SCHEMA.TYPE_INFO</code>.
-     */
-    public final TypeInfo TYPE_INFO = TypeInfo.TYPE_INFO;
 
     /**
      * The table <code>INFORMATION_SCHEMA.USERS</code>.
@@ -241,25 +254,29 @@ public class InformationSchema extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
-            Catalogs.CATALOGS,
+            CheckConstraints.CHECK_CONSTRAINTS,
             Collations.COLLATIONS,
             ColumnPrivileges.COLUMN_PRIVILEGES,
             Columns.COLUMNS,
             Constants.CONSTANTS,
-            Constraints.CONSTRAINTS,
-            CrossReferences.CROSS_REFERENCES,
+            ConstraintColumnUsage.CONSTRAINT_COLUMN_USAGE,
+            DomainConstraints.DOMAIN_CONSTRAINTS,
             Domains.DOMAINS,
-            FunctionAliases.FUNCTION_ALIASES,
-            FunctionColumns.FUNCTION_COLUMNS,
-            Help.HELP,
+            ElementTypes.ELEMENT_TYPES,
+            EnumValues.ENUM_VALUES,
+            Fields.FIELDS,
             InDoubt.IN_DOUBT,
+            IndexColumns.INDEX_COLUMNS,
             Indexes.INDEXES,
+            InformationSchemaCatalogName.INFORMATION_SCHEMA_CATALOG_NAME,
             KeyColumnUsage.KEY_COLUMN_USAGE,
             Locks.LOCKS,
+            Parameters.PARAMETERS,
             QueryStatistics.QUERY_STATISTICS,
             ReferentialConstraints.REFERENTIAL_CONSTRAINTS,
             Rights.RIGHTS,
             Roles.ROLES,
+            Routines.ROUTINES,
             Schemata.SCHEMATA,
             Sequences.SEQUENCES,
             SessionState.SESSION_STATE,
@@ -268,10 +285,8 @@ public class InformationSchema extends SchemaImpl {
             Synonyms.SYNONYMS,
             TableConstraints.TABLE_CONSTRAINTS,
             TablePrivileges.TABLE_PRIVILEGES,
-            TableTypes.TABLE_TYPES,
             Tables.TABLES,
             Triggers.TRIGGERS,
-            TypeInfo.TYPE_INFO,
             Users.USERS,
             Views.VIEWS
         );

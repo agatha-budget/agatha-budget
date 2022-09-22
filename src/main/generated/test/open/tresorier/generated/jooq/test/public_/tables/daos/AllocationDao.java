@@ -36,7 +36,7 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
 
     @Override
     public Record2<String, Integer> getId(open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation object) {
-        return compositeKeyRecord(object.getCategoryId(), object.getMonth());
+        return compositeKeyRecord(object.getCategoryId(), object.getDateMonth());
     }
 
     /**
@@ -55,18 +55,18 @@ public class AllocationDao extends DAOImpl<AllocationRecord, open.tresorier.gene
     }
 
     /**
-     * Fetch records that have <code>MONTH BETWEEN lowerInclusive AND
+     * Fetch records that have <code>DATE_MONTH BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfMonth(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(Allocation.ALLOCATION.MONTH, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchRangeOfDateMonth(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Allocation.ALLOCATION.DATE_MONTH, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>MONTH IN (values)</code>
+     * Fetch records that have <code>DATE_MONTH IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByMonth(Integer... values) {
-        return fetch(Allocation.ALLOCATION.MONTH, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Allocation> fetchByDateMonth(Integer... values) {
+        return fetch(Allocation.ALLOCATION.DATE_MONTH, values);
     }
 
     /**

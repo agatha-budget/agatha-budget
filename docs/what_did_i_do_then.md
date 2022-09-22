@@ -58,6 +58,19 @@ https://ittutoria.net/solutions-for-error-compilejava-task-current-target-is-11-
 *how often* :
 
 --------------
+## expected "identifier"; SQL statement:
+
+*how long* : 3h
+
+*what happened* : update of h2, a column name was a reserved word
+
+*why* : h2 keep some keyword for its own use. see here :  http://h2database.com/html/advanced.html#keywords
+
+*what did i do to fix it* : rename the column
+
+*how often* :
+
+--------------
 ## Bug description
 
 *how long* :

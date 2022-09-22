@@ -24,6 +24,11 @@ public class TableConstraints implements Serializable {
     private final String tableName;
     private final String isDeferrable;
     private final String initiallyDeferred;
+    private final String enforced;
+    private final String indexCatalog;
+    private final String indexSchema;
+    private final String indexName;
+    private final String remarks;
 
     public TableConstraints(TableConstraints value) {
         this.constraintCatalog = value.constraintCatalog;
@@ -35,6 +40,11 @@ public class TableConstraints implements Serializable {
         this.tableName = value.tableName;
         this.isDeferrable = value.isDeferrable;
         this.initiallyDeferred = value.initiallyDeferred;
+        this.enforced = value.enforced;
+        this.indexCatalog = value.indexCatalog;
+        this.indexSchema = value.indexSchema;
+        this.indexName = value.indexName;
+        this.remarks = value.remarks;
     }
 
     public TableConstraints(
@@ -46,7 +56,12 @@ public class TableConstraints implements Serializable {
         String tableSchema,
         String tableName,
         String isDeferrable,
-        String initiallyDeferred
+        String initiallyDeferred,
+        String enforced,
+        String indexCatalog,
+        String indexSchema,
+        String indexName,
+        String remarks
     ) {
         this.constraintCatalog = constraintCatalog;
         this.constraintSchema = constraintSchema;
@@ -57,6 +72,11 @@ public class TableConstraints implements Serializable {
         this.tableName = tableName;
         this.isDeferrable = isDeferrable;
         this.initiallyDeferred = initiallyDeferred;
+        this.enforced = enforced;
+        this.indexCatalog = indexCatalog;
+        this.indexSchema = indexSchema;
+        this.indexName = indexName;
+        this.remarks = remarks;
     }
 
     /**
@@ -130,6 +150,43 @@ public class TableConstraints implements Serializable {
         return this.initiallyDeferred;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.ENFORCED</code>.
+     */
+    public String getEnforced() {
+        return this.enforced;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INDEX_CATALOG</code>.
+     */
+    public String getIndexCatalog() {
+        return this.indexCatalog;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INDEX_SCHEMA</code>.
+     */
+    public String getIndexSchema() {
+        return this.indexSchema;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INDEX_NAME</code>.
+     */
+    public String getIndexName() {
+        return this.indexName;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.REMARKS</code>.
+     */
+    public String getRemarks() {
+        return this.remarks;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("TableConstraints (");
@@ -143,6 +200,11 @@ public class TableConstraints implements Serializable {
         sb.append(", ").append(tableName);
         sb.append(", ").append(isDeferrable);
         sb.append(", ").append(initiallyDeferred);
+        sb.append(", ").append(enforced);
+        sb.append(", ").append(indexCatalog);
+        sb.append(", ").append(indexSchema);
+        sb.append(", ").append(indexName);
+        sb.append(", ").append(remarks);
 
         sb.append(")");
         return sb.toString();

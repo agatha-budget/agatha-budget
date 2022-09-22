@@ -31,7 +31,7 @@ val INTEGRATION_DB_PWD = System.getenv(INTEGRATION_DB_ID + "_PASSWORD") ?: INTEG
 buildscript {
     dependencies {
         classpath("org.postgresql:postgresql:42.2.12")
-        classpath("com.h2database:h2:1.4.200")
+        classpath("com.h2database:h2:2.0.206")
 
     }
 }
@@ -39,7 +39,7 @@ buildscript {
 plugins {
     kotlin("jvm") version "1.4.10"
     id("org.jetbrains.dokka") version "1.4.0-rc"
-    id("org.flywaydb.flyway") version "7.5.3"
+    id("org.flywaydb.flyway") version "9.3.1"
     id("nu.studer.jooq") version "7.+"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
     jacoco
     application
@@ -83,7 +83,7 @@ val kotlin_version="1.4.10"
 val koin_version= "3.0.1-beta-2"
 val junit_version="5.1.1"
 val postgres_version="42.2.12"
-val h2_version="1.4.200"
+val h2_version="2.0.206"
 val jooq_version="3.17.4"
 val mock_version="1.10.5"
 val slf4j_version="1.7.30"
@@ -156,6 +156,10 @@ tasks.clean {
     doLast { delete(project.file(generatedDir)) }
 }
 
+flyway {
+    cleanDisabled = false
+}
+
 tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTresorierDatabase") {
     url = TRESORIER_DB_URL
     user = TRESORIER_DB_USR
@@ -212,7 +216,6 @@ tasks.register("cleanAllDB") {
     dependsOn("cleanTestDatabase")
     dependsOn("cleanIntegrationDatabase")
 }
-
 
 jooq {
     configurations {

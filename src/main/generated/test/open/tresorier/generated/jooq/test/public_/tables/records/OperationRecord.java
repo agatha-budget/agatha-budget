@@ -52,32 +52,32 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
     }
 
     /**
-     * Setter for <code>PUBLIC.OPERATION.MONTH</code>.
+     * Setter for <code>PUBLIC.OPERATION.DATE_MONTH</code>.
      */
-    public OperationRecord setMonth(Integer value) {
+    public OperationRecord setDateMonth(Integer value) {
         set(2, value);
         return this;
     }
 
     /**
-     * Getter for <code>PUBLIC.OPERATION.MONTH</code>.
+     * Getter for <code>PUBLIC.OPERATION.DATE_MONTH</code>.
      */
-    public Integer getMonth() {
+    public Integer getDateMonth() {
         return (Integer) get(2);
     }
 
     /**
-     * Setter for <code>PUBLIC.OPERATION.DAY</code>.
+     * Setter for <code>PUBLIC.OPERATION.DATE_DAY</code>.
      */
-    public OperationRecord setDay(Integer value) {
+    public OperationRecord setDateDay(Integer value) {
         set(3, value);
         return this;
     }
 
     /**
-     * Getter for <code>PUBLIC.OPERATION.DAY</code>.
+     * Getter for <code>PUBLIC.OPERATION.DATE_DAY</code>.
      */
-    public Integer getDay() {
+    public Integer getDateDay() {
         return (Integer) get(3);
     }
 
@@ -251,12 +251,12 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public Field<Integer> field3() {
-        return Operation.OPERATION.MONTH;
+        return Operation.OPERATION.DATE_MONTH;
     }
 
     @Override
     public Field<Integer> field4() {
-        return Operation.OPERATION.DAY;
+        return Operation.OPERATION.DATE_DAY;
     }
 
     @Override
@@ -316,12 +316,12 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public Integer component3() {
-        return getMonth();
+        return getDateMonth();
     }
 
     @Override
     public Integer component4() {
-        return getDay();
+        return getDateDay();
     }
 
     @Override
@@ -381,12 +381,12 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public Integer value3() {
-        return getMonth();
+        return getDateMonth();
     }
 
     @Override
     public Integer value4() {
-        return getDay();
+        return getDateDay();
     }
 
     @Override
@@ -448,13 +448,13 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
 
     @Override
     public OperationRecord value3(Integer value) {
-        setMonth(value);
+        setDateMonth(value);
         return this;
     }
 
     @Override
     public OperationRecord value4(Integer value) {
-        setDay(value);
+        setDateDay(value);
         return this;
     }
 
@@ -544,13 +544,13 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
     /**
      * Create a detached, initialised OperationRecord
      */
-    public OperationRecord(String id, String accountId, Integer month, Integer day, String categoryId, String memo, Integer amount, Long orderInDay, Boolean pending, Boolean locked, String motherOperationId, String importIdentifier, Long importTimestamp) {
+    public OperationRecord(String id, String accountId, Integer dateMonth, Integer dateDay, String categoryId, String memo, Integer amount, Long orderInDay, Boolean pending, Boolean locked, String motherOperationId, String importIdentifier, Long importTimestamp) {
         super(Operation.OPERATION);
 
         setId(id);
         setAccountId(accountId);
-        setMonth(month);
-        setDay(day);
+        setDateMonth(dateMonth);
+        setDateDay(dateDay);
         setCategoryId(categoryId);
         setMemo(memo);
         setAmount(amount);
@@ -571,8 +571,8 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> implem
         if (value != null) {
             setId(value.getId());
             setAccountId(value.getAccountId());
-            setMonth(value.getMonth());
-            setDay(value.getDay());
+            setDateMonth(value.getDateMonth());
+            setDateDay(value.getDateDay());
             setCategoryId(value.getCategoryId());
             setMemo(value.getMemo());
             setAmount(value.getAmount());

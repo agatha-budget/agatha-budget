@@ -37,17 +37,17 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> impl
     }
 
     /**
-     * Setter for <code>PUBLIC.ALLOCATION.MONTH</code>.
+     * Setter for <code>PUBLIC.ALLOCATION.DATE_MONTH</code>.
      */
-    public AllocationRecord setMonth(Integer value) {
+    public AllocationRecord setDateMonth(Integer value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>PUBLIC.ALLOCATION.MONTH</code>.
+     * Getter for <code>PUBLIC.ALLOCATION.DATE_MONTH</code>.
      */
-    public Integer getMonth() {
+    public Integer getDateMonth() {
         return (Integer) get(1);
     }
 
@@ -96,7 +96,7 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> impl
 
     @Override
     public Field<Integer> field2() {
-        return Allocation.ALLOCATION.MONTH;
+        return Allocation.ALLOCATION.DATE_MONTH;
     }
 
     @Override
@@ -111,7 +111,7 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> impl
 
     @Override
     public Integer component2() {
-        return getMonth();
+        return getDateMonth();
     }
 
     @Override
@@ -126,7 +126,7 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> impl
 
     @Override
     public Integer value2() {
-        return getMonth();
+        return getDateMonth();
     }
 
     @Override
@@ -142,7 +142,7 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> impl
 
     @Override
     public AllocationRecord value2(Integer value) {
-        setMonth(value);
+        setDateMonth(value);
         return this;
     }
 
@@ -174,11 +174,11 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> impl
     /**
      * Create a detached, initialised AllocationRecord
      */
-    public AllocationRecord(String categoryId, Integer month, Integer amount) {
+    public AllocationRecord(String categoryId, Integer dateMonth, Integer amount) {
         super(Allocation.ALLOCATION);
 
         setCategoryId(categoryId);
-        setMonth(month);
+        setDateMonth(dateMonth);
         setAmount(amount);
     }
 
@@ -190,7 +190,7 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> impl
 
         if (value != null) {
             setCategoryId(value.getCategoryId());
-            setMonth(value.getMonth());
+            setDateMonth(value.getDateMonth());
             setAmount(value.getAmount());
         }
     }

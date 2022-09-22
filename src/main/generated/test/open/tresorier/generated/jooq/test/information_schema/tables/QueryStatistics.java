@@ -47,7 +47,7 @@ public class QueryStatistics extends TableImpl<QueryStatisticsRecord> {
      * The column
      * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.SQL_STATEMENT</code>.
      */
-    public final TableField<QueryStatisticsRecord, String> SQL_STATEMENT = createField(DSL.name("SQL_STATEMENT"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<QueryStatisticsRecord, String> SQL_STATEMENT = createField(DSL.name("SQL_STATEMENT"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
@@ -89,13 +89,13 @@ public class QueryStatistics extends TableImpl<QueryStatisticsRecord> {
      * The column
      * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_ROW_COUNT</code>.
      */
-    public final TableField<QueryStatisticsRecord, Integer> MIN_ROW_COUNT = createField(DSL.name("MIN_ROW_COUNT"), SQLDataType.INTEGER, this, "");
+    public final TableField<QueryStatisticsRecord, Long> MIN_ROW_COUNT = createField(DSL.name("MIN_ROW_COUNT"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_ROW_COUNT</code>.
      */
-    public final TableField<QueryStatisticsRecord, Integer> MAX_ROW_COUNT = createField(DSL.name("MAX_ROW_COUNT"), SQLDataType.INTEGER, this, "");
+    public final TableField<QueryStatisticsRecord, Long> MAX_ROW_COUNT = createField(DSL.name("MAX_ROW_COUNT"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column
@@ -186,7 +186,7 @@ public class QueryStatistics extends TableImpl<QueryStatisticsRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row12<String, Integer, Double, Double, Double, Double, Double, Integer, Integer, Long, Double, Double> fieldsRow() {
+    public Row12<String, Integer, Double, Double, Double, Double, Double, Long, Long, Long, Double, Double> fieldsRow() {
         return (Row12) super.fieldsRow();
     }
 }

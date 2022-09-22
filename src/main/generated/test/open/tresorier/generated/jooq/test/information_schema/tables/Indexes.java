@@ -11,7 +11,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row22;
+import org.jooq.Row10;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -43,54 +43,39 @@ public class Indexes extends TableImpl<IndexesRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_CATALOG</code>.
+     * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_CATALOG</code>.
      */
-    public final TableField<IndexesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> INDEX_CATALOG = createField(DSL.name("INDEX_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_SCHEMA</code>.
+     * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_SCHEMA</code>.
      */
-    public final TableField<IndexesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_NAME</code>.
-     */
-    public final TableField<IndexesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.NON_UNIQUE</code>.
-     */
-    public final TableField<IndexesRecord, Boolean> NON_UNIQUE = createField(DSL.name("NON_UNIQUE"), SQLDataType.BOOLEAN, this, "");
+    public final TableField<IndexesRecord, String> INDEX_SCHEMA = createField(DSL.name("INDEX_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.ORDINAL_POSITION</code>.
+     * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_CATALOG</code>.
      */
-    public final TableField<IndexesRecord, Short> ORDINAL_POSITION = createField(DSL.name("ORDINAL_POSITION"), SQLDataType.SMALLINT, this, "");
+    public final TableField<IndexesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.COLUMN_NAME</code>.
+     * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_SCHEMA</code>.
      */
-    public final TableField<IndexesRecord, String> COLUMN_NAME = createField(DSL.name("COLUMN_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.CARDINALITY</code>.
+     * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_NAME</code>.
      */
-    public final TableField<IndexesRecord, Integer> CARDINALITY = createField(DSL.name("CARDINALITY"), SQLDataType.INTEGER, this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.PRIMARY_KEY</code>.
-     */
-    public final TableField<IndexesRecord, Boolean> PRIMARY_KEY = createField(DSL.name("PRIMARY_KEY"), SQLDataType.BOOLEAN, this, "");
+    public final TableField<IndexesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_TYPE_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_TYPE_NAME = createField(DSL.name("INDEX_TYPE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> INDEX_TYPE_NAME = createField(DSL.name("INDEX_TYPE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.IS_GENERATED</code>.
@@ -98,59 +83,14 @@ public class Indexes extends TableImpl<IndexesRecord> {
     public final TableField<IndexesRecord, Boolean> IS_GENERATED = createField(DSL.name("IS_GENERATED"), SQLDataType.BOOLEAN, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_TYPE</code>.
-     */
-    public final TableField<IndexesRecord, Short> INDEX_TYPE = createField(DSL.name("INDEX_TYPE"), SQLDataType.SMALLINT, this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.ASC_OR_DESC</code>.
-     */
-    public final TableField<IndexesRecord, String> ASC_OR_DESC = createField(DSL.name("ASC_OR_DESC"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.PAGES</code>.
-     */
-    public final TableField<IndexesRecord, Integer> PAGES = createField(DSL.name("PAGES"), SQLDataType.INTEGER, this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.FILTER_CONDITION</code>.
-     */
-    public final TableField<IndexesRecord, String> FILTER_CONDITION = createField(DSL.name("FILTER_CONDITION"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.REMARKS</code>.
      */
-    public final TableField<IndexesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.SQL</code>.
-     */
-    public final TableField<IndexesRecord, String> SQL = createField(DSL.name("SQL"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.ID</code>.
-     */
-    public final TableField<IndexesRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.SORT_TYPE</code>.
-     */
-    public final TableField<IndexesRecord, Integer> SORT_TYPE = createField(DSL.name("SORT_TYPE"), SQLDataType.INTEGER, this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.CONSTRAINT_NAME</code>.
-     */
-    public final TableField<IndexesRecord, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<IndexesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_CLASS</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_CLASS = createField(DSL.name("INDEX_CLASS"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.INDEXES.AFFINITY</code>.
-     */
-    public final TableField<IndexesRecord, Boolean> AFFINITY = createField(DSL.name("AFFINITY"), SQLDataType.BOOLEAN, this, "");
+    public final TableField<IndexesRecord, String> INDEX_CLASS = createField(DSL.name("INDEX_CLASS"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Indexes(Name alias, Table<IndexesRecord> aliased) {
         this(alias, aliased, null);
@@ -217,11 +157,11 @@ public class Indexes extends TableImpl<IndexesRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row22 type methods
+    // Row10 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row22<String, String, String, Boolean, String, Short, String, Integer, Boolean, String, Boolean, Short, String, Integer, String, String, String, Integer, Integer, String, String, Boolean> fieldsRow() {
-        return (Row22) super.fieldsRow();
+    public Row10<String, String, String, String, String, String, String, Boolean, String, String> fieldsRow() {
+        return (Row10) super.fieldsRow();
     }
 }

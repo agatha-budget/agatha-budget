@@ -18,65 +18,133 @@ public class Domains implements Serializable {
     private final String  domainCatalog;
     private final String  domainSchema;
     private final String  domainName;
-    private final String  columnDefault;
-    private final String  isNullable;
-    private final Integer dataType;
-    private final Integer precision;
-    private final Integer scale;
-    private final String  typeName;
-    private final Integer selectivity;
-    private final String  checkConstraint;
+    private final String  dataType;
+    private final Long    characterMaximumLength;
+    private final Long    characterOctetLength;
+    private final String  characterSetCatalog;
+    private final String  characterSetSchema;
+    private final String  characterSetName;
+    private final String  collationCatalog;
+    private final String  collationSchema;
+    private final String  collationName;
+    private final Integer numericPrecision;
+    private final Integer numericPrecisionRadix;
+    private final Integer numericScale;
+    private final Integer datetimePrecision;
+    private final String  intervalType;
+    private final Integer intervalPrecision;
+    private final String  domainDefault;
+    private final Integer maximumCardinality;
+    private final String  dtdIdentifier;
+    private final String  declaredDataType;
+    private final Integer declaredNumericPrecision;
+    private final Integer declaredNumericScale;
+    private final String  geometryType;
+    private final Integer geometrySrid;
+    private final String  domainOnUpdate;
+    private final String  parentDomainCatalog;
+    private final String  parentDomainSchema;
+    private final String  parentDomainName;
     private final String  remarks;
-    private final String  sql;
-    private final Integer id;
 
     public Domains(Domains value) {
         this.domainCatalog = value.domainCatalog;
         this.domainSchema = value.domainSchema;
         this.domainName = value.domainName;
-        this.columnDefault = value.columnDefault;
-        this.isNullable = value.isNullable;
         this.dataType = value.dataType;
-        this.precision = value.precision;
-        this.scale = value.scale;
-        this.typeName = value.typeName;
-        this.selectivity = value.selectivity;
-        this.checkConstraint = value.checkConstraint;
+        this.characterMaximumLength = value.characterMaximumLength;
+        this.characterOctetLength = value.characterOctetLength;
+        this.characterSetCatalog = value.characterSetCatalog;
+        this.characterSetSchema = value.characterSetSchema;
+        this.characterSetName = value.characterSetName;
+        this.collationCatalog = value.collationCatalog;
+        this.collationSchema = value.collationSchema;
+        this.collationName = value.collationName;
+        this.numericPrecision = value.numericPrecision;
+        this.numericPrecisionRadix = value.numericPrecisionRadix;
+        this.numericScale = value.numericScale;
+        this.datetimePrecision = value.datetimePrecision;
+        this.intervalType = value.intervalType;
+        this.intervalPrecision = value.intervalPrecision;
+        this.domainDefault = value.domainDefault;
+        this.maximumCardinality = value.maximumCardinality;
+        this.dtdIdentifier = value.dtdIdentifier;
+        this.declaredDataType = value.declaredDataType;
+        this.declaredNumericPrecision = value.declaredNumericPrecision;
+        this.declaredNumericScale = value.declaredNumericScale;
+        this.geometryType = value.geometryType;
+        this.geometrySrid = value.geometrySrid;
+        this.domainOnUpdate = value.domainOnUpdate;
+        this.parentDomainCatalog = value.parentDomainCatalog;
+        this.parentDomainSchema = value.parentDomainSchema;
+        this.parentDomainName = value.parentDomainName;
         this.remarks = value.remarks;
-        this.sql = value.sql;
-        this.id = value.id;
     }
 
     public Domains(
         String  domainCatalog,
         String  domainSchema,
         String  domainName,
-        String  columnDefault,
-        String  isNullable,
-        Integer dataType,
-        Integer precision,
-        Integer scale,
-        String  typeName,
-        Integer selectivity,
-        String  checkConstraint,
-        String  remarks,
-        String  sql,
-        Integer id
+        String  dataType,
+        Long    characterMaximumLength,
+        Long    characterOctetLength,
+        String  characterSetCatalog,
+        String  characterSetSchema,
+        String  characterSetName,
+        String  collationCatalog,
+        String  collationSchema,
+        String  collationName,
+        Integer numericPrecision,
+        Integer numericPrecisionRadix,
+        Integer numericScale,
+        Integer datetimePrecision,
+        String  intervalType,
+        Integer intervalPrecision,
+        String  domainDefault,
+        Integer maximumCardinality,
+        String  dtdIdentifier,
+        String  declaredDataType,
+        Integer declaredNumericPrecision,
+        Integer declaredNumericScale,
+        String  geometryType,
+        Integer geometrySrid,
+        String  domainOnUpdate,
+        String  parentDomainCatalog,
+        String  parentDomainSchema,
+        String  parentDomainName,
+        String  remarks
     ) {
         this.domainCatalog = domainCatalog;
         this.domainSchema = domainSchema;
         this.domainName = domainName;
-        this.columnDefault = columnDefault;
-        this.isNullable = isNullable;
         this.dataType = dataType;
-        this.precision = precision;
-        this.scale = scale;
-        this.typeName = typeName;
-        this.selectivity = selectivity;
-        this.checkConstraint = checkConstraint;
+        this.characterMaximumLength = characterMaximumLength;
+        this.characterOctetLength = characterOctetLength;
+        this.characterSetCatalog = characterSetCatalog;
+        this.characterSetSchema = characterSetSchema;
+        this.characterSetName = characterSetName;
+        this.collationCatalog = collationCatalog;
+        this.collationSchema = collationSchema;
+        this.collationName = collationName;
+        this.numericPrecision = numericPrecision;
+        this.numericPrecisionRadix = numericPrecisionRadix;
+        this.numericScale = numericScale;
+        this.datetimePrecision = datetimePrecision;
+        this.intervalType = intervalType;
+        this.intervalPrecision = intervalPrecision;
+        this.domainDefault = domainDefault;
+        this.maximumCardinality = maximumCardinality;
+        this.dtdIdentifier = dtdIdentifier;
+        this.declaredDataType = declaredDataType;
+        this.declaredNumericPrecision = declaredNumericPrecision;
+        this.declaredNumericScale = declaredNumericScale;
+        this.geometryType = geometryType;
+        this.geometrySrid = geometrySrid;
+        this.domainOnUpdate = domainOnUpdate;
+        this.parentDomainCatalog = parentDomainCatalog;
+        this.parentDomainSchema = parentDomainSchema;
+        this.parentDomainName = parentDomainName;
         this.remarks = remarks;
-        this.sql = sql;
-        this.id = id;
     }
 
     /**
@@ -101,59 +169,197 @@ public class Domains implements Serializable {
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.COLUMN_DEFAULT</code>.
-     */
-    public String getColumnDefault() {
-        return this.columnDefault;
-    }
-
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.IS_NULLABLE</code>.
-     */
-    public String getIsNullable() {
-        return this.isNullable;
-    }
-
-    /**
      * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DATA_TYPE</code>.
      */
-    public Integer getDataType() {
+    public String getDataType() {
         return this.dataType;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.PRECISION</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.DOMAINS.CHARACTER_MAXIMUM_LENGTH</code>.
      */
-    public Integer getPrecision() {
-        return this.precision;
+    public Long getCharacterMaximumLength() {
+        return this.characterMaximumLength;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.SCALE</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.DOMAINS.CHARACTER_OCTET_LENGTH</code>.
      */
-    public Integer getScale() {
-        return this.scale;
+    public Long getCharacterOctetLength() {
+        return this.characterOctetLength;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.TYPE_NAME</code>.
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.CHARACTER_SET_CATALOG</code>.
      */
-    public String getTypeName() {
-        return this.typeName;
+    public String getCharacterSetCatalog() {
+        return this.characterSetCatalog;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.SELECTIVITY</code>.
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.CHARACTER_SET_SCHEMA</code>.
      */
-    public Integer getSelectivity() {
-        return this.selectivity;
+    public String getCharacterSetSchema() {
+        return this.characterSetSchema;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.CHECK_CONSTRAINT</code>.
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.CHARACTER_SET_NAME</code>.
      */
-    public String getCheckConstraint() {
-        return this.checkConstraint;
+    public String getCharacterSetName() {
+        return this.characterSetName;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.COLLATION_CATALOG</code>.
+     */
+    public String getCollationCatalog() {
+        return this.collationCatalog;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.COLLATION_SCHEMA</code>.
+     */
+    public String getCollationSchema() {
+        return this.collationSchema;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.COLLATION_NAME</code>.
+     */
+    public String getCollationName() {
+        return this.collationName;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.NUMERIC_PRECISION</code>.
+     */
+    public Integer getNumericPrecision() {
+        return this.numericPrecision;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.DOMAINS.NUMERIC_PRECISION_RADIX</code>.
+     */
+    public Integer getNumericPrecisionRadix() {
+        return this.numericPrecisionRadix;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.NUMERIC_SCALE</code>.
+     */
+    public Integer getNumericScale() {
+        return this.numericScale;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DATETIME_PRECISION</code>.
+     */
+    public Integer getDatetimePrecision() {
+        return this.datetimePrecision;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.INTERVAL_TYPE</code>.
+     */
+    public String getIntervalType() {
+        return this.intervalType;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.INTERVAL_PRECISION</code>.
+     */
+    public Integer getIntervalPrecision() {
+        return this.intervalPrecision;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_DEFAULT</code>.
+     */
+    public String getDomainDefault() {
+        return this.domainDefault;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.MAXIMUM_CARDINALITY</code>.
+     */
+    public Integer getMaximumCardinality() {
+        return this.maximumCardinality;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DTD_IDENTIFIER</code>.
+     */
+    public String getDtdIdentifier() {
+        return this.dtdIdentifier;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DECLARED_DATA_TYPE</code>.
+     */
+    public String getDeclaredDataType() {
+        return this.declaredDataType;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.DOMAINS.DECLARED_NUMERIC_PRECISION</code>.
+     */
+    public Integer getDeclaredNumericPrecision() {
+        return this.declaredNumericPrecision;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.DOMAINS.DECLARED_NUMERIC_SCALE</code>.
+     */
+    public Integer getDeclaredNumericScale() {
+        return this.declaredNumericScale;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.GEOMETRY_TYPE</code>.
+     */
+    public String getGeometryType() {
+        return this.geometryType;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.GEOMETRY_SRID</code>.
+     */
+    public Integer getGeometrySrid() {
+        return this.geometrySrid;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_ON_UPDATE</code>.
+     */
+    public String getDomainOnUpdate() {
+        return this.domainOnUpdate;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.PARENT_DOMAIN_CATALOG</code>.
+     */
+    public String getParentDomainCatalog() {
+        return this.parentDomainCatalog;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.PARENT_DOMAIN_SCHEMA</code>.
+     */
+    public String getParentDomainSchema() {
+        return this.parentDomainSchema;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.PARENT_DOMAIN_NAME</code>.
+     */
+    public String getParentDomainName() {
+        return this.parentDomainName;
     }
 
     /**
@@ -163,20 +369,6 @@ public class Domains implements Serializable {
         return this.remarks;
     }
 
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.SQL</code>.
-     */
-    public String getSql() {
-        return this.sql;
-    }
-
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.DOMAINS.ID</code>.
-     */
-    public Integer getId() {
-        return this.id;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Domains (");
@@ -184,17 +376,34 @@ public class Domains implements Serializable {
         sb.append(domainCatalog);
         sb.append(", ").append(domainSchema);
         sb.append(", ").append(domainName);
-        sb.append(", ").append(columnDefault);
-        sb.append(", ").append(isNullable);
         sb.append(", ").append(dataType);
-        sb.append(", ").append(precision);
-        sb.append(", ").append(scale);
-        sb.append(", ").append(typeName);
-        sb.append(", ").append(selectivity);
-        sb.append(", ").append(checkConstraint);
+        sb.append(", ").append(characterMaximumLength);
+        sb.append(", ").append(characterOctetLength);
+        sb.append(", ").append(characterSetCatalog);
+        sb.append(", ").append(characterSetSchema);
+        sb.append(", ").append(characterSetName);
+        sb.append(", ").append(collationCatalog);
+        sb.append(", ").append(collationSchema);
+        sb.append(", ").append(collationName);
+        sb.append(", ").append(numericPrecision);
+        sb.append(", ").append(numericPrecisionRadix);
+        sb.append(", ").append(numericScale);
+        sb.append(", ").append(datetimePrecision);
+        sb.append(", ").append(intervalType);
+        sb.append(", ").append(intervalPrecision);
+        sb.append(", ").append(domainDefault);
+        sb.append(", ").append(maximumCardinality);
+        sb.append(", ").append(dtdIdentifier);
+        sb.append(", ").append(declaredDataType);
+        sb.append(", ").append(declaredNumericPrecision);
+        sb.append(", ").append(declaredNumericScale);
+        sb.append(", ").append(geometryType);
+        sb.append(", ").append(geometrySrid);
+        sb.append(", ").append(domainOnUpdate);
+        sb.append(", ").append(parentDomainCatalog);
+        sb.append(", ").append(parentDomainSchema);
+        sb.append(", ").append(parentDomainName);
         sb.append(", ").append(remarks);
-        sb.append(", ").append(sql);
-        sb.append(", ").append(id);
 
         sb.append(")");
         return sb.toString();

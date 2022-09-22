@@ -11,7 +11,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row3;
+import org.jooq.Row2;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -43,19 +43,14 @@ public class Roles extends TableImpl<RolesRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.ROLES.NAME</code>.
+     * The column <code>INFORMATION_SCHEMA.ROLES.ROLE_NAME</code>.
      */
-    public final TableField<RolesRecord, String> NAME = createField(DSL.name("NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RolesRecord, String> ROLE_NAME = createField(DSL.name("ROLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROLES.REMARKS</code>.
      */
-    public final TableField<RolesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.ROLES.ID</code>.
-     */
-    public final TableField<RolesRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
+    public final TableField<RolesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Roles(Name alias, Table<RolesRecord> aliased) {
         this(alias, aliased, null);
@@ -122,11 +117,11 @@ public class Roles extends TableImpl<RolesRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row3 type methods
+    // Row2 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<String, String, Integer> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Row2<String, String> fieldsRow() {
+        return (Row2) super.fieldsRow();
     }
 }

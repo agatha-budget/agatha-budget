@@ -45,47 +45,57 @@ public class Triggers extends TableImpl<TriggersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_CATALOG</code>.
      */
-    public final TableField<TriggersRecord, String> TRIGGER_CATALOG = createField(DSL.name("TRIGGER_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TriggersRecord, String> TRIGGER_CATALOG = createField(DSL.name("TRIGGER_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_SCHEMA</code>.
      */
-    public final TableField<TriggersRecord, String> TRIGGER_SCHEMA = createField(DSL.name("TRIGGER_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TriggersRecord, String> TRIGGER_SCHEMA = createField(DSL.name("TRIGGER_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_NAME</code>.
      */
-    public final TableField<TriggersRecord, String> TRIGGER_NAME = createField(DSL.name("TRIGGER_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TriggersRecord, String> TRIGGER_NAME = createField(DSL.name("TRIGGER_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_TYPE</code>.
+     * The column <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_MANIPULATION</code>.
      */
-    public final TableField<TriggersRecord, String> TRIGGER_TYPE = createField(DSL.name("TRIGGER_TYPE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TriggersRecord, String> EVENT_MANIPULATION = createField(DSL.name("EVENT_MANIPULATION"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.TABLE_CATALOG</code>.
+     * The column <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_OBJECT_CATALOG</code>.
      */
-    public final TableField<TriggersRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TriggersRecord, String> EVENT_OBJECT_CATALOG = createField(DSL.name("EVENT_OBJECT_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.TABLE_SCHEMA</code>.
+     * The column <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_OBJECT_SCHEMA</code>.
      */
-    public final TableField<TriggersRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TriggersRecord, String> EVENT_OBJECT_SCHEMA = createField(DSL.name("EVENT_OBJECT_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.TABLE_NAME</code>.
+     * The column <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_OBJECT_TABLE</code>.
      */
-    public final TableField<TriggersRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TriggersRecord, String> EVENT_OBJECT_TABLE = createField(DSL.name("EVENT_OBJECT_TABLE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.BEFORE</code>.
+     * The column <code>INFORMATION_SCHEMA.TRIGGERS.ACTION_ORIENTATION</code>.
      */
-    public final TableField<TriggersRecord, Boolean> BEFORE = createField(DSL.name("BEFORE"), SQLDataType.BOOLEAN, this, "");
+    public final TableField<TriggersRecord, String> ACTION_ORIENTATION = createField(DSL.name("ACTION_ORIENTATION"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.TRIGGERS.ACTION_TIMING</code>.
+     */
+    public final TableField<TriggersRecord, String> ACTION_TIMING = createField(DSL.name("ACTION_TIMING"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.TRIGGERS.IS_ROLLBACK</code>.
+     */
+    public final TableField<TriggersRecord, Boolean> IS_ROLLBACK = createField(DSL.name("IS_ROLLBACK"), SQLDataType.BOOLEAN, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TRIGGERS.JAVA_CLASS</code>.
      */
-    public final TableField<TriggersRecord, String> JAVA_CLASS = createField(DSL.name("JAVA_CLASS"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TriggersRecord, String> JAVA_CLASS = createField(DSL.name("JAVA_CLASS"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TRIGGERS.QUEUE_SIZE</code>.
@@ -100,24 +110,14 @@ public class Triggers extends TableImpl<TriggersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.TRIGGERS.REMARKS</code>.
      */
-    public final TableField<TriggersRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.SQL</code>.
-     */
-    public final TableField<TriggersRecord, String> SQL = createField(DSL.name("SQL"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.TRIGGERS.ID</code>.
-     */
-    public final TableField<TriggersRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
+    public final TableField<TriggersRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Triggers(Name alias, Table<TriggersRecord> aliased) {
         this(alias, aliased, null);
     }
 
     private Triggers(Name alias, Table<TriggersRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
     }
 
     /**
@@ -183,7 +183,7 @@ public class Triggers extends TableImpl<TriggersRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row14<String, String, String, String, String, String, String, Boolean, String, Integer, Boolean, String, String, Integer> fieldsRow() {
+    public Row14<String, String, String, String, String, String, String, String, String, Boolean, String, Integer, Boolean, String> fieldsRow() {
         return (Row14) super.fieldsRow();
     }
 }

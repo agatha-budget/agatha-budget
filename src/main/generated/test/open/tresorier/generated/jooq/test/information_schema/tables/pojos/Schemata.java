@@ -15,44 +15,48 @@ public class Schemata implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  catalogName;
-    private final String  schemaName;
-    private final String  schemaOwner;
-    private final String  defaultCharacterSetName;
-    private final String  defaultCollationName;
-    private final Boolean isDefault;
-    private final String  remarks;
-    private final Integer id;
+    private final String catalogName;
+    private final String schemaName;
+    private final String schemaOwner;
+    private final String defaultCharacterSetCatalog;
+    private final String defaultCharacterSetSchema;
+    private final String defaultCharacterSetName;
+    private final String sqlPath;
+    private final String defaultCollationName;
+    private final String remarks;
 
     public Schemata(Schemata value) {
         this.catalogName = value.catalogName;
         this.schemaName = value.schemaName;
         this.schemaOwner = value.schemaOwner;
+        this.defaultCharacterSetCatalog = value.defaultCharacterSetCatalog;
+        this.defaultCharacterSetSchema = value.defaultCharacterSetSchema;
         this.defaultCharacterSetName = value.defaultCharacterSetName;
+        this.sqlPath = value.sqlPath;
         this.defaultCollationName = value.defaultCollationName;
-        this.isDefault = value.isDefault;
         this.remarks = value.remarks;
-        this.id = value.id;
     }
 
     public Schemata(
-        String  catalogName,
-        String  schemaName,
-        String  schemaOwner,
-        String  defaultCharacterSetName,
-        String  defaultCollationName,
-        Boolean isDefault,
-        String  remarks,
-        Integer id
+        String catalogName,
+        String schemaName,
+        String schemaOwner,
+        String defaultCharacterSetCatalog,
+        String defaultCharacterSetSchema,
+        String defaultCharacterSetName,
+        String sqlPath,
+        String defaultCollationName,
+        String remarks
     ) {
         this.catalogName = catalogName;
         this.schemaName = schemaName;
         this.schemaOwner = schemaOwner;
+        this.defaultCharacterSetCatalog = defaultCharacterSetCatalog;
+        this.defaultCharacterSetSchema = defaultCharacterSetSchema;
         this.defaultCharacterSetName = defaultCharacterSetName;
+        this.sqlPath = sqlPath;
         this.defaultCollationName = defaultCollationName;
-        this.isDefault = isDefault;
         this.remarks = remarks;
-        this.id = id;
     }
 
     /**
@@ -78,10 +82,33 @@ public class Schemata implements Serializable {
 
     /**
      * Getter for
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_CATALOG</code>.
+     */
+    public String getDefaultCharacterSetCatalog() {
+        return this.defaultCharacterSetCatalog;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_SCHEMA</code>.
+     */
+    public String getDefaultCharacterSetSchema() {
+        return this.defaultCharacterSetSchema;
+    }
+
+    /**
+     * Getter for
      * <code>INFORMATION_SCHEMA.SCHEMATA.DEFAULT_CHARACTER_SET_NAME</code>.
      */
     public String getDefaultCharacterSetName() {
         return this.defaultCharacterSetName;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.SQL_PATH</code>.
+     */
+    public String getSqlPath() {
+        return this.sqlPath;
     }
 
     /**
@@ -93,24 +120,10 @@ public class Schemata implements Serializable {
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.IS_DEFAULT</code>.
-     */
-    public Boolean getIsDefault() {
-        return this.isDefault;
-    }
-
-    /**
      * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.REMARKS</code>.
      */
     public String getRemarks() {
         return this.remarks;
-    }
-
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.SCHEMATA.ID</code>.
-     */
-    public Integer getId() {
-        return this.id;
     }
 
     @Override
@@ -120,11 +133,12 @@ public class Schemata implements Serializable {
         sb.append(catalogName);
         sb.append(", ").append(schemaName);
         sb.append(", ").append(schemaOwner);
+        sb.append(", ").append(defaultCharacterSetCatalog);
+        sb.append(", ").append(defaultCharacterSetSchema);
         sb.append(", ").append(defaultCharacterSetName);
+        sb.append(", ").append(sqlPath);
         sb.append(", ").append(defaultCollationName);
-        sb.append(", ").append(isDefault);
         sb.append(", ").append(remarks);
-        sb.append(", ").append(id);
 
         sb.append(")");
         return sb.toString();

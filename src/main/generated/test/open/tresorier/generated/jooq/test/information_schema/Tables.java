@@ -4,25 +4,29 @@
 package open.tresorier.generated.jooq.test.information_schema;
 
 
-import open.tresorier.generated.jooq.test.information_schema.tables.Catalogs;
+import open.tresorier.generated.jooq.test.information_schema.tables.CheckConstraints;
 import open.tresorier.generated.jooq.test.information_schema.tables.Collations;
 import open.tresorier.generated.jooq.test.information_schema.tables.ColumnPrivileges;
 import open.tresorier.generated.jooq.test.information_schema.tables.Columns;
 import open.tresorier.generated.jooq.test.information_schema.tables.Constants;
-import open.tresorier.generated.jooq.test.information_schema.tables.Constraints;
-import open.tresorier.generated.jooq.test.information_schema.tables.CrossReferences;
+import open.tresorier.generated.jooq.test.information_schema.tables.ConstraintColumnUsage;
+import open.tresorier.generated.jooq.test.information_schema.tables.DomainConstraints;
 import open.tresorier.generated.jooq.test.information_schema.tables.Domains;
-import open.tresorier.generated.jooq.test.information_schema.tables.FunctionAliases;
-import open.tresorier.generated.jooq.test.information_schema.tables.FunctionColumns;
-import open.tresorier.generated.jooq.test.information_schema.tables.Help;
+import open.tresorier.generated.jooq.test.information_schema.tables.ElementTypes;
+import open.tresorier.generated.jooq.test.information_schema.tables.EnumValues;
+import open.tresorier.generated.jooq.test.information_schema.tables.Fields;
 import open.tresorier.generated.jooq.test.information_schema.tables.InDoubt;
+import open.tresorier.generated.jooq.test.information_schema.tables.IndexColumns;
 import open.tresorier.generated.jooq.test.information_schema.tables.Indexes;
+import open.tresorier.generated.jooq.test.information_schema.tables.InformationSchemaCatalogName;
 import open.tresorier.generated.jooq.test.information_schema.tables.KeyColumnUsage;
 import open.tresorier.generated.jooq.test.information_schema.tables.Locks;
+import open.tresorier.generated.jooq.test.information_schema.tables.Parameters;
 import open.tresorier.generated.jooq.test.information_schema.tables.QueryStatistics;
 import open.tresorier.generated.jooq.test.information_schema.tables.ReferentialConstraints;
 import open.tresorier.generated.jooq.test.information_schema.tables.Rights;
 import open.tresorier.generated.jooq.test.information_schema.tables.Roles;
+import open.tresorier.generated.jooq.test.information_schema.tables.Routines;
 import open.tresorier.generated.jooq.test.information_schema.tables.Schemata;
 import open.tresorier.generated.jooq.test.information_schema.tables.Sequences;
 import open.tresorier.generated.jooq.test.information_schema.tables.SessionState;
@@ -31,9 +35,7 @@ import open.tresorier.generated.jooq.test.information_schema.tables.Settings;
 import open.tresorier.generated.jooq.test.information_schema.tables.Synonyms;
 import open.tresorier.generated.jooq.test.information_schema.tables.TableConstraints;
 import open.tresorier.generated.jooq.test.information_schema.tables.TablePrivileges;
-import open.tresorier.generated.jooq.test.information_schema.tables.TableTypes;
 import open.tresorier.generated.jooq.test.information_schema.tables.Triggers;
-import open.tresorier.generated.jooq.test.information_schema.tables.TypeInfo;
 import open.tresorier.generated.jooq.test.information_schema.tables.Users;
 import open.tresorier.generated.jooq.test.information_schema.tables.Views;
 
@@ -45,9 +47,9 @@ import open.tresorier.generated.jooq.test.information_schema.tables.Views;
 public class Tables {
 
     /**
-     * The table <code>INFORMATION_SCHEMA.CATALOGS</code>.
+     * The table <code>INFORMATION_SCHEMA.CHECK_CONSTRAINTS</code>.
      */
-    public static final Catalogs CATALOGS = Catalogs.CATALOGS;
+    public static final CheckConstraints CHECK_CONSTRAINTS = CheckConstraints.CHECK_CONSTRAINTS;
 
     /**
      * The table <code>INFORMATION_SCHEMA.COLLATIONS</code>.
@@ -70,14 +72,14 @@ public class Tables {
     public static final Constants CONSTANTS = Constants.CONSTANTS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.CONSTRAINTS</code>.
+     * The table <code>INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE</code>.
      */
-    public static final Constraints CONSTRAINTS = Constraints.CONSTRAINTS;
+    public static final ConstraintColumnUsage CONSTRAINT_COLUMN_USAGE = ConstraintColumnUsage.CONSTRAINT_COLUMN_USAGE;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.CROSS_REFERENCES</code>.
+     * The table <code>INFORMATION_SCHEMA.DOMAIN_CONSTRAINTS</code>.
      */
-    public static final CrossReferences CROSS_REFERENCES = CrossReferences.CROSS_REFERENCES;
+    public static final DomainConstraints DOMAIN_CONSTRAINTS = DomainConstraints.DOMAIN_CONSTRAINTS;
 
     /**
      * The table <code>INFORMATION_SCHEMA.DOMAINS</code>.
@@ -85,19 +87,19 @@ public class Tables {
     public static final Domains DOMAINS = Domains.DOMAINS;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.FUNCTION_ALIASES</code>.
+     * The table <code>INFORMATION_SCHEMA.ELEMENT_TYPES</code>.
      */
-    public static final FunctionAliases FUNCTION_ALIASES = FunctionAliases.FUNCTION_ALIASES;
+    public static final ElementTypes ELEMENT_TYPES = ElementTypes.ELEMENT_TYPES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.FUNCTION_COLUMNS</code>.
+     * The table <code>INFORMATION_SCHEMA.ENUM_VALUES</code>.
      */
-    public static final FunctionColumns FUNCTION_COLUMNS = FunctionColumns.FUNCTION_COLUMNS;
+    public static final EnumValues ENUM_VALUES = EnumValues.ENUM_VALUES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.HELP</code>.
+     * The table <code>INFORMATION_SCHEMA.FIELDS</code>.
      */
-    public static final Help HELP = Help.HELP;
+    public static final Fields FIELDS = Fields.FIELDS;
 
     /**
      * The table <code>INFORMATION_SCHEMA.IN_DOUBT</code>.
@@ -105,9 +107,20 @@ public class Tables {
     public static final InDoubt IN_DOUBT = InDoubt.IN_DOUBT;
 
     /**
+     * The table <code>INFORMATION_SCHEMA.INDEX_COLUMNS</code>.
+     */
+    public static final IndexColumns INDEX_COLUMNS = IndexColumns.INDEX_COLUMNS;
+
+    /**
      * The table <code>INFORMATION_SCHEMA.INDEXES</code>.
      */
     public static final Indexes INDEXES = Indexes.INDEXES;
+
+    /**
+     * The table
+     * <code>INFORMATION_SCHEMA.INFORMATION_SCHEMA_CATALOG_NAME</code>.
+     */
+    public static final InformationSchemaCatalogName INFORMATION_SCHEMA_CATALOG_NAME = InformationSchemaCatalogName.INFORMATION_SCHEMA_CATALOG_NAME;
 
     /**
      * The table <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE</code>.
@@ -118,6 +131,11 @@ public class Tables {
      * The table <code>INFORMATION_SCHEMA.LOCKS</code>.
      */
     public static final Locks LOCKS = Locks.LOCKS;
+
+    /**
+     * The table <code>INFORMATION_SCHEMA.PARAMETERS</code>.
+     */
+    public static final Parameters PARAMETERS = Parameters.PARAMETERS;
 
     /**
      * The table <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code>.
@@ -138,6 +156,11 @@ public class Tables {
      * The table <code>INFORMATION_SCHEMA.ROLES</code>.
      */
     public static final Roles ROLES = Roles.ROLES;
+
+    /**
+     * The table <code>INFORMATION_SCHEMA.ROUTINES</code>.
+     */
+    public static final Routines ROUTINES = Routines.ROUTINES;
 
     /**
      * The table <code>INFORMATION_SCHEMA.SCHEMATA</code>.
@@ -180,11 +203,6 @@ public class Tables {
     public static final TablePrivileges TABLE_PRIVILEGES = TablePrivileges.TABLE_PRIVILEGES;
 
     /**
-     * The table <code>INFORMATION_SCHEMA.TABLE_TYPES</code>.
-     */
-    public static final TableTypes TABLE_TYPES = TableTypes.TABLE_TYPES;
-
-    /**
      * The table <code>INFORMATION_SCHEMA.TABLES</code>.
      */
     public static final open.tresorier.generated.jooq.test.information_schema.tables.Tables TABLES = open.tresorier.generated.jooq.test.information_schema.tables.Tables.TABLES;
@@ -193,11 +211,6 @@ public class Tables {
      * The table <code>INFORMATION_SCHEMA.TRIGGERS</code>.
      */
     public static final Triggers TRIGGERS = Triggers.TRIGGERS;
-
-    /**
-     * The table <code>INFORMATION_SCHEMA.TYPE_INFO</code>.
-     */
-    public static final TypeInfo TYPE_INFO = TypeInfo.TYPE_INFO;
 
     /**
      * The table <code>INFORMATION_SCHEMA.USERS</code>.

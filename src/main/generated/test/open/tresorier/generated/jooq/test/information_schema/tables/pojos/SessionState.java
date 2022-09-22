@@ -15,42 +15,42 @@ public class SessionState implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String key;
-    private final String sql;
+    private final String stateKey;
+    private final String stateCommand;
 
     public SessionState(SessionState value) {
-        this.key = value.key;
-        this.sql = value.sql;
+        this.stateKey = value.stateKey;
+        this.stateCommand = value.stateCommand;
     }
 
     public SessionState(
-        String key,
-        String sql
+        String stateKey,
+        String stateCommand
     ) {
-        this.key = key;
-        this.sql = sql;
+        this.stateKey = stateKey;
+        this.stateCommand = stateCommand;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.KEY</code>.
+     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.STATE_KEY</code>.
      */
-    public String getKey() {
-        return this.key;
+    public String getStateKey() {
+        return this.stateKey;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.SQL</code>.
+     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.STATE_COMMAND</code>.
      */
-    public String getSql() {
-        return this.sql;
+    public String getStateCommand() {
+        return this.stateCommand;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("SessionState (");
 
-        sb.append(key);
-        sb.append(", ").append(sql);
+        sb.append(stateKey);
+        sb.append(", ").append(stateCommand);
 
         sb.append(")");
         return sb.toString();

@@ -15,13 +15,12 @@ public class Rights implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  grantee;
-    private final String  granteetype;
-    private final String  grantedrole;
-    private final String  rights;
-    private final String  tableSchema;
-    private final String  tableName;
-    private final Integer id;
+    private final String grantee;
+    private final String granteetype;
+    private final String grantedrole;
+    private final String rights;
+    private final String tableSchema;
+    private final String tableName;
 
     public Rights(Rights value) {
         this.grantee = value.grantee;
@@ -30,17 +29,15 @@ public class Rights implements Serializable {
         this.rights = value.rights;
         this.tableSchema = value.tableSchema;
         this.tableName = value.tableName;
-        this.id = value.id;
     }
 
     public Rights(
-        String  grantee,
-        String  granteetype,
-        String  grantedrole,
-        String  rights,
-        String  tableSchema,
-        String  tableName,
-        Integer id
+        String grantee,
+        String granteetype,
+        String grantedrole,
+        String rights,
+        String tableSchema,
+        String tableName
     ) {
         this.grantee = grantee;
         this.granteetype = granteetype;
@@ -48,7 +45,6 @@ public class Rights implements Serializable {
         this.rights = rights;
         this.tableSchema = tableSchema;
         this.tableName = tableName;
-        this.id = id;
     }
 
     /**
@@ -93,13 +89,6 @@ public class Rights implements Serializable {
         return this.tableName;
     }
 
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.ID</code>.
-     */
-    public Integer getId() {
-        return this.id;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Rights (");
@@ -110,7 +99,6 @@ public class Rights implements Serializable {
         sb.append(", ").append(rights);
         sb.append(", ").append(tableSchema);
         sb.append(", ").append(tableName);
-        sb.append(", ").append(id);
 
         sb.append(")");
         return sb.toString();

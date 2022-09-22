@@ -11,7 +11,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row9;
+import org.jooq.Row8;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -45,47 +45,42 @@ public class Synonyms extends TableImpl<SynonymsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_CATALOG</code>.
      */
-    public final TableField<SynonymsRecord, String> SYNONYM_CATALOG = createField(DSL.name("SYNONYM_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SynonymsRecord, String> SYNONYM_CATALOG = createField(DSL.name("SYNONYM_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_SCHEMA</code>.
      */
-    public final TableField<SynonymsRecord, String> SYNONYM_SCHEMA = createField(DSL.name("SYNONYM_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SynonymsRecord, String> SYNONYM_SCHEMA = createField(DSL.name("SYNONYM_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_NAME</code>.
      */
-    public final TableField<SynonymsRecord, String> SYNONYM_NAME = createField(DSL.name("SYNONYM_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SynonymsRecord, String> SYNONYM_NAME = createField(DSL.name("SYNONYM_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_FOR</code>.
      */
-    public final TableField<SynonymsRecord, String> SYNONYM_FOR = createField(DSL.name("SYNONYM_FOR"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SynonymsRecord, String> SYNONYM_FOR = createField(DSL.name("SYNONYM_FOR"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_FOR_SCHEMA</code>.
      */
-    public final TableField<SynonymsRecord, String> SYNONYM_FOR_SCHEMA = createField(DSL.name("SYNONYM_FOR_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SynonymsRecord, String> SYNONYM_FOR_SCHEMA = createField(DSL.name("SYNONYM_FOR_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SYNONYMS.TYPE_NAME</code>.
      */
-    public final TableField<SynonymsRecord, String> TYPE_NAME = createField(DSL.name("TYPE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SynonymsRecord, String> TYPE_NAME = createField(DSL.name("TYPE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SYNONYMS.STATUS</code>.
      */
-    public final TableField<SynonymsRecord, String> STATUS = createField(DSL.name("STATUS"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SynonymsRecord, String> STATUS = createField(DSL.name("STATUS"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SYNONYMS.REMARKS</code>.
      */
-    public final TableField<SynonymsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.SYNONYMS.ID</code>.
-     */
-    public final TableField<SynonymsRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
+    public final TableField<SynonymsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Synonyms(Name alias, Table<SynonymsRecord> aliased) {
         this(alias, aliased, null);
@@ -154,11 +149,11 @@ public class Synonyms extends TableImpl<SynonymsRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row9 type methods
+    // Row8 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<String, String, String, String, String, String, String, String, Integer> fieldsRow() {
-        return (Row9) super.fieldsRow();
+    public Row8<String, String, String, String, String, String, String, String> fieldsRow() {
+        return (Row8) super.fieldsRow();
     }
 }

@@ -16,67 +16,71 @@ public class Sessions implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Integer        id;
+    private final Integer        sessionId;
     private final String         userName;
     private final String         server;
     private final String         clientAddr;
     private final String         clientInfo;
     private final OffsetDateTime sessionStart;
     private final String         isolationLevel;
-    private final String         statement;
-    private final OffsetDateTime statementStart;
+    private final String         executingStatement;
+    private final OffsetDateTime executingStatementStart;
     private final Boolean        containsUncommitted;
-    private final String         state;
+    private final String         sessionState;
     private final Integer        blockerId;
+    private final OffsetDateTime sleepSince;
 
     public Sessions(Sessions value) {
-        this.id = value.id;
+        this.sessionId = value.sessionId;
         this.userName = value.userName;
         this.server = value.server;
         this.clientAddr = value.clientAddr;
         this.clientInfo = value.clientInfo;
         this.sessionStart = value.sessionStart;
         this.isolationLevel = value.isolationLevel;
-        this.statement = value.statement;
-        this.statementStart = value.statementStart;
+        this.executingStatement = value.executingStatement;
+        this.executingStatementStart = value.executingStatementStart;
         this.containsUncommitted = value.containsUncommitted;
-        this.state = value.state;
+        this.sessionState = value.sessionState;
         this.blockerId = value.blockerId;
+        this.sleepSince = value.sleepSince;
     }
 
     public Sessions(
-        Integer        id,
+        Integer        sessionId,
         String         userName,
         String         server,
         String         clientAddr,
         String         clientInfo,
         OffsetDateTime sessionStart,
         String         isolationLevel,
-        String         statement,
-        OffsetDateTime statementStart,
+        String         executingStatement,
+        OffsetDateTime executingStatementStart,
         Boolean        containsUncommitted,
-        String         state,
-        Integer        blockerId
+        String         sessionState,
+        Integer        blockerId,
+        OffsetDateTime sleepSince
     ) {
-        this.id = id;
+        this.sessionId = sessionId;
         this.userName = userName;
         this.server = server;
         this.clientAddr = clientAddr;
         this.clientInfo = clientInfo;
         this.sessionStart = sessionStart;
         this.isolationLevel = isolationLevel;
-        this.statement = statement;
-        this.statementStart = statementStart;
+        this.executingStatement = executingStatement;
+        this.executingStatementStart = executingStatementStart;
         this.containsUncommitted = containsUncommitted;
-        this.state = state;
+        this.sessionState = sessionState;
         this.blockerId = blockerId;
+        this.sleepSince = sleepSince;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.ID</code>.
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SESSION_ID</code>.
      */
-    public Integer getId() {
-        return this.id;
+    public Integer getSessionId() {
+        return this.sessionId;
     }
 
     /**
@@ -122,17 +126,18 @@ public class Sessions implements Serializable {
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.STATEMENT</code>.
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.EXECUTING_STATEMENT</code>.
      */
-    public String getStatement() {
-        return this.statement;
+    public String getExecutingStatement() {
+        return this.executingStatement;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.STATEMENT_START</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SESSIONS.EXECUTING_STATEMENT_START</code>.
      */
-    public OffsetDateTime getStatementStart() {
-        return this.statementStart;
+    public OffsetDateTime getExecutingStatementStart() {
+        return this.executingStatementStart;
     }
 
     /**
@@ -143,10 +148,10 @@ public class Sessions implements Serializable {
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.STATE</code>.
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SESSION_STATE</code>.
      */
-    public String getState() {
-        return this.state;
+    public String getSessionState() {
+        return this.sessionState;
     }
 
     /**
@@ -156,22 +161,30 @@ public class Sessions implements Serializable {
         return this.blockerId;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SLEEP_SINCE</code>.
+     */
+    public OffsetDateTime getSleepSince() {
+        return this.sleepSince;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Sessions (");
 
-        sb.append(id);
+        sb.append(sessionId);
         sb.append(", ").append(userName);
         sb.append(", ").append(server);
         sb.append(", ").append(clientAddr);
         sb.append(", ").append(clientInfo);
         sb.append(", ").append(sessionStart);
         sb.append(", ").append(isolationLevel);
-        sb.append(", ").append(statement);
-        sb.append(", ").append(statementStart);
+        sb.append(", ").append(executingStatement);
+        sb.append(", ").append(executingStatementStart);
         sb.append(", ").append(containsUncommitted);
-        sb.append(", ").append(state);
+        sb.append(", ").append(sessionState);
         sb.append(", ").append(blockerId);
+        sb.append(", ").append(sleepSince);
 
         sb.append(")");
         return sb.toString();

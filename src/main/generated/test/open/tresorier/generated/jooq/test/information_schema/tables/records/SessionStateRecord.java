@@ -21,32 +21,32 @@ public class SessionStateRecord extends TableRecordImpl<SessionStateRecord> impl
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.SESSION_STATE.KEY</code>.
+     * Setter for <code>INFORMATION_SCHEMA.SESSION_STATE.STATE_KEY</code>.
      */
-    public SessionStateRecord setKey(String value) {
+    public SessionStateRecord setStateKey(String value) {
         set(0, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.KEY</code>.
+     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.STATE_KEY</code>.
      */
-    public String getKey() {
+    public String getStateKey() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.SESSION_STATE.SQL</code>.
+     * Setter for <code>INFORMATION_SCHEMA.SESSION_STATE.STATE_COMMAND</code>.
      */
-    public SessionStateRecord setSql(String value) {
+    public SessionStateRecord setStateCommand(String value) {
         set(1, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.SQL</code>.
+     * Getter for <code>INFORMATION_SCHEMA.SESSION_STATE.STATE_COMMAND</code>.
      */
-    public String getSql() {
+    public String getStateCommand() {
         return (String) get(1);
     }
 
@@ -66,43 +66,43 @@ public class SessionStateRecord extends TableRecordImpl<SessionStateRecord> impl
 
     @Override
     public Field<String> field1() {
-        return SessionState.SESSION_STATE.KEY;
+        return SessionState.SESSION_STATE.STATE_KEY;
     }
 
     @Override
     public Field<String> field2() {
-        return SessionState.SESSION_STATE.SQL;
+        return SessionState.SESSION_STATE.STATE_COMMAND;
     }
 
     @Override
     public String component1() {
-        return getKey();
+        return getStateKey();
     }
 
     @Override
     public String component2() {
-        return getSql();
+        return getStateCommand();
     }
 
     @Override
     public String value1() {
-        return getKey();
+        return getStateKey();
     }
 
     @Override
     public String value2() {
-        return getSql();
+        return getStateCommand();
     }
 
     @Override
     public SessionStateRecord value1(String value) {
-        setKey(value);
+        setStateKey(value);
         return this;
     }
 
     @Override
     public SessionStateRecord value2(String value) {
-        setSql(value);
+        setStateCommand(value);
         return this;
     }
 
@@ -127,11 +127,11 @@ public class SessionStateRecord extends TableRecordImpl<SessionStateRecord> impl
     /**
      * Create a detached, initialised SessionStateRecord
      */
-    public SessionStateRecord(String key, String sql) {
+    public SessionStateRecord(String stateKey, String stateCommand) {
         super(SessionState.SESSION_STATE);
 
-        setKey(key);
-        setSql(sql);
+        setStateKey(stateKey);
+        setStateCommand(stateCommand);
     }
 
     /**
@@ -141,8 +141,8 @@ public class SessionStateRecord extends TableRecordImpl<SessionStateRecord> impl
         super(SessionState.SESSION_STATE);
 
         if (value != null) {
-            setKey(value.getKey());
-            setSql(value.getSql());
+            setStateKey(value.getStateKey());
+            setStateCommand(value.getStateCommand());
         }
     }
 }

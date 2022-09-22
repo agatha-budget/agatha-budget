@@ -45,12 +45,12 @@ public class Locks extends TableImpl<LocksRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.LOCKS.TABLE_SCHEMA</code>.
      */
-    public final TableField<LocksRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<LocksRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.LOCKS.TABLE_NAME</code>.
      */
-    public final TableField<LocksRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<LocksRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.LOCKS.SESSION_ID</code>.
@@ -60,7 +60,7 @@ public class Locks extends TableImpl<LocksRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.LOCKS.LOCK_TYPE</code>.
      */
-    public final TableField<LocksRecord, String> LOCK_TYPE = createField(DSL.name("LOCK_TYPE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<LocksRecord, String> LOCK_TYPE = createField(DSL.name("LOCK_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Locks(Name alias, Table<LocksRecord> aliased) {
         this(alias, aliased, null);

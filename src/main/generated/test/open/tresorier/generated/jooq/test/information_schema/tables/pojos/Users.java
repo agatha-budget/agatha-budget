@@ -15,42 +15,38 @@ public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  name;
-    private final String  admin;
+    private final String  userName;
+    private final Boolean isAdmin;
     private final String  remarks;
-    private final Integer id;
 
     public Users(Users value) {
-        this.name = value.name;
-        this.admin = value.admin;
+        this.userName = value.userName;
+        this.isAdmin = value.isAdmin;
         this.remarks = value.remarks;
-        this.id = value.id;
     }
 
     public Users(
-        String  name,
-        String  admin,
-        String  remarks,
-        Integer id
+        String  userName,
+        Boolean isAdmin,
+        String  remarks
     ) {
-        this.name = name;
-        this.admin = admin;
+        this.userName = userName;
+        this.isAdmin = isAdmin;
         this.remarks = remarks;
-        this.id = id;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.USERS.NAME</code>.
+     * Getter for <code>INFORMATION_SCHEMA.USERS.USER_NAME</code>.
      */
-    public String getName() {
-        return this.name;
+    public String getUserName() {
+        return this.userName;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.USERS.ADMIN</code>.
+     * Getter for <code>INFORMATION_SCHEMA.USERS.IS_ADMIN</code>.
      */
-    public String getAdmin() {
-        return this.admin;
+    public Boolean getIsAdmin() {
+        return this.isAdmin;
     }
 
     /**
@@ -60,21 +56,13 @@ public class Users implements Serializable {
         return this.remarks;
     }
 
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.USERS.ID</code>.
-     */
-    public Integer getId() {
-        return this.id;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Users (");
 
-        sb.append(name);
-        sb.append(", ").append(admin);
+        sb.append(userName);
+        sb.append(", ").append(isAdmin);
         sb.append(", ").append(remarks);
-        sb.append(", ").append(id);
 
         sb.append(")");
         return sb.toString();

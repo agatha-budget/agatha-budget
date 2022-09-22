@@ -15,42 +15,42 @@ public class InDoubt implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String transaction;
-    private final String state;
+    private final String transactionName;
+    private final String transactionState;
 
     public InDoubt(InDoubt value) {
-        this.transaction = value.transaction;
-        this.state = value.state;
+        this.transactionName = value.transactionName;
+        this.transactionState = value.transactionState;
     }
 
     public InDoubt(
-        String transaction,
-        String state
+        String transactionName,
+        String transactionState
     ) {
-        this.transaction = transaction;
-        this.state = state;
+        this.transactionName = transactionName;
+        this.transactionState = transactionState;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION</code>.
+     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_NAME</code>.
      */
-    public String getTransaction() {
-        return this.transaction;
+    public String getTransactionName() {
+        return this.transactionName;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.STATE</code>.
+     * Getter for <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_STATE</code>.
      */
-    public String getState() {
-        return this.state;
+    public String getTransactionState() {
+        return this.transactionState;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("InDoubt (");
 
-        sb.append(transaction);
-        sb.append(", ").append(state);
+        sb.append(transactionName);
+        sb.append(", ").append(transactionState);
 
         sb.append(")");
         return sb.toString();

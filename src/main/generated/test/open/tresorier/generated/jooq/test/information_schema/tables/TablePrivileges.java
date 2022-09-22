@@ -11,7 +11,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row8;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -46,46 +46,52 @@ public class TablePrivileges extends TableImpl<TablePrivilegesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.GRANTOR</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> GRANTOR = createField(DSL.name("GRANTOR"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> GRANTOR = createField(DSL.name("GRANTOR"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.GRANTEE</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_SCHEMA</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_NAME</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> PRIVILEGE_TYPE = createField(DSL.name("PRIVILEGE_TYPE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> PRIVILEGE_TYPE = createField(DSL.name("PRIVILEGE_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.IS_GRANTABLE</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> IS_GRANTABLE = createField(DSL.name("IS_GRANTABLE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> IS_GRANTABLE = createField(DSL.name("IS_GRANTABLE"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.WITH_HIERARCHY</code>.
+     */
+    public final TableField<TablePrivilegesRecord, String> WITH_HIERARCHY = createField(DSL.name("WITH_HIERARCHY"), SQLDataType.VARCHAR(1048576), this, "");
 
     private TablePrivileges(Name alias, Table<TablePrivilegesRecord> aliased) {
         this(alias, aliased, null);
     }
 
     private TablePrivileges(Name alias, Table<TablePrivilegesRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
     }
 
     /**
@@ -147,11 +153,11 @@ public class TablePrivileges extends TableImpl<TablePrivilegesRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row8 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, String, String, String, String, String, String> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row8<String, String, String, String, String, String, String, String> fieldsRow() {
+        return (Row8) super.fieldsRow();
     }
 }

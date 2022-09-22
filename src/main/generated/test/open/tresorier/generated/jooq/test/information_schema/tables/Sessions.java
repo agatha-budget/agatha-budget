@@ -13,7 +13,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row12;
+import org.jooq.Row13;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -45,29 +45,29 @@ public class Sessions extends TableImpl<SessionsRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SESSIONS.ID</code>.
+     * The column <code>INFORMATION_SCHEMA.SESSIONS.SESSION_ID</code>.
      */
-    public final TableField<SessionsRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
+    public final TableField<SessionsRecord, Integer> SESSION_ID = createField(DSL.name("SESSION_ID"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.USER_NAME</code>.
      */
-    public final TableField<SessionsRecord, String> USER_NAME = createField(DSL.name("USER_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> USER_NAME = createField(DSL.name("USER_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.SERVER</code>.
      */
-    public final TableField<SessionsRecord, String> SERVER = createField(DSL.name("SERVER"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> SERVER = createField(DSL.name("SERVER"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_ADDR</code>.
      */
-    public final TableField<SessionsRecord, String> CLIENT_ADDR = createField(DSL.name("CLIENT_ADDR"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> CLIENT_ADDR = createField(DSL.name("CLIENT_ADDR"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_INFO</code>.
      */
-    public final TableField<SessionsRecord, String> CLIENT_INFO = createField(DSL.name("CLIENT_INFO"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> CLIENT_INFO = createField(DSL.name("CLIENT_INFO"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.SESSION_START</code>.
@@ -77,17 +77,18 @@ public class Sessions extends TableImpl<SessionsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.ISOLATION_LEVEL</code>.
      */
-    public final TableField<SessionsRecord, String> ISOLATION_LEVEL = createField(DSL.name("ISOLATION_LEVEL"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> ISOLATION_LEVEL = createField(DSL.name("ISOLATION_LEVEL"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SESSIONS.STATEMENT</code>.
+     * The column <code>INFORMATION_SCHEMA.SESSIONS.EXECUTING_STATEMENT</code>.
      */
-    public final TableField<SessionsRecord, String> STATEMENT = createField(DSL.name("STATEMENT"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> EXECUTING_STATEMENT = createField(DSL.name("EXECUTING_STATEMENT"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SESSIONS.STATEMENT_START</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.SESSIONS.EXECUTING_STATEMENT_START</code>.
      */
-    public final TableField<SessionsRecord, OffsetDateTime> STATEMENT_START = createField(DSL.name("STATEMENT_START"), SQLDataType.TIMESTAMPWITHTIMEZONE(9), this, "");
+    public final TableField<SessionsRecord, OffsetDateTime> EXECUTING_STATEMENT_START = createField(DSL.name("EXECUTING_STATEMENT_START"), SQLDataType.TIMESTAMPWITHTIMEZONE(9), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.CONTAINS_UNCOMMITTED</code>.
@@ -95,14 +96,19 @@ public class Sessions extends TableImpl<SessionsRecord> {
     public final TableField<SessionsRecord, Boolean> CONTAINS_UNCOMMITTED = createField(DSL.name("CONTAINS_UNCOMMITTED"), SQLDataType.BOOLEAN, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SESSIONS.STATE</code>.
+     * The column <code>INFORMATION_SCHEMA.SESSIONS.SESSION_STATE</code>.
      */
-    public final TableField<SessionsRecord, String> STATE = createField(DSL.name("STATE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SessionsRecord, String> SESSION_STATE = createField(DSL.name("SESSION_STATE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.BLOCKER_ID</code>.
      */
     public final TableField<SessionsRecord, Integer> BLOCKER_ID = createField(DSL.name("BLOCKER_ID"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.SESSIONS.SLEEP_SINCE</code>.
+     */
+    public final TableField<SessionsRecord, OffsetDateTime> SLEEP_SINCE = createField(DSL.name("SLEEP_SINCE"), SQLDataType.TIMESTAMPWITHTIMEZONE(9), this, "");
 
     private Sessions(Name alias, Table<SessionsRecord> aliased) {
         this(alias, aliased, null);
@@ -171,11 +177,11 @@ public class Sessions extends TableImpl<SessionsRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row12 type methods
+    // Row13 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row12<Integer, String, String, String, String, OffsetDateTime, String, String, OffsetDateTime, Boolean, String, Integer> fieldsRow() {
-        return (Row12) super.fieldsRow();
+    public Row13<Integer, String, String, String, String, OffsetDateTime, String, String, OffsetDateTime, Boolean, String, Integer, OffsetDateTime> fieldsRow() {
+        return (Row13) super.fieldsRow();
     }
 }

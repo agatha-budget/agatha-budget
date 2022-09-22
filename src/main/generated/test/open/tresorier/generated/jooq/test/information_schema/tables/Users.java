@@ -11,7 +11,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row4;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -43,24 +43,19 @@ public class Users extends TableImpl<UsersRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.USERS.NAME</code>.
+     * The column <code>INFORMATION_SCHEMA.USERS.USER_NAME</code>.
      */
-    public final TableField<UsersRecord, String> NAME = createField(DSL.name("NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<UsersRecord, String> USER_NAME = createField(DSL.name("USER_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.USERS.ADMIN</code>.
+     * The column <code>INFORMATION_SCHEMA.USERS.IS_ADMIN</code>.
      */
-    public final TableField<UsersRecord, String> ADMIN = createField(DSL.name("ADMIN"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<UsersRecord, Boolean> IS_ADMIN = createField(DSL.name("IS_ADMIN"), SQLDataType.BOOLEAN, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.USERS.REMARKS</code>.
      */
-    public final TableField<UsersRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.USERS.ID</code>.
-     */
-    public final TableField<UsersRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
+    public final TableField<UsersRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Users(Name alias, Table<UsersRecord> aliased) {
         this(alias, aliased, null);
@@ -127,11 +122,11 @@ public class Users extends TableImpl<UsersRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row4 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<String, String, String, Integer> fieldsRow() {
-        return (Row4) super.fieldsRow();
+    public Row3<String, Boolean, String> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 }

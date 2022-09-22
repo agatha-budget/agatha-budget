@@ -46,7 +46,7 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<AccountRecord> CONSTRAINT_E = Internal.createUniqueKey(Account.ACCOUNT, DSL.name("CONSTRAINT_E"), new TableField[] { Account.ACCOUNT.ID }, true);
-    public static final UniqueKey<AllocationRecord> COMPOSITE_ID = Internal.createUniqueKey(Allocation.ALLOCATION, DSL.name("COMPOSITE_ID"), new TableField[] { Allocation.ALLOCATION.CATEGORY_ID, Allocation.ALLOCATION.MONTH }, true);
+    public static final UniqueKey<AllocationRecord> COMPOSITE_ID = Internal.createUniqueKey(Allocation.ALLOCATION, DSL.name("COMPOSITE_ID"), new TableField[] { Allocation.ALLOCATION.CATEGORY_ID, Allocation.ALLOCATION.DATE_MONTH }, true);
     public static final UniqueKey<BankAccountRecord> CONSTRAINT_1 = Internal.createUniqueKey(BankAccount.BANK_ACCOUNT, DSL.name("CONSTRAINT_1"), new TableField[] { BankAccount.BANK_ACCOUNT.ID }, true);
     public static final UniqueKey<BankAgreementRecord> CONSTRAINT_4 = Internal.createUniqueKey(BankAgreement.BANK_AGREEMENT, DSL.name("CONSTRAINT_4"), new TableField[] { BankAgreement.BANK_AGREEMENT.ID }, true);
     public static final UniqueKey<BudgetRecord> CONSTRAINT_7 = Internal.createUniqueKey(Budget.BUDGET, DSL.name("CONSTRAINT_7"), new TableField[] { Budget.BUDGET.ID }, true);

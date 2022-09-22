@@ -84,33 +84,33 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>MONTH BETWEEN lowerInclusive AND
+     * Fetch records that have <code>DATE_MONTH BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMonth(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(Operation.OPERATION.MONTH, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfDateMonth(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Operation.OPERATION.DATE_MONTH, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>MONTH IN (values)</code>
+     * Fetch records that have <code>DATE_MONTH IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByMonth(Integer... values) {
-        return fetch(Operation.OPERATION.MONTH, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByDateMonth(Integer... values) {
+        return fetch(Operation.OPERATION.DATE_MONTH, values);
     }
 
     /**
-     * Fetch records that have <code>DAY BETWEEN lowerInclusive AND
+     * Fetch records that have <code>DATE_DAY BETWEEN lowerInclusive AND
      * upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfDay(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(Operation.OPERATION.DAY, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfDateDay(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Operation.OPERATION.DATE_DAY, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>DAY IN (values)</code>
+     * Fetch records that have <code>DATE_DAY IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByDay(Integer... values) {
-        return fetch(Operation.OPERATION.DAY, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByDateDay(Integer... values) {
+        return fetch(Operation.OPERATION.DATE_DAY, values);
     }
 
     /**

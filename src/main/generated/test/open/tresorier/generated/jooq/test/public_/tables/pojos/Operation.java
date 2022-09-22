@@ -17,8 +17,8 @@ public class Operation implements Serializable {
 
     private final String  id;
     private final String  accountId;
-    private final Integer month;
-    private final Integer day;
+    private final Integer dateMonth;
+    private final Integer dateDay;
     private final String  categoryId;
     private final String  memo;
     private final Integer amount;
@@ -32,8 +32,8 @@ public class Operation implements Serializable {
     public Operation(Operation value) {
         this.id = value.id;
         this.accountId = value.accountId;
-        this.month = value.month;
-        this.day = value.day;
+        this.dateMonth = value.dateMonth;
+        this.dateDay = value.dateDay;
         this.categoryId = value.categoryId;
         this.memo = value.memo;
         this.amount = value.amount;
@@ -48,8 +48,8 @@ public class Operation implements Serializable {
     public Operation(
         String  id,
         String  accountId,
-        Integer month,
-        Integer day,
+        Integer dateMonth,
+        Integer dateDay,
         String  categoryId,
         String  memo,
         Integer amount,
@@ -62,8 +62,8 @@ public class Operation implements Serializable {
     ) {
         this.id = id;
         this.accountId = accountId;
-        this.month = month;
-        this.day = day;
+        this.dateMonth = dateMonth;
+        this.dateDay = dateDay;
         this.categoryId = categoryId;
         this.memo = memo;
         this.amount = amount;
@@ -90,17 +90,17 @@ public class Operation implements Serializable {
     }
 
     /**
-     * Getter for <code>PUBLIC.OPERATION.MONTH</code>.
+     * Getter for <code>PUBLIC.OPERATION.DATE_MONTH</code>.
      */
-    public Integer getMonth() {
-        return this.month;
+    public Integer getDateMonth() {
+        return this.dateMonth;
     }
 
     /**
-     * Getter for <code>PUBLIC.OPERATION.DAY</code>.
+     * Getter for <code>PUBLIC.OPERATION.DATE_DAY</code>.
      */
-    public Integer getDay() {
-        return this.day;
+    public Integer getDateDay() {
+        return this.dateDay;
     }
 
     /**
@@ -172,8 +172,8 @@ public class Operation implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(accountId);
-        sb.append(", ").append(month);
-        sb.append(", ").append(day);
+        sb.append(", ").append(dateMonth);
+        sb.append(", ").append(dateDay);
         sb.append(", ").append(categoryId);
         sb.append(", ").append(memo);
         sb.append(", ").append(amount);

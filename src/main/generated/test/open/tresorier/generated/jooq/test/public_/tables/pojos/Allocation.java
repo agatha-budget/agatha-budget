@@ -16,22 +16,22 @@ public class Allocation implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private final String  categoryId;
-    private final Integer month;
+    private final Integer dateMonth;
     private final Integer amount;
 
     public Allocation(Allocation value) {
         this.categoryId = value.categoryId;
-        this.month = value.month;
+        this.dateMonth = value.dateMonth;
         this.amount = value.amount;
     }
 
     public Allocation(
         String  categoryId,
-        Integer month,
+        Integer dateMonth,
         Integer amount
     ) {
         this.categoryId = categoryId;
-        this.month = month;
+        this.dateMonth = dateMonth;
         this.amount = amount;
     }
 
@@ -43,10 +43,10 @@ public class Allocation implements Serializable {
     }
 
     /**
-     * Getter for <code>PUBLIC.ALLOCATION.MONTH</code>.
+     * Getter for <code>PUBLIC.ALLOCATION.DATE_MONTH</code>.
      */
-    public Integer getMonth() {
-        return this.month;
+    public Integer getDateMonth() {
+        return this.dateMonth;
     }
 
     /**
@@ -61,7 +61,7 @@ public class Allocation implements Serializable {
         StringBuilder sb = new StringBuilder("Allocation (");
 
         sb.append(categoryId);
-        sb.append(", ").append(month);
+        sb.append(", ").append(dateMonth);
         sb.append(", ").append(amount);
 
         sb.append(")");

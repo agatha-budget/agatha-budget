@@ -22,6 +22,7 @@ public class TablePrivileges implements Serializable {
     private final String tableName;
     private final String privilegeType;
     private final String isGrantable;
+    private final String withHierarchy;
 
     public TablePrivileges(TablePrivileges value) {
         this.grantor = value.grantor;
@@ -31,6 +32,7 @@ public class TablePrivileges implements Serializable {
         this.tableName = value.tableName;
         this.privilegeType = value.privilegeType;
         this.isGrantable = value.isGrantable;
+        this.withHierarchy = value.withHierarchy;
     }
 
     public TablePrivileges(
@@ -40,7 +42,8 @@ public class TablePrivileges implements Serializable {
         String tableSchema,
         String tableName,
         String privilegeType,
-        String isGrantable
+        String isGrantable,
+        String withHierarchy
     ) {
         this.grantor = grantor;
         this.grantee = grantee;
@@ -49,6 +52,7 @@ public class TablePrivileges implements Serializable {
         this.tableName = tableName;
         this.privilegeType = privilegeType;
         this.isGrantable = isGrantable;
+        this.withHierarchy = withHierarchy;
     }
 
     /**
@@ -102,6 +106,14 @@ public class TablePrivileges implements Serializable {
         return this.isGrantable;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.WITH_HIERARCHY</code>.
+     */
+    public String getWithHierarchy() {
+        return this.withHierarchy;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("TablePrivileges (");
@@ -113,6 +125,7 @@ public class TablePrivileges implements Serializable {
         sb.append(", ").append(tableName);
         sb.append(", ").append(privilegeType);
         sb.append(", ").append(isGrantable);
+        sb.append(", ").append(withHierarchy);
 
         sb.append(")");
         return sb.toString();

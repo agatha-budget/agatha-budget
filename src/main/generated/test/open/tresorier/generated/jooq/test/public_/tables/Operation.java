@@ -60,14 +60,14 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, String> ACCOUNT_ID = createField(DSL.name("ACCOUNT_ID"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.OPERATION.MONTH</code>.
+     * The column <code>PUBLIC.OPERATION.DATE_MONTH</code>.
      */
-    public final TableField<OperationRecord, Integer> MONTH = createField(DSL.name("MONTH"), SQLDataType.INTEGER.defaultValue(DSL.field("NULL", SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Integer> DATE_MONTH = createField(DSL.name("DATE_MONTH"), SQLDataType.INTEGER.defaultValue(DSL.field("NULL", SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>PUBLIC.OPERATION.DAY</code>.
+     * The column <code>PUBLIC.OPERATION.DATE_DAY</code>.
      */
-    public final TableField<OperationRecord, Integer> DAY = createField(DSL.name("DAY"), SQLDataType.INTEGER.defaultValue(DSL.field("NULL", SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Integer> DATE_DAY = createField(DSL.name("DATE_DAY"), SQLDataType.INTEGER.defaultValue(DSL.field("NULL", SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.CATEGORY_ID</code>.
@@ -193,10 +193,10 @@ public class Operation extends TableImpl<OperationRecord> {
     @Override
     public List<Check<OperationRecord>> getChecks() {
         return Arrays.asList(
-            Internal.createCheck(this, DSL.name("NO_INVALID_DAY_OPERATION"), "(\"DAY\" < 32)", true),
-            Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_OPERATION"), "((\"MONTH\" % 100) < 13)", true),
-            Internal.createCheck(this, DSL.name("NO_NEGATIVE_DAY_OPERATION"), "(\"DAY\" > 0)", true),
-            Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_OPERATION"), "((\"MONTH\" % 100) > 0)", true)
+            Internal.createCheck(this, DSL.name("NO_INVALID_DAY_OPERATION"), "\"DATE_DAY\" < 32", true),
+            Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_OPERATION"), "MOD(\"DATE_MONTH\", 100) < 13", true),
+            Internal.createCheck(this, DSL.name("NO_NEGATIVE_DAY_OPERATION"), "\"DATE_DAY\" > 0", true),
+            Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_OPERATION"), "MOD(\"DATE_MONTH\", 100) > 0", true)
         );
     }
 

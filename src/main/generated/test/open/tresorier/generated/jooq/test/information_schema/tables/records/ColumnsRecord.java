@@ -93,55 +93,10 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_CATALOG</code>.
-     */
-    public ColumnsRecord setDomainCatalog(String value) {
-        set(5, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_CATALOG</code>.
-     */
-    public String getDomainCatalog() {
-        return (String) get(5);
-    }
-
-    /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_SCHEMA</code>.
-     */
-    public ColumnsRecord setDomainSchema(String value) {
-        set(6, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_SCHEMA</code>.
-     */
-    public String getDomainSchema() {
-        return (String) get(6);
-    }
-
-    /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_NAME</code>.
-     */
-    public ColumnsRecord setDomainName(String value) {
-        set(7, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_NAME</code>.
-     */
-    public String getDomainName() {
-        return (String) get(7);
-    }
-
-    /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_DEFAULT</code>.
      */
     public ColumnsRecord setColumnDefault(String value) {
-        set(8, value);
+        set(5, value);
         return this;
     }
 
@@ -149,14 +104,14 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_DEFAULT</code>.
      */
     public String getColumnDefault() {
-        return (String) get(8);
+        return (String) get(5);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IS_NULLABLE</code>.
      */
     public ColumnsRecord setIsNullable(String value) {
-        set(9, value);
+        set(6, value);
         return this;
     }
 
@@ -164,30 +119,30 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_NULLABLE</code>.
      */
     public String getIsNullable() {
-        return (String) get(9);
+        return (String) get(6);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DATA_TYPE</code>.
      */
-    public ColumnsRecord setDataType(Integer value) {
-        set(10, value);
+    public ColumnsRecord setDataType(String value) {
+        set(7, value);
         return this;
     }
 
     /**
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DATA_TYPE</code>.
      */
-    public Integer getDataType() {
-        return (Integer) get(10);
+    public String getDataType() {
+        return (String) get(7);
     }
 
     /**
      * Setter for
      * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_MAXIMUM_LENGTH</code>.
      */
-    public ColumnsRecord setCharacterMaximumLength(Integer value) {
-        set(11, value);
+    public ColumnsRecord setCharacterMaximumLength(Long value) {
+        set(8, value);
         return this;
     }
 
@@ -195,16 +150,16 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for
      * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_MAXIMUM_LENGTH</code>.
      */
-    public Integer getCharacterMaximumLength() {
-        return (Integer) get(11);
+    public Long getCharacterMaximumLength() {
+        return (Long) get(8);
     }
 
     /**
      * Setter for
      * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_OCTET_LENGTH</code>.
      */
-    public ColumnsRecord setCharacterOctetLength(Integer value) {
-        set(12, value);
+    public ColumnsRecord setCharacterOctetLength(Long value) {
+        set(9, value);
         return this;
     }
 
@@ -212,15 +167,15 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for
      * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_OCTET_LENGTH</code>.
      */
-    public Integer getCharacterOctetLength() {
-        return (Integer) get(12);
+    public Long getCharacterOctetLength() {
+        return (Long) get(9);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION</code>.
      */
     public ColumnsRecord setNumericPrecision(Integer value) {
-        set(13, value);
+        set(10, value);
         return this;
     }
 
@@ -228,7 +183,7 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION</code>.
      */
     public Integer getNumericPrecision() {
-        return (Integer) get(13);
+        return (Integer) get(10);
     }
 
     /**
@@ -236,7 +191,7 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION_RADIX</code>.
      */
     public ColumnsRecord setNumericPrecisionRadix(Integer value) {
-        set(14, value);
+        set(11, value);
         return this;
     }
 
@@ -245,14 +200,14 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION_RADIX</code>.
      */
     public Integer getNumericPrecisionRadix() {
-        return (Integer) get(14);
+        return (Integer) get(11);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_SCALE</code>.
      */
     public ColumnsRecord setNumericScale(Integer value) {
-        set(15, value);
+        set(12, value);
         return this;
     }
 
@@ -260,14 +215,14 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_SCALE</code>.
      */
     public Integer getNumericScale() {
-        return (Integer) get(15);
+        return (Integer) get(12);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DATETIME_PRECISION</code>.
      */
     public ColumnsRecord setDatetimePrecision(Integer value) {
-        set(16, value);
+        set(13, value);
         return this;
     }
 
@@ -275,14 +230,14 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DATETIME_PRECISION</code>.
      */
     public Integer getDatetimePrecision() {
-        return (Integer) get(16);
+        return (Integer) get(13);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_TYPE</code>.
      */
     public ColumnsRecord setIntervalType(String value) {
-        set(17, value);
+        set(14, value);
         return this;
     }
 
@@ -290,14 +245,14 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_TYPE</code>.
      */
     public String getIntervalType() {
-        return (String) get(17);
+        return (String) get(14);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_PRECISION</code>.
      */
     public ColumnsRecord setIntervalPrecision(Integer value) {
-        set(18, value);
+        set(15, value);
         return this;
     }
 
@@ -305,14 +260,44 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_PRECISION</code>.
      */
     public Integer getIntervalPrecision() {
-        return (Integer) get(18);
+        return (Integer) get(15);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_CATALOG</code>.
+     */
+    public ColumnsRecord setCharacterSetCatalog(String value) {
+        set(16, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_CATALOG</code>.
+     */
+    public String getCharacterSetCatalog() {
+        return (String) get(16);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_SCHEMA</code>.
+     */
+    public ColumnsRecord setCharacterSetSchema(String value) {
+        set(17, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_SCHEMA</code>.
+     */
+    public String getCharacterSetSchema() {
+        return (String) get(17);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_NAME</code>.
      */
     public ColumnsRecord setCharacterSetName(String value) {
-        set(19, value);
+        set(18, value);
         return this;
     }
 
@@ -320,14 +305,44 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_NAME</code>.
      */
     public String getCharacterSetName() {
+        return (String) get(18);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_CATALOG</code>.
+     */
+    public ColumnsRecord setCollationCatalog(String value) {
+        set(19, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_CATALOG</code>.
+     */
+    public String getCollationCatalog() {
         return (String) get(19);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_SCHEMA</code>.
+     */
+    public ColumnsRecord setCollationSchema(String value) {
+        set(20, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_SCHEMA</code>.
+     */
+    public String getCollationSchema() {
+        return (String) get(20);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_NAME</code>.
      */
     public ColumnsRecord setCollationName(String value) {
-        set(20, value);
+        set(21, value);
         return this;
     }
 
@@ -335,149 +350,333 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_NAME</code>.
      */
     public String getCollationName() {
-        return (String) get(20);
-    }
-
-    /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.TYPE_NAME</code>.
-     */
-    public ColumnsRecord setTypeName(String value) {
-        set(21, value);
-        return this;
-    }
-
-    /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.TYPE_NAME</code>.
-     */
-    public String getTypeName() {
         return (String) get(21);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.NULLABLE</code>.
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_CATALOG</code>.
      */
-    public ColumnsRecord setNullable(Integer value) {
+    public ColumnsRecord setDomainCatalog(String value) {
         set(22, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.NULLABLE</code>.
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_CATALOG</code>.
      */
-    public Integer getNullable() {
-        return (Integer) get(22);
+    public String getDomainCatalog() {
+        return (String) get(22);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IS_COMPUTED</code>.
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_SCHEMA</code>.
      */
-    public ColumnsRecord setIsComputed(Boolean value) {
+    public ColumnsRecord setDomainSchema(String value) {
         set(23, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_COMPUTED</code>.
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_SCHEMA</code>.
      */
-    public Boolean getIsComputed() {
-        return (Boolean) get(23);
+    public String getDomainSchema() {
+        return (String) get(23);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.SELECTIVITY</code>.
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_NAME</code>.
      */
-    public ColumnsRecord setSelectivity(Integer value) {
+    public ColumnsRecord setDomainName(String value) {
         set(24, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.SELECTIVITY</code>.
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_NAME</code>.
      */
-    public Integer getSelectivity() {
-        return (Integer) get(24);
+    public String getDomainName() {
+        return (String) get(24);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.CHECK_CONSTRAINT</code>.
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.MAXIMUM_CARDINALITY</code>.
      */
-    public ColumnsRecord setCheckConstraint(String value) {
+    public ColumnsRecord setMaximumCardinality(Integer value) {
         set(25, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHECK_CONSTRAINT</code>.
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.MAXIMUM_CARDINALITY</code>.
      */
-    public String getCheckConstraint() {
-        return (String) get(25);
+    public Integer getMaximumCardinality() {
+        return (Integer) get(25);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.SEQUENCE_NAME</code>.
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DTD_IDENTIFIER</code>.
      */
-    public ColumnsRecord setSequenceName(String value) {
+    public ColumnsRecord setDtdIdentifier(String value) {
         set(26, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.SEQUENCE_NAME</code>.
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DTD_IDENTIFIER</code>.
      */
-    public String getSequenceName() {
+    public String getDtdIdentifier() {
         return (String) get(26);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.REMARKS</code>.
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IS_IDENTITY</code>.
      */
-    public ColumnsRecord setRemarks(String value) {
+    public ColumnsRecord setIsIdentity(String value) {
         set(27, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.REMARKS</code>.
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_IDENTITY</code>.
      */
-    public String getRemarks() {
+    public String getIsIdentity() {
         return (String) get(27);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.SOURCE_DATA_TYPE</code>.
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_GENERATION</code>.
      */
-    public ColumnsRecord setSourceDataType(Short value) {
+    public ColumnsRecord setIdentityGeneration(String value) {
         set(28, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.SOURCE_DATA_TYPE</code>.
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_GENERATION</code>.
      */
-    public Short getSourceDataType() {
-        return (Short) get(28);
+    public String getIdentityGeneration() {
+        return (String) get(28);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_TYPE</code>.
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_START</code>.
      */
-    public ColumnsRecord setColumnType(String value) {
+    public ColumnsRecord setIdentityStart(Long value) {
         set(29, value);
         return this;
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_TYPE</code>.
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_START</code>.
      */
-    public String getColumnType() {
-        return (String) get(29);
+    public Long getIdentityStart() {
+        return (Long) get(29);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_INCREMENT</code>.
+     */
+    public ColumnsRecord setIdentityIncrement(Long value) {
+        set(30, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_INCREMENT</code>.
+     */
+    public Long getIdentityIncrement() {
+        return (Long) get(30);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_MAXIMUM</code>.
+     */
+    public ColumnsRecord setIdentityMaximum(Long value) {
+        set(31, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_MAXIMUM</code>.
+     */
+    public Long getIdentityMaximum() {
+        return (Long) get(31);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_MINIMUM</code>.
+     */
+    public ColumnsRecord setIdentityMinimum(Long value) {
+        set(32, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_MINIMUM</code>.
+     */
+    public Long getIdentityMinimum() {
+        return (Long) get(32);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_CYCLE</code>.
+     */
+    public ColumnsRecord setIdentityCycle(String value) {
+        set(33, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_CYCLE</code>.
+     */
+    public String getIdentityCycle() {
+        return (String) get(33);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IS_GENERATED</code>.
+     */
+    public ColumnsRecord setIsGenerated(String value) {
+        set(34, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_GENERATED</code>.
+     */
+    public String getIsGenerated() {
+        return (String) get(34);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.GENERATION_EXPRESSION</code>.
+     */
+    public ColumnsRecord setGenerationExpression(String value) {
+        set(35, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.GENERATION_EXPRESSION</code>.
+     */
+    public String getGenerationExpression() {
+        return (String) get(35);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_DATA_TYPE</code>.
+     */
+    public ColumnsRecord setDeclaredDataType(String value) {
+        set(36, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_DATA_TYPE</code>.
+     */
+    public String getDeclaredDataType() {
+        return (String) get(36);
+    }
+
+    /**
+     * Setter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_NUMERIC_PRECISION</code>.
+     */
+    public ColumnsRecord setDeclaredNumericPrecision(Integer value) {
+        set(37, value);
+        return this;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_NUMERIC_PRECISION</code>.
+     */
+    public Integer getDeclaredNumericPrecision() {
+        return (Integer) get(37);
+    }
+
+    /**
+     * Setter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_NUMERIC_SCALE</code>.
+     */
+    public ColumnsRecord setDeclaredNumericScale(Integer value) {
+        set(38, value);
+        return this;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_NUMERIC_SCALE</code>.
+     */
+    public Integer getDeclaredNumericScale() {
+        return (Integer) get(38);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.GEOMETRY_TYPE</code>.
+     */
+    public ColumnsRecord setGeometryType(String value) {
+        set(39, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.GEOMETRY_TYPE</code>.
+     */
+    public String getGeometryType() {
+        return (String) get(39);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.GEOMETRY_SRID</code>.
+     */
+    public ColumnsRecord setGeometrySrid(Integer value) {
+        set(40, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.GEOMETRY_SRID</code>.
+     */
+    public Integer getGeometrySrid() {
+        return (Integer) get(40);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_BASE</code>.
+     */
+    public ColumnsRecord setIdentityBase(Long value) {
+        set(41, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_BASE</code>.
+     */
+    public Long getIdentityBase() {
+        return (Long) get(41);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_CACHE</code>.
+     */
+    public ColumnsRecord setIdentityCache(Long value) {
+        set(42, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_CACHE</code>.
+     */
+    public Long getIdentityCache() {
+        return (Long) get(42);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_ON_UPDATE</code>.
      */
     public ColumnsRecord setColumnOnUpdate(String value) {
-        set(30, value);
+        set(43, value);
         return this;
     }
 
@@ -485,22 +684,67 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_ON_UPDATE</code>.
      */
     public String getColumnOnUpdate() {
-        return (String) get(30);
+        return (String) get(43);
     }
 
     /**
      * Setter for <code>INFORMATION_SCHEMA.COLUMNS.IS_VISIBLE</code>.
      */
-    public ColumnsRecord setIsVisible(String value) {
-        set(31, value);
+    public ColumnsRecord setIsVisible(Boolean value) {
+        set(44, value);
         return this;
     }
 
     /**
      * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_VISIBLE</code>.
      */
-    public String getIsVisible() {
-        return (String) get(31);
+    public Boolean getIsVisible() {
+        return (Boolean) get(44);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.DEFAULT_ON_NULL</code>.
+     */
+    public ColumnsRecord setDefaultOnNull(Boolean value) {
+        set(45, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DEFAULT_ON_NULL</code>.
+     */
+    public Boolean getDefaultOnNull() {
+        return (Boolean) get(45);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.SELECTIVITY</code>.
+     */
+    public ColumnsRecord setSelectivity(Integer value) {
+        set(46, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.SELECTIVITY</code>.
+     */
+    public Integer getSelectivity() {
+        return (Integer) get(46);
+    }
+
+    /**
+     * Setter for <code>INFORMATION_SCHEMA.COLUMNS.REMARKS</code>.
+     */
+    public ColumnsRecord setRemarks(String value) {
+        set(47, value);
+        return this;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.REMARKS</code>.
+     */
+    public String getRemarks() {
+        return (String) get(47);
     }
 
     // -------------------------------------------------------------------------
@@ -517,7 +761,7 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
     /**
      * Create a detached, initialised ColumnsRecord
      */
-    public ColumnsRecord(String tableCatalog, String tableSchema, String tableName, String columnName, Integer ordinalPosition, String domainCatalog, String domainSchema, String domainName, String columnDefault, String isNullable, Integer dataType, Integer characterMaximumLength, Integer characterOctetLength, Integer numericPrecision, Integer numericPrecisionRadix, Integer numericScale, Integer datetimePrecision, String intervalType, Integer intervalPrecision, String characterSetName, String collationName, String typeName, Integer nullable, Boolean isComputed, Integer selectivity, String checkConstraint, String sequenceName, String remarks, Short sourceDataType, String columnType, String columnOnUpdate, String isVisible) {
+    public ColumnsRecord(String tableCatalog, String tableSchema, String tableName, String columnName, Integer ordinalPosition, String columnDefault, String isNullable, String dataType, Long characterMaximumLength, Long characterOctetLength, Integer numericPrecision, Integer numericPrecisionRadix, Integer numericScale, Integer datetimePrecision, String intervalType, Integer intervalPrecision, String characterSetCatalog, String characterSetSchema, String characterSetName, String collationCatalog, String collationSchema, String collationName, String domainCatalog, String domainSchema, String domainName, Integer maximumCardinality, String dtdIdentifier, String isIdentity, String identityGeneration, Long identityStart, Long identityIncrement, Long identityMaximum, Long identityMinimum, String identityCycle, String isGenerated, String generationExpression, String declaredDataType, Integer declaredNumericPrecision, Integer declaredNumericScale, String geometryType, Integer geometrySrid, Long identityBase, Long identityCache, String columnOnUpdate, Boolean isVisible, Boolean defaultOnNull, Integer selectivity, String remarks) {
         super(Columns.COLUMNS);
 
         setTableCatalog(tableCatalog);
@@ -525,9 +769,6 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
         setTableName(tableName);
         setColumnName(columnName);
         setOrdinalPosition(ordinalPosition);
-        setDomainCatalog(domainCatalog);
-        setDomainSchema(domainSchema);
-        setDomainName(domainName);
         setColumnDefault(columnDefault);
         setIsNullable(isNullable);
         setDataType(dataType);
@@ -539,19 +780,38 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
         setDatetimePrecision(datetimePrecision);
         setIntervalType(intervalType);
         setIntervalPrecision(intervalPrecision);
+        setCharacterSetCatalog(characterSetCatalog);
+        setCharacterSetSchema(characterSetSchema);
         setCharacterSetName(characterSetName);
+        setCollationCatalog(collationCatalog);
+        setCollationSchema(collationSchema);
         setCollationName(collationName);
-        setTypeName(typeName);
-        setNullable(nullable);
-        setIsComputed(isComputed);
-        setSelectivity(selectivity);
-        setCheckConstraint(checkConstraint);
-        setSequenceName(sequenceName);
-        setRemarks(remarks);
-        setSourceDataType(sourceDataType);
-        setColumnType(columnType);
+        setDomainCatalog(domainCatalog);
+        setDomainSchema(domainSchema);
+        setDomainName(domainName);
+        setMaximumCardinality(maximumCardinality);
+        setDtdIdentifier(dtdIdentifier);
+        setIsIdentity(isIdentity);
+        setIdentityGeneration(identityGeneration);
+        setIdentityStart(identityStart);
+        setIdentityIncrement(identityIncrement);
+        setIdentityMaximum(identityMaximum);
+        setIdentityMinimum(identityMinimum);
+        setIdentityCycle(identityCycle);
+        setIsGenerated(isGenerated);
+        setGenerationExpression(generationExpression);
+        setDeclaredDataType(declaredDataType);
+        setDeclaredNumericPrecision(declaredNumericPrecision);
+        setDeclaredNumericScale(declaredNumericScale);
+        setGeometryType(geometryType);
+        setGeometrySrid(geometrySrid);
+        setIdentityBase(identityBase);
+        setIdentityCache(identityCache);
         setColumnOnUpdate(columnOnUpdate);
         setIsVisible(isVisible);
+        setDefaultOnNull(defaultOnNull);
+        setSelectivity(selectivity);
+        setRemarks(remarks);
     }
 
     /**
@@ -566,9 +826,6 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
             setTableName(value.getTableName());
             setColumnName(value.getColumnName());
             setOrdinalPosition(value.getOrdinalPosition());
-            setDomainCatalog(value.getDomainCatalog());
-            setDomainSchema(value.getDomainSchema());
-            setDomainName(value.getDomainName());
             setColumnDefault(value.getColumnDefault());
             setIsNullable(value.getIsNullable());
             setDataType(value.getDataType());
@@ -580,19 +837,38 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
             setDatetimePrecision(value.getDatetimePrecision());
             setIntervalType(value.getIntervalType());
             setIntervalPrecision(value.getIntervalPrecision());
+            setCharacterSetCatalog(value.getCharacterSetCatalog());
+            setCharacterSetSchema(value.getCharacterSetSchema());
             setCharacterSetName(value.getCharacterSetName());
+            setCollationCatalog(value.getCollationCatalog());
+            setCollationSchema(value.getCollationSchema());
             setCollationName(value.getCollationName());
-            setTypeName(value.getTypeName());
-            setNullable(value.getNullable());
-            setIsComputed(value.getIsComputed());
-            setSelectivity(value.getSelectivity());
-            setCheckConstraint(value.getCheckConstraint());
-            setSequenceName(value.getSequenceName());
-            setRemarks(value.getRemarks());
-            setSourceDataType(value.getSourceDataType());
-            setColumnType(value.getColumnType());
+            setDomainCatalog(value.getDomainCatalog());
+            setDomainSchema(value.getDomainSchema());
+            setDomainName(value.getDomainName());
+            setMaximumCardinality(value.getMaximumCardinality());
+            setDtdIdentifier(value.getDtdIdentifier());
+            setIsIdentity(value.getIsIdentity());
+            setIdentityGeneration(value.getIdentityGeneration());
+            setIdentityStart(value.getIdentityStart());
+            setIdentityIncrement(value.getIdentityIncrement());
+            setIdentityMaximum(value.getIdentityMaximum());
+            setIdentityMinimum(value.getIdentityMinimum());
+            setIdentityCycle(value.getIdentityCycle());
+            setIsGenerated(value.getIsGenerated());
+            setGenerationExpression(value.getGenerationExpression());
+            setDeclaredDataType(value.getDeclaredDataType());
+            setDeclaredNumericPrecision(value.getDeclaredNumericPrecision());
+            setDeclaredNumericScale(value.getDeclaredNumericScale());
+            setGeometryType(value.getGeometryType());
+            setGeometrySrid(value.getGeometrySrid());
+            setIdentityBase(value.getIdentityBase());
+            setIdentityCache(value.getIdentityCache());
             setColumnOnUpdate(value.getColumnOnUpdate());
             setIsVisible(value.getIsVisible());
+            setDefaultOnNull(value.getDefaultOnNull());
+            setSelectivity(value.getSelectivity());
+            setRemarks(value.getRemarks());
         }
     }
 }

@@ -11,7 +11,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row12;
+import org.jooq.Row11;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -45,37 +45,42 @@ public class Tables extends TableImpl<TablesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_CATALOG</code>.
      */
-    public final TableField<TablesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA</code>.
      */
-    public final TableField<TablesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_NAME</code>.
      */
-    public final TableField<TablesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_TYPE</code>.
      */
-    public final TableField<TablesRecord, String> TABLE_TYPE = createField(DSL.name("TABLE_TYPE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablesRecord, String> TABLE_TYPE = createField(DSL.name("TABLE_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.TABLES.IS_INSERTABLE_INTO</code>.
+     */
+    public final TableField<TablesRecord, String> IS_INSERTABLE_INTO = createField(DSL.name("IS_INSERTABLE_INTO"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.TABLES.COMMIT_ACTION</code>.
+     */
+    public final TableField<TablesRecord, String> COMMIT_ACTION = createField(DSL.name("COMMIT_ACTION"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLES.STORAGE_TYPE</code>.
      */
-    public final TableField<TablesRecord, String> STORAGE_TYPE = createField(DSL.name("STORAGE_TYPE"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.SQL</code>.
-     */
-    public final TableField<TablesRecord, String> SQL = createField(DSL.name("SQL"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablesRecord, String> STORAGE_TYPE = createField(DSL.name("STORAGE_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLES.REMARKS</code>.
      */
-    public final TableField<TablesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLES.LAST_MODIFICATION</code>.
@@ -83,19 +88,9 @@ public class Tables extends TableImpl<TablesRecord> {
     public final TableField<TablesRecord, Long> LAST_MODIFICATION = createField(DSL.name("LAST_MODIFICATION"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.ID</code>.
-     */
-    public final TableField<TablesRecord, Integer> ID = createField(DSL.name("ID"), SQLDataType.INTEGER, this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.TABLES.TYPE_NAME</code>.
-     */
-    public final TableField<TablesRecord, String> TYPE_NAME = createField(DSL.name("TYPE_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
      * The column <code>INFORMATION_SCHEMA.TABLES.TABLE_CLASS</code>.
      */
-    public final TableField<TablesRecord, String> TABLE_CLASS = createField(DSL.name("TABLE_CLASS"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablesRecord, String> TABLE_CLASS = createField(DSL.name("TABLE_CLASS"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLES.ROW_COUNT_ESTIMATE</code>.
@@ -107,7 +102,7 @@ public class Tables extends TableImpl<TablesRecord> {
     }
 
     private Tables(Name alias, Table<TablesRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
     }
 
     /**
@@ -167,11 +162,11 @@ public class Tables extends TableImpl<TablesRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row12 type methods
+    // Row11 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row12<String, String, String, String, String, String, String, Long, Integer, String, String, Long> fieldsRow() {
-        return (Row12) super.fieldsRow();
+    public Row11<String, String, String, String, String, String, String, String, Long, String, Long> fieldsRow() {
+        return (Row11) super.fieldsRow();
     }
 }

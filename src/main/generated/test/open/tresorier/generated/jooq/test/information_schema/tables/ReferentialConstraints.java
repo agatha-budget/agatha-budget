@@ -47,62 +47,62 @@ public class ReferentialConstraints extends TableImpl<ReferentialConstraintsReco
      * The column
      * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
      */
-    public final TableField<ReferentialConstraintsRecord, String> CONSTRAINT_CATALOG = createField(DSL.name("CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ReferentialConstraintsRecord, String> CONSTRAINT_CATALOG = createField(DSL.name("CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
      */
-    public final TableField<ReferentialConstraintsRecord, String> CONSTRAINT_SCHEMA = createField(DSL.name("CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ReferentialConstraintsRecord, String> CONSTRAINT_SCHEMA = createField(DSL.name("CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.CONSTRAINT_NAME</code>.
      */
-    public final TableField<ReferentialConstraintsRecord, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ReferentialConstraintsRecord, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_CATALOG</code>.
      */
-    public final TableField<ReferentialConstraintsRecord, String> UNIQUE_CONSTRAINT_CATALOG = createField(DSL.name("UNIQUE_CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ReferentialConstraintsRecord, String> UNIQUE_CONSTRAINT_CATALOG = createField(DSL.name("UNIQUE_CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_SCHEMA</code>.
      */
-    public final TableField<ReferentialConstraintsRecord, String> UNIQUE_CONSTRAINT_SCHEMA = createField(DSL.name("UNIQUE_CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ReferentialConstraintsRecord, String> UNIQUE_CONSTRAINT_SCHEMA = createField(DSL.name("UNIQUE_CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UNIQUE_CONSTRAINT_NAME</code>.
      */
-    public final TableField<ReferentialConstraintsRecord, String> UNIQUE_CONSTRAINT_NAME = createField(DSL.name("UNIQUE_CONSTRAINT_NAME"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ReferentialConstraintsRecord, String> UNIQUE_CONSTRAINT_NAME = createField(DSL.name("UNIQUE_CONSTRAINT_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.MATCH_OPTION</code>.
      */
-    public final TableField<ReferentialConstraintsRecord, String> MATCH_OPTION = createField(DSL.name("MATCH_OPTION"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ReferentialConstraintsRecord, String> MATCH_OPTION = createField(DSL.name("MATCH_OPTION"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.UPDATE_RULE</code>.
      */
-    public final TableField<ReferentialConstraintsRecord, String> UPDATE_RULE = createField(DSL.name("UPDATE_RULE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ReferentialConstraintsRecord, String> UPDATE_RULE = createField(DSL.name("UPDATE_RULE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS.DELETE_RULE</code>.
      */
-    public final TableField<ReferentialConstraintsRecord, String> DELETE_RULE = createField(DSL.name("DELETE_RULE"), SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<ReferentialConstraintsRecord, String> DELETE_RULE = createField(DSL.name("DELETE_RULE"), SQLDataType.VARCHAR(1048576), this, "");
 
     private ReferentialConstraints(Name alias, Table<ReferentialConstraintsRecord> aliased) {
         this(alias, aliased, null);
     }
 
     private ReferentialConstraints(Name alias, Table<ReferentialConstraintsRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
     }
 
     /**
