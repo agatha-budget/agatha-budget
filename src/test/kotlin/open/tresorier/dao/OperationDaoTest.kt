@@ -490,7 +490,7 @@ open class OperationDaoTest : ITest {
 
     @Test
     fun getOperationWithDaughterForBudget() {
-        val christine = Person("Christine de Pisan", "CiteDesDames", "no@adress.yet")
+        val christine = Person("Christine de Pisan", "CiteDesDames", "no@adress.col")
         personDao.insert(christine)
         val budget = Budget("DreamFactory", christine.id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
@@ -522,8 +522,8 @@ open class OperationDaoTest : ITest {
         val result = operationDao.findByAccount(account)
 
         Assertions.assertEquals(4, result.size)
-        Assertions.assertEquals(4000, result[0].amount)
-        Assertions.assertEquals(2, result[0].daugthers.size)
+        Assertions.assertEquals(4000, result[3].amount)
+        Assertions.assertEquals(2, result[3].daugthers.size)
     }
 
     @Test
