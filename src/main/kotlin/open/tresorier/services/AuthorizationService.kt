@@ -46,9 +46,11 @@ class AuthorizationService(
     }
 
     fun cancelIfUserIsUnauthorized(person: Person, category: Category) {
-        val owner = categoryDao.getOwner(category)
-        if (owner != null && owner.id != person.id) {
-            throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with category " + category.id)
+        if (category.masterCategoryId != null){ // if category is universal don't check 
+            val owner = categoryDao.getOwner(category)
+            if (owner != null && owner.id != person.id) {
+                throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with category " + category.id)
+            }
         }
         BillingService.checkIfUserSubscriptionIsActive(person)
     }
