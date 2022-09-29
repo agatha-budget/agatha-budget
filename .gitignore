@@ -32,7 +32,7 @@ session_mngt/
 
 .env
 
-db/
+/db/
 
 logs/app.log
 

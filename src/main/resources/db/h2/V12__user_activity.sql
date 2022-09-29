@@ -1,0 +1,6 @@
+CREATE TABLE user_activity (
+    id VARCHAR(36) NOT NULL PRIMARY KEY,
+    user_id VARCHAR(36) NOT NULL,
+    date BIGINT DEFAULT 0,
+    action VARCHAR(36) NOT NULL DEFAULT 'ACTION_LOGIN'
+);
