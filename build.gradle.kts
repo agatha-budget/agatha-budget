@@ -327,7 +327,7 @@ tasks.test {
     testLogging {
         events("passed", "skipped", "failed")
     }
-    failFast = true
+    //failFast = true
     finalizedBy(tasks.jacocoTestReport)
 }
 
