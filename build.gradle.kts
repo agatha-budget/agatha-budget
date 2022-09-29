@@ -40,7 +40,7 @@ plugins {
     kotlin("jvm") version "1.4.10"
     id("org.jetbrains.dokka") version "1.4.0-rc"
     id("org.flywaydb.flyway") version "9.3.1"
-    id("nu.studer.jooq") version "7.+"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
+    id("nu.studer.jooq") version "7.0+"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
     jacoco
     application
 }
