@@ -361,7 +361,7 @@ class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
         for (operation in operationDaugthers) {
             operationDao.insert(operation)
         }
-        val result = operationDao.findByAccount(account)
+        val result = operationDao.findByBudget(budget)
 
         Assertions.assertEquals(4, result.size)
         Assertions.assertEquals(4000, result[3].amount)
@@ -369,10 +369,10 @@ class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
     }
 
     @Test
-    fun getOperationWithDaughterInCategoryForBudget() {
-        val christine = Person("Christine de Pisan", "CiteDesDames", "no@adress.mi")
-        personDao.insert(christine)
-        val budget = Budget("DreamFactory", christine.id, ProfileEnum.PROFILE_USER)
+    fun getOperationWithDaughterInCategoryForAccount() {
+        val jule = Person("Jule Gregory Charney", "MrMeteordi", "jule@eniac.com")
+        personDao.insert(jule)
+        val budget = Budget("DreamFactory", jule.id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val masterCategory = MasterCategory("Clouds", budget.id, null)
         masterCategoryDao.insert(masterCategory)
@@ -382,10 +382,12 @@ class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
         categoryDao.insert(category2)
         val account = Account("SkyAccount", budget.id)
         accountDao.insert(account)
+        val account2 = Account("OceanAccount", budget.id)
+        accountDao.insert(account2)
         val operationList = listOf(
                 Operation(account.id, TestData.nov_02_2020, null, 4000, 1),
                 Operation(account.id, TestData.nov_03_2020, category.id, 2000, 2),
-                Operation(account.id, TestData.feb_02_2021, category2.id, 1500, 3),
+                Operation(account2.id, TestData.feb_02_2021, category2.id, 1500, 3),
                 Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
         )
         val operationDaugthers = listOf (
@@ -399,11 +401,15 @@ class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
         for (operation in operationDaugthers) {
             operationDao.insert(operation)
         }
-        val result = operationDao.findByAccount(account, category2)
+        var result = operationDao.findByAccount(account, category2)
+
+        Assertions.assertEquals(1, result.size)
+        Assertions.assertEquals(4000, result[0].amount)
+
+        result = operationDao.findByBudget(budget, category2)
 
         Assertions.assertEquals(2, result.size)
-        Assertions.assertEquals(4000, result[0].amount)
-        Assertions.assertEquals(2, result[0].daugthers.size)
-        Assertions.assertEquals(1500, result[1].amount)
+        Assertions.assertEquals(1500, result[0].amount)
+        Assertions.assertEquals(4000, result[1].amount)
     }
 }

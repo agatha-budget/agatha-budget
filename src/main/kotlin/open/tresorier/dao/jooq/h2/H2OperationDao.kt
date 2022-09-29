@@ -97,6 +97,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
 
     private val operation: OperationTable = OPERATION.`as`("operation")
     private val daughter: OperationTable = OPERATION.`as`("daughter")
+    private val categorizedDaughter: OperationTable = OPERATION.`as`("categorized_daughter")
 
     // ready to use computed Field
     private val daughters = multiset(
@@ -106,15 +107,16 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
 
     override fun findByAccount(account: Account, category: Category?): List<OperationWithDaughters> {
         val query = this.query
-            .select(
+            .selectDistinct(
                 operation.ID, operation.ACCOUNT_ID, operation.DATE_MONTH, operation.DATE_DAY,
                 operation.CATEGORY_ID, operation.AMOUNT, operation.ORDER_IN_DAY, operation.MEMO,
                 operation.PENDING, operation.LOCKED, daughters)
             .from(operation)
+            .leftJoin(categorizedDaughter).on(categorizedDaughter.MOTHER_OPERATION_ID.eq(operation.ID))
             .where(operation.ACCOUNT_ID.eq(account.id))
             .and(operation.MOTHER_OPERATION_ID.isNull)
         category?.let{
-            query.and(operation.CATEGORY_ID.eq(it.id))
+            query.and(operation.CATEGORY_ID.eq(it.id).or(categorizedDaughter.CATEGORY_ID.eq(it.id)))
         }
         query.orderBy(operation.DATE_MONTH.desc(), operation.DATE_DAY.desc(), operation.ORDER_IN_DAY.desc())
         val jooqOperationList = query.fetch()
@@ -129,16 +131,17 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
 
     override fun findByBudget(budget: Budget, category: Category?): List<OperationWithDaughters> {
         val query = this.query
-            .select(
+            .selectDistinct(
                 operation.ID, operation.ACCOUNT_ID, operation.DATE_MONTH, operation.DATE_DAY,
                 operation.CATEGORY_ID, operation.AMOUNT, operation.ORDER_IN_DAY, operation.MEMO,
                 operation.PENDING, operation.LOCKED, daughters)
             .from(operation)
+            .leftJoin(categorizedDaughter).on(categorizedDaughter.MOTHER_OPERATION_ID.eq(operation.ID))
             .join(ACCOUNT).on(operation.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
             .and(operation.MOTHER_OPERATION_ID.isNull)
         category?.let{
-            query.and(operation.CATEGORY_ID.eq(it.id))
+            query.and(operation.CATEGORY_ID.eq(it.id).or(categorizedDaughter.CATEGORY_ID.eq(it.id)))
         }
         query.orderBy(operation.DATE_MONTH.desc(), operation.DATE_DAY.desc(), operation.ORDER_IN_DAY.desc())
         val jooqOperationList = query.fetch()

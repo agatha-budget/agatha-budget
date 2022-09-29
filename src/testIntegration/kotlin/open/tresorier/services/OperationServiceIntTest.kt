@@ -70,7 +70,7 @@ class OperationServiceIntTest : IIntegrationTest {
         var motherOperation2: Operation = operationService.create(
             dorothy, account, TestData.jan_14_2022, null, 0, "Oxford", null, null
         )
-        operationService.create(
+        var daughterOperation = operationService.create(
             dorothy, account, TestData.jan_14_2022, null, 0, "cristallographie", null, motherOperation1
         )
         operationService.create(
@@ -80,16 +80,20 @@ class OperationServiceIntTest : IIntegrationTest {
             dorothy, account, TestData.jan_14_2022, null, 0, "Margaret Thatcher", null, motherOperation2
         )
 
-        var operationList = operationService.findByAccount(dorothy, account, null)
+        val operationList = operationService.findByAccount(dorothy, account, null)
 
         // an initial operation was created during account creation
-        Assertions.assertEquals(6, operationList.size)
+        Assertions.assertEquals(3, operationList.size)
+        operationService.getById(dorothy,daughterOperation.id)
 
         operationService.delete(dorothy, motherOperation1)
-        operationList = operationService.findByAccount(dorothy, account, null)
 
-        Assertions.assertEquals(3, operationList.size)
-        Assertions.assertTrue(operationList[1].isEquals(motherOperation2))
+        Assertions.assertThrows(TresorierException::class.java) {
+            operationService.getById(dorothy,motherOperation1.id)
+        }
+        Assertions.assertThrows(TresorierException::class.java) {
+            operationService.getById(dorothy,daughterOperation.id)
+        }
     }
 
 }
