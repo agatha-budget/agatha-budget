@@ -1265,7 +1265,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Operation'
+                  $ref: '#/components/schemas/OperationWithDaughters'
         "400":
           description: Invalid request
           content:
@@ -1304,7 +1304,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Operation'
+                  $ref: '#/components/schemas/OperationWithDaughters'
         "400":
           description: Invalid request
           content:
@@ -1312,105 +1312,6 @@ paths:
               schema:
                 type: string
                 example: invalid budget id
-  /operation/mothers:
-    get:
-      tags:
-      - Operation
-      summary: Find mother operations by account and category
-      operationId: findMotherOperationsByAccount
-      parameters:
-      - name: account_id
-        in: query
-        description: id of the account whose operations you want to retrieve
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      - name: category_id
-        in: query
-        description: if apply filter by category
-        required: false
-        style: form
-        explode: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Operation'
-        "400":
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                type: string
-                example: invalid account id
-  /operation/daughtersfrommother:
-    get:
-      tags:
-      - Operation
-      summary: Find daughter operation of mother operation
-      operationId: findDaughterOperationsByMother
-      parameters:
-      - name: operation_id
-        in: query
-        description: id of the mother operation of daughter operations you want to retrieve
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Operation'
-        "400":
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                type: string
-                example: invalid account id
-  /operation/motherfromdaughter:
-    get:
-      tags:
-      - Operation
-      summary: Find mother operation of a daughter operation
-      operationId: findMotherOperationsByDaughter
-      parameters:
-      - name: operation_id
-        in: query
-        description: id of the daughter operation of mother operations you want to retrieve
-        required: true
-        style: form
-        explode: true
-        schema:
-          type: string
-      responses:
-        "200":
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Operation'
-        "400":
-          description: Invalid request
-          content:
-            application/json:
-              schema:
-                type: string
-                example: invalid account id
   /operation/import:
     post:
       tags:
@@ -1713,6 +1614,36 @@ components:
           type: boolean
         motherOperationId:
           type: string
+    OperationWithDaughters:
+      required:
+      - accountId
+      - amount
+      - categoryId
+      - day
+      - id
+      - memo
+      - pending
+      - motherOperationId
+      type: object
+      properties:
+        id:
+          type: string
+        day:
+          type: number
+        accountId:
+          type: string
+        categoryId:
+          type: string
+        amount:
+          type: number
+        memo:
+          type: string
+        pending:
+          type: boolean
+        daugthers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Operation'
     Allocation:
       required:
       - amount
