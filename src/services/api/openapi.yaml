@@ -1640,7 +1640,7 @@ components:
           type: string
         pending:
           type: boolean
-        daugthers:
+        daughters:
           type: array
           items:
             $ref: '#/components/schemas/Operation'
