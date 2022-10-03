@@ -9,7 +9,7 @@
         <input id="newAccountAmount" class="form-control" v-model="amountString" :placeholder="$t('CURRENT_AMOUNT')">
       </div>
     </div>
-    <btn class="actionButton" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</btn>
+    <button class="actionButton" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</button>
   </div>
 </template>
 

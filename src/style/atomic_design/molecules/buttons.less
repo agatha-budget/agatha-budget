@@ -1,8 +1,8 @@
-btn:hover {
+button:hover {
   cursor: pointer;
 }
 
-btn {
+button {
   white-space: nowarp;
   display: inline-block;
   margin: 5px;
@@ -23,6 +23,9 @@ a.navigationButton {
   color: @white;
   * {
     color: @white;
+  }
+  span:first-letter{
+    text-transform: capitalize
   }
   &.disabled {
     background: @darkerBackground;
@@ -67,6 +70,10 @@ a.navigationButton {
   border-radius: @btnBorderRadius;
   text-align: center;
   height: 32px;
+  width: fit-content;
+  &:first-letter{
+    text-transform: capitalize
+  }
 }
 
 .buttonGradation {
@@ -83,7 +90,7 @@ a.navigationButton {
 }
 
 .dualTab, .trialTab {
-  btn{  
+  button {  
     border: 1px solid @action;
     color: @dark;
 
@@ -147,6 +154,14 @@ a.navigationButton {
     &:hover {
       color: @background;
     }
+}
+
+.bankButton {
+  .illustration {
+    max-height: 40px;
+    width: auto;
+  }
+  height: fit-content;
 }
 
 .select {

@@ -10,12 +10,12 @@
       <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
     </div>
     <div class="content">
-      <btn v-if="!edit" v-on:click="editFunction" class="actionButton edition">{{ $t("EDIT") }}</btn>
-      <btn v-else v-on:click="saveChange" class="actionButton edition">{{ $t("SAVE_CHANGE") }}</btn>
-      <btn v-if="edit" v-on:click="this.createMasterCategory()" class="buttonGradation row">
+      <button v-if="!edit" v-on:click="editFunction" class="actionButton edition">{{ $t("EDIT") }}</button>
+      <button v-else v-on:click="saveChange" class="actionButton edition">{{ $t("SAVE_CHANGE") }}</button>
+      <button v-if="edit" v-on:click="this.createMasterCategory()" class="buttonGradation row">
         <span class="illustration fas fa-plus col-1"/>
         <span class="illustrationLabel col-11">{{ $t("ADD_MASTER_CATEGORY") }}</span>
-      </btn>
+      </button>
       <div id="budgetTables">
         <template class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
           <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" @empty-master-category="emptyMasterCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit"/>

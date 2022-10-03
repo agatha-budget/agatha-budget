@@ -9,10 +9,10 @@
       </div>
       <div class="content container operationTable table-hover">
         <div class="dualTab switchOperation">
-          <btn v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">{{ $t("ADD_MANUALLY") }}</btn>
-          <btn v-else v-on:click="switchAddOperation('manual')" class="tabLeft">{{ $t("ADD_MANUALLY") }}</btn>
-          <btn v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">{{ $t("BANK_IMPORT") }}</btn>
-          <btn v-else v-on:click="switchAddOperation('import')" class="tabRight">{{ $t("BANK_IMPORT") }}</btn>
+          <button v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">{{ $t("ADD_MANUALLY") }}</button>
+          <button v-else v-on:click="switchAddOperation('manual')" class="tabLeft">{{ $t("ADD_MANUALLY") }}</button>
+          <button v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">{{ $t("BANK_IMPORT") }}</button>
+          <button v-else v-on:click="switchAddOperation('import')" class="tabRight">{{ $t("BANK_IMPORT") }}</button>
         </div>
         <ImportOfx v-if="importBloc" :accountId="this.accountId" @close-import="closeImport"/>
         <OperationForm v-if="manualBloc" class="operationForm container header" @update-operation-list="getAccountOperation" @close-form="closeForm" :accountId="this.accountId"/>
@@ -68,7 +68,7 @@
                 <button class="illustration btn fas fa-hourglass-half"/>
               </div>
               <div v-for="daughter in operation.daughters" :key="daughter" class="daughter row col-12">
-                <span class="illustration btn fas fa-level-up-alt col-1 offset-1 offset-sm-0"/>
+                <div class="col-1 offset-1 offset-sm-0"><span class="illustration btn fas fa-level-up-alt"/></div>
                 <div class="lineStart category col-5 col-sm-7 col-md-5c ol-lg-4" :class="getClassDependingCategoryDaughter(daughter.categoryId)">
                   {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                 </div>
