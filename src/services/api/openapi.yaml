@@ -1623,7 +1623,7 @@ components:
       - id
       - memo
       - pending
-      - motherOperationId
+      - daughters
       type: object
       properties:
         id:

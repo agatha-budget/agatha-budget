@@ -371,7 +371,7 @@ export interface OperationWithDaughters {
      * @type {Array<Operation>}
      * @memberof OperationWithDaughters
      */
-    daughters?: Array<Operation>;
+    daughters: Array<Operation>;
 }
 /**
  * 
