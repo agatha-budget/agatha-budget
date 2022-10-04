@@ -350,7 +350,7 @@ class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
                 Operation(account.id, TestData.feb_02_2021, category2.id, 1500, 3),
                 Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
         )
-        val operationDaugthers = listOf (
+        val operationDaughters = listOf (
             Operation(account.id, TestData.nov_02_2020, category.id, 3000, 1, null, false, false, operationList[0].id),
             Operation(account.id, TestData.nov_02_2020, category2.id, 1000, 1, null, false, false, operationList[0].id),
 
@@ -358,14 +358,14 @@ class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
         for (operation in operationList) {
             operationDao.insert(operation)
         }
-        for (operation in operationDaugthers) {
+        for (operation in operationDaughters) {
             operationDao.insert(operation)
         }
         val result = operationDao.findByBudget(budget)
 
         Assertions.assertEquals(4, result.size)
         Assertions.assertEquals(4000, result[3].amount)
-        Assertions.assertEquals(2, result[3].daugthers.size)
+        Assertions.assertEquals(2, result[3].daughters.size)
     }
 
     @Test
@@ -390,7 +390,7 @@ class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
                 Operation(account2.id, TestData.feb_02_2021, category2.id, 1500, 3),
                 Operation(account.id, TestData.march_02_2021, category.id, 3000, 4),
         )
-        val operationDaugthers = listOf (
+        val operationDaughters = listOf (
             Operation(account.id, TestData.nov_02_2020, category.id, 3000, 1, null, false, false, operationList[0].id),
             Operation(account.id, TestData.nov_02_2020, category2.id, 1000, 1, null, false, false, operationList[0].id),
 
@@ -398,7 +398,7 @@ class OperationDaoIntTest : OperationDaoTest(), IIntegrationTest {
         for (operation in operationList) {
             operationDao.insert(operation)
         }
-        for (operation in operationDaugthers) {
+        for (operation in operationDaughters) {
             operationDao.insert(operation)
         }
         var result = operationDao.findByAccount(account, category2)

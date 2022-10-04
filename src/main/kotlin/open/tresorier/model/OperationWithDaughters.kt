@@ -9,12 +9,12 @@ class OperationWithDaughters (
         memo: String? = null,
         pending: Boolean = false,
         locked: Boolean = false,
-        var daugthers: List<Operation> = listOf(),
+        var daughters: List<Operation> = listOf(),
         id: String? = null,
         deleted: Boolean? = null
 ) : Operation(accountId, day, categoryId, amount, orderInDay, memo, pending, locked, null, null, null, id, deleted) {
 
         override fun toString(): String {
-                return "day: $day, amount: $amount, memo: $memo, daugthers: $daugthers"
+                return "day: $day, amount: $amount, memo: $memo, daughters: $daughters"
         }
 }

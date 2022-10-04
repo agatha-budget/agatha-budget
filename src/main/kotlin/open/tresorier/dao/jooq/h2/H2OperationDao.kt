@@ -244,10 +244,10 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
     }
 
     private fun toOperationWithDaughter(record: OperationWithDaughtersRecord ): OperationWithDaughters {
-        val daugthersList: MutableList<Operation> = mutableListOf()
+        val daughtersList: MutableList<Operation> = mutableListOf()
         for (daughter in record.get(daughters)) {
             val operation = this.toOperation(daughter)
-            daugthersList.add(operation)
+            daughtersList.add(operation)
         }
         return OperationWithDaughters(
             record.get(OPERATION.ACCOUNT_ID),
@@ -258,7 +258,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
             record.get(OPERATION.MEMO),
             record.get(OPERATION.PENDING),
             record.get(OPERATION.LOCKED),
-            daugthersList,
+            daughtersList,
             record.get(OPERATION.ID),
         )
     }
