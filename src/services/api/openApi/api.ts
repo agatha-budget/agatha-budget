@@ -321,6 +321,61 @@ export interface Operation {
 /**
  * 
  * @export
+ * @interface OperationWithDaughters
+ */
+export interface OperationWithDaughters {
+    /**
+     * 
+     * @type {string}
+     * @memberof OperationWithDaughters
+     */
+    id: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OperationWithDaughters
+     */
+    day: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OperationWithDaughters
+     */
+    accountId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof OperationWithDaughters
+     */
+    categoryId: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof OperationWithDaughters
+     */
+    amount: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof OperationWithDaughters
+     */
+    memo: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof OperationWithDaughters
+     */
+    pending: boolean;
+    /**
+     * 
+     * @type {Array<Operation>}
+     * @memberof OperationWithDaughters
+     */
+    daughters: Array<Operation>;
+}
+/**
+ * 
+ * @export
  * @interface Person
  */
 export interface Person {
@@ -2601,122 +2656,6 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
         },
         /**
          * 
-         * @summary Find daughter operation of mother operation
-         * @param {string} operationId id of the mother operation of daughter operations you want to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findDaughterOperationsByMother: async (operationId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'operationId' is not null or undefined
-            assertParamExists('findDaughterOperationsByMother', 'operationId', operationId)
-            const localVarPath = `/operation/daughtersfrommother`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (operationId !== undefined) {
-                localVarQueryParameter['operation_id'] = operationId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Find mother operations by account and category
-         * @param {string} accountId id of the account whose operations you want to retrieve
-         * @param {string} [categoryId] if apply filter by category
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findMotherOperationsByAccount: async (accountId: string, categoryId?: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('findMotherOperationsByAccount', 'accountId', accountId)
-            const localVarPath = `/operation/mothers`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (accountId !== undefined) {
-                localVarQueryParameter['account_id'] = accountId;
-            }
-
-            if (categoryId !== undefined) {
-                localVarQueryParameter['category_id'] = categoryId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
-         * @summary Find mother operation of a daughter operation
-         * @param {string} operationId id of the daughter operation of mother operations you want to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findMotherOperationsByDaughter: async (operationId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'operationId' is not null or undefined
-            assertParamExists('findMotherOperationsByDaughter', 'operationId', operationId)
-            const localVarPath = `/operation/motherfromdaughter`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (operationId !== undefined) {
-                localVarQueryParameter['operation_id'] = operationId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary Find operation by account and category
          * @param {string} accountId id of the account whose operations you want to retrieve
          * @param {string} [categoryId] if apply filter by category
@@ -2952,47 +2891,13 @@ export const OperationApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary Find daughter operation of mother operation
-         * @param {string} operationId id of the mother operation of daughter operations you want to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async findDaughterOperationsByMother(operationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findDaughterOperationsByMother(operationId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Find mother operations by account and category
-         * @param {string} accountId id of the account whose operations you want to retrieve
-         * @param {string} [categoryId] if apply filter by category
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async findMotherOperationsByAccount(accountId: string, categoryId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findMotherOperationsByAccount(accountId, categoryId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Find mother operation of a daughter operation
-         * @param {string} operationId id of the daughter operation of mother operations you want to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async findMotherOperationsByDaughter(operationId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.findMotherOperationsByDaughter(operationId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
          * @summary Find operation by account and category
          * @param {string} accountId id of the account whose operations you want to retrieve
          * @param {string} [categoryId] if apply filter by category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findOperationsByAccount(accountId: string, categoryId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
+        async findOperationsByAccount(accountId: string, categoryId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OperationWithDaughters>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findOperationsByAccount(accountId, categoryId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3004,7 +2909,7 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findOperationsByBudget(budgetId: string, categoryId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Operation>>> {
+        async findOperationsByBudget(budgetId: string, categoryId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<OperationWithDaughters>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findOperationsByBudget(budgetId, categoryId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3076,44 +2981,13 @@ export const OperationApiFactory = function (configuration?: Configuration, base
         },
         /**
          * 
-         * @summary Find daughter operation of mother operation
-         * @param {string} operationId id of the mother operation of daughter operations you want to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findDaughterOperationsByMother(operationId: string, options?: any): AxiosPromise<Array<Operation>> {
-            return localVarFp.findDaughterOperationsByMother(operationId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Find mother operations by account and category
-         * @param {string} accountId id of the account whose operations you want to retrieve
-         * @param {string} [categoryId] if apply filter by category
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findMotherOperationsByAccount(accountId: string, categoryId?: string, options?: any): AxiosPromise<Array<Operation>> {
-            return localVarFp.findMotherOperationsByAccount(accountId, categoryId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Find mother operation of a daughter operation
-         * @param {string} operationId id of the daughter operation of mother operations you want to retrieve
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        findMotherOperationsByDaughter(operationId: string, options?: any): AxiosPromise<Operation> {
-            return localVarFp.findMotherOperationsByDaughter(operationId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary Find operation by account and category
          * @param {string} accountId id of the account whose operations you want to retrieve
          * @param {string} [categoryId] if apply filter by category
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOperationsByAccount(accountId: string, categoryId?: string, options?: any): AxiosPromise<Array<Operation>> {
+        findOperationsByAccount(accountId: string, categoryId?: string, options?: any): AxiosPromise<Array<OperationWithDaughters>> {
             return localVarFp.findOperationsByAccount(accountId, categoryId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3124,7 +2998,7 @@ export const OperationApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findOperationsByBudget(budgetId: string, categoryId?: string, options?: any): AxiosPromise<Array<Operation>> {
+        findOperationsByBudget(budgetId: string, categoryId?: string, options?: any): AxiosPromise<Array<OperationWithDaughters>> {
             return localVarFp.findOperationsByBudget(budgetId, categoryId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -3193,43 +3067,6 @@ export class OperationApi extends BaseAPI {
      */
     public deleteOperation(operationId: string, options?: any) {
         return OperationApiFp(this.configuration).deleteOperation(operationId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Find daughter operation of mother operation
-     * @param {string} operationId id of the mother operation of daughter operations you want to retrieve
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OperationApi
-     */
-    public findDaughterOperationsByMother(operationId: string, options?: any) {
-        return OperationApiFp(this.configuration).findDaughterOperationsByMother(operationId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Find mother operations by account and category
-     * @param {string} accountId id of the account whose operations you want to retrieve
-     * @param {string} [categoryId] if apply filter by category
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OperationApi
-     */
-    public findMotherOperationsByAccount(accountId: string, categoryId?: string, options?: any) {
-        return OperationApiFp(this.configuration).findMotherOperationsByAccount(accountId, categoryId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Find mother operation of a daughter operation
-     * @param {string} operationId id of the daughter operation of mother operations you want to retrieve
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof OperationApi
-     */
-    public findMotherOperationsByDaughter(operationId: string, options?: any) {
-        return OperationApiFp(this.configuration).findMotherOperationsByDaughter(operationId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

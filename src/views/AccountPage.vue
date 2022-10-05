@@ -75,7 +75,7 @@
                 <div class="amount col-4 col-lg-2" :class="this.getClassDependingOnAmount(operation)">
                   {{ addSpacesInThousand(this.getEurosAmount(daughter.amount)) }} €
                 </div>
-                <div class="memo col-10 offset-2 col-sm-11 offset-sm-1">{{ daughter.memo }}</div>
+                <div class="memo col-10 offset-2 col-sm-11 offset-sm-1">{{ (daughter.memo === 'null') ? '' : daughter.memo }}</div>
               </div>
             </div>
           </span>
@@ -94,7 +94,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { redirectToLoginPageIfNotLogged } from '@/router'
-import { Account, Category, Operation } from '@/model/model'
+import { Account, Category, Operation, OperationWithDaughters } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
@@ -107,7 +107,6 @@ import FilterCmpt from '@/components/FilterCmpt.vue'
 
 interface AccountPageData {
     operations: EditableOperation[];
-    daughterOperations: Operation[];
     importBloc: boolean;
     manualBloc: boolean;
     filterBloc: boolean;
@@ -115,9 +114,8 @@ interface AccountPageData {
     existingPendingOperation: boolean;
 }
 
-interface EditableOperation extends Operation {
+interface EditableOperation extends OperationWithDaughters {
   editing: boolean;
-  daughters: Operation[];
 }
 
 export default defineComponent({
@@ -139,7 +137,6 @@ export default defineComponent({
   watch: {
     account: async function () {
       await this.getAccountOperation()
-      await this.getDaughterOperations()
     }
   },
   props: {
@@ -151,7 +148,6 @@ export default defineComponent({
   data (): AccountPageData {
     return {
       operations: [],
-      daughterOperations: [],
       importBloc: false,
       manualBloc: false,
       filterBloc: false,
@@ -185,10 +181,9 @@ export default defineComponent({
   methods: {
     async getAccountOperation () {
       if (this.account) {
-        return OperationService.getMotherOperationsByAccount(this.account, this.filteringCategoryId).then(
+        return OperationService.getOperations(this.account, this.filteringCategoryId).then(
           (operations) => {
             this.operations = this.operationToEditableOperation(operations)
-            this.getDaughterOperations()
           }
         )
       }
@@ -196,23 +191,8 @@ export default defineComponent({
     async getAccountOperationFilter () {
       if (this.account) {
         const filteredOperations = await OperationService.getOperations(this.account, this.filteringCategoryId)
-        filteredOperations.forEach(async operation => {
-          if (this.account) {
-            const mother = await OperationService.getMotherFromDaughter(operation)
-            if (mother) {
-              filteredOperations.splice(filteredOperations.indexOf(operation), 1, mother)
-            }
-          }
-        })
         this.operations = this.operationToEditableOperation(filteredOperations)
       }
-    },
-    async getDaughterOperations () {
-      this.operations.forEach(async operation => {
-        if (this.account) {
-          operation.daughters = await OperationService.getDaughtersFromMother(operation)
-        }
-      })
     },
     getDayAsDate (dayAsInt: number): Date {
       return Time.getDateFromDay(dayAsInt)
@@ -228,7 +208,7 @@ export default defineComponent({
         operation.editing = true
       }
     },
-    operationToEditableOperation (operations: Operation[]): EditableOperation[] {
+    operationToEditableOperation (operations: OperationWithDaughters[]): EditableOperation[] {
       const editableOperations: EditableOperation[] = []
       operations.forEach((operation) =>
         editableOperations.push({
@@ -237,11 +217,10 @@ export default defineComponent({
           accountId: operation.accountId,
           categoryId: operation.categoryId,
           amount: operation.amount,
-          memo: operation.memo,
+          memo: (operation.memo === 'null') ? '' : operation.memo,
           pending: operation.pending,
-          motherOperationId: operation.motherOperationId,
-          editing: false,
-          daughters: []
+          daughters: operation.daughters,
+          editing: false
         })
       )
       return editableOperations
@@ -271,7 +250,6 @@ export default defineComponent({
     async filter (categoryId: string) {
       this.filteringCategoryId = categoryId
       await this.getAccountOperationFilter()
-      await this.getDaughterOperations()
     },
     switchAddOperation (type: string) {
       if (type === 'import') {
@@ -287,17 +265,15 @@ export default defineComponent({
       }
       this.filterBloc = false
     },
-    async debited (operation: Operation) {
+    async debited (operation: OperationWithDaughters) {
       if (operation && this.account) {
-        const daughters = await OperationService.getDaughtersFromMother(operation)
-        if (daughters.length !== 0) {
+        const daughters = operation.daughters
+        if (daughters && daughters.length !== 0) {
           daughters.forEach(daughter => {
             OperationService.updateOperation(this.$store, daughter.id, this.accountId, undefined, undefined, undefined, undefined, false)
           })
-          OperationService.updateOperation(this.$store, operation.id, this.accountId, undefined, undefined, undefined, undefined, false)
-        } else {
-          OperationService.updateOperation(this.$store, operation.id, this.accountId, undefined, undefined, undefined, undefined, false)
         }
+        OperationService.updateOperation(this.$store, operation.id, this.accountId, undefined, undefined, undefined, undefined, false)
       }
     },
     pendingOperation (): boolean {
@@ -319,7 +295,6 @@ export default defineComponent({
       this.filterBloc = false
       this.filteringCategoryId = null
       await this.getAccountOperation()
-      await this.getDaughterOperations()
     },
     closeUpdate (operation: EditableOperation) {
       operation.editing = false
@@ -331,7 +306,6 @@ export default defineComponent({
       if (!this.filterBloc) {
         this.filteringCategoryId = null
         await this.getAccountOperation()
-        await this.getDaughterOperations()
       }
     }
   }
