@@ -33,10 +33,10 @@
                   <div class="lineStart category col-6" :class="getClassDependingCategory(operation)">
                     {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                   </div>
-                  <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
+                  <div class="amount col-4" :class="this.getClassDependingOnAmount(operation)">
                     {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
                   </div>
-                  <div class="actionbar col-3 row">
+                  <div class="actionbar col-2 row">
                     <span v-if="filteringCategoryId === null" v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-4">
                       <button class="illustration btn fas fa-pen"/>
                     </span>
@@ -57,10 +57,10 @@
                   <div class="lineStart date col-6">
                     <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
                   </div>
-                  <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
+                  <div class="amount col-4" :class="this.getClassDependingOnAmount(operation)">
                     {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
                   </div>
-                  <div class="actionbar col-3 row">
+                  <div class="actionbar col-2 row">
                     <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-4">
                     <button class="illustration btn fas fa-pen"/>
                     </div>
@@ -76,14 +76,16 @@
               <div class="lineStart memo col-12 row">
                 <div>{{ operation.memo }}</div>
               </div>
-              <div v-for="daughter in operation.daughters" :key="daughter" class="daughter row col-12">
-                <div class="lineStart category col-5 col-sm-7 col-md-5c ol-lg-4" :class="getClassDependingCategoryDaughter(daughter.categoryId)">
-                  {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+              <div class="daugthers">
+                <div v-for="daughter in operation.daughters" :key="daughter" class="daughter row col-12">
+                  <div class="lineStart category col-5 offset-1" :class="getClassDependingCategoryDaughter(daughter.categoryId)">
+                    {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+                  </div>
+                  <div class="daughter amount col-4" :class="this.getClassDependingOnAmount(operation)">
+                    {{ addSpacesInThousand(this.getEurosAmount(daughter.amount)) }} €
+                  </div>
+                  <div class="memo offset-1">{{ (daughter.memo === 'null') ? '' : daughter.memo }}</div>
                 </div>
-                <div class="amount col-4 col-lg-2" :class="this.getClassDependingOnAmount(operation)">
-                  {{ addSpacesInThousand(this.getEurosAmount(daughter.amount)) }} €
-                </div>
-                <div class="memo col-10 offset-2 col-sm-11 offset-sm-1">{{ (daughter.memo === 'null') ? '' : daughter.memo }}</div>
               </div>
             </div>
           </span>

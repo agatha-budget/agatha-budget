@@ -15,7 +15,7 @@
           :searchable="true"
           :options="categories"
           :noResultsText="$t('NO_RESULT_FOUND')"
-          :placeholder="$t('SELECT_CATEGORY')"
+          :placeholder="$t('SELECT_ENVELOPE')"
         />
       </div>
       <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
@@ -110,7 +110,7 @@
             :searchable="true"
             :options="categories"
             :noResultsText="$t('NO_RESULT_FOUND')"
-            :placeholder="$t('SELECT_CATEGORY')"
+            :placeholder="$t('SELECT_ENVELOPE')"
           />
         </div>
         <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-0">{{ $t("AMOUNT") }}</div>
