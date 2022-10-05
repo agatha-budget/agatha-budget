@@ -75,7 +75,7 @@
                 <div class="amount col-4 col-lg-2" :class="this.getClassDependingOnAmount(operation)">
                   {{ addSpacesInThousand(this.getEurosAmount(daughter.amount)) }} €
                 </div>
-                <div class="memo col-10 offset-2 col-sm-11 offset-sm-1">{{ daughter.memo }}</div>
+                <div class="memo col-10 offset-2 col-sm-11 offset-sm-1">{{ (daughter.memo === 'null') ? '' : daughter.memo }}</div>
               </div>
             </div>
           </span>
@@ -217,7 +217,7 @@ export default defineComponent({
           accountId: operation.accountId,
           categoryId: operation.categoryId,
           amount: operation.amount,
-          memo: operation.memo,
+          memo: (operation.memo === 'null') ? '' : operation.memo,
           pending: operation.pending,
           daughters: operation.daughters,
           editing: false
