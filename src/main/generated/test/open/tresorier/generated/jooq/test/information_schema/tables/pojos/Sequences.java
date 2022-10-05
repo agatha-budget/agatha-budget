@@ -13,110 +13,215 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sequences implements Serializable {
 
-    private static final long serialVersionUID = 1103535685;
+    private static final long serialVersionUID = 1L;
 
     private final String  sequenceCatalog;
     private final String  sequenceSchema;
     private final String  sequenceName;
-    private final Long    currentValue;
+    private final String  dataType;
+    private final Integer numericPrecision;
+    private final Integer numericPrecisionRadix;
+    private final Integer numericScale;
+    private final Long    startValue;
+    private final Long    minimumValue;
+    private final Long    maximumValue;
     private final Long    increment;
-    private final Boolean isGenerated;
-    private final String  remarks;
+    private final String  cycleOption;
+    private final String  declaredDataType;
+    private final Integer declaredNumericPrecision;
+    private final Integer declaredNumericScale;
+    private final Long    baseValue;
     private final Long    cache;
-    private final Long    minValue;
-    private final Long    maxValue;
-    private final Boolean isCycle;
-    private final Integer id;
+    private final String  remarks;
 
     public Sequences(Sequences value) {
         this.sequenceCatalog = value.sequenceCatalog;
         this.sequenceSchema = value.sequenceSchema;
         this.sequenceName = value.sequenceName;
-        this.currentValue = value.currentValue;
+        this.dataType = value.dataType;
+        this.numericPrecision = value.numericPrecision;
+        this.numericPrecisionRadix = value.numericPrecisionRadix;
+        this.numericScale = value.numericScale;
+        this.startValue = value.startValue;
+        this.minimumValue = value.minimumValue;
+        this.maximumValue = value.maximumValue;
         this.increment = value.increment;
-        this.isGenerated = value.isGenerated;
-        this.remarks = value.remarks;
+        this.cycleOption = value.cycleOption;
+        this.declaredDataType = value.declaredDataType;
+        this.declaredNumericPrecision = value.declaredNumericPrecision;
+        this.declaredNumericScale = value.declaredNumericScale;
+        this.baseValue = value.baseValue;
         this.cache = value.cache;
-        this.minValue = value.minValue;
-        this.maxValue = value.maxValue;
-        this.isCycle = value.isCycle;
-        this.id = value.id;
+        this.remarks = value.remarks;
     }
 
     public Sequences(
         String  sequenceCatalog,
         String  sequenceSchema,
         String  sequenceName,
-        Long    currentValue,
+        String  dataType,
+        Integer numericPrecision,
+        Integer numericPrecisionRadix,
+        Integer numericScale,
+        Long    startValue,
+        Long    minimumValue,
+        Long    maximumValue,
         Long    increment,
-        Boolean isGenerated,
-        String  remarks,
+        String  cycleOption,
+        String  declaredDataType,
+        Integer declaredNumericPrecision,
+        Integer declaredNumericScale,
+        Long    baseValue,
         Long    cache,
-        Long    minValue,
-        Long    maxValue,
-        Boolean isCycle,
-        Integer id
+        String  remarks
     ) {
         this.sequenceCatalog = sequenceCatalog;
         this.sequenceSchema = sequenceSchema;
         this.sequenceName = sequenceName;
-        this.currentValue = currentValue;
+        this.dataType = dataType;
+        this.numericPrecision = numericPrecision;
+        this.numericPrecisionRadix = numericPrecisionRadix;
+        this.numericScale = numericScale;
+        this.startValue = startValue;
+        this.minimumValue = minimumValue;
+        this.maximumValue = maximumValue;
         this.increment = increment;
-        this.isGenerated = isGenerated;
-        this.remarks = remarks;
+        this.cycleOption = cycleOption;
+        this.declaredDataType = declaredDataType;
+        this.declaredNumericPrecision = declaredNumericPrecision;
+        this.declaredNumericScale = declaredNumericScale;
+        this.baseValue = baseValue;
         this.cache = cache;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-        this.isCycle = isCycle;
-        this.id = id;
+        this.remarks = remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_CATALOG</code>.
+     */
     public String getSequenceCatalog() {
         return this.sequenceCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_SCHEMA</code>.
+     */
     public String getSequenceSchema() {
         return this.sequenceSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_NAME</code>.
+     */
     public String getSequenceName() {
         return this.sequenceName;
     }
 
-    public Long getCurrentValue() {
-        return this.currentValue;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.DATA_TYPE</code>.
+     */
+    public String getDataType() {
+        return this.dataType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.NUMERIC_PRECISION</code>.
+     */
+    public Integer getNumericPrecision() {
+        return this.numericPrecision;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SEQUENCES.NUMERIC_PRECISION_RADIX</code>.
+     */
+    public Integer getNumericPrecisionRadix() {
+        return this.numericPrecisionRadix;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.NUMERIC_SCALE</code>.
+     */
+    public Integer getNumericScale() {
+        return this.numericScale;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.START_VALUE</code>.
+     */
+    public Long getStartValue() {
+        return this.startValue;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.MINIMUM_VALUE</code>.
+     */
+    public Long getMinimumValue() {
+        return this.minimumValue;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.MAXIMUM_VALUE</code>.
+     */
+    public Long getMaximumValue() {
+        return this.maximumValue;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.INCREMENT</code>.
+     */
     public Long getIncrement() {
         return this.increment;
     }
 
-    public Boolean getIsGenerated() {
-        return this.isGenerated;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.CYCLE_OPTION</code>.
+     */
+    public String getCycleOption() {
+        return this.cycleOption;
     }
 
-    public String getRemarks() {
-        return this.remarks;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.DECLARED_DATA_TYPE</code>.
+     */
+    public String getDeclaredDataType() {
+        return this.declaredDataType;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SEQUENCES.DECLARED_NUMERIC_PRECISION</code>.
+     */
+    public Integer getDeclaredNumericPrecision() {
+        return this.declaredNumericPrecision;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SEQUENCES.DECLARED_NUMERIC_SCALE</code>.
+     */
+    public Integer getDeclaredNumericScale() {
+        return this.declaredNumericScale;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.BASE_VALUE</code>.
+     */
+    public Long getBaseValue() {
+        return this.baseValue;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.CACHE</code>.
+     */
     public Long getCache() {
         return this.cache;
     }
 
-    public Long getMinValue() {
-        return this.minValue;
-    }
-
-    public Long getMaxValue() {
-        return this.maxValue;
-    }
-
-    public Boolean getIsCycle() {
-        return this.isCycle;
-    }
-
-    public Integer getId() {
-        return this.id;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SEQUENCES.REMARKS</code>.
+     */
+    public String getRemarks() {
+        return this.remarks;
     }
 
     @Override
@@ -126,15 +231,21 @@ public class Sequences implements Serializable {
         sb.append(sequenceCatalog);
         sb.append(", ").append(sequenceSchema);
         sb.append(", ").append(sequenceName);
-        sb.append(", ").append(currentValue);
+        sb.append(", ").append(dataType);
+        sb.append(", ").append(numericPrecision);
+        sb.append(", ").append(numericPrecisionRadix);
+        sb.append(", ").append(numericScale);
+        sb.append(", ").append(startValue);
+        sb.append(", ").append(minimumValue);
+        sb.append(", ").append(maximumValue);
         sb.append(", ").append(increment);
-        sb.append(", ").append(isGenerated);
-        sb.append(", ").append(remarks);
+        sb.append(", ").append(cycleOption);
+        sb.append(", ").append(declaredDataType);
+        sb.append(", ").append(declaredNumericPrecision);
+        sb.append(", ").append(declaredNumericScale);
+        sb.append(", ").append(baseValue);
         sb.append(", ").append(cache);
-        sb.append(", ").append(minValue);
-        sb.append(", ").append(maxValue);
-        sb.append(", ").append(isCycle);
-        sb.append(", ").append(id);
+        sb.append(", ").append(remarks);
 
         sb.append(")");
         return sb.toString();

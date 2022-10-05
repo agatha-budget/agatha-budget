@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class KeyColumnUsage implements Serializable {
 
-    private static final long serialVersionUID = -1077510648;
+    private static final long serialVersionUID = 1L;
 
     private final String  constraintCatalog;
     private final String  constraintSchema;
@@ -59,38 +59,71 @@ public class KeyColumnUsage implements Serializable {
         this.positionInUniqueConstraint = positionInUniqueConstraint;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_CATALOG</code>.
+     */
     public String getConstraintCatalog() {
         return this.constraintCatalog;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_SCHEMA</code>.
+     */
     public String getConstraintSchema() {
         return this.constraintSchema;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_NAME</code>.
+     */
     public String getConstraintName() {
         return this.constraintName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.COLUMN_NAME</code>.
+     */
     public String getColumnName() {
         return this.columnName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.ORDINAL_POSITION</code>.
+     */
     public Integer getOrdinalPosition() {
         return this.ordinalPosition;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.POSITION_IN_UNIQUE_CONSTRAINT</code>.
+     */
     public Integer getPositionInUniqueConstraint() {
         return this.positionInUniqueConstraint;
     }

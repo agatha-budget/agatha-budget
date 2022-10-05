@@ -18,10 +18,11 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> implements Record9<String, String, String, String, String, String, String, Integer, Integer> {
 
-    private static final long serialVersionUID = -677571504;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_CATALOG</code>.
      */
     public KeyColumnUsageRecord setConstraintCatalog(String value) {
         set(0, value);
@@ -29,14 +30,16 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_CATALOG</code>.
      */
     public String getConstraintCatalog() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_SCHEMA</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_SCHEMA</code>.
      */
     public KeyColumnUsageRecord setConstraintSchema(String value) {
         set(1, value);
@@ -44,14 +47,16 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_SCHEMA</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_SCHEMA</code>.
      */
     public String getConstraintSchema() {
         return (String) get(1);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_NAME</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_NAME</code>.
      */
     public KeyColumnUsageRecord setConstraintName(String value) {
         set(2, value);
@@ -59,14 +64,16 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_NAME</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_NAME</code>.
      */
     public String getConstraintName() {
         return (String) get(2);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_CATALOG</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_CATALOG</code>.
      */
     public KeyColumnUsageRecord setTableCatalog(String value) {
         set(3, value);
@@ -74,7 +81,8 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_CATALOG</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_CATALOG</code>.
      */
     public String getTableCatalog() {
         return (String) get(3);
@@ -126,7 +134,8 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.ORDINAL_POSITION</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.ORDINAL_POSITION</code>.
      */
     public KeyColumnUsageRecord setOrdinalPosition(Integer value) {
         set(7, value);
@@ -134,14 +143,16 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.ORDINAL_POSITION</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.ORDINAL_POSITION</code>.
      */
     public Integer getOrdinalPosition() {
         return (Integer) get(7);
     }
 
     /**
-     * Setter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.POSITION_IN_UNIQUE_CONSTRAINT</code>.
+     * Setter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.POSITION_IN_UNIQUE_CONSTRAINT</code>.
      */
     public KeyColumnUsageRecord setPositionInUniqueConstraint(Integer value) {
         set(8, value);
@@ -149,7 +160,8 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
     }
 
     /**
-     * Getter for <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.POSITION_IN_UNIQUE_CONSTRAINT</code>.
+     * Getter for
+     * <code>INFORMATION_SCHEMA.KEY_COLUMN_USAGE.POSITION_IN_UNIQUE_CONSTRAINT</code>.
      */
     public Integer getPositionInUniqueConstraint() {
         return (Integer) get(8);
@@ -389,14 +401,33 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
     public KeyColumnUsageRecord(String constraintCatalog, String constraintSchema, String constraintName, String tableCatalog, String tableSchema, String tableName, String columnName, Integer ordinalPosition, Integer positionInUniqueConstraint) {
         super(KeyColumnUsage.KEY_COLUMN_USAGE);
 
-        set(0, constraintCatalog);
-        set(1, constraintSchema);
-        set(2, constraintName);
-        set(3, tableCatalog);
-        set(4, tableSchema);
-        set(5, tableName);
-        set(6, columnName);
-        set(7, ordinalPosition);
-        set(8, positionInUniqueConstraint);
+        setConstraintCatalog(constraintCatalog);
+        setConstraintSchema(constraintSchema);
+        setConstraintName(constraintName);
+        setTableCatalog(tableCatalog);
+        setTableSchema(tableSchema);
+        setTableName(tableName);
+        setColumnName(columnName);
+        setOrdinalPosition(ordinalPosition);
+        setPositionInUniqueConstraint(positionInUniqueConstraint);
+    }
+
+    /**
+     * Create a detached, initialised KeyColumnUsageRecord
+     */
+    public KeyColumnUsageRecord(open.tresorier.generated.jooq.test.information_schema.tables.pojos.KeyColumnUsage value) {
+        super(KeyColumnUsage.KEY_COLUMN_USAGE);
+
+        if (value != null) {
+            setConstraintCatalog(value.getConstraintCatalog());
+            setConstraintSchema(value.getConstraintSchema());
+            setConstraintName(value.getConstraintName());
+            setTableCatalog(value.getTableCatalog());
+            setTableSchema(value.getTableSchema());
+            setTableName(value.getTableName());
+            setColumnName(value.getColumnName());
+            setOrdinalPosition(value.getOrdinalPosition());
+            setPositionInUniqueConstraint(value.getPositionInUniqueConstraint());
+        }
     }
 }

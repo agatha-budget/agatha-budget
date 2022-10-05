@@ -13,38 +13,44 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Settings implements Serializable {
 
-    private static final long serialVersionUID = 1789286802;
+    private static final long serialVersionUID = 1L;
 
-    private final String name;
-    private final String value;
+    private final String settingName;
+    private final String settingValue;
 
     public Settings(Settings value) {
-        this.name = value.name;
-        this.value = value.value;
+        this.settingName = value.settingName;
+        this.settingValue = value.settingValue;
     }
 
     public Settings(
-        String name,
-        String value
+        String settingName,
+        String settingValue
     ) {
-        this.name = name;
-        this.value = value;
+        this.settingName = settingName;
+        this.settingValue = settingValue;
     }
 
-    public String getName() {
-        return this.name;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SETTINGS.SETTING_NAME</code>.
+     */
+    public String getSettingName() {
+        return this.settingName;
     }
 
-    public String getValue() {
-        return this.value;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SETTINGS.SETTING_VALUE</code>.
+     */
+    public String getSettingValue() {
+        return this.settingValue;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Settings (");
 
-        sb.append(name);
-        sb.append(", ").append(value);
+        sb.append(settingName);
+        sb.append(", ").append(settingValue);
 
         sb.append(")");
         return sb.toString();

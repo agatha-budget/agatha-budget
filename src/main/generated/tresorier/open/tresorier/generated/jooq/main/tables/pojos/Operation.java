@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 808450859;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  accountId;
@@ -75,54 +75,93 @@ public class Operation implements Serializable {
         this.importTimestamp = importTimestamp;
     }
 
+    /**
+     * Getter for <code>public.operation.id</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>public.operation.account_id</code>.
+     */
     public String getAccountId() {
         return this.accountId;
     }
 
+    /**
+     * Getter for <code>public.operation.month</code>.
+     */
     public Integer getMonth() {
         return this.month;
     }
 
+    /**
+     * Getter for <code>public.operation.day</code>.
+     */
     public Integer getDay() {
         return this.day;
     }
 
+    /**
+     * Getter for <code>public.operation.category_id</code>.
+     */
     public String getCategoryId() {
         return this.categoryId;
     }
 
+    /**
+     * Getter for <code>public.operation.memo</code>.
+     */
     public String getMemo() {
         return this.memo;
     }
 
+    /**
+     * Getter for <code>public.operation.amount</code>.
+     */
     public Integer getAmount() {
         return this.amount;
     }
 
+    /**
+     * Getter for <code>public.operation.order_in_day</code>.
+     */
     public Long getOrderInDay() {
         return this.orderInDay;
     }
 
+    /**
+     * Getter for <code>public.operation.pending</code>.
+     */
     public Boolean getPending() {
         return this.pending;
     }
 
+    /**
+     * Getter for <code>public.operation.locked</code>.
+     */
     public Boolean getLocked() {
         return this.locked;
     }
 
+    /**
+     * Getter for <code>public.operation.mother_operation_id</code>.
+     */
     public String getMotherOperationId() {
         return this.motherOperationId;
     }
 
+    /**
+     * Getter for <code>public.operation.import_identifier</code>.
+     */
     public String getImportIdentifier() {
         return this.importIdentifier;
     }
 
+    /**
+     * Getter for <code>public.operation.import_timestamp</code>.
+     */
     public Long getImportTimestamp() {
         return this.importTimestamp;
     }

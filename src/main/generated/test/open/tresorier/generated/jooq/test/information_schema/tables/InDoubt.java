@@ -17,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class InDoubt extends TableImpl<InDoubtRecord> {
 
-    private static final long serialVersionUID = -574790806;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.IN_DOUBT</code>
@@ -42,35 +43,14 @@ public class InDoubt extends TableImpl<InDoubtRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION</code>.
+     * The column <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_NAME</code>.
      */
-    public final TableField<InDoubtRecord, String> TRANSACTION = createField(DSL.name("TRANSACTION"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<InDoubtRecord, String> TRANSACTION_NAME = createField(DSL.name("TRANSACTION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.IN_DOUBT.STATE</code>.
+     * The column <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_STATE</code>.
      */
-    public final TableField<InDoubtRecord, String> STATE = createField(DSL.name("STATE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * Create a <code>INFORMATION_SCHEMA.IN_DOUBT</code> table reference
-     */
-    public InDoubt() {
-        this(DSL.name("IN_DOUBT"), null);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.IN_DOUBT</code> table reference
-     */
-    public InDoubt(String alias) {
-        this(DSL.name(alias), IN_DOUBT);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.IN_DOUBT</code> table reference
-     */
-    public InDoubt(Name alias) {
-        this(alias, IN_DOUBT);
-    }
+    public final TableField<InDoubtRecord, String> TRANSACTION_STATE = createField(DSL.name("TRANSACTION_STATE"), SQLDataType.VARCHAR(1048576), this, "");
 
     private InDoubt(Name alias, Table<InDoubtRecord> aliased) {
         this(alias, aliased, null);
@@ -80,13 +60,36 @@ public class InDoubt extends TableImpl<InDoubtRecord> {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.IN_DOUBT</code> table
+     * reference
+     */
+    public InDoubt(String alias) {
+        this(DSL.name(alias), IN_DOUBT);
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.IN_DOUBT</code> table
+     * reference
+     */
+    public InDoubt(Name alias) {
+        this(alias, IN_DOUBT);
+    }
+
+    /**
+     * Create a <code>INFORMATION_SCHEMA.IN_DOUBT</code> table reference
+     */
+    public InDoubt() {
+        this(DSL.name("IN_DOUBT"), null);
+    }
+
     public <O extends Record> InDoubt(Table<O> child, ForeignKey<O, InDoubtRecord> key) {
         super(child, key, IN_DOUBT);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override

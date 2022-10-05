@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MasterCategoryRecord extends UpdatableRecordImpl<MasterCategoryRecord> implements Record5<String, String, String, Boolean, String> {
 
-    private static final long serialVersionUID = -718524016;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>PUBLIC.MASTER_CATEGORY.ID</code>.
@@ -251,10 +251,25 @@ public class MasterCategoryRecord extends UpdatableRecordImpl<MasterCategoryReco
     public MasterCategoryRecord(String id, String budgetId, String name, Boolean deleted, String color) {
         super(MasterCategory.MASTER_CATEGORY);
 
-        set(0, id);
-        set(1, budgetId);
-        set(2, name);
-        set(3, deleted);
-        set(4, color);
+        setId(id);
+        setBudgetId(budgetId);
+        setName(name);
+        setDeleted(deleted);
+        setColor(color);
+    }
+
+    /**
+     * Create a detached, initialised MasterCategoryRecord
+     */
+    public MasterCategoryRecord(open.tresorier.generated.jooq.test.public_.tables.pojos.MasterCategory value) {
+        super(MasterCategory.MASTER_CATEGORY);
+
+        if (value != null) {
+            setId(value.getId());
+            setBudgetId(value.getBudgetId());
+            setName(value.getName());
+            setDeleted(value.getDeleted());
+            setColor(value.getColor());
+        }
     }
 }

@@ -22,6 +22,7 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -31,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MasterCategory extends TableImpl<MasterCategoryRecord> {
 
-    private static final long serialVersionUID = 282667517;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>PUBLIC.MASTER_CATEGORY</code>
@@ -49,33 +50,34 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
     /**
      * The column <code>PUBLIC.MASTER_CATEGORY.ID</code>.
      */
-    public final TableField<MasterCategoryRecord, String> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<MasterCategoryRecord, String> ID = createField(DSL.name("ID"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.MASTER_CATEGORY.BUDGET_ID</code>.
      */
-    public final TableField<MasterCategoryRecord, String> BUDGET_ID = createField(DSL.name("BUDGET_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<MasterCategoryRecord, String> BUDGET_ID = createField(DSL.name("BUDGET_ID"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.MASTER_CATEGORY.NAME</code>.
      */
-    public final TableField<MasterCategoryRecord, String> NAME = createField(DSL.name("NAME"), org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<MasterCategoryRecord, String> NAME = createField(DSL.name("NAME"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.MASTER_CATEGORY.DELETED</code>.
      */
-    public final TableField<MasterCategoryRecord, Boolean> DELETED = createField(DSL.name("DELETED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<MasterCategoryRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.MASTER_CATEGORY.COLOR</code>.
      */
-    public final TableField<MasterCategoryRecord, String> COLOR = createField(DSL.name("COLOR"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<MasterCategoryRecord, String> COLOR = createField(DSL.name("COLOR"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
 
-    /**
-     * Create a <code>PUBLIC.MASTER_CATEGORY</code> table reference
-     */
-    public MasterCategory() {
-        this(DSL.name("MASTER_CATEGORY"), null);
+    private MasterCategory(Name alias, Table<MasterCategoryRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private MasterCategory(Name alias, Table<MasterCategoryRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -92,12 +94,11 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
         this(alias, MASTER_CATEGORY);
     }
 
-    private MasterCategory(Name alias, Table<MasterCategoryRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private MasterCategory(Name alias, Table<MasterCategoryRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>PUBLIC.MASTER_CATEGORY</code> table reference
+     */
+    public MasterCategory() {
+        this(DSL.name("MASTER_CATEGORY"), null);
     }
 
     public <O extends Record> MasterCategory(Table<O> child, ForeignKey<O, MasterCategoryRecord> key) {
@@ -106,7 +107,7 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -115,17 +116,20 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
     }
 
     @Override
-    public List<UniqueKey<MasterCategoryRecord>> getKeys() {
-        return Arrays.<UniqueKey<MasterCategoryRecord>>asList(Keys.CONSTRAINT_D);
-    }
-
-    @Override
     public List<ForeignKey<MasterCategoryRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<MasterCategoryRecord, ?>>asList(Keys.CONSTRAINT_D3);
+        return Arrays.asList(Keys.CONSTRAINT_D3);
     }
 
+    private transient Budget _budget;
+
+    /**
+     * Get the implicit join path to the <code>PUBLIC.BUDGET</code> table.
+     */
     public Budget budget() {
-        return new Budget(this, Keys.CONSTRAINT_D3);
+        if (_budget == null)
+            _budget = new Budget(this, Keys.CONSTRAINT_D3);
+
+        return _budget;
     }
 
     @Override

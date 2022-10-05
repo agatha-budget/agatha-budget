@@ -5,6 +5,7 @@ package open.tresorier.generated.jooq.main.tables.daos;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import open.tresorier.generated.jooq.main.tables.Budget;
 import open.tresorier.generated.jooq.main.tables.records.BudgetRecord;
@@ -39,7 +40,8 @@ public class BudgetDao extends DAOImpl<BudgetRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>id BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Budget> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Budget.BUDGET.ID, lowerInclusive, upperInclusive);
@@ -60,7 +62,15 @@ public class BudgetDao extends DAOImpl<BudgetRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>person_id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>id = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.main.tables.pojos.Budget> fetchOptionalById(String value) {
+        return fetchOptional(Budget.BUDGET.ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>person_id BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Budget> fetchRangeOfPersonId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Budget.BUDGET.PERSON_ID, lowerInclusive, upperInclusive);
@@ -74,7 +84,8 @@ public class BudgetDao extends DAOImpl<BudgetRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>name BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>name BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Budget> fetchRangeOfName(String lowerInclusive, String upperInclusive) {
         return fetchRange(Budget.BUDGET.NAME, lowerInclusive, upperInclusive);
@@ -88,7 +99,8 @@ public class BudgetDao extends DAOImpl<BudgetRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>deleted BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>deleted BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Budget> fetchRangeOfDeleted(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(Budget.BUDGET.DELETED, lowerInclusive, upperInclusive);
@@ -102,7 +114,8 @@ public class BudgetDao extends DAOImpl<BudgetRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>profile BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>profile BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Budget> fetchRangeOfProfile(String lowerInclusive, String upperInclusive) {
         return fetchRange(Budget.BUDGET.PROFILE, lowerInclusive, upperInclusive);

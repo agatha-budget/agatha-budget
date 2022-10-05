@@ -11,12 +11,13 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Rights extends TableImpl<RightsRecord> {
 
-    private static final long serialVersionUID = 1526552321;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.RIGHTS</code>
@@ -44,43 +45,39 @@ public class Rights extends TableImpl<RightsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.GRANTEE</code>.
      */
-    public final TableField<RightsRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.GRANTEETYPE</code>.
      */
-    public final TableField<RightsRecord, String> GRANTEETYPE = createField(DSL.name("GRANTEETYPE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> GRANTEETYPE = createField(DSL.name("GRANTEETYPE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.GRANTEDROLE</code>.
      */
-    public final TableField<RightsRecord, String> GRANTEDROLE = createField(DSL.name("GRANTEDROLE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> GRANTEDROLE = createField(DSL.name("GRANTEDROLE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.RIGHTS</code>.
      */
-    public final TableField<RightsRecord, String> RIGHTS_ = createField(DSL.name("RIGHTS"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> RIGHTS_ = createField(DSL.name("RIGHTS"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.TABLE_SCHEMA</code>.
      */
-    public final TableField<RightsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.TABLE_NAME</code>.
      */
-    public final TableField<RightsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RightsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
-    /**
-     * The column <code>INFORMATION_SCHEMA.RIGHTS.ID</code>.
-     */
-    public final TableField<RightsRecord, Integer> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    private Rights(Name alias, Table<RightsRecord> aliased) {
+        this(alias, aliased, null);
+    }
 
-    /**
-     * Create a <code>INFORMATION_SCHEMA.RIGHTS</code> table reference
-     */
-    public Rights() {
-        this(DSL.name("RIGHTS"), null);
+    private Rights(Name alias, Table<RightsRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -97,12 +94,11 @@ public class Rights extends TableImpl<RightsRecord> {
         this(alias, RIGHTS);
     }
 
-    private Rights(Name alias, Table<RightsRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Rights(Name alias, Table<RightsRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>INFORMATION_SCHEMA.RIGHTS</code> table reference
+     */
+    public Rights() {
+        this(DSL.name("RIGHTS"), null);
     }
 
     public <O extends Record> Rights(Table<O> child, ForeignKey<O, RightsRecord> key) {
@@ -111,7 +107,7 @@ public class Rights extends TableImpl<RightsRecord> {
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override
@@ -141,11 +137,11 @@ public class Rights extends TableImpl<RightsRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, String, String, String, String, String, Integer> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row6<String, String, String, String, String, String> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 }

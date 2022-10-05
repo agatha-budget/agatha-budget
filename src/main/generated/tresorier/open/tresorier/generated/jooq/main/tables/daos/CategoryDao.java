@@ -5,6 +5,7 @@ package open.tresorier.generated.jooq.main.tables.daos;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import open.tresorier.generated.jooq.main.tables.Category;
 import open.tresorier.generated.jooq.main.tables.records.CategoryRecord;
@@ -39,7 +40,8 @@ public class CategoryDao extends DAOImpl<CategoryRecord, open.tresorier.generate
     }
 
     /**
-     * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>id BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Category.CATEGORY.ID, lowerInclusive, upperInclusive);
@@ -60,7 +62,15 @@ public class CategoryDao extends DAOImpl<CategoryRecord, open.tresorier.generate
     }
 
     /**
-     * Fetch records that have <code>master_category_id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>id = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchOptionalById(String value) {
+        return fetchOptional(Category.CATEGORY.ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>master_category_id BETWEEN lowerInclusive
+     * AND upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchRangeOfMasterCategoryId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Category.CATEGORY.MASTER_CATEGORY_ID, lowerInclusive, upperInclusive);
@@ -74,7 +84,8 @@ public class CategoryDao extends DAOImpl<CategoryRecord, open.tresorier.generate
     }
 
     /**
-     * Fetch records that have <code>name BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>name BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchRangeOfName(String lowerInclusive, String upperInclusive) {
         return fetchRange(Category.CATEGORY.NAME, lowerInclusive, upperInclusive);
@@ -88,7 +99,8 @@ public class CategoryDao extends DAOImpl<CategoryRecord, open.tresorier.generate
     }
 
     /**
-     * Fetch records that have <code>archived BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>archived BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchRangeOfArchived(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(Category.CATEGORY.ARCHIVED, lowerInclusive, upperInclusive);
@@ -102,7 +114,8 @@ public class CategoryDao extends DAOImpl<CategoryRecord, open.tresorier.generate
     }
 
     /**
-     * Fetch records that have <code>deleted BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>deleted BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Category> fetchRangeOfDeleted(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(Category.CATEGORY.DELETED, lowerInclusive, upperInclusive);

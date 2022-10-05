@@ -24,6 +24,7 @@ import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -33,7 +34,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation extends TableImpl<OperationRecord> {
 
-    private static final long serialVersionUID = 1765765347;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>PUBLIC.OPERATION</code>
@@ -51,73 +52,74 @@ public class Operation extends TableImpl<OperationRecord> {
     /**
      * The column <code>PUBLIC.OPERATION.ID</code>.
      */
-    public final TableField<OperationRecord, String> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<OperationRecord, String> ID = createField(DSL.name("ID"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.ACCOUNT_ID</code>.
      */
-    public final TableField<OperationRecord, String> ACCOUNT_ID = createField(DSL.name("ACCOUNT_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<OperationRecord, String> ACCOUNT_ID = createField(DSL.name("ACCOUNT_ID"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.OPERATION.MONTH</code>.
+     * The column <code>PUBLIC.OPERATION.DATE_MONTH</code>.
      */
-    public final TableField<OperationRecord, Integer> MONTH = createField(DSL.name("MONTH"), org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Integer> DATE_MONTH = createField(DSL.name("DATE_MONTH"), SQLDataType.INTEGER.defaultValue(DSL.field("NULL", SQLDataType.INTEGER)), this, "");
 
     /**
-     * The column <code>PUBLIC.OPERATION.DAY</code>.
+     * The column <code>PUBLIC.OPERATION.DATE_DAY</code>.
      */
-    public final TableField<OperationRecord, Integer> DAY = createField(DSL.name("DAY"), org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Integer> DATE_DAY = createField(DSL.name("DATE_DAY"), SQLDataType.INTEGER.defaultValue(DSL.field("NULL", SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.CATEGORY_ID</code>.
      */
-    public final TableField<OperationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<OperationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.MEMO</code>.
      */
-    public final TableField<OperationRecord, String> MEMO = createField(DSL.name("MEMO"), org.jooq.impl.SQLDataType.VARCHAR(280).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<OperationRecord, String> MEMO = createField(DSL.name("MEMO"), SQLDataType.VARCHAR(280).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.AMOUNT</code>.
      */
-    public final TableField<OperationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.field("0", SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.ORDER_IN_DAY</code>.
      */
-    public final TableField<OperationRecord, Long> ORDER_IN_DAY = createField(DSL.name("ORDER_IN_DAY"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("1", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<OperationRecord, Long> ORDER_IN_DAY = createField(DSL.name("ORDER_IN_DAY"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.field("1", SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.PENDING</code>.
      */
-    public final TableField<OperationRecord, Boolean> PENDING = createField(DSL.name("PENDING"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<OperationRecord, Boolean> PENDING = createField(DSL.name("PENDING"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.LOCKED</code>.
      */
-    public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("LOCKED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("LOCKED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
      */
-    public final TableField<OperationRecord, String> MOTHER_OPERATION_ID = createField(DSL.name("MOTHER_OPERATION_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<OperationRecord, String> MOTHER_OPERATION_ID = createField(DSL.name("MOTHER_OPERATION_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.IMPORT_IDENTIFIER</code>.
      */
-    public final TableField<OperationRecord, String> IMPORT_IDENTIFIER = createField(DSL.name("IMPORT_IDENTIFIER"), org.jooq.impl.SQLDataType.VARCHAR(150).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<OperationRecord, String> IMPORT_IDENTIFIER = createField(DSL.name("IMPORT_IDENTIFIER"), SQLDataType.VARCHAR(150).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.IMPORT_TIMESTAMP</code>.
      */
-    public final TableField<OperationRecord, Long> IMPORT_TIMESTAMP = createField(DSL.name("IMPORT_TIMESTAMP"), org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<OperationRecord, Long> IMPORT_TIMESTAMP = createField(DSL.name("IMPORT_TIMESTAMP"), SQLDataType.BIGINT.defaultValue(DSL.field("NULL", SQLDataType.BIGINT)), this, "");
 
-    /**
-     * Create a <code>PUBLIC.OPERATION</code> table reference
-     */
-    public Operation() {
-        this(DSL.name("OPERATION"), null);
+    private Operation(Name alias, Table<OperationRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Operation(Name alias, Table<OperationRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -134,12 +136,11 @@ public class Operation extends TableImpl<OperationRecord> {
         this(alias, OPERATION);
     }
 
-    private Operation(Name alias, Table<OperationRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Operation(Name alias, Table<OperationRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>PUBLIC.OPERATION</code> table reference
+     */
+    public Operation() {
+        this(DSL.name("OPERATION"), null);
     }
 
     public <O extends Record> Operation(Table<O> child, ForeignKey<O, OperationRecord> key) {
@@ -148,7 +149,7 @@ public class Operation extends TableImpl<OperationRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -157,30 +158,45 @@ public class Operation extends TableImpl<OperationRecord> {
     }
 
     @Override
-    public List<UniqueKey<OperationRecord>> getKeys() {
-        return Arrays.<UniqueKey<OperationRecord>>asList(Keys.CONSTRAINT_9, Keys.CONSTRAINT_932E);
+    public List<UniqueKey<OperationRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.CONSTRAINT_932E);
     }
 
     @Override
     public List<ForeignKey<OperationRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<OperationRecord, ?>>asList(Keys.CONSTRAINT_93, Keys.CONSTRAINT_932);
+        return Arrays.asList(Keys.CONSTRAINT_93, Keys.CONSTRAINT_932);
     }
 
+    private transient Account _account;
+    private transient Category _category;
+
+    /**
+     * Get the implicit join path to the <code>PUBLIC.ACCOUNT</code> table.
+     */
     public Account account() {
-        return new Account(this, Keys.CONSTRAINT_93);
+        if (_account == null)
+            _account = new Account(this, Keys.CONSTRAINT_93);
+
+        return _account;
     }
 
+    /**
+     * Get the implicit join path to the <code>PUBLIC.CATEGORY</code> table.
+     */
     public Category category() {
-        return new Category(this, Keys.CONSTRAINT_932);
+        if (_category == null)
+            _category = new Category(this, Keys.CONSTRAINT_932);
+
+        return _category;
     }
 
     @Override
     public List<Check<OperationRecord>> getChecks() {
-        return Arrays.<Check<OperationRecord>>asList(
-              Internal.createCheck(this, DSL.name("NO_INVALID_DAY_OPERATION"), "(\"DAY\" < 32)", true)
-            , Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_OPERATION"), "((\"MONTH\" % 100) < 13)", true)
-            , Internal.createCheck(this, DSL.name("NO_NEGATIVE_DAY_OPERATION"), "(\"DAY\" > 0)", true)
-            , Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_OPERATION"), "((\"MONTH\" % 100) > 0)", true)
+        return Arrays.asList(
+            Internal.createCheck(this, DSL.name("NO_INVALID_DAY_OPERATION"), "\"DATE_DAY\" < 32", true),
+            Internal.createCheck(this, DSL.name("NO_INVALID_MONTH_OPERATION"), "MOD(\"DATE_MONTH\", 100) < 13", true),
+            Internal.createCheck(this, DSL.name("NO_NEGATIVE_DAY_OPERATION"), "\"DATE_DAY\" > 0", true),
+            Internal.createCheck(this, DSL.name("NO_NEGATIVE_MONTH_OPERATION"), "MOD(\"DATE_MONTH\", 100) > 0", true)
         );
     }
 

@@ -60,20 +60,18 @@ class OperationService(
     fun delete(person: Person, operation: Operation) {
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
         val daughters = operationDao.findDaughterOperations(operation)
-        if (daughters.size > 0) {
-            daughters.forEach {
-                operationDao.delete(it)
-            }
+        daughters.forEach {
+            operationDao.delete(it)
         }
         operationDao.delete(operation)
     }
 
-    fun findByAccount(person: Person, account: Account, category: Category?) : List<Operation> {
+    fun findByAccount(person: Person, account: Account, category: Category?) : List<OperationWithDaughters> {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         return operationDao.findByAccount(account, category)
     }
 
-    fun findByBudget(person: Person, budget: Budget, category: Category?) : List<Operation> {
+    fun findByBudget(person: Person, budget: Budget, category: Category?) : List<OperationWithDaughters> {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         return operationDao.findByBudget(budget, category)
     }
@@ -143,10 +141,7 @@ class OperationService(
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         return operationDao.findDaughterOperations(motherOperation)
     }
-    fun findMotherOperationsByAccount(person: Person, account: Account, category: Category?) : List<Operation> {
-        authorizationService.cancelIfUserIsUnauthorized(person, account)
-        return operationDao.findMotherOperationsByAccount(account, category)
-    }
+
     fun findMotherOperationByDaughterOperation(person: Person, daughterOperation: Operation) : Operation? {
         val account = accountDao.getById(daughterOperation.accountId)
         authorizationService.cancelIfUserIsUnauthorized(person, account)

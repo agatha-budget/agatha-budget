@@ -43,20 +43,20 @@ class H2BankAccountDao(val configuration: Configuration) : IBankAccountDao {
 
     override fun getById(id: String): BankAccount {
         val jooqBankAccount = this.generatedDao.fetchOneById(id)
-        return this.toBankAccount(jooqBankAccount) ?: throw TresorierException("no BankAccount found for the following id : $id")
+        return this.toBankAccount(jooqBankAccount)
     }
 
     override fun getOwner(bankAccount: BankAccount) : Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                    .join(BUDGET).on(BUDGET.PERSON_ID.eq(PERSON.ID))
-                    .join(BANK_AGREEMENT).on(BANK_AGREEMENT.BUDGET_ID.eq(BUDGET.ID))
-                    .join(BANK_ACCOUNT).on(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
-                    .where(BANK_ACCOUNT.ID.eq(bankAccount.id))
-                    .fetchAny().into(PERSON)
-            return H2PersonDao.toPerson(owner)
-        } catch (e : Exception) {
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(BUDGET).on(BUDGET.PERSON_ID.eq(PERSON.ID))
+            .join(BANK_AGREEMENT).on(BANK_AGREEMENT.BUDGET_ID.eq(BUDGET.ID))
+            .join(BANK_ACCOUNT).on(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
+            .where(BANK_ACCOUNT.ID.eq(bankAccount.id))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return H2PersonDao.toPerson(ownerRecord)
         }
     }
 
@@ -65,7 +65,7 @@ class H2BankAccountDao(val configuration: Configuration) : IBankAccountDao {
         val BankAccountList : MutableList<BankAccount> = mutableListOf()
         for (jooqBankAccount in jooqBankAccountList){
             var BankAccount = this.toBankAccount(jooqBankAccount)
-            BankAccount?.let{BankAccountList.add(BankAccount)}
+            BankAccount.let{BankAccountList.add(BankAccount)}
         }
         return BankAccountList
     }

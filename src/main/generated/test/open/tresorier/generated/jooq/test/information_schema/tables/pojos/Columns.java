@@ -13,40 +13,56 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Columns implements Serializable {
 
-    private static final long serialVersionUID = -607908678;
+    private static final long serialVersionUID = 1L;
 
     private final String  tableCatalog;
     private final String  tableSchema;
     private final String  tableName;
     private final String  columnName;
     private final Integer ordinalPosition;
-    private final String  domainCatalog;
-    private final String  domainSchema;
-    private final String  domainName;
     private final String  columnDefault;
     private final String  isNullable;
-    private final Integer dataType;
-    private final Integer characterMaximumLength;
-    private final Integer characterOctetLength;
+    private final String  dataType;
+    private final Long    characterMaximumLength;
+    private final Long    characterOctetLength;
     private final Integer numericPrecision;
     private final Integer numericPrecisionRadix;
     private final Integer numericScale;
     private final Integer datetimePrecision;
     private final String  intervalType;
     private final Integer intervalPrecision;
+    private final String  characterSetCatalog;
+    private final String  characterSetSchema;
     private final String  characterSetName;
+    private final String  collationCatalog;
+    private final String  collationSchema;
     private final String  collationName;
-    private final String  typeName;
-    private final Integer nullable;
-    private final Boolean isComputed;
-    private final Integer selectivity;
-    private final String  checkConstraint;
-    private final String  sequenceName;
-    private final String  remarks;
-    private final Short   sourceDataType;
-    private final String  columnType;
+    private final String  domainCatalog;
+    private final String  domainSchema;
+    private final String  domainName;
+    private final Integer maximumCardinality;
+    private final String  dtdIdentifier;
+    private final String  isIdentity;
+    private final String  identityGeneration;
+    private final Long    identityStart;
+    private final Long    identityIncrement;
+    private final Long    identityMaximum;
+    private final Long    identityMinimum;
+    private final String  identityCycle;
+    private final String  isGenerated;
+    private final String  generationExpression;
+    private final String  declaredDataType;
+    private final Integer declaredNumericPrecision;
+    private final Integer declaredNumericScale;
+    private final String  geometryType;
+    private final Integer geometrySrid;
+    private final Long    identityBase;
+    private final Long    identityCache;
     private final String  columnOnUpdate;
-    private final String  isVisible;
+    private final Boolean isVisible;
+    private final Boolean defaultOnNull;
+    private final Integer selectivity;
+    private final String  remarks;
 
     public Columns(Columns value) {
         this.tableCatalog = value.tableCatalog;
@@ -54,9 +70,6 @@ public class Columns implements Serializable {
         this.tableName = value.tableName;
         this.columnName = value.columnName;
         this.ordinalPosition = value.ordinalPosition;
-        this.domainCatalog = value.domainCatalog;
-        this.domainSchema = value.domainSchema;
-        this.domainName = value.domainName;
         this.columnDefault = value.columnDefault;
         this.isNullable = value.isNullable;
         this.dataType = value.dataType;
@@ -68,19 +81,38 @@ public class Columns implements Serializable {
         this.datetimePrecision = value.datetimePrecision;
         this.intervalType = value.intervalType;
         this.intervalPrecision = value.intervalPrecision;
+        this.characterSetCatalog = value.characterSetCatalog;
+        this.characterSetSchema = value.characterSetSchema;
         this.characterSetName = value.characterSetName;
+        this.collationCatalog = value.collationCatalog;
+        this.collationSchema = value.collationSchema;
         this.collationName = value.collationName;
-        this.typeName = value.typeName;
-        this.nullable = value.nullable;
-        this.isComputed = value.isComputed;
-        this.selectivity = value.selectivity;
-        this.checkConstraint = value.checkConstraint;
-        this.sequenceName = value.sequenceName;
-        this.remarks = value.remarks;
-        this.sourceDataType = value.sourceDataType;
-        this.columnType = value.columnType;
+        this.domainCatalog = value.domainCatalog;
+        this.domainSchema = value.domainSchema;
+        this.domainName = value.domainName;
+        this.maximumCardinality = value.maximumCardinality;
+        this.dtdIdentifier = value.dtdIdentifier;
+        this.isIdentity = value.isIdentity;
+        this.identityGeneration = value.identityGeneration;
+        this.identityStart = value.identityStart;
+        this.identityIncrement = value.identityIncrement;
+        this.identityMaximum = value.identityMaximum;
+        this.identityMinimum = value.identityMinimum;
+        this.identityCycle = value.identityCycle;
+        this.isGenerated = value.isGenerated;
+        this.generationExpression = value.generationExpression;
+        this.declaredDataType = value.declaredDataType;
+        this.declaredNumericPrecision = value.declaredNumericPrecision;
+        this.declaredNumericScale = value.declaredNumericScale;
+        this.geometryType = value.geometryType;
+        this.geometrySrid = value.geometrySrid;
+        this.identityBase = value.identityBase;
+        this.identityCache = value.identityCache;
         this.columnOnUpdate = value.columnOnUpdate;
         this.isVisible = value.isVisible;
+        this.defaultOnNull = value.defaultOnNull;
+        this.selectivity = value.selectivity;
+        this.remarks = value.remarks;
     }
 
     public Columns(
@@ -89,42 +121,55 @@ public class Columns implements Serializable {
         String  tableName,
         String  columnName,
         Integer ordinalPosition,
-        String  domainCatalog,
-        String  domainSchema,
-        String  domainName,
         String  columnDefault,
         String  isNullable,
-        Integer dataType,
-        Integer characterMaximumLength,
-        Integer characterOctetLength,
+        String  dataType,
+        Long    characterMaximumLength,
+        Long    characterOctetLength,
         Integer numericPrecision,
         Integer numericPrecisionRadix,
         Integer numericScale,
         Integer datetimePrecision,
         String  intervalType,
         Integer intervalPrecision,
+        String  characterSetCatalog,
+        String  characterSetSchema,
         String  characterSetName,
+        String  collationCatalog,
+        String  collationSchema,
         String  collationName,
-        String  typeName,
-        Integer nullable,
-        Boolean isComputed,
-        Integer selectivity,
-        String  checkConstraint,
-        String  sequenceName,
-        String  remarks,
-        Short   sourceDataType,
-        String  columnType,
+        String  domainCatalog,
+        String  domainSchema,
+        String  domainName,
+        Integer maximumCardinality,
+        String  dtdIdentifier,
+        String  isIdentity,
+        String  identityGeneration,
+        Long    identityStart,
+        Long    identityIncrement,
+        Long    identityMaximum,
+        Long    identityMinimum,
+        String  identityCycle,
+        String  isGenerated,
+        String  generationExpression,
+        String  declaredDataType,
+        Integer declaredNumericPrecision,
+        Integer declaredNumericScale,
+        String  geometryType,
+        Integer geometrySrid,
+        Long    identityBase,
+        Long    identityCache,
         String  columnOnUpdate,
-        String  isVisible
+        Boolean isVisible,
+        Boolean defaultOnNull,
+        Integer selectivity,
+        String  remarks
     ) {
         this.tableCatalog = tableCatalog;
         this.tableSchema = tableSchema;
         this.tableName = tableName;
         this.columnName = columnName;
         this.ordinalPosition = ordinalPosition;
-        this.domainCatalog = domainCatalog;
-        this.domainSchema = domainSchema;
-        this.domainName = domainName;
         this.columnDefault = columnDefault;
         this.isNullable = isNullable;
         this.dataType = dataType;
@@ -136,147 +181,379 @@ public class Columns implements Serializable {
         this.datetimePrecision = datetimePrecision;
         this.intervalType = intervalType;
         this.intervalPrecision = intervalPrecision;
+        this.characterSetCatalog = characterSetCatalog;
+        this.characterSetSchema = characterSetSchema;
         this.characterSetName = characterSetName;
+        this.collationCatalog = collationCatalog;
+        this.collationSchema = collationSchema;
         this.collationName = collationName;
-        this.typeName = typeName;
-        this.nullable = nullable;
-        this.isComputed = isComputed;
-        this.selectivity = selectivity;
-        this.checkConstraint = checkConstraint;
-        this.sequenceName = sequenceName;
-        this.remarks = remarks;
-        this.sourceDataType = sourceDataType;
-        this.columnType = columnType;
+        this.domainCatalog = domainCatalog;
+        this.domainSchema = domainSchema;
+        this.domainName = domainName;
+        this.maximumCardinality = maximumCardinality;
+        this.dtdIdentifier = dtdIdentifier;
+        this.isIdentity = isIdentity;
+        this.identityGeneration = identityGeneration;
+        this.identityStart = identityStart;
+        this.identityIncrement = identityIncrement;
+        this.identityMaximum = identityMaximum;
+        this.identityMinimum = identityMinimum;
+        this.identityCycle = identityCycle;
+        this.isGenerated = isGenerated;
+        this.generationExpression = generationExpression;
+        this.declaredDataType = declaredDataType;
+        this.declaredNumericPrecision = declaredNumericPrecision;
+        this.declaredNumericScale = declaredNumericScale;
+        this.geometryType = geometryType;
+        this.geometrySrid = geometrySrid;
+        this.identityBase = identityBase;
+        this.identityCache = identityCache;
         this.columnOnUpdate = columnOnUpdate;
         this.isVisible = isVisible;
+        this.defaultOnNull = defaultOnNull;
+        this.selectivity = selectivity;
+        this.remarks = remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_NAME</code>.
+     */
     public String getColumnName() {
         return this.columnName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.ORDINAL_POSITION</code>.
+     */
     public Integer getOrdinalPosition() {
         return this.ordinalPosition;
     }
 
-    public String getDomainCatalog() {
-        return this.domainCatalog;
-    }
-
-    public String getDomainSchema() {
-        return this.domainSchema;
-    }
-
-    public String getDomainName() {
-        return this.domainName;
-    }
-
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_DEFAULT</code>.
+     */
     public String getColumnDefault() {
         return this.columnDefault;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_NULLABLE</code>.
+     */
     public String getIsNullable() {
         return this.isNullable;
     }
 
-    public Integer getDataType() {
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DATA_TYPE</code>.
+     */
+    public String getDataType() {
         return this.dataType;
     }
 
-    public Integer getCharacterMaximumLength() {
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_MAXIMUM_LENGTH</code>.
+     */
+    public Long getCharacterMaximumLength() {
         return this.characterMaximumLength;
     }
 
-    public Integer getCharacterOctetLength() {
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_OCTET_LENGTH</code>.
+     */
+    public Long getCharacterOctetLength() {
         return this.characterOctetLength;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION</code>.
+     */
     public Integer getNumericPrecision() {
         return this.numericPrecision;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_PRECISION_RADIX</code>.
+     */
     public Integer getNumericPrecisionRadix() {
         return this.numericPrecisionRadix;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.NUMERIC_SCALE</code>.
+     */
     public Integer getNumericScale() {
         return this.numericScale;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DATETIME_PRECISION</code>.
+     */
     public Integer getDatetimePrecision() {
         return this.datetimePrecision;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_TYPE</code>.
+     */
     public String getIntervalType() {
         return this.intervalType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_PRECISION</code>.
+     */
     public Integer getIntervalPrecision() {
         return this.intervalPrecision;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_CATALOG</code>.
+     */
+    public String getCharacterSetCatalog() {
+        return this.characterSetCatalog;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_SCHEMA</code>.
+     */
+    public String getCharacterSetSchema() {
+        return this.characterSetSchema;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_NAME</code>.
+     */
     public String getCharacterSetName() {
         return this.characterSetName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_CATALOG</code>.
+     */
+    public String getCollationCatalog() {
+        return this.collationCatalog;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_SCHEMA</code>.
+     */
+    public String getCollationSchema() {
+        return this.collationSchema;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_NAME</code>.
+     */
     public String getCollationName() {
         return this.collationName;
     }
 
-    public String getTypeName() {
-        return this.typeName;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_CATALOG</code>.
+     */
+    public String getDomainCatalog() {
+        return this.domainCatalog;
     }
 
-    public Integer getNullable() {
-        return this.nullable;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_SCHEMA</code>.
+     */
+    public String getDomainSchema() {
+        return this.domainSchema;
     }
 
-    public Boolean getIsComputed() {
-        return this.isComputed;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_NAME</code>.
+     */
+    public String getDomainName() {
+        return this.domainName;
     }
 
-    public Integer getSelectivity() {
-        return this.selectivity;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.MAXIMUM_CARDINALITY</code>.
+     */
+    public Integer getMaximumCardinality() {
+        return this.maximumCardinality;
     }
 
-    public String getCheckConstraint() {
-        return this.checkConstraint;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DTD_IDENTIFIER</code>.
+     */
+    public String getDtdIdentifier() {
+        return this.dtdIdentifier;
     }
 
-    public String getSequenceName() {
-        return this.sequenceName;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_IDENTITY</code>.
+     */
+    public String getIsIdentity() {
+        return this.isIdentity;
     }
 
-    public String getRemarks() {
-        return this.remarks;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_GENERATION</code>.
+     */
+    public String getIdentityGeneration() {
+        return this.identityGeneration;
     }
 
-    public Short getSourceDataType() {
-        return this.sourceDataType;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_START</code>.
+     */
+    public Long getIdentityStart() {
+        return this.identityStart;
     }
 
-    public String getColumnType() {
-        return this.columnType;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_INCREMENT</code>.
+     */
+    public Long getIdentityIncrement() {
+        return this.identityIncrement;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_MAXIMUM</code>.
+     */
+    public Long getIdentityMaximum() {
+        return this.identityMaximum;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_MINIMUM</code>.
+     */
+    public Long getIdentityMinimum() {
+        return this.identityMinimum;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_CYCLE</code>.
+     */
+    public String getIdentityCycle() {
+        return this.identityCycle;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_GENERATED</code>.
+     */
+    public String getIsGenerated() {
+        return this.isGenerated;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.GENERATION_EXPRESSION</code>.
+     */
+    public String getGenerationExpression() {
+        return this.generationExpression;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_DATA_TYPE</code>.
+     */
+    public String getDeclaredDataType() {
+        return this.declaredDataType;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_NUMERIC_PRECISION</code>.
+     */
+    public Integer getDeclaredNumericPrecision() {
+        return this.declaredNumericPrecision;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_NUMERIC_SCALE</code>.
+     */
+    public Integer getDeclaredNumericScale() {
+        return this.declaredNumericScale;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.GEOMETRY_TYPE</code>.
+     */
+    public String getGeometryType() {
+        return this.geometryType;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.GEOMETRY_SRID</code>.
+     */
+    public Integer getGeometrySrid() {
+        return this.geometrySrid;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_BASE</code>.
+     */
+    public Long getIdentityBase() {
+        return this.identityBase;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_CACHE</code>.
+     */
+    public Long getIdentityCache() {
+        return this.identityCache;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_ON_UPDATE</code>.
+     */
     public String getColumnOnUpdate() {
         return this.columnOnUpdate;
     }
 
-    public String getIsVisible() {
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.IS_VISIBLE</code>.
+     */
+    public Boolean getIsVisible() {
         return this.isVisible;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.DEFAULT_ON_NULL</code>.
+     */
+    public Boolean getDefaultOnNull() {
+        return this.defaultOnNull;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.SELECTIVITY</code>.
+     */
+    public Integer getSelectivity() {
+        return this.selectivity;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMNS.REMARKS</code>.
+     */
+    public String getRemarks() {
+        return this.remarks;
     }
 
     @Override
@@ -288,9 +565,6 @@ public class Columns implements Serializable {
         sb.append(", ").append(tableName);
         sb.append(", ").append(columnName);
         sb.append(", ").append(ordinalPosition);
-        sb.append(", ").append(domainCatalog);
-        sb.append(", ").append(domainSchema);
-        sb.append(", ").append(domainName);
         sb.append(", ").append(columnDefault);
         sb.append(", ").append(isNullable);
         sb.append(", ").append(dataType);
@@ -302,19 +576,38 @@ public class Columns implements Serializable {
         sb.append(", ").append(datetimePrecision);
         sb.append(", ").append(intervalType);
         sb.append(", ").append(intervalPrecision);
+        sb.append(", ").append(characterSetCatalog);
+        sb.append(", ").append(characterSetSchema);
         sb.append(", ").append(characterSetName);
+        sb.append(", ").append(collationCatalog);
+        sb.append(", ").append(collationSchema);
         sb.append(", ").append(collationName);
-        sb.append(", ").append(typeName);
-        sb.append(", ").append(nullable);
-        sb.append(", ").append(isComputed);
-        sb.append(", ").append(selectivity);
-        sb.append(", ").append(checkConstraint);
-        sb.append(", ").append(sequenceName);
-        sb.append(", ").append(remarks);
-        sb.append(", ").append(sourceDataType);
-        sb.append(", ").append(columnType);
+        sb.append(", ").append(domainCatalog);
+        sb.append(", ").append(domainSchema);
+        sb.append(", ").append(domainName);
+        sb.append(", ").append(maximumCardinality);
+        sb.append(", ").append(dtdIdentifier);
+        sb.append(", ").append(isIdentity);
+        sb.append(", ").append(identityGeneration);
+        sb.append(", ").append(identityStart);
+        sb.append(", ").append(identityIncrement);
+        sb.append(", ").append(identityMaximum);
+        sb.append(", ").append(identityMinimum);
+        sb.append(", ").append(identityCycle);
+        sb.append(", ").append(isGenerated);
+        sb.append(", ").append(generationExpression);
+        sb.append(", ").append(declaredDataType);
+        sb.append(", ").append(declaredNumericPrecision);
+        sb.append(", ").append(declaredNumericScale);
+        sb.append(", ").append(geometryType);
+        sb.append(", ").append(geometrySrid);
+        sb.append(", ").append(identityBase);
+        sb.append(", ").append(identityCache);
         sb.append(", ").append(columnOnUpdate);
         sb.append(", ").append(isVisible);
+        sb.append(", ").append(defaultOnNull);
+        sb.append(", ").append(selectivity);
+        sb.append(", ").append(remarks);
 
         sb.append(")");
         return sb.toString();

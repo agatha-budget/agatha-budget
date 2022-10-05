@@ -13,12 +13,12 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 955103306;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  accountId;
-    private final Integer month;
-    private final Integer day;
+    private final Integer dateMonth;
+    private final Integer dateDay;
     private final String  categoryId;
     private final String  memo;
     private final Integer amount;
@@ -32,8 +32,8 @@ public class Operation implements Serializable {
     public Operation(Operation value) {
         this.id = value.id;
         this.accountId = value.accountId;
-        this.month = value.month;
-        this.day = value.day;
+        this.dateMonth = value.dateMonth;
+        this.dateDay = value.dateDay;
         this.categoryId = value.categoryId;
         this.memo = value.memo;
         this.amount = value.amount;
@@ -48,8 +48,8 @@ public class Operation implements Serializable {
     public Operation(
         String  id,
         String  accountId,
-        Integer month,
-        Integer day,
+        Integer dateMonth,
+        Integer dateDay,
         String  categoryId,
         String  memo,
         Integer amount,
@@ -62,8 +62,8 @@ public class Operation implements Serializable {
     ) {
         this.id = id;
         this.accountId = accountId;
-        this.month = month;
-        this.day = day;
+        this.dateMonth = dateMonth;
+        this.dateDay = dateDay;
         this.categoryId = categoryId;
         this.memo = memo;
         this.amount = amount;
@@ -75,54 +75,93 @@ public class Operation implements Serializable {
         this.importTimestamp = importTimestamp;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.ID</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.ACCOUNT_ID</code>.
+     */
     public String getAccountId() {
         return this.accountId;
     }
 
-    public Integer getMonth() {
-        return this.month;
+    /**
+     * Getter for <code>PUBLIC.OPERATION.DATE_MONTH</code>.
+     */
+    public Integer getDateMonth() {
+        return this.dateMonth;
     }
 
-    public Integer getDay() {
-        return this.day;
+    /**
+     * Getter for <code>PUBLIC.OPERATION.DATE_DAY</code>.
+     */
+    public Integer getDateDay() {
+        return this.dateDay;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.CATEGORY_ID</code>.
+     */
     public String getCategoryId() {
         return this.categoryId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.MEMO</code>.
+     */
     public String getMemo() {
         return this.memo;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.AMOUNT</code>.
+     */
     public Integer getAmount() {
         return this.amount;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.ORDER_IN_DAY</code>.
+     */
     public Long getOrderInDay() {
         return this.orderInDay;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.PENDING</code>.
+     */
     public Boolean getPending() {
         return this.pending;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.LOCKED</code>.
+     */
     public Boolean getLocked() {
         return this.locked;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
+     */
     public String getMotherOperationId() {
         return this.motherOperationId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.IMPORT_IDENTIFIER</code>.
+     */
     public String getImportIdentifier() {
         return this.importIdentifier;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.IMPORT_TIMESTAMP</code>.
+     */
     public Long getImportTimestamp() {
         return this.importTimestamp;
     }
@@ -133,8 +172,8 @@ public class Operation implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(accountId);
-        sb.append(", ").append(month);
-        sb.append(", ").append(day);
+        sb.append(", ").append(dateMonth);
+        sb.append(", ").append(dateDay);
         sb.append(", ").append(categoryId);
         sb.append(", ").append(memo);
         sb.append(", ").append(amount);

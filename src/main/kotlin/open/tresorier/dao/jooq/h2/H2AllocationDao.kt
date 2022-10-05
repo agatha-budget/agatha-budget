@@ -39,21 +39,21 @@ class H2AllocationDao(val configuration: Configuration) : IAllocationDao {
             .select()
             .from(ALLOCATION)
             .where(ALLOCATION.CATEGORY_ID.eq(categoryId))
-            .and(ALLOCATION.MONTH.eq(month.comparable))
+            .and(ALLOCATION.DATE_MONTH.eq(month.comparable))
             .fetchAny()?.into(ALLOCATION)
     }
 
     override fun getOwner(allocation: Allocation): Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(CATEGORY).on(CATEGORY.ID.eq(allocation.categoryId))
-                .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
-                .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
-                .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                .fetchAny().into(PERSON)
-            return H2PersonDao.toPerson(owner)
-        } catch (e: Exception) {
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(CATEGORY).on(CATEGORY.ID.eq(allocation.categoryId))
+            .join(MASTER_CATEGORY).on(MASTER_CATEGORY.ID.eq(CATEGORY.MASTER_CATEGORY_ID))
+            .join(BUDGET).on(BUDGET.ID.eq(MASTER_CATEGORY.BUDGET_ID))
+            .where(PERSON.ID.eq(BUDGET.PERSON_ID))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return H2PersonDao.toPerson(ownerRecord)
         }
     }
 
@@ -65,9 +65,9 @@ class H2AllocationDao(val configuration: Configuration) : IAllocationDao {
             .join(MASTER_CATEGORY).on(CATEGORY.MASTER_CATEGORY_ID.eq(MASTER_CATEGORY.ID))
             .where(MASTER_CATEGORY.BUDGET_ID.eq(budget.id))
         maxMonth?.let {
-            query.and(ALLOCATION.MONTH.lessOrEqual(it.comparable))
+            query.and(ALLOCATION.DATE_MONTH.lessOrEqual(it.comparable))
         }
-        query.orderBy(ALLOCATION.MONTH.asc())
+        query.orderBy(ALLOCATION.DATE_MONTH.asc())
 
         val jooqAllocationList = query.fetch().into(ALLOCATION)
 
@@ -91,7 +91,7 @@ class H2AllocationDao(val configuration: Configuration) : IAllocationDao {
 
     private fun toAllocation(allocationRecord: AllocationRecord): Allocation {
         return Allocation(
-            Month.createFromComparable(allocationRecord.month),
+            Month.createFromComparable(allocationRecord.dateMonth),
             allocationRecord.categoryId,
             allocationRecord.amount,
         )

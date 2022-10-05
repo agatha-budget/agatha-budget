@@ -9,7 +9,7 @@ interface IBankAgreementDao {
     fun insert(agreement: BankAgreement) : BankAgreement
     fun update(agreement: BankAgreement) : BankAgreement
     fun getById(id: String): BankAgreement
-    fun getOwner(bankAgreement: BankAgreement) : Person
+    fun getOwner(agreement: BankAgreement) : Person
     fun findByBudget(budget: Budget): List<BankAgreement>
     fun findByAccount(account: Account) : BankAgreement?
 }

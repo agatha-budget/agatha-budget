@@ -53,14 +53,14 @@ class H2BudgetDao (val configuration : Configuration) : IBudgetDao {
     }
 
     override fun getOwner(budget: Budget): Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(Tables.PERSON)
-                    .join(Tables.BUDGET).on(Tables.BUDGET.PERSON_ID.eq(Tables.PERSON.ID))
-                    .where(Tables.BUDGET.ID.eq(budget.id))
-                    .fetchAny().into(Tables.PERSON)
-            return H2PersonDao.toPerson(owner)
-        } catch (e : Exception) {
+        val ownerRecord: PersonRecord? = this.query.select().from(Tables.PERSON)
+            .join(Tables.BUDGET).on(Tables.BUDGET.PERSON_ID.eq(Tables.PERSON.ID))
+            .where(Tables.BUDGET.ID.eq(budget.id))
+            .fetchAny()?.into(Tables.PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return H2PersonDao.toPerson(ownerRecord)
         }
     }
 

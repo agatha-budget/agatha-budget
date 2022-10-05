@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MasterCategory implements Serializable {
 
-    private static final long serialVersionUID = -33511312;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  budgetId;
@@ -43,22 +43,37 @@ public class MasterCategory implements Serializable {
         this.color = color;
     }
 
+    /**
+     * Getter for <code>public.master_category.id</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>public.master_category.budget_id</code>.
+     */
     public String getBudgetId() {
         return this.budgetId;
     }
 
+    /**
+     * Getter for <code>public.master_category.name</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>public.master_category.deleted</code>.
+     */
     public Boolean getDeleted() {
         return this.deleted;
     }
 
+    /**
+     * Getter for <code>public.master_category.color</code>.
+     */
     public String getColor() {
         return this.color;
     }

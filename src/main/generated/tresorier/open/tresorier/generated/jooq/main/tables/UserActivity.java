@@ -4,9 +4,6 @@
 package open.tresorier.generated.jooq.main.tables;
 
 
-import java.util.Arrays;
-import java.util.List;
-
 import open.tresorier.generated.jooq.main.Keys;
 import open.tresorier.generated.jooq.main.Public;
 import open.tresorier.generated.jooq.main.tables.records.UserActivityRecord;
@@ -22,6 +19,7 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -31,7 +29,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserActivity extends TableImpl<UserActivityRecord> {
 
-    private static final long serialVersionUID = -457641850;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>public.user_activity</code>
@@ -49,28 +47,29 @@ public class UserActivity extends TableImpl<UserActivityRecord> {
     /**
      * The column <code>public.user_activity.id</code>.
      */
-    public final TableField<UserActivityRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<UserActivityRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.user_activity.user_id</code>.
      */
-    public final TableField<UserActivityRecord, String> USER_ID = createField(DSL.name("user_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<UserActivityRecord, String> USER_ID = createField(DSL.name("user_id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.user_activity.date</code>.
      */
-    public final TableField<UserActivityRecord, Long> DATE = createField(DSL.name("date"), org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<UserActivityRecord, Long> DATE = createField(DSL.name("date"), SQLDataType.BIGINT.defaultValue(DSL.field("0", SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>public.user_activity.action</code>.
      */
-    public final TableField<UserActivityRecord, String> ACTION = createField(DSL.name("action"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false).defaultValue(org.jooq.impl.DSL.field("'ACTION_LOGIN'::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<UserActivityRecord, String> ACTION = createField(DSL.name("action"), SQLDataType.VARCHAR(36).nullable(false).defaultValue(DSL.field("'ACTION_LOGIN'::character varying", SQLDataType.VARCHAR)), this, "");
 
-    /**
-     * Create a <code>public.user_activity</code> table reference
-     */
-    public UserActivity() {
-        this(DSL.name("user_activity"), null);
+    private UserActivity(Name alias, Table<UserActivityRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private UserActivity(Name alias, Table<UserActivityRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -87,12 +86,11 @@ public class UserActivity extends TableImpl<UserActivityRecord> {
         this(alias, USER_ACTIVITY);
     }
 
-    private UserActivity(Name alias, Table<UserActivityRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private UserActivity(Name alias, Table<UserActivityRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>public.user_activity</code> table reference
+     */
+    public UserActivity() {
+        this(DSL.name("user_activity"), null);
     }
 
     public <O extends Record> UserActivity(Table<O> child, ForeignKey<O, UserActivityRecord> key) {
@@ -101,17 +99,12 @@ public class UserActivity extends TableImpl<UserActivityRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
     public UniqueKey<UserActivityRecord> getPrimaryKey() {
         return Keys.USER_ACTIVITY_PKEY;
-    }
-
-    @Override
-    public List<UniqueKey<UserActivityRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserActivityRecord>>asList(Keys.USER_ACTIVITY_PKEY);
     }
 
     @Override

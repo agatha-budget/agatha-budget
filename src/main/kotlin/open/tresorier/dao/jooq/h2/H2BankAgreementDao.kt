@@ -48,15 +48,15 @@ class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
         return this.toBankAgreement(jooqBankAgreement) ?: throw TresorierException("no bankAgreement found for the following id : $id")
     }
 
-    override fun getOwner(bankAgreement: BankAgreement) : Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(BUDGET).on(BUDGET.ID.eq(bankAgreement.budgetId))
-                .where(PERSON.ID.eq(BUDGET.ID))
-                .fetchAny().into(PERSON)
-            return H2PersonDao.toPerson(owner)
-        } catch (e : Exception) {
+    override fun getOwner(agreement: BankAgreement) : Person {
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(BUDGET).on(BUDGET.ID.eq(agreement.budgetId))
+            .where(PERSON.ID.eq(BUDGET.ID))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return H2PersonDao.toPerson(ownerRecord)
         }
     }
 
@@ -72,11 +72,11 @@ class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
 
     override fun findByAccount(account: Account) : BankAgreement? {
         try {
-            val recordBankAgreement: BankAgreementRecord = this.query.select().from(BANK_AGREEMENT)
+            val recordBankAgreement: BankAgreementRecord? = this.query.select().from(BANK_AGREEMENT)
                 .join(BANK_ACCOUNT).on(BANK_ACCOUNT.ID.eq(account.bankAccountId))
                 .where(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
                 .and(BANK_AGREEMENT.TIMESTAMP.greaterThan(Time.threeMonthAgo()))
-                .fetchAny().into(BANK_AGREEMENT)
+                .fetchAny()?.into(BANK_AGREEMENT)
             return toBankAgreement(recordBankAgreement)
         } catch (e : Exception) {
             return null
@@ -95,7 +95,10 @@ class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
         )
     }
 
-    private fun toBankAgreement(jooqBankAgreement: JooqBankAgreement): BankAgreement {
+    private fun toBankAgreement(jooqBankAgreement: JooqBankAgreement?): BankAgreement? {
+        if (jooqBankAgreement == null){
+            return null
+        }
         return BankAgreement(
             jooqBankAgreement.budgetId,
             jooqBankAgreement.bankId,
@@ -107,7 +110,10 @@ class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
         )
     }
 
-    private fun toBankAgreement(recordBankAgreement: BankAgreementRecord): BankAgreement {
+    private fun toBankAgreement(recordBankAgreement: BankAgreementRecord?): BankAgreement? {
+        if (recordBankAgreement == null){
+            return null
+        }
         return BankAgreement(
             recordBankAgreement.budgetId,
             recordBankAgreement.bankId,

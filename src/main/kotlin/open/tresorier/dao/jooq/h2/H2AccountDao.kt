@@ -5,14 +5,13 @@ import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.test.public_.Tables.*
 import open.tresorier.generated.jooq.test.public_.tables.daos.AccountDao
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
+import open.tresorier.generated.jooq.test.public_.tables.pojos.Account as JooqAccount
 import open.tresorier.model.*
 import org.jooq.Configuration
 import org.jooq.Field
 import org.jooq.Record7
 import org.jooq.impl.DSL
 import java.math.BigDecimal
-import open.tresorier.generated.jooq.test.public_.tables.pojos.Account as JooqAccount
-
 
 class H2AccountDao(val configuration: Configuration) : IAccountDao {
 
@@ -65,14 +64,14 @@ class H2AccountDao(val configuration: Configuration) : IAccountDao {
     }
 
     override fun getOwner(account: Account): Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(BUDGET).on(BUDGET.ID.eq(account.budgetId))
-                .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                .fetchAny().into(PERSON)
-            return H2PersonDao.toPerson(owner)
-        } catch (e : Exception) {
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(BUDGET).on(BUDGET.ID.eq(account.budgetId))
+            .where(PERSON.ID.eq(BUDGET.PERSON_ID))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
             throw TresorierException("the given object appears to have no owner")
+        } else {
+            return H2PersonDao.toPerson(ownerRecord)
         }
     }
 

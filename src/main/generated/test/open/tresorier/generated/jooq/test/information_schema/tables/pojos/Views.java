@@ -13,17 +13,20 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Views implements Serializable {
 
-    private static final long serialVersionUID = 1087518753;
+    private static final long serialVersionUID = 1L;
 
-    private final String  tableCatalog;
-    private final String  tableSchema;
-    private final String  tableName;
-    private final String  viewDefinition;
-    private final String  checkOption;
-    private final String  isUpdatable;
-    private final String  status;
-    private final String  remarks;
-    private final Integer id;
+    private final String tableCatalog;
+    private final String tableSchema;
+    private final String tableName;
+    private final String viewDefinition;
+    private final String checkOption;
+    private final String isUpdatable;
+    private final String insertableInto;
+    private final String isTriggerUpdatable;
+    private final String isTriggerDeletable;
+    private final String isTriggerInsertableInto;
+    private final String status;
+    private final String remarks;
 
     public Views(Views value) {
         this.tableCatalog = value.tableCatalog;
@@ -32,21 +35,27 @@ public class Views implements Serializable {
         this.viewDefinition = value.viewDefinition;
         this.checkOption = value.checkOption;
         this.isUpdatable = value.isUpdatable;
+        this.insertableInto = value.insertableInto;
+        this.isTriggerUpdatable = value.isTriggerUpdatable;
+        this.isTriggerDeletable = value.isTriggerDeletable;
+        this.isTriggerInsertableInto = value.isTriggerInsertableInto;
         this.status = value.status;
         this.remarks = value.remarks;
-        this.id = value.id;
     }
 
     public Views(
-        String  tableCatalog,
-        String  tableSchema,
-        String  tableName,
-        String  viewDefinition,
-        String  checkOption,
-        String  isUpdatable,
-        String  status,
-        String  remarks,
-        Integer id
+        String tableCatalog,
+        String tableSchema,
+        String tableName,
+        String viewDefinition,
+        String checkOption,
+        String isUpdatable,
+        String insertableInto,
+        String isTriggerUpdatable,
+        String isTriggerDeletable,
+        String isTriggerInsertableInto,
+        String status,
+        String remarks
     ) {
         this.tableCatalog = tableCatalog;
         this.tableSchema = tableSchema;
@@ -54,45 +63,97 @@ public class Views implements Serializable {
         this.viewDefinition = viewDefinition;
         this.checkOption = checkOption;
         this.isUpdatable = isUpdatable;
+        this.insertableInto = insertableInto;
+        this.isTriggerUpdatable = isTriggerUpdatable;
+        this.isTriggerDeletable = isTriggerDeletable;
+        this.isTriggerInsertableInto = isTriggerInsertableInto;
         this.status = status;
         this.remarks = remarks;
-        this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.VIEW_DEFINITION</code>.
+     */
     public String getViewDefinition() {
         return this.viewDefinition;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.CHECK_OPTION</code>.
+     */
     public String getCheckOption() {
         return this.checkOption;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.IS_UPDATABLE</code>.
+     */
     public String getIsUpdatable() {
         return this.isUpdatable;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.INSERTABLE_INTO</code>.
+     */
+    public String getInsertableInto() {
+        return this.insertableInto;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.IS_TRIGGER_UPDATABLE</code>.
+     */
+    public String getIsTriggerUpdatable() {
+        return this.isTriggerUpdatable;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.IS_TRIGGER_DELETABLE</code>.
+     */
+    public String getIsTriggerDeletable() {
+        return this.isTriggerDeletable;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.VIEWS.IS_TRIGGER_INSERTABLE_INTO</code>.
+     */
+    public String getIsTriggerInsertableInto() {
+        return this.isTriggerInsertableInto;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.STATUS</code>.
+     */
     public String getStatus() {
         return this.status;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.VIEWS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
-    }
-
-    public Integer getId() {
-        return this.id;
     }
 
     @Override
@@ -105,9 +166,12 @@ public class Views implements Serializable {
         sb.append(", ").append(viewDefinition);
         sb.append(", ").append(checkOption);
         sb.append(", ").append(isUpdatable);
+        sb.append(", ").append(insertableInto);
+        sb.append(", ").append(isTriggerUpdatable);
+        sb.append(", ").append(isTriggerDeletable);
+        sb.append(", ").append(isTriggerInsertableInto);
         sb.append(", ").append(status);
         sb.append(", ").append(remarks);
-        sb.append(", ").append(id);
 
         sb.append(")");
         return sb.toString();

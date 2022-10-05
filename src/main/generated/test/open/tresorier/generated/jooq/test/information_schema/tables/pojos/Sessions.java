@@ -14,128 +14,177 @@ import java.time.OffsetDateTime;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sessions implements Serializable {
 
-    private static final long serialVersionUID = -170983991;
+    private static final long serialVersionUID = 1L;
 
-    private final Integer        id;
+    private final Integer        sessionId;
     private final String         userName;
     private final String         server;
     private final String         clientAddr;
     private final String         clientInfo;
     private final OffsetDateTime sessionStart;
     private final String         isolationLevel;
-    private final String         statement;
-    private final OffsetDateTime statementStart;
+    private final String         executingStatement;
+    private final OffsetDateTime executingStatementStart;
     private final Boolean        containsUncommitted;
-    private final String         state;
+    private final String         sessionState;
     private final Integer        blockerId;
+    private final OffsetDateTime sleepSince;
 
     public Sessions(Sessions value) {
-        this.id = value.id;
+        this.sessionId = value.sessionId;
         this.userName = value.userName;
         this.server = value.server;
         this.clientAddr = value.clientAddr;
         this.clientInfo = value.clientInfo;
         this.sessionStart = value.sessionStart;
         this.isolationLevel = value.isolationLevel;
-        this.statement = value.statement;
-        this.statementStart = value.statementStart;
+        this.executingStatement = value.executingStatement;
+        this.executingStatementStart = value.executingStatementStart;
         this.containsUncommitted = value.containsUncommitted;
-        this.state = value.state;
+        this.sessionState = value.sessionState;
         this.blockerId = value.blockerId;
+        this.sleepSince = value.sleepSince;
     }
 
     public Sessions(
-        Integer        id,
+        Integer        sessionId,
         String         userName,
         String         server,
         String         clientAddr,
         String         clientInfo,
         OffsetDateTime sessionStart,
         String         isolationLevel,
-        String         statement,
-        OffsetDateTime statementStart,
+        String         executingStatement,
+        OffsetDateTime executingStatementStart,
         Boolean        containsUncommitted,
-        String         state,
-        Integer        blockerId
+        String         sessionState,
+        Integer        blockerId,
+        OffsetDateTime sleepSince
     ) {
-        this.id = id;
+        this.sessionId = sessionId;
         this.userName = userName;
         this.server = server;
         this.clientAddr = clientAddr;
         this.clientInfo = clientInfo;
         this.sessionStart = sessionStart;
         this.isolationLevel = isolationLevel;
-        this.statement = statement;
-        this.statementStart = statementStart;
+        this.executingStatement = executingStatement;
+        this.executingStatementStart = executingStatementStart;
         this.containsUncommitted = containsUncommitted;
-        this.state = state;
+        this.sessionState = sessionState;
         this.blockerId = blockerId;
+        this.sleepSince = sleepSince;
     }
 
-    public Integer getId() {
-        return this.id;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SESSION_ID</code>.
+     */
+    public Integer getSessionId() {
+        return this.sessionId;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.USER_NAME</code>.
+     */
     public String getUserName() {
         return this.userName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SERVER</code>.
+     */
     public String getServer() {
         return this.server;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_ADDR</code>.
+     */
     public String getClientAddr() {
         return this.clientAddr;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_INFO</code>.
+     */
     public String getClientInfo() {
         return this.clientInfo;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SESSION_START</code>.
+     */
     public OffsetDateTime getSessionStart() {
         return this.sessionStart;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.ISOLATION_LEVEL</code>.
+     */
     public String getIsolationLevel() {
         return this.isolationLevel;
     }
 
-    public String getStatement() {
-        return this.statement;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.EXECUTING_STATEMENT</code>.
+     */
+    public String getExecutingStatement() {
+        return this.executingStatement;
     }
 
-    public OffsetDateTime getStatementStart() {
-        return this.statementStart;
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.SESSIONS.EXECUTING_STATEMENT_START</code>.
+     */
+    public OffsetDateTime getExecutingStatementStart() {
+        return this.executingStatementStart;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.CONTAINS_UNCOMMITTED</code>.
+     */
     public Boolean getContainsUncommitted() {
         return this.containsUncommitted;
     }
 
-    public String getState() {
-        return this.state;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SESSION_STATE</code>.
+     */
+    public String getSessionState() {
+        return this.sessionState;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.BLOCKER_ID</code>.
+     */
     public Integer getBlockerId() {
         return this.blockerId;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SESSIONS.SLEEP_SINCE</code>.
+     */
+    public OffsetDateTime getSleepSince() {
+        return this.sleepSince;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Sessions (");
 
-        sb.append(id);
+        sb.append(sessionId);
         sb.append(", ").append(userName);
         sb.append(", ").append(server);
         sb.append(", ").append(clientAddr);
         sb.append(", ").append(clientInfo);
         sb.append(", ").append(sessionStart);
         sb.append(", ").append(isolationLevel);
-        sb.append(", ").append(statement);
-        sb.append(", ").append(statementStart);
+        sb.append(", ").append(executingStatement);
+        sb.append(", ").append(executingStatementStart);
         sb.append(", ").append(containsUncommitted);
-        sb.append(", ").append(state);
+        sb.append(", ").append(sessionState);
         sb.append(", ").append(blockerId);
+        sb.append(", ").append(sleepSince);
 
         sb.append(")");
         return sb.toString();

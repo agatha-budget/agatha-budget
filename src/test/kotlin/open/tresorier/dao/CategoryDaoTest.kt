@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
 import open.tresorier.model.enum.ProfileEnum
+import open.tresorier.exception.TresorierException
 
 open class CategoryDaoTest : ITest {
 
@@ -67,8 +68,10 @@ open class CategoryDaoTest : ITest {
 
     @Test fun testGetOwnerOfUniversalCategory() {
         val universalCategory = categoryDao.getById(Category.INCOME_ID)
-        val owner = categoryDao.getOwner(universalCategory)
-        Assertions.assertNull(owner)
+        val exception = Assertions.assertThrows(TresorierException::class.java) {
+            categoryDao.getOwner(universalCategory)
+        }
+        Assertions.assertEquals("the given object appears to have no owner", exception.message)
     }
 
     @Test fun archiveAllDependingCategories() {

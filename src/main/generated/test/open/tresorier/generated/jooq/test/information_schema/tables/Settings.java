@@ -17,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Settings extends TableImpl<SettingsRecord> {
 
-    private static final long serialVersionUID = -1272203488;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.SETTINGS</code>
@@ -42,35 +43,14 @@ public class Settings extends TableImpl<SettingsRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SETTINGS.NAME</code>.
+     * The column <code>INFORMATION_SCHEMA.SETTINGS.SETTING_NAME</code>.
      */
-    public final TableField<SettingsRecord, String> NAME = createField(DSL.name("NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SettingsRecord, String> SETTING_NAME = createField(DSL.name("SETTING_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SETTINGS.VALUE</code>.
+     * The column <code>INFORMATION_SCHEMA.SETTINGS.SETTING_VALUE</code>.
      */
-    public final TableField<SettingsRecord, String> VALUE = createField(DSL.name("VALUE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
-
-    /**
-     * Create a <code>INFORMATION_SCHEMA.SETTINGS</code> table reference
-     */
-    public Settings() {
-        this(DSL.name("SETTINGS"), null);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.SETTINGS</code> table reference
-     */
-    public Settings(String alias) {
-        this(DSL.name(alias), SETTINGS);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.SETTINGS</code> table reference
-     */
-    public Settings(Name alias) {
-        this(alias, SETTINGS);
-    }
+    public final TableField<SettingsRecord, String> SETTING_VALUE = createField(DSL.name("SETTING_VALUE"), SQLDataType.VARCHAR(1048576), this, "");
 
     private Settings(Name alias, Table<SettingsRecord> aliased) {
         this(alias, aliased, null);
@@ -80,13 +60,36 @@ public class Settings extends TableImpl<SettingsRecord> {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.SETTINGS</code> table
+     * reference
+     */
+    public Settings(String alias) {
+        this(DSL.name(alias), SETTINGS);
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.SETTINGS</code> table
+     * reference
+     */
+    public Settings(Name alias) {
+        this(alias, SETTINGS);
+    }
+
+    /**
+     * Create a <code>INFORMATION_SCHEMA.SETTINGS</code> table reference
+     */
+    public Settings() {
+        this(DSL.name("SETTINGS"), null);
+    }
+
     public <O extends Record> Settings(Table<O> child, ForeignKey<O, SettingsRecord> key) {
         super(child, key, SETTINGS);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override

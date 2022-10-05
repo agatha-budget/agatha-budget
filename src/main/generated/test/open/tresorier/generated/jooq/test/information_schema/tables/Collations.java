@@ -11,12 +11,13 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row2;
+import org.jooq.Row5;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Collations extends TableImpl<CollationsRecord> {
 
-    private static final long serialVersionUID = -795943801;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.COLLATIONS</code>
@@ -42,14 +43,53 @@ public class Collations extends TableImpl<CollationsRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.COLLATIONS.NAME</code>.
+     * The column <code>INFORMATION_SCHEMA.COLLATIONS.COLLATION_CATALOG</code>.
      */
-    public final TableField<CollationsRecord, String> NAME = createField(DSL.name("NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<CollationsRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.COLLATIONS.KEY</code>.
+     * The column <code>INFORMATION_SCHEMA.COLLATIONS.COLLATION_SCHEMA</code>.
      */
-    public final TableField<CollationsRecord, String> KEY = createField(DSL.name("KEY"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<CollationsRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.COLLATIONS.COLLATION_NAME</code>.
+     */
+    public final TableField<CollationsRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.COLLATIONS.PAD_ATTRIBUTE</code>.
+     */
+    public final TableField<CollationsRecord, String> PAD_ATTRIBUTE = createField(DSL.name("PAD_ATTRIBUTE"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.COLLATIONS.LANGUAGE_TAG</code>.
+     */
+    public final TableField<CollationsRecord, String> LANGUAGE_TAG = createField(DSL.name("LANGUAGE_TAG"), SQLDataType.VARCHAR(1048576), this, "");
+
+    private Collations(Name alias, Table<CollationsRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Collations(Name alias, Table<CollationsRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.COLLATIONS</code> table
+     * reference
+     */
+    public Collations(String alias) {
+        this(DSL.name(alias), COLLATIONS);
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.COLLATIONS</code> table
+     * reference
+     */
+    public Collations(Name alias) {
+        this(alias, COLLATIONS);
+    }
 
     /**
      * Create a <code>INFORMATION_SCHEMA.COLLATIONS</code> table reference
@@ -58,35 +98,13 @@ public class Collations extends TableImpl<CollationsRecord> {
         this(DSL.name("COLLATIONS"), null);
     }
 
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.COLLATIONS</code> table reference
-     */
-    public Collations(String alias) {
-        this(DSL.name(alias), COLLATIONS);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.COLLATIONS</code> table reference
-     */
-    public Collations(Name alias) {
-        this(alias, COLLATIONS);
-    }
-
-    private Collations(Name alias, Table<CollationsRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Collations(Name alias, Table<CollationsRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
-    }
-
     public <O extends Record> Collations(Table<O> child, ForeignKey<O, CollationsRecord> key) {
         super(child, key, COLLATIONS);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override
@@ -116,11 +134,11 @@ public class Collations extends TableImpl<CollationsRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row5 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<String, String> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row5<String, String, String, String, String> fieldsRow() {
+        return (Row5) super.fieldsRow();
     }
 }

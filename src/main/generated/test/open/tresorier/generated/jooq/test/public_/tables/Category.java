@@ -22,6 +22,7 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -31,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Category extends TableImpl<CategoryRecord> {
 
-    private static final long serialVersionUID = 1975023383;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>PUBLIC.CATEGORY</code>
@@ -49,33 +50,34 @@ public class Category extends TableImpl<CategoryRecord> {
     /**
      * The column <code>PUBLIC.CATEGORY.ID</code>.
      */
-    public final TableField<CategoryRecord, String> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<CategoryRecord, String> ID = createField(DSL.name("ID"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.CATEGORY.MASTER_CATEGORY_ID</code>.
      */
-    public final TableField<CategoryRecord, String> MASTER_CATEGORY_ID = createField(DSL.name("MASTER_CATEGORY_ID"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<CategoryRecord, String> MASTER_CATEGORY_ID = createField(DSL.name("MASTER_CATEGORY_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.CATEGORY.NAME</code>.
      */
-    public final TableField<CategoryRecord, String> NAME = createField(DSL.name("NAME"), org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<CategoryRecord, String> NAME = createField(DSL.name("NAME"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.CATEGORY.ARCHIVED</code>.
      */
-    public final TableField<CategoryRecord, Boolean> ARCHIVED = createField(DSL.name("ARCHIVED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<CategoryRecord, Boolean> ARCHIVED = createField(DSL.name("ARCHIVED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.CATEGORY.DELETED</code>.
      */
-    public final TableField<CategoryRecord, Boolean> DELETED = createField(DSL.name("DELETED"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("FALSE", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<CategoryRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
 
-    /**
-     * Create a <code>PUBLIC.CATEGORY</code> table reference
-     */
-    public Category() {
-        this(DSL.name("CATEGORY"), null);
+    private Category(Name alias, Table<CategoryRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Category(Name alias, Table<CategoryRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -92,12 +94,11 @@ public class Category extends TableImpl<CategoryRecord> {
         this(alias, CATEGORY);
     }
 
-    private Category(Name alias, Table<CategoryRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Category(Name alias, Table<CategoryRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>PUBLIC.CATEGORY</code> table reference
+     */
+    public Category() {
+        this(DSL.name("CATEGORY"), null);
     }
 
     public <O extends Record> Category(Table<O> child, ForeignKey<O, CategoryRecord> key) {
@@ -106,7 +107,7 @@ public class Category extends TableImpl<CategoryRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -115,17 +116,21 @@ public class Category extends TableImpl<CategoryRecord> {
     }
 
     @Override
-    public List<UniqueKey<CategoryRecord>> getKeys() {
-        return Arrays.<UniqueKey<CategoryRecord>>asList(Keys.CONSTRAINT_3);
-    }
-
-    @Override
     public List<ForeignKey<CategoryRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<CategoryRecord, ?>>asList(Keys.CONSTRAINT_31);
+        return Arrays.asList(Keys.CONSTRAINT_31);
     }
 
+    private transient MasterCategory _masterCategory;
+
+    /**
+     * Get the implicit join path to the <code>PUBLIC.MASTER_CATEGORY</code>
+     * table.
+     */
     public MasterCategory masterCategory() {
-        return new MasterCategory(this, Keys.CONSTRAINT_31);
+        if (_masterCategory == null)
+            _masterCategory = new MasterCategory(this, Keys.CONSTRAINT_31);
+
+        return _masterCategory;
     }
 
     @Override

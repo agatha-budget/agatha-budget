@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class UserActivity implements Serializable {
 
-    private static final long serialVersionUID = 365451665;
+    private static final long serialVersionUID = 1L;
 
     private final String id;
     private final String userId;
@@ -39,18 +39,30 @@ public class UserActivity implements Serializable {
         this.action = action;
     }
 
+    /**
+     * Getter for <code>PUBLIC.USER_ACTIVITY.ID</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>PUBLIC.USER_ACTIVITY.USER_ID</code>.
+     */
     public String getUserId() {
         return this.userId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.USER_ACTIVITY.DATE</code>.
+     */
     public Long getDate() {
         return this.date;
     }
 
+    /**
+     * Getter for <code>PUBLIC.USER_ACTIVITY.ACTION</code>.
+     */
     public String getAction() {
         return this.action;
     }

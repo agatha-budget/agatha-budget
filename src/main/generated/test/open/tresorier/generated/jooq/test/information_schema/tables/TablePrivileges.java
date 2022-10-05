@@ -11,12 +11,13 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row7;
+import org.jooq.Row8;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,10 +27,11 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TablePrivileges extends TableImpl<TablePrivilegesRecord> {
 
-    private static final long serialVersionUID = 1407167934;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code>
+     * The reference instance of
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code>
      */
     public static final TablePrivileges TABLE_PRIVILEGES = new TablePrivileges();
 
@@ -44,37 +46,69 @@ public class TablePrivileges extends TableImpl<TablePrivilegesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.GRANTOR</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> GRANTOR = createField(DSL.name("GRANTOR"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> GRANTOR = createField(DSL.name("GRANTOR"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.GRANTEE</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_SCHEMA</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_NAME</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> PRIVILEGE_TYPE = createField(DSL.name("PRIVILEGE_TYPE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> PRIVILEGE_TYPE = createField(DSL.name("PRIVILEGE_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.IS_GRANTABLE</code>.
      */
-    public final TableField<TablePrivilegesRecord, String> IS_GRANTABLE = createField(DSL.name("IS_GRANTABLE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<TablePrivilegesRecord, String> IS_GRANTABLE = createField(DSL.name("IS_GRANTABLE"), SQLDataType.VARCHAR(1048576), this, "");
+
+    /**
+     * The column
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.WITH_HIERARCHY</code>.
+     */
+    public final TableField<TablePrivilegesRecord, String> WITH_HIERARCHY = createField(DSL.name("WITH_HIERARCHY"), SQLDataType.VARCHAR(1048576), this, "");
+
+    private TablePrivileges(Name alias, Table<TablePrivilegesRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private TablePrivileges(Name alias, Table<TablePrivilegesRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code> table
+     * reference
+     */
+    public TablePrivileges(String alias) {
+        this(DSL.name(alias), TABLE_PRIVILEGES);
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code> table
+     * reference
+     */
+    public TablePrivileges(Name alias) {
+        this(alias, TABLE_PRIVILEGES);
+    }
 
     /**
      * Create a <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code> table reference
@@ -83,35 +117,13 @@ public class TablePrivileges extends TableImpl<TablePrivilegesRecord> {
         this(DSL.name("TABLE_PRIVILEGES"), null);
     }
 
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code> table reference
-     */
-    public TablePrivileges(String alias) {
-        this(DSL.name(alias), TABLE_PRIVILEGES);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES</code> table reference
-     */
-    public TablePrivileges(Name alias) {
-        this(alias, TABLE_PRIVILEGES);
-    }
-
-    private TablePrivileges(Name alias, Table<TablePrivilegesRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private TablePrivileges(Name alias, Table<TablePrivilegesRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
-    }
-
     public <O extends Record> TablePrivileges(Table<O> child, ForeignKey<O, TablePrivilegesRecord> key) {
         super(child, key, TABLE_PRIVILEGES);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override
@@ -141,11 +153,11 @@ public class TablePrivileges extends TableImpl<TablePrivilegesRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row8 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<String, String, String, String, String, String, String> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row8<String, String, String, String, String, String, String, String> fieldsRow() {
+        return (Row8) super.fieldsRow();
     }
 }

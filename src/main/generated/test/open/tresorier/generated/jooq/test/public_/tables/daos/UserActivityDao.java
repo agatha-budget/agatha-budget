@@ -5,6 +5,7 @@ package open.tresorier.generated.jooq.test.public_.tables.daos;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import open.tresorier.generated.jooq.test.public_.tables.UserActivity;
 import open.tresorier.generated.jooq.test.public_.tables.records.UserActivityRecord;
@@ -39,7 +40,8 @@ public class UserActivityDao extends DAOImpl<UserActivityRecord, open.tresorier.
     }
 
     /**
-     * Fetch records that have <code>ID BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>ID BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.UserActivity> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(UserActivity.USER_ACTIVITY.ID, lowerInclusive, upperInclusive);
@@ -60,7 +62,15 @@ public class UserActivityDao extends DAOImpl<UserActivityRecord, open.tresorier.
     }
 
     /**
-     * Fetch records that have <code>USER_ID BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>ID = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.test.public_.tables.pojos.UserActivity> fetchOptionalById(String value) {
+        return fetchOptional(UserActivity.USER_ACTIVITY.ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>USER_ID BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.UserActivity> fetchRangeOfUserId(String lowerInclusive, String upperInclusive) {
         return fetchRange(UserActivity.USER_ACTIVITY.USER_ID, lowerInclusive, upperInclusive);
@@ -74,7 +84,8 @@ public class UserActivityDao extends DAOImpl<UserActivityRecord, open.tresorier.
     }
 
     /**
-     * Fetch records that have <code>DATE BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>DATE BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.UserActivity> fetchRangeOfDate(Long lowerInclusive, Long upperInclusive) {
         return fetchRange(UserActivity.USER_ACTIVITY.DATE, lowerInclusive, upperInclusive);
@@ -88,7 +99,8 @@ public class UserActivityDao extends DAOImpl<UserActivityRecord, open.tresorier.
     }
 
     /**
-     * Fetch records that have <code>ACTION BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>ACTION BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.UserActivity> fetchRangeOfAction(String lowerInclusive, String upperInclusive) {
         return fetchRange(UserActivity.USER_ACTIVITY.ACTION, lowerInclusive, upperInclusive);

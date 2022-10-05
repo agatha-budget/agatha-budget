@@ -1,6 +1,6 @@
 package open.tresorier.model
 
-class Operation (
+open class Operation (
         var accountId: String,
         var day: Day,
         var categoryId: String? = null,

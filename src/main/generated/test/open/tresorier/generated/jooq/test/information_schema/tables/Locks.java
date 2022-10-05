@@ -17,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Locks extends TableImpl<LocksRecord> {
 
-    private static final long serialVersionUID = -1802262627;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.LOCKS</code>
@@ -44,28 +45,29 @@ public class Locks extends TableImpl<LocksRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.LOCKS.TABLE_SCHEMA</code>.
      */
-    public final TableField<LocksRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<LocksRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.LOCKS.TABLE_NAME</code>.
      */
-    public final TableField<LocksRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<LocksRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.LOCKS.SESSION_ID</code>.
      */
-    public final TableField<LocksRecord, Integer> SESSION_ID = createField(DSL.name("SESSION_ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<LocksRecord, Integer> SESSION_ID = createField(DSL.name("SESSION_ID"), SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.LOCKS.LOCK_TYPE</code>.
      */
-    public final TableField<LocksRecord, String> LOCK_TYPE = createField(DSL.name("LOCK_TYPE"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<LocksRecord, String> LOCK_TYPE = createField(DSL.name("LOCK_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
 
-    /**
-     * Create a <code>INFORMATION_SCHEMA.LOCKS</code> table reference
-     */
-    public Locks() {
-        this(DSL.name("LOCKS"), null);
+    private Locks(Name alias, Table<LocksRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Locks(Name alias, Table<LocksRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -82,12 +84,11 @@ public class Locks extends TableImpl<LocksRecord> {
         this(alias, LOCKS);
     }
 
-    private Locks(Name alias, Table<LocksRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Locks(Name alias, Table<LocksRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>INFORMATION_SCHEMA.LOCKS</code> table reference
+     */
+    public Locks() {
+        this(DSL.name("LOCKS"), null);
     }
 
     public <O extends Record> Locks(Table<O> child, ForeignKey<O, LocksRecord> key) {
@@ -96,7 +97,7 @@ public class Locks extends TableImpl<LocksRecord> {
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override

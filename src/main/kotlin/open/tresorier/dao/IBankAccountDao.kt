@@ -9,7 +9,7 @@ import open.tresorier.model.banking.BankAgreement
 interface IBankAccountDao {
     fun insert(bankAccount: BankAccount) : BankAccount
     fun update(bankAccount: BankAccount) : BankAccount
-    fun findByAgreement(bankAgreement: BankAgreement): List<BankAccount>
+    fun findByAgreement(agreement: BankAgreement): List<BankAccount>
     fun findByBudget(budget: Budget): List<PublicBankAccount>
     fun getById(id: String): BankAccount
     fun getOwner(bankAccount: BankAccount) : Person

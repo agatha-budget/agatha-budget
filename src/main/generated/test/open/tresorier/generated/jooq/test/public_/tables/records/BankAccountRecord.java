@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BankAccountRecord extends UpdatableRecordImpl<BankAccountRecord> implements Record4<String, String, String, Boolean> {
 
-    private static final long serialVersionUID = -1608183076;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>PUBLIC.BANK_ACCOUNT.ID</code>.
@@ -214,9 +214,23 @@ public class BankAccountRecord extends UpdatableRecordImpl<BankAccountRecord> im
     public BankAccountRecord(String id, String name, String agreementId, Boolean deleted) {
         super(BankAccount.BANK_ACCOUNT);
 
-        set(0, id);
-        set(1, name);
-        set(2, agreementId);
-        set(3, deleted);
+        setId(id);
+        setName(name);
+        setAgreementId(agreementId);
+        setDeleted(deleted);
+    }
+
+    /**
+     * Create a detached, initialised BankAccountRecord
+     */
+    public BankAccountRecord(open.tresorier.generated.jooq.test.public_.tables.pojos.BankAccount value) {
+        super(BankAccount.BANK_ACCOUNT);
+
+        if (value != null) {
+            setId(value.getId());
+            setName(value.getName());
+            setAgreementId(value.getAgreementId());
+            setDeleted(value.getDeleted());
+        }
     }
 }
