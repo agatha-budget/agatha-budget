@@ -180,4 +180,28 @@ open class OperationDaoTest : ITest {
         val amountNow = operationDao.findAmountByBudget(budget)
         Assertions.assertEquals(0, amountNow)
     }
+
+    @Test
+    fun getAmountForBudgetWithDaughterOperation() {
+        val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
+        budgetDao.insert(budget)
+        val account = Account("my own account", budget.id)
+        accountDao.insert(account)
+        val operationList = listOf(
+                Operation(account.id, TestData.nov_02_2020, null, 4000, 1),
+        )
+        val operationDaughters = listOf (
+            Operation(account.id, TestData.nov_02_2020, null, 3000, 1, null, false, false, operationList[0].id),
+            Operation(account.id, TestData.nov_02_2020, null, 1000, 1, null, false, false, operationList[0].id),
+
+        )
+        for (operation in operationList) {
+            operationDao.insert(operation)
+        }
+        for (operation in operationDaughters) {
+            operationDao.insert(operation)
+        }
+        val amountNow = operationDao.findAmountByBudget(budget)
+        Assertions.assertEquals(4000, amountNow)
+    }
 }

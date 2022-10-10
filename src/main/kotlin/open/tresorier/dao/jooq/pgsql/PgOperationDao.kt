@@ -90,6 +90,7 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             .from(OPERATION)
             .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
+       //     .and(OPERATION.MOTHER_OPERATION_ID.isNull)
         month?.let{ query.and(OPERATION.MONTH.lessOrEqual(it.comparable))}
         val rawResult = query.fetchOne()?.get(spendingSum)
         return rawResult?.toInt() ?: 0

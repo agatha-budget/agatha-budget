@@ -39,11 +39,15 @@ fun main() {
      ServiceManager.budgetService,
      ServiceManager.bankingService)
 
-     app = addOperationRoute(app,
+    app = addOperationRoute(app,
      ServiceManager.accountService,
      ServiceManager.budgetService,
      ServiceManager.categoryService,
      ServiceManager.operationService)
+
+    app = addBudgetDataRoute(app,
+     ServiceManager.budgetService,
+     ServiceManager.budgetDataService)
 
     app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
@@ -167,31 +171,6 @@ fun main() {
         val budgetList = ServiceManager.budgetService.findByUser(user)
         ctx.json(budgetList)
     }
-
-    app.before("/budget/data", SuperTokens.middleware())
-    app.get("/budget/data") { ctx ->
-        // required
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        // optional
-        val startMonth: Month? = getOptionalQueryParam<Int>(ctx, "start_month")?.let { Month.createFromComparable(it)}
-        val endMonth: Month? = getOptionalQueryParam<Int>(ctx, "end_month")?.let { Month.createFromComparable(it)}
-        val budgetData = ServiceManager.budgetDataService.getBudgetData(user, budget, startMonth, endMonth)
-        ctx.json(budgetData)
-    }
-
-    app.before("/budget/amount", SuperTokens.middleware())
-    app.get("/budget/amount") { ctx ->
-        // required
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        // optional
-        val month: Month? = getOptionalQueryParam<Int>(ctx, "month")?.let { Month.createFromComparable(it)}
-        val budgetData = ServiceManager.budgetDataService.getBudgetAmount(user, budget, month)
-        ctx.json(budgetData)
-    }
-
-   
 
     app.before("/mcategory", SuperTokens.middleware())
     app.post("/mcategory") { ctx ->
