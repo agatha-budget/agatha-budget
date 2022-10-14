@@ -11,7 +11,7 @@
         :searchable="true"
         :options="categories"
         :noResultsText="$t('NO_RESULT_FOUND')"
-        :placeholder="$t('SELECT_CATEGORY')"
+        :placeholder="$t('SELECT_ENVELOPE')"
       />
     </div>
     <button v-on:click="filter" class="actionButton col-6 offset-3 col-sm-4 offset-sm-4 col-md-2 offset-md-1">{{ $t("FILTER") }}</button>

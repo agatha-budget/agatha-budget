@@ -1,151 +1,150 @@
 <template>
 
-  <div v-if="this.dataOperation.operationsData.length == 1">
-  <div class="flexForm form">
-    <div class="containerCross col-12">
-      <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
-    </div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("DATE") }}</div>
-    <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="dataOperation.date"></div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("ENVELOPE") }}</div>
-    <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-xxl-4">
-      <Multiselect
-        v-model="dataOperation.operationsData[0].categoryId"
-        :groups="true"
-        :searchable="true"
-        :options="categories"
-        :noResultsText="$t('NO_RESULT_FOUND')"
-        :placeholder="$t('SELECT_CATEGORY')"
-      />
-    </div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
-    <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
-      <input id="newOperationMemo" class="form-control" v-model="dataOperation.memo">
-    </div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("AMOUNT") }}</div>
-    <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">
-      <div class="amountInput input-group flex-nowrap">
-        <label class="customSwitch">
-          <input class="switch-input" type="checkbox" v-model="dataOperation.operationsData[0].incoming"/>
-          <span class="switch-label" data-on="+" data-off="-"/>
-          <span class="switch-handle"/>
-        </label>
-        <input id="newOperationAmount" class="form-control" v-model="dataOperation.operationsData[0].amountString">
+  <div v-if="this.daughtersData.length == 0">
+    <div class="flexForm form">
+      <div class="containerCross col-12">
+        <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
       </div>
-    </div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
-    <div class="col-8 col-sm-6 col-md-6 inline">
-      <label class="customSwitch">
-          <input class="switch-input" type="checkbox" v-on:click="pending" v-model="dataOperation.isPending"/>
-          <span class="switch-label-pending"/>
-          <span class="switch-handle-pending"/>
-      </label>
-      <div v-if="isPending" class="inline textPending">
-        <div class="icon">
-          <button class="illustration btn fas fa-hourglass-half"/>
-        </div>
-        <div>{{ $t("PENDING") }}</div>
-      </div>
-      <div v-else class="inline textPending">
-        <div class="icon">
-          <button class="illustration btn fas fa-calendar-check"/>
-        </div>
-        <div>{{ $t("DEBITED") }}</div>
-      </div>
-    </div>
-    <div class="col-5 offset-1 col-sm-4 col-md-3 offset-md-0">
-      <btn class="actionButton" v-on:click="addCategory">{{ $t('ADD_NEW_CATEGORY') }}</btn>
-    </div>
-    <div class="action col-4 offset-1 col-md-2 offset-md-5">
-      <btn v-if="this.operation" class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
-      <btn v-else class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
-    </div>
-    </div>
-  </div>
-
-  <div v-else>
-  <div class="flexForm form">
-    <div class="containerCross col-12">
-      <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
-    </div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("DATE") }}</div>
-    <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="dataOperation.date"></div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("TOTAL_AMOUNT") }}</div>
-    <div class="sumAmountElement col-4 col-sm-3 col-md-2">{{ addSpacesInThousand(totalAmount) }} €</div>
-    <div class="col-4 col-sm-5 col-md-2"/>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("MEMO") }}</div>
-    <div class="textInput form-group col-7 col-sm-6 col-md-3 col-xxl-2">
-      <input id="newOperationMemo" class="form-control" v-model="dataOperation.memo">
-    </div>
-    <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("STATUS") }}</div>
-    <div class="col-7 col-sm-6 col-md-3 col-xxl-4 inline">
-      <label class="customSwitch">
-          <input class="switch-input" type="checkbox" v-on:click="pending" v-model="dataOperation.isPending"/>
-          <span class="switch-label-pending"/>
-          <span class="switch-handle-pending"/>
-      </label>
-      <div v-if="isPending" class="inline textPending">
-        <div class="icon">
-          <button class="illustration btn fas fa-hourglass-half"/>
-        </div>
-        <div>{{ $t("PENDING") }}</div>
-      </div>
-      <div v-else class="inline textPending">
-        <div class="icon">
-          <button class="illustration btn fas fa-calendar-check"/>
-        </div>
-        <div>{{ $t("DEBITED") }}</div>
-      </div>
-    </div>
-
-    <div v-for="daughterOperation in this.dataOperation.operationsData" :key="daughterOperation" class="flexForm form col-12">
-    <div class="containerCross col-12 col-sm-11 col-md-12">
-      <span class="cross fas fa-trash" v-on:click="removeCategory(dataOperation.operationsData.indexOf(daughterOperation))"/>
-    </div>
-      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("ENVELOPE") }}</div>
-      <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3">
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("DATE") }}</div>
+      <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("ENVELOPE") }}</div>
+      <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3 col-xxl-4">
         <Multiselect
-          v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].categoryId"
+          v-model="categoryId"
           :groups="true"
           :searchable="true"
           :options="categories"
           :noResultsText="$t('NO_RESULT_FOUND')"
-          :placeholder="$t('SELECT_CATEGORY')"
+          :placeholder="$t('SELECT_ENVELOPE')"
         />
       </div>
-      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-0">{{ $t("AMOUNT") }}</div>
-      <div class="amountElement col-7 col-sm-6 col-md-3">
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("MEMO") }}</div>
+      <div class="textInput form-group col-7 col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2">
+        <input id="newOperationMemo" class="form-control" v-model="memo">
+      </div>
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("AMOUNT") }}</div>
+      <div class="amountElement col-7 col-sm-6 col-md-3 col-xxl-4">
         <div class="amountInput input-group flex-nowrap">
           <label class="customSwitch">
-            <input class="switch-input" type="checkbox" v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].incoming"/>
+            <input class="switch-input" type="checkbox" v-model="incoming"/>
             <span class="switch-label" data-on="+" data-off="-"/>
             <span class="switch-handle"/>
           </label>
-          <input id="newOperationAmount" class="form-control" v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].amountString">
+          <input id="newOperationAmount" class="form-control" v-model="amountString">
         </div>
       </div>
-      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("MEMO") }}</div>
-      <div class="textInput form-group col-7 col-sm-6 col-md-3">
-        <input id="newOperationMemo" class="form-control" v-model="dataOperation.operationsData[dataOperation.operationsData.indexOf(daughterOperation)].memo">
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1 offset-md-1">{{ $t("STATUS") }}</div>
+      <div class="col-8 col-sm-6 col-md-6 inline">
+        <label class="customSwitch">
+            <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
+            <span class="switch-label-pending"/>
+            <span class="switch-handle-pending"/>
+        </label>
+        <div v-if="isPending" class="inline textPending">
+          <div class="icon">
+            <button class="illustration btn fas fa-hourglass-half"/>
+          </div>
+          <div>{{ $t("PENDING") }}</div>
+        </div>
+        <div v-else class="inline textPending">
+          <div class="icon">
+            <button class="illustration btn fas fa-calendar-check"/>
+          </div>
+          <div>{{ $t("DEBITED") }}</div>
+        </div>
+      </div>
+      <div class="col-5 offset-1 col-sm-4 col-md-3 offset-md-0">
+        <btn class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</btn>
+      </div>
+      <div class="action col-4 offset-1 col-md-2 offset-md-5">
+        <btn v-if="this.operation" class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
+        <btn v-else class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
+      </div>
+      </div>
+  </div>
+
+  <div v-else>
+    <div class="flexForm form">
+      <div class="containerCross col-12">
+        <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
+      </div>
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("DATE") }}</div>
+      <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("TOTAL_AMOUNT") }}</div>
+      <div class="sumAmountElement col-4 col-sm-3 col-md-2">{{ addSpacesInThousand(totalAmount) }} €</div>
+      <div class="col-4 col-sm-5 col-md-2"/>
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("MEMO") }}</div>
+      <div class="textInput form-group col-7 col-sm-6 col-md-3 col-xxl-2">
+        <input id="newOperationMemo" class="form-control" v-model="memo">
+      </div>
+      <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-1">{{ $t("STATUS") }}</div>
+      <div class="col-7 col-sm-6 col-md-3 col-xxl-4 inline">
+        <label class="customSwitch">
+            <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
+            <span class="switch-label-pending"/>
+            <span class="switch-handle-pending"/>
+        </label>
+        <div v-if="isPending" class="inline textPending">
+          <div class="icon">
+            <button class="illustration btn fas fa-hourglass-half"/>
+          </div>
+          <div>{{ $t("PENDING") }}</div>
+        </div>
+        <div v-else class="inline textPending">
+          <div class="icon">
+            <button class="illustration btn fas fa-calendar-check"/>
+          </div>
+          <div>{{ $t("DEBITED") }}</div>
+        </div>
+      </div>
+
+      <div v-for="daughterOperation of this.daughtersData" :key="daughterOperation" class="flexForm form col-12">
+      <div class="containerCross col-12 col-sm-11 col-md-12">
+        <span class="cross fas fa-trash" v-on:click="removeDaughter(daughterOperation)"/>
+      </div>
+        <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("ENVELOPE") }}</div>
+        <div class="selectAutoComplete form-group col-7 col-sm-6 col-md-3">
+          <Multiselect
+            v-model="daughterOperation.categoryId"
+            :groups="true"
+            :searchable="true"
+            :options="categories"
+            :noResultsText="$t('NO_RESULT_FOUND')"
+            :placeholder="$t('SELECT_ENVELOPE')"
+          />
+        </div>
+        <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2 offset-md-0">{{ $t("AMOUNT") }}</div>
+        <div class="amountElement col-7 col-sm-6 col-md-3">
+          <div class="amountInput input-group flex-nowrap">
+            <label class="customSwitch">
+              <input class="switch-input" type="checkbox" v-model="daughterOperation.incoming"/>
+              <span class="switch-label" data-on="+" data-off="-"/>
+              <span class="switch-handle"/>
+            </label>
+            <input id="newOperationAmount" class="form-control" v-model="daughterOperation.amountString">
+          </div>
+        </div>
+        <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("MEMO") }}</div>
+        <div class="textInput form-group col-7 col-sm-6 col-md-3">
+          <input id="newOperationMemo" class="form-control" v-model="daughterOperation.memo">
+        </div>
+      </div>
+
+      <div class="col-4 offset-1 col-md-3 offset-md-2">
+        <btn v-if="this.operation" class="actionButton" v-on:click="updateOperationMultipleCategories" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
+        <btn v-else class="actionButton" v-on:click="addOperationMultipleCategories()" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
+      </div>
+      <div class="col-4 offset-2 col-md-3 offset-md-2">
+        <btn class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</btn>
       </div>
     </div>
-
-    <div class="col-4 offset-1 col-md-3 offset-md-2">
-      <btn v-if="this.operation" class="actionButton" v-on:click="updateOperationMultipleCategories" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
-      <btn v-else class="actionButton" v-on:click="addOperationMultipleCategories()" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
-    </div>
-    <div class="col-4 offset-2 col-md-3 offset-md-2">
-      <btn class="actionButton" v-on:click="addCategory">{{ $t('ADD_NEW_CATEGORY') }}</btn>
-    </div>
-
-</div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
-import { Category, MasterCategory, Operation, Account, incomeCategoryId, transfertCategoryId, GroupSelectOption, SelectOption } from '@/model/model'
+import { Category, MasterCategory, OperationWithDaughters, Account, incomeCategoryId, transfertCategoryId, GroupSelectOption, SelectOption, Operation } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import Utils from '@/utils/Utils'
@@ -153,21 +152,21 @@ import Calcul from '@/utils/Calcul'
 import Multiselect from '@vueform/multiselect'
 
 interface OperationFormData {
-  dataOperation: {
-    date: string;
-    isPending: boolean;
-    memo: string;
-    operationsData: {
-      incoming: boolean;
-      amountString: string;
-      categoryId: string;
-      memo: string;
-    }[];
-  };
+  date: string;
+  isPending: boolean;
+  incoming: boolean;
+  amountString: string;
+  categoryId: string;
+  memo: string;
+  daughtersData: DaughterFormData[];
 }
 
-interface MotherOperation extends Operation {
-  daughters: Operation[];
+interface DaughterFormData {
+  id: string;
+  incoming: boolean;
+  amountString: string;
+  categoryId: string;
+  memo: string;
 }
 
 export default defineComponent({
@@ -176,33 +175,26 @@ export default defineComponent({
     Multiselect
   },
   data (): OperationFormData {
-    return {
-      dataOperation: {
-        date: this.operation ? Time.getDateStringFromDay(this.operation.day) : Time.getCurrentDateString(),
-        isPending: this.operation?.pending || false,
-        memo: this.operation?.memo || '',
-        operationsData: [{
-          incoming: this.operation?.amount ? this.operation.amount > 0 : false,
-          amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount || 0)).toString(),
-          categoryId: this.operation?.categoryId || '',
-          memo: this.operation?.memo || ''
-        }]
+    if (this.operation) {
+      return {
+        date: Time.getDateStringFromDay(this.operation.day),
+        isPending: this.operation.pending,
+        memo: (this.operation.memo === 'null') ? '' : this.operation.memo,
+        categoryId: this.operation.categoryId,
+        incoming: this.operation.amount > 0,
+        amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount)).toString(),
+        daughtersData: this.operation.daughters.map(daughter => { return this.daughtersToDaughterData(daughter) })
       }
-    }
-  },
-  created: function () {
-    if (this.operation && this.operation.daughters.length > 0) {
-      this.operation.daughters.forEach(daughter => {
-        const newOperationsData = {
-          incoming: daughter.amount ? daughter.amount > 0 : false,
-          amountString: Utils.getEurosAmount(Math.abs(daughter.amount)).toString(),
-          categoryId: daughter.categoryId,
-          memo: daughter.memo
-        }
-        if (this.operation) {
-          this.dataOperation.operationsData[this.operation.daughters.indexOf(daughter)] = newOperationsData
-        }
-      })
+    } else {
+      return {
+        date: Time.getCurrentDateString(),
+        isPending: false,
+        memo: '',
+        categoryId: '',
+        incoming: false,
+        amountString: Utils.getEurosAmount(Math.abs(0)).toString(),
+        daughtersData: []
+      }
     }
   },
   props: {
@@ -211,7 +203,7 @@ export default defineComponent({
       required: true
     },
     operation: {
-      type: Object as () => MotherOperation
+      type: Object as () => OperationWithDaughters
     }
   },
   computed: {
@@ -238,6 +230,8 @@ export default defineComponent({
           optionsList.push(this.createOptionGroup(masterCategory, categories))
         }
       }
+      console.log(optionsList)
+      console.log(this.categoryId)
       return optionsList
     },
     account (): Account | null {
@@ -245,7 +239,7 @@ export default defineComponent({
     },
     totalAmount (): number {
       let sum = 0
-      this.dataOperation.operationsData.forEach(daughterOperation => {
+      this.daughtersData.forEach(daughterOperation => {
         if (daughterOperation.incoming) {
           sum += this.entireCalcul(daughterOperation.amountString)
         } else {
@@ -257,16 +251,32 @@ export default defineComponent({
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
   methods: {
+    daughtersToDaughterData (daughter: Operation): DaughterFormData {
+      return {
+        id: daughter.id,
+        incoming: daughter.amount > 0,
+        amountString: Utils.getEurosAmount(Math.abs(daughter.amount)).toString(),
+        categoryId: daughter.categoryId,
+        memo: (daughter.memo === 'null') ? '' : daughter.memo
+      }
+    },
     updateOperation () {
+      let categoryId = this.categoryId
+      let memo = this.memo
+      const accountForTransfer = this.getAccountById(this.categoryId)
+      if (accountForTransfer) {
+        categoryId = transfertCategoryId
+        memo = this.addTransfertNoteToMemo(memo, accountForTransfer)
+      }
       if (this.operation) {
         OperationService.updateOperation(this.$store,
           this.operation.id,
           this.accountId,
-          Time.getDayFromDateString(this.dataOperation.date),
-          this.dataOperation.operationsData[0].categoryId,
-          this.signedCentsAmount(this.dataOperation.operationsData[0].incoming, this.dataOperation.operationsData[0].amountString),
-          this.dataOperation.memo,
-          this.dataOperation.isPending).then(
+          Time.getDayFromDateString(this.date),
+          categoryId,
+          this.signedCentsAmount(this.incoming, this.amountString),
+          memo,
+          this.isPending).then(
           () => {
             this.$emit('updateOperationList')
           }
@@ -276,22 +286,22 @@ export default defineComponent({
       }
     },
     addOperation () {
-      const accountForTransfer = this.getAccountById(this.dataOperation.operationsData[0].categoryId)
+      const accountForTransfer = this.getAccountById(this.categoryId)
       if (this.account && accountForTransfer) {
-        if (this.dataOperation.operationsData[0].incoming) {
-          this.categoryForTransfer(accountForTransfer, this.account)
+        if (this.incoming) {
+          this.createOperationForTransfert(accountForTransfer, this.account)
         } else {
-          this.categoryForTransfer(this.account, accountForTransfer)
+          this.createOperationForTransfert(this.account, accountForTransfer)
         }
       } else {
         OperationService.addOperation(this.$store,
           this.accountId,
-          Time.getDayFromDateString(this.dataOperation.date),
-          this.dataOperation.operationsData[0].categoryId,
-          this.signedCentsAmount(this.dataOperation.operationsData[0].incoming,
-            this.dataOperation.operationsData[0].amountString),
-          this.dataOperation.memo,
-          this.dataOperation.isPending)
+          Time.getDayFromDateString(this.date),
+          this.categoryId,
+          this.signedCentsAmount(this.incoming,
+            this.amountString),
+          this.memo,
+          this.isPending)
       }
       this.$emit('updateOperationList')
     },
@@ -299,15 +309,13 @@ export default defineComponent({
       return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
     },
     rebootAddOperationForm () {
-      this.dataOperation.date = Time.getCurrentDateString()
-      this.dataOperation.isPending = false
-      this.dataOperation.memo = ''
-      this.dataOperation.operationsData = [{
-        incoming: false,
-        amountString: '',
-        categoryId: '',
-        memo: ''
-      }]
+      this.date = Time.getCurrentDateString()
+      this.isPending = false
+      this.memo = ''
+      this.categoryId = ''
+      this.incoming = false
+      this.amountString = Utils.getEurosAmount(Math.abs(0)).toString()
+      this.daughtersData = []
     },
     createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
       const group: GroupSelectOption = {
@@ -321,16 +329,18 @@ export default defineComponent({
       return group
     },
     pending () {
-      this.dataOperation.isPending = !this.dataOperation.isPending
+      this.isPending = !this.isPending
     },
     createOptionTransfer (accounts: Account[]): GroupSelectOption {
       const group: GroupSelectOption = {
         label: this.$t('I18N_TRANSFER'),
         options: []
       }
+      let option: SelectOption = { value: transfertCategoryId, label: this.$t('I18N_TRANSFER') }
+      group.options.push(option)
       for (const account of accounts) {
         if (account.id !== this.accountId) {
-          const option: SelectOption = { value: account.id, label: account.name }
+          option = { value: account.id, label: account.name }
           group.options.push(option)
         }
       }
@@ -339,10 +349,15 @@ export default defineComponent({
     getAccountById (accountId: string): Account | null {
       return StoreHandler.getAccountById(this.$store, accountId)
     },
-    categoryForTransfer (debitedAccount: Account, creditedAccount: Account) {
-      const amount = Utils.getCentsAmount(this.entireCalcul(this.dataOperation.operationsData[0].amountString))
-      OperationService.addOperation(this.$store, debitedAccount.id, Time.getDayFromDateString(this.dataOperation.date), transfertCategoryId, amount * -1, this.dataOperation.memo + this.$t('TRANSFER_TO') + creditedAccount.name)
-      OperationService.addOperation(this.$store, creditedAccount.id, Time.getDayFromDateString(this.dataOperation.date), transfertCategoryId, amount, this.dataOperation.memo + this.$t('TRANSFER_FROM') + debitedAccount.name)
+    createOperationForTransfert (debitedAccount: Account, creditedAccount: Account) {
+      const amount = Utils.getCentsAmount(this.entireCalcul(this.amountString))
+      OperationService.addOperation(this.$store, debitedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount * -1, this.addTransfertNoteToMemo(this.memo, creditedAccount))
+      OperationService.addOperation(this.$store, creditedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount, this.addTransfertNoteToMemo(this.memo, debitedAccount))
+    },
+    addTransfertNoteToMemo (memo: string, account: Account): string {
+      const regex = new RegExp('\\[.*' + this.$t('TRANSFER_TO') + '.*\\]', 'g')
+      memo = memo.replace(regex, '')
+      return '[ ' + this.$t('TRANSFER_TO') + account.name + '] ' + memo
     },
     entireCalcul (amount: string): number {
       return Calcul.entireCalcul(amount)
@@ -353,44 +368,44 @@ export default defineComponent({
       }
       this.$emit('closeForm')
     },
-    addCategory () {
+    addDaughter () {
       const newOperationData = {
+        id: '',
         incoming: false,
         amountString: '0',
         categoryId: '',
         memo: ''
       }
-      this.dataOperation.operationsData.push(newOperationData)
+      this.daughtersData.push(newOperationData)
     },
-    removeCategory (index: number) {
-      this.dataOperation.operationsData.splice(index, 1)
+    removeDaughter (daughter: DaughterFormData) {
+      const index = this.daughtersData.indexOf(daughter)
+      this.daughtersData.splice(index, 1)
     },
     async addOperationMultipleCategories () {
       // mother operation
       const motherOperation = await OperationService.addOperation(this.$store,
         this.accountId,
-        Time.getDayFromDateString(this.dataOperation.date),
+        Time.getDayFromDateString(this.date),
         undefined,
         Utils.getCentsAmount(this.totalAmount),
-        this.dataOperation.memo,
-        this.dataOperation.isPending,
+        this.memo,
+        this.isPending,
         undefined
       )
       // daughters
-      this.dataOperation.operationsData.forEach(daughterOperation => {
-        let amountCent
-        if (daughterOperation.incoming) {
-          amountCent = Utils.getCentsAmount(this.entireCalcul(daughterOperation.amountString))
-        } else {
-          amountCent = Utils.getCentsAmount(this.entireCalcul(daughterOperation.amountString)) * (-1)
+      this.daughtersData.forEach(daughterOperation => {
+        let amountCent = Utils.getCentsAmount(this.entireCalcul(daughterOperation.amountString))
+        if (!daughterOperation.incoming) {
+          amountCent = amountCent * (-1)
         }
         OperationService.addOperation(this.$store,
           this.accountId,
-          Time.getDayFromDateString(this.dataOperation.date),
+          Time.getDayFromDateString(this.date),
           daughterOperation.categoryId,
           amountCent,
           daughterOperation.memo,
-          this.dataOperation.isPending,
+          this.isPending,
           motherOperation.id
         )
       })
@@ -402,49 +417,68 @@ export default defineComponent({
         await OperationService.updateOperation(this.$store,
           this.operation.id,
           this.accountId,
-          Time.getDayFromDateString(this.dataOperation.date),
+          Time.getDayFromDateString(this.date),
           undefined,
           Utils.getCentsAmount(this.totalAmount),
-          this.dataOperation.memo,
-          this.dataOperation.isPending,
+          this.memo,
+          this.isPending,
           undefined
         )
         // daughters
-        if (this.account) {
-          const daughtersDB = await OperationService.getDaughtersFromMother(this.operation)
-          let difference = daughtersDB.length - this.dataOperation.operationsData.length
-          while (difference !== 0) {
-            if (difference > 0) {
-              const daughterOperations = await OperationService.getDaughtersFromMother(this.operation)
-              OperationService.deleteOperation(this.$store, daughterOperations[-1])
-              difference--
-            } else if (difference < 0) {
-              daughtersDB.push(await OperationService.addOperation(this.$store, this.accountId))
-              difference++
+        this.daughtersData.forEach(daughter => {
+          if (this.operation) { // necessary to check again in this scope
+            let amountCent = Utils.getCentsAmount(this.entireCalcul(daughter.amountString))
+            if (!daughter.incoming) {
+              amountCent = amountCent * (-1)
+            }
+            if (this.daughterAlreadyExist(daughter, this.operation.daughters)) {
+              OperationService.updateOperation(this.$store,
+                daughter.id,
+                this.accountId,
+                Time.getDayFromDateString(this.date),
+                daughter.categoryId,
+                amountCent,
+                daughter.memo,
+                this.isPending
+              )
             } else {
-              difference = 0
+              OperationService.addOperation(this.$store,
+                this.accountId,
+                Time.getDayFromDateString(this.date),
+                daughter.categoryId,
+                amountCent,
+                daughter.memo,
+                this.isPending,
+                this.operation.id
+              )
             }
           }
-          this.dataOperation.operationsData.forEach(daughter => {
-            const index = this.dataOperation.operationsData.indexOf(daughter)
-            let amountCent
-            if (daughter.incoming) {
-              amountCent = Utils.getCentsAmount(this.entireCalcul(daughter.amountString))
-            } else {
-              amountCent = Utils.getCentsAmount(this.entireCalcul(daughter.amountString)) * -1
+        })
+
+        this.operation.daughters.forEach(daughter => {
+          if (this.operation) {
+            if (this.daughterWasDeleted(daughter, this.daughtersData)) {
+              OperationService.deleteOperation(this.$store, daughter)
             }
-            OperationService.updateOperation(this.$store,
-              daughtersDB[index].id,
-              this.accountId,
-              Time.getDayFromDateString(this.dataOperation.date),
-              daughter.categoryId,
-              amountCent,
-              daughter.memo,
-              this.dataOperation.isPending
-            )
-          })
-        }
+          }
+        })
       }
+    },
+    daughterAlreadyExist (daughter: DaughterFormData, list: Operation[]): boolean {
+      list.forEach(operation => {
+        if (operation.id === daughter.id) {
+          return true
+        }
+      })
+      return false
+    },
+    daughterWasDeleted (daughter: Operation, list: DaughterFormData[]): boolean {
+      list.forEach(operation => {
+        if (operation.id === daughter.id) {
+          return false
+        }
+      })
+      return true
     },
     signedCentsAmount (incoming: boolean, amountString: string): number {
       const amount = this.entireCalcul(amountString)

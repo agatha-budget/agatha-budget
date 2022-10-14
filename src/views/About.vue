@@ -155,7 +155,7 @@
         :searchable="true"
         :options="categories"
         :noResultsText="$t('NO_RESULT_FOUND')"
-        :placeholder="$t('SELECT_CATEGORY')"
+        :placeholder="$t('SELECT_ENVELOPE')"
       />
     </div>
 

@@ -119,7 +119,9 @@
     "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau",
     "TOTAL_AMOUNT": "montant total",
     "ADD_NEW_CATEGORY": "ajouter catégorie",
+    "ADD_NEW_DAUGHTER": "diviser",
     "ACCOUNT_ASSOCIATION": "association des comptes",
+    "SYNC_BANK": "banque",
     "ADD_A_BANK": "ajouter une banque",
     "BANKS":"banques",
     "SAVE": "sauvegarder",
@@ -144,5 +146,6 @@
     "WHY_ADD_AUTHORIZATION_TEXT_P2": "L'autorisation ne donne à Agatha qu'un droit de lecture sur vos transactions, soldes et coordonnées, aucune opération bancaire ne peut être effectuée par ce biais.",
     "WHY_ADD_AUTHORIZATION_TEXT_P3": "Les autorisations ne sont valables que 90 jours et devront donc être renouvellées.",
     "AUTHORIZE":"autoriser",
-    "EXPIRE_ON":"expire le"
+    "EXPIRE_ON":"expire le",
+    "ON_ACCOUNT":"sur le compte"
 }
