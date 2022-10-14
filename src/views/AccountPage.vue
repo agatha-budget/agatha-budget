@@ -1,6 +1,6 @@
 <template >
   <div :class="this.$store.state.css">
-    <div class="accountPage row col-lg-10 offset-lg-1 col-xl-8 offset-xl-2">
+    <div class="accountPage row">
       <div class="header fixed">
           <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="this.realAmount"/>
       </div>
