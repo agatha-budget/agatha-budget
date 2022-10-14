@@ -230,6 +230,8 @@ export default defineComponent({
           optionsList.push(this.createOptionGroup(masterCategory, categories))
         }
       }
+      console.log(optionsList)
+      console.log(this.categoryId)
       return optionsList
     },
     account (): Account | null {
@@ -334,9 +336,11 @@ export default defineComponent({
         label: this.$t('I18N_TRANSFER'),
         options: []
       }
+      let option: SelectOption = { value: transfertCategoryId, label: this.$t('I18N_TRANSFER') }
+      group.options.push(option)
       for (const account of accounts) {
         if (account.id !== this.accountId) {
-          const option: SelectOption = { value: account.id, label: account.name }
+          option = { value: account.id, label: account.name }
           group.options.push(option)
         }
       }
