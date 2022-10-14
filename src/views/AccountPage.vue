@@ -11,6 +11,7 @@
         <div class="dualTab switchOperation">
           <button v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">{{ $t("ADD_MANUALLY") }}</button>
           <button v-else v-on:click="switchAddOperation('manual')" class="tabLeft">{{ $t("ADD_MANUALLY") }}</button>
+          <button v-on:click="goToBanksPage">{{ $t("SYNC_BANK") }}</button>
           <button v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">{{ $t("BANK_IMPORT") }}</button>
           <button v-else v-on:click="switchAddOperation('import')" class="tabRight">{{ $t("BANK_IMPORT") }}</button>
         </div>
@@ -109,7 +110,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { redirectToLoginPageIfNotLogged } from '@/router'
+import router, { redirectToLoginPageIfNotLogged, RouterPages } from '@/router'
 import { Account, Category, Operation, OperationWithDaughters } from '@/model/model'
 import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
@@ -325,6 +326,9 @@ export default defineComponent({
         this.filteringCategoryId = null
         await this.getAccountOperation()
       }
+    },
+    goToBanksPage () {
+      router.push(RouterPages.banks)
     }
   }
 })
