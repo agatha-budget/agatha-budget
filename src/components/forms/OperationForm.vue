@@ -259,14 +259,21 @@ export default defineComponent({
       }
     },
     updateOperation () {
+      let categoryId = this.categoryId
+      let memo = this.memo
+      const accountForTransfer = this.getAccountById(this.categoryId)
+      if (accountForTransfer) {
+        categoryId = transfertCategoryId
+        memo = this.addTransfertNoteToMemo(memo, accountForTransfer)
+      }
       if (this.operation) {
         OperationService.updateOperation(this.$store,
           this.operation.id,
           this.accountId,
           Time.getDayFromDateString(this.date),
-          this.categoryId,
+          categoryId,
           this.signedCentsAmount(this.incoming, this.amountString),
-          this.memo,
+          memo,
           this.isPending).then(
           () => {
             this.$emit('updateOperationList')
@@ -280,9 +287,9 @@ export default defineComponent({
       const accountForTransfer = this.getAccountById(this.categoryId)
       if (this.account && accountForTransfer) {
         if (this.incoming) {
-          this.categoryForTransfer(accountForTransfer, this.account)
+          this.createOperationForTransfert(accountForTransfer, this.account)
         } else {
-          this.categoryForTransfer(this.account, accountForTransfer)
+          this.createOperationForTransfert(this.account, accountForTransfer)
         }
       } else {
         OperationService.addOperation(this.$store,
@@ -338,10 +345,15 @@ export default defineComponent({
     getAccountById (accountId: string): Account | null {
       return StoreHandler.getAccountById(this.$store, accountId)
     },
-    categoryForTransfer (debitedAccount: Account, creditedAccount: Account) {
+    createOperationForTransfert (debitedAccount: Account, creditedAccount: Account) {
       const amount = Utils.getCentsAmount(this.entireCalcul(this.amountString))
-      OperationService.addOperation(this.$store, debitedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount * -1, this.memo + this.$t('TRANSFER_TO') + creditedAccount.name)
-      OperationService.addOperation(this.$store, creditedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount, this.memo + this.$t('TRANSFER_FROM') + debitedAccount.name)
+      OperationService.addOperation(this.$store, debitedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount * -1, this.addTransfertNoteToMemo(this.memo, creditedAccount))
+      OperationService.addOperation(this.$store, creditedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount, this.addTransfertNoteToMemo(this.memo, debitedAccount))
+    },
+    addTransfertNoteToMemo (memo: string, account: Account): string {
+      const regex = new RegExp('\\[.*' + this.$t('TRANSFER_TO') + '.*\\]', 'g')
+      memo = memo.replace(regex, '')
+      return '[ ' + this.$t('TRANSFER_TO') + account.name + '] ' + memo
     },
     entireCalcul (amount: string): number {
       return Calcul.entireCalcul(amount)
