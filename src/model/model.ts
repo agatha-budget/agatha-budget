@@ -32,7 +32,7 @@ interface ChoiceElement {
 
 const incomeCategoryId = 'universal_income_category'
 const transfertCategoryId = 'universal_transfert_category'
-const newMasterCategoryName = 'Ω - Nouvelle Catégorie'
+const newMasterCategoryName = ' Nouvelle Catégorie'
 const newCategoryName = ' Nouvelle Enveloppe'
 
 export {
