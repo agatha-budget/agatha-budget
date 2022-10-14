@@ -24,17 +24,20 @@
         <template v-for="operation in this.operations" :key="operation">
           <OperationForm class="operationForm inlineOperationForm container inline" v-if="operation.editing" @update-operation-list="getAccountOperation" @close-update="closeUpdate" :accountId="this.accountId" :operation="operation"/>
           <span v-else class="allOperation operation">
+             <!-- Operation without daugther -->
             <div v-if="operation.daughters.length == 0" class="row col-12">
-              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row">
-                <div class="row">
+              <div :title="$t('EDIT')" class="row">
+                <div v-on:click="setAsEditing(operation)" class="row">
                   <div class="lineStart date col-6">{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
                 </div>
                 <div class="row">
-                  <div class="lineStart category col-6" :class="getClassDependingCategory(operation)">
-                    {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
-                  </div>
-                  <div class="amount col-4" :class="this.getClassDependingOnAmount(operation)">
-                    {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                  <div  v-on:click="setAsEditing(operation)" class="col-10 row">
+                    <div class="lineStart category col-9" :class="getClassDependingCategory(operation)">
+                      {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+                    </div>
+                    <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
+                      {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                    </div>
                   </div>
                   <div class="actionbar col-2 row">
                     <span v-if="filteringCategoryId === null" v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-4">
@@ -51,14 +54,17 @@
               </div>
               <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="lineStart memo col-12">{{ operation.memo }}</div>
             </div>
+            <!-- Operation with daugther -->
             <div v-else class="row col-12">
-              <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="row">
+              <div :title="$t('EDIT')" class="row">
                 <div class="row">
-                  <div class="lineStart date col-6">
-                    <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
-                  </div>
-                  <div class="amount col-4" :class="this.getClassDependingOnAmount(operation)">
-                    {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                  <div v-on:click="setAsEditing(operation)" class="col-10 row">
+                    <div class="lineStart date col-9">
+                      <div>{{ $d(this.getDayAsDate(operation.day), "day") }}</div>
+                    </div>
+                    <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
+                      {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                    </div>
                   </div>
                   <div class="actionbar col-2 row">
                     <div v-on:click="setAsEditing(operation)" :title="$t('EDIT')" class="action col-4">
