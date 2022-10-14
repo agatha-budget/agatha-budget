@@ -214,8 +214,10 @@ export default defineComponent({
       return Time.getDateFromDay(dayAsInt)
     },
     async deleteOperation (operation: Operation) {
-      if (this.account && !this.filteringCategoryId) {
+      if (this.account) {
+        console.log('there')
         await OperationService.deleteOperation(this.$store, operation)
+        console.log('here')
         this.getAccountOperation()
       }
     },

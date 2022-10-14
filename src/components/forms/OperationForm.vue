@@ -303,13 +303,10 @@ export default defineComponent({
       this.date = Time.getCurrentDateString()
       this.isPending = false
       this.memo = ''
-      this.daughtersData = [{
-        id: '',
-        incoming: false,
-        amountString: '',
-        categoryId: '',
-        memo: ''
-      }]
+      this.categoryId = ''
+      this.incoming = false
+      this.amountString = Utils.getEurosAmount(Math.abs(0)).toString()
+      this.daughtersData = []
     },
     createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
       const group: GroupSelectOption = {
