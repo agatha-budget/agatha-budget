@@ -86,9 +86,6 @@ export default defineComponent({
       return Utils.addSpacesInThousand(this.totalAccount / 100)
     },
     realAmountAsString (): string {
-      console.log(this.realAmountOnAccount)
-      console.log(this.realAmountOnAccount / 100)
-      console.log(Utils.addSpacesInThousand(this.realAmountOnAccount / 100))
       return Utils.addSpacesInThousand(this.realAmountOnAccount / 100)
     },
     pendingAmount (): string {
