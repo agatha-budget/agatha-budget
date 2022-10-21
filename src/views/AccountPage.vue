@@ -181,18 +181,17 @@ export default defineComponent({
       }
       return null
     },
-    totalAccount (): string {
-      const value = this.account == null ? 0 : this.getEurosAmount(this.account.amount)
-      return this.addSpacesInThousand(value)
+    totalAccount (): number {
+      return (this.account == null) ? 0 : this.account.amount
     },
-    realAmount (): string {
+    realAmount (): number {
       let value: number = this.account == null ? 0 : this.account.amount
       this.operations.forEach((operation) => {
         if (operation.pending === true) {
           value -= operation.amount
         }
       })
-      return this.addSpacesInThousand(value / 100)
+      return value
     }
   },
   methods: {

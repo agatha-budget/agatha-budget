@@ -7,7 +7,7 @@
               <!-- Normal Title -->
               <div v-if="!this.editingTitle">
                 <h1 class="title clickable" v-on:click="this.displayTitleEditing()">
-                  {{ this.name }} : {{ totalAccount }} €
+                  {{ this.name }} : {{ amountAsString }} €
                 </h1>
               </div>
               <!-- Edit Title -->
@@ -21,7 +21,7 @@
               </div>
               <!-- Pending -->
               <div v-if="existingPendingOperation" class="subtitle pendingSection row clickable" v-on:click="this.displayTitleEditing()">
-                <div class="col-md col-sm-12 left">{{ realAmountOnAccount }} € {{ $t("ON_ACCOUNT") }}</div>
+                <div class="col-md col-sm-12 left">{{ realAmountAsString }} € {{ $t("ON_ACCOUNT") }}</div>
                 <div class="col-md col-sm-12< right">{{ symbolBeforePendingAmount  }} {{ pendingAmount  }} € {{ $t("PENDING") }} (<span class="illustration fas fa-hourglass-half"/>)</div>
               </div>
             </div>
@@ -38,6 +38,7 @@
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
 import { Account } from '@/model/model'
+import Utils from '@/utils/Utils'
 
 interface AccountPageHeaderData {
     account: Account | null;
@@ -80,8 +81,18 @@ export default defineComponent({
     this.getAccount()
   },
   computed: {
-    pendingAmount (): number {
-      return Math.abs(this.totalAccount - this.realAmountOnAccount)
+    amountAsString (): string {
+      return Utils.addSpacesInThousand(this.totalAccount / 100)
+    },
+    realAmountAsString (): string {
+      console.log(this.realAmountOnAccount)
+      console.log(this.realAmountOnAccount / 100)
+      console.log(Utils.addSpacesInThousand(this.realAmountOnAccount / 100))
+      return Utils.addSpacesInThousand(this.realAmountOnAccount / 100)
+    },
+    pendingAmount (): string {
+      const pendingCents = Math.abs(this.totalAccount - this.realAmountOnAccount)
+      return Utils.addSpacesInThousand(pendingCents / 100)
     },
     pendingIsNegative (): boolean {
       return (this.totalAccount - this.realAmountOnAccount) < 0
