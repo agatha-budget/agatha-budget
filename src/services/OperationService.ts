@@ -25,8 +25,8 @@ export default class OperationService {
     return response.data
   }
 
-  public static async deleteOperation (store: Store<StoreState>, operation: Operation) {
-    await operationApi.deleteOperation(operation.id)
+  public static async deleteOperation (store: Store<StoreState>, operationId: string) {
+    await operationApi.deleteOperation(operationId)
     StoreHandler.updateAccounts(store)
   }
 

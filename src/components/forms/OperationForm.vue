@@ -53,14 +53,21 @@
           <div>{{ $t("DEBITED") }}</div>
         </div>
       </div>
-      <div class="col-5 offset-1 col-sm-4 col-md-3 offset-md-0">
+      <div class="col-12">
         <btn class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</btn>
       </div>
-      <div class="action col-4 offset-1 col-md-2 offset-md-5">
-        <btn v-if="this.operation" class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
-        <btn v-else class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
+      <div class="col-12 row formAction" v-if="this.operation">
+        <div class="col-6">
+          <btn  class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
+        </div>
+        <div class="col-6">
+          <btn class="actionButton" :title="$t('DELETE')" v-on:click="deleteOperation">{{ $t('DELETE') }}</btn>
+        </div>
       </div>
+      <div v-else class="col-12 formAction">
+        <btn  class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
       </div>
+    </div>
   </div>
 
   <div v-else>
@@ -129,13 +136,19 @@
           <input id="newOperationMemo" class="form-control" v-model="daughterOperation.memo">
         </div>
       </div>
-
-      <div class="col-4 offset-1 col-md-3 offset-md-2">
-        <btn v-if="this.operation" class="actionButton" v-on:click="updateOperationMultipleCategories" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
-        <btn v-else class="actionButton" v-on:click="addOperationMultipleCategories()" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
-      </div>
-      <div class="col-4 offset-2 col-md-3 offset-md-2">
+      <div class="col-12">
         <btn class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</btn>
+      </div>
+      <div class="col-12 row formAction" v-if="this.operation">
+        <div class="col-6">
+          <btn  class="actionButton" v-on:click="updateOperationMultipleCategories" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
+        </div>
+        <div class="col-6">
+          <btn class="actionButton" :title="$t('DELETE')" v-on:click="deleteOperation">{{ $t('DELETE') }}</btn>
+        </div>
+      </div>
+      <div v-else class="col-12 formAction">
+        <btn  class="actionButton" v-on:click="addOperationMultipleCategories" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
       </div>
     </div>
   </div>
@@ -283,6 +296,15 @@ export default defineComponent({
         )
       } else {
         console.log('warning: tried to update without operation to update')
+      }
+    },
+    async deleteOperation () {
+      if (this.operation) {
+        OperationService.deleteOperation(this.$store, this.operation.id).then(
+          () => {
+            this.$emit('updateOperationList')
+          }
+        )
       }
     },
     addOperation () {
@@ -458,7 +480,7 @@ export default defineComponent({
         this.operation.daughters.forEach(daughter => {
           if (this.operation) {
             if (this.daughterWasDeleted(daughter, this.daughtersData)) {
-              OperationService.deleteOperation(this.$store, daughter)
+              OperationService.deleteOperation(this.$store, daughter.id)
             }
           }
         })

@@ -216,7 +216,7 @@ export default defineComponent({
     async deleteOperation (operation: Operation) {
       if (this.account) {
         console.log('there')
-        await OperationService.deleteOperation(this.$store, operation)
+        await OperationService.deleteOperation(this.$store, operation.id)
         console.log('here')
         this.getAccountOperation()
       }
