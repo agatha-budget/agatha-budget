@@ -89,7 +89,7 @@ a.navigationButton {
   }
 }
 
-.dualTab, .trialTab {
+.dualTab, .tripleTab {
   button {  
     border: 1px solid @action;
     color: @dark;
@@ -114,6 +114,19 @@ a.navigationButton {
     }
   }
 }
+
+@media (max-width: 767px) {
+  .dualTab, .tripleTab {
+    button { 
+      &.tabLeft, &.tabRight, &.tabCenter {
+        border-radius: 15px;
+        display: block;
+        margin: 10px auto; 
+      }
+    }
+  }
+}
+
 
 .containerCross {
   text-align: right;

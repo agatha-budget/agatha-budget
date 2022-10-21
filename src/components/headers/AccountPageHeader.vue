@@ -3,11 +3,12 @@
       <div  class="editableNameAccount row">
         <div>
           <div class="col-md-10 offset-md-1 col-sm-12 offset-sm-0 row">
-            <div class="col-md-8 offset-md-2 col-sm-12 offset-sm-0" :class="this.getClassDependingOnAmount()">
+            <div class="col-md-8 offset-md-2 col-sm-12 offset-sm-0 headerContent" :class="this.getClassDependingOnAmount()">
               <!-- Normal Title -->
               <div v-if="!this.editingTitle">
-                <h1 class="title clickable" v-on:click="this.displayTitleEditing()">
-                  {{ this.name }} : {{ totalAccount }} €
+                <h1 class="title clickable breakableRow" v-on:click="this.displayTitleEditing()">
+                  <span class="breakable">{{ this.name }} : </span>
+                  <span class="breakable">{{ amountAsString }} €</span>
                 </h1>
               </div>
               <!-- Edit Title -->
@@ -20,9 +21,9 @@
                 </span>
               </div>
               <!-- Pending -->
-              <div v-if="existingPendingOperation" class="subtitle pendingSection row clickable" v-on:click="this.displayTitleEditing()">
-                <div class="col-md col-sm-12 left">{{ realAmountOnAccount }} € {{ $t("ON_ACCOUNT") }}</div>
-                <div class="col-md col-sm-12< right">{{ symbolBeforePendingAmount  }} {{ pendingAmount  }} € {{ $t("PENDING") }} (<span class="illustration fas fa-hourglass-half"/>)</div>
+              <div v-if="existingPendingOperation" class="subtitle pendingSection breakableRow clickable" v-on:click="this.displayTitleEditing()">
+                <span class="breakable">{{ realAmountAsString }} € {{ $t("ON_ACCOUNT") }}</span>
+                <span class="breakable">{{ symbolBeforePendingAmount  }} {{ pendingAmount  }} € {{ $t("PENDING") }} (<span class="illustration fas fa-hourglass-half"/>)</span>
               </div>
             </div>
             <div v-if="!this.editingTitle" class="editTitleBtn col-md col-sm">
@@ -38,6 +39,7 @@
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
 import { Account } from '@/model/model'
+import Utils from '@/utils/Utils'
 
 interface AccountPageHeaderData {
     account: Account | null;
@@ -80,8 +82,15 @@ export default defineComponent({
     this.getAccount()
   },
   computed: {
-    pendingAmount (): number {
-      return Math.abs(this.totalAccount - this.realAmountOnAccount)
+    amountAsString (): string {
+      return Utils.addSpacesInThousand(this.totalAccount / 100)
+    },
+    realAmountAsString (): string {
+      return Utils.addSpacesInThousand(this.realAmountOnAccount / 100)
+    },
+    pendingAmount (): string {
+      const pendingCents = Math.abs(this.totalAccount - this.realAmountOnAccount)
+      return Utils.addSpacesInThousand(pendingCents / 100)
     },
     pendingIsNegative (): boolean {
       return (this.totalAccount - this.realAmountOnAccount) < 0

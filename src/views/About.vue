@@ -52,13 +52,13 @@
     </div>
 
     <h3>TrialTab</h3>
-    <div class="trialTab">
+    <div class="tripleTab">
       <button class="tabLeft" >TabLeft</button>
       <button class="tabCenter" >TabCenter</button>
       <button class="tabRight">TabRight</button>
     </div>
 
-    <div class="trialTab">
+    <div class="tripleTab">
       <button class="tabLeft" >TabLeft</button>
       <button class="tabCenter active" >TabCenter</button>
       <button class="tabRight">TabRight</button>

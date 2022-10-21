@@ -8,10 +8,10 @@
         <AccountPageHeader :accountId="account.id" :totalAccount="this.totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="this.realAmount"/>
       </div>
       <div class="content container operationTable table-hover">
-        <div class="dualTab switchOperation">
+        <div class="tripleTab switchOperation">
           <button v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">{{ $t("ADD_MANUALLY") }}</button>
           <button v-else v-on:click="switchAddOperation('manual')" class="tabLeft">{{ $t("ADD_MANUALLY") }}</button>
-          <button v-on:click="goToBanksPage">{{ $t("SYNC_BANK") }}</button>
+          <button v-on:click="goToBanksPage" class="tabCenter">{{ $t("SYNC_BANK") }}</button>
           <button v-if="importBloc" v-on:click="switchAddOperation('import')" class="tabRight active">{{ $t("BANK_IMPORT") }}</button>
           <button v-else v-on:click="switchAddOperation('import')" class="tabRight">{{ $t("BANK_IMPORT") }}</button>
         </div>
@@ -181,18 +181,17 @@ export default defineComponent({
       }
       return null
     },
-    totalAccount (): string {
-      const value = this.account == null ? 0 : this.getEurosAmount(this.account.amount)
-      return this.addSpacesInThousand(value)
+    totalAccount (): number {
+      return (this.account == null) ? 0 : this.account.amount
     },
-    realAmount (): string {
+    realAmount (): number {
       let value: number = this.account == null ? 0 : this.account.amount
       this.operations.forEach((operation) => {
         if (operation.pending === true) {
           value -= operation.amount
         }
       })
-      return this.addSpacesInThousand(value / 100)
+      return value
     }
   },
   methods: {
