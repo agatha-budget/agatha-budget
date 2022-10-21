@@ -42,17 +42,21 @@
         }
     }
     
-    .pendingSection {
+    .breakableRow {
         div {
             margin: 0;
             padding: 0;
         }
         .left {
+            margin-right: 3px;
             text-align: right;
         }
         .right {
             text-align: left;
         }
+    }
+
+    .pendingSection {
         &:hover{
             .btn {
                 visibility: visible;
@@ -66,12 +70,20 @@
     }
 
     @media (max-width: 767px) {
-        
+        .fixed {
+            &.header {
+              position: static;
+              padding: 0;
+            }
+        }
+        .placeholderTop {
+            display: none;
+        }
         .illustration .btn {
             visibility: visible;
         }
 
-        .pendingSection {
+        .breakableRow {
           
             .left {
                 text-align: center;
