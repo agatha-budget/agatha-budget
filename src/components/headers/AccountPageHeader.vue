@@ -8,7 +8,7 @@
               <div v-if="!this.editingTitle">
                 <h1 class="title clickable row breakableRow" v-on:click="this.displayTitleEditing()">
                   <div class="col-md col-sm-12 left">{{ this.name }} :</div>
-                  <div class="col-md col-sm-12< right">{{ amountAsString }} €</div>
+                  <div class="col-md col-sm-12 right">{{ amountAsString }} €</div>
                 </h1>
               </div>
               <!-- Edit Title -->
@@ -23,7 +23,7 @@
               <!-- Pending -->
               <div v-if="existingPendingOperation" class="subtitle pendingSection breakableRow row clickable" v-on:click="this.displayTitleEditing()">
                 <div class="col-md col-sm-12 left">{{ realAmountAsString }} € {{ $t("ON_ACCOUNT") }}</div>
-                <div class="col-md col-sm-12< right">{{ symbolBeforePendingAmount  }} {{ pendingAmount  }} € {{ $t("PENDING") }} (<span class="illustration fas fa-hourglass-half"/>)</div>
+                <div class="col-md col-sm-12 right">{{ symbolBeforePendingAmount  }} {{ pendingAmount  }} € {{ $t("PENDING") }} (<span class="illustration fas fa-hourglass-half"/>)</div>
               </div>
             </div>
             <div v-if="!this.editingTitle" class="editTitleBtn col-md col-sm">
