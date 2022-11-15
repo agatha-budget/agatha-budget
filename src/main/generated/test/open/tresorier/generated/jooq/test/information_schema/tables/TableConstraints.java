@@ -47,81 +47,81 @@ public class TableConstraints extends TableImpl<TableConstraintsRecord> {
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_CATALOG</code>.
      */
-    public final TableField<TableConstraintsRecord, String> CONSTRAINT_CATALOG = createField(DSL.name("CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> CONSTRAINT_CATALOG = createField(DSL.name("CONSTRAINT_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_SCHEMA</code>.
      */
-    public final TableField<TableConstraintsRecord, String> CONSTRAINT_SCHEMA = createField(DSL.name("CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> CONSTRAINT_SCHEMA = createField(DSL.name("CONSTRAINT_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_NAME</code>.
      */
-    public final TableField<TableConstraintsRecord, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> CONSTRAINT_NAME = createField(DSL.name("CONSTRAINT_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_TYPE</code>.
      */
-    public final TableField<TableConstraintsRecord, String> CONSTRAINT_TYPE = createField(DSL.name("CONSTRAINT_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> CONSTRAINT_TYPE = createField(DSL.name("CONSTRAINT_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_CATALOG</code>.
      */
-    public final TableField<TableConstraintsRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_SCHEMA</code>.
      */
-    public final TableField<TableConstraintsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_NAME</code>.
      */
-    public final TableField<TableConstraintsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.IS_DEFERRABLE</code>.
      */
-    public final TableField<TableConstraintsRecord, String> IS_DEFERRABLE = createField(DSL.name("IS_DEFERRABLE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> IS_DEFERRABLE = createField(DSL.name("IS_DEFERRABLE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INITIALLY_DEFERRED</code>.
      */
-    public final TableField<TableConstraintsRecord, String> INITIALLY_DEFERRED = createField(DSL.name("INITIALLY_DEFERRED"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> INITIALLY_DEFERRED = createField(DSL.name("INITIALLY_DEFERRED"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.ENFORCED</code>.
      */
-    public final TableField<TableConstraintsRecord, String> ENFORCED = createField(DSL.name("ENFORCED"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> ENFORCED = createField(DSL.name("ENFORCED"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INDEX_CATALOG</code>.
      */
-    public final TableField<TableConstraintsRecord, String> INDEX_CATALOG = createField(DSL.name("INDEX_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> INDEX_CATALOG = createField(DSL.name("INDEX_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INDEX_SCHEMA</code>.
      */
-    public final TableField<TableConstraintsRecord, String> INDEX_SCHEMA = createField(DSL.name("INDEX_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> INDEX_SCHEMA = createField(DSL.name("INDEX_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INDEX_NAME</code>.
      */
-    public final TableField<TableConstraintsRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.REMARKS</code>.
      */
-    public final TableField<TableConstraintsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<TableConstraintsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private TableConstraints(Name alias, Table<TableConstraintsRecord> aliased) {
         this(alias, aliased, null);

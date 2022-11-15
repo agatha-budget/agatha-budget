@@ -69,7 +69,7 @@ class H2AccountDao(val configuration: Configuration) : IAccountDao {
             .where(PERSON.ID.eq(BUDGET.PERSON_ID))
             .fetchAny()?.into(PERSON)
         if (ownerRecord == null) {
-            throw TresorierException("the given object appears to have no owner")
+            throw TresorierException("the given account (${account}) appears to have no owner")
         } else {
             return H2PersonDao.toPerson(ownerRecord)
         }

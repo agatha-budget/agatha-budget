@@ -52,22 +52,22 @@ public class Sessions extends TableImpl<SessionsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.USER_NAME</code>.
      */
-    public final TableField<SessionsRecord, String> USER_NAME = createField(DSL.name("USER_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<SessionsRecord, String> USER_NAME = createField(DSL.name("USER_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.SERVER</code>.
      */
-    public final TableField<SessionsRecord, String> SERVER = createField(DSL.name("SERVER"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<SessionsRecord, String> SERVER = createField(DSL.name("SERVER"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_ADDR</code>.
      */
-    public final TableField<SessionsRecord, String> CLIENT_ADDR = createField(DSL.name("CLIENT_ADDR"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<SessionsRecord, String> CLIENT_ADDR = createField(DSL.name("CLIENT_ADDR"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.CLIENT_INFO</code>.
      */
-    public final TableField<SessionsRecord, String> CLIENT_INFO = createField(DSL.name("CLIENT_INFO"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<SessionsRecord, String> CLIENT_INFO = createField(DSL.name("CLIENT_INFO"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.SESSION_START</code>.
@@ -77,12 +77,12 @@ public class Sessions extends TableImpl<SessionsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.ISOLATION_LEVEL</code>.
      */
-    public final TableField<SessionsRecord, String> ISOLATION_LEVEL = createField(DSL.name("ISOLATION_LEVEL"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<SessionsRecord, String> ISOLATION_LEVEL = createField(DSL.name("ISOLATION_LEVEL"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.EXECUTING_STATEMENT</code>.
      */
-    public final TableField<SessionsRecord, String> EXECUTING_STATEMENT = createField(DSL.name("EXECUTING_STATEMENT"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<SessionsRecord, String> EXECUTING_STATEMENT = createField(DSL.name("EXECUTING_STATEMENT"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -98,7 +98,7 @@ public class Sessions extends TableImpl<SessionsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.SESSION_STATE</code>.
      */
-    public final TableField<SessionsRecord, String> SESSION_STATE = createField(DSL.name("SESSION_STATE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<SessionsRecord, String> SESSION_STATE = createField(DSL.name("SESSION_STATE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SESSIONS.BLOCKER_ID</code>.

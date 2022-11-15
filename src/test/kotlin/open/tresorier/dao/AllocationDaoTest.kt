@@ -33,7 +33,7 @@ open class AllocationDaoTest : ITest {
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             allocationDao.getOwner(allocation)
         }
-        Assertions.assertEquals("the given object appears to have no owner", exception.message)
+        Assertions.assertEquals("the given allocation (${allocation}) appears to have no owner", exception.message)
     }
 
     @Test

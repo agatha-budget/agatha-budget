@@ -469,7 +469,7 @@ class BudgetDataServiceTest : ITest {
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             budgetDataService.getBudgetData(person, budget)
         }
-        Assertions.assertEquals("the given object appears to have no owner", exception.message)
+        Assertions.assertEquals("the given budget (${budget}) appears to have no owner", exception.message)
     }
 
     @Test

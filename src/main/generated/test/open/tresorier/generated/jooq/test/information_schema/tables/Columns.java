@@ -44,22 +44,22 @@ public class Columns extends TableImpl<ColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.TABLE_CATALOG</code>.
      */
-    public final TableField<ColumnsRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.TABLE_SCHEMA</code>.
      */
-    public final TableField<ColumnsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.TABLE_NAME</code>.
      */
-    public final TableField<ColumnsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_NAME</code>.
      */
-    public final TableField<ColumnsRecord, String> COLUMN_NAME = createField(DSL.name("COLUMN_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> COLUMN_NAME = createField(DSL.name("COLUMN_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.ORDINAL_POSITION</code>.
@@ -69,17 +69,17 @@ public class Columns extends TableImpl<ColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_DEFAULT</code>.
      */
-    public final TableField<ColumnsRecord, String> COLUMN_DEFAULT = createField(DSL.name("COLUMN_DEFAULT"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> COLUMN_DEFAULT = createField(DSL.name("COLUMN_DEFAULT"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.IS_NULLABLE</code>.
      */
-    public final TableField<ColumnsRecord, String> IS_NULLABLE = createField(DSL.name("IS_NULLABLE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> IS_NULLABLE = createField(DSL.name("IS_NULLABLE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.DATA_TYPE</code>.
      */
-    public final TableField<ColumnsRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -117,7 +117,7 @@ public class Columns extends TableImpl<ColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_TYPE</code>.
      */
-    public final TableField<ColumnsRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.INTERVAL_PRECISION</code>.
@@ -127,47 +127,47 @@ public class Columns extends TableImpl<ColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_CATALOG</code>.
      */
-    public final TableField<ColumnsRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_SCHEMA</code>.
      */
-    public final TableField<ColumnsRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.CHARACTER_SET_NAME</code>.
      */
-    public final TableField<ColumnsRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_CATALOG</code>.
      */
-    public final TableField<ColumnsRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_SCHEMA</code>.
      */
-    public final TableField<ColumnsRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.COLLATION_NAME</code>.
      */
-    public final TableField<ColumnsRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_CATALOG</code>.
      */
-    public final TableField<ColumnsRecord, String> DOMAIN_CATALOG = createField(DSL.name("DOMAIN_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> DOMAIN_CATALOG = createField(DSL.name("DOMAIN_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_SCHEMA</code>.
      */
-    public final TableField<ColumnsRecord, String> DOMAIN_SCHEMA = createField(DSL.name("DOMAIN_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> DOMAIN_SCHEMA = createField(DSL.name("DOMAIN_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.DOMAIN_NAME</code>.
      */
-    public final TableField<ColumnsRecord, String> DOMAIN_NAME = createField(DSL.name("DOMAIN_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> DOMAIN_NAME = createField(DSL.name("DOMAIN_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.MAXIMUM_CARDINALITY</code>.
@@ -177,17 +177,17 @@ public class Columns extends TableImpl<ColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.DTD_IDENTIFIER</code>.
      */
-    public final TableField<ColumnsRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.IS_IDENTITY</code>.
      */
-    public final TableField<ColumnsRecord, String> IS_IDENTITY = createField(DSL.name("IS_IDENTITY"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> IS_IDENTITY = createField(DSL.name("IS_IDENTITY"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_GENERATION</code>.
      */
-    public final TableField<ColumnsRecord, String> IDENTITY_GENERATION = createField(DSL.name("IDENTITY_GENERATION"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> IDENTITY_GENERATION = createField(DSL.name("IDENTITY_GENERATION"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_START</code>.
@@ -212,22 +212,22 @@ public class Columns extends TableImpl<ColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.IDENTITY_CYCLE</code>.
      */
-    public final TableField<ColumnsRecord, String> IDENTITY_CYCLE = createField(DSL.name("IDENTITY_CYCLE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> IDENTITY_CYCLE = createField(DSL.name("IDENTITY_CYCLE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.IS_GENERATED</code>.
      */
-    public final TableField<ColumnsRecord, String> IS_GENERATED = createField(DSL.name("IS_GENERATED"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> IS_GENERATED = createField(DSL.name("IS_GENERATED"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.GENERATION_EXPRESSION</code>.
      */
-    public final TableField<ColumnsRecord, String> GENERATION_EXPRESSION = createField(DSL.name("GENERATION_EXPRESSION"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> GENERATION_EXPRESSION = createField(DSL.name("GENERATION_EXPRESSION"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.DECLARED_DATA_TYPE</code>.
      */
-    public final TableField<ColumnsRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -244,7 +244,7 @@ public class Columns extends TableImpl<ColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.GEOMETRY_TYPE</code>.
      */
-    public final TableField<ColumnsRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.GEOMETRY_SRID</code>.
@@ -264,7 +264,7 @@ public class Columns extends TableImpl<ColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.COLUMN_ON_UPDATE</code>.
      */
-    public final TableField<ColumnsRecord, String> COLUMN_ON_UPDATE = createField(DSL.name("COLUMN_ON_UPDATE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> COLUMN_ON_UPDATE = createField(DSL.name("COLUMN_ON_UPDATE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.IS_VISIBLE</code>.
@@ -284,7 +284,7 @@ public class Columns extends TableImpl<ColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.COLUMNS.REMARKS</code>.
      */
-    public final TableField<ColumnsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ColumnsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private Columns(Name alias, Table<ColumnsRecord> aliased) {
         this(alias, aliased, null);

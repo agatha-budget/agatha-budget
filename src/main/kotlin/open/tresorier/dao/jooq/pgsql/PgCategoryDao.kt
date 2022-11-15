@@ -77,7 +77,7 @@ class PgCategoryDao(val configuration: Configuration) : ICategoryDao {
             .where(PERSON.ID.eq(BUDGET.PERSON_ID))
             .fetchAny()?.into(PERSON)
         if (ownerRecord == null) {
-            throw TresorierException("the given object appears to have no owner")
+            throw TresorierException("the given category (${category}) appears to have no owner")
         } else {
             return PgPersonDao.toPerson(ownerRecord)
         }

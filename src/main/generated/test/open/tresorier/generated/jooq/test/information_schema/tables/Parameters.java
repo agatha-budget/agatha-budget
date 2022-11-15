@@ -44,17 +44,17 @@ public class Parameters extends TableImpl<ParametersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.SPECIFIC_CATALOG</code>.
      */
-    public final TableField<ParametersRecord, String> SPECIFIC_CATALOG = createField(DSL.name("SPECIFIC_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> SPECIFIC_CATALOG = createField(DSL.name("SPECIFIC_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.SPECIFIC_SCHEMA</code>.
      */
-    public final TableField<ParametersRecord, String> SPECIFIC_SCHEMA = createField(DSL.name("SPECIFIC_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> SPECIFIC_SCHEMA = createField(DSL.name("SPECIFIC_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.SPECIFIC_NAME</code>.
      */
-    public final TableField<ParametersRecord, String> SPECIFIC_NAME = createField(DSL.name("SPECIFIC_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> SPECIFIC_NAME = createField(DSL.name("SPECIFIC_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.ORDINAL_POSITION</code>.
@@ -64,27 +64,27 @@ public class Parameters extends TableImpl<ParametersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.PARAMETER_MODE</code>.
      */
-    public final TableField<ParametersRecord, String> PARAMETER_MODE = createField(DSL.name("PARAMETER_MODE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> PARAMETER_MODE = createField(DSL.name("PARAMETER_MODE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.IS_RESULT</code>.
      */
-    public final TableField<ParametersRecord, String> IS_RESULT = createField(DSL.name("IS_RESULT"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> IS_RESULT = createField(DSL.name("IS_RESULT"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.AS_LOCATOR</code>.
      */
-    public final TableField<ParametersRecord, String> AS_LOCATOR = createField(DSL.name("AS_LOCATOR"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> AS_LOCATOR = createField(DSL.name("AS_LOCATOR"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.PARAMETER_NAME</code>.
      */
-    public final TableField<ParametersRecord, String> PARAMETER_NAME = createField(DSL.name("PARAMETER_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> PARAMETER_NAME = createField(DSL.name("PARAMETER_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.DATA_TYPE</code>.
      */
-    public final TableField<ParametersRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -102,33 +102,33 @@ public class Parameters extends TableImpl<ParametersRecord> {
      * The column
      * <code>INFORMATION_SCHEMA.PARAMETERS.CHARACTER_SET_CATALOG</code>.
      */
-    public final TableField<ParametersRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.PARAMETERS.CHARACTER_SET_SCHEMA</code>.
      */
-    public final TableField<ParametersRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.CHARACTER_SET_NAME</code>.
      */
-    public final TableField<ParametersRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.COLLATION_CATALOG</code>.
      */
-    public final TableField<ParametersRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.COLLATION_SCHEMA</code>.
      */
-    public final TableField<ParametersRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.COLLATION_NAME</code>.
      */
-    public final TableField<ParametersRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.NUMERIC_PRECISION</code>.
@@ -154,7 +154,7 @@ public class Parameters extends TableImpl<ParametersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.INTERVAL_TYPE</code>.
      */
-    public final TableField<ParametersRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.INTERVAL_PRECISION</code>.
@@ -170,12 +170,12 @@ public class Parameters extends TableImpl<ParametersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.DTD_IDENTIFIER</code>.
      */
-    public final TableField<ParametersRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.DECLARED_DATA_TYPE</code>.
      */
-    public final TableField<ParametersRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -192,12 +192,12 @@ public class Parameters extends TableImpl<ParametersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.PARAMETER_DEFAULT</code>.
      */
-    public final TableField<ParametersRecord, String> PARAMETER_DEFAULT = createField(DSL.name("PARAMETER_DEFAULT"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> PARAMETER_DEFAULT = createField(DSL.name("PARAMETER_DEFAULT"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.GEOMETRY_TYPE</code>.
      */
-    public final TableField<ParametersRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ParametersRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.PARAMETERS.GEOMETRY_SRID</code>.

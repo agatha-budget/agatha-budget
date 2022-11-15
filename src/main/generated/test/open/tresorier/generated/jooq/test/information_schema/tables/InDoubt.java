@@ -45,12 +45,12 @@ public class InDoubt extends TableImpl<InDoubtRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_NAME</code>.
      */
-    public final TableField<InDoubtRecord, String> TRANSACTION_NAME = createField(DSL.name("TRANSACTION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<InDoubtRecord, String> TRANSACTION_NAME = createField(DSL.name("TRANSACTION_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.IN_DOUBT.TRANSACTION_STATE</code>.
      */
-    public final TableField<InDoubtRecord, String> TRANSACTION_STATE = createField(DSL.name("TRANSACTION_STATE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<InDoubtRecord, String> TRANSACTION_STATE = createField(DSL.name("TRANSACTION_STATE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private InDoubt(Name alias, Table<InDoubtRecord> aliased) {
         this(alias, aliased, null);

@@ -44,42 +44,42 @@ public class Routines extends TableImpl<RoutinesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.SPECIFIC_CATALOG</code>.
      */
-    public final TableField<RoutinesRecord, String> SPECIFIC_CATALOG = createField(DSL.name("SPECIFIC_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> SPECIFIC_CATALOG = createField(DSL.name("SPECIFIC_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.SPECIFIC_SCHEMA</code>.
      */
-    public final TableField<RoutinesRecord, String> SPECIFIC_SCHEMA = createField(DSL.name("SPECIFIC_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> SPECIFIC_SCHEMA = createField(DSL.name("SPECIFIC_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.SPECIFIC_NAME</code>.
      */
-    public final TableField<RoutinesRecord, String> SPECIFIC_NAME = createField(DSL.name("SPECIFIC_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> SPECIFIC_NAME = createField(DSL.name("SPECIFIC_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.ROUTINE_CATALOG</code>.
      */
-    public final TableField<RoutinesRecord, String> ROUTINE_CATALOG = createField(DSL.name("ROUTINE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> ROUTINE_CATALOG = createField(DSL.name("ROUTINE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.ROUTINE_SCHEMA</code>.
      */
-    public final TableField<RoutinesRecord, String> ROUTINE_SCHEMA = createField(DSL.name("ROUTINE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> ROUTINE_SCHEMA = createField(DSL.name("ROUTINE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.ROUTINE_NAME</code>.
      */
-    public final TableField<RoutinesRecord, String> ROUTINE_NAME = createField(DSL.name("ROUTINE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> ROUTINE_NAME = createField(DSL.name("ROUTINE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.ROUTINE_TYPE</code>.
      */
-    public final TableField<RoutinesRecord, String> ROUTINE_TYPE = createField(DSL.name("ROUTINE_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> ROUTINE_TYPE = createField(DSL.name("ROUTINE_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.DATA_TYPE</code>.
      */
-    public final TableField<RoutinesRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -97,32 +97,32 @@ public class Routines extends TableImpl<RoutinesRecord> {
      * The column
      * <code>INFORMATION_SCHEMA.ROUTINES.CHARACTER_SET_CATALOG</code>.
      */
-    public final TableField<RoutinesRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.CHARACTER_SET_SCHEMA</code>.
      */
-    public final TableField<RoutinesRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.CHARACTER_SET_NAME</code>.
      */
-    public final TableField<RoutinesRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.COLLATION_CATALOG</code>.
      */
-    public final TableField<RoutinesRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.COLLATION_SCHEMA</code>.
      */
-    public final TableField<RoutinesRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.COLLATION_NAME</code>.
      */
-    public final TableField<RoutinesRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.NUMERIC_PRECISION</code>.
@@ -148,7 +148,7 @@ public class Routines extends TableImpl<RoutinesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.INTERVAL_TYPE</code>.
      */
-    public final TableField<RoutinesRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.INTERVAL_PRECISION</code>.
@@ -163,42 +163,42 @@ public class Routines extends TableImpl<RoutinesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.DTD_IDENTIFIER</code>.
      */
-    public final TableField<RoutinesRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.ROUTINE_BODY</code>.
      */
-    public final TableField<RoutinesRecord, String> ROUTINE_BODY = createField(DSL.name("ROUTINE_BODY"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> ROUTINE_BODY = createField(DSL.name("ROUTINE_BODY"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.ROUTINE_DEFINITION</code>.
      */
-    public final TableField<RoutinesRecord, String> ROUTINE_DEFINITION = createField(DSL.name("ROUTINE_DEFINITION"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> ROUTINE_DEFINITION = createField(DSL.name("ROUTINE_DEFINITION"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.EXTERNAL_NAME</code>.
      */
-    public final TableField<RoutinesRecord, String> EXTERNAL_NAME = createField(DSL.name("EXTERNAL_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> EXTERNAL_NAME = createField(DSL.name("EXTERNAL_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.EXTERNAL_LANGUAGE</code>.
      */
-    public final TableField<RoutinesRecord, String> EXTERNAL_LANGUAGE = createField(DSL.name("EXTERNAL_LANGUAGE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> EXTERNAL_LANGUAGE = createField(DSL.name("EXTERNAL_LANGUAGE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.PARAMETER_STYLE</code>.
      */
-    public final TableField<RoutinesRecord, String> PARAMETER_STYLE = createField(DSL.name("PARAMETER_STYLE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> PARAMETER_STYLE = createField(DSL.name("PARAMETER_STYLE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.IS_DETERMINISTIC</code>.
      */
-    public final TableField<RoutinesRecord, String> IS_DETERMINISTIC = createField(DSL.name("IS_DETERMINISTIC"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> IS_DETERMINISTIC = createField(DSL.name("IS_DETERMINISTIC"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.DECLARED_DATA_TYPE</code>.
      */
-    public final TableField<RoutinesRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -215,7 +215,7 @@ public class Routines extends TableImpl<RoutinesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.GEOMETRY_TYPE</code>.
      */
-    public final TableField<RoutinesRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.GEOMETRY_SRID</code>.
@@ -225,7 +225,7 @@ public class Routines extends TableImpl<RoutinesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ROUTINES.REMARKS</code>.
      */
-    public final TableField<RoutinesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RoutinesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private Routines(Name alias, Table<RoutinesRecord> aliased) {
         this(alias, aliased, null);

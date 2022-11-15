@@ -71,7 +71,7 @@ open class CategoryDaoTest : ITest {
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             categoryDao.getOwner(universalCategory)
         }
-        Assertions.assertEquals("the given object appears to have no owner", exception.message)
+        Assertions.assertEquals("the given category (${universalCategory}) appears to have no owner", exception.message)
     }
 
     @Test fun archiveAllDependingCategories() {

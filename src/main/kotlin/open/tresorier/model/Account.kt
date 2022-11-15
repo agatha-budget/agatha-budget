@@ -7,4 +7,9 @@ open class Account (
     var bankAccountId: String? = null,
     id: String? = null,
     deleted: Boolean? = null
-) : DbObject(id, deleted)
+) : DbObject(id, deleted) {
+
+    override fun toString(): String {
+        return "id: $id, name: $name, budget : $budgetId, bankAccountId: $bankAccountId"
+    }
+}

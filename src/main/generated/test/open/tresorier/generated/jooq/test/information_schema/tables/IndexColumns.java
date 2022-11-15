@@ -45,37 +45,37 @@ public class IndexColumns extends TableImpl<IndexColumnsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.INDEX_COLUMNS.INDEX_CATALOG</code>.
      */
-    public final TableField<IndexColumnsRecord, String> INDEX_CATALOG = createField(DSL.name("INDEX_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexColumnsRecord, String> INDEX_CATALOG = createField(DSL.name("INDEX_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEX_COLUMNS.INDEX_SCHEMA</code>.
      */
-    public final TableField<IndexColumnsRecord, String> INDEX_SCHEMA = createField(DSL.name("INDEX_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexColumnsRecord, String> INDEX_SCHEMA = createField(DSL.name("INDEX_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEX_COLUMNS.INDEX_NAME</code>.
      */
-    public final TableField<IndexColumnsRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexColumnsRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEX_COLUMNS.TABLE_CATALOG</code>.
      */
-    public final TableField<IndexColumnsRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexColumnsRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEX_COLUMNS.TABLE_SCHEMA</code>.
      */
-    public final TableField<IndexColumnsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexColumnsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEX_COLUMNS.TABLE_NAME</code>.
      */
-    public final TableField<IndexColumnsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexColumnsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEX_COLUMNS.COLUMN_NAME</code>.
      */
-    public final TableField<IndexColumnsRecord, String> COLUMN_NAME = createField(DSL.name("COLUMN_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexColumnsRecord, String> COLUMN_NAME = createField(DSL.name("COLUMN_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -87,12 +87,12 @@ public class IndexColumns extends TableImpl<IndexColumnsRecord> {
      * The column
      * <code>INFORMATION_SCHEMA.INDEX_COLUMNS.ORDERING_SPECIFICATION</code>.
      */
-    public final TableField<IndexColumnsRecord, String> ORDERING_SPECIFICATION = createField(DSL.name("ORDERING_SPECIFICATION"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexColumnsRecord, String> ORDERING_SPECIFICATION = createField(DSL.name("ORDERING_SPECIFICATION"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEX_COLUMNS.NULL_ORDERING</code>.
      */
-    public final TableField<IndexColumnsRecord, String> NULL_ORDERING = createField(DSL.name("NULL_ORDERING"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexColumnsRecord, String> NULL_ORDERING = createField(DSL.name("NULL_ORDERING"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEX_COLUMNS.IS_UNIQUE</code>.

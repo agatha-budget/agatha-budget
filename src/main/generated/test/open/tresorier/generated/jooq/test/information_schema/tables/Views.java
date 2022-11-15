@@ -45,63 +45,63 @@ public class Views extends TableImpl<ViewsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.TABLE_CATALOG</code>.
      */
-    public final TableField<ViewsRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.TABLE_SCHEMA</code>.
      */
-    public final TableField<ViewsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.TABLE_NAME</code>.
      */
-    public final TableField<ViewsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.VIEW_DEFINITION</code>.
      */
-    public final TableField<ViewsRecord, String> VIEW_DEFINITION = createField(DSL.name("VIEW_DEFINITION"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> VIEW_DEFINITION = createField(DSL.name("VIEW_DEFINITION"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.CHECK_OPTION</code>.
      */
-    public final TableField<ViewsRecord, String> CHECK_OPTION = createField(DSL.name("CHECK_OPTION"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> CHECK_OPTION = createField(DSL.name("CHECK_OPTION"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.IS_UPDATABLE</code>.
      */
-    public final TableField<ViewsRecord, String> IS_UPDATABLE = createField(DSL.name("IS_UPDATABLE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> IS_UPDATABLE = createField(DSL.name("IS_UPDATABLE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.INSERTABLE_INTO</code>.
      */
-    public final TableField<ViewsRecord, String> INSERTABLE_INTO = createField(DSL.name("INSERTABLE_INTO"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> INSERTABLE_INTO = createField(DSL.name("INSERTABLE_INTO"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.IS_TRIGGER_UPDATABLE</code>.
      */
-    public final TableField<ViewsRecord, String> IS_TRIGGER_UPDATABLE = createField(DSL.name("IS_TRIGGER_UPDATABLE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> IS_TRIGGER_UPDATABLE = createField(DSL.name("IS_TRIGGER_UPDATABLE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.IS_TRIGGER_DELETABLE</code>.
      */
-    public final TableField<ViewsRecord, String> IS_TRIGGER_DELETABLE = createField(DSL.name("IS_TRIGGER_DELETABLE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> IS_TRIGGER_DELETABLE = createField(DSL.name("IS_TRIGGER_DELETABLE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.VIEWS.IS_TRIGGER_INSERTABLE_INTO</code>.
      */
-    public final TableField<ViewsRecord, String> IS_TRIGGER_INSERTABLE_INTO = createField(DSL.name("IS_TRIGGER_INSERTABLE_INTO"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> IS_TRIGGER_INSERTABLE_INTO = createField(DSL.name("IS_TRIGGER_INSERTABLE_INTO"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.STATUS</code>.
      */
-    public final TableField<ViewsRecord, String> STATUS = createField(DSL.name("STATUS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> STATUS = createField(DSL.name("STATUS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.VIEWS.REMARKS</code>.
      */
-    public final TableField<ViewsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ViewsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private Views(Name alias, Table<ViewsRecord> aliased) {
         this(alias, aliased, null);

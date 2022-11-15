@@ -45,32 +45,32 @@ public class Rights extends TableImpl<RightsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.GRANTEE</code>.
      */
-    public final TableField<RightsRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RightsRecord, String> GRANTEE = createField(DSL.name("GRANTEE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.GRANTEETYPE</code>.
      */
-    public final TableField<RightsRecord, String> GRANTEETYPE = createField(DSL.name("GRANTEETYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RightsRecord, String> GRANTEETYPE = createField(DSL.name("GRANTEETYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.GRANTEDROLE</code>.
      */
-    public final TableField<RightsRecord, String> GRANTEDROLE = createField(DSL.name("GRANTEDROLE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RightsRecord, String> GRANTEDROLE = createField(DSL.name("GRANTEDROLE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.RIGHTS</code>.
      */
-    public final TableField<RightsRecord, String> RIGHTS_ = createField(DSL.name("RIGHTS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RightsRecord, String> RIGHTS_ = createField(DSL.name("RIGHTS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.TABLE_SCHEMA</code>.
      */
-    public final TableField<RightsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RightsRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.RIGHTS.TABLE_NAME</code>.
      */
-    public final TableField<RightsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RightsRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private Rights(Name alias, Table<RightsRecord> aliased) {
         this(alias, aliased, null);

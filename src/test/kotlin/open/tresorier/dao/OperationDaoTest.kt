@@ -34,7 +34,7 @@ open class OperationDaoTest : ITest {
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             operationDao.getOwner(operation)
         }
-        Assertions.assertEquals("the given object appears to have no owner", exception.message)
+        Assertions.assertEquals("the given operation (${operation}) appears to have no owner", exception.message)
     }
 
     @Test
