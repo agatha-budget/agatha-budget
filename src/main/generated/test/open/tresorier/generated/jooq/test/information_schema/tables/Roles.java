@@ -45,12 +45,12 @@ public class Roles extends TableImpl<RolesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ROLES.ROLE_NAME</code>.
      */
-    public final TableField<RolesRecord, String> ROLE_NAME = createField(DSL.name("ROLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RolesRecord, String> ROLE_NAME = createField(DSL.name("ROLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROLES.REMARKS</code>.
      */
-    public final TableField<RolesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<RolesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private Roles(Name alias, Table<RolesRecord> aliased) {
         this(alias, aliased, null);

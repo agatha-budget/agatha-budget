@@ -47,7 +47,7 @@ public class InformationSchemaCatalogName extends TableImpl<InformationSchemaCat
      * The column
      * <code>INFORMATION_SCHEMA.INFORMATION_SCHEMA_CATALOG_NAME.CATALOG_NAME</code>.
      */
-    public final TableField<InformationSchemaCatalogNameRecord, String> CATALOG_NAME = createField(DSL.name("CATALOG_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<InformationSchemaCatalogNameRecord, String> CATALOG_NAME = createField(DSL.name("CATALOG_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private InformationSchemaCatalogName(Name alias, Table<InformationSchemaCatalogNameRecord> aliased) {
         this(alias, aliased, null);

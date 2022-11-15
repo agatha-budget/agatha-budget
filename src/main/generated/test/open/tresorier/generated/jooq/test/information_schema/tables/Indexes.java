@@ -45,37 +45,37 @@ public class Indexes extends TableImpl<IndexesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_CATALOG</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_CATALOG = createField(DSL.name("INDEX_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexesRecord, String> INDEX_CATALOG = createField(DSL.name("INDEX_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_SCHEMA</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_SCHEMA = createField(DSL.name("INDEX_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexesRecord, String> INDEX_SCHEMA = createField(DSL.name("INDEX_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexesRecord, String> INDEX_NAME = createField(DSL.name("INDEX_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_CATALOG</code>.
      */
-    public final TableField<IndexesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexesRecord, String> TABLE_CATALOG = createField(DSL.name("TABLE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_SCHEMA</code>.
      */
-    public final TableField<IndexesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexesRecord, String> TABLE_SCHEMA = createField(DSL.name("TABLE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.TABLE_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexesRecord, String> TABLE_NAME = createField(DSL.name("TABLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_TYPE_NAME</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_TYPE_NAME = createField(DSL.name("INDEX_TYPE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexesRecord, String> INDEX_TYPE_NAME = createField(DSL.name("INDEX_TYPE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.IS_GENERATED</code>.
@@ -85,12 +85,12 @@ public class Indexes extends TableImpl<IndexesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.REMARKS</code>.
      */
-    public final TableField<IndexesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.INDEX_CLASS</code>.
      */
-    public final TableField<IndexesRecord, String> INDEX_CLASS = createField(DSL.name("INDEX_CLASS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<IndexesRecord, String> INDEX_CLASS = createField(DSL.name("INDEX_CLASS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private Indexes(Name alias, Table<IndexesRecord> aliased) {
         this(alias, aliased, null);

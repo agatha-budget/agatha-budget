@@ -44,22 +44,22 @@ public class Domains extends TableImpl<DomainsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_CATALOG</code>.
      */
-    public final TableField<DomainsRecord, String> DOMAIN_CATALOG = createField(DSL.name("DOMAIN_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> DOMAIN_CATALOG = createField(DSL.name("DOMAIN_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_SCHEMA</code>.
      */
-    public final TableField<DomainsRecord, String> DOMAIN_SCHEMA = createField(DSL.name("DOMAIN_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> DOMAIN_SCHEMA = createField(DSL.name("DOMAIN_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_NAME</code>.
      */
-    public final TableField<DomainsRecord, String> DOMAIN_NAME = createField(DSL.name("DOMAIN_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> DOMAIN_NAME = createField(DSL.name("DOMAIN_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.DATA_TYPE</code>.
      */
-    public final TableField<DomainsRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -76,32 +76,32 @@ public class Domains extends TableImpl<DomainsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.CHARACTER_SET_CATALOG</code>.
      */
-    public final TableField<DomainsRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.CHARACTER_SET_SCHEMA</code>.
      */
-    public final TableField<DomainsRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.CHARACTER_SET_NAME</code>.
      */
-    public final TableField<DomainsRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.COLLATION_CATALOG</code>.
      */
-    public final TableField<DomainsRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.COLLATION_SCHEMA</code>.
      */
-    public final TableField<DomainsRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.COLLATION_NAME</code>.
      */
-    public final TableField<DomainsRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.NUMERIC_PRECISION</code>.
@@ -127,7 +127,7 @@ public class Domains extends TableImpl<DomainsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.INTERVAL_TYPE</code>.
      */
-    public final TableField<DomainsRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.INTERVAL_PRECISION</code>.
@@ -137,7 +137,7 @@ public class Domains extends TableImpl<DomainsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_DEFAULT</code>.
      */
-    public final TableField<DomainsRecord, String> DOMAIN_DEFAULT = createField(DSL.name("DOMAIN_DEFAULT"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> DOMAIN_DEFAULT = createField(DSL.name("DOMAIN_DEFAULT"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.MAXIMUM_CARDINALITY</code>.
@@ -147,12 +147,12 @@ public class Domains extends TableImpl<DomainsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.DTD_IDENTIFIER</code>.
      */
-    public final TableField<DomainsRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.DECLARED_DATA_TYPE</code>.
      */
-    public final TableField<DomainsRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -169,7 +169,7 @@ public class Domains extends TableImpl<DomainsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.GEOMETRY_TYPE</code>.
      */
-    public final TableField<DomainsRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.GEOMETRY_SRID</code>.
@@ -179,27 +179,27 @@ public class Domains extends TableImpl<DomainsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.DOMAIN_ON_UPDATE</code>.
      */
-    public final TableField<DomainsRecord, String> DOMAIN_ON_UPDATE = createField(DSL.name("DOMAIN_ON_UPDATE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> DOMAIN_ON_UPDATE = createField(DSL.name("DOMAIN_ON_UPDATE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.PARENT_DOMAIN_CATALOG</code>.
      */
-    public final TableField<DomainsRecord, String> PARENT_DOMAIN_CATALOG = createField(DSL.name("PARENT_DOMAIN_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> PARENT_DOMAIN_CATALOG = createField(DSL.name("PARENT_DOMAIN_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.PARENT_DOMAIN_SCHEMA</code>.
      */
-    public final TableField<DomainsRecord, String> PARENT_DOMAIN_SCHEMA = createField(DSL.name("PARENT_DOMAIN_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> PARENT_DOMAIN_SCHEMA = createField(DSL.name("PARENT_DOMAIN_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.PARENT_DOMAIN_NAME</code>.
      */
-    public final TableField<DomainsRecord, String> PARENT_DOMAIN_NAME = createField(DSL.name("PARENT_DOMAIN_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> PARENT_DOMAIN_NAME = createField(DSL.name("PARENT_DOMAIN_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.DOMAINS.REMARKS</code>.
      */
-    public final TableField<DomainsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<DomainsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private Domains(Name alias, Table<DomainsRecord> aliased) {
         this(alias, aliased, null);

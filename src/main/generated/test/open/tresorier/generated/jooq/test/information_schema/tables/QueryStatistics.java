@@ -47,7 +47,7 @@ public class QueryStatistics extends TableImpl<QueryStatisticsRecord> {
      * The column
      * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.SQL_STATEMENT</code>.
      */
-    public final TableField<QueryStatisticsRecord, String> SQL_STATEMENT = createField(DSL.name("SQL_STATEMENT"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<QueryStatisticsRecord, String> SQL_STATEMENT = createField(DSL.name("SQL_STATEMENT"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column

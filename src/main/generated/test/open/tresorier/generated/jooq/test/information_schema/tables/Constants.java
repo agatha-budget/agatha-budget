@@ -44,27 +44,27 @@ public class Constants extends TableImpl<ConstantsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_CATALOG</code>.
      */
-    public final TableField<ConstantsRecord, String> CONSTANT_CATALOG = createField(DSL.name("CONSTANT_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> CONSTANT_CATALOG = createField(DSL.name("CONSTANT_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_SCHEMA</code>.
      */
-    public final TableField<ConstantsRecord, String> CONSTANT_SCHEMA = createField(DSL.name("CONSTANT_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> CONSTANT_SCHEMA = createField(DSL.name("CONSTANT_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.CONSTANT_NAME</code>.
      */
-    public final TableField<ConstantsRecord, String> CONSTANT_NAME = createField(DSL.name("CONSTANT_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> CONSTANT_NAME = createField(DSL.name("CONSTANT_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.VALUE_DEFINITION</code>.
      */
-    public final TableField<ConstantsRecord, String> VALUE_DEFINITION = createField(DSL.name("VALUE_DEFINITION"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> VALUE_DEFINITION = createField(DSL.name("VALUE_DEFINITION"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.DATA_TYPE</code>.
      */
-    public final TableField<ConstantsRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -82,33 +82,33 @@ public class Constants extends TableImpl<ConstantsRecord> {
      * The column
      * <code>INFORMATION_SCHEMA.CONSTANTS.CHARACTER_SET_CATALOG</code>.
      */
-    public final TableField<ConstantsRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.CONSTANTS.CHARACTER_SET_SCHEMA</code>.
      */
-    public final TableField<ConstantsRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.CHARACTER_SET_NAME</code>.
      */
-    public final TableField<ConstantsRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.COLLATION_CATALOG</code>.
      */
-    public final TableField<ConstantsRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.COLLATION_SCHEMA</code>.
      */
-    public final TableField<ConstantsRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.COLLATION_NAME</code>.
      */
-    public final TableField<ConstantsRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.NUMERIC_PRECISION</code>.
@@ -134,7 +134,7 @@ public class Constants extends TableImpl<ConstantsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.INTERVAL_TYPE</code>.
      */
-    public final TableField<ConstantsRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.INTERVAL_PRECISION</code>.
@@ -149,12 +149,12 @@ public class Constants extends TableImpl<ConstantsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.DTD_IDENTIFIER</code>.
      */
-    public final TableField<ConstantsRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.DECLARED_DATA_TYPE</code>.
      */
-    public final TableField<ConstantsRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -171,7 +171,7 @@ public class Constants extends TableImpl<ConstantsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.GEOMETRY_TYPE</code>.
      */
-    public final TableField<ConstantsRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.GEOMETRY_SRID</code>.
@@ -181,7 +181,7 @@ public class Constants extends TableImpl<ConstantsRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.CONSTANTS.REMARKS</code>.
      */
-    public final TableField<ConstantsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ConstantsRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private Constants(Name alias, Table<ConstantsRecord> aliased) {
         this(alias, aliased, null);

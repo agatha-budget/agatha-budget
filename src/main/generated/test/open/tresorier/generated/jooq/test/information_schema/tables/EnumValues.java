@@ -45,37 +45,37 @@ public class EnumValues extends TableImpl<EnumValuesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ENUM_VALUES.OBJECT_CATALOG</code>.
      */
-    public final TableField<EnumValuesRecord, String> OBJECT_CATALOG = createField(DSL.name("OBJECT_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<EnumValuesRecord, String> OBJECT_CATALOG = createField(DSL.name("OBJECT_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ENUM_VALUES.OBJECT_SCHEMA</code>.
      */
-    public final TableField<EnumValuesRecord, String> OBJECT_SCHEMA = createField(DSL.name("OBJECT_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<EnumValuesRecord, String> OBJECT_SCHEMA = createField(DSL.name("OBJECT_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ENUM_VALUES.OBJECT_NAME</code>.
      */
-    public final TableField<EnumValuesRecord, String> OBJECT_NAME = createField(DSL.name("OBJECT_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<EnumValuesRecord, String> OBJECT_NAME = createField(DSL.name("OBJECT_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ENUM_VALUES.OBJECT_TYPE</code>.
      */
-    public final TableField<EnumValuesRecord, String> OBJECT_TYPE = createField(DSL.name("OBJECT_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<EnumValuesRecord, String> OBJECT_TYPE = createField(DSL.name("OBJECT_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ENUM_VALUES.ENUM_IDENTIFIER</code>.
      */
-    public final TableField<EnumValuesRecord, String> ENUM_IDENTIFIER = createField(DSL.name("ENUM_IDENTIFIER"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<EnumValuesRecord, String> ENUM_IDENTIFIER = createField(DSL.name("ENUM_IDENTIFIER"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ENUM_VALUES.VALUE_NAME</code>.
      */
-    public final TableField<EnumValuesRecord, String> VALUE_NAME = createField(DSL.name("VALUE_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<EnumValuesRecord, String> VALUE_NAME = createField(DSL.name("VALUE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ENUM_VALUES.VALUE_ORDINAL</code>.
      */
-    public final TableField<EnumValuesRecord, String> VALUE_ORDINAL = createField(DSL.name("VALUE_ORDINAL"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<EnumValuesRecord, String> VALUE_ORDINAL = createField(DSL.name("VALUE_ORDINAL"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private EnumValues(Name alias, Table<EnumValuesRecord> aliased) {
         this(alias, aliased, null);

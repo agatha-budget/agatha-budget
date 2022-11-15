@@ -44,33 +44,33 @@ public class ElementTypes extends TableImpl<ElementTypesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.OBJECT_CATALOG</code>.
      */
-    public final TableField<ElementTypesRecord, String> OBJECT_CATALOG = createField(DSL.name("OBJECT_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> OBJECT_CATALOG = createField(DSL.name("OBJECT_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.OBJECT_SCHEMA</code>.
      */
-    public final TableField<ElementTypesRecord, String> OBJECT_SCHEMA = createField(DSL.name("OBJECT_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> OBJECT_SCHEMA = createField(DSL.name("OBJECT_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.OBJECT_NAME</code>.
      */
-    public final TableField<ElementTypesRecord, String> OBJECT_NAME = createField(DSL.name("OBJECT_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> OBJECT_NAME = createField(DSL.name("OBJECT_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.OBJECT_TYPE</code>.
      */
-    public final TableField<ElementTypesRecord, String> OBJECT_TYPE = createField(DSL.name("OBJECT_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> OBJECT_TYPE = createField(DSL.name("OBJECT_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.ELEMENT_TYPES.COLLECTION_TYPE_IDENTIFIER</code>.
      */
-    public final TableField<ElementTypesRecord, String> COLLECTION_TYPE_IDENTIFIER = createField(DSL.name("COLLECTION_TYPE_IDENTIFIER"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> COLLECTION_TYPE_IDENTIFIER = createField(DSL.name("COLLECTION_TYPE_IDENTIFIER"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.DATA_TYPE</code>.
      */
-    public final TableField<ElementTypesRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -88,36 +88,36 @@ public class ElementTypes extends TableImpl<ElementTypesRecord> {
      * The column
      * <code>INFORMATION_SCHEMA.ELEMENT_TYPES.CHARACTER_SET_CATALOG</code>.
      */
-    public final TableField<ElementTypesRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> CHARACTER_SET_CATALOG = createField(DSL.name("CHARACTER_SET_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.ELEMENT_TYPES.CHARACTER_SET_SCHEMA</code>.
      */
-    public final TableField<ElementTypesRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> CHARACTER_SET_SCHEMA = createField(DSL.name("CHARACTER_SET_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.ELEMENT_TYPES.CHARACTER_SET_NAME</code>.
      */
-    public final TableField<ElementTypesRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> CHARACTER_SET_NAME = createField(DSL.name("CHARACTER_SET_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.ELEMENT_TYPES.COLLATION_CATALOG</code>.
      */
-    public final TableField<ElementTypesRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> COLLATION_CATALOG = createField(DSL.name("COLLATION_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.ELEMENT_TYPES.COLLATION_SCHEMA</code>.
      */
-    public final TableField<ElementTypesRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> COLLATION_SCHEMA = createField(DSL.name("COLLATION_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.COLLATION_NAME</code>.
      */
-    public final TableField<ElementTypesRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> COLLATION_NAME = createField(DSL.name("COLLATION_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -145,7 +145,7 @@ public class ElementTypes extends TableImpl<ElementTypesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.INTERVAL_TYPE</code>.
      */
-    public final TableField<ElementTypesRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> INTERVAL_TYPE = createField(DSL.name("INTERVAL_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -162,13 +162,13 @@ public class ElementTypes extends TableImpl<ElementTypesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.DTD_IDENTIFIER</code>.
      */
-    public final TableField<ElementTypesRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> DTD_IDENTIFIER = createField(DSL.name("DTD_IDENTIFIER"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
      * <code>INFORMATION_SCHEMA.ELEMENT_TYPES.DECLARED_DATA_TYPE</code>.
      */
-    public final TableField<ElementTypesRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column
@@ -185,7 +185,7 @@ public class ElementTypes extends TableImpl<ElementTypesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.GEOMETRY_TYPE</code>.
      */
-    public final TableField<ElementTypesRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<ElementTypesRecord, String> GEOMETRY_TYPE = createField(DSL.name("GEOMETRY_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ELEMENT_TYPES.GEOMETRY_SRID</code>.

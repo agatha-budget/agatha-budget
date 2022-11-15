@@ -45,7 +45,7 @@ public class Users extends TableImpl<UsersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.USERS.USER_NAME</code>.
      */
-    public final TableField<UsersRecord, String> USER_NAME = createField(DSL.name("USER_NAME"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<UsersRecord, String> USER_NAME = createField(DSL.name("USER_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.USERS.IS_ADMIN</code>.
@@ -55,7 +55,7 @@ public class Users extends TableImpl<UsersRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.USERS.REMARKS</code>.
      */
-    public final TableField<UsersRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1048576), this, "");
+    public final TableField<UsersRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private Users(Name alias, Table<UsersRecord> aliased) {
         this(alias, aliased, null);
