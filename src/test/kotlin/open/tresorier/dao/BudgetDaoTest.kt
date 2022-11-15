@@ -39,7 +39,7 @@ open class BudgetDaoTest : ITest {
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             budgetDao.getOwner(budget)
         }
-        assertEquals("the given object appears to have no owner", exception.message)
+        assertEquals("the given budget (${budget}) appears to have no owner", exception.message)
     }
 
     @Test fun testFindByPersonId() {

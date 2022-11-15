@@ -59,7 +59,7 @@ class PgBudgetDao (val configuration : Configuration) : IBudgetDao {
             .where(BUDGET.ID.eq(budget.id))
             .fetchAny()?.into(PERSON)
         if (ownerRecord == null) {
-            throw TresorierException("the given object appears to have no owner")
+            throw TresorierException("the given budget (${budget}) appears to have no owner")
         } else {
             return PgPersonDao.toPerson(ownerRecord)
         }

@@ -58,7 +58,7 @@ class H2BudgetDao (val configuration : Configuration) : IBudgetDao {
             .where(Tables.BUDGET.ID.eq(budget.id))
             .fetchAny()?.into(Tables.PERSON)
         if (ownerRecord == null) {
-            throw TresorierException("the given object appears to have no owner")
+            throw TresorierException("the given budget (${budget}) appears to have no owner")
         } else {
             return H2PersonDao.toPerson(ownerRecord)
         }

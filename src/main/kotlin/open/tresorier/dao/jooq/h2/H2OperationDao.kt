@@ -162,7 +162,7 @@ class H2OperationDao(val configuration: Configuration) : IOperationDao {
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
                 .fetchAny()?.into(PERSON)
         if (ownerRecord == null) {
-            throw TresorierException("the given object appears to have no owner")
+            throw TresorierException("the given operation (${operation}) appears to have no owner")
         } else {
             return H2PersonDao.toPerson(ownerRecord)
         }

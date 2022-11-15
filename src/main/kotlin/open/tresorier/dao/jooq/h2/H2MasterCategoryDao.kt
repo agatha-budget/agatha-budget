@@ -60,7 +60,7 @@ class H2MasterCategoryDao(val configuration: Configuration) : IMasterCategoryDao
             .where(PERSON.ID.eq(BUDGET.PERSON_ID))
             .fetchAny()?.into(PERSON)
         if (ownerRecord == null) {
-            throw TresorierException("the given object appears to have no owner")
+            throw TresorierException("the given masterCategory (${masterCategory}) appears to have no owner")
         } else {
             return H2PersonDao.toPerson(ownerRecord)
         }

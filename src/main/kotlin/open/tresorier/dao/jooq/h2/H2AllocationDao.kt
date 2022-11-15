@@ -51,7 +51,7 @@ class H2AllocationDao(val configuration: Configuration) : IAllocationDao {
             .where(PERSON.ID.eq(BUDGET.PERSON_ID))
             .fetchAny()?.into(PERSON)
         if (ownerRecord == null) {
-            throw TresorierException("the given object appears to have no owner")
+            throw TresorierException("the given allocation (${allocation}) appears to have no owner")
         } else {
             return H2PersonDao.toPerson(ownerRecord)
         }
