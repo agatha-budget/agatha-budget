@@ -51,7 +51,7 @@ class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {
     override fun getOwner(agreement: BankAgreement) : Person {
         val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
             .join(BUDGET).on(BUDGET.ID.eq(agreement.budgetId))
-            .where(PERSON.ID.eq(BUDGET.ID))
+            .where(PERSON.ID.eq(BUDGET.PERSON_ID))
             .fetchAny()?.into(PERSON)
         if (ownerRecord == null) {
             throw TresorierException("the given bankAgreement (${agreement}) appears to have no owner")
