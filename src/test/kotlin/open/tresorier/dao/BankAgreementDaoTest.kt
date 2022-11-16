@@ -43,4 +43,11 @@ open class BankAgreementDaoTest : ITest {
         val account = this.accountDao.getById(TestData.account1Id)
         assertNull(this.bankAgreementDao.findByAccount(account))
     }
+
+    @Test fun testGetOwnerForAgreement() {
+        val bankAgreement = BankAgreement(TestData.budget1Id, "bankId", Time.now())
+        this.bankAgreementDao.insert(bankAgreement)
+        val owner = this.bankAgreementDao.getOwner(bankAgreement)
+        assertEquals(TestData.person1Id, owner.id)
+    }
 }
