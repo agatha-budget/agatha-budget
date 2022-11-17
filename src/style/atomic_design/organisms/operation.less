@@ -1,11 +1,16 @@
-.allOperation {
-  &.operation {
+.operationList {
+  .operationListItem {
     display: flex;
     flex-wrap: wrap;
-    padding: 8px 0 8px 15px;
+    padding: 8px 15px;
     text-align: left;
+    &:nth-child(even) {
+      background-color: @background;
+    }
+    &:nth-child(odd) {
+      background-color: @darkerBackground;
+    }
     cursor: pointer;
-  }
     .category {
       font-weight: bold;
     }
@@ -19,29 +24,20 @@
           padding-left: 10px;
       }
     }
-    .daughter {
-      .category, .amount {
-        border-top: solid @blackGrey 1px;
-      }
+    
+    .daughterCategory, .daughterMemo {
+        padding-left: 25px;
     }
-
-  &:nth-child(even) {
-    background-color: @background;
-  }
-  
-  &:nth-child(odd) {
-    background-color: @darkerBackground;
-  }
-
-  @media (pointer: fine) { 
-    .action {
-        visibility: hidden;
-    }
-    &:hover{
+    
+    @media (pointer: fine) { 
       .action {
-          visibility: visible;
+          visibility: hidden;
+      }
+      &:hover{
+        .action {
+            visibility: visible;
+        }
       }
     }
   }
-
 }
