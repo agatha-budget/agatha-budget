@@ -24,22 +24,20 @@
           padding-left: 10px;
       }
     }
-    .daughter {
-      .category, .amount {
-        border-top: solid @blackGrey 1px;
-      }
+    
+    .daughterCategory, .daughterMemo {
+        padding-left: 25px;
     }
-  }
-
-  @media (pointer: fine) { 
-    .action {
-        visibility: hidden;
-    }
-    &:hover{
+    
+    @media (pointer: fine) { 
       .action {
-          visibility: visible;
+          visibility: hidden;
+      }
+      &:hover{
+        .action {
+            visibility: visible;
+        }
       }
     }
   }
-
 }
