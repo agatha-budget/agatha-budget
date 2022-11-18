@@ -398,6 +398,9 @@ export default defineComponent({
         categoryId: '',
         memo: ''
       }
+      if (this.daughtersData.length === 0) {
+        this.daughtersData.push(newOperationData) // if the operation has daughter it should have minimum two
+      }
       this.daughtersData.push(newOperationData)
     },
     removeDaughter (daughter: DaughterFormData) {
