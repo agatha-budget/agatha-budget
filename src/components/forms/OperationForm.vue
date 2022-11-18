@@ -78,7 +78,7 @@
       <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("DATE") }}</div>
       <div class="col-7 col-sm-6 col-md-3 col-xxl-2"><input id="newOperationDate" type="date" class="form-control" v-model="date"></div>
       <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-2">{{ $t("TOTAL_AMOUNT") }}</div>
-      <div class="sumAmountElement col-4 col-sm-3 col-md-2">{{ addSpacesInThousand(totalAmount) }} €</div>
+      <div class="sumAmountElement col-4 col-sm-3 col-md-2">{{ addSpacesInThousand(totalAmount) }} € ( {{$t('AIMED_FOR')}} {{amountString}} €)</div>
       <div class="col-4 col-sm-5 col-md-2"/>
       <div class="label col-4 offset-0 col-sm-3 offset-sm-1 col-md-1">{{ $t("MEMO") }}</div>
       <div class="textInput form-group col-7 col-sm-6 col-md-3 col-xxl-2">
@@ -310,18 +310,13 @@ export default defineComponent({
     addOperation () {
       const accountForTransfer = this.getAccountById(this.categoryId)
       if (this.account && accountForTransfer) {
-        if (this.incoming) {
-          this.createOperationForTransfert(accountForTransfer, this.account)
-        } else {
-          this.createOperationForTransfert(this.account, accountForTransfer)
-        }
+        this.createOperationForTransfert(accountForTransfer)
       } else {
         OperationService.addOperation(this.$store,
           this.accountId,
           Time.getDayFromDateString(this.date),
           this.categoryId,
-          this.signedCentsAmount(this.incoming,
-            this.amountString),
+          this.signedCentsAmount(this.incoming, this.amountString),
           this.memo,
           this.isPending)
       }
@@ -371,10 +366,15 @@ export default defineComponent({
     getAccountById (accountId: string): Account | null {
       return StoreHandler.getAccountById(this.$store, accountId)
     },
-    createOperationForTransfert (debitedAccount: Account, creditedAccount: Account) {
-      const amount = Utils.getCentsAmount(this.entireCalcul(this.amountString))
-      OperationService.addOperation(this.$store, debitedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount * -1, this.addTransfertNoteToMemo(this.memo, creditedAccount))
-      OperationService.addOperation(this.$store, creditedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount, this.addTransfertNoteToMemo(this.memo, debitedAccount))
+    createOperationForTransfert (transfertAccount: Account) {
+      OperationService.addOperation(
+        this.$store,
+        this.accountId,
+        Time.getDayFromDateString(this.date),
+        transfertCategoryId,
+        this.signedCentsAmount(this.incoming, this.amountString),
+        this.addTransfertNoteToMemo(this.memo, transfertAccount)
+      )
     },
     addTransfertNoteToMemo (memo: string, account: Account): string {
       const regex = new RegExp('\\[.*' + this.$t('TRANSFER_TO') + '.*\\]', 'g')
@@ -391,7 +391,7 @@ export default defineComponent({
       this.$emit('closeForm')
     },
     addDaughter () {
-      const newOperationData = {
+      let newOperationData = {
         id: '',
         incoming: false,
         amountString: '0',
@@ -399,6 +399,16 @@ export default defineComponent({
         memo: ''
       }
       this.daughtersData.push(newOperationData)
+      if (this.daughtersData.length === 1) { // if the operation has daughter it should have minimum two
+        newOperationData = {
+          id: '',
+          incoming: false,
+          amountString: '0',
+          categoryId: '',
+          memo: ''
+        }
+        this.daughtersData.push(newOperationData)
+      }
     },
     removeDaughter (daughter: DaughterFormData) {
       const index = this.daughtersData.indexOf(daughter)
