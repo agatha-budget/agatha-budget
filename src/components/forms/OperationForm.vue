@@ -310,18 +310,13 @@ export default defineComponent({
     addOperation () {
       const accountForTransfer = this.getAccountById(this.categoryId)
       if (this.account && accountForTransfer) {
-        if (this.incoming) {
-          this.createOperationForTransfert(accountForTransfer, this.account)
-        } else {
-          this.createOperationForTransfert(this.account, accountForTransfer)
-        }
+        this.createOperationForTransfert(accountForTransfer)
       } else {
         OperationService.addOperation(this.$store,
           this.accountId,
           Time.getDayFromDateString(this.date),
           this.categoryId,
-          this.signedCentsAmount(this.incoming,
-            this.amountString),
+          this.signedCentsAmount(this.incoming, this.amountString),
           this.memo,
           this.isPending)
       }
@@ -371,10 +366,15 @@ export default defineComponent({
     getAccountById (accountId: string): Account | null {
       return StoreHandler.getAccountById(this.$store, accountId)
     },
-    createOperationForTransfert (debitedAccount: Account, creditedAccount: Account) {
-      const amount = Utils.getCentsAmount(this.entireCalcul(this.amountString))
-      OperationService.addOperation(this.$store, debitedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount * -1, this.addTransfertNoteToMemo(this.memo, creditedAccount))
-      OperationService.addOperation(this.$store, creditedAccount.id, Time.getDayFromDateString(this.date), transfertCategoryId, amount, this.addTransfertNoteToMemo(this.memo, debitedAccount))
+    createOperationForTransfert (transfertAccount: Account) {
+      OperationService.addOperation(
+        this.$store,
+        this.accountId,
+        Time.getDayFromDateString(this.date),
+        transfertCategoryId,
+        this.signedCentsAmount(this.incoming, this.amountString),
+        this.addTransfertNoteToMemo(this.memo, transfertAccount)
+      )
     },
     addTransfertNoteToMemo (memo: string, account: Account): string {
       const regex = new RegExp('\\[.*' + this.$t('TRANSFER_TO') + '.*\\]', 'g')
