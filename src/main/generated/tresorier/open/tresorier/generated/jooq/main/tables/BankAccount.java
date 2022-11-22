@@ -55,7 +55,7 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
     /**
      * The column <code>public.bank_account.name</code>.
      */
-    public final TableField<BankAccountRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BankAccountRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>public.bank_account.agreement_id</code>.
