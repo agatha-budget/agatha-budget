@@ -73,8 +73,8 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
      
         var accountList = listOf<BankAccount>()
         for (i in 1..accounts.length()) {
-            val id = accounts.getString(i-1);
-            val bankAccount = BankAccount(this.getAccountName(id), agreement.id, id)
+            val bankId = accounts.getString(i-1);
+            val bankAccount = BankAccount(this.getAccountName(bankId), agreement.id, bankId)
             accountList = accountList + bankAccount 
         }
         return accountList
