@@ -19,7 +19,7 @@ import open.tresorier.dao.IBankAgreementDao
 import open.tresorier.dao.IBankAccountDao
 import open.tresorier.utils.Time
 
-class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankingPort {
+class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private val bankAccountDao : IBankAccountDao) : IBankingPort {
 
     override fun getLinkForUserAgreement(budget: Budget, bankId: String) : String {
         val properties = Properties()
@@ -104,33 +104,38 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao) : IBankin
 
         if (account.bankAccountId == null) {
             return operationList
+        } else {
+            var bankAccountId : String = ""
+            account.bankAccountId?.let {bankAccountId = it} 
+            val bankAccount = this.bankAccountDao.getById(bankAccountId)
+
+            // date format is 2022-07-07
+            val from = if (_from != null) Time.getDateStringFromTimestamp(_from) else "2022-01-01"
+            val url = "https://ob.nordigen.com/api/v2/accounts/${bankAccount.bankId}/transactions/?date_from=${from}"
+
+            val headerProperties = mapOf(
+                "Content-Type" to "application/json",
+                "Accept" to "application/json",
+                "User-Agent" to "Agatha/1.0",
+                "Authorization" to "Bearer ${this.getToken()}"
+            )
+
+            val connection = HTTPConnection.sendRequest("GET", url, headerProperties)
+
+            if (connection.responseCode !in HTTPConnection.validResponseCodes) {
+                throw BankingException("could not get account transaction for ${account.id} : ${connection.errorStream.reader().use { it.readText() }}")
+            }
+            val response = JSONObject(connection.inputStream.reader().use { it.readText() })
+            // add new transaction for account
+
+            var nordigenOperations = response.getJSONObject("transactions").getJSONArray("booked")
+            operationList = createOperations(account, nordigenOperations, operationList, false)
+
+            nordigenOperations = response.getJSONObject("transactions").getJSONArray("pending")
+            operationList = createOperations(account, nordigenOperations, operationList, true)
+
+            return operationList
         }
-        // date format is 2022-07-07
-        val from = if (_from != null) Time.getDateStringFromTimestamp(_from) else "2022-01-01"
-        val url = "https://ob.nordigen.com/api/v2/accounts/${account.bankAccountId}/transactions/?date_from=${from}"
-
-        val headerProperties = mapOf(
-            "Content-Type" to "application/json",
-            "Accept" to "application/json",
-            "User-Agent" to "Agatha/1.0",
-            "Authorization" to "Bearer ${this.getToken()}"
-        )
-
-        val connection = HTTPConnection.sendRequest("GET", url, headerProperties)
-
-        if (connection.responseCode !in HTTPConnection.validResponseCodes) {
-            throw BankingException("could not get account transaction for ${account.id} : ${connection.errorStream.reader().use { it.readText() }}")
-		}
-        val response = JSONObject(connection.inputStream.reader().use { it.readText() })
-        // add new transaction for account
-
-        var nordigenOperations = response.getJSONObject("transactions").getJSONArray("booked")
-        operationList = createOperations(account, nordigenOperations, operationList, false)
-
-        nordigenOperations = response.getJSONObject("transactions").getJSONArray("pending")
-        operationList = createOperations(account, nordigenOperations, operationList, true)
-
-        return operationList
     }
 
     private fun createOperations(account: Account, nordigenOperations: JSONArray, operationList: List<Operation>, pending: Boolean) : List<Operation> {
