@@ -112,4 +112,19 @@ public class BankAccountDao extends DAOImpl<BankAccountRecord, open.tresorier.ge
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAccount> fetchByDeleted(Boolean... values) {
         return fetch(BankAccount.BANK_ACCOUNT.DELETED, values);
     }
+
+    /**
+     * Fetch records that have <code>BANK_ID BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAccount> fetchRangeOfBankId(String lowerInclusive, String upperInclusive) {
+        return fetchRange(BankAccount.BANK_ACCOUNT.BANK_ID, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>BANK_ID IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.BankAccount> fetchByBankId(String... values) {
+        return fetch(BankAccount.BANK_ACCOUNT.BANK_ID, values);
+    }
 }

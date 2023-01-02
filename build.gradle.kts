@@ -86,8 +86,7 @@ val postgres_version="42.2.12"
 val h2_version="2.1.214"
 val jooq_version="3.17.4"
 val mock_version="1.10.5"
-val slf4j_version="1.7.30"
-val logback_version="1.2.3"
+val logback_version="1.3.5"
 val javalin_version="3.11.0"
 val jackson_version="2.10.3"
 val supertoken_version="1.4.+"
@@ -142,7 +141,6 @@ dependencies {
     implementation("org.jooq:jooq-codegen:$jooq_version")
 
     // Logging
-    implementation("org.slf4j:slf4j-api:$slf4j_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("ch.qos.logback:logback-core:$logback_version")
 

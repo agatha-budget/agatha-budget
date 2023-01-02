@@ -39,3 +39,5 @@ logs/app.log
 logs/
 
 local.properties
+
+logback.xml

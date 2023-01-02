@@ -93,12 +93,13 @@ class PgBankAccountDao(val configuration: Configuration) : IBankAccountDao {
         return accountList
     }
 
-    private fun toJooqBankAccount(BankAccount: BankAccount): JooqBankAccount {
+    private fun toJooqBankAccount(bankAccount: BankAccount): JooqBankAccount {
         return JooqBankAccount(
-            BankAccount.id,
-            BankAccount.name,
-            BankAccount.agreementId,
-            BankAccount.deleted
+            bankAccount.id,
+            bankAccount.name,
+            bankAccount.agreementId,
+            bankAccount.deleted,
+            bankAccount.bankId
         )
     }
 
@@ -106,6 +107,7 @@ class PgBankAccountDao(val configuration: Configuration) : IBankAccountDao {
         return BankAccount(
             jooqBankAccount.name,
             jooqBankAccount.agreementId,
+            jooqBankAccount.bankId,
             jooqBankAccount.id,
             jooqBankAccount.deleted
         )
