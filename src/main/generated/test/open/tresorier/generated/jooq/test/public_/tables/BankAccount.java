@@ -15,7 +15,7 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row4;
+import org.jooq.Row5;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -66,6 +66,11 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
      * The column <code>PUBLIC.BANK_ACCOUNT.DELETED</code>.
      */
     public final TableField<BankAccountRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>PUBLIC.BANK_ACCOUNT.BANK_ID</code>.
+     */
+    public final TableField<BankAccountRecord, String> BANK_ID = createField(DSL.name("BANK_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
 
     private BankAccount(Name alias, Table<BankAccountRecord> aliased) {
         this(alias, aliased, null);
@@ -155,11 +160,11 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row4 type methods
+    // Row5 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<String, String, String, Boolean> fieldsRow() {
-        return (Row4) super.fieldsRow();
+    public Row5<String, String, String, Boolean, String> fieldsRow() {
+        return (Row5) super.fieldsRow();
     }
 }

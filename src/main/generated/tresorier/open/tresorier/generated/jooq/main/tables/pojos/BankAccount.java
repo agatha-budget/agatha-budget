@@ -19,24 +19,28 @@ public class BankAccount implements Serializable {
     private final String  name;
     private final String  agreementId;
     private final Boolean deleted;
+    private final String  bankId;
 
     public BankAccount(BankAccount value) {
         this.id = value.id;
         this.name = value.name;
         this.agreementId = value.agreementId;
         this.deleted = value.deleted;
+        this.bankId = value.bankId;
     }
 
     public BankAccount(
         String  id,
         String  name,
         String  agreementId,
-        Boolean deleted
+        Boolean deleted,
+        String  bankId
     ) {
         this.id = id;
         this.name = name;
         this.agreementId = agreementId;
         this.deleted = deleted;
+        this.bankId = bankId;
     }
 
     /**
@@ -67,6 +71,13 @@ public class BankAccount implements Serializable {
         return this.deleted;
     }
 
+    /**
+     * Getter for <code>public.bank_account.bank_id</code>.
+     */
+    public String getBankId() {
+        return this.bankId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("BankAccount (");
@@ -75,6 +86,7 @@ public class BankAccount implements Serializable {
         sb.append(", ").append(name);
         sb.append(", ").append(agreementId);
         sb.append(", ").append(deleted);
+        sb.append(", ").append(bankId);
 
         sb.append(")");
         return sb.toString();
