@@ -28,5 +28,6 @@ inline fun <reified T: Any> getQueryParam(ctx: Context, paramName: String) : T {
 }
 
 inline fun <reified T: Any> getOptionalQueryParam(ctx: Context, paramName: String) : T? {
-    return ctx.queryParam<T>(paramName).getOrNull()
+    val param = ctx.queryParam<T>(paramName).getOrNull()
+    return if (param == "null") null else param
 }
