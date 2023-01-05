@@ -243,8 +243,6 @@ export default defineComponent({
           optionsList.push(this.createOptionGroup(masterCategory, categories))
         }
       }
-      console.log(optionsList)
-      console.log(this.categoryId)
       return optionsList
     },
     account (): Account | null {
