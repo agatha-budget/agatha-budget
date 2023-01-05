@@ -195,9 +195,7 @@ export default defineComponent({
       return Time.getDateFromDay(dayAsInt)
     },
     setAsEditing (operation: EditableOperation) {
-      if (!this.filteringCategoryId) {
-        operation.editing = true
-      }
+      operation.editing = true
     },
     operationToEditableOperation (operations: OperationWithDaughters[]): EditableOperation[] {
       const editableOperations: EditableOperation[] = []
