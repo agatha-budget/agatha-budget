@@ -1,6 +1,6 @@
 <template>
   <div id="login_page">
-    <div class="form">
+    <div v-on:keyup.enter="login" class="form">
       <img id="logo" alt="Vue logo" src="../assets/logo.png" />
       <input class="form-control" v-model="email" :placeholder="$t('EMAIL')">
       <input class="form-control" type="password" v-model="password" :placeholder="$t('PASSWORD')">
