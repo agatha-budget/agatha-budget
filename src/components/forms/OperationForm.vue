@@ -250,28 +250,32 @@ export default defineComponent({
       }
     },
     updateOperation () {
-      let categoryId = this.categoryId
-      let memo = this.memo
-      const accountForTransfer = this.getAccountById(this.categoryId)
-      if (accountForTransfer) {
-        categoryId = transfertCategoryId
-        memo = this.addTransfertNoteToMemo(memo, accountForTransfer)
-      }
-      if (this.operation) {
-        OperationService.updateOperation(this.$store,
-          this.operation.id,
-          this.accountId,
-          Time.getDayFromDateString(this.date),
-          categoryId,
-          this.signedCentsAmount(this.incoming, this.amountString),
-          memo,
-          this.isPending).then(
-          () => {
-            this.$emit('updateOperationList')
-          }
-        )
+      if (this.daughtersData.length === 0) {
+        let categoryId = this.categoryId
+        let memo = this.memo
+        const accountForTransfer = this.getAccountById(this.categoryId)
+        if (accountForTransfer) {
+          categoryId = transfertCategoryId
+          memo = this.addTransfertNoteToMemo(memo, accountForTransfer)
+        }
+        if (this.operation) {
+          OperationService.updateOperation(this.$store,
+            this.operation.id,
+            this.accountId,
+            Time.getDayFromDateString(this.date),
+            categoryId,
+            this.signedCentsAmount(this.incoming, this.amountString),
+            memo,
+            this.isPending).then(
+            () => {
+              this.$emit('updateOperationList')
+            }
+          )
+        } else {
+          console.log('warning: tried to update without operation to update')
+        }
       } else {
-        console.log('warning: tried to update without operation to update')
+        this.updateOperationMultipleCategories()
       }
     },
     async deleteOperation () {
@@ -284,17 +288,21 @@ export default defineComponent({
       }
     },
     addOperation () {
-      const accountForTransfer = this.getAccountById(this.categoryId)
-      if (this.account && accountForTransfer) {
-        this.createOperationForTransfert(accountForTransfer)
+      if (this.daughtersData.length === 0) {
+        const accountForTransfer = this.getAccountById(this.categoryId)
+        if (this.account && accountForTransfer) {
+          this.createOperationForTransfert(accountForTransfer)
+        } else {
+          OperationService.addOperation(this.$store,
+            this.accountId,
+            Time.getDayFromDateString(this.date),
+            this.categoryId,
+            this.signedCentsAmount(this.incoming, this.amountString),
+            this.memo,
+            this.isPending)
+        }
       } else {
-        OperationService.addOperation(this.$store,
-          this.accountId,
-          Time.getDayFromDateString(this.date),
-          this.categoryId,
-          this.signedCentsAmount(this.incoming, this.amountString),
-          this.memo,
-          this.isPending)
+        this.addOperationMultipleCategories()
       }
       this.$emit('updateOperationList')
     },
