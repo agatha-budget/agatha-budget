@@ -33,7 +33,16 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
     override fun insert(operation: Operation): Operation {
         val jooqOperation = this.toJooqOperation(operation)
         try {
-            this.generatedDao.insert(jooqOperation)
+            this.query
+                .insertInto(OPERATION, OPERATION.ID, OPERATION.ACCOUNT_ID, OPERATION.MONTH, OPERATION.DAY,
+                 OPERATION.CATEGORY_ID, OPERATION.MEMO, OPERATION.AMOUNT, OPERATION.ORDER_IN_DAY, 
+                 OPERATION.PENDING, OPERATION.LOCKED, OPERATION.MOTHER_OPERATION_ID,
+                  OPERATION.IMPORT_IDENTIFIER, OPERATION.IMPORT_TIMESTAMP)
+                .values(jooqOperation.id, jooqOperation.accountId, jooqOperation.month, jooqOperation.day, 
+                jooqOperation.categoryId, jooqOperation.memo, jooqOperation.amount, jooqOperation.orderInDay, jooqOperation.pending,
+                jooqOperation.locked, jooqOperation.motherOperationId, jooqOperation.importIdentifier, jooqOperation.importTimestamp )
+                .onDuplicateKeyIgnore()
+                .execute()
         } catch (e: Exception) {
             throw TresorierException("could not insert operation : $operation", e)
         }

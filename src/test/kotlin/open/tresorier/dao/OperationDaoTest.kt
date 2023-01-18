@@ -204,4 +204,19 @@ open class OperationDaoTest : ITest {
         val amountNow = operationDao.findAmountByBudget(budget)
         Assertions.assertEquals(4000, amountNow)
     }
+
+    @Test
+    fun duplicateImportIdentifierAreIgnoredWhenInserted() {
+        val budget = Budget("professional budget", "person1", ProfileEnum.PROFILE_USER)
+        budgetDao.insert(budget)
+        val account = Account("my own account", budget.id)
+        accountDao.insert(account)
+        val importedOperation = Operation(account.id, TestData.nov_02_2020, null, 4000, 1, null, false, false, null, "importIdentifier must be unique")
+        operationDao.insert(importedOperation)
+        val importedTwiceOperation = Operation(account.id, TestData.nov_02_2020, null, 4000, 1, null, false, false, null, "importIdentifier must be unique")
+        operationDao.insert(importedTwiceOperation)
+        Assertions.assertThrows(TresorierException::class.java) {
+            operationDao.getById(importedTwiceOperation.id)
+        }
+    }
 }
