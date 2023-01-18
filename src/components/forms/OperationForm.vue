@@ -230,7 +230,7 @@ export default defineComponent({
           sum -= this.entireCalcul(daughterOperation.amountString)
         }
       })
-      return sum
+      return (Math.round(sum * 100) / 100)
     },
     toShareAmountString (): string {
       const toShareNumber = (this.operation?.amount || 0) - Utils.getCentsAmount(this.totalAmount)
