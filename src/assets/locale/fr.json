@@ -6,7 +6,7 @@
     "SORRY_WRONG_LOGIN": "Aucun utilisateur n'a été trouvé pour cette adresse",
     "SORRY_WRONG_PASSWORD": "Mot de passe invalide",
     "SORRY_LOCKED_OUT": "Mot de passe invalide. Pour votre sécurité, votre compte sera bloqué pendant {lockingDuration} minutes (cette durée augmentera à chaque nouvel essai)",
-    "ALLOCATED": "alloué",
+    "ALLOCATED": "dédié",
     "SPENT": "dépensé",
     "AVAILABLE": "disponible",
     "TOTAL": "total",
@@ -120,7 +120,8 @@
     "DEFERMENT_SUBSCRIPTION": "votre abonnement arrive bientôt à échéance, pensez à souscrire de nouveau",
     "TOTAL_AMOUNT": "montant total",
     "ADD_NEW_CATEGORY": "ajouter catégorie",
-    "ADD_NEW_DAUGHTER": "diviser",
+    "ADD_NEW_DAUGHTER": "ajouter une enveloppe supplémentaire",
+    "CREATE_DAUGTHERS": "répartir entre plusieurs enveloppes",
     "ACCOUNT_ASSOCIATION": "association des comptes",
     "SYNC_BANK": "banque",
     "ADD_A_BANK": "ajouter une banque",
@@ -150,5 +151,8 @@
     "EXPIRE_ON":"expire le",
     "ON_ACCOUNT":"sur le compte",
     "CHOOSE":"choisir",
-    "AIMED_FOR":"visé"
+    "AIMED_FOR":"visé",
+    "SHARED":"répartis",
+    "TO_SHARE":"à répartir",
+    "REPARTITION":"Répartition"
 }
