@@ -385,36 +385,7 @@ export default defineComponent({
       const index = this.daughtersData.indexOf(daughter)
       this.daughtersData.splice(index, 1)
     },
-    async addOperationMultipleCategories () {
-      // mother operation
-      const motherOperation = await OperationService.addOperation(this.$store,
-        this.accountId,
-        Time.getDayFromDateString(this.date),
-        undefined,
-        Utils.getCentsAmount(this.signedCentsDaughterSumAmount),
-        this.memo,
-        this.isPending,
-        undefined
-      )
-      // daughters
-      this.daughtersData.forEach(daughterOperation => {
-        let amountCent = Utils.getCentsAmount(this.entireCalcul(daughterOperation.amountString))
-        if (!daughterOperation.incoming) {
-          amountCent = amountCent * (-1)
-        }
-        OperationService.addOperation(this.$store,
-          this.accountId,
-          Time.getDayFromDateString(this.date),
-          daughterOperation.categoryId,
-          amountCent,
-          daughterOperation.memo,
-          this.isPending,
-          motherOperation.id
-        )
-      })
-      this.rebootAddOperationForm()
-    },
-    async saveChangesToDaughters (motherOperationId: string) {
+    saveChangesToDaughters (motherOperationId: string) {
       const preexistingDaughters = (this.operation) ? this.operation.daughters : []
 
       this.daughtersData.forEach(daughter => {
