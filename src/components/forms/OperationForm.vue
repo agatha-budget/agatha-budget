@@ -222,7 +222,11 @@ export default defineComponent({
       return this.getAccountById(this.accountId)
     },
     signedCentsAmount (): number {
-      return this.getSignedCentsAmount(this.incoming, this.amountString)
+      if (this.daughtersData.length === 0) {
+        return this.getSignedCentsAmount(this.incoming, this.amountString)
+      } else {
+        return this.signedCentsDaughterSumAmount
+      }
     },
     signedCentsDaughterSumAmount (): number {
       let sum = 0
