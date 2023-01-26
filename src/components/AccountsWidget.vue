@@ -71,12 +71,8 @@ export default defineComponent({
     changeAccountCreationFormDisplay () {
       this.$data.accountCreationFormIsDisplayed = !this.$data.accountCreationFormIsDisplayed
     },
-    getEurosAmount (amount: number): string {
-      const value = Utils.getEurosAmount(amount)
-      return this.addSpacesInThousand(value)
-    },
-    addSpacesInThousand (number: number): string {
-      return Utils.addSpacesInThousand(number)
+    centsToEurosDisplay (amount: number): string {
+      return this.centsToEurosDisplay(amount)
     }
   }
 })

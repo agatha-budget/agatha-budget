@@ -7,7 +7,11 @@ export default class Utils {
     return Math.round(+eurosAmount * 100)
   }
 
-  public static addSpacesInThousand (number: number): string {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  public static centsToEurosDisplay (centsAmount: number): string {
+    return (centsAmount / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+  }
+
+  public static eurosToEurosDisplay (eurosAmount: number): string {
+    return eurosAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
   }
 }

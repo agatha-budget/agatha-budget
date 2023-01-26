@@ -83,14 +83,14 @@ export default defineComponent({
   },
   computed: {
     amountAsString (): string {
-      return Utils.addSpacesInThousand(this.totalAccount / 100)
+      return Utils.centsToEurosDisplay(this.totalAccount)
     },
     realAmountAsString (): string {
-      return Utils.addSpacesInThousand(this.realAmountOnAccount / 100)
+      return Utils.centsToEurosDisplay(this.realAmountOnAccount)
     },
     pendingAmount (): string {
       const pendingCents = Math.abs(this.totalAccount - this.realAmountOnAccount)
-      return Utils.addSpacesInThousand(pendingCents / 100)
+      return Utils.centsToEurosDisplay(pendingCents)
     },
     pendingIsNegative (): boolean {
       return (this.totalAccount - this.realAmountOnAccount) < 0

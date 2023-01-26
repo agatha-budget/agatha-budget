@@ -8,10 +8,10 @@
             <span class="action">
             </span>
           </th>
-          <th class="col-2 amountCol">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.allocated))}}</th>
-          <th class="col-2 amountCol spent">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.spent)) }}</th>
+          <th class="col-2 amountCol">{{ eurosToEurosDisplay(getEurosAmount(masterCategoryData.allocated))}}</th>
+          <th class="col-2 amountCol spent">{{ eurosToEurosDisplay(getEurosAmount(masterCategoryData.spent)) }}</th>
           <th class="col-2 amountCol"><span :class="masterCategoryData.available < 0 ? 'negative' : ''">
-          {{ addSpacesInThousand(getEurosAmount(masterCategoryData.available)) }}
+          {{ eurosToEurosDisplay(getEurosAmount(masterCategoryData.available)) }}
         </span></th>
         </tr>
       </thead>
@@ -34,11 +34,11 @@
               </div>
             </td>
             <td class="col-2 spent">
-                {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.spent ?? "")) }}
+                {{ eurosToEurosDisplay(getEurosAmount(this.categoryDataList[category.id]?.spent ?? "")) }}
             </td>
             <td class="col-2">
               <span v-if="this.categoryDataList[category.id] && this.categoryDataList[category.id].available != 0" :class="this.categoryDataList[category.id]?.available < 0 ? 'negative' : ''">
-              {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.available)) }}
+              {{ eurosToEurosDisplay(getEurosAmount(this.categoryDataList[category.id]?.available)) }}
             </span>
           </td>
         </tr>
@@ -127,8 +127,8 @@ export default defineComponent({
     emptyMasterCategory (masterCategoryId: string) {
       this.$emit('emptyMasterCategory', masterCategoryId)
     },
-    addSpacesInThousand (number: number): string {
-      return Utils.addSpacesInThousand(number)
+    eurosToEurosDisplay (number: number): string {
+      return Utils.eurosToEurosDisplay(number)
     },
     entireCalcul (amount: string): number {
       return Calcul.entireCalcul(amount)
