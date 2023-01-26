@@ -375,23 +375,17 @@ export default defineComponent({
       this.$emit('closeForm')
     },
     addDaughter () {
-      let newOperationData = {
-        id: '',
-        incoming: false,
-        amountString: '0',
-        categoryId: '',
-        memo: ''
-      }
-      this.daughtersData.push(newOperationData)
-      if (this.daughtersData.length === 1) { // if the operation has daughter it should have minimum two
-        newOperationData = {
+      this.daughtersData.push(
+        {
           id: '',
           incoming: false,
           amountString: '0',
           categoryId: '',
           memo: ''
         }
-        this.daughtersData.push(newOperationData)
+      )
+      if (this.daughtersData.length === 1) { // if the operation has daughter it should have minimum two
+        this.addDaughter()
       }
     },
     removeDaughter (daughter: DaughterFormData) {
