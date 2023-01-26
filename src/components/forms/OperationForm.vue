@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Envelope -->
+    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Envelope, not displayed if daughters -->
       <label class="label col-4">{{ $t("ENVELOPE") }}</label>
       <div class="selectAutoComplete form-group col-8">
         <Multiselect
@@ -42,7 +42,7 @@
         />
       </div>
     </div>
-    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Amount No Daugther-->
+    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Amount With No Daugther-->
       <label class="label col-4">{{ $t("AMOUNT") }}</label>
       <div class="amountElement col-8">
         <div class="amountInput input-group flex-nowrap">
@@ -109,11 +109,11 @@
         </div>
       </div>
     </div>
-    <div class="col-12">
+    <div class="col-12">  <!-- Add Daugther Action -->
       <btn v-if="this.daughtersData.length == 0" class="actionButton" v-on:click="addDaughter">{{ $t('CREATE_DAUGTHERS') }}</btn>
       <btn v-else class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</btn>
     </div>
-    <div class="col-12 row formAction" v-if="this.operation">
+    <div class="col-12 row formAction" v-if="this.operation"> <!-- Update/Delete Action -->
       <div class="col-6">
         <btn  class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
       </div>
@@ -121,7 +121,7 @@
         <btn class="actionButton" :title="$t('DELETE')" v-on:click="deleteOperation">{{ $t('DELETE') }}</btn>
       </div>
     </div>
-    <div v-else class="col-12 formAction">
+    <div v-else class="col-12 formAction"> <!-- Create Action -->
       <btn  class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
     </div>
   </div>
