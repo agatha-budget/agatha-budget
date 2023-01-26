@@ -11,7 +11,7 @@
       <label class="label col-4">{{ $t("STATUS") }}</label>
       <div class="col-8 inline">
         <label class="customSwitch">
-            <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
+            <input class="switch-input" type="checkbox" v-on:click="inversePending" v-model="isPending"/>
             <span class="switch-label-pending"/>
             <span class="switch-handle-pending"/>
         </label>
@@ -322,7 +322,7 @@ export default defineComponent({
       }
       return group
     },
-    pending () {
+    inversePending () {
       this.isPending = !this.isPending
     },
     createOptionTransfer (accounts: Account[]): GroupSelectOption {
