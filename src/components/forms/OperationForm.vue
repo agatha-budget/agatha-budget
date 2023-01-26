@@ -222,7 +222,7 @@ export default defineComponent({
       return this.getAccountById(this.accountId)
     },
     signedCentsAmount (): number {
-      return this.signedCentsAmount
+      return this.getSignedCentsAmount(this.incoming, this.amountString)
     },
     signedCentsDaughterSumAmount (): number {
       let sum = 0
