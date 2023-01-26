@@ -58,7 +58,7 @@
     <div v-else class="formItem col-12 inline"> <!-- Amount With Daugther-->
       <label class="label col-4 col-md-2">{{ $t("AMOUNT") }}</label>
       <div class="sumAmountElement col-8 col-md-10">
-        {{ incoming ? "" : "-" }}{{ amountString }} € ( {{addSpacesInThousand(totalAmount)}} € {{$t('SHARED')}}, {{toShareAmountString}} € {{$t('TO_SHARE')}} )
+        {{ incoming ? "" : "-" }}{{ amountString }} € ( {{addSpacesInThousand(signedCentsDaughterSumAmount)}} € {{$t('SHARED')}}, {{toShareAmountString}} € {{$t('TO_SHARE')}} )
       </div>
     </div>
     <div class="formItem col-12 inline"> <!-- Memo -->
@@ -221,7 +221,10 @@ export default defineComponent({
     account (): Account | null {
       return this.getAccountById(this.accountId)
     },
-    totalAmount (): number {
+    signedCentsAmount (): number {
+      return this.signedCentsAmount
+    },
+    signedCentsDaughterSumAmount (): number {
       let sum = 0
       this.daughtersData.forEach(daughterOperation => {
         if (daughterOperation.incoming) {
@@ -233,7 +236,7 @@ export default defineComponent({
       return (Math.round(sum * 100) / 100)
     },
     toShareAmountString (): string {
-      const toShareNumber = (this.operation?.amount || 0) - Utils.getCentsAmount(this.totalAmount)
+      const toShareNumber = (this.operation?.amount || 0) - Utils.getCentsAmount(this.signedCentsDaughterSumAmount)
       return Utils.getEurosAmount(toShareNumber).toString()
     }
 
@@ -264,7 +267,7 @@ export default defineComponent({
             this.accountId,
             Time.getDayFromDateString(this.date),
             categoryId,
-            this.signedCentsAmount(this.incoming, this.amountString),
+            this.signedCentsAmount,
             memo,
             this.isPending).then(
             () => {
@@ -297,7 +300,7 @@ export default defineComponent({
             this.accountId,
             Time.getDayFromDateString(this.date),
             this.categoryId,
-            this.signedCentsAmount(this.incoming, this.amountString),
+            this.signedCentsAmount,
             this.memo,
             this.isPending)
         }
@@ -356,7 +359,7 @@ export default defineComponent({
         this.accountId,
         Time.getDayFromDateString(this.date),
         transfertCategoryId,
-        this.signedCentsAmount(this.incoming, this.amountString),
+        this.signedCentsAmount,
         this.addTransfertNoteToMemo(this.memo, transfertAccount)
       )
     },
@@ -398,7 +401,7 @@ export default defineComponent({
         this.accountId,
         Time.getDayFromDateString(this.date),
         undefined,
-        Utils.getCentsAmount(this.totalAmount),
+        Utils.getCentsAmount(this.signedCentsDaughterSumAmount),
         this.memo,
         this.isPending,
         undefined
@@ -429,7 +432,7 @@ export default defineComponent({
           this.accountId,
           Time.getDayFromDateString(this.date),
           undefined,
-          Utils.getCentsAmount(this.totalAmount),
+          Utils.getCentsAmount(this.signedCentsDaughterSumAmount),
           this.memo,
           this.isPending,
           undefined
@@ -490,7 +493,7 @@ export default defineComponent({
       })
       return true
     },
-    signedCentsAmount (incoming: boolean, amountString: string): number {
+    getSignedCentsAmount (incoming: boolean, amountString: string): number {
       const amount = this.entireCalcul(amountString)
       return Utils.getCentsAmount((incoming) ? Math.abs(amount) : Math.abs(amount) * -1)
     },
