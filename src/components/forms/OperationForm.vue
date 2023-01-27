@@ -11,7 +11,7 @@
       <label class="label col-4">{{ $t("STATUS") }}</label>
       <div class="col-8 inline">
         <label class="customSwitch">
-            <input class="switch-input" type="checkbox" v-on:click="pending" v-model="isPending"/>
+            <input class="switch-input" type="checkbox" v-on:click="inversePending" v-model="isPending"/>
             <span class="switch-label-pending"/>
             <span class="switch-handle-pending"/>
         </label>
@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Envelope -->
+    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Envelope, not displayed if daughters -->
       <label class="label col-4">{{ $t("ENVELOPE") }}</label>
       <div class="selectAutoComplete form-group col-8">
         <Multiselect
@@ -42,7 +42,7 @@
         />
       </div>
     </div>
-    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Amount No Daugther-->
+    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Amount With No Daugther-->
       <label class="label col-4">{{ $t("AMOUNT") }}</label>
       <div class="amountElement col-8">
         <div class="amountInput input-group flex-nowrap">
@@ -58,7 +58,7 @@
     <div v-else class="formItem col-12 inline"> <!-- Amount With Daugther-->
       <label class="label col-4 col-md-2">{{ $t("AMOUNT") }}</label>
       <div class="sumAmountElement col-8 col-md-10">
-        {{ incoming ? "" : "-" }}{{ amountString }} € ( {{addSpacesInThousand(totalAmount)}} € {{$t('SHARED')}}, {{toShareAmountString}} € {{$t('TO_SHARE')}} )
+        {{ incoming ? "" : "-" }}{{ amountString }} € ( {{centsToEurosDisplay(signedCentsDaughterSumAmount)}} € {{$t('SHARED')}}, {{centsToEurosDisplay(toShareAmountString)}} € {{$t('TO_SHARE')}} )
       </div>
     </div>
     <div class="formItem col-12 inline"> <!-- Memo -->
@@ -109,20 +109,20 @@
         </div>
       </div>
     </div>
-    <div class="col-12">
+    <div class="col-12">  <!-- Add Daugther Action -->
       <btn v-if="this.daughtersData.length == 0" class="actionButton" v-on:click="addDaughter">{{ $t('CREATE_DAUGTHERS') }}</btn>
       <btn v-else class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</btn>
     </div>
-    <div class="col-12 row formAction" v-if="this.operation">
+    <div class="col-12 row formAction" v-if="this.operation"> <!-- Update/Delete Action -->
       <div class="col-6">
-        <btn  class="actionButton" v-on:click="updateOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
+        <btn  class="actionButton" v-on:click="saveOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
       </div>
       <div class="col-6">
         <btn class="actionButton" :title="$t('DELETE')" v-on:click="deleteOperation">{{ $t('DELETE') }}</btn>
       </div>
     </div>
-    <div v-else class="col-12 formAction">
-      <btn  class="actionButton" v-on:click="addOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
+    <div v-else class="col-12 formAction"> <!-- Create Action -->
+      <btn  class="actionButton" v-on:click="saveOperation" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
     </div>
   </div>
 </template>
@@ -221,7 +221,14 @@ export default defineComponent({
     account (): Account | null {
       return this.getAccountById(this.accountId)
     },
-    totalAmount (): number {
+    signedCentsAmount (): number {
+      if (this.daughtersData.length === 0) {
+        return this.getSignedCentsAmount(this.incoming, this.amountString)
+      } else {
+        return this.signedCentsDaughterSumAmount
+      }
+    },
+    signedCentsDaughterSumAmount (): number {
       let sum = 0
       this.daughtersData.forEach(daughterOperation => {
         if (daughterOperation.incoming) {
@@ -230,11 +237,10 @@ export default defineComponent({
           sum -= this.entireCalcul(daughterOperation.amountString)
         }
       })
-      return (Math.round(sum * 100) / 100)
+      return Utils.getCentsAmount(sum)
     },
-    toShareAmountString (): string {
-      const toShareNumber = (this.operation?.amount || 0) - Utils.getCentsAmount(this.totalAmount)
-      return Utils.getEurosAmount(toShareNumber).toString()
+    toShareAmountString (): number {
+      return (this.operation?.amount || 0) - this.signedCentsDaughterSumAmount
     }
 
   },
@@ -249,35 +255,6 @@ export default defineComponent({
         memo: (daughter.memo === 'null') ? '' : daughter.memo
       }
     },
-    updateOperation () {
-      if (this.daughtersData.length === 0) {
-        let categoryId = this.categoryId
-        let memo = this.memo
-        const accountForTransfer = this.getAccountById(this.categoryId)
-        if (accountForTransfer) {
-          categoryId = transfertCategoryId
-          memo = this.addTransfertNoteToMemo(memo, accountForTransfer)
-        }
-        if (this.operation) {
-          OperationService.updateOperation(this.$store,
-            this.operation.id,
-            this.accountId,
-            Time.getDayFromDateString(this.date),
-            categoryId,
-            this.signedCentsAmount(this.incoming, this.amountString),
-            memo,
-            this.isPending).then(
-            () => {
-              this.$emit('updateOperationList')
-            }
-          )
-        } else {
-          console.log('warning: tried to update without operation to update')
-        }
-      } else {
-        this.updateOperationMultipleCategories()
-      }
-    },
     async deleteOperation () {
       if (this.operation) {
         OperationService.deleteOperation(this.$store, this.operation.id).then(
@@ -287,36 +264,8 @@ export default defineComponent({
         )
       }
     },
-    addOperation () {
-      if (this.daughtersData.length === 0) {
-        const accountForTransfer = this.getAccountById(this.categoryId)
-        if (this.account && accountForTransfer) {
-          this.createOperationForTransfert(accountForTransfer)
-        } else {
-          OperationService.addOperation(this.$store,
-            this.accountId,
-            Time.getDayFromDateString(this.date),
-            this.categoryId,
-            this.signedCentsAmount(this.incoming, this.amountString),
-            this.memo,
-            this.isPending)
-        }
-      } else {
-        this.addOperationMultipleCategories()
-      }
-      this.$emit('updateOperationList')
-    },
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
       return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
-    },
-    rebootAddOperationForm () {
-      this.date = Time.getCurrentDateString()
-      this.isPending = false
-      this.memo = ''
-      this.categoryId = ''
-      this.incoming = false
-      this.amountString = Utils.getEurosAmount(Math.abs(0)).toString()
-      this.daughtersData = []
     },
     createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
       const group: GroupSelectOption = {
@@ -329,7 +278,7 @@ export default defineComponent({
       }
       return group
     },
-    pending () {
+    inversePending () {
       this.isPending = !this.isPending
     },
     createOptionTransfer (accounts: Account[]): GroupSelectOption {
@@ -356,7 +305,7 @@ export default defineComponent({
         this.accountId,
         Time.getDayFromDateString(this.date),
         transfertCategoryId,
-        this.signedCentsAmount(this.incoming, this.amountString),
+        this.signedCentsAmount,
         this.addTransfertNoteToMemo(this.memo, transfertAccount)
       )
     },
@@ -365,9 +314,6 @@ export default defineComponent({
       memo = memo.replace(regex, '')
       return '[ ' + this.$t('TRANSFER_TO') + account.name + '] ' + memo
     },
-    entireCalcul (amount: string): number {
-      return Calcul.entireCalcul(amount)
-    },
     closeForm () {
       if (this.operation) {
         this.$emit('closeUpdate', this.operation)
@@ -375,110 +321,104 @@ export default defineComponent({
       this.$emit('closeForm')
     },
     addDaughter () {
-      let newOperationData = {
-        id: '',
-        incoming: false,
-        amountString: '0',
-        categoryId: '',
-        memo: ''
-      }
-      this.daughtersData.push(newOperationData)
-      if (this.daughtersData.length === 1) { // if the operation has daughter it should have minimum two
-        newOperationData = {
+      this.daughtersData.push(
+        {
           id: '',
           incoming: false,
           amountString: '0',
           categoryId: '',
           memo: ''
         }
-        this.daughtersData.push(newOperationData)
+      )
+      if (this.daughtersData.length === 1) { // if the operation has daughter it should have minimum two
+        this.addDaughter()
       }
     },
     removeDaughter (daughter: DaughterFormData) {
       const index = this.daughtersData.indexOf(daughter)
       this.daughtersData.splice(index, 1)
     },
-    async addOperationMultipleCategories () {
-      // mother operation
-      const motherOperation = await OperationService.addOperation(this.$store,
-        this.accountId,
-        Time.getDayFromDateString(this.date),
-        undefined,
-        Utils.getCentsAmount(this.totalAmount),
-        this.memo,
-        this.isPending,
-        undefined
-      )
-      // daughters
-      this.daughtersData.forEach(daughterOperation => {
-        let amountCent = Utils.getCentsAmount(this.entireCalcul(daughterOperation.amountString))
-        if (!daughterOperation.incoming) {
-          amountCent = amountCent * (-1)
-        }
-        OperationService.addOperation(this.$store,
-          this.accountId,
-          Time.getDayFromDateString(this.date),
-          daughterOperation.categoryId,
-          amountCent,
-          daughterOperation.memo,
-          this.isPending,
-          motherOperation.id
-        )
-      })
-      this.rebootAddOperationForm()
-    },
-    async updateOperationMultipleCategories () {
-      // mother operation
+    async saveOperation () {
+      // if transfert use specific category and memo
+      const accountForTransfer = this.getAccountById(this.categoryId)
+      let categoryId: string | undefined = (accountForTransfer) ? transfertCategoryId : this.categoryId
+      let memo = (accountForTransfer) ? this.addTransfertNoteToMemo(this.memo, accountForTransfer) : this.memo
+
+      // no category for mother operation if it has daughter  (overriding transfer data if needed)
+      if (this.daughtersData.length !== 0) {
+        categoryId = undefined
+        memo = this.memo
+      }
       if (this.operation) {
-        await OperationService.updateOperation(this.$store,
+        console.log(this.daughtersData)
+        OperationService.updateOperation(this.$store,
           this.operation.id,
           this.accountId,
           Time.getDayFromDateString(this.date),
-          undefined,
-          Utils.getCentsAmount(this.totalAmount),
-          this.memo,
-          this.isPending,
-          undefined
+          categoryId,
+          this.signedCentsAmount,
+          memo,
+          this.isPending
         )
-        // daughters
-        this.daughtersData.forEach(daughter => {
-          if (this.operation) { // necessary to check again in this scope
-            let amountCent = Utils.getCentsAmount(this.entireCalcul(daughter.amountString))
-            if (!daughter.incoming) {
-              amountCent = amountCent * (-1)
-            }
-            if (this.daughterAlreadyExist(daughter, this.operation.daughters)) {
-              OperationService.updateOperation(this.$store,
-                daughter.id,
-                this.accountId,
-                Time.getDayFromDateString(this.date),
-                daughter.categoryId,
-                amountCent,
-                daughter.memo,
-                this.isPending
-              )
-            } else {
-              OperationService.addOperation(this.$store,
-                this.accountId,
-                Time.getDayFromDateString(this.date),
-                daughter.categoryId,
-                amountCent,
-                daughter.memo,
-                this.isPending,
-                this.operation.id
-              )
-            }
-          }
-        })
-
-        this.operation.daughters.forEach(daughter => {
-          if (this.operation) {
-            if (this.daughterWasDeleted(daughter, this.daughtersData)) {
-              OperationService.deleteOperation(this.$store, daughter.id)
-            }
-          }
-        })
+        this.saveChangesToDaughters(this.operation.id)
+      } else {
+        console.log(this.daughtersData)
+        const motherOperation = await OperationService.addOperation(this.$store,
+          this.accountId,
+          Time.getDayFromDateString(this.date),
+          this.categoryId,
+          this.signedCentsAmount,
+          this.memo,
+          this.isPending
+        )
+        this.saveChangesToDaughters(motherOperation.id)
+        this.rebootAddOperationForm()
       }
+      this.$emit('updateOperationList')
+    },
+    saveChangesToDaughters (motherOperationId: string) {
+      const preexistingDaughters = (this.operation) ? this.operation.daughters : []
+
+      this.daughtersData.forEach(daughter => {
+        // if transfert use specific category and memo
+        const accountForTransfer = this.getAccountById(daughter.categoryId)
+        const categoryId: string | undefined = (accountForTransfer) ? transfertCategoryId : daughter.categoryId
+        const memo = (accountForTransfer) ? this.addTransfertNoteToMemo(daughter.memo, accountForTransfer) : daughter.memo
+
+        const amountCent = this.getSignedCentsAmount(daughter.incoming, daughter.amountString)
+        // update an existing daughter
+        if (this.daughterAlreadyExist(daughter, preexistingDaughters)) {
+          OperationService.updateOperation(this.$store,
+            daughter.id,
+            this.accountId,
+            Time.getDayFromDateString(this.date),
+            categoryId,
+            amountCent,
+            memo,
+            this.isPending
+          )
+        // or create new daughter
+        } else {
+          OperationService.addOperation(this.$store,
+            this.accountId,
+            Time.getDayFromDateString(this.date),
+            categoryId,
+            amountCent,
+            memo,
+            this.isPending,
+            motherOperationId
+          )
+        }
+      })
+
+      // check if preexisting daughters were deleted
+      preexistingDaughters.forEach(daughter => {
+        if (this.operation) {
+          if (this.daughterWasDeleted(daughter, this.daughtersData)) {
+            OperationService.deleteOperation(this.$store, daughter.id)
+          }
+        }
+      })
     },
     daughterAlreadyExist (daughter: DaughterFormData, list: Operation[]): boolean {
       list.forEach(operation => {
@@ -496,12 +436,24 @@ export default defineComponent({
       })
       return true
     },
-    signedCentsAmount (incoming: boolean, amountString: string): number {
+    rebootAddOperationForm () {
+      this.date = Time.getCurrentDateString()
+      this.isPending = false
+      this.memo = ''
+      this.categoryId = ''
+      this.incoming = false
+      this.amountString = Utils.getEurosAmount(Math.abs(0)).toString()
+      this.daughtersData = []
+    },
+    getSignedCentsAmount (incoming: boolean, amountString: string): number {
       const amount = this.entireCalcul(amountString)
       return Utils.getCentsAmount((incoming) ? Math.abs(amount) : Math.abs(amount) * -1)
     },
-    addSpacesInThousand (amount: number): string {
-      return Utils.addSpacesInThousand(amount)
+    entireCalcul (amount: string): number {
+      return Calcul.entireCalcul(amount)
+    },
+    centsToEurosDisplay (amount: number): string {
+      return Utils.centsToEurosDisplay(amount)
     }
   }
 })

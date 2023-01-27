@@ -36,7 +36,7 @@
                     {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                   </div>
                   <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
-                    {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                    {{ eurosToEurosDisplay(this.getEurosAmount(operation.amount)) }} €
                   </div>
                   <div class="col-1">
                     <span v-if="operation.pending" class="pending illustration btn fas fa-hourglass-half"></span>
@@ -57,7 +57,7 @@
                   {{ operation.memo }}
                 </div>
                 <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
-                  {{ addSpacesInThousand(this.getEurosAmount(operation.amount)) }} €
+                  {{ eurosToEurosDisplay(this.getEurosAmount(operation.amount)) }} €
                 </div>
                 <div class="col-1">
                   <span v-if="operation.pending" class="pending illustration btn fas fa-hourglass-half"></span>
@@ -70,7 +70,7 @@
                     {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                   </div>
                   <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
-                    {{ addSpacesInThousand(this.getEurosAmount(daughter.amount)) }} €
+                    {{ eurosToEurosDisplay(this.getEurosAmount(daughter.amount)) }} €
                   </div>
                 </div>
                 <div class="daughterMemo">{{ (daughter.memo === 'null') ? '' : daughter.memo }}</div>
@@ -227,8 +227,8 @@ export default defineComponent({
         return ''
       }
     },
-    addSpacesInThousand (number: number): string {
-      return Utils.addSpacesInThousand(number)
+    eurosToEurosDisplay (number: number): string {
+      return Utils.eurosToEurosDisplay(number)
     },
     getClassDependingCategory (operation: Operation): string {
       return (operation.categoryId === null) ? 'negative' : ''
