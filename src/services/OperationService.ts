@@ -31,6 +31,7 @@ export default class OperationService {
 
   public static async updateOperation (store: Store<StoreState>, operationId: string, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean, motheroperationId?: string): Promise<Operation> {
     const response = await operationApi.updateOperation(operationId, accountId, day, categoryId, amount, memo, isPending, motheroperationId)
+    StoreHandler.updateAccounts(store)
     return response.data
   }
 

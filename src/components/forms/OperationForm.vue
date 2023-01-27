@@ -352,11 +352,12 @@ export default defineComponent({
       // if transfert use specific category and memo
       const accountForTransfer = this.getAccountById(this.categoryId)
       let categoryId: string | undefined = (accountForTransfer) ? transfertCategoryId : this.categoryId
-      const memo = (accountForTransfer) ? this.addTransfertNoteToMemo(this.memo, accountForTransfer) : this.memo
+      let memo = (accountForTransfer) ? this.addTransfertNoteToMemo(this.memo, accountForTransfer) : this.memo
 
       // no category for mother operation if it has daughter  (overriding transfer data if needed)
       if (this.daughtersData.length !== 0) {
         categoryId = undefined
+        memo = this.memo
       }
       if (this.operation) {
         console.log(this.daughtersData)
