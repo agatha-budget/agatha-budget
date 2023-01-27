@@ -8,15 +8,16 @@ export default class Calcul {
   }
 
   // to calculate a mathematical expression
-  public static entireCalcul (calculation: string): number {
-    const newCalculation = calculation.replace(/x/g, '*')
+  public static computeStringToCents (calculation: string): number {
+    let newCalculation = calculation.replace(/x/g, '*')
+    newCalculation = newCalculation.replace(/ /g, '')
     if (calculation.includes(')') && calculation.includes('(')) {
       const numberParenthesis = this.validityParenthesis(newCalculation)
       const listParenthesis = this.separateParenthesis(newCalculation, numberParenthesis)
       const result = this.calculParenthesis(newCalculation, numberParenthesis, listParenthesis)
       return this.basicCalcul(result)
     }
-    return this.basicCalcul(newCalculation)
+    return this.basicCalcul(newCalculation) * 100
   }
 
   // resolve a mathematical expression without parenthesis

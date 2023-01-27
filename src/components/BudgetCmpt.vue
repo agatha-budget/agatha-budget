@@ -45,7 +45,6 @@ import AllocationService from '@/services/AllocationService'
 import { Account, Budget, CategoryData, CategoryDataList, newMasterCategoryName } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 import Time from '@/utils/Time'
-import Utils from '@/utils/Utils'
 import MasterCategoryService from '@/services/MasterCategoryService'
 import StoreHandler from '@/store/StoreHandler'
 import BudgetHeader from '@/components/headers/BudgetHeader.vue'
@@ -136,16 +135,16 @@ export default defineComponent({
       }
     },
     totalAllocated (): number {
-      return this.getEurosAmount(this.totalBudgetData.allocated)
+      return this.totalBudgetData.allocated
     },
     totalSpent (): number {
-      return this.getEurosAmount(this.totalBudgetData.spent)
+      return this.totalBudgetData.spent
     },
     totalAvailable (): number {
-      return this.getEurosAmount(this.totalBudgetData.available)
+      return this.totalBudgetData.available
     },
     moneyToAllocate (): number {
-      return this.getEurosAmount(this.toBeBudgeted)
+      return this.toBeBudgeted
     }
   },
   methods: {
@@ -190,9 +189,6 @@ export default defineComponent({
       } else {
         this.budgetMonth = Time.getLastMonth(this.budgetMonth)
       }
-    },
-    getEurosAmount (amount: number): number {
-      return Utils.getEurosAmount(amount)
     },
     createMasterCategory () {
       if (this.budget) {
