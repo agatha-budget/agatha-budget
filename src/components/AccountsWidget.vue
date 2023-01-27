@@ -1,17 +1,17 @@
 <template>
   <div id="accountWidget" class="container">
     <div>
-      <span class="subtitle"> {{ $t('TOTAL') }} : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>
+      <span class="subtitle"> {{ $t('TOTAL') }} : {{this.centsToEurosDisplay(this.totalOnAccounts)}} €</span>
     </div>
     <div class="accountList col-12 offset-0 col-sm-8 offset-sm-2 col-md-12 offset-md-0">
       <button v-for="account of this.$store.state.accounts" :key="account" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
         <template v-if="this.fromPage == 'home'">
           <div class="name col-10 offset-2 col-xl-8 offset-xl-0 col-xxl-7 offset-xxl-1">{{ account.name }} :</div>
-          <div class="amount col-6 offset-3 col-xl-4 offset-xl-0">{{this.getEurosAmount(account.amount)}}€</div>
+          <div class="amount col-6 offset-3 col-xl-4 offset-xl-0">{{this.centsToEurosDisplay(account.amount)}}€</div>
         </template>
         <template v-else>
           <div class="name col-7 offset-1">{{ account.name }} :</div>
-          <div class="amount col-4 offset-0">{{this.getEurosAmount(account.amount)}}€</div>
+          <div class="amount col-4 offset-0">{{this.centsToEurosDisplay(account.amount)}}€</div>
         </template>
       </button>
     </div>
@@ -72,7 +72,7 @@ export default defineComponent({
       this.$data.accountCreationFormIsDisplayed = !this.$data.accountCreationFormIsDisplayed
     },
     centsToEurosDisplay (amount: number): string {
-      return this.centsToEurosDisplay(amount)
+      return Utils.centsToEurosDisplay(amount)
     }
   }
 })
