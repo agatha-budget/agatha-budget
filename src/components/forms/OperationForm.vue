@@ -58,7 +58,12 @@
     <div v-else class="formItem col-12 inline"> <!-- Amount With Daugther-->
       <label class="label col-4 col-md-2">{{ $t("AMOUNT") }}</label>
       <div class="sumAmountElement col-8 col-md-10">
-        {{ incoming ? "" : "-" }}{{ amountString }} € ( {{centsToEurosDisplay(signedCentsDaughterSumAmount)}} € {{$t('SHARED')}}, {{centsToEurosDisplay(toShareAmountString)}} € {{$t('TO_SHARE')}} )
+        <template v-if="this.amountStringIsUnset">
+          {{centsToEurosDisplay(signedCentsDaughterSumAmount)}} €
+        </template>
+        <template v-else>
+          {{ incoming ? "" : "-" }}{{ amountString }} € ( {{centsToEurosDisplay(signedCentsDaughterSumAmount)}} € {{$t('SHARED')}}, {{centsToEurosDisplay(toShareAmountString)}} € {{$t('TO_SHARE')}} )
+        </template>
       </div>
     </div>
     <div class="formItem col-12 inline"> <!-- Memo -->
@@ -168,7 +173,7 @@ export default defineComponent({
         memo: (this.operation.memo === 'null') ? '' : this.operation.memo,
         categoryId: this.operation.categoryId,
         incoming: this.operation.amount > 0,
-        amountString: Utils.getEurosAmount(Math.abs(this.operation?.amount)).toString(),
+        amountString: Utils.centsToEurosDisplay(Math.abs(this.operation?.amount)),
         daughtersData: this.operation.daughters.map(daughter => { return this.daughtersToDaughterData(daughter) })
       }
     } else {
@@ -178,7 +183,7 @@ export default defineComponent({
         memo: '',
         categoryId: '',
         incoming: false,
-        amountString: Utils.getEurosAmount(Math.abs(0)).toString(),
+        amountString: Math.abs(0).toString(),
         daughtersData: []
       }
     }
@@ -193,6 +198,9 @@ export default defineComponent({
     }
   },
   computed: {
+    amountStringIsUnset (): boolean {
+      return this.amountString === Math.abs(0).toString()
+    },
     incomeCategoryId (): string {
       return incomeCategoryId
     },
@@ -232,17 +240,16 @@ export default defineComponent({
       let sum = 0
       this.daughtersData.forEach(daughterOperation => {
         if (daughterOperation.incoming) {
-          sum += this.entireCalcul(daughterOperation.amountString)
+          sum += this.computeStringToCents(daughterOperation.amountString)
         } else {
-          sum -= this.entireCalcul(daughterOperation.amountString)
+          sum -= this.computeStringToCents(daughterOperation.amountString)
         }
       })
-      return Utils.getCentsAmount(sum)
+      return sum
     },
     toShareAmountString (): number {
-      return (this.operation?.amount || 0) - this.signedCentsDaughterSumAmount
+      return -1 * this.computeStringToCents(this.amountString) - this.signedCentsDaughterSumAmount
     }
-
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
   methods: {
@@ -250,7 +257,7 @@ export default defineComponent({
       return {
         id: daughter.id,
         incoming: daughter.amount > 0,
-        amountString: Utils.getEurosAmount(Math.abs(daughter.amount)).toString(),
+        amountString: Utils.centsToEurosDisplay(Math.abs(daughter.amount)),
         categoryId: daughter.categoryId,
         memo: (daughter.memo === 'null') ? '' : daughter.memo
       }
@@ -442,15 +449,15 @@ export default defineComponent({
       this.memo = ''
       this.categoryId = ''
       this.incoming = false
-      this.amountString = Utils.getEurosAmount(Math.abs(0)).toString()
+      this.amountString = Utils.centsToEurosDisplay(Math.abs(0))
       this.daughtersData = []
     },
     getSignedCentsAmount (incoming: boolean, amountString: string): number {
-      const amount = this.entireCalcul(amountString)
-      return Utils.getCentsAmount((incoming) ? Math.abs(amount) : Math.abs(amount) * -1)
+      const amount = this.computeStringToCents(amountString)
+      return (incoming) ? Math.abs(amount) : Math.abs(amount) * -1
     },
-    entireCalcul (amount: string): number {
-      return Calcul.entireCalcul(amount)
+    computeStringToCents (amount: string): number {
+      return Calcul.computeStringToCents(amount)
     },
     centsToEurosDisplay (amount: number): string {
       return Utils.centsToEurosDisplay(amount)

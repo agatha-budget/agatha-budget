@@ -36,7 +36,7 @@
                     {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                   </div>
                   <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
-                    {{ eurosToEurosDisplay(this.getEurosAmount(operation.amount)) }} €
+                    {{ centsToEurosDisplay(operation.amount) }} €
                   </div>
                   <div class="col-1">
                     <span v-if="operation.pending" class="pending illustration btn fas fa-hourglass-half"></span>
@@ -57,7 +57,7 @@
                   {{ operation.memo }}
                 </div>
                 <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
-                  {{ eurosToEurosDisplay(this.getEurosAmount(operation.amount)) }} €
+                  {{ centsToEurosDisplay(operation.amount) }} €
                 </div>
                 <div class="col-1">
                   <span v-if="operation.pending" class="pending illustration btn fas fa-hourglass-half"></span>
@@ -70,7 +70,7 @@
                     {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                   </div>
                   <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
-                    {{ eurosToEurosDisplay(this.getEurosAmount(daughter.amount)) }} €
+                    {{ centsToEurosDisplay(daughter.amount) }} €
                   </div>
                 </div>
                 <div class="daughterMemo">{{ (daughter.memo === 'null') ? '' : daughter.memo }}</div>
@@ -97,11 +97,11 @@ import Time from '@/utils/Time'
 import StoreHandler from '@/store/StoreHandler'
 import OperationService from '@/services/OperationService'
 import OperationForm from '@/components/forms/OperationForm.vue'
-import Utils from '@/utils/Utils'
 import NavMenu from '@/components/NavigationMenu.vue'
 import AccountPageHeader from '@/components/headers/AccountPageHeader.vue'
 import ImportOfx from '@/components/ImportOfx.vue'
 import FilterCmpt from '@/components/FilterCmpt.vue'
+import Utils from '@/utils/Utils'
 
 interface AccountPageData {
     operations: EditableOperation[];
@@ -217,18 +217,12 @@ export default defineComponent({
     getCategoryById (categoryId: string): Category | null {
       return StoreHandler.getCategoryById(this.$store, categoryId)
     },
-    getEurosAmount (amount: number): number {
-      return Utils.getEurosAmount(amount)
-    },
     getClassDependingOnAmount (operation: Operation): string {
       if (operation.amount > 0) {
         return 'positive'
       } else {
         return ''
       }
-    },
-    eurosToEurosDisplay (number: number): string {
-      return Utils.eurosToEurosDisplay(number)
     },
     getClassDependingCategory (operation: Operation): string {
       return (operation.categoryId === null) ? 'negative' : ''
@@ -299,6 +293,9 @@ export default defineComponent({
     },
     goToBanksPage () {
       router.push(RouterPages.banks)
+    },
+    centsToEurosDisplay (amount: number): string {
+      return Utils.centsToEurosDisplay(amount)
     }
   }
 })
