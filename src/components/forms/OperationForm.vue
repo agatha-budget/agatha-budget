@@ -122,7 +122,7 @@
       </div>
     </div>
     <div v-else class="col-12 formAction"> <!-- Create Action -->
-      <btn  class="actionButton" v-on:click="saveOperation(); rebootAddOperationForm();" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
+      <btn  class="actionButton" v-on:click="saveOperation" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
     </div>
   </div>
 </template>
@@ -229,7 +229,6 @@ export default defineComponent({
       }
     },
     signedCentsDaughterSumAmount (): number {
-      console.log(this.daughtersData)
       let sum = 0
       this.daughtersData.forEach(daughterOperation => {
         if (daughterOperation.incoming) {
@@ -382,11 +381,11 @@ export default defineComponent({
           this.isPending
         )
         this.saveChangesToDaughters(motherOperation.id)
+        this.rebootAddOperationForm()
       }
       this.$emit('updateOperationList')
     },
     saveChangesToDaughters (motherOperationId: string) {
-      console.log(this.daughtersData)
       const preexistingDaughters = (this.operation) ? this.operation.daughters : []
 
       this.daughtersData.forEach(daughter => {
