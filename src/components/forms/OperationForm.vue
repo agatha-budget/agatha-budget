@@ -248,7 +248,7 @@ export default defineComponent({
       return sum
     },
     toShareAmountString (): number {
-      return this.computeStringToCents(this.amountString) - this.signedCentsDaughterSumAmount
+      return -1 * this.computeStringToCents(this.amountString) - this.signedCentsDaughterSumAmount
     }
   },
   emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
