@@ -267,15 +267,6 @@ export default defineComponent({
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
       return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
     },
-    rebootAddOperationForm () {
-      this.date = Time.getCurrentDateString()
-      this.isPending = false
-      this.memo = ''
-      this.categoryId = ''
-      this.incoming = false
-      this.amountString = Utils.getEurosAmount(Math.abs(0)).toString()
-      this.daughtersData = []
-    },
     createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
       const group: GroupSelectOption = {
         label: masterCategory.name,
@@ -395,7 +386,7 @@ export default defineComponent({
         const memo = (accountForTransfer) ? this.addTransfertNoteToMemo(daughter.memo, accountForTransfer) : daughter.memo
 
         const amountCent = this.getSignedCentsAmount(daughter.incoming, daughter.amountString)
-        // update existing daughters
+        // update an existing daughter
         if (this.daughterAlreadyExist(daughter, preexistingDaughters)) {
           OperationService.updateOperation(this.$store,
             daughter.id,
@@ -406,7 +397,7 @@ export default defineComponent({
             memo,
             this.isPending
           )
-        // create new daughters
+        // or create new daughter
         } else {
           OperationService.addOperation(this.$store,
             this.accountId,
@@ -420,7 +411,7 @@ export default defineComponent({
         }
       })
 
-      // delete preexisting daughter that was deleted
+      // check if preexisting daughters were deleted
       preexistingDaughters.forEach(daughter => {
         if (this.operation) {
           if (this.daughterWasDeleted(daughter, this.daughtersData)) {
@@ -444,6 +435,15 @@ export default defineComponent({
         }
       })
       return true
+    },
+    rebootAddOperationForm () {
+      this.date = Time.getCurrentDateString()
+      this.isPending = false
+      this.memo = ''
+      this.categoryId = ''
+      this.incoming = false
+      this.amountString = Utils.getEurosAmount(Math.abs(0)).toString()
+      this.daughtersData = []
     },
     getSignedCentsAmount (incoming: boolean, amountString: string): number {
       const amount = this.entireCalcul(amountString)
