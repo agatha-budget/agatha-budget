@@ -50,12 +50,13 @@ fun addOperationRoute(app : Javalin, accountService: AccountService, budgetServi
         val category: Category? = getOptionalQueryParam<String>(ctx, "new_category_id")?.let{
             categoryService.getById(user, it)
         }
+        val removeCategory: Boolean? = getOptionalQueryParam<Boolean>(ctx, "remove_category")
         val amount : Int? = getOptionalQueryParam<Int>(ctx, "new_amount")
         val memo : String? = getOptionalQueryParam<String>(ctx, "new_memo")
         val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "new_pending")
         val motherOperationId : String? = getOptionalQueryParam<String>(ctx, "new_mother_operation_id")
 
-        val updatedOperation = operationService.update(user, operation, account, day, category, amount, memo, pending, motherOperationId)
+        val updatedOperation = operationService.update(user, operation, account, day, category, removeCategory, amount, memo, pending, motherOperationId)
         ctx.json(updatedOperation)
     }
 

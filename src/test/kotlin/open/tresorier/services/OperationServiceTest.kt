@@ -38,7 +38,7 @@ open class OperationServiceTest : ITest {
         val operationCreated = operationService.create(mileva, account, TestData.jan_16_2022, category, -1000, "encas", false, null)
         val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side effect
 
-        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, category, -1200, "encas", false, null)
+        val operationModified = operationService.update(mileva, operationCreated, account, TestData.jan_16_2022, category, null, -1200, "encas", false, null)
 
         Assertions.assertEquals(orderInDayAtCreation, operationModified.orderInDay)
     }
@@ -60,9 +60,75 @@ open class OperationServiceTest : ITest {
         val operationCreated = operationService.create(emilie, account, TestData.jan_16_2022, category, 1000, "", false, null)
         val orderInDayAtCreation = operationCreated.orderInDay              // needed for prevent side effect
         
-        val operationModified = operationService.update(emilie, operationCreated, account, TestData.jan_15_2022, null, null, null, null, null)
+        val operationModified = operationService.update(emilie, operationCreated, null, TestData.jan_15_2022, null, null, null, null, null, null)
 
         Assertions.assertTrue(orderInDayAtCreation < operationModified.orderInDay)
+    }
+
+    @Test
+    fun testUpdateOperationRemoveCategory() {
+        val dorothe: Person = personService.createPerson(
+            "Dorothé Le Maitre", "Stromatoporoidés", "dorothe@fossile.fr", ProfileEnum.PROFILE_USER
+        )
+        dorothe.billingStatus = true
+        val budget: Budget = budgetService.findByUser(dorothe)[0]
+        val account: Account = accountService.create(
+            dorothe, budget, "personal account", TestData.jan_14_2022, 10000
+        )
+        val masterCategory = MasterCategory("On site expenses", budget.id, null)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("equipment", masterCategory.id)
+        categoryDao.insert(category)
+        val operationCreated = operationService.create(dorothe, account, TestData.jan_16_2022, category, -1000, "pickaxe", false, null)
+
+        val operationModified = operationService.update(dorothe, operationCreated, null, null, null, true, null, null, null, null)
+
+        Assertions.assertEquals(null, operationModified.categoryId)
+    }
+
+    @Test
+    fun testUpdateOperationDontRemoveCategory() {
+        val rita: Person = personService.createPerson(
+            "Rita Levi-Montalcini", "NerveGrowthFactor", "rita@mind-first.it", ProfileEnum.PROFILE_USER
+        )
+        rita.billingStatus = true
+        val budget: Budget = budgetService.findByUser(rita)[0]
+        val account: Account = accountService.create(
+            rita, budget, "personal account", TestData.jan_14_2022, 10000
+        )
+        val masterCategory = MasterCategory("Studies", budget.id, null)
+        masterCategoryDao.insert(masterCategory)
+        val category = Category("books", masterCategory.id)
+        categoryDao.insert(category)
+        val operationCreated = operationService.create(rita, account, TestData.jan_16_2022, category, -7000, "medecine 101", false, null)
+
+        val operationModified = operationService.update(rita, operationCreated, null, null, null, false, null, null, null, null)
+
+        Assertions.assertEquals(category.id, operationModified.categoryId)
+    }
+
+    @Test
+    fun testUpdateOperationRemoveAndUpdateCategory() {
+        val maryam: Person = personService.createPerson(
+            "Maryam Mirzakhani", "RiemannSurfaces", "maryam@fields.iran", ProfileEnum.PROFILE_USER
+        )
+        maryam.billingStatus = true
+        val budget: Budget = budgetService.findByUser(maryam)[0]
+        val account: Account = accountService.create(
+            maryam, budget, "personal account", TestData.jan_14_2022, 10000
+        )
+        val masterCategory = MasterCategory("Studies", budget.id, null)
+        masterCategoryDao.insert(masterCategory)
+        val categoryBefore = Category("leisure", masterCategory.id)
+        categoryDao.insert(categoryBefore)
+        val categoryAfter = Category("work", masterCategory.id)
+        categoryDao.insert(categoryAfter)
+
+        val operationCreated = operationService.create(maryam, account, TestData.jan_16_2022, categoryBefore, -90000, "billard", false, null)
+
+        val operationModified = operationService.update(maryam, operationCreated, null, null, categoryAfter, true, null,  "dynamical billard", null, null)
+
+        Assertions.assertEquals(categoryAfter.id, operationModified.categoryId)
     }
 
     @Test
@@ -236,11 +302,11 @@ open class OperationServiceTest : ITest {
         )
         Assertions.assertFalse(operation.pending)
 
-        operationService.update(francoise, operation, account, null, null, null, null, true, null)
+        operationService.update(francoise, operation, account, null, null, null, null, null, true, null)
 
         Assertions.assertTrue(operation.pending)
 
-        operationService.update(francoise, operation, account, null, null, null, null, false, null)
+        operationService.update(francoise, operation, account, null, null, null, null, null, false, null)
 
         Assertions.assertFalse(operation.pending)
     }

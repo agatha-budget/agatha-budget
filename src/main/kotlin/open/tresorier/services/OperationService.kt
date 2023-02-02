@@ -39,7 +39,7 @@ class OperationService(
         return operation
     }
 
-    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, amount: Int?, memo: String?, pending: Boolean?, motherOperationId: String?) : Operation {
+    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, removeCategory: Boolean?, amount: Int?, memo: String?, pending: Boolean?, motherOperationId: String?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
         newDay?.let {
             if (!it.isEquals(operation.day)) {
@@ -50,6 +50,11 @@ class OperationService(
         }
         account?.let { operation.accountId = it.id }
         category?.let { operation.categoryId = it.id }
+        removeCategory?.let { 
+            if (category == null && it) { // if both a category and removeCategory are given, use the category
+                operation.categoryId = null
+            }
+        }
         amount?.let { operation.amount = it }
         memo?.let { operation.memo = it }
         pending?.let { operation.pending = it }
