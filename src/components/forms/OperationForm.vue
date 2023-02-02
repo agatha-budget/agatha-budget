@@ -361,7 +361,6 @@ export default defineComponent({
         memo = this.memo
       }
       if (this.operation) {
-        console.log(this.daughtersData)
         OperationService.updateOperation(this.$store,
           this.operation.id,
           this.accountId,
@@ -373,7 +372,6 @@ export default defineComponent({
         )
         this.saveChangesToDaughters(this.operation.id)
       } else {
-        console.log(this.daughtersData)
         const motherOperation = await OperationService.addOperation(this.$store,
           this.accountId,
           Time.getDayFromDateString(this.date),
