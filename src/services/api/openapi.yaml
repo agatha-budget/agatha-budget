@@ -1093,6 +1093,13 @@ paths:
         explode: true
         schema:
           type: string
+      - name: remove_category
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: boolean
       - name: new_amount
         in: query
         required: false

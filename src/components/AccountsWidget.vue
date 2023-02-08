@@ -1,7 +1,7 @@
 <template>
   <div id="accountWidget" class="container">
     <div>
-      <span class="subtitle"> {{ $t('TOTAL') }} : {{this.centsToEurosDisplay(this.totalOnAccounts)}} €</span>
+      <span class="subtitle"> {{ $t('SEE_MY_ACCOUNTS') }} </span>
     </div>
     <div class="accountList col-12 offset-0 col-sm-8 offset-sm-2 col-md-12 offset-md-0">
       <button v-for="account of this.$store.state.accounts" :key="account" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
@@ -14,6 +14,9 @@
           <div class="amount col-4 offset-0">{{this.centsToEurosDisplay(account.amount)}}€</div>
         </template>
       </button>
+    </div>
+    <div>
+      <span class="subtitle"> {{ $t('TOTAL') }} : {{this.centsToEurosDisplay(this.totalOnAccounts)}} €</span>
     </div>
     <div class="addAccount">
       <template v-if="!accountCreationFormIsDisplayed">

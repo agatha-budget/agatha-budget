@@ -2786,6 +2786,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
          * @param {string} [newAccountId] 
          * @param {number} [newDay] day of the operation (2 march 2010 &#x3D;&gt; 20100302)
          * @param {string} [newCategoryId] 
+         * @param {boolean} [removeCategory] 
          * @param {number} [newAmount] 
          * @param {string} [newMemo] 
          * @param {boolean} [newPending] 
@@ -2793,7 +2794,7 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOperation: async (operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options: any = {}): Promise<RequestArgs> => {
+        updateOperation: async (operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, removeCategory?: boolean, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'operationId' is not null or undefined
             assertParamExists('updateOperation', 'operationId', operationId)
             const localVarPath = `/operation`;
@@ -2822,6 +2823,10 @@ export const OperationApiAxiosParamCreator = function (configuration?: Configura
 
             if (newCategoryId !== undefined) {
                 localVarQueryParameter['new_category_id'] = newCategoryId;
+            }
+
+            if (removeCategory !== undefined) {
+                localVarQueryParameter['remove_category'] = removeCategory;
             }
 
             if (newAmount !== undefined) {
@@ -2932,6 +2937,7 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {string} [newAccountId] 
          * @param {number} [newDay] day of the operation (2 march 2010 &#x3D;&gt; 20100302)
          * @param {string} [newCategoryId] 
+         * @param {boolean} [removeCategory] 
          * @param {number} [newAmount] 
          * @param {string} [newMemo] 
          * @param {boolean} [newPending] 
@@ -2939,8 +2945,8 @@ export const OperationApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOperation(operationId, newAccountId, newDay, newCategoryId, newAmount, newMemo, newPending, newMotherOperationId, options);
+        async updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, removeCategory?: boolean, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Operation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOperation(operationId, newAccountId, newDay, newCategoryId, removeCategory, newAmount, newMemo, newPending, newMotherOperationId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
@@ -3019,6 +3025,7 @@ export const OperationApiFactory = function (configuration?: Configuration, base
          * @param {string} [newAccountId] 
          * @param {number} [newDay] day of the operation (2 march 2010 &#x3D;&gt; 20100302)
          * @param {string} [newCategoryId] 
+         * @param {boolean} [removeCategory] 
          * @param {number} [newAmount] 
          * @param {string} [newMemo] 
          * @param {boolean} [newPending] 
@@ -3026,8 +3033,8 @@ export const OperationApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: any): AxiosPromise<Operation> {
-            return localVarFp.updateOperation(operationId, newAccountId, newDay, newCategoryId, newAmount, newMemo, newPending, newMotherOperationId, options).then((request) => request(axios, basePath));
+        updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, removeCategory?: boolean, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: any): AxiosPromise<Operation> {
+            return localVarFp.updateOperation(operationId, newAccountId, newDay, newCategoryId, removeCategory, newAmount, newMemo, newPending, newMotherOperationId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -3115,6 +3122,7 @@ export class OperationApi extends BaseAPI {
      * @param {string} [newAccountId] 
      * @param {number} [newDay] day of the operation (2 march 2010 &#x3D;&gt; 20100302)
      * @param {string} [newCategoryId] 
+     * @param {boolean} [removeCategory] 
      * @param {number} [newAmount] 
      * @param {string} [newMemo] 
      * @param {boolean} [newPending] 
@@ -3123,8 +3131,8 @@ export class OperationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OperationApi
      */
-    public updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: any) {
-        return OperationApiFp(this.configuration).updateOperation(operationId, newAccountId, newDay, newCategoryId, newAmount, newMemo, newPending, newMotherOperationId, options).then((request) => request(this.axios, this.basePath));
+    public updateOperation(operationId: string, newAccountId?: string, newDay?: number, newCategoryId?: string, removeCategory?: boolean, newAmount?: number, newMemo?: string, newPending?: boolean, newMotherOperationId?: string, options?: any) {
+        return OperationApiFp(this.configuration).updateOperation(operationId, newAccountId, newDay, newCategoryId, removeCategory, newAmount, newMemo, newPending, newMotherOperationId, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

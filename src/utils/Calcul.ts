@@ -17,7 +17,7 @@ export default class Calcul {
       const result = this.calculParenthesis(newCalculation, numberParenthesis, listParenthesis)
       return this.basicCalcul(result)
     }
-    return this.basicCalcul(newCalculation) * 100
+    return Math.round(this.basicCalcul(newCalculation) * 100)
   }
 
   // resolve a mathematical expression without parenthesis

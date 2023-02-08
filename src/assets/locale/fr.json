@@ -6,8 +6,8 @@
     "SORRY_WRONG_LOGIN": "Aucun utilisateur n'a été trouvé pour cette adresse",
     "SORRY_WRONG_PASSWORD": "Mot de passe invalide",
     "SORRY_LOCKED_OUT": "Mot de passe invalide. Pour votre sécurité, votre compte sera bloqué pendant {lockingDuration} minutes (cette durée augmentera à chaque nouvel essai)",
-    "ALLOCATED": "dédié",
-    "SPENT": "dépensé",
+    "ALLOCATED": "entrées",
+    "SPENT": "sorties",
     "AVAILABLE": "disponible",
     "TOTAL": "total",
     "SUBMIT": "valider",
@@ -154,5 +154,7 @@
     "AIMED_FOR":"visé",
     "SHARED":"répartis",
     "TO_SHARE":"à répartir",
-    "REPARTITION":"Répartition"
+    "REPARTITION":"Répartition",
+    "SEE_MY_ACCOUNTS":"Consulter mes comptes :",
+    "CUSTOMIZE_CATEGORY":"Personnaliser les enveloppes"
 }

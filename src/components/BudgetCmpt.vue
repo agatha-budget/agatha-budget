@@ -10,7 +10,7 @@
       <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
     </div>
     <div class="content">
-      <button v-if="!edit" v-on:click="editFunction" class="actionButton edition">{{ $t("EDIT") }}</button>
+      <button v-if="!edit" v-on:click="editFunction" class="actionButton edition">{{ $t("CUSTOMIZE_CATEGORY") }}</button>
       <button v-else v-on:click="saveChange" class="actionButton edition">{{ $t("SAVE_CHANGE") }}</button>
       <button v-if="edit" v-on:click="this.createMasterCategory()" class="buttonGradation row">
         <span class="illustration fas fa-plus col-1"/>
