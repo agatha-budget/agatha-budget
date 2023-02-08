@@ -50,11 +50,11 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
     }
 
     private fun initCategoriesUserProfile(budget: Budget) {
-        val masterCategoryGoal = MasterCategory("_Objectifs", budget.id, null)
-        val masterCategoryVIP = MasterCategory("_Priorités au quotidien", budget.id, null)
-        val masterCategoryFixed = MasterCategory("Frais Fixes", budget.id, null)
-        val masterCategoryVariable = MasterCategory("Frais Variables", budget.id, null)
-        val masterCategoryProvision = MasterCategory("Provisions", budget.id, null)
+        val masterCategoryGoal = MasterCategory("1 - Objectifs pour mon avenir", budget.id, null)
+        val masterCategoryVIP = MasterCategory("2 - Priorités pour mon quotidien", budget.id, null)
+        val masterCategoryFixed = MasterCategory("3 - Frais Fixes", budget.id, null)
+        val masterCategoryVariable = MasterCategory("4 - Frais Variables", budget.id, null)
+        val masterCategoryProvision = MasterCategory("5 - Provisions", budget.id, null)
         
         val masterCategories = listOf(masterCategoryGoal, masterCategoryVIP, masterCategoryFixed, masterCategoryVariable, masterCategoryProvision)
         for (masterCategory in masterCategories) {
@@ -63,13 +63,14 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
         
         val categories = listOf(
             Category("Coup d'avance - 1 mois", masterCategoryGoal.id),
-            Category("Vacances", masterCategoryGoal.id),
-            Category("Sortie entre amis", masterCategoryVIP.id),
+            Category("Une cabane sur la Lune", masterCategoryGoal.id),
+            Category("Sortir entre amis", masterCategoryVIP.id),
+            Category("Faire de l'aqua-poney", masterCategoryVIP.id),
             Category("Loyer", masterCategoryFixed.id),
             Category("Internet", masterCategoryFixed.id),
             Category("Forfait téléphone", masterCategoryFixed.id),
             Category("Électricité", masterCategoryFixed.id),
-            Category("Agatha-Budget (5€/mois)", masterCategoryFixed.id),
+            Category("Agatha-Budget (à partir de 5€/m)", masterCategoryFixed.id),
             Category("Dons", masterCategoryFixed.id),
             Category("Assurances", masterCategoryFixed.id),
             Category("Gaz", masterCategoryFixed.id),
@@ -77,7 +78,7 @@ class BudgetService(private val budgetDao: IBudgetDao, private val masterCategor
             Category("Alimentation/Courses", masterCategoryVariable.id),
             Category("Divers loisirs", masterCategoryVariable.id),
             Category("Transport", masterCategoryVariable.id),
-            Category("Inconnnu/Liquide", masterCategoryVariable.id),
+            Category("Divers", masterCategoryVariable.id),
             Category("Tabac", masterCategoryVariable.id),
             Category("Essence", masterCategoryVariable.id),
             Category("Voiture", masterCategoryProvision.id),
