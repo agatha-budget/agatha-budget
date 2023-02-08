@@ -350,6 +350,9 @@ export default defineComponent({
       this.daughtersData.splice(index, 1)
     },
     async saveOperation () {
+      // if no category is selected, use remove category
+      let removeCategory = (this.categoryId === null || this.categoryId === '')
+
       // if transfert use specific category and memo
       const accountForTransfer = this.getAccountById(this.categoryId)
       let categoryId: string | undefined = (accountForTransfer) ? transfertCategoryId : this.categoryId
@@ -358,6 +361,7 @@ export default defineComponent({
       // no category for mother operation if it has daughter  (overriding transfer data if needed)
       if (this.daughtersData.length !== 0) {
         categoryId = undefined
+        removeCategory = true
         memo = this.memo
       }
       if (this.operation) {
@@ -366,6 +370,7 @@ export default defineComponent({
           this.accountId,
           Time.getDayFromDateString(this.date),
           categoryId,
+          removeCategory,
           this.signedCentsAmount,
           memo,
           this.isPending
@@ -395,6 +400,8 @@ export default defineComponent({
         const memo = (accountForTransfer) ? this.addTransfertNoteToMemo(daughter.memo, accountForTransfer) : daughter.memo
 
         const amountCent = this.getSignedCentsAmount(daughter.incoming, daughter.amountString)
+        const removeCategory = (this.categoryId === null || this.categoryId === '')
+
         // update an existing daughter
         if (this.daughterAlreadyExist(daughter, preexistingDaughters)) {
           OperationService.updateOperation(this.$store,
@@ -402,6 +409,7 @@ export default defineComponent({
             this.accountId,
             Time.getDayFromDateString(this.date),
             categoryId,
+            removeCategory,
             amountCent,
             memo,
             this.isPending

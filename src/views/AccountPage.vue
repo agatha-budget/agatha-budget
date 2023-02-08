@@ -253,10 +253,10 @@ export default defineComponent({
         const daughters = operation.daughters
         if (daughters && daughters.length !== 0) {
           daughters.forEach(daughter => {
-            OperationService.updateOperation(this.$store, daughter.id, this.accountId, undefined, undefined, undefined, undefined, false)
+            OperationService.updateOperation(this.$store, daughter.id, this.accountId, undefined, undefined, undefined, undefined, undefined, false)
           })
         }
-        OperationService.updateOperation(this.$store, operation.id, this.accountId, undefined, undefined, undefined, undefined, false)
+        OperationService.updateOperation(this.$store, operation.id, this.accountId, undefined, undefined, undefined, undefined, undefined, false)
       }
     },
     pendingOperation (): boolean {
