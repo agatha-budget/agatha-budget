@@ -12,6 +12,7 @@
     .illustration{
         font-weight: 700;
     }
+
     .action {
         .btn {
             padding-top: 0;
@@ -36,12 +37,25 @@
             padding-left: 10px;
             text-align: left;
         }
+        &.available {
+            span {
+                font-weight: bold;
+            }
+        }
+        &.spent {
+            font-weight: lighter;
+            color: @blackGrey;
+        }
     }
     .masterCategory {
         background: @header;
         color: @white;
         *{
           color: @white;
+        }
+        th.spent {
+            font-weight: lighter;
+            color:  @white;
         }
         .illustration {
             padding-bottom: 0px;
@@ -94,6 +108,3 @@
         }
     }
 }
-
-
-
