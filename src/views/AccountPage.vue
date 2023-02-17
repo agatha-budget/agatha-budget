@@ -35,7 +35,7 @@
                   <div class="category col-8" :class="getClassDependingCategory(operation)">
                     {{ this.getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                   </div>
-                  <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
+                  <div class="amount col-3" :class="this.getClassDependingOnAmount(operation.amount)">
                     {{ centsToEurosDisplay(operation.amount) }} €
                   </div>
                   <div class="col-1">
@@ -56,7 +56,7 @@
                 <div class="memo col-8">
                   {{ operation.memo }}
                 </div>
-                <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
+                <div class="amount col-3" :class="this.getClassDependingOnAmount(operation.amount)">
                   {{ centsToEurosDisplay(operation.amount) }} €
                 </div>
                 <div class="col-1">
@@ -69,7 +69,7 @@
                   <div class="daughterCategory category col-8" :class="getClassDependingCategoryDaughter(daughter.categoryId)">
                     {{ this.getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                   </div>
-                  <div class="amount col-3" :class="this.getClassDependingOnAmount(operation)">
+                  <div class="amount col-3" :class="this.getClassDependingOnAmount(daughter.amount)">
                     {{ centsToEurosDisplay(daughter.amount) }} €
                   </div>
                 </div>
@@ -217,8 +217,8 @@ export default defineComponent({
     getCategoryById (categoryId: string): Category | null {
       return StoreHandler.getCategoryById(this.$store, categoryId)
     },
-    getClassDependingOnAmount (operation: Operation): string {
-      if (operation.amount > 0) {
+    getClassDependingOnAmount (amount: number): string {
+      if (amount > 0) {
         return 'positive'
       } else {
         return ''
