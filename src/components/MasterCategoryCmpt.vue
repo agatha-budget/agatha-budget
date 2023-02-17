@@ -10,7 +10,7 @@
           </th>
           <th class="col-2 amountCol">{{ centsToEurosDisplay(masterCategoryData.allocated)}}</th>
           <th class="col-2 amountCol spent">{{ centsToEurosDisplay(masterCategoryData.spent) }}</th>
-          <th class="col-2 amountCol"><span :class="masterCategoryData.available < 0 ? 'negative' : ''">
+          <th class="col-2 amountCol available"><span :class="masterCategoryData.available < 0 ? 'negative' : ''">
           {{ centsToEurosDisplay(masterCategoryData.available) }}
         </span></th>
         </tr>
@@ -36,7 +36,7 @@
             <td class="col-2 spent">
                 {{ centsToEurosDisplay(this.categoryDataList[category.id]?.spent ?? "") }}
             </td>
-            <td class="col-2">
+            <td class="col-2 available">
               <span v-if="this.categoryDataList[category.id] && this.categoryDataList[category.id].available != 0" :class="this.categoryDataList[category.id]?.available < 0 ? 'negative' : ''">
               {{ centsToEurosDisplay(this.categoryDataList[category.id]?.available) }}
             </span>
