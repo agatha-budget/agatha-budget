@@ -96,7 +96,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
             throw BankingException("could not get account details for ${id} : ${connection.errorStream.reader().use { it.readText() }}")
 		}
         val response = JSONObject(connection.inputStream.reader().use { it.readText() })
-        return response.getJSONObject("account").getString("name")
+        return response.getJSONObject("account").optString("name", "unnamed account")
     }
 
     override fun getOperations(account: Account, _from: Long?) : List<Operation> {

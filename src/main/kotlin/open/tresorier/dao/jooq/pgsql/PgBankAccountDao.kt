@@ -13,6 +13,7 @@ import open.tresorier.model.banking.BankAgreement
 import open.tresorier.model.Person
 import open.tresorier.model.Budget
 import open.tresorier.utils.Time
+import open.tresorier.utils.Utils
 import org.jooq.Configuration
 import open.tresorier.generated.jooq.main.tables.pojos.BankAccount as JooqBankAccount
 
@@ -96,7 +97,7 @@ class PgBankAccountDao(val configuration: Configuration) : IBankAccountDao {
     private fun toJooqBankAccount(bankAccount: BankAccount): JooqBankAccount {
         return JooqBankAccount(
             bankAccount.id,
-            bankAccount.name,
+            Utils.truncStringToMax(bankAccount.name, 100),
             bankAccount.agreementId,
             bankAccount.deleted,
             bankAccount.bankId
