@@ -1,9 +1,16 @@
 package open.tresorier.services
 
 import open.tresorier.dao.IAccountDao
+import open.tresorier.dao.IBankAccountDao
 import open.tresorier.model.*
+import open.tresorier.model.banking.*
 
-class AccountService(private val accountDao: IAccountDao, private val authorizationService: AuthorizationService, private val operationService: OperationService) {
+
+class AccountService(private val accountDao: IAccountDao, 
+        private val bankAccountDao: IBankAccountDao,
+        private val authorizationService: AuthorizationService,
+        private val operationService: OperationService,
+        private val bankingService: BankingService) {
 
     fun create(person: Person, budget: Budget, name: String, day: Day, amount: Int): Account {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
@@ -13,10 +20,23 @@ class AccountService(private val accountDao: IAccountDao, private val authorizat
         return account
     }
 
-    fun update(person: Person, account: Account, newName: String): Account {
+    fun update(person: Person, account: Account, name: String): Account {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        account.name = newName
+        account.name = name
         return accountDao.update(account)
+    }
+
+    fun updateBankAssociation(person: Person, account: Account, bankAccount: BankAccount?, importHistory: Boolean): Account {
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        if (bankAccount != null) {
+            authorizationService.cancelIfUserIsUnauthorized(person, bankAccount)
+        }
+        account.bankAccountId = bankAccount?.id
+        accountDao.update(account)
+        if (importHistory) {
+            bankingService.synchronise(person, account)
+        }
+        return account
     }
 
     fun getById(person: Person, id: String): Account {

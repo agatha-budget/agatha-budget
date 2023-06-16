@@ -11,12 +11,13 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row12;
+import org.jooq.Row18;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Sequences extends TableImpl<SequencesRecord> {
 
-    private static final long serialVersionUID = -708795726;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.SEQUENCES</code>
@@ -44,62 +45,119 @@ public class Sequences extends TableImpl<SequencesRecord> {
     /**
      * The column <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_CATALOG</code>.
      */
-    public final TableField<SequencesRecord, String> SEQUENCE_CATALOG = createField(DSL.name("SEQUENCE_CATALOG"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SequencesRecord, String> SEQUENCE_CATALOG = createField(DSL.name("SEQUENCE_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_SCHEMA</code>.
      */
-    public final TableField<SequencesRecord, String> SEQUENCE_SCHEMA = createField(DSL.name("SEQUENCE_SCHEMA"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SequencesRecord, String> SEQUENCE_SCHEMA = createField(DSL.name("SEQUENCE_SCHEMA"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SEQUENCES.SEQUENCE_NAME</code>.
      */
-    public final TableField<SequencesRecord, String> SEQUENCE_NAME = createField(DSL.name("SEQUENCE_NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SequencesRecord, String> SEQUENCE_NAME = createField(DSL.name("SEQUENCE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SEQUENCES.CURRENT_VALUE</code>.
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.DATA_TYPE</code>.
      */
-    public final TableField<SequencesRecord, Long> CURRENT_VALUE = createField(DSL.name("CURRENT_VALUE"), org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<SequencesRecord, String> DATA_TYPE = createField(DSL.name("DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.NUMERIC_PRECISION</code>.
+     */
+    public final TableField<SequencesRecord, Integer> NUMERIC_PRECISION = createField(DSL.name("NUMERIC_PRECISION"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column
+     * <code>INFORMATION_SCHEMA.SEQUENCES.NUMERIC_PRECISION_RADIX</code>.
+     */
+    public final TableField<SequencesRecord, Integer> NUMERIC_PRECISION_RADIX = createField(DSL.name("NUMERIC_PRECISION_RADIX"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.NUMERIC_SCALE</code>.
+     */
+    public final TableField<SequencesRecord, Integer> NUMERIC_SCALE = createField(DSL.name("NUMERIC_SCALE"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.START_VALUE</code>.
+     */
+    public final TableField<SequencesRecord, Long> START_VALUE = createField(DSL.name("START_VALUE"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.MINIMUM_VALUE</code>.
+     */
+    public final TableField<SequencesRecord, Long> MINIMUM_VALUE = createField(DSL.name("MINIMUM_VALUE"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.MAXIMUM_VALUE</code>.
+     */
+    public final TableField<SequencesRecord, Long> MAXIMUM_VALUE = createField(DSL.name("MAXIMUM_VALUE"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SEQUENCES.INCREMENT</code>.
      */
-    public final TableField<SequencesRecord, Long> INCREMENT = createField(DSL.name("INCREMENT"), org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<SequencesRecord, Long> INCREMENT = createField(DSL.name("INCREMENT"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SEQUENCES.IS_GENERATED</code>.
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.CYCLE_OPTION</code>.
      */
-    public final TableField<SequencesRecord, Boolean> IS_GENERATED = createField(DSL.name("IS_GENERATED"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<SequencesRecord, String> CYCLE_OPTION = createField(DSL.name("CYCLE_OPTION"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SEQUENCES.REMARKS</code>.
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.DECLARED_DATA_TYPE</code>.
      */
-    public final TableField<SequencesRecord, String> REMARKS = createField(DSL.name("REMARKS"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<SequencesRecord, String> DECLARED_DATA_TYPE = createField(DSL.name("DECLARED_DATA_TYPE"), SQLDataType.VARCHAR(1000000000), this, "");
+
+    /**
+     * The column
+     * <code>INFORMATION_SCHEMA.SEQUENCES.DECLARED_NUMERIC_PRECISION</code>.
+     */
+    public final TableField<SequencesRecord, Integer> DECLARED_NUMERIC_PRECISION = createField(DSL.name("DECLARED_NUMERIC_PRECISION"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column
+     * <code>INFORMATION_SCHEMA.SEQUENCES.DECLARED_NUMERIC_SCALE</code>.
+     */
+    public final TableField<SequencesRecord, Integer> DECLARED_NUMERIC_SCALE = createField(DSL.name("DECLARED_NUMERIC_SCALE"), SQLDataType.INTEGER, this, "");
+
+    /**
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.BASE_VALUE</code>.
+     */
+    public final TableField<SequencesRecord, Long> BASE_VALUE = createField(DSL.name("BASE_VALUE"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.SEQUENCES.CACHE</code>.
      */
-    public final TableField<SequencesRecord, Long> CACHE = createField(DSL.name("CACHE"), org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<SequencesRecord, Long> CACHE = createField(DSL.name("CACHE"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SEQUENCES.MIN_VALUE</code>.
+     * The column <code>INFORMATION_SCHEMA.SEQUENCES.REMARKS</code>.
      */
-    public final TableField<SequencesRecord, Long> MIN_VALUE = createField(DSL.name("MIN_VALUE"), org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<SequencesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
+
+    private Sequences(Name alias, Table<SequencesRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Sequences(Name alias, Table<SequencesRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+    }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SEQUENCES.MAX_VALUE</code>.
+     * Create an aliased <code>INFORMATION_SCHEMA.SEQUENCES</code> table
+     * reference
      */
-    public final TableField<SequencesRecord, Long> MAX_VALUE = createField(DSL.name("MAX_VALUE"), org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public Sequences(String alias) {
+        this(DSL.name(alias), SEQUENCES);
+    }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.SEQUENCES.IS_CYCLE</code>.
+     * Create an aliased <code>INFORMATION_SCHEMA.SEQUENCES</code> table
+     * reference
      */
-    public final TableField<SequencesRecord, Boolean> IS_CYCLE = createField(DSL.name("IS_CYCLE"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
-
-    /**
-     * The column <code>INFORMATION_SCHEMA.SEQUENCES.ID</code>.
-     */
-    public final TableField<SequencesRecord, Integer> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public Sequences(Name alias) {
+        this(alias, SEQUENCES);
+    }
 
     /**
      * Create a <code>INFORMATION_SCHEMA.SEQUENCES</code> table reference
@@ -108,35 +166,13 @@ public class Sequences extends TableImpl<SequencesRecord> {
         this(DSL.name("SEQUENCES"), null);
     }
 
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.SEQUENCES</code> table reference
-     */
-    public Sequences(String alias) {
-        this(DSL.name(alias), SEQUENCES);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.SEQUENCES</code> table reference
-     */
-    public Sequences(Name alias) {
-        this(alias, SEQUENCES);
-    }
-
-    private Sequences(Name alias, Table<SequencesRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Sequences(Name alias, Table<SequencesRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
-    }
-
     public <O extends Record> Sequences(Table<O> child, ForeignKey<O, SequencesRecord> key) {
         super(child, key, SEQUENCES);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override
@@ -166,11 +202,11 @@ public class Sequences extends TableImpl<SequencesRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row12 type methods
+    // Row18 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row12<String, String, String, Long, Long, Boolean, String, Long, Long, Long, Boolean, Integer> fieldsRow() {
-        return (Row12) super.fieldsRow();
+    public Row18<String, String, String, String, Integer, Integer, Integer, Long, Long, Long, Long, String, String, Integer, Integer, Long, Long, String> fieldsRow() {
+        return (Row18) super.fieldsRow();
     }
 }

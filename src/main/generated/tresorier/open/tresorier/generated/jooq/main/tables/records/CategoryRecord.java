@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implements Record5<String, String, String, Boolean, Boolean> {
 
-    private static final long serialVersionUID = 2125377478;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.category.id</code>.
@@ -251,10 +251,25 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
     public CategoryRecord(String id, String masterCategoryId, String name, Boolean archived, Boolean deleted) {
         super(Category.CATEGORY);
 
-        set(0, id);
-        set(1, masterCategoryId);
-        set(2, name);
-        set(3, archived);
-        set(4, deleted);
+        setId(id);
+        setMasterCategoryId(masterCategoryId);
+        setName(name);
+        setArchived(archived);
+        setDeleted(deleted);
+    }
+
+    /**
+     * Create a detached, initialised CategoryRecord
+     */
+    public CategoryRecord(open.tresorier.generated.jooq.main.tables.pojos.Category value) {
+        super(Category.CATEGORY);
+
+        if (value != null) {
+            setId(value.getId());
+            setMasterCategoryId(value.getMasterCategoryId());
+            setName(value.getName());
+            setArchived(value.getArchived());
+            setDeleted(value.getDeleted());
+        }
     }
 }

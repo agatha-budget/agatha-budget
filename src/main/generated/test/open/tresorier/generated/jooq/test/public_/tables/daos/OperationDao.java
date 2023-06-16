@@ -5,6 +5,7 @@ package open.tresorier.generated.jooq.test.public_.tables.daos;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import open.tresorier.generated.jooq.test.public_.tables.Operation;
 import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord;
@@ -39,7 +40,8 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>ID BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>ID BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Operation.OPERATION.ID, lowerInclusive, upperInclusive);
@@ -60,7 +62,15 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>ACCOUNT_ID BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>ID = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchOptionalById(String value) {
+        return fetchOptional(Operation.OPERATION.ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>ACCOUNT_ID BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfAccountId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Operation.OPERATION.ACCOUNT_ID, lowerInclusive, upperInclusive);
@@ -74,35 +84,38 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>MONTH BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>DATE_MONTH BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMonth(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(Operation.OPERATION.MONTH, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfDateMonth(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Operation.OPERATION.DATE_MONTH, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>MONTH IN (values)</code>
+     * Fetch records that have <code>DATE_MONTH IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByMonth(Integer... values) {
-        return fetch(Operation.OPERATION.MONTH, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByDateMonth(Integer... values) {
+        return fetch(Operation.OPERATION.DATE_MONTH, values);
     }
 
     /**
-     * Fetch records that have <code>DAY BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>DATE_DAY BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfDay(Integer lowerInclusive, Integer upperInclusive) {
-        return fetchRange(Operation.OPERATION.DAY, lowerInclusive, upperInclusive);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfDateDay(Integer lowerInclusive, Integer upperInclusive) {
+        return fetchRange(Operation.OPERATION.DATE_DAY, lowerInclusive, upperInclusive);
     }
 
     /**
-     * Fetch records that have <code>DAY IN (values)</code>
+     * Fetch records that have <code>DATE_DAY IN (values)</code>
      */
-    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByDay(Integer... values) {
-        return fetch(Operation.OPERATION.DAY, values);
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByDateDay(Integer... values) {
+        return fetch(Operation.OPERATION.DATE_DAY, values);
     }
 
     /**
-     * Fetch records that have <code>CATEGORY_ID BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>CATEGORY_ID BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfCategoryId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Operation.OPERATION.CATEGORY_ID, lowerInclusive, upperInclusive);
@@ -116,7 +129,8 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>MEMO BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>MEMO BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMemo(String lowerInclusive, String upperInclusive) {
         return fetchRange(Operation.OPERATION.MEMO, lowerInclusive, upperInclusive);
@@ -130,7 +144,8 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>AMOUNT BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>AMOUNT BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfAmount(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(Operation.OPERATION.AMOUNT, lowerInclusive, upperInclusive);
@@ -144,7 +159,8 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>ORDER_IN_DAY BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>ORDER_IN_DAY BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfOrderInDay(Long lowerInclusive, Long upperInclusive) {
         return fetchRange(Operation.OPERATION.ORDER_IN_DAY, lowerInclusive, upperInclusive);
@@ -158,7 +174,8 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>PENDING BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>PENDING BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfPending(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(Operation.OPERATION.PENDING, lowerInclusive, upperInclusive);
@@ -172,7 +189,8 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
     }
 
     /**
-     * Fetch records that have <code>LOCKED BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>LOCKED BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfLocked(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(Operation.OPERATION.LOCKED, lowerInclusive, upperInclusive);
@@ -183,5 +201,64 @@ public class OperationDao extends DAOImpl<OperationRecord, open.tresorier.genera
      */
     public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByLocked(Boolean... values) {
         return fetch(Operation.OPERATION.LOCKED, values);
+    }
+
+    /**
+     * Fetch records that have <code>MOTHER_OPERATION_ID BETWEEN lowerInclusive
+     * AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfMotherOperationId(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Operation.OPERATION.MOTHER_OPERATION_ID, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>MOTHER_OPERATION_ID IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByMotherOperationId(String... values) {
+        return fetch(Operation.OPERATION.MOTHER_OPERATION_ID, values);
+    }
+
+    /**
+     * Fetch records that have <code>IMPORT_IDENTIFIER BETWEEN lowerInclusive
+     * AND upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfImportIdentifier(String lowerInclusive, String upperInclusive) {
+        return fetchRange(Operation.OPERATION.IMPORT_IDENTIFIER, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>IMPORT_IDENTIFIER IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByImportIdentifier(String... values) {
+        return fetch(Operation.OPERATION.IMPORT_IDENTIFIER, values);
+    }
+
+    /**
+     * Fetch a unique record that has <code>IMPORT_IDENTIFIER = value</code>
+     */
+    public open.tresorier.generated.jooq.test.public_.tables.pojos.Operation fetchOneByImportIdentifier(String value) {
+        return fetchOne(Operation.OPERATION.IMPORT_IDENTIFIER, value);
+    }
+
+    /**
+     * Fetch a unique record that has <code>IMPORT_IDENTIFIER = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchOptionalByImportIdentifier(String value) {
+        return fetchOptional(Operation.OPERATION.IMPORT_IDENTIFIER, value);
+    }
+
+    /**
+     * Fetch records that have <code>IMPORT_TIMESTAMP BETWEEN lowerInclusive AND
+     * upperInclusive</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchRangeOfImportTimestamp(Long lowerInclusive, Long upperInclusive) {
+        return fetchRange(Operation.OPERATION.IMPORT_TIMESTAMP, lowerInclusive, upperInclusive);
+    }
+
+    /**
+     * Fetch records that have <code>IMPORT_TIMESTAMP IN (values)</code>
+     */
+    public List<open.tresorier.generated.jooq.test.public_.tables.pojos.Operation> fetchByImportTimestamp(Long... values) {
+        return fetch(Operation.OPERATION.IMPORT_TIMESTAMP, values);
     }
 }

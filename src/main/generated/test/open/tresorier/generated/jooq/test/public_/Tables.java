@@ -6,6 +6,8 @@ package open.tresorier.generated.jooq.test.public_;
 
 import open.tresorier.generated.jooq.test.public_.tables.Account;
 import open.tresorier.generated.jooq.test.public_.tables.Allocation;
+import open.tresorier.generated.jooq.test.public_.tables.BankAccount;
+import open.tresorier.generated.jooq.test.public_.tables.BankAgreement;
 import open.tresorier.generated.jooq.test.public_.tables.Budget;
 import open.tresorier.generated.jooq.test.public_.tables.Category;
 import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
@@ -16,7 +18,7 @@ import open.tresorier.generated.jooq.test.public_.tables.UserActivity;
 
 
 /**
- * Convenience access to all tables in PUBLIC
+ * Convenience access to all tables in PUBLIC.
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
@@ -30,6 +32,16 @@ public class Tables {
      * The table <code>PUBLIC.ALLOCATION</code>.
      */
     public static final Allocation ALLOCATION = Allocation.ALLOCATION;
+
+    /**
+     * The table <code>PUBLIC.BANK_ACCOUNT</code>.
+     */
+    public static final BankAccount BANK_ACCOUNT = BankAccount.BANK_ACCOUNT;
+
+    /**
+     * The table <code>PUBLIC.BANK_AGREEMENT</code>.
+     */
+    public static final BankAgreement BANK_AGREEMENT = BankAgreement.BANK_AGREEMENT;
 
     /**
      * The table <code>PUBLIC.BUDGET</code>.

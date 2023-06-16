@@ -13,15 +13,14 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Rights implements Serializable {
 
-    private static final long serialVersionUID = 360243339;
+    private static final long serialVersionUID = 1L;
 
-    private final String  grantee;
-    private final String  granteetype;
-    private final String  grantedrole;
-    private final String  rights;
-    private final String  tableSchema;
-    private final String  tableName;
-    private final Integer id;
+    private final String grantee;
+    private final String granteetype;
+    private final String grantedrole;
+    private final String rights;
+    private final String tableSchema;
+    private final String tableName;
 
     public Rights(Rights value) {
         this.grantee = value.grantee;
@@ -30,17 +29,15 @@ public class Rights implements Serializable {
         this.rights = value.rights;
         this.tableSchema = value.tableSchema;
         this.tableName = value.tableName;
-        this.id = value.id;
     }
 
     public Rights(
-        String  grantee,
-        String  granteetype,
-        String  grantedrole,
-        String  rights,
-        String  tableSchema,
-        String  tableName,
-        Integer id
+        String grantee,
+        String granteetype,
+        String grantedrole,
+        String rights,
+        String tableSchema,
+        String tableName
     ) {
         this.grantee = grantee;
         this.granteetype = granteetype;
@@ -48,35 +45,48 @@ public class Rights implements Serializable {
         this.rights = rights;
         this.tableSchema = tableSchema;
         this.tableName = tableName;
-        this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.GRANTEE</code>.
+     */
     public String getGrantee() {
         return this.grantee;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.GRANTEETYPE</code>.
+     */
     public String getGranteetype() {
         return this.granteetype;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.GRANTEDROLE</code>.
+     */
     public String getGrantedrole() {
         return this.grantedrole;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.RIGHTS</code>.
+     */
     public String getRights() {
         return this.rights;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.RIGHTS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
-    }
-
-    public Integer getId() {
-        return this.id;
     }
 
     @Override
@@ -89,7 +99,6 @@ public class Rights implements Serializable {
         sb.append(", ").append(rights);
         sb.append(", ").append(tableSchema);
         sb.append(", ").append(tableName);
-        sb.append(", ").append(id);
 
         sb.append(")");
         return sb.toString();

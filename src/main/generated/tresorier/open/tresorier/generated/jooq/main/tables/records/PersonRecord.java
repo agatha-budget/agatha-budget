@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements Record12<String, String, String, String, Long, Integer, Boolean, String, Boolean, Long, String, Boolean> {
 
-    private static final long serialVersionUID = 1290570291;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>public.person.id</code>.
@@ -510,17 +510,39 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
     public PersonRecord(String id, String email, String name, String password, Long unlockingdate, Integer loginattemptcount, Boolean deleted, String billingId, Boolean billingStatus, Long creationDate, String style, Boolean dyslexia) {
         super(Person.PERSON);
 
-        set(0, id);
-        set(1, email);
-        set(2, name);
-        set(3, password);
-        set(4, unlockingdate);
-        set(5, loginattemptcount);
-        set(6, deleted);
-        set(7, billingId);
-        set(8, billingStatus);
-        set(9, creationDate);
-        set(10, style);
-        set(11, dyslexia);
+        setId(id);
+        setEmail(email);
+        setName(name);
+        setPassword(password);
+        setUnlockingdate(unlockingdate);
+        setLoginattemptcount(loginattemptcount);
+        setDeleted(deleted);
+        setBillingId(billingId);
+        setBillingStatus(billingStatus);
+        setCreationDate(creationDate);
+        setStyle(style);
+        setDyslexia(dyslexia);
+    }
+
+    /**
+     * Create a detached, initialised PersonRecord
+     */
+    public PersonRecord(open.tresorier.generated.jooq.main.tables.pojos.Person value) {
+        super(Person.PERSON);
+
+        if (value != null) {
+            setId(value.getId());
+            setEmail(value.getEmail());
+            setName(value.getName());
+            setPassword(value.getPassword());
+            setUnlockingdate(value.getUnlockingdate());
+            setLoginattemptcount(value.getLoginattemptcount());
+            setDeleted(value.getDeleted());
+            setBillingId(value.getBillingId());
+            setBillingStatus(value.getBillingStatus());
+            setCreationDate(value.getCreationDate());
+            setStyle(value.getStyle());
+            setDyslexia(value.getDyslexia());
+        }
     }
 }

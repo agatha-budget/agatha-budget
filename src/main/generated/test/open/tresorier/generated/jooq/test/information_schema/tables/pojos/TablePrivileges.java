@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TablePrivileges implements Serializable {
 
-    private static final long serialVersionUID = -477052863;
+    private static final long serialVersionUID = 1L;
 
     private final String grantor;
     private final String grantee;
@@ -22,6 +22,7 @@ public class TablePrivileges implements Serializable {
     private final String tableName;
     private final String privilegeType;
     private final String isGrantable;
+    private final String withHierarchy;
 
     public TablePrivileges(TablePrivileges value) {
         this.grantor = value.grantor;
@@ -31,6 +32,7 @@ public class TablePrivileges implements Serializable {
         this.tableName = value.tableName;
         this.privilegeType = value.privilegeType;
         this.isGrantable = value.isGrantable;
+        this.withHierarchy = value.withHierarchy;
     }
 
     public TablePrivileges(
@@ -40,7 +42,8 @@ public class TablePrivileges implements Serializable {
         String tableSchema,
         String tableName,
         String privilegeType,
-        String isGrantable
+        String isGrantable,
+        String withHierarchy
     ) {
         this.grantor = grantor;
         this.grantee = grantee;
@@ -49,34 +52,66 @@ public class TablePrivileges implements Serializable {
         this.tableName = tableName;
         this.privilegeType = privilegeType;
         this.isGrantable = isGrantable;
+        this.withHierarchy = withHierarchy;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.GRANTOR</code>.
+     */
     public String getGrantor() {
         return this.grantor;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.GRANTEE</code>.
+     */
     public String getGrantee() {
         return this.grantee;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.PRIVILEGE_TYPE</code>.
+     */
     public String getPrivilegeType() {
         return this.privilegeType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.IS_GRANTABLE</code>.
+     */
     public String getIsGrantable() {
         return this.isGrantable;
+    }
+
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_PRIVILEGES.WITH_HIERARCHY</code>.
+     */
+    public String getWithHierarchy() {
+        return this.withHierarchy;
     }
 
     @Override
@@ -90,6 +125,7 @@ public class TablePrivileges implements Serializable {
         sb.append(", ").append(tableName);
         sb.append(", ").append(privilegeType);
         sb.append(", ").append(isGrantable);
+        sb.append(", ").append(withHierarchy);
 
         sb.append(")");
         return sb.toString();

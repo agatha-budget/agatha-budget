@@ -55,14 +55,14 @@ class PgMasterCategoryDao(val configuration: Configuration) : IMasterCategoryDao
     }
 
     override fun getOwner(masterCategory: MasterCategory): Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(BUDGET).on(BUDGET.ID.eq(masterCategory.budgetId))
-                .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                .fetchAny().into(PERSON)
-            return PgPersonDao.toPerson(owner)
-        } catch (e : Exception) {
-            throw TresorierException("the given object appears to have no owner")
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(BUDGET).on(BUDGET.ID.eq(masterCategory.budgetId))
+            .where(PERSON.ID.eq(BUDGET.PERSON_ID))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
+            throw TresorierException("the given masterCategory (${masterCategory}) appears to have no owner")
+        } else {
+            return PgPersonDao.toPerson(ownerRecord)
         }
     }
 
@@ -71,7 +71,8 @@ class PgMasterCategoryDao(val configuration: Configuration) : IMasterCategoryDao
             masterCategory.id,
             masterCategory.budgetId,
             masterCategory.name,
-            masterCategory.deleted
+            masterCategory.deleted,
+            masterCategory.color
         )
     }
 
@@ -81,6 +82,7 @@ class PgMasterCategoryDao(val configuration: Configuration) : IMasterCategoryDao
         else MasterCategory(
             jooqMasterCategory.name,
             jooqMasterCategory.budgetId,
+            jooqMasterCategory.color,
             jooqMasterCategory.id,
             jooqMasterCategory.deleted
         )

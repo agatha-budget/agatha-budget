@@ -15,13 +15,14 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row5;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -31,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account extends TableImpl<AccountRecord> {
 
-    private static final long serialVersionUID = 1403790556;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>public.account</code>
@@ -49,33 +50,39 @@ public class Account extends TableImpl<AccountRecord> {
     /**
      * The column <code>public.account.id</code>.
      */
-    public final TableField<AccountRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<AccountRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.account.budget_id</code>.
      */
-    public final TableField<AccountRecord, String> BUDGET_ID = createField(DSL.name("budget_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<AccountRecord, String> BUDGET_ID = createField(DSL.name("budget_id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.account.name</code>.
      */
-    public final TableField<AccountRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<AccountRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>public.account.archived</code>.
      */
-    public final TableField<AccountRecord, Boolean> ARCHIVED = createField(DSL.name("archived"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<AccountRecord, Boolean> ARCHIVED = createField(DSL.name("archived"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.account.deleted</code>.
      */
-    public final TableField<AccountRecord, Boolean> DELETED = createField(DSL.name("deleted"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<AccountRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
 
     /**
-     * Create a <code>public.account</code> table reference
+     * The column <code>public.account.bank_account_id</code>.
      */
-    public Account() {
-        this(DSL.name("account"), null);
+    public final TableField<AccountRecord, String> BANK_ACCOUNT_ID = createField(DSL.name("bank_account_id"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL::character varying", SQLDataType.VARCHAR)), this, "");
+
+    private Account(Name alias, Table<AccountRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Account(Name alias, Table<AccountRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -92,12 +99,11 @@ public class Account extends TableImpl<AccountRecord> {
         this(alias, ACCOUNT);
     }
 
-    private Account(Name alias, Table<AccountRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Account(Name alias, Table<AccountRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>public.account</code> table reference
+     */
+    public Account() {
+        this(DSL.name("account"), null);
     }
 
     public <O extends Record> Account(Table<O> child, ForeignKey<O, AccountRecord> key) {
@@ -106,7 +112,7 @@ public class Account extends TableImpl<AccountRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -115,17 +121,31 @@ public class Account extends TableImpl<AccountRecord> {
     }
 
     @Override
-    public List<UniqueKey<AccountRecord>> getKeys() {
-        return Arrays.<UniqueKey<AccountRecord>>asList(Keys.ACCOUNT_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<AccountRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<AccountRecord, ?>>asList(Keys.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY);
+        return Arrays.asList(Keys.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY, Keys.ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY);
     }
 
+    private transient Budget _budget;
+    private transient BankAccount _bankAccount;
+
+    /**
+     * Get the implicit join path to the <code>public.budget</code> table.
+     */
     public Budget budget() {
-        return new Budget(this, Keys.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY);
+        if (_budget == null)
+            _budget = new Budget(this, Keys.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY);
+
+        return _budget;
+    }
+
+    /**
+     * Get the implicit join path to the <code>public.bank_account</code> table.
+     */
+    public BankAccount bankAccount() {
+        if (_bankAccount == null)
+            _bankAccount = new BankAccount(this, Keys.ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY);
+
+        return _bankAccount;
     }
 
     @Override
@@ -155,11 +175,11 @@ public class Account extends TableImpl<AccountRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<String, String, String, Boolean, Boolean> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row6<String, String, String, Boolean, Boolean, String> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 }

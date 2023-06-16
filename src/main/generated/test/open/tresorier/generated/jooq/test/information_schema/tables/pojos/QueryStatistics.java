@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class QueryStatistics implements Serializable {
 
-    private static final long serialVersionUID = -64683874;
+    private static final long serialVersionUID = 1L;
 
     private final String  sqlStatement;
     private final Integer executionCount;
@@ -22,8 +22,8 @@ public class QueryStatistics implements Serializable {
     private final Double  cumulativeExecutionTime;
     private final Double  averageExecutionTime;
     private final Double  stdDevExecutionTime;
-    private final Integer minRowCount;
-    private final Integer maxRowCount;
+    private final Long    minRowCount;
+    private final Long    maxRowCount;
     private final Long    cumulativeRowCount;
     private final Double  averageRowCount;
     private final Double  stdDevRowCount;
@@ -51,8 +51,8 @@ public class QueryStatistics implements Serializable {
         Double  cumulativeExecutionTime,
         Double  averageExecutionTime,
         Double  stdDevExecutionTime,
-        Integer minRowCount,
-        Integer maxRowCount,
+        Long    minRowCount,
+        Long    maxRowCount,
         Long    cumulativeRowCount,
         Double  averageRowCount,
         Double  stdDevRowCount
@@ -71,50 +71,98 @@ public class QueryStatistics implements Serializable {
         this.stdDevRowCount = stdDevRowCount;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.SQL_STATEMENT</code>.
+     */
     public String getSqlStatement() {
         return this.sqlStatement;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.EXECUTION_COUNT</code>.
+     */
     public Integer getExecutionCount() {
         return this.executionCount;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_EXECUTION_TIME</code>.
+     */
     public Double getMinExecutionTime() {
         return this.minExecutionTime;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_EXECUTION_TIME</code>.
+     */
     public Double getMaxExecutionTime() {
         return this.maxExecutionTime;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_EXECUTION_TIME</code>.
+     */
     public Double getCumulativeExecutionTime() {
         return this.cumulativeExecutionTime;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_EXECUTION_TIME</code>.
+     */
     public Double getAverageExecutionTime() {
         return this.averageExecutionTime;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_EXECUTION_TIME</code>.
+     */
     public Double getStdDevExecutionTime() {
         return this.stdDevExecutionTime;
     }
 
-    public Integer getMinRowCount() {
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_ROW_COUNT</code>.
+     */
+    public Long getMinRowCount() {
         return this.minRowCount;
     }
 
-    public Integer getMaxRowCount() {
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_ROW_COUNT</code>.
+     */
+    public Long getMaxRowCount() {
         return this.maxRowCount;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_ROW_COUNT</code>.
+     */
     public Long getCumulativeRowCount() {
         return this.cumulativeRowCount;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_ROW_COUNT</code>.
+     */
     public Double getAverageRowCount() {
         return this.averageRowCount;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_ROW_COUNT</code>.
+     */
     public Double getStdDevRowCount() {
         return this.stdDevRowCount;
     }

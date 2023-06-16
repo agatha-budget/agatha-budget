@@ -1,6 +1,6 @@
 package open.tresorier.model
 
-class Operation (
+open class Operation (
         var accountId: String,
         var day: Day,
         var categoryId: String? = null,
@@ -9,10 +9,21 @@ class Operation (
         var memo: String? = null,
         var pending: Boolean = false,
         var locked: Boolean = false,
+        var motherOperationId: String? = null,
+        var importIdentifier: String? = null,
+        var importTimestamp: Long? = null,
         id: String? = null,
         deleted: Boolean? = null
 ) : DbObject(id, deleted) {
-        fun isEquals(operation: Operation): Boolean {
+
+        override fun toString(): String {
+                return "amount: $amount, memo: $memo, motherOperation: $motherOperationId"
+            }
+
+        fun isEquals(operation: Operation?): Boolean {
+                if (operation == null) {
+                        return false
+                }
                if (!operation.day.isEquals(this.day)) {
                         return false
                 }
@@ -23,6 +34,9 @@ class Operation (
                         return false
                 }
                 if (!operation.memo.equals(this.memo)) {
+                        return false
+                }
+                if (operation.motherOperationId != this.motherOperationId) {
                         return false
                 }
                 return true

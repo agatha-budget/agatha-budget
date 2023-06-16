@@ -28,4 +28,8 @@ class Person (
             this.billingId != null
         )
     }
+
+    override fun toString(): String {
+        return "$id-$name-$email"
+    }
 }

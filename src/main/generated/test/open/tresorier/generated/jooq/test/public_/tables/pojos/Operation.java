@@ -13,94 +13,157 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 1289459188;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  accountId;
-    private final Integer month;
-    private final Integer day;
+    private final Integer dateMonth;
+    private final Integer dateDay;
     private final String  categoryId;
     private final String  memo;
     private final Integer amount;
     private final Long    orderInDay;
     private final Boolean pending;
     private final Boolean locked;
+    private final String  motherOperationId;
+    private final String  importIdentifier;
+    private final Long    importTimestamp;
 
     public Operation(Operation value) {
         this.id = value.id;
         this.accountId = value.accountId;
-        this.month = value.month;
-        this.day = value.day;
+        this.dateMonth = value.dateMonth;
+        this.dateDay = value.dateDay;
         this.categoryId = value.categoryId;
         this.memo = value.memo;
         this.amount = value.amount;
         this.orderInDay = value.orderInDay;
         this.pending = value.pending;
         this.locked = value.locked;
+        this.motherOperationId = value.motherOperationId;
+        this.importIdentifier = value.importIdentifier;
+        this.importTimestamp = value.importTimestamp;
     }
 
     public Operation(
         String  id,
         String  accountId,
-        Integer month,
-        Integer day,
+        Integer dateMonth,
+        Integer dateDay,
         String  categoryId,
         String  memo,
         Integer amount,
         Long    orderInDay,
         Boolean pending,
-        Boolean locked
+        Boolean locked,
+        String  motherOperationId,
+        String  importIdentifier,
+        Long    importTimestamp
     ) {
         this.id = id;
         this.accountId = accountId;
-        this.month = month;
-        this.day = day;
+        this.dateMonth = dateMonth;
+        this.dateDay = dateDay;
         this.categoryId = categoryId;
         this.memo = memo;
         this.amount = amount;
         this.orderInDay = orderInDay;
         this.pending = pending;
         this.locked = locked;
+        this.motherOperationId = motherOperationId;
+        this.importIdentifier = importIdentifier;
+        this.importTimestamp = importTimestamp;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.ID</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.ACCOUNT_ID</code>.
+     */
     public String getAccountId() {
         return this.accountId;
     }
 
-    public Integer getMonth() {
-        return this.month;
+    /**
+     * Getter for <code>PUBLIC.OPERATION.DATE_MONTH</code>.
+     */
+    public Integer getDateMonth() {
+        return this.dateMonth;
     }
 
-    public Integer getDay() {
-        return this.day;
+    /**
+     * Getter for <code>PUBLIC.OPERATION.DATE_DAY</code>.
+     */
+    public Integer getDateDay() {
+        return this.dateDay;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.CATEGORY_ID</code>.
+     */
     public String getCategoryId() {
         return this.categoryId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.MEMO</code>.
+     */
     public String getMemo() {
         return this.memo;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.AMOUNT</code>.
+     */
     public Integer getAmount() {
         return this.amount;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.ORDER_IN_DAY</code>.
+     */
     public Long getOrderInDay() {
         return this.orderInDay;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.PENDING</code>.
+     */
     public Boolean getPending() {
         return this.pending;
     }
 
+    /**
+     * Getter for <code>PUBLIC.OPERATION.LOCKED</code>.
+     */
     public Boolean getLocked() {
         return this.locked;
+    }
+
+    /**
+     * Getter for <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
+     */
+    public String getMotherOperationId() {
+        return this.motherOperationId;
+    }
+
+    /**
+     * Getter for <code>PUBLIC.OPERATION.IMPORT_IDENTIFIER</code>.
+     */
+    public String getImportIdentifier() {
+        return this.importIdentifier;
+    }
+
+    /**
+     * Getter for <code>PUBLIC.OPERATION.IMPORT_TIMESTAMP</code>.
+     */
+    public Long getImportTimestamp() {
+        return this.importTimestamp;
     }
 
     @Override
@@ -109,14 +172,17 @@ public class Operation implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(accountId);
-        sb.append(", ").append(month);
-        sb.append(", ").append(day);
+        sb.append(", ").append(dateMonth);
+        sb.append(", ").append(dateDay);
         sb.append(", ").append(categoryId);
         sb.append(", ").append(memo);
         sb.append(", ").append(amount);
         sb.append(", ").append(orderInDay);
         sb.append(", ").append(pending);
         sb.append(", ").append(locked);
+        sb.append(", ").append(motherOperationId);
+        sb.append(", ").append(importIdentifier);
+        sb.append(", ").append(importTimestamp);
 
         sb.append(")");
         return sb.toString();

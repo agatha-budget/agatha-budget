@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Locks implements Serializable {
 
-    private static final long serialVersionUID = 515813452;
+    private static final long serialVersionUID = 1L;
 
     private final String  tableSchema;
     private final String  tableName;
@@ -39,18 +39,30 @@ public class Locks implements Serializable {
         this.lockType = lockType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.LOCKS.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.LOCKS.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.LOCKS.SESSION_ID</code>.
+     */
     public Integer getSessionId() {
         return this.sessionId;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.LOCKS.LOCK_TYPE</code>.
+     */
     public String getLockType() {
         return this.lockType;
     }

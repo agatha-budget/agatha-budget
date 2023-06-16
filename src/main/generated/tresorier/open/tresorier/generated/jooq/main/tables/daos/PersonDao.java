@@ -5,6 +5,7 @@ package open.tresorier.generated.jooq.main.tables.daos;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import open.tresorier.generated.jooq.main.tables.Person;
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord;
@@ -39,7 +40,8 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>id BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Person.PERSON.ID, lowerInclusive, upperInclusive);
@@ -60,7 +62,15 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>email BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>id = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchOptionalById(String value) {
+        return fetchOptional(Person.PERSON.ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>email BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfEmail(String lowerInclusive, String upperInclusive) {
         return fetchRange(Person.PERSON.EMAIL, lowerInclusive, upperInclusive);
@@ -81,7 +91,15 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>name BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>email = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchOptionalByEmail(String value) {
+        return fetchOptional(Person.PERSON.EMAIL, value);
+    }
+
+    /**
+     * Fetch records that have <code>name BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfName(String lowerInclusive, String upperInclusive) {
         return fetchRange(Person.PERSON.NAME, lowerInclusive, upperInclusive);
@@ -95,7 +113,8 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>password BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>password BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfPassword(String lowerInclusive, String upperInclusive) {
         return fetchRange(Person.PERSON.PASSWORD, lowerInclusive, upperInclusive);
@@ -109,7 +128,8 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>unlockingdate BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>unlockingdate BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfUnlockingdate(Long lowerInclusive, Long upperInclusive) {
         return fetchRange(Person.PERSON.UNLOCKINGDATE, lowerInclusive, upperInclusive);
@@ -123,7 +143,8 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>loginattemptcount BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>loginattemptcount BETWEEN lowerInclusive
+     * AND upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfLoginattemptcount(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(Person.PERSON.LOGINATTEMPTCOUNT, lowerInclusive, upperInclusive);
@@ -137,7 +158,8 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>deleted BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>deleted BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfDeleted(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(Person.PERSON.DELETED, lowerInclusive, upperInclusive);
@@ -151,7 +173,8 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>billing_id BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>billing_id BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfBillingId(String lowerInclusive, String upperInclusive) {
         return fetchRange(Person.PERSON.BILLING_ID, lowerInclusive, upperInclusive);
@@ -172,7 +195,15 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>billing_status BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>billing_id = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchOptionalByBillingId(String value) {
+        return fetchOptional(Person.PERSON.BILLING_ID, value);
+    }
+
+    /**
+     * Fetch records that have <code>billing_status BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfBillingStatus(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(Person.PERSON.BILLING_STATUS, lowerInclusive, upperInclusive);
@@ -186,7 +217,8 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>creation_date BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>creation_date BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfCreationDate(Long lowerInclusive, Long upperInclusive) {
         return fetchRange(Person.PERSON.CREATION_DATE, lowerInclusive, upperInclusive);
@@ -200,7 +232,8 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>style BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>style BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfStyle(String lowerInclusive, String upperInclusive) {
         return fetchRange(Person.PERSON.STYLE, lowerInclusive, upperInclusive);
@@ -214,7 +247,8 @@ public class PersonDao extends DAOImpl<PersonRecord, open.tresorier.generated.jo
     }
 
     /**
-     * Fetch records that have <code>dyslexia BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>dyslexia BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.Person> fetchRangeOfDyslexia(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(Person.PERSON.DYSLEXIA, lowerInclusive, upperInclusive);

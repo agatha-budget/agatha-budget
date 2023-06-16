@@ -3,6 +3,7 @@ package open.tresorier.services
 import open.tresorier.dao.*
 import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.*
+import open.tresorier.model.banking.*
 
 class AuthorizationService(
     private val accountDao: IAccountDao,
@@ -10,7 +11,9 @@ class AuthorizationService(
     private val allocationDao: IAllocationDao,
     private val categoryDao: ICategoryDao,
     private val masterCategoryDao: IMasterCategoryDao,
-    private val operationDao: IOperationDao
+    private val operationDao: IOperationDao,
+    private val bankAgreementDao: IBankAgreementDao,
+    private val bankAccountDao: IBankAccountDao
 
 ) {
 
@@ -43,9 +46,11 @@ class AuthorizationService(
     }
 
     fun cancelIfUserIsUnauthorized(person: Person, category: Category) {
-        val owner = categoryDao.getOwner(category)
-        if (owner != null && owner.id != person.id) {
-            throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with category " + category.id)
+        if (category.masterCategoryId != null){ // if category is universal don't check 
+            val owner = categoryDao.getOwner(category)
+            if (owner != null && owner.id != person.id) {
+                throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with category " + category.id)
+            }
         }
         BillingService.checkIfUserSubscriptionIsActive(person)
     }
@@ -64,5 +69,19 @@ class AuthorizationService(
             throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with operation " + operation.id)
         }
         BillingService.checkIfUserSubscriptionIsActive(person)
+    }
+
+    fun cancelIfUserIsUnauthorized(person: Person, bankAgreement: BankAgreement) {
+        val owner = bankAgreementDao.getOwner(bankAgreement)
+        if (owner.id != person.id) {
+            throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with bankAgreement " + bankAgreement.id)
+        }
+    }
+
+    fun cancelIfUserIsUnauthorized(person: Person, bankAccount: BankAccount) {
+        val owner = bankAccountDao.getOwner(bankAccount)
+        if (owner.id != person.id) {
+            throw TresorierIllegalException("user " + person.id + " isn't allowed to interact with bankAccount " + bankAccount.id)
+        }
     }
 }

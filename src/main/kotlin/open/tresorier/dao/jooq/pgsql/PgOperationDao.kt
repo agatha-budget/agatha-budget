@@ -3,18 +3,24 @@ package open.tresorier.dao.jooq.pgsql
 import open.tresorier.dao.IOperationDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.main.Tables.*
+import open.tresorier.generated.jooq.main.tables.Operation as OperationTable
 import open.tresorier.generated.jooq.main.tables.daos.OperationDao
 import open.tresorier.generated.jooq.main.tables.records.OperationRecord
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.model.*
 import org.jooq.Configuration
+import org.jooq.Record
+import org.jooq.Result
 import org.jooq.Field
 import org.jooq.Record3
+import org.jooq.Record11
+import org.jooq.Record13
 import org.jooq.impl.DSL
-import org.jooq.impl.DSL.sum
+import org.jooq.impl.DSL.*
 import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Operation as JooqOperation
 
+typealias OperationWithDaughtersRecord = Record11<String, String, Int, Int, String, Int, Long, String, Boolean, Boolean, Result<OperationRecord>>
 
 class PgOperationDao(val configuration: Configuration) : IOperationDao {
 
@@ -27,7 +33,16 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
     override fun insert(operation: Operation): Operation {
         val jooqOperation = this.toJooqOperation(operation)
         try {
-            this.generatedDao.insert(jooqOperation)
+            this.query
+                .insertInto(OPERATION, OPERATION.ID, OPERATION.ACCOUNT_ID, OPERATION.MONTH, OPERATION.DAY,
+                 OPERATION.CATEGORY_ID, OPERATION.MEMO, OPERATION.AMOUNT, OPERATION.ORDER_IN_DAY, 
+                 OPERATION.PENDING, OPERATION.LOCKED, OPERATION.MOTHER_OPERATION_ID,
+                  OPERATION.IMPORT_IDENTIFIER, OPERATION.IMPORT_TIMESTAMP)
+                .values(jooqOperation.id, jooqOperation.accountId, jooqOperation.month, jooqOperation.day, 
+                jooqOperation.categoryId, jooqOperation.memo, jooqOperation.amount, jooqOperation.orderInDay, jooqOperation.pending,
+                jooqOperation.locked, jooqOperation.motherOperationId, jooqOperation.importIdentifier, jooqOperation.importTimestamp )
+                .onDuplicateKeyIgnore()
+                .execute()
         } catch (e: Exception) {
             throw TresorierException("could not insert operation : $operation", e)
         }
@@ -84,44 +99,67 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             .from(OPERATION)
             .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
+            .and(OPERATION.MOTHER_OPERATION_ID.isNull)
         month?.let{ query.and(OPERATION.MONTH.lessOrEqual(it.comparable))}
-        val rawResult = query.fetchOne().get(spendingSum)
+        val rawResult = query.fetchOne()?.get(spendingSum)
         return rawResult?.toInt() ?: 0
     }
 
-    override fun findByAccount(account: Account, category: Category?): List<Operation> {
+    private val operation: OperationTable = OPERATION.`as`("operation")
+    private val daughter: OperationTable = OPERATION.`as`("daughter")
+    private val categorizedDaughter: OperationTable = OPERATION.`as`("categorized_daughter")
+
+
+    // ready to use computed Field
+    private val daughters = multiset(
+        selectFrom(daughter).
+        where(daughter.MOTHER_OPERATION_ID.eq(operation.ID)))
+        .`as`("daughters")
+
+    // to be optimised but good enough
+    override fun findByAccount(account: Account, category: Category?): List<OperationWithDaughters> {
         val query = this.query
-            .select()
-            .from(OPERATION)
-            .where(OPERATION.ACCOUNT_ID.eq(account.id))
+            .selectDistinct(
+                operation.ID, operation.ACCOUNT_ID, operation.MONTH, operation.
+                DAY, operation.CATEGORY_ID, operation.AMOUNT, operation.ORDER_IN_DAY, operation.MEMO,
+                operation.PENDING, operation.LOCKED, daughters)
+            .from(operation)
+            .leftJoin(categorizedDaughter).on(categorizedDaughter.MOTHER_OPERATION_ID.eq(operation.ID))
+            .where(operation.ACCOUNT_ID.eq(account.id))
+            .and(operation.MOTHER_OPERATION_ID.isNull)
         category?.let{
-            query.and(OPERATION.CATEGORY_ID.eq(it.id))
+            query.and(operation.CATEGORY_ID.eq(it.id).or(categorizedDaughter.CATEGORY_ID.eq(it.id)))
         }
-        query.orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
-        val jooqOperationList = query.fetch().into(OPERATION)
-        val operationList: MutableList<Operation> = mutableListOf()
-        for (operationRecord : OperationRecord in jooqOperationList) {
-            val operation = this.toOperation(operationRecord)
+        query.orderBy(operation.MONTH.desc(), operation.DAY.desc(), operation.ORDER_IN_DAY.desc())
+        val jooqOperationList = query.fetch()
+        val operationList: MutableList<OperationWithDaughters> = mutableListOf()
+        for (operationRecord : OperationWithDaughtersRecord in jooqOperationList) {
+            val operation = this.toOperationWithDaughter(operationRecord)
             operationList.add(operation)
         }
 
         return operationList
     }
 
-    override fun findByBudget(budget: Budget, category: Category?): List<Operation> {
+    override fun findByBudget(budget: Budget, category: Category?): List<OperationWithDaughters> {
         val query = this.query
-            .select()
-            .from(OPERATION)
-            .join(ACCOUNT).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
+            .selectDistinct(
+                operation.ID, operation.ACCOUNT_ID, operation.MONTH, operation.
+                DAY, operation.CATEGORY_ID, operation.AMOUNT, operation.ORDER_IN_DAY, operation.MEMO,
+                operation.PENDING, operation.LOCKED, daughters)
+            .from(operation)
+            .leftJoin(categorizedDaughter).on(categorizedDaughter.MOTHER_OPERATION_ID.eq(operation.ID))
+            .join(ACCOUNT).on(operation.ACCOUNT_ID.eq(ACCOUNT.ID))
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
+            .and(operation.MOTHER_OPERATION_ID.isNull)
         category?.let{
-            query.and(OPERATION.CATEGORY_ID.eq(it.id))
+            query.and(operation.CATEGORY_ID.eq(it.id).or(categorizedDaughter.CATEGORY_ID.eq(it.id)))
         }
-        query.orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
-        val jooqOperationList = query.fetch().into(OPERATION)
-        val operationList: MutableList<Operation> = mutableListOf()
-        for (operationRecord : OperationRecord in jooqOperationList) {
-            val operation = this.toOperation(operationRecord)
+        query.orderBy(operation.MONTH.desc(), operation.DAY.desc(), operation.ORDER_IN_DAY.desc())
+        val jooqOperationList = query.fetch()
+        val operationList: MutableList<OperationWithDaughters> = mutableListOf()
+        for (operationRecord : OperationWithDaughtersRecord in jooqOperationList) {
+            val operation = this.toOperationWithDaughter(operationRecord)
             operationList.add(operation)
         }
 
@@ -129,16 +167,30 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
     }
 
     override fun getOwner(operation: Operation): Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
                 .join(ACCOUNT).on(ACCOUNT.ID.eq(operation.accountId))
                 .join(BUDGET).on(BUDGET.ID.eq(ACCOUNT.BUDGET_ID))
                 .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                .fetchAny().into(PERSON)
-            return PgPersonDao.toPerson(owner)
-        } catch (e: Exception) {
-            throw TresorierException("the given object appears to have no owner")
+                .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
+            throw TresorierException("the given operation (${operation}) appears to have no owner")
+        } else {
+            return PgPersonDao.toPerson(ownerRecord)
         }
+    }
+
+    override fun findDaughterOperations(motherOperation: Operation): List<Operation> {
+        val query = this.query
+            .selectFrom(OPERATION)
+            .where(OPERATION.MOTHER_OPERATION_ID.eq(motherOperation.id))
+            .orderBy(OPERATION.MONTH.desc(), OPERATION.DAY.desc(), OPERATION.ORDER_IN_DAY.desc())
+        val jooqOperationList = query.fetch().into(OPERATION)
+        val operationList: MutableList<Operation> = mutableListOf()
+        for (operationRecord : OperationRecord in jooqOperationList) {
+            val operation = this.toOperation(operationRecord)
+            operationList.add(operation)
+        }
+        return operationList
     }
 
     private fun toJooqOperation(operation: Operation): JooqOperation {
@@ -153,6 +205,9 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             operation.orderInDay,
             operation.pending,
             operation.locked,
+            operation.motherOperationId,
+            operation.importIdentifier,
+            operation.importTimestamp
             )
     }
 
@@ -168,6 +223,9 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             jooqOperation.memo,
             jooqOperation.pending,
             jooqOperation.locked,
+            jooqOperation.motherOperationId,
+            jooqOperation.importIdentifier,
+            jooqOperation.importTimestamp,
             jooqOperation.id,
         )
     }
@@ -190,7 +248,30 @@ class PgOperationDao(val configuration: Configuration) : IOperationDao {
             operationRecord.memo,
             operationRecord.pending,
             operationRecord.locked,
+            operationRecord.motherOperationId,
+            operationRecord.importIdentifier,
+            operationRecord.importTimestamp,
             operationRecord.id,
+        )
+    }
+
+    private fun toOperationWithDaughter(record: OperationWithDaughtersRecord ): OperationWithDaughters {
+        val daughtersList: MutableList<Operation> = mutableListOf()
+        for (daughter in record.get(daughters)) {
+            val operation = this.toOperation(daughter)
+            daughtersList.add(operation)
+        }
+        return OperationWithDaughters(
+            record.get(OPERATION.ACCOUNT_ID),
+            Day(Month.createFromComparable(record.get(OPERATION.MONTH)), record.get(OPERATION.DAY)),
+            record.get(OPERATION.CATEGORY_ID),
+            record.get(OPERATION.AMOUNT),
+            record.get(OPERATION.ORDER_IN_DAY),
+            record.get(OPERATION.MEMO),
+            record.get(OPERATION.PENDING),
+            record.get(OPERATION.LOCKED),
+            daughtersList,
+            record.get(OPERATION.ID),
         )
     }
 }

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
 import open.tresorier.model.enum.ProfileEnum
+import open.tresorier.exception.TresorierException
 
 open class CategoryDaoTest : ITest {
 
@@ -20,9 +21,9 @@ open class CategoryDaoTest : ITest {
     @Test fun testGetAllCategoriesFromBudget() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -67,16 +68,18 @@ open class CategoryDaoTest : ITest {
 
     @Test fun testGetOwnerOfUniversalCategory() {
         val universalCategory = categoryDao.getById(Category.INCOME_ID)
-        val owner = categoryDao.getOwner(universalCategory)
-        Assertions.assertNull(owner)
+        val exception = Assertions.assertThrows(TresorierException::class.java) {
+            categoryDao.getOwner(universalCategory)
+        }
+        Assertions.assertEquals("the given category (${universalCategory}) appears to have no owner", exception.message)
     }
 
     @Test fun archiveAllDependingCategories() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -109,9 +112,9 @@ open class CategoryDaoTest : ITest {
     @Test fun unarchiveAllDependingCategories() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -141,9 +144,9 @@ open class CategoryDaoTest : ITest {
     @Test fun unarchiveAllDependingCategoriesSomeWereNotArchived() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -171,9 +174,9 @@ open class CategoryDaoTest : ITest {
     @Test fun archiveAllDependingCategoriesSomeWereAlreadyArchived() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         val categoryList = listOf(
@@ -201,9 +204,9 @@ open class CategoryDaoTest : ITest {
     @Test fun archiveAllDependingCategoriesWhenThereIsNone() {
         val budget = Budget("lucie-B1", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategoryDream = MasterCategory("dreams", budget.id)
+        val masterCategoryDream = MasterCategory("dreams", budget.id, null)
         masterCategoryDao.insert(masterCategoryDream)
-        val masterCategoryHouse = MasterCategory("house", budget.id)
+        val masterCategoryHouse = MasterCategory("house", budget.id, null)
         masterCategoryDao.insert(masterCategoryHouse)
 
         categoryDao.updateArchivedStatusByMasterCategory(masterCategoryDream, true)

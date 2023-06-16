@@ -19,7 +19,7 @@ import org.jooq.impl.UpdatableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> implements Record5<String, String, String, Boolean, String> {
 
-    private static final long serialVersionUID = 880187591;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Setter for <code>PUBLIC.BUDGET.ID</code>.
@@ -251,10 +251,25 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> implements R
     public BudgetRecord(String id, String personId, String name, Boolean deleted, String profile) {
         super(Budget.BUDGET);
 
-        set(0, id);
-        set(1, personId);
-        set(2, name);
-        set(3, deleted);
-        set(4, profile);
+        setId(id);
+        setPersonId(personId);
+        setName(name);
+        setDeleted(deleted);
+        setProfile(profile);
+    }
+
+    /**
+     * Create a detached, initialised BudgetRecord
+     */
+    public BudgetRecord(open.tresorier.generated.jooq.test.public_.tables.pojos.Budget value) {
+        super(Budget.BUDGET);
+
+        if (value != null) {
+            setId(value.getId());
+            setPersonId(value.getPersonId());
+            setName(value.getName());
+            setDeleted(value.getDeleted());
+            setProfile(value.getProfile());
+        }
     }
 }

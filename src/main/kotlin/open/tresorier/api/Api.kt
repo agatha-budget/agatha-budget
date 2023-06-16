@@ -14,11 +14,12 @@ import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.services.BillingService
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.model.enum.PriceIdEnum
+import open.tresorier.api.theme.*
 
 fun main() {
 
     val properties = Properties()
-    val app = setUpApp(properties)
+    var app = setUpApp(properties)
 
     // Session Manager
     SuperTokens.config().withHosts(
@@ -27,6 +28,26 @@ fun main() {
     )
     // Dependencies injection
     ServiceManager.start()
+
+    app = addBankingRoute(app,
+     ServiceManager.bankingService,
+     ServiceManager.accountService,
+     ServiceManager.budgetService)
+
+    app = addAccountRoute(app,
+     ServiceManager.accountService,
+     ServiceManager.budgetService,
+     ServiceManager.bankingService)
+
+    app = addOperationRoute(app,
+     ServiceManager.accountService,
+     ServiceManager.budgetService,
+     ServiceManager.categoryService,
+     ServiceManager.operationService)
+
+    app = addBudgetDataRoute(app,
+     ServiceManager.budgetService,
+     ServiceManager.budgetDataService)
 
     app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
@@ -151,64 +172,6 @@ fun main() {
         ctx.json(budgetList)
     }
 
-    app.before("/budget/data", SuperTokens.middleware())
-    app.get("/budget/data") { ctx ->
-        // required
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        // optional
-        val startMonth: Month? = getOptionalQueryParam<Int>(ctx, "start_month")?.let { Month.createFromComparable(it)}
-        val endMonth: Month? = getOptionalQueryParam<Int>(ctx, "end_month")?.let { Month.createFromComparable(it)}
-        val budgetData = ServiceManager.budgetDataService.getBudgetData(user, budget, startMonth, endMonth)
-        ctx.json(budgetData)
-    }
-
-    app.before("/budget/amount", SuperTokens.middleware())
-    app.get("/budget/amount") { ctx ->
-        // required
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        // optional
-        val month: Month? = getOptionalQueryParam<Int>(ctx, "month")?.let { Month.createFromComparable(it)}
-        val budgetData = ServiceManager.budgetDataService.getBudgetAmount(user, budget, month)
-        ctx.json(budgetData)
-    }
-
-    app.before("/account", SuperTokens.middleware())
-    app.post("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val name = getQueryParam<String>(ctx, "name")
-        val amount = getQueryParam<Int>(ctx, "amount")
-        val day = Day.createFromComparable(getQueryParam<Int>(ctx, "day"))
-        val account = ServiceManager.accountService.create(user, budget, name, day, amount)
-        ctx.json(account)
-    }
-
-    app.put("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val formerName = account.name
-        val newName = getQueryParam<String>(ctx, "new_name")
-        ServiceManager.accountService.update(user, account, newName)
-        ctx.result("updated from $formerName to $newName")
-    }
-
-    app.delete("/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        ServiceManager.accountService.delete(user, account)
-        ctx.result("account ${account.name} has been deleted")
-    }
-
-    app.before("/account/budget", SuperTokens.middleware())
-    app.get("/account/budget") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val accounts = ServiceManager.accountService.findByBudget(user, budget)
-        ctx.json(accounts)
-    }
-
     app.before("/mcategory", SuperTokens.middleware())
     app.post("/mcategory") { ctx ->
         val user = getUserFromAuth(ctx)
@@ -225,10 +188,11 @@ fun main() {
 
         //optional
         val newName = getOptionalQueryParam<String>(ctx, "new_name")
+        val newColor = getOptionalQueryParam<String>(ctx, "new_color")
         val newArchived = getOptionalQueryParam<Boolean>(ctx, "new_archived")
         val newDeleted = getOptionalQueryParam<Boolean>(ctx, "new_deleted")
 
-        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName, newArchived, newDeleted)
+        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName, newColor, newArchived, newDeleted)
         ctx.json(updatedMasterCategory)
     }
 
@@ -274,83 +238,6 @@ fun main() {
 
         val categories = ServiceManager.categoryService.findByBudget(user, budget)
         ctx.json(categories)
-    }
-
-    app.before("/operation", SuperTokens.middleware())
-    app.post("/operation") { ctx ->
-        //required
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val day : Day = getQueryParam<Int>(ctx, "day").let {Day.createFromComparable(it)}
-
-        //optional
-        val category: Category? = getOptionalQueryParam<String>(ctx, "category_id")?.let{
-            ServiceManager.categoryService.getById(user, it)
-        }
-        val amount : Int? = getOptionalQueryParam<Int>(ctx, "amount")
-        val memo : String? = getOptionalQueryParam<String>(ctx, "memo")
-        val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "pending")
-
-        val operation: Operation = ServiceManager.operationService.create(user, account, day, category, amount, memo, pending)
-        ctx.json(operation)
-    }
-
-    app.put("/operation") { ctx ->
-        //required
-        val user = getUserFromAuth(ctx)
-        val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
-    
-        //optional
-        val account: Account? = getOptionalQueryParam<String>(ctx, "new_account_id")?.let{
-            ServiceManager.accountService.getById(user, it)
-        }
-        val day : Day? = getOptionalQueryParam<Int>(ctx, "new_day")?.let {Day.createFromComparable(it)}
-
-        val category: Category? = getOptionalQueryParam<String>(ctx, "new_category_id")?.let{
-            ServiceManager.categoryService.getById(user, it)
-        }
-        val amount : Int? = getOptionalQueryParam<Int>(ctx, "new_amount")
-        val memo : String? = getOptionalQueryParam<String>(ctx, "new_memo")
-        val pending : Boolean? = getOptionalQueryParam<Boolean>(ctx, "new_pending")
-
-        val updatedOperation = ServiceManager.operationService.update(user, operation, account, day, category, amount, memo, pending)
-        ctx.json(updatedOperation)
-    }
-
-    app.delete("/operation") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val operation: Operation = ServiceManager.operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
-        ServiceManager.operationService.delete(user, operation)
-        ctx.result("account ${operation.id} has been deleted")
-    }
-
-    app.before("/operation/account", SuperTokens.middleware())
-    app.get("/operation/account") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
-        val category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
-        val operations = ServiceManager.operationService.findByAccount(user, account, category)
-        ctx.json(operations)
-    }
-
-    app.before("/operation/budget", SuperTokens.middleware())
-    app.get("/operation/budget") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
-        val  category = categoryId?.let { ServiceManager.categoryService.getById(user, it) }
-        val operations = ServiceManager.operationService.findByBudget(user, budget, category)
-        ctx.json(operations)
-    }
-    
-    app.before("/operation/import", SuperTokens.middleware())
-    app.post("/operation/import") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val account: Account = ServiceManager.accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
-        val fileOfx: String = ctx.body()
-        val numberOperation = ServiceManager.operationService.importOfxFile(user, account, fileOfx)
-        ctx.json(numberOperation)
     }
 
     app.before("/allocation", SuperTokens.middleware())
@@ -419,30 +306,4 @@ private fun setUpApp(properties: Properties): Javalin {
     }
 
     return app
-}
-
-private fun sendToAdminMessage(errorId : String) : String {
-    return " Send this code to your administrator for details : $errorId"
-}
-
-private fun getHerokuAssignedOrDefaultPort(): Int {
-    val herokuPort = System.getenv("PORT");
-    if (herokuPort != null) {
-        return Integer.parseInt(herokuPort);
-    }
-    return 7000;
-}
-
-private fun getUserFromAuth(ctx: Context): Person {
-    val validSession = SuperTokens.getFromContext(ctx)
-    val userId = validSession.userId
-    return ServiceManager.personService.getById(userId)
-}
-
-private inline fun <reified T: Any> getQueryParam(ctx: Context, paramName: String) : T {
-    return ctx.queryParam<T>(paramName).get()
-}
-
-private inline fun <reified T: Any> getOptionalQueryParam(ctx: Context, paramName: String) : T? {
-    return ctx.queryParam<T>(paramName).getOrNull()
 }

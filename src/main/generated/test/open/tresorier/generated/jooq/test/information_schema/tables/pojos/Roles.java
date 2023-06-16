@@ -13,47 +13,44 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Roles implements Serializable {
 
-    private static final long serialVersionUID = -532846639;
+    private static final long serialVersionUID = 1L;
 
-    private final String  name;
-    private final String  remarks;
-    private final Integer id;
+    private final String roleName;
+    private final String remarks;
 
     public Roles(Roles value) {
-        this.name = value.name;
+        this.roleName = value.roleName;
         this.remarks = value.remarks;
-        this.id = value.id;
     }
 
     public Roles(
-        String  name,
-        String  remarks,
-        Integer id
+        String roleName,
+        String remarks
     ) {
-        this.name = name;
+        this.roleName = roleName;
         this.remarks = remarks;
-        this.id = id;
     }
 
-    public String getName() {
-        return this.name;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.ROLES.ROLE_NAME</code>.
+     */
+    public String getRoleName() {
+        return this.roleName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.ROLES.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
-    }
-
-    public Integer getId() {
-        return this.id;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Roles (");
 
-        sb.append(name);
+        sb.append(roleName);
         sb.append(", ").append(remarks);
-        sb.append(", ").append(id);
 
         sb.append(")");
         return sb.toString();

@@ -13,46 +13,69 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class MasterCategory implements Serializable {
 
-    private static final long serialVersionUID = -976061433;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  budgetId;
     private final String  name;
     private final Boolean deleted;
+    private final String  color;
 
     public MasterCategory(MasterCategory value) {
         this.id = value.id;
         this.budgetId = value.budgetId;
         this.name = value.name;
         this.deleted = value.deleted;
+        this.color = value.color;
     }
 
     public MasterCategory(
         String  id,
         String  budgetId,
         String  name,
-        Boolean deleted
+        Boolean deleted,
+        String  color
     ) {
         this.id = id;
         this.budgetId = budgetId;
         this.name = name;
         this.deleted = deleted;
+        this.color = color;
     }
 
+    /**
+     * Getter for <code>PUBLIC.MASTER_CATEGORY.ID</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>PUBLIC.MASTER_CATEGORY.BUDGET_ID</code>.
+     */
     public String getBudgetId() {
         return this.budgetId;
     }
 
+    /**
+     * Getter for <code>PUBLIC.MASTER_CATEGORY.NAME</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>PUBLIC.MASTER_CATEGORY.DELETED</code>.
+     */
     public Boolean getDeleted() {
         return this.deleted;
+    }
+
+    /**
+     * Getter for <code>PUBLIC.MASTER_CATEGORY.COLOR</code>.
+     */
+    public String getColor() {
+        return this.color;
     }
 
     @Override
@@ -63,6 +86,7 @@ public class MasterCategory implements Serializable {
         sb.append(", ").append(budgetId);
         sb.append(", ").append(name);
         sb.append(", ").append(deleted);
+        sb.append(", ").append(color);
 
         sb.append(")");
         return sb.toString();

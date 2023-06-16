@@ -13,17 +13,16 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Synonyms implements Serializable {
 
-    private static final long serialVersionUID = 685533529;
+    private static final long serialVersionUID = 1L;
 
-    private final String  synonymCatalog;
-    private final String  synonymSchema;
-    private final String  synonymName;
-    private final String  synonymFor;
-    private final String  synonymForSchema;
-    private final String  typeName;
-    private final String  status;
-    private final String  remarks;
-    private final Integer id;
+    private final String synonymCatalog;
+    private final String synonymSchema;
+    private final String synonymName;
+    private final String synonymFor;
+    private final String synonymForSchema;
+    private final String typeName;
+    private final String status;
+    private final String remarks;
 
     public Synonyms(Synonyms value) {
         this.synonymCatalog = value.synonymCatalog;
@@ -34,19 +33,17 @@ public class Synonyms implements Serializable {
         this.typeName = value.typeName;
         this.status = value.status;
         this.remarks = value.remarks;
-        this.id = value.id;
     }
 
     public Synonyms(
-        String  synonymCatalog,
-        String  synonymSchema,
-        String  synonymName,
-        String  synonymFor,
-        String  synonymForSchema,
-        String  typeName,
-        String  status,
-        String  remarks,
-        Integer id
+        String synonymCatalog,
+        String synonymSchema,
+        String synonymName,
+        String synonymFor,
+        String synonymForSchema,
+        String typeName,
+        String status,
+        String remarks
     ) {
         this.synonymCatalog = synonymCatalog;
         this.synonymSchema = synonymSchema;
@@ -56,43 +53,62 @@ public class Synonyms implements Serializable {
         this.typeName = typeName;
         this.status = status;
         this.remarks = remarks;
-        this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_CATALOG</code>.
+     */
     public String getSynonymCatalog() {
         return this.synonymCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_SCHEMA</code>.
+     */
     public String getSynonymSchema() {
         return this.synonymSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_NAME</code>.
+     */
     public String getSynonymName() {
         return this.synonymName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_FOR</code>.
+     */
     public String getSynonymFor() {
         return this.synonymFor;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.SYNONYM_FOR_SCHEMA</code>.
+     */
     public String getSynonymForSchema() {
         return this.synonymForSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.TYPE_NAME</code>.
+     */
     public String getTypeName() {
         return this.typeName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.STATUS</code>.
+     */
     public String getStatus() {
         return this.status;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.SYNONYMS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
-    }
-
-    public Integer getId() {
-        return this.id;
     }
 
     @Override
@@ -107,7 +123,6 @@ public class Synonyms implements Serializable {
         sb.append(", ").append(typeName);
         sb.append(", ").append(status);
         sb.append(", ").append(remarks);
-        sb.append(", ").append(id);
 
         sb.append(")");
         return sb.toString();

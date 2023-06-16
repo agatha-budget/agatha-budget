@@ -33,7 +33,7 @@ open class AllocationDaoTest : ITest {
         val exception = Assertions.assertThrows(TresorierException::class.java) {
             allocationDao.getOwner(allocation)
         }
-        Assertions.assertEquals("the given object appears to have no owner", exception.message)
+        Assertions.assertEquals("the given allocation (${allocation}) appears to have no owner", exception.message)
     }
 
     @Test
@@ -70,7 +70,7 @@ open class AllocationDaoTest : ITest {
     fun getAllAllocationsOfBudget() {
         val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)
@@ -95,7 +95,7 @@ open class AllocationDaoTest : ITest {
     fun getAllAllocationsOfBudgetUntilMonth() {
         val budget = Budget("wellAllocatedBudget", "person1", ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
-        val masterCategory = MasterCategory("Fixed expense", budget.id)
+        val masterCategory = MasterCategory("Fixed expense", budget.id, null)
         masterCategoryDao.insert(masterCategory)
         val category = Category("oftenAllocatedCategory", masterCategory.id)
         categoryDao.insert(category)

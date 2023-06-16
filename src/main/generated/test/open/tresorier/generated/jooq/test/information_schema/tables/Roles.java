@@ -11,12 +11,13 @@ import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row3;
+import org.jooq.Row2;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,7 +27,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Roles extends TableImpl<RolesRecord> {
 
-    private static final long serialVersionUID = 924582608;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>INFORMATION_SCHEMA.ROLES</code>
@@ -42,25 +43,21 @@ public class Roles extends TableImpl<RolesRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.ROLES.NAME</code>.
+     * The column <code>INFORMATION_SCHEMA.ROLES.ROLE_NAME</code>.
      */
-    public final TableField<RolesRecord, String> NAME = createField(DSL.name("NAME"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RolesRecord, String> ROLE_NAME = createField(DSL.name("ROLE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
      * The column <code>INFORMATION_SCHEMA.ROLES.REMARKS</code>.
      */
-    public final TableField<RolesRecord, String> REMARKS = createField(DSL.name("REMARKS"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<RolesRecord, String> REMARKS = createField(DSL.name("REMARKS"), SQLDataType.VARCHAR(1000000000), this, "");
 
-    /**
-     * The column <code>INFORMATION_SCHEMA.ROLES.ID</code>.
-     */
-    public final TableField<RolesRecord, Integer> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    private Roles(Name alias, Table<RolesRecord> aliased) {
+        this(alias, aliased, null);
+    }
 
-    /**
-     * Create a <code>INFORMATION_SCHEMA.ROLES</code> table reference
-     */
-    public Roles() {
-        this(DSL.name("ROLES"), null);
+    private Roles(Name alias, Table<RolesRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -77,12 +74,11 @@ public class Roles extends TableImpl<RolesRecord> {
         this(alias, ROLES);
     }
 
-    private Roles(Name alias, Table<RolesRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Roles(Name alias, Table<RolesRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>INFORMATION_SCHEMA.ROLES</code> table reference
+     */
+    public Roles() {
+        this(DSL.name("ROLES"), null);
     }
 
     public <O extends Record> Roles(Table<O> child, ForeignKey<O, RolesRecord> key) {
@@ -91,7 +87,7 @@ public class Roles extends TableImpl<RolesRecord> {
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override
@@ -121,11 +117,11 @@ public class Roles extends TableImpl<RolesRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row3 type methods
+    // Row2 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row3<String, String, Integer> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Row2<String, String> fieldsRow() {
+        return (Row2) super.fieldsRow();
     }
 }

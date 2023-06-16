@@ -10,6 +10,8 @@ import java.util.List;
 import open.tresorier.generated.jooq.test.DefaultCatalog;
 import open.tresorier.generated.jooq.test.public_.tables.Account;
 import open.tresorier.generated.jooq.test.public_.tables.Allocation;
+import open.tresorier.generated.jooq.test.public_.tables.BankAccount;
+import open.tresorier.generated.jooq.test.public_.tables.BankAgreement;
 import open.tresorier.generated.jooq.test.public_.tables.Budget;
 import open.tresorier.generated.jooq.test.public_.tables.Category;
 import open.tresorier.generated.jooq.test.public_.tables.FlywaySchemaHistory;
@@ -29,7 +31,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -339440419;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -45,6 +47,16 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.ALLOCATION</code>.
      */
     public final Allocation ALLOCATION = Allocation.ALLOCATION;
+
+    /**
+     * The table <code>PUBLIC.BANK_ACCOUNT</code>.
+     */
+    public final BankAccount BANK_ACCOUNT = BankAccount.BANK_ACCOUNT;
+
+    /**
+     * The table <code>PUBLIC.BANK_AGREEMENT</code>.
+     */
+    public final BankAgreement BANK_AGREEMENT = BankAgreement.BANK_AGREEMENT;
 
     /**
      * The table <code>PUBLIC.BUDGET</code>.
@@ -96,15 +108,18 @@ public class Public extends SchemaImpl {
 
     @Override
     public final List<Table<?>> getTables() {
-        return Arrays.<Table<?>>asList(
+        return Arrays.asList(
             Account.ACCOUNT,
             Allocation.ALLOCATION,
+            BankAccount.BANK_ACCOUNT,
+            BankAgreement.BANK_AGREEMENT,
             Budget.BUDGET,
             Category.CATEGORY,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             MasterCategory.MASTER_CATEGORY,
             Operation.OPERATION,
             Person.PERSON,
-            UserActivity.USER_ACTIVITY);
+            UserActivity.USER_ACTIVITY
+        );
     }
 }

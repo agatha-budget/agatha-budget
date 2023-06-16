@@ -22,6 +22,7 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -31,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Budget extends TableImpl<BudgetRecord> {
 
-    private static final long serialVersionUID = 1392357347;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>public.budget</code>
@@ -49,33 +50,34 @@ public class Budget extends TableImpl<BudgetRecord> {
     /**
      * The column <code>public.budget.id</code>.
      */
-    public final TableField<BudgetRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BudgetRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.budget.person_id</code>.
      */
-    public final TableField<BudgetRecord, String> PERSON_ID = createField(DSL.name("person_id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<BudgetRecord, String> PERSON_ID = createField(DSL.name("person_id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.budget.name</code>.
      */
-    public final TableField<BudgetRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<BudgetRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>public.budget.deleted</code>.
      */
-    public final TableField<BudgetRecord, Boolean> DELETED = createField(DSL.name("deleted"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<BudgetRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.budget.profile</code>.
      */
-    public final TableField<BudgetRecord, String> PROFILE = createField(DSL.name("profile"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false).defaultValue(org.jooq.impl.DSL.field("'PROFILE_USER'::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<BudgetRecord, String> PROFILE = createField(DSL.name("profile"), SQLDataType.VARCHAR(36).nullable(false).defaultValue(DSL.field("'PROFILE_USER'::character varying", SQLDataType.VARCHAR)), this, "");
 
-    /**
-     * Create a <code>public.budget</code> table reference
-     */
-    public Budget() {
-        this(DSL.name("budget"), null);
+    private Budget(Name alias, Table<BudgetRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Budget(Name alias, Table<BudgetRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -92,12 +94,11 @@ public class Budget extends TableImpl<BudgetRecord> {
         this(alias, BUDGET);
     }
 
-    private Budget(Name alias, Table<BudgetRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Budget(Name alias, Table<BudgetRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>public.budget</code> table reference
+     */
+    public Budget() {
+        this(DSL.name("budget"), null);
     }
 
     public <O extends Record> Budget(Table<O> child, ForeignKey<O, BudgetRecord> key) {
@@ -106,7 +107,7 @@ public class Budget extends TableImpl<BudgetRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -115,17 +116,20 @@ public class Budget extends TableImpl<BudgetRecord> {
     }
 
     @Override
-    public List<UniqueKey<BudgetRecord>> getKeys() {
-        return Arrays.<UniqueKey<BudgetRecord>>asList(Keys.BUDGET_PKEY);
-    }
-
-    @Override
     public List<ForeignKey<BudgetRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<BudgetRecord, ?>>asList(Keys.BUDGET__BUDGET_PERSON_ID_FKEY);
+        return Arrays.asList(Keys.BUDGET__BUDGET_PERSON_ID_FKEY);
     }
 
+    private transient Person _person;
+
+    /**
+     * Get the implicit join path to the <code>public.person</code> table.
+     */
     public Person person() {
-        return new Person(this, Keys.BUDGET__BUDGET_PERSON_ID_FKEY);
+        if (_person == null)
+            _person = new Person(this, Keys.BUDGET__BUDGET_PERSON_ID_FKEY);
+
+        return _person;
     }
 
     @Override

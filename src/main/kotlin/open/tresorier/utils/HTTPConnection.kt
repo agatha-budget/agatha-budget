@@ -7,7 +7,7 @@ import org.json.JSONObject
 
 object HTTPConnection {
 
-    fun sendRequest(type: String, url: String, headerProperties: Map<String, String>, bodyProperties: Map<String, Any>) : HttpURLConnection {
+    fun sendRequest(type: String, url: String, headerProperties: Map<String, String>, bodyProperties: Map<String, Any>? = null) : HttpURLConnection {
         // HEADER
         val connection = URL(url).openConnection() as HttpURLConnection
 		connection.requestMethod = type
@@ -15,13 +15,14 @@ object HTTPConnection {
         connection.doInput = true;
 		connection.doOutput = true;
 
-		// BODY
-        val outputStreamWriter = OutputStreamWriter(connection.outputStream)
-        val jsonBody = JSONObject()
-        bodyProperties.forEach{ k, v -> jsonBody.put(k, v)}
-        outputStreamWriter.write(jsonBody.toString())
-		outputStreamWriter.flush()
-
+		// BODY (for post only)
+        bodyProperties?.let {
+            val outputStreamWriter = OutputStreamWriter(connection.outputStream)
+            val jsonBody = JSONObject()
+            it.forEach{ k, v -> jsonBody.put(k, v)}
+            outputStreamWriter.write(jsonBody.toString())
+            outputStreamWriter.flush()
+        }
         return connection
     }
 

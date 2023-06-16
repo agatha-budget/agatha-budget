@@ -22,6 +22,7 @@ import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -31,7 +32,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Person extends TableImpl<PersonRecord> {
 
-    private static final long serialVersionUID = 1183841341;
+    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>public.person</code>
@@ -49,68 +50,69 @@ public class Person extends TableImpl<PersonRecord> {
     /**
      * The column <code>public.person.id</code>.
      */
-    public final TableField<PersonRecord, String> ID = createField(DSL.name("id"), org.jooq.impl.SQLDataType.VARCHAR(36).nullable(false), this, "");
+    public final TableField<PersonRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(36).nullable(false), this, "");
 
     /**
      * The column <code>public.person.email</code>.
      */
-    public final TableField<PersonRecord, String> EMAIL = createField(DSL.name("email"), org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<PersonRecord, String> EMAIL = createField(DSL.name("email"), SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.person.name</code>.
      */
-    public final TableField<PersonRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<PersonRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.person.password</code>.
      */
-    public final TableField<PersonRecord, String> PASSWORD = createField(DSL.name("password"), org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<PersonRecord, String> PASSWORD = createField(DSL.name("password"), SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.person.unlockingdate</code>.
      */
-    public final TableField<PersonRecord, Long> UNLOCKINGDATE = createField(DSL.name("unlockingdate"), org.jooq.impl.SQLDataType.BIGINT.defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<PersonRecord, Long> UNLOCKINGDATE = createField(DSL.name("unlockingdate"), SQLDataType.BIGINT.defaultValue(DSL.field("0", SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>public.person.loginattemptcount</code>.
      */
-    public final TableField<PersonRecord, Integer> LOGINATTEMPTCOUNT = createField(DSL.name("loginattemptcount"), org.jooq.impl.SQLDataType.INTEGER.defaultValue(org.jooq.impl.DSL.field("0", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+    public final TableField<PersonRecord, Integer> LOGINATTEMPTCOUNT = createField(DSL.name("loginattemptcount"), SQLDataType.INTEGER.defaultValue(DSL.field("0", SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>public.person.deleted</code>.
      */
-    public final TableField<PersonRecord, Boolean> DELETED = createField(DSL.name("deleted"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<PersonRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.person.billing_id</code>.
      */
-    public final TableField<PersonRecord, String> BILLING_ID = createField(DSL.name("billing_id"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<PersonRecord, String> BILLING_ID = createField(DSL.name("billing_id"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL::character varying", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>public.person.billing_status</code>.
      */
-    public final TableField<PersonRecord, Boolean> BILLING_STATUS = createField(DSL.name("billing_status"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<PersonRecord, Boolean> BILLING_STATUS = createField(DSL.name("billing_status"), SQLDataType.BOOLEAN, this, "");
 
     /**
      * The column <code>public.person.creation_date</code>.
      */
-    public final TableField<PersonRecord, Long> CREATION_DATE = createField(DSL.name("creation_date"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).defaultValue(org.jooq.impl.DSL.field("'1640995200000'::bigint", org.jooq.impl.SQLDataType.BIGINT)), this, "");
+    public final TableField<PersonRecord, Long> CREATION_DATE = createField(DSL.name("creation_date"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.field("'1640995200000'::bigint", SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>public.person.style</code>.
      */
-    public final TableField<PersonRecord, String> STYLE = createField(DSL.name("style"), org.jooq.impl.SQLDataType.VARCHAR(36).defaultValue(org.jooq.impl.DSL.field("NULL::character varying", org.jooq.impl.SQLDataType.VARCHAR)), this, "");
+    public final TableField<PersonRecord, String> STYLE = createField(DSL.name("style"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL::character varying", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>public.person.dyslexia</code>.
      */
-    public final TableField<PersonRecord, Boolean> DYSLEXIA = createField(DSL.name("dyslexia"), org.jooq.impl.SQLDataType.BOOLEAN.defaultValue(org.jooq.impl.DSL.field("false", org.jooq.impl.SQLDataType.BOOLEAN)), this, "");
+    public final TableField<PersonRecord, Boolean> DYSLEXIA = createField(DSL.name("dyslexia"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
 
-    /**
-     * Create a <code>public.person</code> table reference
-     */
-    public Person() {
-        this(DSL.name("person"), null);
+    private Person(Name alias, Table<PersonRecord> aliased) {
+        this(alias, aliased, null);
+    }
+
+    private Person(Name alias, Table<PersonRecord> aliased, Field<?>[] parameters) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
     /**
@@ -127,12 +129,11 @@ public class Person extends TableImpl<PersonRecord> {
         this(alias, PERSON);
     }
 
-    private Person(Name alias, Table<PersonRecord> aliased) {
-        this(alias, aliased, null);
-    }
-
-    private Person(Name alias, Table<PersonRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    /**
+     * Create a <code>public.person</code> table reference
+     */
+    public Person() {
+        this(DSL.name("person"), null);
     }
 
     public <O extends Record> Person(Table<O> child, ForeignKey<O, PersonRecord> key) {
@@ -141,7 +142,7 @@ public class Person extends TableImpl<PersonRecord> {
 
     @Override
     public Schema getSchema() {
-        return Public.PUBLIC;
+        return aliased() ? null : Public.PUBLIC;
     }
 
     @Override
@@ -150,8 +151,8 @@ public class Person extends TableImpl<PersonRecord> {
     }
 
     @Override
-    public List<UniqueKey<PersonRecord>> getKeys() {
-        return Arrays.<UniqueKey<PersonRecord>>asList(Keys.PERSON_PKEY, Keys.PERSON_EMAIL_KEY, Keys.PERSON_BILLING_ID_KEY);
+    public List<UniqueKey<PersonRecord>> getUniqueKeys() {
+        return Arrays.asList(Keys.PERSON_EMAIL_KEY, Keys.PERSON_BILLING_ID_KEY);
     }
 
     @Override

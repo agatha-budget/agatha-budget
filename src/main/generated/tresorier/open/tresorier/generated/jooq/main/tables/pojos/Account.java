@@ -13,13 +13,14 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account implements Serializable {
 
-    private static final long serialVersionUID = 405077715;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  budgetId;
     private final String  name;
     private final Boolean archived;
     private final Boolean deleted;
+    private final String  bankAccountId;
 
     public Account(Account value) {
         this.id = value.id;
@@ -27,6 +28,7 @@ public class Account implements Serializable {
         this.name = value.name;
         this.archived = value.archived;
         this.deleted = value.deleted;
+        this.bankAccountId = value.bankAccountId;
     }
 
     public Account(
@@ -34,33 +36,57 @@ public class Account implements Serializable {
         String  budgetId,
         String  name,
         Boolean archived,
-        Boolean deleted
+        Boolean deleted,
+        String  bankAccountId
     ) {
         this.id = id;
         this.budgetId = budgetId;
         this.name = name;
         this.archived = archived;
         this.deleted = deleted;
+        this.bankAccountId = bankAccountId;
     }
 
+    /**
+     * Getter for <code>public.account.id</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>public.account.budget_id</code>.
+     */
     public String getBudgetId() {
         return this.budgetId;
     }
 
+    /**
+     * Getter for <code>public.account.name</code>.
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Getter for <code>public.account.archived</code>.
+     */
     public Boolean getArchived() {
         return this.archived;
     }
 
+    /**
+     * Getter for <code>public.account.deleted</code>.
+     */
     public Boolean getDeleted() {
         return this.deleted;
+    }
+
+    /**
+     * Getter for <code>public.account.bank_account_id</code>.
+     */
+    public String getBankAccountId() {
+        return this.bankAccountId;
     }
 
     @Override
@@ -72,6 +98,7 @@ public class Account implements Serializable {
         sb.append(", ").append(name);
         sb.append(", ").append(archived);
         sb.append(", ").append(deleted);
+        sb.append(", ").append(bankAccountId);
 
         sb.append(")");
         return sb.toString();

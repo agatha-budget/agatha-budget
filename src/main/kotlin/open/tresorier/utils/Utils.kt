@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory
 import java.util.Properties as JavaProperties
 import open.tresorier.utils.PropertiesEnum.*
 
-
 object Utils {
 
     fun getLogger(): Logger = LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME)
@@ -14,5 +13,16 @@ object Utils {
 
     fun newLine() : String {
         return System.lineSeparator()
+    }
+
+    fun truncStringToMax(string: String, max: Int) : String {
+        if (max < 0) {
+            return ""
+        }
+        if (string.length <= max) {
+            return string;
+        } else {
+            return string.substring(0, max);
+        }
     }
 }

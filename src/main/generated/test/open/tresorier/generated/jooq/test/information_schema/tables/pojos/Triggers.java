@@ -13,126 +13,168 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Triggers implements Serializable {
 
-    private static final long serialVersionUID = -1037816037;
+    private static final long serialVersionUID = 1L;
 
     private final String  triggerCatalog;
     private final String  triggerSchema;
     private final String  triggerName;
-    private final String  triggerType;
-    private final String  tableCatalog;
-    private final String  tableSchema;
-    private final String  tableName;
-    private final Boolean before;
+    private final String  eventManipulation;
+    private final String  eventObjectCatalog;
+    private final String  eventObjectSchema;
+    private final String  eventObjectTable;
+    private final String  actionOrientation;
+    private final String  actionTiming;
+    private final Boolean isRollback;
     private final String  javaClass;
     private final Integer queueSize;
     private final Boolean noWait;
     private final String  remarks;
-    private final String  sql;
-    private final Integer id;
 
     public Triggers(Triggers value) {
         this.triggerCatalog = value.triggerCatalog;
         this.triggerSchema = value.triggerSchema;
         this.triggerName = value.triggerName;
-        this.triggerType = value.triggerType;
-        this.tableCatalog = value.tableCatalog;
-        this.tableSchema = value.tableSchema;
-        this.tableName = value.tableName;
-        this.before = value.before;
+        this.eventManipulation = value.eventManipulation;
+        this.eventObjectCatalog = value.eventObjectCatalog;
+        this.eventObjectSchema = value.eventObjectSchema;
+        this.eventObjectTable = value.eventObjectTable;
+        this.actionOrientation = value.actionOrientation;
+        this.actionTiming = value.actionTiming;
+        this.isRollback = value.isRollback;
         this.javaClass = value.javaClass;
         this.queueSize = value.queueSize;
         this.noWait = value.noWait;
         this.remarks = value.remarks;
-        this.sql = value.sql;
-        this.id = value.id;
     }
 
     public Triggers(
         String  triggerCatalog,
         String  triggerSchema,
         String  triggerName,
-        String  triggerType,
-        String  tableCatalog,
-        String  tableSchema,
-        String  tableName,
-        Boolean before,
+        String  eventManipulation,
+        String  eventObjectCatalog,
+        String  eventObjectSchema,
+        String  eventObjectTable,
+        String  actionOrientation,
+        String  actionTiming,
+        Boolean isRollback,
         String  javaClass,
         Integer queueSize,
         Boolean noWait,
-        String  remarks,
-        String  sql,
-        Integer id
+        String  remarks
     ) {
         this.triggerCatalog = triggerCatalog;
         this.triggerSchema = triggerSchema;
         this.triggerName = triggerName;
-        this.triggerType = triggerType;
-        this.tableCatalog = tableCatalog;
-        this.tableSchema = tableSchema;
-        this.tableName = tableName;
-        this.before = before;
+        this.eventManipulation = eventManipulation;
+        this.eventObjectCatalog = eventObjectCatalog;
+        this.eventObjectSchema = eventObjectSchema;
+        this.eventObjectTable = eventObjectTable;
+        this.actionOrientation = actionOrientation;
+        this.actionTiming = actionTiming;
+        this.isRollback = isRollback;
         this.javaClass = javaClass;
         this.queueSize = queueSize;
         this.noWait = noWait;
         this.remarks = remarks;
-        this.sql = sql;
-        this.id = id;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_CATALOG</code>.
+     */
     public String getTriggerCatalog() {
         return this.triggerCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_SCHEMA</code>.
+     */
     public String getTriggerSchema() {
         return this.triggerSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.TRIGGER_NAME</code>.
+     */
     public String getTriggerName() {
         return this.triggerName;
     }
 
-    public String getTriggerType() {
-        return this.triggerType;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_MANIPULATION</code>.
+     */
+    public String getEventManipulation() {
+        return this.eventManipulation;
     }
 
-    public String getTableCatalog() {
-        return this.tableCatalog;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_OBJECT_CATALOG</code>.
+     */
+    public String getEventObjectCatalog() {
+        return this.eventObjectCatalog;
     }
 
-    public String getTableSchema() {
-        return this.tableSchema;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_OBJECT_SCHEMA</code>.
+     */
+    public String getEventObjectSchema() {
+        return this.eventObjectSchema;
     }
 
-    public String getTableName() {
-        return this.tableName;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.EVENT_OBJECT_TABLE</code>.
+     */
+    public String getEventObjectTable() {
+        return this.eventObjectTable;
     }
 
-    public Boolean getBefore() {
-        return this.before;
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.ACTION_ORIENTATION</code>.
+     */
+    public String getActionOrientation() {
+        return this.actionOrientation;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.ACTION_TIMING</code>.
+     */
+    public String getActionTiming() {
+        return this.actionTiming;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.IS_ROLLBACK</code>.
+     */
+    public Boolean getIsRollback() {
+        return this.isRollback;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.JAVA_CLASS</code>.
+     */
     public String getJavaClass() {
         return this.javaClass;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.QUEUE_SIZE</code>.
+     */
     public Integer getQueueSize() {
         return this.queueSize;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.NO_WAIT</code>.
+     */
     public Boolean getNoWait() {
         return this.noWait;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TRIGGERS.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
-    }
-
-    public String getSql() {
-        return this.sql;
-    }
-
-    public Integer getId() {
-        return this.id;
     }
 
     @Override
@@ -142,17 +184,17 @@ public class Triggers implements Serializable {
         sb.append(triggerCatalog);
         sb.append(", ").append(triggerSchema);
         sb.append(", ").append(triggerName);
-        sb.append(", ").append(triggerType);
-        sb.append(", ").append(tableCatalog);
-        sb.append(", ").append(tableSchema);
-        sb.append(", ").append(tableName);
-        sb.append(", ").append(before);
+        sb.append(", ").append(eventManipulation);
+        sb.append(", ").append(eventObjectCatalog);
+        sb.append(", ").append(eventObjectSchema);
+        sb.append(", ").append(eventObjectTable);
+        sb.append(", ").append(actionOrientation);
+        sb.append(", ").append(actionTiming);
+        sb.append(", ").append(isRollback);
         sb.append(", ").append(javaClass);
         sb.append(", ").append(queueSize);
         sb.append(", ").append(noWait);
         sb.append(", ").append(remarks);
-        sb.append(", ").append(sql);
-        sb.append(", ").append(id);
 
         sb.append(")");
         return sb.toString();

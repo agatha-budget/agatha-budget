@@ -31,7 +31,7 @@ val INTEGRATION_DB_PWD = System.getenv(INTEGRATION_DB_ID + "_PASSWORD") ?: INTEG
 buildscript {
     dependencies {
         classpath("org.postgresql:postgresql:42.2.12")
-        classpath("com.h2database:h2:1.4.200")
+        classpath("com.h2database:h2:2.0.206")
 
     }
 }
@@ -39,8 +39,8 @@ buildscript {
 plugins {
     kotlin("jvm") version "1.4.10"
     id("org.jetbrains.dokka") version "1.4.0-rc"
-    id("org.flywaydb.flyway") version "7.5.3"
-    id("nu.studer.jooq") version "5.2"
+    id("org.flywaydb.flyway") version "9.3.1"
+    id("nu.studer.jooq") version "7.1.1"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
     jacoco
     application
 }
@@ -83,11 +83,10 @@ val kotlin_version="1.4.10"
 val koin_version= "3.0.1-beta-2"
 val junit_version="5.1.1"
 val postgres_version="42.2.12"
-val h2_version="1.4.200"
-val jooq_version="3.13.4"
+val h2_version="2.1.214"
+val jooq_version="3.17.4"
 val mock_version="1.10.5"
-val slf4j_version="1.7.30"
-val logback_version="1.2.3"
+val logback_version="1.3.5"
 val javalin_version="3.11.0"
 val jackson_version="2.10.3"
 val supertoken_version="1.4.+"
@@ -142,7 +141,6 @@ dependencies {
     implementation("org.jooq:jooq-codegen:$jooq_version")
 
     // Logging
-    implementation("org.slf4j:slf4j-api:$slf4j_version")
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("ch.qos.logback:logback-core:$logback_version")
 
@@ -154,6 +152,10 @@ dependencies {
 
 tasks.clean {
     doLast { delete(project.file(generatedDir)) }
+}
+
+flyway {
+    cleanDisabled = false
 }
 
 tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTresorierDatabase") {
@@ -213,7 +215,6 @@ tasks.register("cleanAllDB") {
     dependsOn("cleanIntegrationDatabase")
 }
 
-
 jooq {
     configurations {
         create("tresorier") { // name of the jOOQ configuration
@@ -230,18 +231,6 @@ jooq {
                      database.apply {
                          name = "org.jooq.meta.postgres.PostgresDatabase"
                          inputSchema = "public"
-                         forcedTypes.addAll(
-                             arrayOf(
-                                 ForcedType()
-                                     .withName("varchar")
-                                     .withIncludeExpression(".*")
-                                     .withIncludeTypes("JSONB?"),
-                                 ForcedType()
-                                     .withName("varchar")
-                                     .withIncludeExpression(".*")
-                                     .withIncludeTypes("INET")
-                             ).toList()
-                         )
                      }
                      generate.apply {
                          isDeprecated = false
@@ -272,18 +261,6 @@ jooq {
                     name = "org.jooq.codegen.JavaGenerator"
                     database.apply {
                         name = "org.jooq.meta.h2.H2Database"
-                        forcedTypes.addAll(
-                            arrayOf(
-                                ForcedType()
-                                    .withName("varchar")
-                                    .withIncludeExpression(".*")
-                                    .withIncludeTypes("JSONB?"),
-                                ForcedType()
-                                    .withName("varchar")
-                                    .withIncludeExpression(".*")
-                                    .withIncludeTypes("INET")
-                            ).toList()
-                        )
                     }
                     generate.apply {
                         isDeprecated = false
@@ -311,6 +288,10 @@ tasks.register("generateJooq") {
 
 tasks.named("generateTresorierJooq") {mustRunAfter("migrateTresorierDatabase")}
 tasks.named("generateTestJooq") {mustRunAfter("migrateTestDatabase")}
+tasks.named("compileKotlin") {
+    mustRunAfter("generateTresorierJooq")
+    mustRunAfter("generateTestJooq")
+}
 
 tasks.named("test") {
     dependsOn("migrateTestDatabase")
@@ -344,7 +325,7 @@ tasks.test {
     testLogging {
         events("passed", "skipped", "failed")
     }
-    failFast = true
+    //failFast = true
     finalizedBy(tasks.jacocoTestReport)
 }
 

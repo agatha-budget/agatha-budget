@@ -9,7 +9,6 @@ import org.koin.core.component.inject
 
 class AuthorizationServiceTest : ITest {
 
-
     private val categoryDao by inject<ICategoryDao>()
     private val authorizationService by inject<AuthorizationService>()
 

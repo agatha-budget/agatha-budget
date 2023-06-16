@@ -17,6 +17,7 @@ import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
 import org.jooq.impl.DSL;
+import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
 
 
@@ -26,10 +27,11 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class QueryStatistics extends TableImpl<QueryStatisticsRecord> {
 
-    private static final long serialVersionUID = 1060706499;
+    private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code>
+     * The reference instance of
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code>
      */
     public static final QueryStatistics QUERY_STATISTICS = new QueryStatistics();
 
@@ -42,85 +44,76 @@ public class QueryStatistics extends TableImpl<QueryStatisticsRecord> {
     }
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.SQL_STATEMENT</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.SQL_STATEMENT</code>.
      */
-    public final TableField<QueryStatisticsRecord, String> SQL_STATEMENT = createField(DSL.name("SQL_STATEMENT"), org.jooq.impl.SQLDataType.VARCHAR(2147483647), this, "");
+    public final TableField<QueryStatisticsRecord, String> SQL_STATEMENT = createField(DSL.name("SQL_STATEMENT"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.EXECUTION_COUNT</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.EXECUTION_COUNT</code>.
      */
-    public final TableField<QueryStatisticsRecord, Integer> EXECUTION_COUNT = createField(DSL.name("EXECUTION_COUNT"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<QueryStatisticsRecord, Integer> EXECUTION_COUNT = createField(DSL.name("EXECUTION_COUNT"), SQLDataType.INTEGER, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_EXECUTION_TIME</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_EXECUTION_TIME</code>.
      */
-    public final TableField<QueryStatisticsRecord, Double> MIN_EXECUTION_TIME = createField(DSL.name("MIN_EXECUTION_TIME"), org.jooq.impl.SQLDataType.DOUBLE, this, "");
+    public final TableField<QueryStatisticsRecord, Double> MIN_EXECUTION_TIME = createField(DSL.name("MIN_EXECUTION_TIME"), SQLDataType.DOUBLE, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_EXECUTION_TIME</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_EXECUTION_TIME</code>.
      */
-    public final TableField<QueryStatisticsRecord, Double> MAX_EXECUTION_TIME = createField(DSL.name("MAX_EXECUTION_TIME"), org.jooq.impl.SQLDataType.DOUBLE, this, "");
+    public final TableField<QueryStatisticsRecord, Double> MAX_EXECUTION_TIME = createField(DSL.name("MAX_EXECUTION_TIME"), SQLDataType.DOUBLE, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_EXECUTION_TIME</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_EXECUTION_TIME</code>.
      */
-    public final TableField<QueryStatisticsRecord, Double> CUMULATIVE_EXECUTION_TIME = createField(DSL.name("CUMULATIVE_EXECUTION_TIME"), org.jooq.impl.SQLDataType.DOUBLE, this, "");
+    public final TableField<QueryStatisticsRecord, Double> CUMULATIVE_EXECUTION_TIME = createField(DSL.name("CUMULATIVE_EXECUTION_TIME"), SQLDataType.DOUBLE, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_EXECUTION_TIME</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_EXECUTION_TIME</code>.
      */
-    public final TableField<QueryStatisticsRecord, Double> AVERAGE_EXECUTION_TIME = createField(DSL.name("AVERAGE_EXECUTION_TIME"), org.jooq.impl.SQLDataType.DOUBLE, this, "");
+    public final TableField<QueryStatisticsRecord, Double> AVERAGE_EXECUTION_TIME = createField(DSL.name("AVERAGE_EXECUTION_TIME"), SQLDataType.DOUBLE, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_EXECUTION_TIME</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_EXECUTION_TIME</code>.
      */
-    public final TableField<QueryStatisticsRecord, Double> STD_DEV_EXECUTION_TIME = createField(DSL.name("STD_DEV_EXECUTION_TIME"), org.jooq.impl.SQLDataType.DOUBLE, this, "");
+    public final TableField<QueryStatisticsRecord, Double> STD_DEV_EXECUTION_TIME = createField(DSL.name("STD_DEV_EXECUTION_TIME"), SQLDataType.DOUBLE, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_ROW_COUNT</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MIN_ROW_COUNT</code>.
      */
-    public final TableField<QueryStatisticsRecord, Integer> MIN_ROW_COUNT = createField(DSL.name("MIN_ROW_COUNT"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<QueryStatisticsRecord, Long> MIN_ROW_COUNT = createField(DSL.name("MIN_ROW_COUNT"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_ROW_COUNT</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.MAX_ROW_COUNT</code>.
      */
-    public final TableField<QueryStatisticsRecord, Integer> MAX_ROW_COUNT = createField(DSL.name("MAX_ROW_COUNT"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<QueryStatisticsRecord, Long> MAX_ROW_COUNT = createField(DSL.name("MAX_ROW_COUNT"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_ROW_COUNT</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.CUMULATIVE_ROW_COUNT</code>.
      */
-    public final TableField<QueryStatisticsRecord, Long> CUMULATIVE_ROW_COUNT = createField(DSL.name("CUMULATIVE_ROW_COUNT"), org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<QueryStatisticsRecord, Long> CUMULATIVE_ROW_COUNT = createField(DSL.name("CUMULATIVE_ROW_COUNT"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_ROW_COUNT</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.AVERAGE_ROW_COUNT</code>.
      */
-    public final TableField<QueryStatisticsRecord, Double> AVERAGE_ROW_COUNT = createField(DSL.name("AVERAGE_ROW_COUNT"), org.jooq.impl.SQLDataType.DOUBLE, this, "");
+    public final TableField<QueryStatisticsRecord, Double> AVERAGE_ROW_COUNT = createField(DSL.name("AVERAGE_ROW_COUNT"), SQLDataType.DOUBLE, this, "");
 
     /**
-     * The column <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_ROW_COUNT</code>.
+     * The column
+     * <code>INFORMATION_SCHEMA.QUERY_STATISTICS.STD_DEV_ROW_COUNT</code>.
      */
-    public final TableField<QueryStatisticsRecord, Double> STD_DEV_ROW_COUNT = createField(DSL.name("STD_DEV_ROW_COUNT"), org.jooq.impl.SQLDataType.DOUBLE, this, "");
-
-    /**
-     * Create a <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code> table reference
-     */
-    public QueryStatistics() {
-        this(DSL.name("QUERY_STATISTICS"), null);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code> table reference
-     */
-    public QueryStatistics(String alias) {
-        this(DSL.name(alias), QUERY_STATISTICS);
-    }
-
-    /**
-     * Create an aliased <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code> table reference
-     */
-    public QueryStatistics(Name alias) {
-        this(alias, QUERY_STATISTICS);
-    }
+    public final TableField<QueryStatisticsRecord, Double> STD_DEV_ROW_COUNT = createField(DSL.name("STD_DEV_ROW_COUNT"), SQLDataType.DOUBLE, this, "");
 
     private QueryStatistics(Name alias, Table<QueryStatisticsRecord> aliased) {
         this(alias, aliased, null);
@@ -130,13 +123,36 @@ public class QueryStatistics extends TableImpl<QueryStatisticsRecord> {
         super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
     }
 
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code> table
+     * reference
+     */
+    public QueryStatistics(String alias) {
+        this(DSL.name(alias), QUERY_STATISTICS);
+    }
+
+    /**
+     * Create an aliased <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code> table
+     * reference
+     */
+    public QueryStatistics(Name alias) {
+        this(alias, QUERY_STATISTICS);
+    }
+
+    /**
+     * Create a <code>INFORMATION_SCHEMA.QUERY_STATISTICS</code> table reference
+     */
+    public QueryStatistics() {
+        this(DSL.name("QUERY_STATISTICS"), null);
+    }
+
     public <O extends Record> QueryStatistics(Table<O> child, ForeignKey<O, QueryStatisticsRecord> key) {
         super(child, key, QUERY_STATISTICS);
     }
 
     @Override
     public Schema getSchema() {
-        return InformationSchema.INFORMATION_SCHEMA;
+        return aliased() ? null : InformationSchema.INFORMATION_SCHEMA;
     }
 
     @Override
@@ -170,7 +186,7 @@ public class QueryStatistics extends TableImpl<QueryStatisticsRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row12<String, Integer, Double, Double, Double, Double, Double, Integer, Integer, Long, Double, Double> fieldsRow() {
+    public Row12<String, Integer, Double, Double, Double, Double, Double, Long, Long, Long, Double, Double> fieldsRow() {
         return (Row12) super.fieldsRow();
     }
 }

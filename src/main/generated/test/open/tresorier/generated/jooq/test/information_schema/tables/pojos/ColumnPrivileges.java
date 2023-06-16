@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ColumnPrivileges implements Serializable {
 
-    private static final long serialVersionUID = 1969428067;
+    private static final long serialVersionUID = 1L;
 
     private final String grantor;
     private final String grantee;
@@ -55,34 +55,62 @@ public class ColumnPrivileges implements Serializable {
         this.isGrantable = isGrantable;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.GRANTOR</code>.
+     */
     public String getGrantor() {
         return this.grantor;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.GRANTEE</code>.
+     */
     public String getGrantee() {
         return this.grantee;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.COLUMN_NAME</code>.
+     */
     public String getColumnName() {
         return this.columnName;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.PRIVILEGE_TYPE</code>.
+     */
     public String getPrivilegeType() {
         return this.privilegeType;
     }
 
+    /**
+     * Getter for
+     * <code>INFORMATION_SCHEMA.COLUMN_PRIVILEGES.IS_GRANTABLE</code>.
+     */
     public String getIsGrantable() {
         return this.isGrantable;
     }

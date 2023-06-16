@@ -1,6 +1,7 @@
  package open.tresorier.services
 
 import open.tresorier.dao.IOperationDao
+import open.tresorier.dao.IAccountDao
 import open.tresorier.model.*
 import open.tresorier.utils.Time
 
@@ -12,19 +13,23 @@ import java.io.File
 import java.io.BufferedReader
 import open.tresorier.model.enum.ActionEnum
 
-class OperationService(private val operationDao: IOperationDao, private val authorizationService: AuthorizationService, private val userActivityService: UserActivityService) {
+class OperationService(
+    private val operationDao: IOperationDao,
+    private val accountDao: IAccountDao,
+    private val authorizationService: AuthorizationService,
+    private val userActivityService: UserActivityService) {
 
     fun createInitialOperation(person: Person, account: Account, day: Day, amount: Int){
         authorizationService.cancelIfUserIsUnauthorized(person, account)
-        val operation = Operation(account.id, day, Category.INCOME_ID, amount, 1, "Montant initial", false, false)
+        val operation = Operation(account.id, day, Category.INCOME_ID, amount, 1, "Montant initial", false, false, null)
         operationDao.insert(operation)
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
     }
 
-    fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?, pending: Boolean?) : Operation {
+    fun create(person: Person, account: Account, day: Day, category: Category?, amount: Int?, memo: String?, pending: Boolean?, motherOperation: Operation?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         val order = Time.now()
-        val operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false)
+        var operation = Operation(account.id, day, category?.id, amount ?: 0, order, memo, pending ?: false, false, motherOperation?.id)
         return operationDao.insert(operation)
     }
 
@@ -34,7 +39,7 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         return operation
     }
 
-    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, amount: Int?, memo: String?, pending: Boolean?) : Operation {
+    fun update(person: Person, operation: Operation, account: Account?, newDay: Day?, category: Category?, removeCategory: Boolean?, amount: Int?, memo: String?, pending: Boolean?, motherOperationId: String?) : Operation {
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
         newDay?.let {
             if (!it.isEquals(operation.day)) {
@@ -45,23 +50,33 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         }
         account?.let { operation.accountId = it.id }
         category?.let { operation.categoryId = it.id }
+        removeCategory?.let { 
+            if (category == null && it) { // if both a category and removeCategory are given, use the category
+                operation.categoryId = null
+            }
+        }
         amount?.let { operation.amount = it }
         memo?.let { operation.memo = it }
         pending?.let { operation.pending = it }
+        motherOperationId?.let { operation.motherOperationId = it }
         return operationDao.update(operation)
     }
 
     fun delete(person: Person, operation: Operation) {
         authorizationService.cancelIfUserIsUnauthorized(person, operation)
+        val daughters = operationDao.findDaughterOperations(operation)
+        daughters.forEach {
+            operationDao.delete(it)
+        }
         operationDao.delete(operation)
     }
 
-    fun findByAccount(person: Person, account: Account, category: Category?) : List<Operation> {
+    fun findByAccount(person: Person, account: Account, category: Category?) : List<OperationWithDaughters> {
         authorizationService.cancelIfUserIsUnauthorized(person, account)
         return operationDao.findByAccount(account, category)
     }
 
-    fun findByBudget(person: Person, budget: Budget, category: Category?) : List<Operation> {
+    fun findByBudget(person: Person, budget: Budget, category: Category?) : List<OperationWithDaughters> {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         return operationDao.findByBudget(budget, category)
     }
@@ -113,8 +128,8 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         endElement = operation.indexOf("<", startElement)
         var memo = operation.substring(startElement, endElement)
         // formatage des données récupérées
-        if (!Day.checkComparableIsValid(Integer.parseInt(date))) { // si la date est non valide on met à la date du jour
-            date = SimpleDateFormat("yyyyMMdd").format( Date())    // ainsi les opérations où il y a des problèmes sont visibles en premier
+        if (!Day.checkComparableIsValid(Integer.parseInt(date))) { // if there is a problem with date, the operation is at the top of list
+            date = SimpleDateFormat("yyyyMMdd").format( Date())    // in this way, operations with problem are more visible than others
             memo = "problème de date " + memo
         }
         val day = Day.createFromComparable(Integer.parseInt(date))
@@ -123,7 +138,22 @@ class OperationService(private val operationDao: IOperationDao, private val auth
         if (type == "DEBIT") {
             amount *= -1
         }
-        val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo, false, false)    // créer une opération sans la mettre dans la base de donnée
+        val operationCreated = Operation(account.id, day, null, amount,Time.now(), memo, false, false, null)
         return operationCreated
+    }
+    fun findDaughterOperations(person: Person, motherOperation: Operation): List<Operation> {
+        val account = accountDao.getById(motherOperation.accountId)
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        return operationDao.findDaughterOperations(motherOperation)
+    }
+
+    fun findMotherOperationByDaughterOperation(person: Person, daughterOperation: Operation) : Operation? {
+        val account = accountDao.getById(daughterOperation.accountId)
+        authorizationService.cancelIfUserIsUnauthorized(person, account)
+        val motherOperationId = daughterOperation.motherOperationId
+        if (motherOperationId != null) {
+            return operationDao.getById(motherOperationId)
+        }
+        return null
     }
 }

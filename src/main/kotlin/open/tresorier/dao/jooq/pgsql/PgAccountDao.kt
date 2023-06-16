@@ -8,7 +8,7 @@ import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.model.*
 import org.jooq.Configuration
 import org.jooq.Field
-import org.jooq.Record6
+import org.jooq.Record7
 import org.jooq.impl.DSL
 import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Account as JooqAccount
@@ -48,9 +48,10 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
 
     override fun findByBudget(budget: Budget): List<AccountWithAmount> {
         val query = this.query
-            .select(ACCOUNT.ID, ACCOUNT.NAME, ACCOUNT.BUDGET_ID, amountSum, ACCOUNT.ARCHIVED, ACCOUNT.DELETED)
+            .select(ACCOUNT.ID, ACCOUNT.NAME, ACCOUNT.BUDGET_ID, amountSum, ACCOUNT.ARCHIVED, ACCOUNT.BANK_ACCOUNT_ID, ACCOUNT.DELETED)
             .from(ACCOUNT)
             .leftJoin(OPERATION).on(OPERATION.ACCOUNT_ID.eq(ACCOUNT.ID))
+            .and(OPERATION.MOTHER_OPERATION_ID.isNull)
             .where(ACCOUNT.BUDGET_ID.eq(budget.id))
             .groupBy(ACCOUNT.ID)
             .orderBy(ACCOUNT.NAME)
@@ -64,14 +65,14 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
     }
 
     override fun getOwner(account: Account): Person {
-        try {
-            val owner: PersonRecord = this.query.select().from(PERSON)
-                .join(BUDGET).on(BUDGET.ID.eq(account.budgetId))
-                .where(PERSON.ID.eq(BUDGET.PERSON_ID))
-                .fetchAny().into(PERSON)
-            return PgPersonDao.toPerson(owner)
-        } catch (e : Exception) {
-            throw TresorierException("the given object appears to have no owner")
+        val ownerRecord: PersonRecord? = this.query.select().from(PERSON)
+            .join(BUDGET).on(BUDGET.ID.eq(account.budgetId))
+            .where(PERSON.ID.eq(BUDGET.PERSON_ID))
+            .fetchAny()?.into(PERSON)
+        if (ownerRecord == null) {
+            throw TresorierException("the given account (${account}) appears to have no owner")
+        } else {
+            return PgPersonDao.toPerson(ownerRecord)
         }
     }
 
@@ -81,7 +82,8 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
             account.budgetId,
             account.name,
             account.archived,
-            account.deleted
+            account.deleted,
+            account.bankAccountId
         )
     }
 
@@ -92,17 +94,19 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
             jooqAccount.name,
             jooqAccount.budgetId,
             jooqAccount.archived,
+            jooqAccount.bankAccountId,
             jooqAccount.id,
             jooqAccount.deleted
         )
     }
 
-    private fun toAccountWithAmount(jooqAccountWithAmount: Record6<String, String, String, BigDecimal, Boolean, Boolean>): AccountWithAmount {
+    private fun toAccountWithAmount(jooqAccountWithAmount: Record7<String, String, String, BigDecimal, Boolean, String, Boolean>): AccountWithAmount {
         return AccountWithAmount(
             jooqAccountWithAmount.get(ACCOUNT.NAME),
             jooqAccountWithAmount.get(ACCOUNT.BUDGET_ID),
             jooqAccountWithAmount.get(amountSum).toInt(),
             jooqAccountWithAmount.get(ACCOUNT.ARCHIVED),
+            jooqAccountWithAmount.get(ACCOUNT.BANK_ACCOUNT_ID),
             jooqAccountWithAmount.get(ACCOUNT.ID),
             jooqAccountWithAmount.get(ACCOUNT.DELETED)
         )

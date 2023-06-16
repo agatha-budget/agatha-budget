@@ -13,108 +13,133 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables implements Serializable {
 
-    private static final long serialVersionUID = -739436835;
+    private static final long serialVersionUID = 1L;
 
-    private final String  tableCatalog;
-    private final String  tableSchema;
-    private final String  tableName;
-    private final String  tableType;
-    private final String  storageType;
-    private final String  sql;
-    private final String  remarks;
-    private final Long    lastModification;
-    private final Integer id;
-    private final String  typeName;
-    private final String  tableClass;
-    private final Long    rowCountEstimate;
+    private final String tableCatalog;
+    private final String tableSchema;
+    private final String tableName;
+    private final String tableType;
+    private final String isInsertableInto;
+    private final String commitAction;
+    private final String storageType;
+    private final String remarks;
+    private final Long   lastModification;
+    private final String tableClass;
+    private final Long   rowCountEstimate;
 
     public Tables(Tables value) {
         this.tableCatalog = value.tableCatalog;
         this.tableSchema = value.tableSchema;
         this.tableName = value.tableName;
         this.tableType = value.tableType;
+        this.isInsertableInto = value.isInsertableInto;
+        this.commitAction = value.commitAction;
         this.storageType = value.storageType;
-        this.sql = value.sql;
         this.remarks = value.remarks;
         this.lastModification = value.lastModification;
-        this.id = value.id;
-        this.typeName = value.typeName;
         this.tableClass = value.tableClass;
         this.rowCountEstimate = value.rowCountEstimate;
     }
 
     public Tables(
-        String  tableCatalog,
-        String  tableSchema,
-        String  tableName,
-        String  tableType,
-        String  storageType,
-        String  sql,
-        String  remarks,
-        Long    lastModification,
-        Integer id,
-        String  typeName,
-        String  tableClass,
-        Long    rowCountEstimate
+        String tableCatalog,
+        String tableSchema,
+        String tableName,
+        String tableType,
+        String isInsertableInto,
+        String commitAction,
+        String storageType,
+        String remarks,
+        Long   lastModification,
+        String tableClass,
+        Long   rowCountEstimate
     ) {
         this.tableCatalog = tableCatalog;
         this.tableSchema = tableSchema;
         this.tableName = tableName;
         this.tableType = tableType;
+        this.isInsertableInto = isInsertableInto;
+        this.commitAction = commitAction;
         this.storageType = storageType;
-        this.sql = sql;
         this.remarks = remarks;
         this.lastModification = lastModification;
-        this.id = id;
-        this.typeName = typeName;
         this.tableClass = tableClass;
         this.rowCountEstimate = rowCountEstimate;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_CATALOG</code>.
+     */
     public String getTableCatalog() {
         return this.tableCatalog;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_SCHEMA</code>.
+     */
     public String getTableSchema() {
         return this.tableSchema;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_NAME</code>.
+     */
     public String getTableName() {
         return this.tableName;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_TYPE</code>.
+     */
     public String getTableType() {
         return this.tableType;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.IS_INSERTABLE_INTO</code>.
+     */
+    public String getIsInsertableInto() {
+        return this.isInsertableInto;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.COMMIT_ACTION</code>.
+     */
+    public String getCommitAction() {
+        return this.commitAction;
+    }
+
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.STORAGE_TYPE</code>.
+     */
     public String getStorageType() {
         return this.storageType;
     }
 
-    public String getSql() {
-        return this.sql;
-    }
-
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.REMARKS</code>.
+     */
     public String getRemarks() {
         return this.remarks;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.LAST_MODIFICATION</code>.
+     */
     public Long getLastModification() {
         return this.lastModification;
     }
 
-    public Integer getId() {
-        return this.id;
-    }
-
-    public String getTypeName() {
-        return this.typeName;
-    }
-
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.TABLE_CLASS</code>.
+     */
     public String getTableClass() {
         return this.tableClass;
     }
 
+    /**
+     * Getter for <code>INFORMATION_SCHEMA.TABLES.ROW_COUNT_ESTIMATE</code>.
+     */
     public Long getRowCountEstimate() {
         return this.rowCountEstimate;
     }
@@ -127,12 +152,11 @@ public class Tables implements Serializable {
         sb.append(", ").append(tableSchema);
         sb.append(", ").append(tableName);
         sb.append(", ").append(tableType);
+        sb.append(", ").append(isInsertableInto);
+        sb.append(", ").append(commitAction);
         sb.append(", ").append(storageType);
-        sb.append(", ").append(sql);
         sb.append(", ").append(remarks);
         sb.append(", ").append(lastModification);
-        sb.append(", ").append(id);
-        sb.append(", ").append(typeName);
         sb.append(", ").append(tableClass);
         sb.append(", ").append(rowCountEstimate);
 

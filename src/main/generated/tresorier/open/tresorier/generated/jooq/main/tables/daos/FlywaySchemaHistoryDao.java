@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.main.tables.daos;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import open.tresorier.generated.jooq.main.tables.FlywaySchemaHistory;
 import open.tresorier.generated.jooq.main.tables.records.FlywaySchemaHistoryRecord;
@@ -40,7 +41,8 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>installed_rank BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>installed_rank BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfInstalledRank(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK, lowerInclusive, upperInclusive);
@@ -61,7 +63,15 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>version BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch a unique record that has <code>installed_rank = value</code>
+     */
+    public Optional<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchOptionalByInstalledRank(Integer value) {
+        return fetchOptional(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK, value);
+    }
+
+    /**
+     * Fetch records that have <code>version BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfVersion(String lowerInclusive, String upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.VERSION, lowerInclusive, upperInclusive);
@@ -75,7 +85,8 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>description BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>description BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfDescription(String lowerInclusive, String upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.DESCRIPTION, lowerInclusive, upperInclusive);
@@ -89,7 +100,8 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>type BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>type BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfType(String lowerInclusive, String upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.TYPE, lowerInclusive, upperInclusive);
@@ -103,7 +115,8 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>script BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>script BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfScript(String lowerInclusive, String upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SCRIPT, lowerInclusive, upperInclusive);
@@ -117,7 +130,8 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>checksum BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>checksum BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfChecksum(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.CHECKSUM, lowerInclusive, upperInclusive);
@@ -131,7 +145,8 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>installed_by BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>installed_by BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfInstalledBy(String lowerInclusive, String upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_BY, lowerInclusive, upperInclusive);
@@ -145,7 +160,8 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>installed_on BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>installed_on BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfInstalledOn(LocalDateTime lowerInclusive, LocalDateTime upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_ON, lowerInclusive, upperInclusive);
@@ -159,7 +175,8 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>execution_time BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>execution_time BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfExecutionTime(Integer lowerInclusive, Integer upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.EXECUTION_TIME, lowerInclusive, upperInclusive);
@@ -173,7 +190,8 @@ public class FlywaySchemaHistoryDao extends DAOImpl<FlywaySchemaHistoryRecord, o
     }
 
     /**
-     * Fetch records that have <code>success BETWEEN lowerInclusive AND upperInclusive</code>
+     * Fetch records that have <code>success BETWEEN lowerInclusive AND
+     * upperInclusive</code>
      */
     public List<open.tresorier.generated.jooq.main.tables.pojos.FlywaySchemaHistory> fetchRangeOfSuccess(Boolean lowerInclusive, Boolean upperInclusive) {
         return fetchRange(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.SUCCESS, lowerInclusive, upperInclusive);

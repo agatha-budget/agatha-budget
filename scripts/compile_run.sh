@@ -1,4 +1,4 @@
 #!/bin/bash
 
 gradle uberjar
-java -jar build/libs/tresorier-backend-uber.jar
+java -jar -Dlogback.configurationFile=logback.xml build/libs/tresorier-backend-uber.jar

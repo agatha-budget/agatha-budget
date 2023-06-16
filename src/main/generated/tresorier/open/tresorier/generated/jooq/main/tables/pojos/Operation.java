@@ -13,7 +13,7 @@ import java.io.Serializable;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Operation implements Serializable {
 
-    private static final long serialVersionUID = 538245875;
+    private static final long serialVersionUID = 1L;
 
     private final String  id;
     private final String  accountId;
@@ -25,6 +25,9 @@ public class Operation implements Serializable {
     private final Long    orderInDay;
     private final Boolean pending;
     private final Boolean locked;
+    private final String  motherOperationId;
+    private final String  importIdentifier;
+    private final Long    importTimestamp;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -37,6 +40,9 @@ public class Operation implements Serializable {
         this.orderInDay = value.orderInDay;
         this.pending = value.pending;
         this.locked = value.locked;
+        this.motherOperationId = value.motherOperationId;
+        this.importIdentifier = value.importIdentifier;
+        this.importTimestamp = value.importTimestamp;
     }
 
     public Operation(
@@ -49,7 +55,10 @@ public class Operation implements Serializable {
         Integer amount,
         Long    orderInDay,
         Boolean pending,
-        Boolean locked
+        Boolean locked,
+        String  motherOperationId,
+        String  importIdentifier,
+        Long    importTimestamp
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -61,46 +70,100 @@ public class Operation implements Serializable {
         this.orderInDay = orderInDay;
         this.pending = pending;
         this.locked = locked;
+        this.motherOperationId = motherOperationId;
+        this.importIdentifier = importIdentifier;
+        this.importTimestamp = importTimestamp;
     }
 
+    /**
+     * Getter for <code>public.operation.id</code>.
+     */
     public String getId() {
         return this.id;
     }
 
+    /**
+     * Getter for <code>public.operation.account_id</code>.
+     */
     public String getAccountId() {
         return this.accountId;
     }
 
+    /**
+     * Getter for <code>public.operation.month</code>.
+     */
     public Integer getMonth() {
         return this.month;
     }
 
+    /**
+     * Getter for <code>public.operation.day</code>.
+     */
     public Integer getDay() {
         return this.day;
     }
 
+    /**
+     * Getter for <code>public.operation.category_id</code>.
+     */
     public String getCategoryId() {
         return this.categoryId;
     }
 
+    /**
+     * Getter for <code>public.operation.memo</code>.
+     */
     public String getMemo() {
         return this.memo;
     }
 
+    /**
+     * Getter for <code>public.operation.amount</code>.
+     */
     public Integer getAmount() {
         return this.amount;
     }
 
+    /**
+     * Getter for <code>public.operation.order_in_day</code>.
+     */
     public Long getOrderInDay() {
         return this.orderInDay;
     }
 
+    /**
+     * Getter for <code>public.operation.pending</code>.
+     */
     public Boolean getPending() {
         return this.pending;
     }
 
+    /**
+     * Getter for <code>public.operation.locked</code>.
+     */
     public Boolean getLocked() {
         return this.locked;
+    }
+
+    /**
+     * Getter for <code>public.operation.mother_operation_id</code>.
+     */
+    public String getMotherOperationId() {
+        return this.motherOperationId;
+    }
+
+    /**
+     * Getter for <code>public.operation.import_identifier</code>.
+     */
+    public String getImportIdentifier() {
+        return this.importIdentifier;
+    }
+
+    /**
+     * Getter for <code>public.operation.import_timestamp</code>.
+     */
+    public Long getImportTimestamp() {
+        return this.importTimestamp;
     }
 
     @Override
@@ -117,6 +180,9 @@ public class Operation implements Serializable {
         sb.append(", ").append(orderInDay);
         sb.append(", ").append(pending);
         sb.append(", ").append(locked);
+        sb.append(", ").append(motherOperationId);
+        sb.append(", ").append(importIdentifier);
+        sb.append(", ").append(importTimestamp);
 
         sb.append(")");
         return sb.toString();
