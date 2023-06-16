@@ -1,12 +1,12 @@
-import { Account, Operation } from '@/model/model'
+import { Account, Operation, OperationWithDaughters } from '@/model/model'
 import { operationApi } from '@/services/api/apis'
 import StoreHandler from '@/store/StoreHandler'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 
 export default class OperationService {
-  public static async getOperations (account: Account, categoryId: string | null): Promise<Operation[]> {
-    let data: Operation[] = []
+  public static async getOperations (account: Account, categoryId: string | null): Promise<OperationWithDaughters[]> {
+    let data: OperationWithDaughters[] = []
     if (account.id) {
       let response
       if (categoryId) {
@@ -19,19 +19,21 @@ export default class OperationService {
     return data
   }
 
-  public static async addOperation (store: Store<StoreState>, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean) {
-    await operationApi.addOperation(accountId, day, categoryId, amount, memo, isPending)
+  public static async addOperation (store: Store<StoreState>, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean, motheroperationId?: string): Promise<Operation> {
+    const response = await operationApi.addOperation(accountId, day, categoryId, amount, memo, isPending, motheroperationId)
+    StoreHandler.updateAccounts(store)
+    return response.data
+  }
+
+  public static async deleteOperation (store: Store<StoreState>, operationId: string) {
+    await operationApi.deleteOperation(operationId)
     StoreHandler.updateAccounts(store)
   }
 
-  public static async deleteOperation (store: Store<StoreState>, operation: Operation) {
-    await operationApi.deleteOperation(operation.id)
+  public static async updateOperation (store: Store<StoreState>, operationId: string, accountId: string, day?: number, categoryId?: string, removeCategory?: boolean, amount?: number, memo?: string, isPending?: boolean, motheroperationId?: string): Promise<Operation> {
+    const response = await operationApi.updateOperation(operationId, accountId, day, categoryId, removeCategory, amount, memo, isPending, motheroperationId)
     StoreHandler.updateAccounts(store)
-  }
-
-  public static async updateOperation (store: Store<StoreState>, operation: Operation, accountId: string, day?: number, categoryId?: string, amount?: number, memo?: string, isPending?: boolean) {
-    await operationApi.updateOperation(operation.id, accountId, day, categoryId, amount, memo, isPending)
-    StoreHandler.updateAccounts(store)
+    return response.data
   }
 
   public static async importOfxFile (store: Store<StoreState>, accountId: string, ofxFileContent: string): Promise<string> {

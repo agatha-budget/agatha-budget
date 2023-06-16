@@ -5,16 +5,16 @@
         <li v-else><button v-on:click="goHomePage" class="navBarBtn btn home fas fa-home" :title="$t('HOME')"/></li>
         <li v-if="this.fromPage == 'accounts' "><button class="navBarBtn btn account fas fa-euro-sign disabled" :title="$t('ACCOUNTS')"/></li>
         <li v-else><button v-on:click="goChooseAccount" class="navBarBtn btn account fas fa-euro-sign" :title="$t('ACCOUNTS')"/></li>
+         <li v-if="this.fromPage == 'chart' "><button class="navBarBtn btn chart fas fa-chart-line disabled" :title="$t('CHART')"/></li>
+        <li v-else><button v-on:click="goChartPage" class="navBarBtn btn chart fas fa-chart-line" :title="$t('CHART')"/></li>
         <li v-if="this.fromPage == 'profile' "><button class="navBarBtn btn profile fas fa-cog disabled" :title="$t('PREFERENCES')"/></li>
         <li v-else><button v-on:click="goProfilePage" class="navBarBtn btn profile fas fa-cog" :title="$t('PREFERENCES')"/></li>
-        <li><button v-on:click="logout" class="navBarBtn btn logOut fas fa-sign-out-alt" :title="$t('LOGOUT')"/></li>
       </ul>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import PersonService from '@/services/PersonService'
 import router, { RouterPages } from '@/router'
 
 interface MenuData {
@@ -35,9 +35,6 @@ export default defineComponent({
     }
   },
   methods: {
-    logout () {
-      PersonService.deleteSession(this.$store)
-    },
     goHomePage () {
       router.push(RouterPages.home)
     },
@@ -46,6 +43,9 @@ export default defineComponent({
     },
     goChooseAccount () {
       router.push(RouterPages.redirectToAccountPage)
+    },
+    goChartPage () {
+      router.push(RouterPages.chartPage)
     }
   }
 })

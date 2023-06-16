@@ -5,15 +5,18 @@
   font-size: 16px;
 }
 
+.subtext {
+  font-family: 'Arial', Verdana, sans-serif;
+  color: @dark;
+  font-size: 16px;
+  font-style: italic;
+}
+
 .textInput {
   font-family: 'Arial', Verdana, sans-serif;
   color: @dark;
   font-size: 16px;
   text-transform: none;
-}
-
-.subtext, .subtext * {
-  font-size: 12px;
 }
 
 .title, .title *{
@@ -22,15 +25,27 @@
   .btn {
     font-size: 20px;
   }
-}
-
-.subtitle, .subtitle * {
-  font-size: 20px;
   &:first-letter {
     text-transform: capitalize;
   }
 }
 
+.subtitle, .subtitle * {
+  font-size: 20px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  &:first-letter {
+    text-transform: capitalize;
+  }
+}
+
+p {
+  text-align: left
+}
+
+.bold {
+  font-weight: bold
+}
 @import "../../../../node_modules/@fortawesome/fontawesome-free/css/all.css";
 
 /////////////////////////////////////

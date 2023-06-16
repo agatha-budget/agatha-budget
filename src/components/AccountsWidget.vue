@@ -1,23 +1,26 @@
 <template>
   <div id="accountWidget" class="container">
     <div>
-      <span class="subtitle"> {{ $t('TOTAL') }} : {{this.getEurosAmount(this.totalOnAccounts)}} €</span>
+      <span class="subtitle"> {{ $t('SEE_MY_ACCOUNTS') }} </span>
     </div>
     <div class="accountList col-12 offset-0 col-sm-8 offset-sm-2 col-md-12 offset-md-0">
-      <btn v-for="account of this.$store.state.accounts" :key="account" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
+      <button v-for="account of this.$store.state.accounts" :key="account" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
         <template v-if="this.fromPage == 'home'">
           <div class="name col-10 offset-2 col-xl-8 offset-xl-0 col-xxl-7 offset-xxl-1">{{ account.name }} :</div>
-          <div class="amount col-6 offset-3 col-xl-4 offset-xl-0">{{this.getEurosAmount(account.amount)}}€</div>
+          <div class="amount col-6 offset-3 col-xl-4 offset-xl-0">{{this.centsToEurosDisplay(account.amount)}}€</div>
         </template>
         <template v-else>
           <div class="name col-7 offset-1">{{ account.name }} :</div>
-          <div class="amount col-4 offset-0">{{this.getEurosAmount(account.amount)}}€</div>
+          <div class="amount col-4 offset-0">{{this.centsToEurosDisplay(account.amount)}}€</div>
         </template>
-      </btn>
+      </button>
+    </div>
+    <div>
+      <span class="subtitle"> {{ $t('TOTAL') }} : {{this.centsToEurosDisplay(this.totalOnAccounts)}} €</span>
     </div>
     <div class="addAccount">
       <template v-if="!accountCreationFormIsDisplayed">
-        <btn v-on:click="changeAccountCreationFormDisplay" class="actionButton">{{$t('ADD_ACCOUNT')}}</btn>
+        <button v-on:click="changeAccountCreationFormDisplay" class="actionButton">{{$t('ADD_ACCOUNT')}}</button>
       </template>
       <template v-else>
         <AccountCreationForm class="container inline" @update-account-list="getAccounts" @close-form="changeAccountCreationFormDisplay"/>
@@ -71,12 +74,8 @@ export default defineComponent({
     changeAccountCreationFormDisplay () {
       this.$data.accountCreationFormIsDisplayed = !this.$data.accountCreationFormIsDisplayed
     },
-    getEurosAmount (amount: number): string {
-      const value = Utils.getEurosAmount(amount)
-      return this.addSpacesInThousand(value)
-    },
-    addSpacesInThousand (number: number): string {
-      return Utils.addSpacesInThousand(number)
+    centsToEurosDisplay (amount: number): string {
+      return Utils.centsToEurosDisplay(amount)
     }
   }
 })

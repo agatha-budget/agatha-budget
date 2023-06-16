@@ -8,23 +8,28 @@
     <button class="navBarBtn btn fas fa-home disabled" :title="$t('HOME')"/>
 
     <h3>NavigationButtons</h3>
-    <btn class="navigationButton">navigation button</btn>
+    <button class="navigationButton">navigation button</button>
 
-    <btn class="navigationButton disabled">navigation button</btn>
+    <button class="navigationButton disabled">navigation button</button>
 
     <h3>IllustratedNavigationButtons </h3>
-    <btn class="navigationButton row">
+    <button class="navigationButton row">
       <span class="illustration fas fa-book col-4"/>
       <span class="illustrationLabel col-8">{{ $t("FREE_RESOURCES") }}</span>
-    </btn>
+    </button>
 
-    <btn class="navigationButton disabled row">
+    <button class="navigationButton disabled row">
       <span class="illustration fas fa-book col-4"/>
       <span class="illustrationLabel col-8">{blbnnilbbibi</span>
-    </btn>
+    </button>
 
     <h3>Action Button</h3>
-    <btn class="actionButton">Valider</btn>
+    <button class="actionButton">Valider</button>
+
+    <button class="buttonGradation">
+      <span class="illustration fas fa-book col-4"/>
+      <span class="illustrationLabel col-8">Action</span>
+    </button>
 
   </div>
   <div class="col-md-6">
@@ -32,18 +37,31 @@
     <h3>DualTab</h3>
 
     <div class="dualTab">
-      <btn class="tabLeft" >TabLeft</btn>
-      <btn class="tabRight">TabRight</btn>
+      <button class="tabLeft">TabLeft</button>
+      <button class="tabRight">TabRight</button>
     </div>
 
     <div class="dualTab">
-        <btn class="tabLeft active">TabLeft</btn>
-        <btn class="tabRight">TabRight</btn>
+        <button class="tabLeft active">TabLeft</button>
+        <button class="tabRight">TabRight</button>
     </div>
 
     <div class="dualTab">
-      <btn class="tabLeft">TabLeft</btn>
-      <btn class="tabRight active">TabRight</btn>
+      <button class="tabLeft">TabLeft</button>
+      <button class="tabRight active">TabRight</button>
+    </div>
+
+    <h3>TrialTab</h3>
+    <div class="tripleTab">
+      <button class="tabLeft" >TabLeft</button>
+      <button class="tabCenter" >TabCenter</button>
+      <button class="tabRight">TabRight</button>
+    </div>
+
+    <div class="tripleTab">
+      <button class="tabLeft" >TabLeft</button>
+      <button class="tabCenter active" >TabCenter</button>
+      <button class="tabRight">TabRight</button>
     </div>
 
     <h3>Cross</h3>
@@ -69,13 +87,13 @@
     <h3>Radio // from Bootstrap</h3>
     <div class="radioSelect">
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+        <input class="form-check-input" type="radio" id="exampleRadios1" value="option1" checked v-model="radio">
         <label class="form-check-label" for="exampleRadios1">
           Default radio
         </label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+        <input class="form-check-input" type="radio" id="exampleRadios2" value="option2" v-model="radio">
         <label class="form-check-label" for="exampleRadios2">
           Second default radio
         </label>
@@ -84,6 +102,28 @@
         <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
         <label class="form-check-label" for="exampleRadios3">
           Disabled radio
+        </label>
+      </div>
+    </div>
+
+    <h3>Checkbox // from Bootstrap</h3>
+    <div class="checkboxSelect">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" v-model="checkbox">
+        <label class="form-check-label" for="flexCheckDefault">
+          Default checkbox
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked v-model="checkbox">
+        <label class="form-check-label" for="flexCheckChecked">
+          Checked checkbox
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled>
+        <label class="form-check-label" for="flexCheckDisabled">
+          Disabled checkbox
         </label>
       </div>
     </div>
@@ -115,7 +155,7 @@
         :searchable="true"
         :options="categories"
         :noResultsText="$t('NO_RESULT_FOUND')"
-        :placeholder="$t('SELECT_CATEGORY')"
+        :placeholder="$t('SELECT_ENVELOPE')"
       />
     </div>
 
@@ -163,6 +203,18 @@
 
     <h3>Container default</h3>
     <div class="container">
+      <div class="numberInput form-group">
+        <label for="textInput">Number</label>
+        <input type="number" class="form-control" id="textInput" placeholder="0">
+      </div>
+      <div class="numberInput form-group">
+        <label for="textInput">Number</label>
+        <input type="number" class="form-control" id="textInput" placeholder="0">
+      </div>
+    </div>
+
+    <h3>Container bordered</h3>
+    <div class="container bordered">
       <div class="numberInput form-group">
         <label for="textInput">Number</label>
         <input type="number" class="form-control" id="textInput" placeholder="0">
@@ -304,7 +356,7 @@
     </table>
     <h3>Budget Header</h3>
     <table class="budgetTable">
-        <thead class="masterCategory collapsed col-6 offset-6">
+        <thead class="masterCategory collapsed">
           <tr>
             <th class="col-6">Alloué</th>
             <th class="col-6">Disponible</th>
@@ -324,15 +376,26 @@
   </div>
 </div>
 
+<div class="designContainer col-8 offset-2 row">
+  <h2>Charts</h2>
+
+  aaaa
+  <BarChart/>
+  ooooo
+
+</div>
+
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
 import Multiselect from '@vueform/multiselect'
+import BarChart from '@/components/charts/BarChart.vue'
 
 export default defineComponent({
   name: 'About',
   components: {
-    Multiselect
+    Multiselect,
+    BarChart
   },
   data () {
     return {

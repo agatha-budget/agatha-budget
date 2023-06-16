@@ -14,11 +14,15 @@
     }
 
     .content {
-        padding: 10px 20px;
+        padding: 0 20px 10px;
+        text-align: center;
         .masterCategory {
             .illustration {
                 padding-bottom: 8px;
             }
+        }
+        .fa-exchange-alt {
+            transform: rotate(90deg);
         }
         .categoryBudget {
             th {
@@ -29,6 +33,10 @@
 
     .budgetTable {
         margin-top: 10px;
+        background: @background;
+        .amountCol {
+            min-width: 85px;
+        }
     }
 
     // version for computer
@@ -74,7 +82,7 @@
             width: 100%;
         }
     }
-    @media (min-width: 576px) and (max-width: 768px) {
+    @media (min-width: 576px) and (max-width: 767px) {
         .fixed {
             width: 100%;
             #budgetHeader {

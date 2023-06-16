@@ -1,8 +1,8 @@
-btn:hover {
+button:hover, btn:hover, .clickable:hover {
   cursor: pointer;
 }
 
-btn {
+button {
   white-space: nowarp;
   display: inline-block;
   margin: 5px;
@@ -14,7 +14,6 @@ a.navigationButton {
   text-decoration: none;
   text-transform: none;
 }
-
 .navigationButton {
   background: @action;
   border-radius: @btnBorderRadius;
@@ -25,16 +24,9 @@ a.navigationButton {
   * {
     color: @white;
   }
-  .illustration {
-    padding: 4px;
-    text-align: right;
+  span:first-letter{
+    text-transform: capitalize
   }
-
-  .illustrationLabel {
-    padding-left: 20px;
-    text-align: left;
-  }
-
   &.disabled {
     background: @darkerBackground;
     color: @dark;
@@ -59,10 +51,18 @@ a.navigationButton {
     text-align: left;
   }
 }
+.illustration {
+  padding: 4px;
+  text-align: right;
+}
+.illustrationLabel {
+  padding-left: 20px;
+  text-align: left;
+}
 
 
 
-.actionButton{
+.actionButton {
   background: rgb(221, 221, 221);
   color: rgb(0, 0, 0);
   border: 1px solid @navigation;
@@ -70,21 +70,43 @@ a.navigationButton {
   border-radius: @btnBorderRadius;
   text-align: center;
   height: 32px;
+  width: fit-content;
+  &:first-letter{
+    text-transform: capitalize
+  }
 }
 
-.dualTab{
-  btn{  
+.buttonGradation {
+  margin: 0 0 5px 0;
+  width: 100%;
+  border-radius: @borderRadius;
+  border-style: hidden; /* hide standard table (collapsed) border */
+  box-shadow: 0 0 0 2px @action; /* this draws the table border  */ 
+  background: @header;
+  color: @white;
+  *{
+    color: @white;
+  }
+}
+
+.dualTab, .tripleTab {
+  button {  
     border: 1px solid @action;
     color: @dark;
 
-    &.tabLeft{
+    &.tabLeft {
       border-radius: 15px 0px 0px 15px;
       margin-right: 0;
     }
 
-    &.tabRight{
+    &.tabRight {
       border-radius: 0px 15px 15px 0px;
       margin-left: 0;
+    }
+
+    &.tabCenter {
+      margin-left: 0;
+      margin-right: 0;
     }
 
     &.active{
@@ -92,6 +114,19 @@ a.navigationButton {
     }
   }
 }
+
+@media (max-width: 767px) {
+  .dualTab, .tripleTab {
+    button { 
+      &.tabLeft, &.tabRight, &.tabCenter {
+        border-radius: 15px;
+        display: block;
+        margin: 10px auto; 
+      }
+    }
+  }
+}
+
 
 .containerCross {
   text-align: right;
@@ -132,6 +167,14 @@ a.navigationButton {
     &:hover {
       color: @background;
     }
+}
+
+.bankButton {
+  .illustration {
+    max-height: 40px;
+    width: auto;
+  }
+  height: fit-content;
 }
 
 .select {

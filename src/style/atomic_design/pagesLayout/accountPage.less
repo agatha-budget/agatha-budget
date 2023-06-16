@@ -2,24 +2,43 @@
     background-color: @lighterBackground;
     min-height: 100vh;
 
-    .editableNameAccount {
-        .displayNameAccount, .col-1 {
-            padding: 0;
+    #accountPageHeader {
+        text-align: center;
+        .subtitle {
+            .illustration {
+                color: @dark;
+                font-size: 14px;
+            }
         }
-        .illustration {
-            padding: 4px;
+        .negative {
+            .subtitle {
+                .illustration {
+                    color: @white;
+                }
+            }
         }
+    }
+
+    .placeholderTop {
+        padding: 20px;
     }
 
     .illustration {
         color: @action;
+        margin-top: 0;
     }
 
-    .title {
-        .btn {
-            visibility: hidden;
-            padding: 0;
+    .illustration .btn {
+        visibility: hidden;
+        padding: 0;
+        &:hover{
+            .btn {
+                visibility: visible;
+            }
         }
+    }
+    
+    .pendingSection {
         &:hover{
             .btn {
                 visibility: visible;
@@ -27,15 +46,35 @@
         }
     }
 
+    .title, .editTitleBtn, .editingNameAccount {
+        margin: 10px;
+        text-align: center;
+    }
+
+    @media (max-width: 767px) {
+        .fixed {
+            &.header {
+              position: static;
+              padding: 0;
+            }
+        }
+        .placeholderTop {
+            display: none;
+        }
+        .illustration .btn {
+            visibility: visible;
+        }
+        .breakableRow {
+            .breakable {
+                display: block;
+                margin: 0;
+            }
+        }
+    }
+
     .content {
-        .dualTab {
-            text-align: center;
-            margin: 20px 0 5px;
-        }
-        .inlineOperationForm {
-            border-radius: 0;
-            margin: 0;
-        }
+        max-width: 700px;
+        margin: auto;
         .label {
             padding-top: 4px;
         }
@@ -44,6 +83,23 @@
         }
         .textPending {
             padding-top: 7px;
+        }
+        .actionLabelIcon {
+            margin: 20px 0;
+        }
+    }
+    .operationForm {
+        .actionButton {
+            max-height: 56px;
+            height: auto;
+        }
+        .fa-trash {
+            font-size: 16px;
+        }
+        .sumAmountElement {
+            padding-top: 4px;
+            font-size: large;
+            font-weight: bold;
         }
     }
 }

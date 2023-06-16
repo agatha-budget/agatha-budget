@@ -1,50 +1,53 @@
 <template>
   <table class="budgetTable table" v-if="this.categories.length > 0">
-    <MasterCategoryForm v-if="focusOn === masterCategory.id" :masterCategory="masterCategory" :archived="archived" @looses-focus="loosesFocus" @create-category="createCategory"/>
-    <thead v-else class="masterCategory">
+    <MasterCategoryForm v-if="edit" :masterCategory="masterCategory" :archived="archived" @create-category="createCategory" @empty-master-category="emptyMasterCategory"/>
+    <thead v-else class="masterCategory" :style=style>
         <tr>
           <th class="col-6 name">
-            <span v-on:click="this.putFocusOn(masterCategory.id)">{{ masterCategory?.name }}</span>
+            <span>{{ masterCategory?.name }}</span>
             <span class="action">
-              <button class="illustration btn fas fa-pen" v-on:click="this.putFocusOn(masterCategory.id)"/>
-              <button class="illustration btn fas fa-plus" v-on:click="createCategory"/>
             </span>
           </th>
-          <th class="col-2">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.allocated))}}</th>
-          <th class="col-2 spent">{{ addSpacesInThousand(getEurosAmount(masterCategoryData.spent)) }}</th>
-          <th class="col-2"><span :class="masterCategoryData.available < 0 ? 'negative' : ''">
-          {{ addSpacesInThousand(getEurosAmount(masterCategoryData.available)) }}
+          <th class="col-2 amountCol">{{ centsToEurosDisplay(masterCategoryData.allocated)}}</th>
+          <th class="col-2 amountCol spent">{{ centsToEurosDisplay(masterCategoryData.spent) }}</th>
+          <th class="col-2 amountCol available"><span :class="masterCategoryData.available < 0 ? 'negative' : ''">
+          {{ centsToEurosDisplay(masterCategoryData.available) }}
         </span></th>
         </tr>
       </thead>
     <tbody >
       <template v-for="category of this.categories" :key="category">
-        <CategoryForm class="categoryBudget" v-if="focusOn === category.id" :category="category" @looses-focus="loosesFocus" @empty-envelope="emptyEnvelope"/>
-        <tr class="categoryBudget" v-else>
+        <CategoryForm class="categoryBudget" v-if="edit" :category="category" @empty-envelope="emptyEnvelope"/>
+        <tr v-else class="categoryBudget">
           <td class="col-6 name">
             <div>
-              <span  v-on:click="this.putFocusOn(category.id)">{{ category.name}} <button class="action illustration btn fas fa-pen"/></span>
+              <span>{{ category.name }}</span>
             </div>
           </td>
           <td class="col-2">
-              <span v-if="archived">{{ getEurosAmount(this.categoryDataList[category.id]?.allocated ?? "") }}</span>
+              <span v-if="archived">{{ centsToEurosDisplay(this.categoryDataList[category.id]?.allocated) ?? "" }}</span>
               <div v-else class="form-group numberInput">
               <input  type="textInput" class="form-control"
-                v-bind:value="this.getEurosAmount(this.categoryDataList[category.id]?.allocated ?? 0)"
-                v-on:change="updateAllocationOnChange(category.id, this.entireCalcul($event.target.value))"
+                v-bind:value="centsToEurosDisplay(this.categoryDataList[category.id]?.allocated ?? 0)"
+                v-on:change="updateAllocationOnChange(category.id, this.computeStringToCents($event.target.value))"
               >
               </div>
             </td>
             <td class="col-2 spent">
-                {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.spent ?? "")) }}
+                {{ centsToEurosDisplay(this.categoryDataList[category.id]?.spent ?? "") }}
             </td>
-            <td class="col-2">
+            <td class="col-2 available">
               <span v-if="this.categoryDataList[category.id] && this.categoryDataList[category.id].available != 0" :class="this.categoryDataList[category.id]?.available < 0 ? 'negative' : ''">
-              {{ addSpacesInThousand(getEurosAmount(this.categoryDataList[category.id]?.available)) }}
+              {{ centsToEurosDisplay(this.categoryDataList[category.id]?.available) }}
             </span>
           </td>
         </tr>
       </template>
+      <tr v-if="!archived && edit" class="categoryBudget actionLabelIcon addCategoryRow">
+        <span class="illustration btn fas fa-plus"/>
+        <div v-on:click="createCategory" class="text">{{ $t("ADD_CATEGORY") }}</div>
+      </tr>
+
     </tbody>
   </table>
 </template>
@@ -58,6 +61,7 @@ import CategoryService from '@/services/CategoryService'
 import StoreHandler from '@/store/StoreHandler'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
 import MasterCategoryForm from '@/components/forms/MasterCategoryForm.vue'
+import { Color } from '@/utils/Color'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
@@ -65,7 +69,7 @@ export default defineComponent({
     CategoryForm,
     MasterCategoryForm
   },
-  emits: ['updateAllocation', 'emptyCategory'],
+  emits: ['updateAllocation', 'emptyCategory', 'emptyMasterCategory'],
   props: {
     masterCategory: {
       type: Object as () => MasterCategory,
@@ -79,11 +83,11 @@ export default defineComponent({
       type: Boolean as () => boolean,
       required: false,
       default: false
-    }
-  },
-  data () {
-    return {
-      focusOn: ''
+    },
+    edit: {
+      type: Boolean as () => boolean,
+      required: false,
+      default: false
     }
   },
   computed: {
@@ -98,14 +102,14 @@ export default defineComponent({
         masterCategoryData.available += this.categoryDataList[category.id]?.available ?? 0
       }
       return masterCategoryData
+    },
+    style (): string {
+      return this.masterCategory.color !== null ? 'background : linear-gradient(to right, ' + Color.shadeColor(this.masterCategory.color, -50) + ',' + this.masterCategory.color + ')' : ''
     }
   },
   methods: {
     updateAllocationOnChange (categoryId: string, value: string) {
-      this.$emit('updateAllocation', categoryId, Utils.getCentsAmount(+value))
-    },
-    getEurosAmount (amount: number): number {
-      return Utils.getEurosAmount(amount)
+      this.$emit('updateAllocation', categoryId, value)
     },
     createCategory () {
       CategoryService.createCategory(newCategoryName, this.masterCategory).then(
@@ -114,20 +118,17 @@ export default defineComponent({
         }
       )
     },
-    putFocusOn (categoryId: string) {
-      this.focusOn = categoryId
-    },
-    loosesFocus () {
-      this.focusOn = ''
-    },
     emptyEnvelope (categoryId: string) {
       this.$emit('emptyCategory', categoryId)
     },
-    addSpacesInThousand (number: number): string {
-      return Utils.addSpacesInThousand(number)
+    emptyMasterCategory (masterCategoryId: string) {
+      this.$emit('emptyMasterCategory', masterCategoryId)
     },
-    entireCalcul (amount: string): number {
-      return Calcul.entireCalcul(amount)
+    centsToEurosDisplay (number: number): string {
+      return Utils.centsToEurosDisplay(number)
+    },
+    computeStringToCents (amount: string): number {
+      return Calcul.computeStringToCents(amount)
     }
   }
 })

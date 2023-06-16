@@ -15,6 +15,15 @@
   .btn {
     color: @white;
   }
+  * {
+    color: @white;
+  }
+  input {
+    color: @dark;
+  }
+  .illustration .btn {
+    color: @dark;
+  }
 }
 
 .container {
@@ -43,6 +52,13 @@
       color: @dark;
     }
   }
+  &.bordered {
+    border-style: none;
+    border-collapse: collapse;
+    border-radius: @borderRadius;
+    border-style: hidden; /* hide standard table (collapsed) border */
+    box-shadow: 0 0 0 2px @action; /* this draws the table border  */ 
+  }
   &.inline {
     background: @inline;
     color: @white;
@@ -65,6 +81,7 @@
   padding: 10px;
   margin-top: 40px;
   margin-bottom: 10px;
+  height: fit-content;
 }
 
 .MasterCcollapsed{
@@ -74,6 +91,10 @@
   padding: 5px;
   justify-content: space-around;;
   h3{
-  color: @background;
+    color: @background;
+  }
 }
+
+.breakableRow {
+  display: inline;
 }

@@ -6,11 +6,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "buildProd": "sh scripts/add_commithash_to_properties.sh ; vue-cli-service build",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "serve": "export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
+    "build": "export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+    "buildProd": "sh scripts/add_commithash_to_properties.sh ; export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
+    "test:unit": "export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service test:unit",
+    "lint": "export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
@@ -18,6 +18,7 @@
     "@vueform/multiselect": "^2.3.2",
     "axios": "^0.21.1",
     "bootstrap": "^5.0.0-beta2",
+    "chart.js": "^3.8.0",
     "core-js": "^3.6.5",
     "fs-minipass": "^2.1.0",
     "jest-worker": "^27.5.1",
@@ -25,9 +26,11 @@
     "minipass-flush": "^1.0.5",
     "minipass-pipeline": "^1.2.4",
     "p-map": "^5.3.0",
+    "patternomaly": "^1.3.2",
     "register-service-worker": "^1.7.1",
     "supertokens-website": "^4.4.1",
     "vue": "^3.0.0",
+    "vue-chartjs": "^4.1.1",
     "vue-i18n": "^9.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0"

@@ -12,6 +12,7 @@
     .illustration{
         font-weight: 700;
     }
+
     .action {
         .btn {
             padding-top: 0;
@@ -20,7 +21,7 @@
         display: none;
     }
     .name, .action {
-        cursor: pointer;
+        cursor: default;
         &:hover {
             .action {
                 display: inline;
@@ -36,12 +37,31 @@
             padding-left: 10px;
             text-align: left;
         }
+        &.available {
+            span {
+                font-weight: bold;
+            }
+        }
+        &.spent {
+            font-weight: lighter;
+            color: @blackGrey;
+        }
     }
     .masterCategory {
         background: @header;
         color: @white;
         *{
           color: @white;
+        }
+        th.spent {
+            font-weight: lighter;
+            color:  @white;
+        }
+        .illustration {
+            padding-bottom: 0px;
+        }
+        .ban-color {
+            vertical-align: middle;
         }
         &.edit{
             *{
@@ -59,7 +79,7 @@
             text-align: left;
         }
         .illustration{
-            color: @navigation;
+            color: @action;
         }
         .numberInput {
             input {
@@ -68,8 +88,23 @@
                 padding-right: 0;
             }
         }
+        .icon {
+            text-align: right;
+        }
+        .text {
+            text-align: left;
+            color: @action;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .actionLabelIcon {
+            .text {
+                padding: 0;
+            }
+            *{
+                color: @action;
+            }
+        }
     }
 }
-
-
-

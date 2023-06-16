@@ -1,12 +1,12 @@
 <template>
   <div id="login_page">
-    <div class="form">
+    <div v-on:keyup.enter="login" class="form">
       <img id="logo" alt="Vue logo" src="../assets/logo.png" />
       <input class="form-control" v-model="email" :placeholder="$t('EMAIL')">
       <input class="form-control" type="password" v-model="password" :placeholder="$t('PASSWORD')">
-      <btn class="navigationButton btn" v-on:click="login">{{$t('LOGIN')}}</btn>
+      <button class="navigationButton btn" v-on:click="login">{{$t('LOGIN')}}</button>
       <p>{{errorMsg}}</p>
-      <btn id="toOtherForm" class="navigationButton btn" v-on:click="goToSignUp">{{$t('CREATE_ACCOUNT_HERE')}}</btn>
+      <button id="toOtherForm" class="navigationButton btn" v-on:click="goToSignUp">{{$t('CREATE_ACCOUNT_HERE')}}</button>
     </div>
   </div>
 </template>

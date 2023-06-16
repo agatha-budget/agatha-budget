@@ -1,40 +1,43 @@
-.operation {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 8px 0 8px 15px;
-  text-align: left;
-  cursor: pointer;
-  .category {
+.operationList {
+  .operationListItem {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 8px 15px;
+    text-align: left;
+    &:nth-child(even) {
+      background-color: @background;
+    }
+    &:nth-child(odd) {
+      background-color: @darkerBackground;
+    }
+    cursor: pointer;
+    .category {
       font-weight: bold;
-  }
-  .amount {
+    }
+    .amount {
       font-size: large;
       text-align: center;
-  }
-  .action, .pending {
+    }
+    .action, .pending {
       display: flex;
       .btn {
           padding-left: 10px;
       }
-  }
-
-  &:nth-child(even) {
-    background-color: @background;
-  }
-  
-  &:nth-child(odd) {
-    background-color: @darkerBackground;
-  }
-
-  @media (pointer: fine) { 
-    .action {
-        visibility: hidden;
     }
-    &:hover{
+    
+    .daughterCategory, .daughterMemo {
+        padding-left: 25px;
+    }
+    
+    @media (pointer: fine) { 
       .action {
-          visibility: visible;
+          visibility: hidden;
+      }
+      &:hover{
+        .action {
+            visibility: visible;
+        }
       }
     }
   }
-
 }

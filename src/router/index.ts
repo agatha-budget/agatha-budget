@@ -2,10 +2,12 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
+import Banks from '../views/Banks.vue'
 import Signup from '../views/Signup.vue'
 import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
 import AccountPage from '../views/AccountPage.vue'
 import Subscription from '../views/Subscription.vue'
+import ChartPage from '../views/ChartPage.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { AxiosError } from 'axios'
@@ -17,9 +19,11 @@ export enum RouterPages {
   account = '/account',
   about = '/about',
   profile = '/profile',
+  banks = '/bank',
   subscription = '/subscription',
   invalidSubscription = '/invalidSubscription',
-  redirectToAccountPage = '/redirectToAccountPage'
+  redirectToAccountPage = '/redirectToAccountPage',
+  chartPage = '/chart'
 }
 
 const routes: Array<RouteRecordRaw> = [
@@ -38,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.profile,
     component: Profile
+  },
+  {
+    path: RouterPages.banks,
+    component: Banks,
+    props: route => ({ query: route.query.agreementId })
   },
   {
     path: RouterPages.redirectToAccountPage,
@@ -64,6 +73,10 @@ const routes: Array<RouteRecordRaw> = [
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: RouterPages.chartPage,
+    component: ChartPage
   }
 ]
 

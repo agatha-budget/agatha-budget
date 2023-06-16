@@ -9,14 +9,13 @@
         <input id="newAccountAmount" class="form-control" v-model="amountString" :placeholder="$t('CURRENT_AMOUNT')">
       </div>
     </div>
-    <btn class="actionButton" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</btn>
+    <button class="actionButton" v-on:click="createAccount">{{$t('CREATE_ACCOUNT')}}</button>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
-import Utils from '@/utils/Utils'
 import Calcul from '@/utils/Calcul'
 
 export default defineComponent({
@@ -29,14 +28,14 @@ export default defineComponent({
   },
   computed: {
     amount (): number {
-      return this.entireCalcul(this.amountString)
+      return this.computeStringToCents(this.amountString)
     }
   },
   emits: ['updateAccountList', 'closeForm'],
   methods: {
     createAccount () {
       if (this.$store.state.budget) {
-        AccountService.createAccount(this.$store, this.$store.state.budget, this.name, Utils.getCentsAmount(this.amount)).then(
+        AccountService.createAccount(this.$store, this.$store.state.budget, this.name, this.amount).then(
           () => {
             this.$emit('updateAccountList')
             this.$emit('closeForm')
@@ -44,8 +43,8 @@ export default defineComponent({
         )
       }
     },
-    entireCalcul (amount: string): number {
-      return Calcul.entireCalcul(amount)
+    computeStringToCents (amount: string): number {
+      return Calcul.computeStringToCents(amount)
     },
     closeForm () {
       this.$emit('closeForm')
