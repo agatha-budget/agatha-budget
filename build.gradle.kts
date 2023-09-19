@@ -79,7 +79,7 @@ val intTestRuntimeOnly by configurations.getting {
 
 // Lib Versions
 val kotlin_version="1.9.10" // aout 2023
-val koin_version= "3.0.1-beta-2"
+val koin_version= "3.5.0" // septembre 2023
 val junit_version="5.1.1"
 val postgres_version="42.2.12"
 val h2_version="2.1.214"
@@ -117,7 +117,7 @@ dependencies {
     // koin
     intTestImplementation("io.insert-koin:koin-test-junit5:$koin_version")
     testImplementation ("io.insert-koin:koin-test-junit5:$koin_version")
-    implementation ("io.insert-koin:koin-core-ext:$koin_version")
+    implementation ("io.insert-koin:koin-core:$koin_version")
 
     // DB
     implementation("org.postgresql:postgresql:$postgres_version")
