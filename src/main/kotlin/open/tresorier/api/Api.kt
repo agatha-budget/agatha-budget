@@ -13,6 +13,9 @@ import open.tresorier.services.BillingService
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.model.enum.PriceIdEnum
 import open.tresorier.api.theme.*
+import org.pac4j.oidc.config.OidcConfiguration
+import org.pac4j.oidc.config.KeycloakOidcConfiguration
+import org.pac4j.oidc.client.KeycloakOidcClient
 
 fun main() {
 
@@ -290,4 +293,15 @@ private fun setUpApp(properties: Properties): Javalin {
     }
 
     return app
+}
+
+private fun setUpAuthentication(properties: Properties): OidcConfiguration {
+
+    val config: KeycloakOidcConfiguration = KeycloakOidcConfiguration()
+    config.setClientId(properties.get(KEYCLOAK_ID))
+    config.setSecret(properties.get(KEYCLOAK_SECRET))
+    config.setDiscoveryURI(properties.get(KEYCLOAK_DISC_URI))
+    val oidcClient: KeycloakOidcClient = KeycloakOidcClient(config)
+
+    return config
 }
