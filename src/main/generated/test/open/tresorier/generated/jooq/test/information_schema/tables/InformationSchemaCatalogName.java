@@ -4,15 +4,20 @@
 package open.tresorier.generated.jooq.test.information_schema.tables;
 
 
+import java.util.function.Function;
+
 import open.tresorier.generated.jooq.test.information_schema.InformationSchema;
 import open.tresorier.generated.jooq.test.information_schema.tables.records.InformationSchemaCatalogNameRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function1;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row1;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -102,6 +107,11 @@ public class InformationSchemaCatalogName extends TableImpl<InformationSchemaCat
         return new InformationSchemaCatalogName(alias, this);
     }
 
+    @Override
+    public InformationSchemaCatalogName as(Table<?> alias) {
+        return new InformationSchemaCatalogName(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -118,6 +128,14 @@ public class InformationSchemaCatalogName extends TableImpl<InformationSchemaCat
         return new InformationSchemaCatalogName(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public InformationSchemaCatalogName rename(Table<?> name) {
+        return new InformationSchemaCatalogName(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row1 type methods
     // -------------------------------------------------------------------------
@@ -125,5 +143,20 @@ public class InformationSchemaCatalogName extends TableImpl<InformationSchemaCat
     @Override
     public Row1<String> fieldsRow() {
         return (Row1) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function1<? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function1<? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

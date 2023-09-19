@@ -96,6 +96,7 @@ public class InformationSchemaCatalogNameRecord extends TableRecordImpl<Informat
         super(InformationSchemaCatalogName.INFORMATION_SCHEMA_CATALOG_NAME);
 
         setCatalogName(catalogName);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -106,6 +107,7 @@ public class InformationSchemaCatalogNameRecord extends TableRecordImpl<Informat
 
         if (value != null) {
             setCatalogName(value.getCatalogName());
+            resetChangedOnNotNull();
         }
     }
 }

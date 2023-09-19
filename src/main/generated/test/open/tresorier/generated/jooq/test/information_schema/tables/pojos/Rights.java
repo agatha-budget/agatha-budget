@@ -90,6 +90,67 @@ public class Rights implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Rights other = (Rights) obj;
+        if (this.grantee == null) {
+            if (other.grantee != null)
+                return false;
+        }
+        else if (!this.grantee.equals(other.grantee))
+            return false;
+        if (this.granteetype == null) {
+            if (other.granteetype != null)
+                return false;
+        }
+        else if (!this.granteetype.equals(other.granteetype))
+            return false;
+        if (this.grantedrole == null) {
+            if (other.grantedrole != null)
+                return false;
+        }
+        else if (!this.grantedrole.equals(other.grantedrole))
+            return false;
+        if (this.rights == null) {
+            if (other.rights != null)
+                return false;
+        }
+        else if (!this.rights.equals(other.rights))
+            return false;
+        if (this.tableSchema == null) {
+            if (other.tableSchema != null)
+                return false;
+        }
+        else if (!this.tableSchema.equals(other.tableSchema))
+            return false;
+        if (this.tableName == null) {
+            if (other.tableName != null)
+                return false;
+        }
+        else if (!this.tableName.equals(other.tableName))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.grantee == null) ? 0 : this.grantee.hashCode());
+        result = prime * result + ((this.granteetype == null) ? 0 : this.granteetype.hashCode());
+        result = prime * result + ((this.grantedrole == null) ? 0 : this.grantedrole.hashCode());
+        result = prime * result + ((this.rights == null) ? 0 : this.rights.hashCode());
+        result = prime * result + ((this.tableSchema == null) ? 0 : this.tableSchema.hashCode());
+        result = prime * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Rights (");
 

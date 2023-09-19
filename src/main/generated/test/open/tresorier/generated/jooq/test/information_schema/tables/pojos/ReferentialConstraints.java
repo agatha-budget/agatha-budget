@@ -132,6 +132,88 @@ public class ReferentialConstraints implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ReferentialConstraints other = (ReferentialConstraints) obj;
+        if (this.constraintCatalog == null) {
+            if (other.constraintCatalog != null)
+                return false;
+        }
+        else if (!this.constraintCatalog.equals(other.constraintCatalog))
+            return false;
+        if (this.constraintSchema == null) {
+            if (other.constraintSchema != null)
+                return false;
+        }
+        else if (!this.constraintSchema.equals(other.constraintSchema))
+            return false;
+        if (this.constraintName == null) {
+            if (other.constraintName != null)
+                return false;
+        }
+        else if (!this.constraintName.equals(other.constraintName))
+            return false;
+        if (this.uniqueConstraintCatalog == null) {
+            if (other.uniqueConstraintCatalog != null)
+                return false;
+        }
+        else if (!this.uniqueConstraintCatalog.equals(other.uniqueConstraintCatalog))
+            return false;
+        if (this.uniqueConstraintSchema == null) {
+            if (other.uniqueConstraintSchema != null)
+                return false;
+        }
+        else if (!this.uniqueConstraintSchema.equals(other.uniqueConstraintSchema))
+            return false;
+        if (this.uniqueConstraintName == null) {
+            if (other.uniqueConstraintName != null)
+                return false;
+        }
+        else if (!this.uniqueConstraintName.equals(other.uniqueConstraintName))
+            return false;
+        if (this.matchOption == null) {
+            if (other.matchOption != null)
+                return false;
+        }
+        else if (!this.matchOption.equals(other.matchOption))
+            return false;
+        if (this.updateRule == null) {
+            if (other.updateRule != null)
+                return false;
+        }
+        else if (!this.updateRule.equals(other.updateRule))
+            return false;
+        if (this.deleteRule == null) {
+            if (other.deleteRule != null)
+                return false;
+        }
+        else if (!this.deleteRule.equals(other.deleteRule))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.constraintCatalog == null) ? 0 : this.constraintCatalog.hashCode());
+        result = prime * result + ((this.constraintSchema == null) ? 0 : this.constraintSchema.hashCode());
+        result = prime * result + ((this.constraintName == null) ? 0 : this.constraintName.hashCode());
+        result = prime * result + ((this.uniqueConstraintCatalog == null) ? 0 : this.uniqueConstraintCatalog.hashCode());
+        result = prime * result + ((this.uniqueConstraintSchema == null) ? 0 : this.uniqueConstraintSchema.hashCode());
+        result = prime * result + ((this.uniqueConstraintName == null) ? 0 : this.uniqueConstraintName.hashCode());
+        result = prime * result + ((this.matchOption == null) ? 0 : this.matchOption.hashCode());
+        result = prime * result + ((this.updateRule == null) ? 0 : this.updateRule.hashCode());
+        result = prime * result + ((this.deleteRule == null) ? 0 : this.deleteRule.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("ReferentialConstraints (");
 

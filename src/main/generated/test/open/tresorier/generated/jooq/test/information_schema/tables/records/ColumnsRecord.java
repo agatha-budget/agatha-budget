@@ -812,6 +812,7 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
         setDefaultOnNull(defaultOnNull);
         setSelectivity(selectivity);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -869,6 +870,7 @@ public class ColumnsRecord extends TableRecordImpl<ColumnsRecord> {
             setDefaultOnNull(value.getDefaultOnNull());
             setSelectivity(value.getSelectivity());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

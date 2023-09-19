@@ -112,6 +112,81 @@ public class Synonyms implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Synonyms other = (Synonyms) obj;
+        if (this.synonymCatalog == null) {
+            if (other.synonymCatalog != null)
+                return false;
+        }
+        else if (!this.synonymCatalog.equals(other.synonymCatalog))
+            return false;
+        if (this.synonymSchema == null) {
+            if (other.synonymSchema != null)
+                return false;
+        }
+        else if (!this.synonymSchema.equals(other.synonymSchema))
+            return false;
+        if (this.synonymName == null) {
+            if (other.synonymName != null)
+                return false;
+        }
+        else if (!this.synonymName.equals(other.synonymName))
+            return false;
+        if (this.synonymFor == null) {
+            if (other.synonymFor != null)
+                return false;
+        }
+        else if (!this.synonymFor.equals(other.synonymFor))
+            return false;
+        if (this.synonymForSchema == null) {
+            if (other.synonymForSchema != null)
+                return false;
+        }
+        else if (!this.synonymForSchema.equals(other.synonymForSchema))
+            return false;
+        if (this.typeName == null) {
+            if (other.typeName != null)
+                return false;
+        }
+        else if (!this.typeName.equals(other.typeName))
+            return false;
+        if (this.status == null) {
+            if (other.status != null)
+                return false;
+        }
+        else if (!this.status.equals(other.status))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.synonymCatalog == null) ? 0 : this.synonymCatalog.hashCode());
+        result = prime * result + ((this.synonymSchema == null) ? 0 : this.synonymSchema.hashCode());
+        result = prime * result + ((this.synonymName == null) ? 0 : this.synonymName.hashCode());
+        result = prime * result + ((this.synonymFor == null) ? 0 : this.synonymFor.hashCode());
+        result = prime * result + ((this.synonymForSchema == null) ? 0 : this.synonymForSchema.hashCode());
+        result = prime * result + ((this.typeName == null) ? 0 : this.typeName.hashCode());
+        result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Synonyms (");
 

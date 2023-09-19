@@ -233,6 +233,11 @@ public class Constants extends TableImpl<ConstantsRecord> {
         return new Constants(alias, this);
     }
 
+    @Override
+    public Constants as(Table<?> alias) {
+        return new Constants(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -247,5 +252,13 @@ public class Constants extends TableImpl<ConstantsRecord> {
     @Override
     public Constants rename(Name name) {
         return new Constants(name, null);
+    }
+
+    /**
+     * Rename this table
+     */
+    @Override
+    public Constants rename(Table<?> name) {
+        return new Constants(name.getQualifiedName(), null);
     }
 }

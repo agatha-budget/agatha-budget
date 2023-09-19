@@ -132,6 +132,7 @@ public class SettingsRecord extends TableRecordImpl<SettingsRecord> implements R
 
         setSettingName(settingName);
         setSettingValue(settingValue);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -143,6 +144,7 @@ public class SettingsRecord extends TableRecordImpl<SettingsRecord> implements R
         if (value != null) {
             setSettingName(value.getSettingName());
             setSettingValue(value.getSettingValue());
+            resetChangedOnNotNull();
         }
     }
 }

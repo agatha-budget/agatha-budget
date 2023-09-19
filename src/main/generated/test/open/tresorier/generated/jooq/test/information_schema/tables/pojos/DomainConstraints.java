@@ -131,6 +131,88 @@ public class DomainConstraints implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final DomainConstraints other = (DomainConstraints) obj;
+        if (this.constraintCatalog == null) {
+            if (other.constraintCatalog != null)
+                return false;
+        }
+        else if (!this.constraintCatalog.equals(other.constraintCatalog))
+            return false;
+        if (this.constraintSchema == null) {
+            if (other.constraintSchema != null)
+                return false;
+        }
+        else if (!this.constraintSchema.equals(other.constraintSchema))
+            return false;
+        if (this.constraintName == null) {
+            if (other.constraintName != null)
+                return false;
+        }
+        else if (!this.constraintName.equals(other.constraintName))
+            return false;
+        if (this.domainCatalog == null) {
+            if (other.domainCatalog != null)
+                return false;
+        }
+        else if (!this.domainCatalog.equals(other.domainCatalog))
+            return false;
+        if (this.domainSchema == null) {
+            if (other.domainSchema != null)
+                return false;
+        }
+        else if (!this.domainSchema.equals(other.domainSchema))
+            return false;
+        if (this.domainName == null) {
+            if (other.domainName != null)
+                return false;
+        }
+        else if (!this.domainName.equals(other.domainName))
+            return false;
+        if (this.isDeferrable == null) {
+            if (other.isDeferrable != null)
+                return false;
+        }
+        else if (!this.isDeferrable.equals(other.isDeferrable))
+            return false;
+        if (this.initiallyDeferred == null) {
+            if (other.initiallyDeferred != null)
+                return false;
+        }
+        else if (!this.initiallyDeferred.equals(other.initiallyDeferred))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.constraintCatalog == null) ? 0 : this.constraintCatalog.hashCode());
+        result = prime * result + ((this.constraintSchema == null) ? 0 : this.constraintSchema.hashCode());
+        result = prime * result + ((this.constraintName == null) ? 0 : this.constraintName.hashCode());
+        result = prime * result + ((this.domainCatalog == null) ? 0 : this.domainCatalog.hashCode());
+        result = prime * result + ((this.domainSchema == null) ? 0 : this.domainSchema.hashCode());
+        result = prime * result + ((this.domainName == null) ? 0 : this.domainName.hashCode());
+        result = prime * result + ((this.isDeferrable == null) ? 0 : this.isDeferrable.hashCode());
+        result = prime * result + ((this.initiallyDeferred == null) ? 0 : this.initiallyDeferred.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("DomainConstraints (");
 

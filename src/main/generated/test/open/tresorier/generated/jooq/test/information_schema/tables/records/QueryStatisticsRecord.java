@@ -536,6 +536,7 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
         setCumulativeRowCount(cumulativeRowCount);
         setAverageRowCount(averageRowCount);
         setStdDevRowCount(stdDevRowCount);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -557,6 +558,7 @@ public class QueryStatisticsRecord extends TableRecordImpl<QueryStatisticsRecord
             setCumulativeRowCount(value.getCumulativeRowCount());
             setAverageRowCount(value.getAverageRowCount());
             setStdDevRowCount(value.getStdDevRowCount());
+            resetChangedOnNotNull();
         }
     }
 }

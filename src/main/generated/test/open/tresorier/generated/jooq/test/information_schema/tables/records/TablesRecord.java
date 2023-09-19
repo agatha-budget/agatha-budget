@@ -474,6 +474,7 @@ public class TablesRecord extends TableRecordImpl<TablesRecord> implements Recor
         setLastModification(lastModification);
         setTableClass(tableClass);
         setRowCountEstimate(rowCountEstimate);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -494,6 +495,7 @@ public class TablesRecord extends TableRecordImpl<TablesRecord> implements Recor
             setLastModification(value.getLastModification());
             setTableClass(value.getTableClass());
             setRowCountEstimate(value.getRowCountEstimate());
+            resetChangedOnNotNull();
         }
     }
 }

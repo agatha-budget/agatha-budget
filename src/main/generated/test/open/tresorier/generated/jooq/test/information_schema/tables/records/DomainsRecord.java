@@ -540,6 +540,7 @@ public class DomainsRecord extends TableRecordImpl<DomainsRecord> {
         setParentDomainSchema(parentDomainSchema);
         setParentDomainName(parentDomainName);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -580,6 +581,7 @@ public class DomainsRecord extends TableRecordImpl<DomainsRecord> {
             setParentDomainSchema(value.getParentDomainSchema());
             setParentDomainName(value.getParentDomainName());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

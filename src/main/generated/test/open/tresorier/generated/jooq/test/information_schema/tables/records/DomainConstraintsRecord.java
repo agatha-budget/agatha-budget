@@ -414,6 +414,7 @@ public class DomainConstraintsRecord extends TableRecordImpl<DomainConstraintsRe
         setIsDeferrable(isDeferrable);
         setInitiallyDeferred(initiallyDeferred);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -432,6 +433,7 @@ public class DomainConstraintsRecord extends TableRecordImpl<DomainConstraintsRe
             setIsDeferrable(value.getIsDeferrable());
             setInitiallyDeferred(value.getInitiallyDeferred());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

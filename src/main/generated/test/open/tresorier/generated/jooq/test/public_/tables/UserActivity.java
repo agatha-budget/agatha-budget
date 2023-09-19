@@ -4,16 +4,21 @@
 package open.tresorier.generated.jooq.test.public_.tables;
 
 
+import java.util.function.Function;
+
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
 import open.tresorier.generated.jooq.test.public_.tables.records.UserActivityRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function4;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row4;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -57,12 +62,12 @@ public class UserActivity extends TableImpl<UserActivityRecord> {
     /**
      * The column <code>PUBLIC.USER_ACTIVITY.DATE</code>.
      */
-    public final TableField<UserActivityRecord, Long> DATE = createField(DSL.name("DATE"), SQLDataType.BIGINT.defaultValue(DSL.field("0", SQLDataType.BIGINT)), this, "");
+    public final TableField<UserActivityRecord, Long> DATE = createField(DSL.name("DATE"), SQLDataType.BIGINT.defaultValue(DSL.field(DSL.raw("0"), SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>PUBLIC.USER_ACTIVITY.ACTION</code>.
      */
-    public final TableField<UserActivityRecord, String> ACTION = createField(DSL.name("ACTION"), SQLDataType.VARCHAR(36).nullable(false).defaultValue(DSL.field("'ACTION_LOGIN'", SQLDataType.VARCHAR)), this, "");
+    public final TableField<UserActivityRecord, String> ACTION = createField(DSL.name("ACTION"), SQLDataType.VARCHAR(36).nullable(false).defaultValue(DSL.field(DSL.raw("'ACTION_LOGIN'"), SQLDataType.VARCHAR)), this, "");
 
     private UserActivity(Name alias, Table<UserActivityRecord> aliased) {
         this(alias, aliased, null);
@@ -117,6 +122,11 @@ public class UserActivity extends TableImpl<UserActivityRecord> {
         return new UserActivity(alias, this);
     }
 
+    @Override
+    public UserActivity as(Table<?> alias) {
+        return new UserActivity(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -133,6 +143,14 @@ public class UserActivity extends TableImpl<UserActivityRecord> {
         return new UserActivity(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public UserActivity rename(Table<?> name) {
+        return new UserActivity(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row4 type methods
     // -------------------------------------------------------------------------
@@ -140,5 +158,20 @@ public class UserActivity extends TableImpl<UserActivityRecord> {
     @Override
     public Row4<String, String, Long, String> fieldsRow() {
         return (Row4) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function4<? super String, ? super String, ? super Long, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super String, ? super String, ? super Long, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

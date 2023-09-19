@@ -25,6 +25,7 @@ public class TableConstraints implements Serializable {
     private final String isDeferrable;
     private final String initiallyDeferred;
     private final String enforced;
+    private final String nullsDistinct;
     private final String indexCatalog;
     private final String indexSchema;
     private final String indexName;
@@ -41,6 +42,7 @@ public class TableConstraints implements Serializable {
         this.isDeferrable = value.isDeferrable;
         this.initiallyDeferred = value.initiallyDeferred;
         this.enforced = value.enforced;
+        this.nullsDistinct = value.nullsDistinct;
         this.indexCatalog = value.indexCatalog;
         this.indexSchema = value.indexSchema;
         this.indexName = value.indexName;
@@ -58,6 +60,7 @@ public class TableConstraints implements Serializable {
         String isDeferrable,
         String initiallyDeferred,
         String enforced,
+        String nullsDistinct,
         String indexCatalog,
         String indexSchema,
         String indexName,
@@ -73,6 +76,7 @@ public class TableConstraints implements Serializable {
         this.isDeferrable = isDeferrable;
         this.initiallyDeferred = initiallyDeferred;
         this.enforced = enforced;
+        this.nullsDistinct = nullsDistinct;
         this.indexCatalog = indexCatalog;
         this.indexSchema = indexSchema;
         this.indexName = indexName;
@@ -159,6 +163,14 @@ public class TableConstraints implements Serializable {
 
     /**
      * Getter for
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.NULLS_DISTINCT</code>.
+     */
+    public String getNullsDistinct() {
+        return this.nullsDistinct;
+    }
+
+    /**
+     * Getter for
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INDEX_CATALOG</code>.
      */
     public String getIndexCatalog() {
@@ -188,6 +200,130 @@ public class TableConstraints implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final TableConstraints other = (TableConstraints) obj;
+        if (this.constraintCatalog == null) {
+            if (other.constraintCatalog != null)
+                return false;
+        }
+        else if (!this.constraintCatalog.equals(other.constraintCatalog))
+            return false;
+        if (this.constraintSchema == null) {
+            if (other.constraintSchema != null)
+                return false;
+        }
+        else if (!this.constraintSchema.equals(other.constraintSchema))
+            return false;
+        if (this.constraintName == null) {
+            if (other.constraintName != null)
+                return false;
+        }
+        else if (!this.constraintName.equals(other.constraintName))
+            return false;
+        if (this.constraintType == null) {
+            if (other.constraintType != null)
+                return false;
+        }
+        else if (!this.constraintType.equals(other.constraintType))
+            return false;
+        if (this.tableCatalog == null) {
+            if (other.tableCatalog != null)
+                return false;
+        }
+        else if (!this.tableCatalog.equals(other.tableCatalog))
+            return false;
+        if (this.tableSchema == null) {
+            if (other.tableSchema != null)
+                return false;
+        }
+        else if (!this.tableSchema.equals(other.tableSchema))
+            return false;
+        if (this.tableName == null) {
+            if (other.tableName != null)
+                return false;
+        }
+        else if (!this.tableName.equals(other.tableName))
+            return false;
+        if (this.isDeferrable == null) {
+            if (other.isDeferrable != null)
+                return false;
+        }
+        else if (!this.isDeferrable.equals(other.isDeferrable))
+            return false;
+        if (this.initiallyDeferred == null) {
+            if (other.initiallyDeferred != null)
+                return false;
+        }
+        else if (!this.initiallyDeferred.equals(other.initiallyDeferred))
+            return false;
+        if (this.enforced == null) {
+            if (other.enforced != null)
+                return false;
+        }
+        else if (!this.enforced.equals(other.enforced))
+            return false;
+        if (this.nullsDistinct == null) {
+            if (other.nullsDistinct != null)
+                return false;
+        }
+        else if (!this.nullsDistinct.equals(other.nullsDistinct))
+            return false;
+        if (this.indexCatalog == null) {
+            if (other.indexCatalog != null)
+                return false;
+        }
+        else if (!this.indexCatalog.equals(other.indexCatalog))
+            return false;
+        if (this.indexSchema == null) {
+            if (other.indexSchema != null)
+                return false;
+        }
+        else if (!this.indexSchema.equals(other.indexSchema))
+            return false;
+        if (this.indexName == null) {
+            if (other.indexName != null)
+                return false;
+        }
+        else if (!this.indexName.equals(other.indexName))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.constraintCatalog == null) ? 0 : this.constraintCatalog.hashCode());
+        result = prime * result + ((this.constraintSchema == null) ? 0 : this.constraintSchema.hashCode());
+        result = prime * result + ((this.constraintName == null) ? 0 : this.constraintName.hashCode());
+        result = prime * result + ((this.constraintType == null) ? 0 : this.constraintType.hashCode());
+        result = prime * result + ((this.tableCatalog == null) ? 0 : this.tableCatalog.hashCode());
+        result = prime * result + ((this.tableSchema == null) ? 0 : this.tableSchema.hashCode());
+        result = prime * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
+        result = prime * result + ((this.isDeferrable == null) ? 0 : this.isDeferrable.hashCode());
+        result = prime * result + ((this.initiallyDeferred == null) ? 0 : this.initiallyDeferred.hashCode());
+        result = prime * result + ((this.enforced == null) ? 0 : this.enforced.hashCode());
+        result = prime * result + ((this.nullsDistinct == null) ? 0 : this.nullsDistinct.hashCode());
+        result = prime * result + ((this.indexCatalog == null) ? 0 : this.indexCatalog.hashCode());
+        result = prime * result + ((this.indexSchema == null) ? 0 : this.indexSchema.hashCode());
+        result = prime * result + ((this.indexName == null) ? 0 : this.indexName.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("TableConstraints (");
 
@@ -201,6 +337,7 @@ public class TableConstraints implements Serializable {
         sb.append(", ").append(isDeferrable);
         sb.append(", ").append(initiallyDeferred);
         sb.append(", ").append(enforced);
+        sb.append(", ").append(nullsDistinct);
         sb.append(", ").append(indexCatalog);
         sb.append(", ").append(indexSchema);
         sb.append(", ").append(indexName);

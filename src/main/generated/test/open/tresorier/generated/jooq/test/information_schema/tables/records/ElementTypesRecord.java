@@ -498,6 +498,7 @@ public class ElementTypesRecord extends TableRecordImpl<ElementTypesRecord> {
         setDeclaredNumericScale(declaredNumericScale);
         setGeometryType(geometryType);
         setGeometrySrid(geometrySrid);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -534,6 +535,7 @@ public class ElementTypesRecord extends TableRecordImpl<ElementTypesRecord> {
             setDeclaredNumericScale(value.getDeclaredNumericScale());
             setGeometryType(value.getGeometryType());
             setGeometrySrid(value.getGeometrySrid());
+            resetChangedOnNotNull();
         }
     }
 }

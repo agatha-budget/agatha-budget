@@ -157,6 +157,109 @@ public class Views implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Views other = (Views) obj;
+        if (this.tableCatalog == null) {
+            if (other.tableCatalog != null)
+                return false;
+        }
+        else if (!this.tableCatalog.equals(other.tableCatalog))
+            return false;
+        if (this.tableSchema == null) {
+            if (other.tableSchema != null)
+                return false;
+        }
+        else if (!this.tableSchema.equals(other.tableSchema))
+            return false;
+        if (this.tableName == null) {
+            if (other.tableName != null)
+                return false;
+        }
+        else if (!this.tableName.equals(other.tableName))
+            return false;
+        if (this.viewDefinition == null) {
+            if (other.viewDefinition != null)
+                return false;
+        }
+        else if (!this.viewDefinition.equals(other.viewDefinition))
+            return false;
+        if (this.checkOption == null) {
+            if (other.checkOption != null)
+                return false;
+        }
+        else if (!this.checkOption.equals(other.checkOption))
+            return false;
+        if (this.isUpdatable == null) {
+            if (other.isUpdatable != null)
+                return false;
+        }
+        else if (!this.isUpdatable.equals(other.isUpdatable))
+            return false;
+        if (this.insertableInto == null) {
+            if (other.insertableInto != null)
+                return false;
+        }
+        else if (!this.insertableInto.equals(other.insertableInto))
+            return false;
+        if (this.isTriggerUpdatable == null) {
+            if (other.isTriggerUpdatable != null)
+                return false;
+        }
+        else if (!this.isTriggerUpdatable.equals(other.isTriggerUpdatable))
+            return false;
+        if (this.isTriggerDeletable == null) {
+            if (other.isTriggerDeletable != null)
+                return false;
+        }
+        else if (!this.isTriggerDeletable.equals(other.isTriggerDeletable))
+            return false;
+        if (this.isTriggerInsertableInto == null) {
+            if (other.isTriggerInsertableInto != null)
+                return false;
+        }
+        else if (!this.isTriggerInsertableInto.equals(other.isTriggerInsertableInto))
+            return false;
+        if (this.status == null) {
+            if (other.status != null)
+                return false;
+        }
+        else if (!this.status.equals(other.status))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.tableCatalog == null) ? 0 : this.tableCatalog.hashCode());
+        result = prime * result + ((this.tableSchema == null) ? 0 : this.tableSchema.hashCode());
+        result = prime * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
+        result = prime * result + ((this.viewDefinition == null) ? 0 : this.viewDefinition.hashCode());
+        result = prime * result + ((this.checkOption == null) ? 0 : this.checkOption.hashCode());
+        result = prime * result + ((this.isUpdatable == null) ? 0 : this.isUpdatable.hashCode());
+        result = prime * result + ((this.insertableInto == null) ? 0 : this.insertableInto.hashCode());
+        result = prime * result + ((this.isTriggerUpdatable == null) ? 0 : this.isTriggerUpdatable.hashCode());
+        result = prime * result + ((this.isTriggerDeletable == null) ? 0 : this.isTriggerDeletable.hashCode());
+        result = prime * result + ((this.isTriggerInsertableInto == null) ? 0 : this.isTriggerInsertableInto.hashCode());
+        result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Views (");
 

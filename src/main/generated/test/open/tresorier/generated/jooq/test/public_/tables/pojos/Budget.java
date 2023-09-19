@@ -15,11 +15,11 @@ public class Budget implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  id;
-    private final String  personId;
-    private final String  name;
+    private final String id;
+    private final String personId;
+    private final String name;
     private final Boolean deleted;
-    private final String  profile;
+    private final String profile;
 
     public Budget(Budget value) {
         this.id = value.id;
@@ -30,11 +30,11 @@ public class Budget implements Serializable {
     }
 
     public Budget(
-        String  id,
-        String  personId,
-        String  name,
+        String id,
+        String personId,
+        String name,
         Boolean deleted,
-        String  profile
+        String profile
     ) {
         this.id = id;
         this.personId = personId;
@@ -76,6 +76,60 @@ public class Budget implements Serializable {
      */
     public String getProfile() {
         return this.profile;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Budget other = (Budget) obj;
+        if (this.id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!this.id.equals(other.id))
+            return false;
+        if (this.personId == null) {
+            if (other.personId != null)
+                return false;
+        }
+        else if (!this.personId.equals(other.personId))
+            return false;
+        if (this.name == null) {
+            if (other.name != null)
+                return false;
+        }
+        else if (!this.name.equals(other.name))
+            return false;
+        if (this.deleted == null) {
+            if (other.deleted != null)
+                return false;
+        }
+        else if (!this.deleted.equals(other.deleted))
+            return false;
+        if (this.profile == null) {
+            if (other.profile != null)
+                return false;
+        }
+        else if (!this.profile.equals(other.profile))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.personId == null) ? 0 : this.personId.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.deleted == null) ? 0 : this.deleted.hashCode());
+        result = prime * result + ((this.profile == null) ? 0 : this.profile.hashCode());
+        return result;
     }
 
     @Override

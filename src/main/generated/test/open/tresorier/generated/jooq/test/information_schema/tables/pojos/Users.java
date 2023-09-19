@@ -15,9 +15,9 @@ public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  userName;
+    private final String userName;
     private final Boolean isAdmin;
-    private final String  remarks;
+    private final String remarks;
 
     public Users(Users value) {
         this.userName = value.userName;
@@ -26,9 +26,9 @@ public class Users implements Serializable {
     }
 
     public Users(
-        String  userName,
+        String userName,
         Boolean isAdmin,
-        String  remarks
+        String remarks
     ) {
         this.userName = userName;
         this.isAdmin = isAdmin;
@@ -54,6 +54,46 @@ public class Users implements Serializable {
      */
     public String getRemarks() {
         return this.remarks;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Users other = (Users) obj;
+        if (this.userName == null) {
+            if (other.userName != null)
+                return false;
+        }
+        else if (!this.userName.equals(other.userName))
+            return false;
+        if (this.isAdmin == null) {
+            if (other.isAdmin != null)
+                return false;
+        }
+        else if (!this.isAdmin.equals(other.isAdmin))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.userName == null) ? 0 : this.userName.hashCode());
+        result = prime * result + ((this.isAdmin == null) ? 0 : this.isAdmin.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        return result;
     }
 
     @Override

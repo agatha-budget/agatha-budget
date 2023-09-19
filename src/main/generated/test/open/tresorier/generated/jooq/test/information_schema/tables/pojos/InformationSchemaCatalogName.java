@@ -36,6 +36,32 @@ public class InformationSchemaCatalogName implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final InformationSchemaCatalogName other = (InformationSchemaCatalogName) obj;
+        if (this.catalogName == null) {
+            if (other.catalogName != null)
+                return false;
+        }
+        else if (!this.catalogName.equals(other.catalogName))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.catalogName == null) ? 0 : this.catalogName.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("InformationSchemaCatalogName (");
 

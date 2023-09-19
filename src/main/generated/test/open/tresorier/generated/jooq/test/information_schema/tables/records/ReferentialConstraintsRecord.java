@@ -416,6 +416,7 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
         setMatchOption(matchOption);
         setUpdateRule(updateRule);
         setDeleteRule(deleteRule);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -434,6 +435,7 @@ public class ReferentialConstraintsRecord extends TableRecordImpl<ReferentialCon
             setMatchOption(value.getMatchOption());
             setUpdateRule(value.getUpdateRule());
             setDeleteRule(value.getDeleteRule());
+            resetChangedOnNotNull();
         }
     }
 }

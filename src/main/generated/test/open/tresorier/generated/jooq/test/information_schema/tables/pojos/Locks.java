@@ -15,10 +15,10 @@ public class Locks implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  tableSchema;
-    private final String  tableName;
+    private final String tableSchema;
+    private final String tableName;
     private final Integer sessionId;
-    private final String  lockType;
+    private final String lockType;
 
     public Locks(Locks value) {
         this.tableSchema = value.tableSchema;
@@ -28,10 +28,10 @@ public class Locks implements Serializable {
     }
 
     public Locks(
-        String  tableSchema,
-        String  tableName,
+        String tableSchema,
+        String tableName,
         Integer sessionId,
-        String  lockType
+        String lockType
     ) {
         this.tableSchema = tableSchema;
         this.tableName = tableName;
@@ -65,6 +65,53 @@ public class Locks implements Serializable {
      */
     public String getLockType() {
         return this.lockType;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Locks other = (Locks) obj;
+        if (this.tableSchema == null) {
+            if (other.tableSchema != null)
+                return false;
+        }
+        else if (!this.tableSchema.equals(other.tableSchema))
+            return false;
+        if (this.tableName == null) {
+            if (other.tableName != null)
+                return false;
+        }
+        else if (!this.tableName.equals(other.tableName))
+            return false;
+        if (this.sessionId == null) {
+            if (other.sessionId != null)
+                return false;
+        }
+        else if (!this.sessionId.equals(other.sessionId))
+            return false;
+        if (this.lockType == null) {
+            if (other.lockType != null)
+                return false;
+        }
+        else if (!this.lockType.equals(other.lockType))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.tableSchema == null) ? 0 : this.tableSchema.hashCode());
+        result = prime * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
+        result = prime * result + ((this.sessionId == null) ? 0 : this.sessionId.hashCode());
+        result = prime * result + ((this.lockType == null) ? 0 : this.lockType.hashCode());
+        return result;
     }
 
     @Override

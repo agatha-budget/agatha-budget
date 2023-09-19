@@ -237,6 +237,11 @@ public class Fields extends TableImpl<FieldsRecord> {
         return new Fields(alias, this);
     }
 
+    @Override
+    public Fields as(Table<?> alias) {
+        return new Fields(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -251,5 +256,13 @@ public class Fields extends TableImpl<FieldsRecord> {
     @Override
     public Fields rename(Name name) {
         return new Fields(name, null);
+    }
+
+    /**
+     * Rename this table
+     */
+    @Override
+    public Fields rename(Table<?> name) {
+        return new Fields(name.getQualifiedName(), null);
     }
 }

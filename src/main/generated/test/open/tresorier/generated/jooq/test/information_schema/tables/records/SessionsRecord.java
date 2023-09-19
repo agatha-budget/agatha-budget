@@ -554,6 +554,7 @@ public class SessionsRecord extends TableRecordImpl<SessionsRecord> implements R
         setSessionState(sessionState);
         setBlockerId(blockerId);
         setSleepSince(sleepSince);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -576,6 +577,7 @@ public class SessionsRecord extends TableRecordImpl<SessionsRecord> implements R
             setSessionState(value.getSessionState());
             setBlockerId(value.getBlockerId());
             setSleepSince(value.getSleepSince());
+            resetChangedOnNotNull();
         }
     }
 }

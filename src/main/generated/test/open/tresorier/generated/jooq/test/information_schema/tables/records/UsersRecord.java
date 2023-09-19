@@ -170,6 +170,7 @@ public class UsersRecord extends TableRecordImpl<UsersRecord> implements Record3
         setUserName(userName);
         setIsAdmin(isAdmin);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -182,6 +183,7 @@ public class UsersRecord extends TableRecordImpl<UsersRecord> implements Record3
             setUserName(value.getUserName());
             setIsAdmin(value.getIsAdmin());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

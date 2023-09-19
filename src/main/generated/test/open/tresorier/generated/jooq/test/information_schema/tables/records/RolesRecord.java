@@ -132,6 +132,7 @@ public class RolesRecord extends TableRecordImpl<RolesRecord> implements Record2
 
         setRoleName(roleName);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -143,6 +144,7 @@ public class RolesRecord extends TableRecordImpl<RolesRecord> implements Record2
         if (value != null) {
             setRoleName(value.getRoleName());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

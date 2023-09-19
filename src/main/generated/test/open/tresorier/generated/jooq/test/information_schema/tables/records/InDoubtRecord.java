@@ -132,6 +132,7 @@ public class InDoubtRecord extends TableRecordImpl<InDoubtRecord> implements Rec
 
         setTransactionName(transactionName);
         setTransactionState(transactionState);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -143,6 +144,7 @@ public class InDoubtRecord extends TableRecordImpl<InDoubtRecord> implements Rec
         if (value != null) {
             setTransactionName(value.getTransactionName());
             setTransactionState(value.getTransactionState());
+            resetChangedOnNotNull();
         }
     }
 }

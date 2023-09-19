@@ -15,42 +15,42 @@ public class Routines implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  specificCatalog;
-    private final String  specificSchema;
-    private final String  specificName;
-    private final String  routineCatalog;
-    private final String  routineSchema;
-    private final String  routineName;
-    private final String  routineType;
-    private final String  dataType;
-    private final Long    characterMaximumLength;
-    private final Long    characterOctetLength;
-    private final String  characterSetCatalog;
-    private final String  characterSetSchema;
-    private final String  characterSetName;
-    private final String  collationCatalog;
-    private final String  collationSchema;
-    private final String  collationName;
+    private final String specificCatalog;
+    private final String specificSchema;
+    private final String specificName;
+    private final String routineCatalog;
+    private final String routineSchema;
+    private final String routineName;
+    private final String routineType;
+    private final String dataType;
+    private final Long characterMaximumLength;
+    private final Long characterOctetLength;
+    private final String characterSetCatalog;
+    private final String characterSetSchema;
+    private final String characterSetName;
+    private final String collationCatalog;
+    private final String collationSchema;
+    private final String collationName;
     private final Integer numericPrecision;
     private final Integer numericPrecisionRadix;
     private final Integer numericScale;
     private final Integer datetimePrecision;
-    private final String  intervalType;
+    private final String intervalType;
     private final Integer intervalPrecision;
     private final Integer maximumCardinality;
-    private final String  dtdIdentifier;
-    private final String  routineBody;
-    private final String  routineDefinition;
-    private final String  externalName;
-    private final String  externalLanguage;
-    private final String  parameterStyle;
-    private final String  isDeterministic;
-    private final String  declaredDataType;
+    private final String dtdIdentifier;
+    private final String routineBody;
+    private final String routineDefinition;
+    private final String externalName;
+    private final String externalLanguage;
+    private final String parameterStyle;
+    private final String isDeterministic;
+    private final String declaredDataType;
     private final Integer declaredNumericPrecision;
     private final Integer declaredNumericScale;
-    private final String  geometryType;
+    private final String geometryType;
     private final Integer geometrySrid;
-    private final String  remarks;
+    private final String remarks;
 
     public Routines(Routines value) {
         this.specificCatalog = value.specificCatalog;
@@ -92,42 +92,42 @@ public class Routines implements Serializable {
     }
 
     public Routines(
-        String  specificCatalog,
-        String  specificSchema,
-        String  specificName,
-        String  routineCatalog,
-        String  routineSchema,
-        String  routineName,
-        String  routineType,
-        String  dataType,
-        Long    characterMaximumLength,
-        Long    characterOctetLength,
-        String  characterSetCatalog,
-        String  characterSetSchema,
-        String  characterSetName,
-        String  collationCatalog,
-        String  collationSchema,
-        String  collationName,
+        String specificCatalog,
+        String specificSchema,
+        String specificName,
+        String routineCatalog,
+        String routineSchema,
+        String routineName,
+        String routineType,
+        String dataType,
+        Long characterMaximumLength,
+        Long characterOctetLength,
+        String characterSetCatalog,
+        String characterSetSchema,
+        String characterSetName,
+        String collationCatalog,
+        String collationSchema,
+        String collationName,
         Integer numericPrecision,
         Integer numericPrecisionRadix,
         Integer numericScale,
         Integer datetimePrecision,
-        String  intervalType,
+        String intervalType,
         Integer intervalPrecision,
         Integer maximumCardinality,
-        String  dtdIdentifier,
-        String  routineBody,
-        String  routineDefinition,
-        String  externalName,
-        String  externalLanguage,
-        String  parameterStyle,
-        String  isDeterministic,
-        String  declaredDataType,
+        String dtdIdentifier,
+        String routineBody,
+        String routineDefinition,
+        String externalName,
+        String externalLanguage,
+        String parameterStyle,
+        String isDeterministic,
+        String declaredDataType,
         Integer declaredNumericPrecision,
         Integer declaredNumericScale,
-        String  geometryType,
+        String geometryType,
         Integer geometrySrid,
-        String  remarks
+        String remarks
     ) {
         this.specificCatalog = specificCatalog;
         this.specificSchema = specificSchema;
@@ -423,6 +423,277 @@ public class Routines implements Serializable {
      */
     public String getRemarks() {
         return this.remarks;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Routines other = (Routines) obj;
+        if (this.specificCatalog == null) {
+            if (other.specificCatalog != null)
+                return false;
+        }
+        else if (!this.specificCatalog.equals(other.specificCatalog))
+            return false;
+        if (this.specificSchema == null) {
+            if (other.specificSchema != null)
+                return false;
+        }
+        else if (!this.specificSchema.equals(other.specificSchema))
+            return false;
+        if (this.specificName == null) {
+            if (other.specificName != null)
+                return false;
+        }
+        else if (!this.specificName.equals(other.specificName))
+            return false;
+        if (this.routineCatalog == null) {
+            if (other.routineCatalog != null)
+                return false;
+        }
+        else if (!this.routineCatalog.equals(other.routineCatalog))
+            return false;
+        if (this.routineSchema == null) {
+            if (other.routineSchema != null)
+                return false;
+        }
+        else if (!this.routineSchema.equals(other.routineSchema))
+            return false;
+        if (this.routineName == null) {
+            if (other.routineName != null)
+                return false;
+        }
+        else if (!this.routineName.equals(other.routineName))
+            return false;
+        if (this.routineType == null) {
+            if (other.routineType != null)
+                return false;
+        }
+        else if (!this.routineType.equals(other.routineType))
+            return false;
+        if (this.dataType == null) {
+            if (other.dataType != null)
+                return false;
+        }
+        else if (!this.dataType.equals(other.dataType))
+            return false;
+        if (this.characterMaximumLength == null) {
+            if (other.characterMaximumLength != null)
+                return false;
+        }
+        else if (!this.characterMaximumLength.equals(other.characterMaximumLength))
+            return false;
+        if (this.characterOctetLength == null) {
+            if (other.characterOctetLength != null)
+                return false;
+        }
+        else if (!this.characterOctetLength.equals(other.characterOctetLength))
+            return false;
+        if (this.characterSetCatalog == null) {
+            if (other.characterSetCatalog != null)
+                return false;
+        }
+        else if (!this.characterSetCatalog.equals(other.characterSetCatalog))
+            return false;
+        if (this.characterSetSchema == null) {
+            if (other.characterSetSchema != null)
+                return false;
+        }
+        else if (!this.characterSetSchema.equals(other.characterSetSchema))
+            return false;
+        if (this.characterSetName == null) {
+            if (other.characterSetName != null)
+                return false;
+        }
+        else if (!this.characterSetName.equals(other.characterSetName))
+            return false;
+        if (this.collationCatalog == null) {
+            if (other.collationCatalog != null)
+                return false;
+        }
+        else if (!this.collationCatalog.equals(other.collationCatalog))
+            return false;
+        if (this.collationSchema == null) {
+            if (other.collationSchema != null)
+                return false;
+        }
+        else if (!this.collationSchema.equals(other.collationSchema))
+            return false;
+        if (this.collationName == null) {
+            if (other.collationName != null)
+                return false;
+        }
+        else if (!this.collationName.equals(other.collationName))
+            return false;
+        if (this.numericPrecision == null) {
+            if (other.numericPrecision != null)
+                return false;
+        }
+        else if (!this.numericPrecision.equals(other.numericPrecision))
+            return false;
+        if (this.numericPrecisionRadix == null) {
+            if (other.numericPrecisionRadix != null)
+                return false;
+        }
+        else if (!this.numericPrecisionRadix.equals(other.numericPrecisionRadix))
+            return false;
+        if (this.numericScale == null) {
+            if (other.numericScale != null)
+                return false;
+        }
+        else if (!this.numericScale.equals(other.numericScale))
+            return false;
+        if (this.datetimePrecision == null) {
+            if (other.datetimePrecision != null)
+                return false;
+        }
+        else if (!this.datetimePrecision.equals(other.datetimePrecision))
+            return false;
+        if (this.intervalType == null) {
+            if (other.intervalType != null)
+                return false;
+        }
+        else if (!this.intervalType.equals(other.intervalType))
+            return false;
+        if (this.intervalPrecision == null) {
+            if (other.intervalPrecision != null)
+                return false;
+        }
+        else if (!this.intervalPrecision.equals(other.intervalPrecision))
+            return false;
+        if (this.maximumCardinality == null) {
+            if (other.maximumCardinality != null)
+                return false;
+        }
+        else if (!this.maximumCardinality.equals(other.maximumCardinality))
+            return false;
+        if (this.dtdIdentifier == null) {
+            if (other.dtdIdentifier != null)
+                return false;
+        }
+        else if (!this.dtdIdentifier.equals(other.dtdIdentifier))
+            return false;
+        if (this.routineBody == null) {
+            if (other.routineBody != null)
+                return false;
+        }
+        else if (!this.routineBody.equals(other.routineBody))
+            return false;
+        if (this.routineDefinition == null) {
+            if (other.routineDefinition != null)
+                return false;
+        }
+        else if (!this.routineDefinition.equals(other.routineDefinition))
+            return false;
+        if (this.externalName == null) {
+            if (other.externalName != null)
+                return false;
+        }
+        else if (!this.externalName.equals(other.externalName))
+            return false;
+        if (this.externalLanguage == null) {
+            if (other.externalLanguage != null)
+                return false;
+        }
+        else if (!this.externalLanguage.equals(other.externalLanguage))
+            return false;
+        if (this.parameterStyle == null) {
+            if (other.parameterStyle != null)
+                return false;
+        }
+        else if (!this.parameterStyle.equals(other.parameterStyle))
+            return false;
+        if (this.isDeterministic == null) {
+            if (other.isDeterministic != null)
+                return false;
+        }
+        else if (!this.isDeterministic.equals(other.isDeterministic))
+            return false;
+        if (this.declaredDataType == null) {
+            if (other.declaredDataType != null)
+                return false;
+        }
+        else if (!this.declaredDataType.equals(other.declaredDataType))
+            return false;
+        if (this.declaredNumericPrecision == null) {
+            if (other.declaredNumericPrecision != null)
+                return false;
+        }
+        else if (!this.declaredNumericPrecision.equals(other.declaredNumericPrecision))
+            return false;
+        if (this.declaredNumericScale == null) {
+            if (other.declaredNumericScale != null)
+                return false;
+        }
+        else if (!this.declaredNumericScale.equals(other.declaredNumericScale))
+            return false;
+        if (this.geometryType == null) {
+            if (other.geometryType != null)
+                return false;
+        }
+        else if (!this.geometryType.equals(other.geometryType))
+            return false;
+        if (this.geometrySrid == null) {
+            if (other.geometrySrid != null)
+                return false;
+        }
+        else if (!this.geometrySrid.equals(other.geometrySrid))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.specificCatalog == null) ? 0 : this.specificCatalog.hashCode());
+        result = prime * result + ((this.specificSchema == null) ? 0 : this.specificSchema.hashCode());
+        result = prime * result + ((this.specificName == null) ? 0 : this.specificName.hashCode());
+        result = prime * result + ((this.routineCatalog == null) ? 0 : this.routineCatalog.hashCode());
+        result = prime * result + ((this.routineSchema == null) ? 0 : this.routineSchema.hashCode());
+        result = prime * result + ((this.routineName == null) ? 0 : this.routineName.hashCode());
+        result = prime * result + ((this.routineType == null) ? 0 : this.routineType.hashCode());
+        result = prime * result + ((this.dataType == null) ? 0 : this.dataType.hashCode());
+        result = prime * result + ((this.characterMaximumLength == null) ? 0 : this.characterMaximumLength.hashCode());
+        result = prime * result + ((this.characterOctetLength == null) ? 0 : this.characterOctetLength.hashCode());
+        result = prime * result + ((this.characterSetCatalog == null) ? 0 : this.characterSetCatalog.hashCode());
+        result = prime * result + ((this.characterSetSchema == null) ? 0 : this.characterSetSchema.hashCode());
+        result = prime * result + ((this.characterSetName == null) ? 0 : this.characterSetName.hashCode());
+        result = prime * result + ((this.collationCatalog == null) ? 0 : this.collationCatalog.hashCode());
+        result = prime * result + ((this.collationSchema == null) ? 0 : this.collationSchema.hashCode());
+        result = prime * result + ((this.collationName == null) ? 0 : this.collationName.hashCode());
+        result = prime * result + ((this.numericPrecision == null) ? 0 : this.numericPrecision.hashCode());
+        result = prime * result + ((this.numericPrecisionRadix == null) ? 0 : this.numericPrecisionRadix.hashCode());
+        result = prime * result + ((this.numericScale == null) ? 0 : this.numericScale.hashCode());
+        result = prime * result + ((this.datetimePrecision == null) ? 0 : this.datetimePrecision.hashCode());
+        result = prime * result + ((this.intervalType == null) ? 0 : this.intervalType.hashCode());
+        result = prime * result + ((this.intervalPrecision == null) ? 0 : this.intervalPrecision.hashCode());
+        result = prime * result + ((this.maximumCardinality == null) ? 0 : this.maximumCardinality.hashCode());
+        result = prime * result + ((this.dtdIdentifier == null) ? 0 : this.dtdIdentifier.hashCode());
+        result = prime * result + ((this.routineBody == null) ? 0 : this.routineBody.hashCode());
+        result = prime * result + ((this.routineDefinition == null) ? 0 : this.routineDefinition.hashCode());
+        result = prime * result + ((this.externalName == null) ? 0 : this.externalName.hashCode());
+        result = prime * result + ((this.externalLanguage == null) ? 0 : this.externalLanguage.hashCode());
+        result = prime * result + ((this.parameterStyle == null) ? 0 : this.parameterStyle.hashCode());
+        result = prime * result + ((this.isDeterministic == null) ? 0 : this.isDeterministic.hashCode());
+        result = prime * result + ((this.declaredDataType == null) ? 0 : this.declaredDataType.hashCode());
+        result = prime * result + ((this.declaredNumericPrecision == null) ? 0 : this.declaredNumericPrecision.hashCode());
+        result = prime * result + ((this.declaredNumericScale == null) ? 0 : this.declaredNumericScale.hashCode());
+        result = prime * result + ((this.geometryType == null) ? 0 : this.geometryType.hashCode());
+        result = prime * result + ((this.geometrySrid == null) ? 0 : this.geometrySrid.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        return result;
     }
 
     @Override

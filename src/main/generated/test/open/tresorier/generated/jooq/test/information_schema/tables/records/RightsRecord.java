@@ -284,6 +284,7 @@ public class RightsRecord extends TableRecordImpl<RightsRecord> implements Recor
         setRights(rights);
         setTableSchema(tableSchema);
         setTableName(tableName);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -299,6 +300,7 @@ public class RightsRecord extends TableRecordImpl<RightsRecord> implements Recor
             setRights(value.getRights());
             setTableSchema(value.getTableSchema());
             setTableName(value.getTableName());
+            resetChangedOnNotNull();
         }
     }
 }

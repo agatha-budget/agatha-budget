@@ -478,6 +478,7 @@ public class IndexColumnsRecord extends TableRecordImpl<IndexColumnsRecord> impl
         setOrderingSpecification(orderingSpecification);
         setNullOrdering(nullOrdering);
         setIsUnique(isUnique);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -498,6 +499,7 @@ public class IndexColumnsRecord extends TableRecordImpl<IndexColumnsRecord> impl
             setOrderingSpecification(value.getOrderingSpecification());
             setNullOrdering(value.getNullOrdering());
             setIsUnique(value.getIsUnique());
+            resetChangedOnNotNull();
         }
     }
 }

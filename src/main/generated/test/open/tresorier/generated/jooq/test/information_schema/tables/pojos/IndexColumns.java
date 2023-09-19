@@ -15,16 +15,16 @@ public class IndexColumns implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  indexCatalog;
-    private final String  indexSchema;
-    private final String  indexName;
-    private final String  tableCatalog;
-    private final String  tableSchema;
-    private final String  tableName;
-    private final String  columnName;
+    private final String indexCatalog;
+    private final String indexSchema;
+    private final String indexName;
+    private final String tableCatalog;
+    private final String tableSchema;
+    private final String tableName;
+    private final String columnName;
     private final Integer ordinalPosition;
-    private final String  orderingSpecification;
-    private final String  nullOrdering;
+    private final String orderingSpecification;
+    private final String nullOrdering;
     private final Boolean isUnique;
 
     public IndexColumns(IndexColumns value) {
@@ -42,16 +42,16 @@ public class IndexColumns implements Serializable {
     }
 
     public IndexColumns(
-        String  indexCatalog,
-        String  indexSchema,
-        String  indexName,
-        String  tableCatalog,
-        String  tableSchema,
-        String  tableName,
-        String  columnName,
+        String indexCatalog,
+        String indexSchema,
+        String indexName,
+        String tableCatalog,
+        String tableSchema,
+        String tableName,
+        String columnName,
         Integer ordinalPosition,
-        String  orderingSpecification,
-        String  nullOrdering,
+        String orderingSpecification,
+        String nullOrdering,
         Boolean isUnique
     ) {
         this.indexCatalog = indexCatalog;
@@ -144,6 +144,102 @@ public class IndexColumns implements Serializable {
      */
     public Boolean getIsUnique() {
         return this.isUnique;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final IndexColumns other = (IndexColumns) obj;
+        if (this.indexCatalog == null) {
+            if (other.indexCatalog != null)
+                return false;
+        }
+        else if (!this.indexCatalog.equals(other.indexCatalog))
+            return false;
+        if (this.indexSchema == null) {
+            if (other.indexSchema != null)
+                return false;
+        }
+        else if (!this.indexSchema.equals(other.indexSchema))
+            return false;
+        if (this.indexName == null) {
+            if (other.indexName != null)
+                return false;
+        }
+        else if (!this.indexName.equals(other.indexName))
+            return false;
+        if (this.tableCatalog == null) {
+            if (other.tableCatalog != null)
+                return false;
+        }
+        else if (!this.tableCatalog.equals(other.tableCatalog))
+            return false;
+        if (this.tableSchema == null) {
+            if (other.tableSchema != null)
+                return false;
+        }
+        else if (!this.tableSchema.equals(other.tableSchema))
+            return false;
+        if (this.tableName == null) {
+            if (other.tableName != null)
+                return false;
+        }
+        else if (!this.tableName.equals(other.tableName))
+            return false;
+        if (this.columnName == null) {
+            if (other.columnName != null)
+                return false;
+        }
+        else if (!this.columnName.equals(other.columnName))
+            return false;
+        if (this.ordinalPosition == null) {
+            if (other.ordinalPosition != null)
+                return false;
+        }
+        else if (!this.ordinalPosition.equals(other.ordinalPosition))
+            return false;
+        if (this.orderingSpecification == null) {
+            if (other.orderingSpecification != null)
+                return false;
+        }
+        else if (!this.orderingSpecification.equals(other.orderingSpecification))
+            return false;
+        if (this.nullOrdering == null) {
+            if (other.nullOrdering != null)
+                return false;
+        }
+        else if (!this.nullOrdering.equals(other.nullOrdering))
+            return false;
+        if (this.isUnique == null) {
+            if (other.isUnique != null)
+                return false;
+        }
+        else if (!this.isUnique.equals(other.isUnique))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.indexCatalog == null) ? 0 : this.indexCatalog.hashCode());
+        result = prime * result + ((this.indexSchema == null) ? 0 : this.indexSchema.hashCode());
+        result = prime * result + ((this.indexName == null) ? 0 : this.indexName.hashCode());
+        result = prime * result + ((this.tableCatalog == null) ? 0 : this.tableCatalog.hashCode());
+        result = prime * result + ((this.tableSchema == null) ? 0 : this.tableSchema.hashCode());
+        result = prime * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
+        result = prime * result + ((this.columnName == null) ? 0 : this.columnName.hashCode());
+        result = prime * result + ((this.ordinalPosition == null) ? 0 : this.ordinalPosition.hashCode());
+        result = prime * result + ((this.orderingSpecification == null) ? 0 : this.orderingSpecification.hashCode());
+        result = prime * result + ((this.nullOrdering == null) ? 0 : this.nullOrdering.hashCode());
+        result = prime * result + ((this.isUnique == null) ? 0 : this.isUnique.hashCode());
+        return result;
     }
 
     @Override

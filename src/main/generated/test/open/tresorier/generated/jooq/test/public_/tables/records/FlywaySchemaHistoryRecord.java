@@ -448,6 +448,7 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
         setInstalledOn(installedOn);
         setExecutionTime(executionTime);
         setSuccess(success);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -467,6 +468,7 @@ public class FlywaySchemaHistoryRecord extends UpdatableRecordImpl<FlywaySchemaH
             setInstalledOn(value.getInstalledOn());
             setExecutionTime(value.getExecutionTime());
             setSuccess(value.getSuccess());
+            resetChangedOnNotNull();
         }
     }
 }

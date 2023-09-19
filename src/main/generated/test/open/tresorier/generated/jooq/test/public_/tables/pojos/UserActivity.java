@@ -17,7 +17,7 @@ public class UserActivity implements Serializable {
 
     private final String id;
     private final String userId;
-    private final Long   date;
+    private final Long date;
     private final String action;
 
     public UserActivity(UserActivity value) {
@@ -30,7 +30,7 @@ public class UserActivity implements Serializable {
     public UserActivity(
         String id,
         String userId,
-        Long   date,
+        Long date,
         String action
     ) {
         this.id = id;
@@ -65,6 +65,53 @@ public class UserActivity implements Serializable {
      */
     public String getAction() {
         return this.action;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final UserActivity other = (UserActivity) obj;
+        if (this.id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!this.id.equals(other.id))
+            return false;
+        if (this.userId == null) {
+            if (other.userId != null)
+                return false;
+        }
+        else if (!this.userId.equals(other.userId))
+            return false;
+        if (this.date == null) {
+            if (other.date != null)
+                return false;
+        }
+        else if (!this.date.equals(other.date))
+            return false;
+        if (this.action == null) {
+            if (other.action != null)
+                return false;
+        }
+        else if (!this.action.equals(other.action))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
+        result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
+        result = prime * result + ((this.action == null) ? 0 : this.action.hashCode());
+        return result;
     }
 
     @Override

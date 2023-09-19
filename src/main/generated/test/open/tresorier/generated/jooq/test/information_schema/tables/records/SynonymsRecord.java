@@ -360,6 +360,7 @@ public class SynonymsRecord extends TableRecordImpl<SynonymsRecord> implements R
         setTypeName(typeName);
         setStatus(status);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -377,6 +378,7 @@ public class SynonymsRecord extends TableRecordImpl<SynonymsRecord> implements R
             setTypeName(value.getTypeName());
             setStatus(value.getStatus());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

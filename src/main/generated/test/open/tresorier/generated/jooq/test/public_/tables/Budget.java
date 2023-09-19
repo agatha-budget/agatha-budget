@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
@@ -13,10 +14,13 @@ import open.tresorier.generated.jooq.test.public_.tables.records.BudgetRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function5;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row5;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -65,12 +69,12 @@ public class Budget extends TableImpl<BudgetRecord> {
     /**
      * The column <code>PUBLIC.BUDGET.DELETED</code>.
      */
-    public final TableField<BudgetRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<BudgetRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.BUDGET.PROFILE</code>.
      */
-    public final TableField<BudgetRecord, String> PROFILE = createField(DSL.name("PROFILE"), SQLDataType.VARCHAR(36).nullable(false).defaultValue(DSL.field("'PROFILE_USER'", SQLDataType.VARCHAR)), this, "");
+    public final TableField<BudgetRecord, String> PROFILE = createField(DSL.name("PROFILE"), SQLDataType.VARCHAR(36).nullable(false).defaultValue(DSL.field(DSL.raw("'PROFILE_USER'"), SQLDataType.VARCHAR)), this, "");
 
     private Budget(Name alias, Table<BudgetRecord> aliased) {
         this(alias, aliased, null);
@@ -142,6 +146,11 @@ public class Budget extends TableImpl<BudgetRecord> {
         return new Budget(alias, this);
     }
 
+    @Override
+    public Budget as(Table<?> alias) {
+        return new Budget(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -158,6 +167,14 @@ public class Budget extends TableImpl<BudgetRecord> {
         return new Budget(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Budget rename(Table<?> name) {
+        return new Budget(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row5 type methods
     // -------------------------------------------------------------------------
@@ -165,5 +182,20 @@ public class Budget extends TableImpl<BudgetRecord> {
     @Override
     public Row5<String, String, String, Boolean, String> fieldsRow() {
         return (Row5) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function5<? super String, ? super String, ? super String, ? super Boolean, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super String, ? super String, ? super String, ? super Boolean, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -127,6 +127,88 @@ public class Schemata implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Schemata other = (Schemata) obj;
+        if (this.catalogName == null) {
+            if (other.catalogName != null)
+                return false;
+        }
+        else if (!this.catalogName.equals(other.catalogName))
+            return false;
+        if (this.schemaName == null) {
+            if (other.schemaName != null)
+                return false;
+        }
+        else if (!this.schemaName.equals(other.schemaName))
+            return false;
+        if (this.schemaOwner == null) {
+            if (other.schemaOwner != null)
+                return false;
+        }
+        else if (!this.schemaOwner.equals(other.schemaOwner))
+            return false;
+        if (this.defaultCharacterSetCatalog == null) {
+            if (other.defaultCharacterSetCatalog != null)
+                return false;
+        }
+        else if (!this.defaultCharacterSetCatalog.equals(other.defaultCharacterSetCatalog))
+            return false;
+        if (this.defaultCharacterSetSchema == null) {
+            if (other.defaultCharacterSetSchema != null)
+                return false;
+        }
+        else if (!this.defaultCharacterSetSchema.equals(other.defaultCharacterSetSchema))
+            return false;
+        if (this.defaultCharacterSetName == null) {
+            if (other.defaultCharacterSetName != null)
+                return false;
+        }
+        else if (!this.defaultCharacterSetName.equals(other.defaultCharacterSetName))
+            return false;
+        if (this.sqlPath == null) {
+            if (other.sqlPath != null)
+                return false;
+        }
+        else if (!this.sqlPath.equals(other.sqlPath))
+            return false;
+        if (this.defaultCollationName == null) {
+            if (other.defaultCollationName != null)
+                return false;
+        }
+        else if (!this.defaultCollationName.equals(other.defaultCollationName))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.catalogName == null) ? 0 : this.catalogName.hashCode());
+        result = prime * result + ((this.schemaName == null) ? 0 : this.schemaName.hashCode());
+        result = prime * result + ((this.schemaOwner == null) ? 0 : this.schemaOwner.hashCode());
+        result = prime * result + ((this.defaultCharacterSetCatalog == null) ? 0 : this.defaultCharacterSetCatalog.hashCode());
+        result = prime * result + ((this.defaultCharacterSetSchema == null) ? 0 : this.defaultCharacterSetSchema.hashCode());
+        result = prime * result + ((this.defaultCharacterSetName == null) ? 0 : this.defaultCharacterSetName.hashCode());
+        result = prime * result + ((this.sqlPath == null) ? 0 : this.sqlPath.hashCode());
+        result = prime * result + ((this.defaultCollationName == null) ? 0 : this.defaultCollationName.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Schemata (");
 

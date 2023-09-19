@@ -322,6 +322,7 @@ public class EnumValuesRecord extends TableRecordImpl<EnumValuesRecord> implemen
         setEnumIdentifier(enumIdentifier);
         setValueName(valueName);
         setValueOrdinal(valueOrdinal);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -338,6 +339,7 @@ public class EnumValuesRecord extends TableRecordImpl<EnumValuesRecord> implemen
             setEnumIdentifier(value.getEnumIdentifier());
             setValueName(value.getValueName());
             setValueOrdinal(value.getValueOrdinal());
+            resetChangedOnNotNull();
         }
     }
 }

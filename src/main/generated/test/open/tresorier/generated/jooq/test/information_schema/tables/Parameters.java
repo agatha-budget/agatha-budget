@@ -254,6 +254,11 @@ public class Parameters extends TableImpl<ParametersRecord> {
         return new Parameters(alias, this);
     }
 
+    @Override
+    public Parameters as(Table<?> alias) {
+        return new Parameters(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -268,5 +273,13 @@ public class Parameters extends TableImpl<ParametersRecord> {
     @Override
     public Parameters rename(Name name) {
         return new Parameters(name, null);
+    }
+
+    /**
+     * Rename this table
+     */
+    @Override
+    public Parameters rename(Table<?> name) {
+        return new Parameters(name.getQualifiedName(), null);
     }
 }

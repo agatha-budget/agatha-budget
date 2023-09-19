@@ -588,6 +588,7 @@ public class TriggersRecord extends TableRecordImpl<TriggersRecord> implements R
         setQueueSize(queueSize);
         setNoWait(noWait);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -611,6 +612,7 @@ public class TriggersRecord extends TableRecordImpl<TriggersRecord> implements R
             setQueueSize(value.getQueueSize());
             setNoWait(value.getNoWait());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

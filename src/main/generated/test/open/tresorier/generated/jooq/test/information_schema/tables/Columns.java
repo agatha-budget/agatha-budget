@@ -334,6 +334,11 @@ public class Columns extends TableImpl<ColumnsRecord> {
         return new Columns(alias, this);
     }
 
+    @Override
+    public Columns as(Table<?> alias) {
+        return new Columns(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -348,5 +353,13 @@ public class Columns extends TableImpl<ColumnsRecord> {
     @Override
     public Columns rename(Name name) {
         return new Columns(name, null);
+    }
+
+    /**
+     * Rename this table
+     */
+    @Override
+    public Columns rename(Table<?> name) {
+        return new Columns(name.getQualifiedName(), null);
     }
 }

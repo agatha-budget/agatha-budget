@@ -16,18 +16,18 @@ public class Sessions implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final Integer        sessionId;
-    private final String         userName;
-    private final String         server;
-    private final String         clientAddr;
-    private final String         clientInfo;
+    private final Integer sessionId;
+    private final String userName;
+    private final String server;
+    private final String clientAddr;
+    private final String clientInfo;
     private final OffsetDateTime sessionStart;
-    private final String         isolationLevel;
-    private final String         executingStatement;
+    private final String isolationLevel;
+    private final String executingStatement;
     private final OffsetDateTime executingStatementStart;
-    private final Boolean        containsUncommitted;
-    private final String         sessionState;
-    private final Integer        blockerId;
+    private final Boolean containsUncommitted;
+    private final String sessionState;
+    private final Integer blockerId;
     private final OffsetDateTime sleepSince;
 
     public Sessions(Sessions value) {
@@ -47,18 +47,18 @@ public class Sessions implements Serializable {
     }
 
     public Sessions(
-        Integer        sessionId,
-        String         userName,
-        String         server,
-        String         clientAddr,
-        String         clientInfo,
+        Integer sessionId,
+        String userName,
+        String server,
+        String clientAddr,
+        String clientInfo,
         OffsetDateTime sessionStart,
-        String         isolationLevel,
-        String         executingStatement,
+        String isolationLevel,
+        String executingStatement,
         OffsetDateTime executingStatementStart,
-        Boolean        containsUncommitted,
-        String         sessionState,
-        Integer        blockerId,
+        Boolean containsUncommitted,
+        String sessionState,
+        Integer blockerId,
         OffsetDateTime sleepSince
     ) {
         this.sessionId = sessionId;
@@ -166,6 +166,116 @@ public class Sessions implements Serializable {
      */
     public OffsetDateTime getSleepSince() {
         return this.sleepSince;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Sessions other = (Sessions) obj;
+        if (this.sessionId == null) {
+            if (other.sessionId != null)
+                return false;
+        }
+        else if (!this.sessionId.equals(other.sessionId))
+            return false;
+        if (this.userName == null) {
+            if (other.userName != null)
+                return false;
+        }
+        else if (!this.userName.equals(other.userName))
+            return false;
+        if (this.server == null) {
+            if (other.server != null)
+                return false;
+        }
+        else if (!this.server.equals(other.server))
+            return false;
+        if (this.clientAddr == null) {
+            if (other.clientAddr != null)
+                return false;
+        }
+        else if (!this.clientAddr.equals(other.clientAddr))
+            return false;
+        if (this.clientInfo == null) {
+            if (other.clientInfo != null)
+                return false;
+        }
+        else if (!this.clientInfo.equals(other.clientInfo))
+            return false;
+        if (this.sessionStart == null) {
+            if (other.sessionStart != null)
+                return false;
+        }
+        else if (!this.sessionStart.equals(other.sessionStart))
+            return false;
+        if (this.isolationLevel == null) {
+            if (other.isolationLevel != null)
+                return false;
+        }
+        else if (!this.isolationLevel.equals(other.isolationLevel))
+            return false;
+        if (this.executingStatement == null) {
+            if (other.executingStatement != null)
+                return false;
+        }
+        else if (!this.executingStatement.equals(other.executingStatement))
+            return false;
+        if (this.executingStatementStart == null) {
+            if (other.executingStatementStart != null)
+                return false;
+        }
+        else if (!this.executingStatementStart.equals(other.executingStatementStart))
+            return false;
+        if (this.containsUncommitted == null) {
+            if (other.containsUncommitted != null)
+                return false;
+        }
+        else if (!this.containsUncommitted.equals(other.containsUncommitted))
+            return false;
+        if (this.sessionState == null) {
+            if (other.sessionState != null)
+                return false;
+        }
+        else if (!this.sessionState.equals(other.sessionState))
+            return false;
+        if (this.blockerId == null) {
+            if (other.blockerId != null)
+                return false;
+        }
+        else if (!this.blockerId.equals(other.blockerId))
+            return false;
+        if (this.sleepSince == null) {
+            if (other.sleepSince != null)
+                return false;
+        }
+        else if (!this.sleepSince.equals(other.sleepSince))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.sessionId == null) ? 0 : this.sessionId.hashCode());
+        result = prime * result + ((this.userName == null) ? 0 : this.userName.hashCode());
+        result = prime * result + ((this.server == null) ? 0 : this.server.hashCode());
+        result = prime * result + ((this.clientAddr == null) ? 0 : this.clientAddr.hashCode());
+        result = prime * result + ((this.clientInfo == null) ? 0 : this.clientInfo.hashCode());
+        result = prime * result + ((this.sessionStart == null) ? 0 : this.sessionStart.hashCode());
+        result = prime * result + ((this.isolationLevel == null) ? 0 : this.isolationLevel.hashCode());
+        result = prime * result + ((this.executingStatement == null) ? 0 : this.executingStatement.hashCode());
+        result = prime * result + ((this.executingStatementStart == null) ? 0 : this.executingStatementStart.hashCode());
+        result = prime * result + ((this.containsUncommitted == null) ? 0 : this.containsUncommitted.hashCode());
+        result = prime * result + ((this.sessionState == null) ? 0 : this.sessionState.hashCode());
+        result = prime * result + ((this.blockerId == null) ? 0 : this.blockerId.hashCode());
+        result = prime * result + ((this.sleepSince == null) ? 0 : this.sleepSince.hashCode());
+        return result;
     }
 
     @Override

@@ -4,15 +4,20 @@
 package open.tresorier.generated.jooq.test.information_schema.tables;
 
 
+import java.util.function.Function;
+
 import open.tresorier.generated.jooq.test.information_schema.InformationSchema;
 import open.tresorier.generated.jooq.test.information_schema.tables.records.TableConstraintsRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function15;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row14;
+import org.jooq.Records;
+import org.jooq.Row15;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -103,6 +108,12 @@ public class TableConstraints extends TableImpl<TableConstraintsRecord> {
 
     /**
      * The column
+     * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.NULLS_DISTINCT</code>.
+     */
+    public final TableField<TableConstraintsRecord, String> NULLS_DISTINCT = createField(DSL.name("NULLS_DISTINCT"), SQLDataType.VARCHAR(1000000000), this, "");
+
+    /**
+     * The column
      * <code>INFORMATION_SCHEMA.TABLE_CONSTRAINTS.INDEX_CATALOG</code>.
      */
     public final TableField<TableConstraintsRecord, String> INDEX_CATALOG = createField(DSL.name("INDEX_CATALOG"), SQLDataType.VARCHAR(1000000000), this, "");
@@ -174,6 +185,11 @@ public class TableConstraints extends TableImpl<TableConstraintsRecord> {
         return new TableConstraints(alias, this);
     }
 
+    @Override
+    public TableConstraints as(Table<?> alias) {
+        return new TableConstraints(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -190,12 +206,35 @@ public class TableConstraints extends TableImpl<TableConstraintsRecord> {
         return new TableConstraints(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public TableConstraints rename(Table<?> name) {
+        return new TableConstraints(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
-    // Row14 type methods
+    // Row15 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row14<String, String, String, String, String, String, String, String, String, String, String, String, String, String> fieldsRow() {
-        return (Row14) super.fieldsRow();
+    public Row15<String, String, String, String, String, String, String, String, String, String, String, String, String, String, String> fieldsRow() {
+        return (Row15) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function15<? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function15<? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

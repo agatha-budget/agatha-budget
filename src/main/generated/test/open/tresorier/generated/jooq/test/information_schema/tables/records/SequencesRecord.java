@@ -746,6 +746,7 @@ public class SequencesRecord extends TableRecordImpl<SequencesRecord> implements
         setBaseValue(baseValue);
         setCache(cache);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -773,6 +774,7 @@ public class SequencesRecord extends TableRecordImpl<SequencesRecord> implements
             setBaseValue(value.getBaseValue());
             setCache(value.getCache());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

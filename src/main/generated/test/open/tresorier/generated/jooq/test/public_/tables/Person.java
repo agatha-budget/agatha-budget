@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
@@ -13,10 +14,13 @@ import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function12;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row12;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -70,42 +74,42 @@ public class Person extends TableImpl<PersonRecord> {
     /**
      * The column <code>PUBLIC.PERSON.UNLOCKINGDATE</code>.
      */
-    public final TableField<PersonRecord, Long> UNLOCKINGDATE = createField(DSL.name("UNLOCKINGDATE"), SQLDataType.BIGINT.defaultValue(DSL.field("0", SQLDataType.BIGINT)), this, "");
+    public final TableField<PersonRecord, Long> UNLOCKINGDATE = createField(DSL.name("UNLOCKINGDATE"), SQLDataType.BIGINT.defaultValue(DSL.field(DSL.raw("0"), SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>PUBLIC.PERSON.LOGINATTEMPTCOUNT</code>.
      */
-    public final TableField<PersonRecord, Integer> LOGINATTEMPTCOUNT = createField(DSL.name("LOGINATTEMPTCOUNT"), SQLDataType.INTEGER.defaultValue(DSL.field("0", SQLDataType.INTEGER)), this, "");
+    public final TableField<PersonRecord, Integer> LOGINATTEMPTCOUNT = createField(DSL.name("LOGINATTEMPTCOUNT"), SQLDataType.INTEGER.defaultValue(DSL.field(DSL.raw("0"), SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>PUBLIC.PERSON.DELETED</code>.
      */
-    public final TableField<PersonRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<PersonRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.PERSON.BILLING_ID</code>.
      */
-    public final TableField<PersonRecord, String> BILLING_ID = createField(DSL.name("BILLING_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
+    public final TableField<PersonRecord, String> BILLING_ID = createField(DSL.name("BILLING_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.PERSON.BILLING_STATUS</code>.
      */
-    public final TableField<PersonRecord, Boolean> BILLING_STATUS = createField(DSL.name("BILLING_STATUS"), SQLDataType.BOOLEAN.defaultValue(DSL.field("NULL", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<PersonRecord, Boolean> BILLING_STATUS = createField(DSL.name("BILLING_STATUS"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.PERSON.CREATION_DATE</code>.
      */
-    public final TableField<PersonRecord, Long> CREATION_DATE = createField(DSL.name("CREATION_DATE"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.field("1640995200000", SQLDataType.BIGINT)), this, "");
+    public final TableField<PersonRecord, Long> CREATION_DATE = createField(DSL.name("CREATION_DATE"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.field(DSL.raw("1640995200000"), SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>PUBLIC.PERSON.STYLE</code>.
      */
-    public final TableField<PersonRecord, String> STYLE = createField(DSL.name("STYLE"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
+    public final TableField<PersonRecord, String> STYLE = createField(DSL.name("STYLE"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.PERSON.DYSLEXIA</code>.
      */
-    public final TableField<PersonRecord, Boolean> DYSLEXIA = createField(DSL.name("DYSLEXIA"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<PersonRecord, Boolean> DYSLEXIA = createField(DSL.name("DYSLEXIA"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     private Person(Name alias, Table<PersonRecord> aliased) {
         this(alias, aliased, null);
@@ -165,6 +169,11 @@ public class Person extends TableImpl<PersonRecord> {
         return new Person(alias, this);
     }
 
+    @Override
+    public Person as(Table<?> alias) {
+        return new Person(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -181,6 +190,14 @@ public class Person extends TableImpl<PersonRecord> {
         return new Person(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Person rename(Table<?> name) {
+        return new Person(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row12 type methods
     // -------------------------------------------------------------------------
@@ -188,5 +205,20 @@ public class Person extends TableImpl<PersonRecord> {
     @Override
     public Row12<String, String, String, String, Long, Integer, Boolean, String, Boolean, Long, String, Boolean> fieldsRow() {
         return (Row12) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function12<? super String, ? super String, ? super String, ? super String, ? super Long, ? super Integer, ? super Boolean, ? super String, ? super Boolean, ? super Long, ? super String, ? super Boolean, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function12<? super String, ? super String, ? super String, ? super String, ? super Long, ? super Integer, ? super Boolean, ? super String, ? super Boolean, ? super Long, ? super String, ? super Boolean, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

@@ -15,16 +15,17 @@ public class Indexes implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  indexCatalog;
-    private final String  indexSchema;
-    private final String  indexName;
-    private final String  tableCatalog;
-    private final String  tableSchema;
-    private final String  tableName;
-    private final String  indexTypeName;
+    private final String indexCatalog;
+    private final String indexSchema;
+    private final String indexName;
+    private final String tableCatalog;
+    private final String tableSchema;
+    private final String tableName;
+    private final String indexTypeName;
+    private final String nullsDistinct;
     private final Boolean isGenerated;
-    private final String  remarks;
-    private final String  indexClass;
+    private final String remarks;
+    private final String indexClass;
 
     public Indexes(Indexes value) {
         this.indexCatalog = value.indexCatalog;
@@ -34,22 +35,24 @@ public class Indexes implements Serializable {
         this.tableSchema = value.tableSchema;
         this.tableName = value.tableName;
         this.indexTypeName = value.indexTypeName;
+        this.nullsDistinct = value.nullsDistinct;
         this.isGenerated = value.isGenerated;
         this.remarks = value.remarks;
         this.indexClass = value.indexClass;
     }
 
     public Indexes(
-        String  indexCatalog,
-        String  indexSchema,
-        String  indexName,
-        String  tableCatalog,
-        String  tableSchema,
-        String  tableName,
-        String  indexTypeName,
+        String indexCatalog,
+        String indexSchema,
+        String indexName,
+        String tableCatalog,
+        String tableSchema,
+        String tableName,
+        String indexTypeName,
+        String nullsDistinct,
         Boolean isGenerated,
-        String  remarks,
-        String  indexClass
+        String remarks,
+        String indexClass
     ) {
         this.indexCatalog = indexCatalog;
         this.indexSchema = indexSchema;
@@ -58,6 +61,7 @@ public class Indexes implements Serializable {
         this.tableSchema = tableSchema;
         this.tableName = tableName;
         this.indexTypeName = indexTypeName;
+        this.nullsDistinct = nullsDistinct;
         this.isGenerated = isGenerated;
         this.remarks = remarks;
         this.indexClass = indexClass;
@@ -113,6 +117,13 @@ public class Indexes implements Serializable {
     }
 
     /**
+     * Getter for <code>INFORMATION_SCHEMA.INDEXES.NULLS_DISTINCT</code>.
+     */
+    public String getNullsDistinct() {
+        return this.nullsDistinct;
+    }
+
+    /**
      * Getter for <code>INFORMATION_SCHEMA.INDEXES.IS_GENERATED</code>.
      */
     public Boolean getIsGenerated() {
@@ -134,6 +145,102 @@ public class Indexes implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Indexes other = (Indexes) obj;
+        if (this.indexCatalog == null) {
+            if (other.indexCatalog != null)
+                return false;
+        }
+        else if (!this.indexCatalog.equals(other.indexCatalog))
+            return false;
+        if (this.indexSchema == null) {
+            if (other.indexSchema != null)
+                return false;
+        }
+        else if (!this.indexSchema.equals(other.indexSchema))
+            return false;
+        if (this.indexName == null) {
+            if (other.indexName != null)
+                return false;
+        }
+        else if (!this.indexName.equals(other.indexName))
+            return false;
+        if (this.tableCatalog == null) {
+            if (other.tableCatalog != null)
+                return false;
+        }
+        else if (!this.tableCatalog.equals(other.tableCatalog))
+            return false;
+        if (this.tableSchema == null) {
+            if (other.tableSchema != null)
+                return false;
+        }
+        else if (!this.tableSchema.equals(other.tableSchema))
+            return false;
+        if (this.tableName == null) {
+            if (other.tableName != null)
+                return false;
+        }
+        else if (!this.tableName.equals(other.tableName))
+            return false;
+        if (this.indexTypeName == null) {
+            if (other.indexTypeName != null)
+                return false;
+        }
+        else if (!this.indexTypeName.equals(other.indexTypeName))
+            return false;
+        if (this.nullsDistinct == null) {
+            if (other.nullsDistinct != null)
+                return false;
+        }
+        else if (!this.nullsDistinct.equals(other.nullsDistinct))
+            return false;
+        if (this.isGenerated == null) {
+            if (other.isGenerated != null)
+                return false;
+        }
+        else if (!this.isGenerated.equals(other.isGenerated))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        if (this.indexClass == null) {
+            if (other.indexClass != null)
+                return false;
+        }
+        else if (!this.indexClass.equals(other.indexClass))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.indexCatalog == null) ? 0 : this.indexCatalog.hashCode());
+        result = prime * result + ((this.indexSchema == null) ? 0 : this.indexSchema.hashCode());
+        result = prime * result + ((this.indexName == null) ? 0 : this.indexName.hashCode());
+        result = prime * result + ((this.tableCatalog == null) ? 0 : this.tableCatalog.hashCode());
+        result = prime * result + ((this.tableSchema == null) ? 0 : this.tableSchema.hashCode());
+        result = prime * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
+        result = prime * result + ((this.indexTypeName == null) ? 0 : this.indexTypeName.hashCode());
+        result = prime * result + ((this.nullsDistinct == null) ? 0 : this.nullsDistinct.hashCode());
+        result = prime * result + ((this.isGenerated == null) ? 0 : this.isGenerated.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        result = prime * result + ((this.indexClass == null) ? 0 : this.indexClass.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Indexes (");
 
@@ -144,6 +251,7 @@ public class Indexes implements Serializable {
         sb.append(", ").append(tableSchema);
         sb.append(", ").append(tableName);
         sb.append(", ").append(indexTypeName);
+        sb.append(", ").append(nullsDistinct);
         sb.append(", ").append(isGenerated);
         sb.append(", ").append(remarks);
         sb.append(", ").append(indexClass);

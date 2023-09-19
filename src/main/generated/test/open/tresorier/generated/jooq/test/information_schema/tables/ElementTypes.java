@@ -242,6 +242,11 @@ public class ElementTypes extends TableImpl<ElementTypesRecord> {
         return new ElementTypes(alias, this);
     }
 
+    @Override
+    public ElementTypes as(Table<?> alias) {
+        return new ElementTypes(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -256,5 +261,13 @@ public class ElementTypes extends TableImpl<ElementTypesRecord> {
     @Override
     public ElementTypes rename(Name name) {
         return new ElementTypes(name, null);
+    }
+
+    /**
+     * Rename this table
+     */
+    @Override
+    public ElementTypes rename(Table<?> name) {
+        return new ElementTypes(name.getQualifiedName(), null);
     }
 }

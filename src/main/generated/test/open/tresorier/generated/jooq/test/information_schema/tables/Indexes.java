@@ -4,15 +4,20 @@
 package open.tresorier.generated.jooq.test.information_schema.tables;
 
 
+import java.util.function.Function;
+
 import open.tresorier.generated.jooq.test.information_schema.InformationSchema;
 import open.tresorier.generated.jooq.test.information_schema.tables.records.IndexesRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function11;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row10;
+import org.jooq.Records;
+import org.jooq.Row11;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -78,6 +83,11 @@ public class Indexes extends TableImpl<IndexesRecord> {
     public final TableField<IndexesRecord, String> INDEX_TYPE_NAME = createField(DSL.name("INDEX_TYPE_NAME"), SQLDataType.VARCHAR(1000000000), this, "");
 
     /**
+     * The column <code>INFORMATION_SCHEMA.INDEXES.NULLS_DISTINCT</code>.
+     */
+    public final TableField<IndexesRecord, String> NULLS_DISTINCT = createField(DSL.name("NULLS_DISTINCT"), SQLDataType.VARCHAR(1000000000), this, "");
+
+    /**
      * The column <code>INFORMATION_SCHEMA.INDEXES.IS_GENERATED</code>.
      */
     public final TableField<IndexesRecord, Boolean> IS_GENERATED = createField(DSL.name("IS_GENERATED"), SQLDataType.BOOLEAN, this, "");
@@ -140,6 +150,11 @@ public class Indexes extends TableImpl<IndexesRecord> {
         return new Indexes(alias, this);
     }
 
+    @Override
+    public Indexes as(Table<?> alias) {
+        return new Indexes(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -156,12 +171,35 @@ public class Indexes extends TableImpl<IndexesRecord> {
         return new Indexes(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Indexes rename(Table<?> name) {
+        return new Indexes(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
-    // Row10 type methods
+    // Row11 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row10<String, String, String, String, String, String, String, Boolean, String, String> fieldsRow() {
-        return (Row10) super.fieldsRow();
+    public Row11<String, String, String, String, String, String, String, String, Boolean, String, String> fieldsRow() {
+        return (Row11) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function11<? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super String, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Boolean, ? super String, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }
