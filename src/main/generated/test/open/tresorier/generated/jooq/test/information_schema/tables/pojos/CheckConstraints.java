@@ -72,6 +72,53 @@ public class CheckConstraints implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final CheckConstraints other = (CheckConstraints) obj;
+        if (this.constraintCatalog == null) {
+            if (other.constraintCatalog != null)
+                return false;
+        }
+        else if (!this.constraintCatalog.equals(other.constraintCatalog))
+            return false;
+        if (this.constraintSchema == null) {
+            if (other.constraintSchema != null)
+                return false;
+        }
+        else if (!this.constraintSchema.equals(other.constraintSchema))
+            return false;
+        if (this.constraintName == null) {
+            if (other.constraintName != null)
+                return false;
+        }
+        else if (!this.constraintName.equals(other.constraintName))
+            return false;
+        if (this.checkClause == null) {
+            if (other.checkClause != null)
+                return false;
+        }
+        else if (!this.checkClause.equals(other.checkClause))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.constraintCatalog == null) ? 0 : this.constraintCatalog.hashCode());
+        result = prime * result + ((this.constraintSchema == null) ? 0 : this.constraintSchema.hashCode());
+        result = prime * result + ((this.constraintName == null) ? 0 : this.constraintName.hashCode());
+        result = prime * result + ((this.checkClause == null) ? 0 : this.checkClause.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("CheckConstraints (");
 

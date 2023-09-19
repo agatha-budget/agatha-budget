@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
@@ -14,10 +15,13 @@ import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord
 import org.jooq.Check;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function13;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row13;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -62,57 +66,57 @@ public class Operation extends TableImpl<OperationRecord> {
     /**
      * The column <code>PUBLIC.OPERATION.DATE_MONTH</code>.
      */
-    public final TableField<OperationRecord, Integer> DATE_MONTH = createField(DSL.name("DATE_MONTH"), SQLDataType.INTEGER.defaultValue(DSL.field("NULL", SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Integer> DATE_MONTH = createField(DSL.name("DATE_MONTH"), SQLDataType.INTEGER.defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.DATE_DAY</code>.
      */
-    public final TableField<OperationRecord, Integer> DATE_DAY = createField(DSL.name("DATE_DAY"), SQLDataType.INTEGER.defaultValue(DSL.field("NULL", SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Integer> DATE_DAY = createField(DSL.name("DATE_DAY"), SQLDataType.INTEGER.defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.CATEGORY_ID</code>.
      */
-    public final TableField<OperationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
+    public final TableField<OperationRecord, String> CATEGORY_ID = createField(DSL.name("CATEGORY_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.MEMO</code>.
      */
-    public final TableField<OperationRecord, String> MEMO = createField(DSL.name("MEMO"), SQLDataType.VARCHAR(280).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
+    public final TableField<OperationRecord, String> MEMO = createField(DSL.name("MEMO"), SQLDataType.VARCHAR(280).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.AMOUNT</code>.
      */
-    public final TableField<OperationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.field("0", SQLDataType.INTEGER)), this, "");
+    public final TableField<OperationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.field(DSL.raw("0"), SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.ORDER_IN_DAY</code>.
      */
-    public final TableField<OperationRecord, Long> ORDER_IN_DAY = createField(DSL.name("ORDER_IN_DAY"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.field("1", SQLDataType.BIGINT)), this, "");
+    public final TableField<OperationRecord, Long> ORDER_IN_DAY = createField(DSL.name("ORDER_IN_DAY"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.field(DSL.raw("1"), SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.PENDING</code>.
      */
-    public final TableField<OperationRecord, Boolean> PENDING = createField(DSL.name("PENDING"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<OperationRecord, Boolean> PENDING = createField(DSL.name("PENDING"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.LOCKED</code>.
      */
-    public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("LOCKED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<OperationRecord, Boolean> LOCKED = createField(DSL.name("LOCKED"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.MOTHER_OPERATION_ID</code>.
      */
-    public final TableField<OperationRecord, String> MOTHER_OPERATION_ID = createField(DSL.name("MOTHER_OPERATION_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
+    public final TableField<OperationRecord, String> MOTHER_OPERATION_ID = createField(DSL.name("MOTHER_OPERATION_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.IMPORT_IDENTIFIER</code>.
      */
-    public final TableField<OperationRecord, String> IMPORT_IDENTIFIER = createField(DSL.name("IMPORT_IDENTIFIER"), SQLDataType.VARCHAR(150).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
+    public final TableField<OperationRecord, String> IMPORT_IDENTIFIER = createField(DSL.name("IMPORT_IDENTIFIER"), SQLDataType.VARCHAR(150).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.OPERATION.IMPORT_TIMESTAMP</code>.
      */
-    public final TableField<OperationRecord, Long> IMPORT_TIMESTAMP = createField(DSL.name("IMPORT_TIMESTAMP"), SQLDataType.BIGINT.defaultValue(DSL.field("NULL", SQLDataType.BIGINT)), this, "");
+    public final TableField<OperationRecord, Long> IMPORT_TIMESTAMP = createField(DSL.name("IMPORT_TIMESTAMP"), SQLDataType.BIGINT.defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.BIGINT)), this, "");
 
     private Operation(Name alias, Table<OperationRecord> aliased) {
         this(alias, aliased, null);
@@ -210,6 +214,11 @@ public class Operation extends TableImpl<OperationRecord> {
         return new Operation(alias, this);
     }
 
+    @Override
+    public Operation as(Table<?> alias) {
+        return new Operation(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -226,6 +235,14 @@ public class Operation extends TableImpl<OperationRecord> {
         return new Operation(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Operation rename(Table<?> name) {
+        return new Operation(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row13 type methods
     // -------------------------------------------------------------------------
@@ -233,5 +250,20 @@ public class Operation extends TableImpl<OperationRecord> {
     @Override
     public Row13<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String, String, Long> fieldsRow() {
         return (Row13) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function13<? super String, ? super String, ? super Integer, ? super Integer, ? super String, ? super String, ? super Integer, ? super Long, ? super Boolean, ? super Boolean, ? super String, ? super String, ? super Long, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super String, ? super String, ? super Integer, ? super Integer, ? super String, ? super String, ? super Integer, ? super Long, ? super Boolean, ? super Boolean, ? super String, ? super String, ? super Long, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

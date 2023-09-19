@@ -246,6 +246,7 @@ public class CollationsRecord extends TableRecordImpl<CollationsRecord> implemen
         setCollationName(collationName);
         setPadAttribute(padAttribute);
         setLanguageTag(languageTag);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -260,6 +261,7 @@ public class CollationsRecord extends TableRecordImpl<CollationsRecord> implemen
             setCollationName(value.getCollationName());
             setPadAttribute(value.getPadAttribute());
             setLanguageTag(value.getLanguageTag());
+            resetChangedOnNotNull();
         }
     }
 }

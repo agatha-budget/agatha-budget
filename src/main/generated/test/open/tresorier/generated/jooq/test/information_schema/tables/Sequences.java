@@ -4,15 +4,20 @@
 package open.tresorier.generated.jooq.test.information_schema.tables;
 
 
+import java.util.function.Function;
+
 import open.tresorier.generated.jooq.test.information_schema.InformationSchema;
 import open.tresorier.generated.jooq.test.information_schema.tables.records.SequencesRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function18;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row18;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -185,6 +190,11 @@ public class Sequences extends TableImpl<SequencesRecord> {
         return new Sequences(alias, this);
     }
 
+    @Override
+    public Sequences as(Table<?> alias) {
+        return new Sequences(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -201,6 +211,14 @@ public class Sequences extends TableImpl<SequencesRecord> {
         return new Sequences(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Sequences rename(Table<?> name) {
+        return new Sequences(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row18 type methods
     // -------------------------------------------------------------------------
@@ -208,5 +226,20 @@ public class Sequences extends TableImpl<SequencesRecord> {
     @Override
     public Row18<String, String, String, String, Integer, Integer, Integer, Long, Long, Long, Long, String, String, Integer, Integer, Long, Long, String> fieldsRow() {
         return (Row18) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function18<? super String, ? super String, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Long, ? super Long, ? super Long, ? super Long, ? super String, ? super String, ? super Integer, ? super Integer, ? super Long, ? super Long, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function18<? super String, ? super String, ? super String, ? super String, ? super Integer, ? super Integer, ? super Integer, ? super Long, ? super Long, ? super Long, ? super Long, ? super String, ? super String, ? super Integer, ? super Integer, ? super Long, ? super Long, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

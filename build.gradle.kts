@@ -28,26 +28,35 @@ val INTEGRATION_DB_URL = System.getenv(INTEGRATION_DB_ID +"_URL") ?: INTEGRATION
 val INTEGRATION_DB_USR = System.getenv(INTEGRATION_DB_ID + "_USERNAME") ?: INTEGRATION_DB_USR_DFLT
 val INTEGRATION_DB_PWD = System.getenv(INTEGRATION_DB_ID + "_PASSWORD") ?: INTEGRATION_DB_PWD_DFLT
 
-buildscript {
-    dependencies {
-        classpath("org.postgresql:postgresql:42.2.12")
-        classpath("com.h2database:h2:2.0.206")
 
-    }
-}
+// Lib Versions
+val kotlin_version="1.9.10" // aout 2023
+val koin_version= "3.5.0" // septembre 2023
+val junit_version="5.10.0" // juillet 2023
+val postgres_version="42.6.0" // mars 2023
+val flyway_version="9.22.1" // septembre 2023
+val h2_version="2.2.224" // septembre 2023
+val jooq_version="3.18.6" //aout 2023
+val mock_version="1.13.7" //aout 2023
+val logback_version="1.4.11" // aout 2023
+val javalin_version="5.6.2" // juillet 2023
+val pac4j_version="6.0.0"  // aout 2023
+val jackson_version="2.15.2" // mai 2023
+val argon_version="2.11" // octobre 2021
+val stripe_version="23.5.0" // septembre 2023 
+val json_version="20230618" // juin 2023
 
 plugins {
-    kotlin("jvm") version "1.4.10"
-    id("org.jetbrains.dokka") version "1.4.0-rc"
-    id("org.flywaydb.flyway") version "9.3.1"
-    id("nu.studer.jooq") version "7.1.1"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
+    kotlin("jvm") version "1.9.10" // cf kotlin_version
+    id("org.jetbrains.dokka") version "1.9.0" // aout 2023
+    id("org.flywaydb.flyway") version "9.22.1" // septembre 2023
+    id("nu.studer.jooq") version "8.2"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
     jacoco
     application
 }
 
 repositories {
     mavenCentral();
-    jcenter()
 }
 
 val generatedDir = "src/main/generated"
@@ -77,24 +86,6 @@ val intTestRuntimeOnly by configurations.getting {
     extendsFrom(configurations.runtimeOnly.get())
 }
 
-
-// Lib Versions
-val kotlin_version="1.4.10"
-val koin_version= "3.0.1-beta-2"
-val junit_version="5.1.1"
-val postgres_version="42.2.12"
-val h2_version="2.1.214"
-val jooq_version="3.17.4"
-val mock_version="1.10.5"
-val logback_version="1.3.5"
-val javalin_version="3.11.0"
-val jackson_version="2.10.3"
-val supertoken_version="1.4.+"
-val argon_version="2.7"
-val stripe_version="20.85.0"
-val json_version="20220320"
-
-
 dependencies {
     // Kotlin
     implementation(kotlin("script-runtime"))
@@ -103,12 +94,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
 
     // API and Serialisation
-    implementation("io.javalin:javalin:$javalin_version")
+    implementation("io.javalin:javalin:$javalin_version") 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
 
     // Authentication
-    implementation("io.supertokens:javalin:$supertoken_version")
+    implementation("org.pac4j:javalin-pac4j:$pac4j_version")
+    implementation("org.pac4j:pac4j-oidc:$pac4j_version-RC8")
+
 
     // password encryption
     implementation("de.mkammerer:argon2-jvm:$argon_version")
@@ -116,7 +109,7 @@ dependencies {
     // koin
     intTestImplementation("io.insert-koin:koin-test-junit5:$koin_version")
     testImplementation ("io.insert-koin:koin-test-junit5:$koin_version")
-    implementation ("io.insert-koin:koin-core-ext:$koin_version")
+    implementation ("io.insert-koin:koin-core:$koin_version")
 
     // DB
     implementation("org.postgresql:postgresql:$postgres_version")

@@ -256,6 +256,7 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> implements R
         setName(name);
         setDeleted(deleted);
         setProfile(profile);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -270,6 +271,7 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> implements R
             setName(value.getName());
             setDeleted(value.getDeleted());
             setProfile(value.getProfile());
+            resetChangedOnNotNull();
         }
     }
 }

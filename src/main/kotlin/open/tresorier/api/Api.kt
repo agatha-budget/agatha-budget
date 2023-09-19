@@ -2,8 +2,6 @@ package open.tresorier.api
 
 import io.javalin.Javalin
 import io.javalin.http.Context
-import io.supertokens.javalin.SuperTokens
-import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
@@ -21,11 +19,6 @@ fun main() {
     val properties = Properties()
     var app = setUpApp(properties)
 
-    // Session Manager
-    SuperTokens.config().withHosts(
-        properties.get(SUPERTOKEN_URL),
-        properties.get(SUPERTOKEN_API_KEY)
-    )
     // Dependencies injection
     ServiceManager.start()
 
@@ -49,7 +42,6 @@ fun main() {
      ServiceManager.budgetService,
      ServiceManager.budgetDataService)
 
-    app.before("/session/refresh", SuperTokens.middleware())
     app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
 
     app.get("/") { ctx ->
@@ -66,17 +58,16 @@ fun main() {
     }
 
     app.post("/signup") { ctx ->
-        val name = ctx.queryParam<String>("name").get()
-        val password = ctx.queryParam<String>("password").get()
-        val email = ctx.queryParam<String>("email").get()
-        val profileString = ctx.queryParam<String>("profile").get()
+        val name = getQueryParam<String>(ctx, "name")
+        val password = getQueryParam<String>(ctx, "password")
+        val email = getQueryParam<String>(ctx, "email")
+        val profileString = getQueryParam<String>(ctx,"profile")
         val profile: ProfileEnum = ProfileEnum.valueOf(profileString)
         val person: Person = ServiceManager.personService.createPerson(name, password, email, profile)
-        SuperTokens.newSession(ctx, person.id).create()
+       // SuperTokens.newSession(ctx, person.id).create()
         ctx.json("{\"name\" : " + person.name + "}")
     }
 
-    app.before("/person", SuperTokens.middleware())
     app.get("/person") { ctx ->
         val publicPerson : PublicPerson = getUserFromAuth(ctx).toPublicPerson() 
         ctx.json(publicPerson)
@@ -100,13 +91,12 @@ fun main() {
         ServiceManager.billingService.handleWebhook(payload, sigHeader)
     }
 
-    app.before("/billing", SuperTokens.middleware())
     app.get("/billing") { ctx ->
         val person = getUserFromAuth(ctx)
         if (person.billingId != null) {
             ctx.result(BillingService.createBillingManagementSession(person))
         } else {
-            val packageString = ctx.queryParam<String>("package").get()
+            val packageString = getQueryParam<String>(ctx, "package")
             val selectedPackage: PriceIdEnum = PriceIdEnum.valueOf(packageString)
             ctx.result(BillingService.createNewUserBillingSession(person, selectedPackage))
         }
@@ -123,7 +113,7 @@ fun main() {
                 ctx.json("{\"unlockingDate\" : $unlockingDate}")
             }
             person?.let {
-                SuperTokens.newSession(ctx, it.id).create()
+                // SuperTokens.newSession(ctx, it.id).create()
                 ctx.json("{\"name\" : " + it.name + "}")
             }
         } catch (e: Exception) {
@@ -132,14 +122,12 @@ fun main() {
         }
     }
 
-    app.before("/logout", SuperTokens.middleware())
     app.delete("/logout") { ctx ->
-        val session = SuperTokens.getFromContext(ctx)
-        session.revokeSession()
+        //val session = SuperTokens.getFromContext(ctx)
+        //session.revokeSession()
         ctx.result("you've been logged out")
     }
 
-    app.before("/budget", SuperTokens.middleware())
     app.post("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val name = getQueryParam<String>(ctx, "name")
@@ -165,14 +153,12 @@ fun main() {
         ctx.result("budget ${budget.name} has been deleted")
     }
 
-    app.before("/budget/user", SuperTokens.middleware())
     app.get("/budget/user") { ctx ->
         val user = getUserFromAuth(ctx)
         val budgetList = ServiceManager.budgetService.findByUser(user)
         ctx.json(budgetList)
     }
 
-    app.before("/mcategory", SuperTokens.middleware())
     app.post("/mcategory") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
@@ -196,7 +182,6 @@ fun main() {
         ctx.json(updatedMasterCategory)
     }
 
-    app.before("/mcategory/budget", SuperTokens.middleware())
     app.get("/mcategory/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
@@ -205,7 +190,6 @@ fun main() {
         ctx.json(masterCategories)
     }
 
-    app.before("/category", SuperTokens.middleware())
     app.post("/category") { ctx ->
         val user = getUserFromAuth(ctx)
         val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "master_category_id"))
@@ -231,7 +215,6 @@ fun main() {
         ctx.json(updatedCategory)
     }
 
-    app.before("/category/budget", SuperTokens.middleware())
     app.get("/category/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
@@ -240,7 +223,6 @@ fun main() {
         ctx.json(categories)
     }
 
-    app.before("/allocation", SuperTokens.middleware())
     app.post("/allocation") { ctx ->
         val user = getUserFromAuth(ctx)
         val month : Month = Month.createFromComparable(getQueryParam<Int>(ctx, "month"))
@@ -255,17 +237,19 @@ private fun setUpApp(properties: Properties): Javalin {
     val environmentStatus = properties.get(ENVIRONMENT)
     val app = Javalin.create { config ->
             if (environmentStatus == "dev") {
-                config.enableCorsForAllOrigins()
+                config.plugins.enableCors { cors ->
+                    cors.add { it -> 
+                        it.anyHost()
+                    }
+                }
             } else {
-                config.enableCorsForOrigin(
-                    properties.get(ALLOWED_ORIGIN_FRONT),
-                    properties.get(ALLOWED_ORIGIN_BETA_FRONT),
-                    properties.get(ALLOWED_ORIGIN_STRIPE)
-                )
+                config.plugins.enableCors { cors ->
+                    cors.add { it ->
+                        it.allowHost(properties.get(ALLOWED_ORIGIN_FRONT), properties.get(ALLOWED_ORIGIN_BETA_FRONT), properties.get(ALLOWED_ORIGIN_STRIPE))
+                    }
+                }
             }
     }.start(getHerokuAssignedOrDefaultPort())
-
-    app.exception(SuperTokensException::class.java, SuperTokens.exceptionHandler())
 
     app.exception(TresorierException::class.java) { e, ctx ->
         ctx.status(400)

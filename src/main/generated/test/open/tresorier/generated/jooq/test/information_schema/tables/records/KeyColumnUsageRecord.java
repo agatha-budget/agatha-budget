@@ -410,6 +410,7 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
         setColumnName(columnName);
         setOrdinalPosition(ordinalPosition);
         setPositionInUniqueConstraint(positionInUniqueConstraint);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -428,6 +429,7 @@ public class KeyColumnUsageRecord extends TableRecordImpl<KeyColumnUsageRecord> 
             setColumnName(value.getColumnName());
             setOrdinalPosition(value.getOrdinalPosition());
             setPositionInUniqueConstraint(value.getPositionInUniqueConstraint());
+            resetChangedOnNotNull();
         }
     }
 }

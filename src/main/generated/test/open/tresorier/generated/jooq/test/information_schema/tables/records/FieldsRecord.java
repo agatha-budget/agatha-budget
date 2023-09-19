@@ -504,6 +504,7 @@ public class FieldsRecord extends TableRecordImpl<FieldsRecord> {
         setDeclaredNumericScale(declaredNumericScale);
         setGeometryType(geometryType);
         setGeometrySrid(geometrySrid);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -542,6 +543,7 @@ public class FieldsRecord extends TableRecordImpl<FieldsRecord> {
             setDeclaredNumericScale(value.getDeclaredNumericScale());
             setGeometryType(value.getGeometryType());
             setGeometrySrid(value.getGeometrySrid());
+            resetChangedOnNotNull();
         }
     }
 }

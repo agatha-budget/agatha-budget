@@ -1,7 +1,6 @@
 package open.tresorier.api
 
 import io.javalin.http.Context
-import io.supertokens.javalin.SuperTokens
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.model.Person
 
@@ -18,16 +17,16 @@ fun getHerokuAssignedOrDefaultPort(): Int {
 }
 
 fun getUserFromAuth(ctx: Context): Person {
-    val validSession = SuperTokens.getFromContext(ctx)
-    val userId = validSession.userId
+    // val validSession = SuperTokens.getFromContext(ctx)
+    //val userId = validSession.userId
+    val userId = "afwe"
     return ServiceManager.personService.getById(userId)
 }
 
 inline fun <reified T: Any> getQueryParam(ctx: Context, paramName: String) : T {
-    return ctx.queryParam<T>(paramName).get()
+    return ctx.queryParamAsClass(paramName, T::class.java).get()
 }
 
 inline fun <reified T: Any> getOptionalQueryParam(ctx: Context, paramName: String) : T? {
-    val param = ctx.queryParam<T>(paramName).getOrNull()
-    return if (param == "null") null else param
+    return ctx.queryParamAsClass(paramName, T::class.java).allowNullable().get()
 }

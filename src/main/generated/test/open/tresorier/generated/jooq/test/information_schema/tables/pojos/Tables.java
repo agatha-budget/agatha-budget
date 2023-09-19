@@ -23,9 +23,9 @@ public class Tables implements Serializable {
     private final String commitAction;
     private final String storageType;
     private final String remarks;
-    private final Long   lastModification;
+    private final Long lastModification;
     private final String tableClass;
-    private final Long   rowCountEstimate;
+    private final Long rowCountEstimate;
 
     public Tables(Tables value) {
         this.tableCatalog = value.tableCatalog;
@@ -50,9 +50,9 @@ public class Tables implements Serializable {
         String commitAction,
         String storageType,
         String remarks,
-        Long   lastModification,
+        Long lastModification,
         String tableClass,
-        Long   rowCountEstimate
+        Long rowCountEstimate
     ) {
         this.tableCatalog = tableCatalog;
         this.tableSchema = tableSchema;
@@ -142,6 +142,102 @@ public class Tables implements Serializable {
      */
     public Long getRowCountEstimate() {
         return this.rowCountEstimate;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Tables other = (Tables) obj;
+        if (this.tableCatalog == null) {
+            if (other.tableCatalog != null)
+                return false;
+        }
+        else if (!this.tableCatalog.equals(other.tableCatalog))
+            return false;
+        if (this.tableSchema == null) {
+            if (other.tableSchema != null)
+                return false;
+        }
+        else if (!this.tableSchema.equals(other.tableSchema))
+            return false;
+        if (this.tableName == null) {
+            if (other.tableName != null)
+                return false;
+        }
+        else if (!this.tableName.equals(other.tableName))
+            return false;
+        if (this.tableType == null) {
+            if (other.tableType != null)
+                return false;
+        }
+        else if (!this.tableType.equals(other.tableType))
+            return false;
+        if (this.isInsertableInto == null) {
+            if (other.isInsertableInto != null)
+                return false;
+        }
+        else if (!this.isInsertableInto.equals(other.isInsertableInto))
+            return false;
+        if (this.commitAction == null) {
+            if (other.commitAction != null)
+                return false;
+        }
+        else if (!this.commitAction.equals(other.commitAction))
+            return false;
+        if (this.storageType == null) {
+            if (other.storageType != null)
+                return false;
+        }
+        else if (!this.storageType.equals(other.storageType))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        if (this.lastModification == null) {
+            if (other.lastModification != null)
+                return false;
+        }
+        else if (!this.lastModification.equals(other.lastModification))
+            return false;
+        if (this.tableClass == null) {
+            if (other.tableClass != null)
+                return false;
+        }
+        else if (!this.tableClass.equals(other.tableClass))
+            return false;
+        if (this.rowCountEstimate == null) {
+            if (other.rowCountEstimate != null)
+                return false;
+        }
+        else if (!this.rowCountEstimate.equals(other.rowCountEstimate))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.tableCatalog == null) ? 0 : this.tableCatalog.hashCode());
+        result = prime * result + ((this.tableSchema == null) ? 0 : this.tableSchema.hashCode());
+        result = prime * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
+        result = prime * result + ((this.tableType == null) ? 0 : this.tableType.hashCode());
+        result = prime * result + ((this.isInsertableInto == null) ? 0 : this.isInsertableInto.hashCode());
+        result = prime * result + ((this.commitAction == null) ? 0 : this.commitAction.hashCode());
+        result = prime * result + ((this.storageType == null) ? 0 : this.storageType.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        result = prime * result + ((this.lastModification == null) ? 0 : this.lastModification.hashCode());
+        result = prime * result + ((this.tableClass == null) ? 0 : this.tableClass.hashCode());
+        result = prime * result + ((this.rowCountEstimate == null) ? 0 : this.rowCountEstimate.hashCode());
+        return result;
     }
 
     @Override

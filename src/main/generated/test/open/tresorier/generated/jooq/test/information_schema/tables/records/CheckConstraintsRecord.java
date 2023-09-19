@@ -216,6 +216,7 @@ public class CheckConstraintsRecord extends TableRecordImpl<CheckConstraintsReco
         setConstraintSchema(constraintSchema);
         setConstraintName(constraintName);
         setCheckClause(checkClause);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -229,6 +230,7 @@ public class CheckConstraintsRecord extends TableRecordImpl<CheckConstraintsReco
             setConstraintSchema(value.getConstraintSchema());
             setConstraintName(value.getConstraintName());
             setCheckClause(value.getCheckClause());
+            resetChangedOnNotNull();
         }
     }
 }

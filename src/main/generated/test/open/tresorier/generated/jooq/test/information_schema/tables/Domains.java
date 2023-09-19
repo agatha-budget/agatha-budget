@@ -249,6 +249,11 @@ public class Domains extends TableImpl<DomainsRecord> {
         return new Domains(alias, this);
     }
 
+    @Override
+    public Domains as(Table<?> alias) {
+        return new Domains(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -263,5 +268,13 @@ public class Domains extends TableImpl<DomainsRecord> {
     @Override
     public Domains rename(Name name) {
         return new Domains(name, null);
+    }
+
+    /**
+     * Rename this table
+     */
+    @Override
+    public Domains rename(Table<?> name) {
+        return new Domains(name.getQualifiedName(), null);
     }
 }

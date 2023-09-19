@@ -406,6 +406,7 @@ public class SchemataRecord extends TableRecordImpl<SchemataRecord> implements R
         setSqlPath(sqlPath);
         setDefaultCollationName(defaultCollationName);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -424,6 +425,7 @@ public class SchemataRecord extends TableRecordImpl<SchemataRecord> implements R
             setSqlPath(value.getSqlPath());
             setDefaultCollationName(value.getDefaultCollationName());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

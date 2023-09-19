@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.main.tables;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.main.Keys;
 import open.tresorier.generated.jooq.main.Public;
@@ -13,10 +14,13 @@ import open.tresorier.generated.jooq.main.tables.records.AccountRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function6;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row6;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -65,17 +69,17 @@ public class Account extends TableImpl<AccountRecord> {
     /**
      * The column <code>public.account.archived</code>.
      */
-    public final TableField<AccountRecord, Boolean> ARCHIVED = createField(DSL.name("archived"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<AccountRecord, Boolean> ARCHIVED = createField(DSL.name("archived"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.account.deleted</code>.
      */
-    public final TableField<AccountRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<AccountRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.account.bank_account_id</code>.
      */
-    public final TableField<AccountRecord, String> BANK_ACCOUNT_ID = createField(DSL.name("bank_account_id"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL::character varying", SQLDataType.VARCHAR)), this, "");
+    public final TableField<AccountRecord, String> BANK_ACCOUNT_ID = createField(DSL.name("bank_account_id"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL::character varying"), SQLDataType.VARCHAR)), this, "");
 
     private Account(Name alias, Table<AccountRecord> aliased) {
         this(alias, aliased, null);
@@ -158,6 +162,11 @@ public class Account extends TableImpl<AccountRecord> {
         return new Account(alias, this);
     }
 
+    @Override
+    public Account as(Table<?> alias) {
+        return new Account(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -174,6 +183,14 @@ public class Account extends TableImpl<AccountRecord> {
         return new Account(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Account rename(Table<?> name) {
+        return new Account(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row6 type methods
     // -------------------------------------------------------------------------
@@ -181,5 +198,20 @@ public class Account extends TableImpl<AccountRecord> {
     @Override
     public Row6<String, String, String, Boolean, Boolean, String> fieldsRow() {
         return (Row6) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function6<? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function6<? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

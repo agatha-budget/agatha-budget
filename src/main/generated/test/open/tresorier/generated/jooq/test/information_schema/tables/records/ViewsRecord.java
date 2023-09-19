@@ -514,6 +514,7 @@ public class ViewsRecord extends TableRecordImpl<ViewsRecord> implements Record1
         setIsTriggerInsertableInto(isTriggerInsertableInto);
         setStatus(status);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -535,6 +536,7 @@ public class ViewsRecord extends TableRecordImpl<ViewsRecord> implements Record1
             setIsTriggerInsertableInto(value.getIsTriggerInsertableInto());
             setStatus(value.getStatus());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

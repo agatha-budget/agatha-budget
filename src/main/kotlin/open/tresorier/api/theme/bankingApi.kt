@@ -2,8 +2,6 @@ package open.tresorier.api.theme
 
 import io.javalin.Javalin
 import io.javalin.http.Context
-import io.supertokens.javalin.SuperTokens
-import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
@@ -27,7 +25,6 @@ fun addBankingRoute(app : Javalin, bankingService: BankingService,
         ctx.json(bankingService.getAvailableBanks())
     }
 
-    app.before("/banking", SuperTokens.middleware())
     app.get("/banking") { ctx ->
         val person = getUserFromAuth(ctx)
         val budgetId = getQueryParam<String>(ctx, "budgetId")
@@ -43,7 +40,6 @@ fun addBankingRoute(app : Javalin, bankingService: BankingService,
         bankingService.updateBankAccountList(person, bankAgreement)
     }
 
-    app.before("/bank/accounts", SuperTokens.middleware())
     app.get("/bank/accounts") { ctx ->
         val person = getUserFromAuth(ctx)
         val budgetId = getQueryParam<String>(ctx, "budgetId")
@@ -51,7 +47,6 @@ fun addBankingRoute(app : Javalin, bankingService: BankingService,
         ctx.json(bankingService.findBankAccountByBudget(person, budget))
     }
 
-    app.before("/bank/operations", SuperTokens.middleware())
     app.get("/bank/operations") { ctx ->
         val person = getUserFromAuth(ctx)
         val accountId = getOptionalQueryParam<String>(ctx, "accountId")

@@ -208,6 +208,7 @@ public class LocksRecord extends TableRecordImpl<LocksRecord> implements Record4
         setTableName(tableName);
         setSessionId(sessionId);
         setLockType(lockType);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -221,6 +222,7 @@ public class LocksRecord extends TableRecordImpl<LocksRecord> implements Record4
             setTableName(value.getTableName());
             setSessionId(value.getSessionId());
             setLockType(value.getLockType());
+            resetChangedOnNotNull();
         }
     }
 }

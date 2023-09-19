@@ -46,6 +46,39 @@ public class SessionState implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final SessionState other = (SessionState) obj;
+        if (this.stateKey == null) {
+            if (other.stateKey != null)
+                return false;
+        }
+        else if (!this.stateKey.equals(other.stateKey))
+            return false;
+        if (this.stateCommand == null) {
+            if (other.stateCommand != null)
+                return false;
+        }
+        else if (!this.stateCommand.equals(other.stateCommand))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.stateKey == null) ? 0 : this.stateKey.hashCode());
+        result = prime * result + ((this.stateCommand == null) ? 0 : this.stateCommand.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("SessionState (");
 

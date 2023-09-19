@@ -108,6 +108,74 @@ public class ConstraintColumnUsage implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ConstraintColumnUsage other = (ConstraintColumnUsage) obj;
+        if (this.tableCatalog == null) {
+            if (other.tableCatalog != null)
+                return false;
+        }
+        else if (!this.tableCatalog.equals(other.tableCatalog))
+            return false;
+        if (this.tableSchema == null) {
+            if (other.tableSchema != null)
+                return false;
+        }
+        else if (!this.tableSchema.equals(other.tableSchema))
+            return false;
+        if (this.tableName == null) {
+            if (other.tableName != null)
+                return false;
+        }
+        else if (!this.tableName.equals(other.tableName))
+            return false;
+        if (this.columnName == null) {
+            if (other.columnName != null)
+                return false;
+        }
+        else if (!this.columnName.equals(other.columnName))
+            return false;
+        if (this.constraintCatalog == null) {
+            if (other.constraintCatalog != null)
+                return false;
+        }
+        else if (!this.constraintCatalog.equals(other.constraintCatalog))
+            return false;
+        if (this.constraintSchema == null) {
+            if (other.constraintSchema != null)
+                return false;
+        }
+        else if (!this.constraintSchema.equals(other.constraintSchema))
+            return false;
+        if (this.constraintName == null) {
+            if (other.constraintName != null)
+                return false;
+        }
+        else if (!this.constraintName.equals(other.constraintName))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.tableCatalog == null) ? 0 : this.tableCatalog.hashCode());
+        result = prime * result + ((this.tableSchema == null) ? 0 : this.tableSchema.hashCode());
+        result = prime * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
+        result = prime * result + ((this.columnName == null) ? 0 : this.columnName.hashCode());
+        result = prime * result + ((this.constraintCatalog == null) ? 0 : this.constraintCatalog.hashCode());
+        result = prime * result + ((this.constraintSchema == null) ? 0 : this.constraintSchema.hashCode());
+        result = prime * result + ((this.constraintName == null) ? 0 : this.constraintName.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("ConstraintColumnUsage (");
 

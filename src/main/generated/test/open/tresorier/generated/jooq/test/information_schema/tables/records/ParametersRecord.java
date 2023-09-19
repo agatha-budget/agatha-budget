@@ -546,6 +546,7 @@ public class ParametersRecord extends TableRecordImpl<ParametersRecord> {
         setParameterDefault(parameterDefault);
         setGeometryType(geometryType);
         setGeometrySrid(geometrySrid);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -586,6 +587,7 @@ public class ParametersRecord extends TableRecordImpl<ParametersRecord> {
             setParameterDefault(value.getParameterDefault());
             setGeometryType(value.getGeometryType());
             setGeometrySrid(value.getGeometrySrid());
+            resetChangedOnNotNull();
         }
     }
 }

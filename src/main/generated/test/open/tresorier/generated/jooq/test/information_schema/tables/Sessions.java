@@ -5,16 +5,20 @@ package open.tresorier.generated.jooq.test.information_schema.tables;
 
 
 import java.time.OffsetDateTime;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.information_schema.InformationSchema;
 import open.tresorier.generated.jooq.test.information_schema.tables.records.SessionsRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function13;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row13;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -160,6 +164,11 @@ public class Sessions extends TableImpl<SessionsRecord> {
         return new Sessions(alias, this);
     }
 
+    @Override
+    public Sessions as(Table<?> alias) {
+        return new Sessions(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -176,6 +185,14 @@ public class Sessions extends TableImpl<SessionsRecord> {
         return new Sessions(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Sessions rename(Table<?> name) {
+        return new Sessions(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row13 type methods
     // -------------------------------------------------------------------------
@@ -183,5 +200,20 @@ public class Sessions extends TableImpl<SessionsRecord> {
     @Override
     public Row13<Integer, String, String, String, String, OffsetDateTime, String, String, OffsetDateTime, Boolean, String, Integer, OffsetDateTime> fieldsRow() {
         return (Row13) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function13<? super Integer, ? super String, ? super String, ? super String, ? super String, ? super OffsetDateTime, ? super String, ? super String, ? super OffsetDateTime, ? super Boolean, ? super String, ? super Integer, ? super OffsetDateTime, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super Integer, ? super String, ? super String, ? super String, ? super String, ? super OffsetDateTime, ? super String, ? super String, ? super OffsetDateTime, ? super Boolean, ? super String, ? super Integer, ? super OffsetDateTime, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

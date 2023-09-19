@@ -15,20 +15,20 @@ public class Triggers implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  triggerCatalog;
-    private final String  triggerSchema;
-    private final String  triggerName;
-    private final String  eventManipulation;
-    private final String  eventObjectCatalog;
-    private final String  eventObjectSchema;
-    private final String  eventObjectTable;
-    private final String  actionOrientation;
-    private final String  actionTiming;
+    private final String triggerCatalog;
+    private final String triggerSchema;
+    private final String triggerName;
+    private final String eventManipulation;
+    private final String eventObjectCatalog;
+    private final String eventObjectSchema;
+    private final String eventObjectTable;
+    private final String actionOrientation;
+    private final String actionTiming;
     private final Boolean isRollback;
-    private final String  javaClass;
+    private final String javaClass;
     private final Integer queueSize;
     private final Boolean noWait;
-    private final String  remarks;
+    private final String remarks;
 
     public Triggers(Triggers value) {
         this.triggerCatalog = value.triggerCatalog;
@@ -48,20 +48,20 @@ public class Triggers implements Serializable {
     }
 
     public Triggers(
-        String  triggerCatalog,
-        String  triggerSchema,
-        String  triggerName,
-        String  eventManipulation,
-        String  eventObjectCatalog,
-        String  eventObjectSchema,
-        String  eventObjectTable,
-        String  actionOrientation,
-        String  actionTiming,
+        String triggerCatalog,
+        String triggerSchema,
+        String triggerName,
+        String eventManipulation,
+        String eventObjectCatalog,
+        String eventObjectSchema,
+        String eventObjectTable,
+        String actionOrientation,
+        String actionTiming,
         Boolean isRollback,
-        String  javaClass,
+        String javaClass,
         Integer queueSize,
         Boolean noWait,
-        String  remarks
+        String remarks
     ) {
         this.triggerCatalog = triggerCatalog;
         this.triggerSchema = triggerSchema;
@@ -175,6 +175,123 @@ public class Triggers implements Serializable {
      */
     public String getRemarks() {
         return this.remarks;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Triggers other = (Triggers) obj;
+        if (this.triggerCatalog == null) {
+            if (other.triggerCatalog != null)
+                return false;
+        }
+        else if (!this.triggerCatalog.equals(other.triggerCatalog))
+            return false;
+        if (this.triggerSchema == null) {
+            if (other.triggerSchema != null)
+                return false;
+        }
+        else if (!this.triggerSchema.equals(other.triggerSchema))
+            return false;
+        if (this.triggerName == null) {
+            if (other.triggerName != null)
+                return false;
+        }
+        else if (!this.triggerName.equals(other.triggerName))
+            return false;
+        if (this.eventManipulation == null) {
+            if (other.eventManipulation != null)
+                return false;
+        }
+        else if (!this.eventManipulation.equals(other.eventManipulation))
+            return false;
+        if (this.eventObjectCatalog == null) {
+            if (other.eventObjectCatalog != null)
+                return false;
+        }
+        else if (!this.eventObjectCatalog.equals(other.eventObjectCatalog))
+            return false;
+        if (this.eventObjectSchema == null) {
+            if (other.eventObjectSchema != null)
+                return false;
+        }
+        else if (!this.eventObjectSchema.equals(other.eventObjectSchema))
+            return false;
+        if (this.eventObjectTable == null) {
+            if (other.eventObjectTable != null)
+                return false;
+        }
+        else if (!this.eventObjectTable.equals(other.eventObjectTable))
+            return false;
+        if (this.actionOrientation == null) {
+            if (other.actionOrientation != null)
+                return false;
+        }
+        else if (!this.actionOrientation.equals(other.actionOrientation))
+            return false;
+        if (this.actionTiming == null) {
+            if (other.actionTiming != null)
+                return false;
+        }
+        else if (!this.actionTiming.equals(other.actionTiming))
+            return false;
+        if (this.isRollback == null) {
+            if (other.isRollback != null)
+                return false;
+        }
+        else if (!this.isRollback.equals(other.isRollback))
+            return false;
+        if (this.javaClass == null) {
+            if (other.javaClass != null)
+                return false;
+        }
+        else if (!this.javaClass.equals(other.javaClass))
+            return false;
+        if (this.queueSize == null) {
+            if (other.queueSize != null)
+                return false;
+        }
+        else if (!this.queueSize.equals(other.queueSize))
+            return false;
+        if (this.noWait == null) {
+            if (other.noWait != null)
+                return false;
+        }
+        else if (!this.noWait.equals(other.noWait))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.triggerCatalog == null) ? 0 : this.triggerCatalog.hashCode());
+        result = prime * result + ((this.triggerSchema == null) ? 0 : this.triggerSchema.hashCode());
+        result = prime * result + ((this.triggerName == null) ? 0 : this.triggerName.hashCode());
+        result = prime * result + ((this.eventManipulation == null) ? 0 : this.eventManipulation.hashCode());
+        result = prime * result + ((this.eventObjectCatalog == null) ? 0 : this.eventObjectCatalog.hashCode());
+        result = prime * result + ((this.eventObjectSchema == null) ? 0 : this.eventObjectSchema.hashCode());
+        result = prime * result + ((this.eventObjectTable == null) ? 0 : this.eventObjectTable.hashCode());
+        result = prime * result + ((this.actionOrientation == null) ? 0 : this.actionOrientation.hashCode());
+        result = prime * result + ((this.actionTiming == null) ? 0 : this.actionTiming.hashCode());
+        result = prime * result + ((this.isRollback == null) ? 0 : this.isRollback.hashCode());
+        result = prime * result + ((this.javaClass == null) ? 0 : this.javaClass.hashCode());
+        result = prime * result + ((this.queueSize == null) ? 0 : this.queueSize.hashCode());
+        result = prime * result + ((this.noWait == null) ? 0 : this.noWait.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        return result;
     }
 
     @Override

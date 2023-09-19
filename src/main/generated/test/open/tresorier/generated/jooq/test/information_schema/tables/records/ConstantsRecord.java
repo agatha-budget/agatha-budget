@@ -480,6 +480,7 @@ public class ConstantsRecord extends TableRecordImpl<ConstantsRecord> {
         setGeometryType(geometryType);
         setGeometrySrid(geometrySrid);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -516,6 +517,7 @@ public class ConstantsRecord extends TableRecordImpl<ConstantsRecord> {
             setGeometryType(value.getGeometryType());
             setGeometrySrid(value.getGeometrySrid());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

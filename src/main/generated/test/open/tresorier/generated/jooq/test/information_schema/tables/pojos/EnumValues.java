@@ -101,6 +101,74 @@ public class EnumValues implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final EnumValues other = (EnumValues) obj;
+        if (this.objectCatalog == null) {
+            if (other.objectCatalog != null)
+                return false;
+        }
+        else if (!this.objectCatalog.equals(other.objectCatalog))
+            return false;
+        if (this.objectSchema == null) {
+            if (other.objectSchema != null)
+                return false;
+        }
+        else if (!this.objectSchema.equals(other.objectSchema))
+            return false;
+        if (this.objectName == null) {
+            if (other.objectName != null)
+                return false;
+        }
+        else if (!this.objectName.equals(other.objectName))
+            return false;
+        if (this.objectType == null) {
+            if (other.objectType != null)
+                return false;
+        }
+        else if (!this.objectType.equals(other.objectType))
+            return false;
+        if (this.enumIdentifier == null) {
+            if (other.enumIdentifier != null)
+                return false;
+        }
+        else if (!this.enumIdentifier.equals(other.enumIdentifier))
+            return false;
+        if (this.valueName == null) {
+            if (other.valueName != null)
+                return false;
+        }
+        else if (!this.valueName.equals(other.valueName))
+            return false;
+        if (this.valueOrdinal == null) {
+            if (other.valueOrdinal != null)
+                return false;
+        }
+        else if (!this.valueOrdinal.equals(other.valueOrdinal))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.objectCatalog == null) ? 0 : this.objectCatalog.hashCode());
+        result = prime * result + ((this.objectSchema == null) ? 0 : this.objectSchema.hashCode());
+        result = prime * result + ((this.objectName == null) ? 0 : this.objectName.hashCode());
+        result = prime * result + ((this.objectType == null) ? 0 : this.objectType.hashCode());
+        result = prime * result + ((this.enumIdentifier == null) ? 0 : this.enumIdentifier.hashCode());
+        result = prime * result + ((this.valueName == null) ? 0 : this.valueName.hashCode());
+        result = prime * result + ((this.valueOrdinal == null) ? 0 : this.valueOrdinal.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("EnumValues (");
 

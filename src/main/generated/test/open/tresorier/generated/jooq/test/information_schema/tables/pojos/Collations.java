@@ -79,6 +79,60 @@ public class Collations implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Collations other = (Collations) obj;
+        if (this.collationCatalog == null) {
+            if (other.collationCatalog != null)
+                return false;
+        }
+        else if (!this.collationCatalog.equals(other.collationCatalog))
+            return false;
+        if (this.collationSchema == null) {
+            if (other.collationSchema != null)
+                return false;
+        }
+        else if (!this.collationSchema.equals(other.collationSchema))
+            return false;
+        if (this.collationName == null) {
+            if (other.collationName != null)
+                return false;
+        }
+        else if (!this.collationName.equals(other.collationName))
+            return false;
+        if (this.padAttribute == null) {
+            if (other.padAttribute != null)
+                return false;
+        }
+        else if (!this.padAttribute.equals(other.padAttribute))
+            return false;
+        if (this.languageTag == null) {
+            if (other.languageTag != null)
+                return false;
+        }
+        else if (!this.languageTag.equals(other.languageTag))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.collationCatalog == null) ? 0 : this.collationCatalog.hashCode());
+        result = prime * result + ((this.collationSchema == null) ? 0 : this.collationSchema.hashCode());
+        result = prime * result + ((this.collationName == null) ? 0 : this.collationName.hashCode());
+        result = prime * result + ((this.padAttribute == null) ? 0 : this.padAttribute.hashCode());
+        result = prime * result + ((this.languageTag == null) ? 0 : this.languageTag.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Collations (");
 

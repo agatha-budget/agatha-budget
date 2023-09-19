@@ -15,36 +15,36 @@ public class Parameters implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  specificCatalog;
-    private final String  specificSchema;
-    private final String  specificName;
+    private final String specificCatalog;
+    private final String specificSchema;
+    private final String specificName;
     private final Integer ordinalPosition;
-    private final String  parameterMode;
-    private final String  isResult;
-    private final String  asLocator;
-    private final String  parameterName;
-    private final String  dataType;
-    private final Long    characterMaximumLength;
-    private final Long    characterOctetLength;
-    private final String  characterSetCatalog;
-    private final String  characterSetSchema;
-    private final String  characterSetName;
-    private final String  collationCatalog;
-    private final String  collationSchema;
-    private final String  collationName;
+    private final String parameterMode;
+    private final String isResult;
+    private final String asLocator;
+    private final String parameterName;
+    private final String dataType;
+    private final Long characterMaximumLength;
+    private final Long characterOctetLength;
+    private final String characterSetCatalog;
+    private final String characterSetSchema;
+    private final String characterSetName;
+    private final String collationCatalog;
+    private final String collationSchema;
+    private final String collationName;
     private final Integer numericPrecision;
     private final Integer numericPrecisionRadix;
     private final Integer numericScale;
     private final Integer datetimePrecision;
-    private final String  intervalType;
+    private final String intervalType;
     private final Integer intervalPrecision;
     private final Integer maximumCardinality;
-    private final String  dtdIdentifier;
-    private final String  declaredDataType;
+    private final String dtdIdentifier;
+    private final String declaredDataType;
     private final Integer declaredNumericPrecision;
     private final Integer declaredNumericScale;
-    private final String  parameterDefault;
-    private final String  geometryType;
+    private final String parameterDefault;
+    private final String geometryType;
     private final Integer geometrySrid;
 
     public Parameters(Parameters value) {
@@ -82,36 +82,36 @@ public class Parameters implements Serializable {
     }
 
     public Parameters(
-        String  specificCatalog,
-        String  specificSchema,
-        String  specificName,
+        String specificCatalog,
+        String specificSchema,
+        String specificName,
         Integer ordinalPosition,
-        String  parameterMode,
-        String  isResult,
-        String  asLocator,
-        String  parameterName,
-        String  dataType,
-        Long    characterMaximumLength,
-        Long    characterOctetLength,
-        String  characterSetCatalog,
-        String  characterSetSchema,
-        String  characterSetName,
-        String  collationCatalog,
-        String  collationSchema,
-        String  collationName,
+        String parameterMode,
+        String isResult,
+        String asLocator,
+        String parameterName,
+        String dataType,
+        Long characterMaximumLength,
+        Long characterOctetLength,
+        String characterSetCatalog,
+        String characterSetSchema,
+        String characterSetName,
+        String collationCatalog,
+        String collationSchema,
+        String collationName,
         Integer numericPrecision,
         Integer numericPrecisionRadix,
         Integer numericScale,
         Integer datetimePrecision,
-        String  intervalType,
+        String intervalType,
         Integer intervalPrecision,
         Integer maximumCardinality,
-        String  dtdIdentifier,
-        String  declaredDataType,
+        String dtdIdentifier,
+        String declaredDataType,
         Integer declaredNumericPrecision,
         Integer declaredNumericScale,
-        String  parameterDefault,
-        String  geometryType,
+        String parameterDefault,
+        String geometryType,
         Integer geometrySrid
     ) {
         this.specificCatalog = specificCatalog;
@@ -370,6 +370,242 @@ public class Parameters implements Serializable {
      */
     public Integer getGeometrySrid() {
         return this.geometrySrid;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Parameters other = (Parameters) obj;
+        if (this.specificCatalog == null) {
+            if (other.specificCatalog != null)
+                return false;
+        }
+        else if (!this.specificCatalog.equals(other.specificCatalog))
+            return false;
+        if (this.specificSchema == null) {
+            if (other.specificSchema != null)
+                return false;
+        }
+        else if (!this.specificSchema.equals(other.specificSchema))
+            return false;
+        if (this.specificName == null) {
+            if (other.specificName != null)
+                return false;
+        }
+        else if (!this.specificName.equals(other.specificName))
+            return false;
+        if (this.ordinalPosition == null) {
+            if (other.ordinalPosition != null)
+                return false;
+        }
+        else if (!this.ordinalPosition.equals(other.ordinalPosition))
+            return false;
+        if (this.parameterMode == null) {
+            if (other.parameterMode != null)
+                return false;
+        }
+        else if (!this.parameterMode.equals(other.parameterMode))
+            return false;
+        if (this.isResult == null) {
+            if (other.isResult != null)
+                return false;
+        }
+        else if (!this.isResult.equals(other.isResult))
+            return false;
+        if (this.asLocator == null) {
+            if (other.asLocator != null)
+                return false;
+        }
+        else if (!this.asLocator.equals(other.asLocator))
+            return false;
+        if (this.parameterName == null) {
+            if (other.parameterName != null)
+                return false;
+        }
+        else if (!this.parameterName.equals(other.parameterName))
+            return false;
+        if (this.dataType == null) {
+            if (other.dataType != null)
+                return false;
+        }
+        else if (!this.dataType.equals(other.dataType))
+            return false;
+        if (this.characterMaximumLength == null) {
+            if (other.characterMaximumLength != null)
+                return false;
+        }
+        else if (!this.characterMaximumLength.equals(other.characterMaximumLength))
+            return false;
+        if (this.characterOctetLength == null) {
+            if (other.characterOctetLength != null)
+                return false;
+        }
+        else if (!this.characterOctetLength.equals(other.characterOctetLength))
+            return false;
+        if (this.characterSetCatalog == null) {
+            if (other.characterSetCatalog != null)
+                return false;
+        }
+        else if (!this.characterSetCatalog.equals(other.characterSetCatalog))
+            return false;
+        if (this.characterSetSchema == null) {
+            if (other.characterSetSchema != null)
+                return false;
+        }
+        else if (!this.characterSetSchema.equals(other.characterSetSchema))
+            return false;
+        if (this.characterSetName == null) {
+            if (other.characterSetName != null)
+                return false;
+        }
+        else if (!this.characterSetName.equals(other.characterSetName))
+            return false;
+        if (this.collationCatalog == null) {
+            if (other.collationCatalog != null)
+                return false;
+        }
+        else if (!this.collationCatalog.equals(other.collationCatalog))
+            return false;
+        if (this.collationSchema == null) {
+            if (other.collationSchema != null)
+                return false;
+        }
+        else if (!this.collationSchema.equals(other.collationSchema))
+            return false;
+        if (this.collationName == null) {
+            if (other.collationName != null)
+                return false;
+        }
+        else if (!this.collationName.equals(other.collationName))
+            return false;
+        if (this.numericPrecision == null) {
+            if (other.numericPrecision != null)
+                return false;
+        }
+        else if (!this.numericPrecision.equals(other.numericPrecision))
+            return false;
+        if (this.numericPrecisionRadix == null) {
+            if (other.numericPrecisionRadix != null)
+                return false;
+        }
+        else if (!this.numericPrecisionRadix.equals(other.numericPrecisionRadix))
+            return false;
+        if (this.numericScale == null) {
+            if (other.numericScale != null)
+                return false;
+        }
+        else if (!this.numericScale.equals(other.numericScale))
+            return false;
+        if (this.datetimePrecision == null) {
+            if (other.datetimePrecision != null)
+                return false;
+        }
+        else if (!this.datetimePrecision.equals(other.datetimePrecision))
+            return false;
+        if (this.intervalType == null) {
+            if (other.intervalType != null)
+                return false;
+        }
+        else if (!this.intervalType.equals(other.intervalType))
+            return false;
+        if (this.intervalPrecision == null) {
+            if (other.intervalPrecision != null)
+                return false;
+        }
+        else if (!this.intervalPrecision.equals(other.intervalPrecision))
+            return false;
+        if (this.maximumCardinality == null) {
+            if (other.maximumCardinality != null)
+                return false;
+        }
+        else if (!this.maximumCardinality.equals(other.maximumCardinality))
+            return false;
+        if (this.dtdIdentifier == null) {
+            if (other.dtdIdentifier != null)
+                return false;
+        }
+        else if (!this.dtdIdentifier.equals(other.dtdIdentifier))
+            return false;
+        if (this.declaredDataType == null) {
+            if (other.declaredDataType != null)
+                return false;
+        }
+        else if (!this.declaredDataType.equals(other.declaredDataType))
+            return false;
+        if (this.declaredNumericPrecision == null) {
+            if (other.declaredNumericPrecision != null)
+                return false;
+        }
+        else if (!this.declaredNumericPrecision.equals(other.declaredNumericPrecision))
+            return false;
+        if (this.declaredNumericScale == null) {
+            if (other.declaredNumericScale != null)
+                return false;
+        }
+        else if (!this.declaredNumericScale.equals(other.declaredNumericScale))
+            return false;
+        if (this.parameterDefault == null) {
+            if (other.parameterDefault != null)
+                return false;
+        }
+        else if (!this.parameterDefault.equals(other.parameterDefault))
+            return false;
+        if (this.geometryType == null) {
+            if (other.geometryType != null)
+                return false;
+        }
+        else if (!this.geometryType.equals(other.geometryType))
+            return false;
+        if (this.geometrySrid == null) {
+            if (other.geometrySrid != null)
+                return false;
+        }
+        else if (!this.geometrySrid.equals(other.geometrySrid))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.specificCatalog == null) ? 0 : this.specificCatalog.hashCode());
+        result = prime * result + ((this.specificSchema == null) ? 0 : this.specificSchema.hashCode());
+        result = prime * result + ((this.specificName == null) ? 0 : this.specificName.hashCode());
+        result = prime * result + ((this.ordinalPosition == null) ? 0 : this.ordinalPosition.hashCode());
+        result = prime * result + ((this.parameterMode == null) ? 0 : this.parameterMode.hashCode());
+        result = prime * result + ((this.isResult == null) ? 0 : this.isResult.hashCode());
+        result = prime * result + ((this.asLocator == null) ? 0 : this.asLocator.hashCode());
+        result = prime * result + ((this.parameterName == null) ? 0 : this.parameterName.hashCode());
+        result = prime * result + ((this.dataType == null) ? 0 : this.dataType.hashCode());
+        result = prime * result + ((this.characterMaximumLength == null) ? 0 : this.characterMaximumLength.hashCode());
+        result = prime * result + ((this.characterOctetLength == null) ? 0 : this.characterOctetLength.hashCode());
+        result = prime * result + ((this.characterSetCatalog == null) ? 0 : this.characterSetCatalog.hashCode());
+        result = prime * result + ((this.characterSetSchema == null) ? 0 : this.characterSetSchema.hashCode());
+        result = prime * result + ((this.characterSetName == null) ? 0 : this.characterSetName.hashCode());
+        result = prime * result + ((this.collationCatalog == null) ? 0 : this.collationCatalog.hashCode());
+        result = prime * result + ((this.collationSchema == null) ? 0 : this.collationSchema.hashCode());
+        result = prime * result + ((this.collationName == null) ? 0 : this.collationName.hashCode());
+        result = prime * result + ((this.numericPrecision == null) ? 0 : this.numericPrecision.hashCode());
+        result = prime * result + ((this.numericPrecisionRadix == null) ? 0 : this.numericPrecisionRadix.hashCode());
+        result = prime * result + ((this.numericScale == null) ? 0 : this.numericScale.hashCode());
+        result = prime * result + ((this.datetimePrecision == null) ? 0 : this.datetimePrecision.hashCode());
+        result = prime * result + ((this.intervalType == null) ? 0 : this.intervalType.hashCode());
+        result = prime * result + ((this.intervalPrecision == null) ? 0 : this.intervalPrecision.hashCode());
+        result = prime * result + ((this.maximumCardinality == null) ? 0 : this.maximumCardinality.hashCode());
+        result = prime * result + ((this.dtdIdentifier == null) ? 0 : this.dtdIdentifier.hashCode());
+        result = prime * result + ((this.declaredDataType == null) ? 0 : this.declaredDataType.hashCode());
+        result = prime * result + ((this.declaredNumericPrecision == null) ? 0 : this.declaredNumericPrecision.hashCode());
+        result = prime * result + ((this.declaredNumericScale == null) ? 0 : this.declaredNumericScale.hashCode());
+        result = prime * result + ((this.parameterDefault == null) ? 0 : this.parameterDefault.hashCode());
+        result = prime * result + ((this.geometryType == null) ? 0 : this.geometryType.hashCode());
+        result = prime * result + ((this.geometrySrid == null) ? 0 : this.geometrySrid.hashCode());
+        return result;
     }
 
     @Override

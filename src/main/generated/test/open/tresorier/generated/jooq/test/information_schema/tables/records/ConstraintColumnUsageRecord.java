@@ -336,6 +336,7 @@ public class ConstraintColumnUsageRecord extends TableRecordImpl<ConstraintColum
         setConstraintCatalog(constraintCatalog);
         setConstraintSchema(constraintSchema);
         setConstraintName(constraintName);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -352,6 +353,7 @@ public class ConstraintColumnUsageRecord extends TableRecordImpl<ConstraintColum
             setConstraintCatalog(value.getConstraintCatalog());
             setConstraintSchema(value.getConstraintSchema());
             setConstraintName(value.getConstraintName());
+            resetChangedOnNotNull();
         }
     }
 }

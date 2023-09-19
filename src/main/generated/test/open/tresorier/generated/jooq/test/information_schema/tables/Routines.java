@@ -277,6 +277,11 @@ public class Routines extends TableImpl<RoutinesRecord> {
         return new Routines(alias, this);
     }
 
+    @Override
+    public Routines as(Table<?> alias) {
+        return new Routines(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -291,5 +296,13 @@ public class Routines extends TableImpl<RoutinesRecord> {
     @Override
     public Routines rename(Name name) {
         return new Routines(name, null);
+    }
+
+    /**
+     * Rename this table
+     */
+    @Override
+    public Routines rename(Table<?> name) {
+        return new Routines(name.getQualifiedName(), null);
     }
 }

@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
@@ -13,10 +14,13 @@ import open.tresorier.generated.jooq.test.public_.tables.records.CategoryRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function5;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row5;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -55,7 +59,7 @@ public class Category extends TableImpl<CategoryRecord> {
     /**
      * The column <code>PUBLIC.CATEGORY.MASTER_CATEGORY_ID</code>.
      */
-    public final TableField<CategoryRecord, String> MASTER_CATEGORY_ID = createField(DSL.name("MASTER_CATEGORY_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
+    public final TableField<CategoryRecord, String> MASTER_CATEGORY_ID = createField(DSL.name("MASTER_CATEGORY_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.CATEGORY.NAME</code>.
@@ -65,12 +69,12 @@ public class Category extends TableImpl<CategoryRecord> {
     /**
      * The column <code>PUBLIC.CATEGORY.ARCHIVED</code>.
      */
-    public final TableField<CategoryRecord, Boolean> ARCHIVED = createField(DSL.name("ARCHIVED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<CategoryRecord, Boolean> ARCHIVED = createField(DSL.name("ARCHIVED"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.CATEGORY.DELETED</code>.
      */
-    public final TableField<CategoryRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<CategoryRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     private Category(Name alias, Table<CategoryRecord> aliased) {
         this(alias, aliased, null);
@@ -143,6 +147,11 @@ public class Category extends TableImpl<CategoryRecord> {
         return new Category(alias, this);
     }
 
+    @Override
+    public Category as(Table<?> alias) {
+        return new Category(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -159,6 +168,14 @@ public class Category extends TableImpl<CategoryRecord> {
         return new Category(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Category rename(Table<?> name) {
+        return new Category(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row5 type methods
     // -------------------------------------------------------------------------
@@ -166,5 +183,20 @@ public class Category extends TableImpl<CategoryRecord> {
     @Override
     public Row5<String, String, String, Boolean, Boolean> fieldsRow() {
         return (Row5) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function5<? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

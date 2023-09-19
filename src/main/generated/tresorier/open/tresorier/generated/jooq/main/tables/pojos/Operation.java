@@ -15,19 +15,19 @@ public class Operation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  id;
-    private final String  accountId;
+    private final String id;
+    private final String accountId;
     private final Integer month;
     private final Integer day;
-    private final String  categoryId;
-    private final String  memo;
+    private final String categoryId;
+    private final String memo;
     private final Integer amount;
-    private final Long    orderInDay;
+    private final Long orderInDay;
     private final Boolean pending;
     private final Boolean locked;
-    private final String  motherOperationId;
-    private final String  importIdentifier;
-    private final Long    importTimestamp;
+    private final String motherOperationId;
+    private final String importIdentifier;
+    private final Long importTimestamp;
 
     public Operation(Operation value) {
         this.id = value.id;
@@ -46,19 +46,19 @@ public class Operation implements Serializable {
     }
 
     public Operation(
-        String  id,
-        String  accountId,
+        String id,
+        String accountId,
         Integer month,
         Integer day,
-        String  categoryId,
-        String  memo,
+        String categoryId,
+        String memo,
         Integer amount,
-        Long    orderInDay,
+        Long orderInDay,
         Boolean pending,
         Boolean locked,
-        String  motherOperationId,
-        String  importIdentifier,
-        Long    importTimestamp
+        String motherOperationId,
+        String importIdentifier,
+        Long importTimestamp
     ) {
         this.id = id;
         this.accountId = accountId;
@@ -164,6 +164,116 @@ public class Operation implements Serializable {
      */
     public Long getImportTimestamp() {
         return this.importTimestamp;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Operation other = (Operation) obj;
+        if (this.id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!this.id.equals(other.id))
+            return false;
+        if (this.accountId == null) {
+            if (other.accountId != null)
+                return false;
+        }
+        else if (!this.accountId.equals(other.accountId))
+            return false;
+        if (this.month == null) {
+            if (other.month != null)
+                return false;
+        }
+        else if (!this.month.equals(other.month))
+            return false;
+        if (this.day == null) {
+            if (other.day != null)
+                return false;
+        }
+        else if (!this.day.equals(other.day))
+            return false;
+        if (this.categoryId == null) {
+            if (other.categoryId != null)
+                return false;
+        }
+        else if (!this.categoryId.equals(other.categoryId))
+            return false;
+        if (this.memo == null) {
+            if (other.memo != null)
+                return false;
+        }
+        else if (!this.memo.equals(other.memo))
+            return false;
+        if (this.amount == null) {
+            if (other.amount != null)
+                return false;
+        }
+        else if (!this.amount.equals(other.amount))
+            return false;
+        if (this.orderInDay == null) {
+            if (other.orderInDay != null)
+                return false;
+        }
+        else if (!this.orderInDay.equals(other.orderInDay))
+            return false;
+        if (this.pending == null) {
+            if (other.pending != null)
+                return false;
+        }
+        else if (!this.pending.equals(other.pending))
+            return false;
+        if (this.locked == null) {
+            if (other.locked != null)
+                return false;
+        }
+        else if (!this.locked.equals(other.locked))
+            return false;
+        if (this.motherOperationId == null) {
+            if (other.motherOperationId != null)
+                return false;
+        }
+        else if (!this.motherOperationId.equals(other.motherOperationId))
+            return false;
+        if (this.importIdentifier == null) {
+            if (other.importIdentifier != null)
+                return false;
+        }
+        else if (!this.importIdentifier.equals(other.importIdentifier))
+            return false;
+        if (this.importTimestamp == null) {
+            if (other.importTimestamp != null)
+                return false;
+        }
+        else if (!this.importTimestamp.equals(other.importTimestamp))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.accountId == null) ? 0 : this.accountId.hashCode());
+        result = prime * result + ((this.month == null) ? 0 : this.month.hashCode());
+        result = prime * result + ((this.day == null) ? 0 : this.day.hashCode());
+        result = prime * result + ((this.categoryId == null) ? 0 : this.categoryId.hashCode());
+        result = prime * result + ((this.memo == null) ? 0 : this.memo.hashCode());
+        result = prime * result + ((this.amount == null) ? 0 : this.amount.hashCode());
+        result = prime * result + ((this.orderInDay == null) ? 0 : this.orderInDay.hashCode());
+        result = prime * result + ((this.pending == null) ? 0 : this.pending.hashCode());
+        result = prime * result + ((this.locked == null) ? 0 : this.locked.hashCode());
+        result = prime * result + ((this.motherOperationId == null) ? 0 : this.motherOperationId.hashCode());
+        result = prime * result + ((this.importIdentifier == null) ? 0 : this.importIdentifier.hashCode());
+        result = prime * result + ((this.importTimestamp == null) ? 0 : this.importTimestamp.hashCode());
+        return result;
     }
 
     @Override

@@ -622,6 +622,7 @@ public class RoutinesRecord extends TableRecordImpl<RoutinesRecord> {
         setGeometryType(geometryType);
         setGeometrySrid(geometrySrid);
         setRemarks(remarks);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -667,6 +668,7 @@ public class RoutinesRecord extends TableRecordImpl<RoutinesRecord> {
             setGeometryType(value.getGeometryType());
             setGeometrySrid(value.getGeometrySrid());
             setRemarks(value.getRemarks());
+            resetChangedOnNotNull();
         }
     }
 }

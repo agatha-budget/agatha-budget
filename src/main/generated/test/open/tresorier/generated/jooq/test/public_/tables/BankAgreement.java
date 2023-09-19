@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
@@ -13,10 +14,13 @@ import open.tresorier.generated.jooq.test.public_.tables.records.BankAgreementRe
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function7;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row7;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -65,22 +69,22 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
     /**
      * The column <code>PUBLIC.BANK_AGREEMENT.TIMESTAMP</code>.
      */
-    public final TableField<BankAgreementRecord, Long> TIMESTAMP = createField(DSL.name("TIMESTAMP"), SQLDataType.BIGINT.defaultValue(DSL.field("0", SQLDataType.BIGINT)), this, "");
+    public final TableField<BankAgreementRecord, Long> TIMESTAMP = createField(DSL.name("TIMESTAMP"), SQLDataType.BIGINT.defaultValue(DSL.field(DSL.raw("0"), SQLDataType.BIGINT)), this, "");
 
     /**
      * The column <code>PUBLIC.BANK_AGREEMENT.NORDIGEN_REQUISITION_ID</code>.
      */
-    public final TableField<BankAgreementRecord, String> NORDIGEN_REQUISITION_ID = createField(DSL.name("NORDIGEN_REQUISITION_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL", SQLDataType.VARCHAR)), this, "");
+    public final TableField<BankAgreementRecord, String> NORDIGEN_REQUISITION_ID = createField(DSL.name("NORDIGEN_REQUISITION_ID"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>PUBLIC.BANK_AGREEMENT.ARCHIVED</code>.
      */
-    public final TableField<BankAgreementRecord, Boolean> ARCHIVED = createField(DSL.name("ARCHIVED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<BankAgreementRecord, Boolean> ARCHIVED = createField(DSL.name("ARCHIVED"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>PUBLIC.BANK_AGREEMENT.DELETED</code>.
      */
-    public final TableField<BankAgreementRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field("FALSE", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<BankAgreementRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     private BankAgreement(Name alias, Table<BankAgreementRecord> aliased) {
         this(alias, aliased, null);
@@ -152,6 +156,11 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
         return new BankAgreement(alias, this);
     }
 
+    @Override
+    public BankAgreement as(Table<?> alias) {
+        return new BankAgreement(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -168,6 +177,14 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
         return new BankAgreement(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public BankAgreement rename(Table<?> name) {
+        return new BankAgreement(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row7 type methods
     // -------------------------------------------------------------------------
@@ -175,5 +192,20 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
     @Override
     public Row7<String, String, String, Long, String, Boolean, Boolean> fieldsRow() {
         return (Row7) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function7<? super String, ? super String, ? super String, ? super Long, ? super String, ? super Boolean, ? super Boolean, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super String, ? super String, ? super String, ? super Long, ? super String, ? super Boolean, ? super Boolean, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

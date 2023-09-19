@@ -366,6 +366,7 @@ public class TablePrivilegesRecord extends TableRecordImpl<TablePrivilegesRecord
         setPrivilegeType(privilegeType);
         setIsGrantable(isGrantable);
         setWithHierarchy(withHierarchy);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -383,6 +384,7 @@ public class TablePrivilegesRecord extends TableRecordImpl<TablePrivilegesRecord
             setPrivilegeType(value.getPrivilegeType());
             setIsGrantable(value.getIsGrantable());
             setWithHierarchy(value.getWithHierarchy());
+            resetChangedOnNotNull();
         }
     }
 }

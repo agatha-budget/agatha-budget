@@ -15,24 +15,24 @@ public class Sequences implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  sequenceCatalog;
-    private final String  sequenceSchema;
-    private final String  sequenceName;
-    private final String  dataType;
+    private final String sequenceCatalog;
+    private final String sequenceSchema;
+    private final String sequenceName;
+    private final String dataType;
     private final Integer numericPrecision;
     private final Integer numericPrecisionRadix;
     private final Integer numericScale;
-    private final Long    startValue;
-    private final Long    minimumValue;
-    private final Long    maximumValue;
-    private final Long    increment;
-    private final String  cycleOption;
-    private final String  declaredDataType;
+    private final Long startValue;
+    private final Long minimumValue;
+    private final Long maximumValue;
+    private final Long increment;
+    private final String cycleOption;
+    private final String declaredDataType;
     private final Integer declaredNumericPrecision;
     private final Integer declaredNumericScale;
-    private final Long    baseValue;
-    private final Long    cache;
-    private final String  remarks;
+    private final Long baseValue;
+    private final Long cache;
+    private final String remarks;
 
     public Sequences(Sequences value) {
         this.sequenceCatalog = value.sequenceCatalog;
@@ -56,24 +56,24 @@ public class Sequences implements Serializable {
     }
 
     public Sequences(
-        String  sequenceCatalog,
-        String  sequenceSchema,
-        String  sequenceName,
-        String  dataType,
+        String sequenceCatalog,
+        String sequenceSchema,
+        String sequenceName,
+        String dataType,
         Integer numericPrecision,
         Integer numericPrecisionRadix,
         Integer numericScale,
-        Long    startValue,
-        Long    minimumValue,
-        Long    maximumValue,
-        Long    increment,
-        String  cycleOption,
-        String  declaredDataType,
+        Long startValue,
+        Long minimumValue,
+        Long maximumValue,
+        Long increment,
+        String cycleOption,
+        String declaredDataType,
         Integer declaredNumericPrecision,
         Integer declaredNumericScale,
-        Long    baseValue,
-        Long    cache,
-        String  remarks
+        Long baseValue,
+        Long cache,
+        String remarks
     ) {
         this.sequenceCatalog = sequenceCatalog;
         this.sequenceSchema = sequenceSchema;
@@ -222,6 +222,151 @@ public class Sequences implements Serializable {
      */
     public String getRemarks() {
         return this.remarks;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Sequences other = (Sequences) obj;
+        if (this.sequenceCatalog == null) {
+            if (other.sequenceCatalog != null)
+                return false;
+        }
+        else if (!this.sequenceCatalog.equals(other.sequenceCatalog))
+            return false;
+        if (this.sequenceSchema == null) {
+            if (other.sequenceSchema != null)
+                return false;
+        }
+        else if (!this.sequenceSchema.equals(other.sequenceSchema))
+            return false;
+        if (this.sequenceName == null) {
+            if (other.sequenceName != null)
+                return false;
+        }
+        else if (!this.sequenceName.equals(other.sequenceName))
+            return false;
+        if (this.dataType == null) {
+            if (other.dataType != null)
+                return false;
+        }
+        else if (!this.dataType.equals(other.dataType))
+            return false;
+        if (this.numericPrecision == null) {
+            if (other.numericPrecision != null)
+                return false;
+        }
+        else if (!this.numericPrecision.equals(other.numericPrecision))
+            return false;
+        if (this.numericPrecisionRadix == null) {
+            if (other.numericPrecisionRadix != null)
+                return false;
+        }
+        else if (!this.numericPrecisionRadix.equals(other.numericPrecisionRadix))
+            return false;
+        if (this.numericScale == null) {
+            if (other.numericScale != null)
+                return false;
+        }
+        else if (!this.numericScale.equals(other.numericScale))
+            return false;
+        if (this.startValue == null) {
+            if (other.startValue != null)
+                return false;
+        }
+        else if (!this.startValue.equals(other.startValue))
+            return false;
+        if (this.minimumValue == null) {
+            if (other.minimumValue != null)
+                return false;
+        }
+        else if (!this.minimumValue.equals(other.minimumValue))
+            return false;
+        if (this.maximumValue == null) {
+            if (other.maximumValue != null)
+                return false;
+        }
+        else if (!this.maximumValue.equals(other.maximumValue))
+            return false;
+        if (this.increment == null) {
+            if (other.increment != null)
+                return false;
+        }
+        else if (!this.increment.equals(other.increment))
+            return false;
+        if (this.cycleOption == null) {
+            if (other.cycleOption != null)
+                return false;
+        }
+        else if (!this.cycleOption.equals(other.cycleOption))
+            return false;
+        if (this.declaredDataType == null) {
+            if (other.declaredDataType != null)
+                return false;
+        }
+        else if (!this.declaredDataType.equals(other.declaredDataType))
+            return false;
+        if (this.declaredNumericPrecision == null) {
+            if (other.declaredNumericPrecision != null)
+                return false;
+        }
+        else if (!this.declaredNumericPrecision.equals(other.declaredNumericPrecision))
+            return false;
+        if (this.declaredNumericScale == null) {
+            if (other.declaredNumericScale != null)
+                return false;
+        }
+        else if (!this.declaredNumericScale.equals(other.declaredNumericScale))
+            return false;
+        if (this.baseValue == null) {
+            if (other.baseValue != null)
+                return false;
+        }
+        else if (!this.baseValue.equals(other.baseValue))
+            return false;
+        if (this.cache == null) {
+            if (other.cache != null)
+                return false;
+        }
+        else if (!this.cache.equals(other.cache))
+            return false;
+        if (this.remarks == null) {
+            if (other.remarks != null)
+                return false;
+        }
+        else if (!this.remarks.equals(other.remarks))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.sequenceCatalog == null) ? 0 : this.sequenceCatalog.hashCode());
+        result = prime * result + ((this.sequenceSchema == null) ? 0 : this.sequenceSchema.hashCode());
+        result = prime * result + ((this.sequenceName == null) ? 0 : this.sequenceName.hashCode());
+        result = prime * result + ((this.dataType == null) ? 0 : this.dataType.hashCode());
+        result = prime * result + ((this.numericPrecision == null) ? 0 : this.numericPrecision.hashCode());
+        result = prime * result + ((this.numericPrecisionRadix == null) ? 0 : this.numericPrecisionRadix.hashCode());
+        result = prime * result + ((this.numericScale == null) ? 0 : this.numericScale.hashCode());
+        result = prime * result + ((this.startValue == null) ? 0 : this.startValue.hashCode());
+        result = prime * result + ((this.minimumValue == null) ? 0 : this.minimumValue.hashCode());
+        result = prime * result + ((this.maximumValue == null) ? 0 : this.maximumValue.hashCode());
+        result = prime * result + ((this.increment == null) ? 0 : this.increment.hashCode());
+        result = prime * result + ((this.cycleOption == null) ? 0 : this.cycleOption.hashCode());
+        result = prime * result + ((this.declaredDataType == null) ? 0 : this.declaredDataType.hashCode());
+        result = prime * result + ((this.declaredNumericPrecision == null) ? 0 : this.declaredNumericPrecision.hashCode());
+        result = prime * result + ((this.declaredNumericScale == null) ? 0 : this.declaredNumericScale.hashCode());
+        result = prime * result + ((this.baseValue == null) ? 0 : this.baseValue.hashCode());
+        result = prime * result + ((this.cache == null) ? 0 : this.cache.hashCode());
+        result = prime * result + ((this.remarks == null) ? 0 : this.remarks.hashCode());
+        return result;
     }
 
     @Override

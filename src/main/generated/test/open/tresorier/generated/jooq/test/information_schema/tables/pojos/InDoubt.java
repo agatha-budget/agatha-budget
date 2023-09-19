@@ -46,6 +46,39 @@ public class InDoubt implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final InDoubt other = (InDoubt) obj;
+        if (this.transactionName == null) {
+            if (other.transactionName != null)
+                return false;
+        }
+        else if (!this.transactionName.equals(other.transactionName))
+            return false;
+        if (this.transactionState == null) {
+            if (other.transactionState != null)
+                return false;
+        }
+        else if (!this.transactionState.equals(other.transactionState))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.transactionName == null) ? 0 : this.transactionName.hashCode());
+        result = prime * result + ((this.transactionState == null) ? 0 : this.transactionState.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("InDoubt (");
 

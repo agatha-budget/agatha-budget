@@ -15,11 +15,11 @@ public class BankAgreement implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  id;
-    private final String  budgetId;
-    private final String  bankId;
-    private final Long    timestamp;
-    private final String  nordigenRequisitionId;
+    private final String id;
+    private final String budgetId;
+    private final String bankId;
+    private final Long timestamp;
+    private final String nordigenRequisitionId;
     private final Boolean archived;
     private final Boolean deleted;
 
@@ -34,11 +34,11 @@ public class BankAgreement implements Serializable {
     }
 
     public BankAgreement(
-        String  id,
-        String  budgetId,
-        String  bankId,
-        Long    timestamp,
-        String  nordigenRequisitionId,
+        String id,
+        String budgetId,
+        String bankId,
+        Long timestamp,
+        String nordigenRequisitionId,
         Boolean archived,
         Boolean deleted
     ) {
@@ -98,6 +98,74 @@ public class BankAgreement implements Serializable {
      */
     public Boolean getDeleted() {
         return this.deleted;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final BankAgreement other = (BankAgreement) obj;
+        if (this.id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!this.id.equals(other.id))
+            return false;
+        if (this.budgetId == null) {
+            if (other.budgetId != null)
+                return false;
+        }
+        else if (!this.budgetId.equals(other.budgetId))
+            return false;
+        if (this.bankId == null) {
+            if (other.bankId != null)
+                return false;
+        }
+        else if (!this.bankId.equals(other.bankId))
+            return false;
+        if (this.timestamp == null) {
+            if (other.timestamp != null)
+                return false;
+        }
+        else if (!this.timestamp.equals(other.timestamp))
+            return false;
+        if (this.nordigenRequisitionId == null) {
+            if (other.nordigenRequisitionId != null)
+                return false;
+        }
+        else if (!this.nordigenRequisitionId.equals(other.nordigenRequisitionId))
+            return false;
+        if (this.archived == null) {
+            if (other.archived != null)
+                return false;
+        }
+        else if (!this.archived.equals(other.archived))
+            return false;
+        if (this.deleted == null) {
+            if (other.deleted != null)
+                return false;
+        }
+        else if (!this.deleted.equals(other.deleted))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.budgetId == null) ? 0 : this.budgetId.hashCode());
+        result = prime * result + ((this.bankId == null) ? 0 : this.bankId.hashCode());
+        result = prime * result + ((this.timestamp == null) ? 0 : this.timestamp.hashCode());
+        result = prime * result + ((this.nordigenRequisitionId == null) ? 0 : this.nordigenRequisitionId.hashCode());
+        result = prime * result + ((this.archived == null) ? 0 : this.archived.hashCode());
+        result = prime * result + ((this.deleted == null) ? 0 : this.deleted.hashCode());
+        return result;
     }
 
     @Override

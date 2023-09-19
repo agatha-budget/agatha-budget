@@ -522,6 +522,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
         setCreationDate(creationDate);
         setStyle(style);
         setDyslexia(dyslexia);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -543,6 +544,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> implements R
             setCreationDate(value.getCreationDate());
             setStyle(value.getStyle());
             setDyslexia(value.getDyslexia());
+            resetChangedOnNotNull();
         }
     }
 }

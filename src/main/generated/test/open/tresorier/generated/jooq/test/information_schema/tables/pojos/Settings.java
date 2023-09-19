@@ -46,6 +46,39 @@ public class Settings implements Serializable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Settings other = (Settings) obj;
+        if (this.settingName == null) {
+            if (other.settingName != null)
+                return false;
+        }
+        else if (!this.settingName.equals(other.settingName))
+            return false;
+        if (this.settingValue == null) {
+            if (other.settingValue != null)
+                return false;
+        }
+        else if (!this.settingValue.equals(other.settingValue))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.settingName == null) ? 0 : this.settingName.hashCode());
+        result = prime * result + ((this.settingValue == null) ? 0 : this.settingValue.hashCode());
+        return result;
+    }
+
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Settings (");
 

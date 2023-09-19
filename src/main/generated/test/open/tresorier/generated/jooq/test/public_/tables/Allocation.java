@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
@@ -14,10 +15,13 @@ import open.tresorier.generated.jooq.test.public_.tables.records.AllocationRecor
 import org.jooq.Check;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function3;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row3;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -62,7 +66,7 @@ public class Allocation extends TableImpl<AllocationRecord> {
     /**
      * The column <code>PUBLIC.ALLOCATION.AMOUNT</code>.
      */
-    public final TableField<AllocationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.field("0", SQLDataType.INTEGER)), this, "");
+    public final TableField<AllocationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.field(DSL.raw("0"), SQLDataType.INTEGER)), this, "");
 
     private Allocation(Name alias, Table<AllocationRecord> aliased) {
         this(alias, aliased, null);
@@ -142,6 +146,11 @@ public class Allocation extends TableImpl<AllocationRecord> {
         return new Allocation(alias, this);
     }
 
+    @Override
+    public Allocation as(Table<?> alias) {
+        return new Allocation(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -158,6 +167,14 @@ public class Allocation extends TableImpl<AllocationRecord> {
         return new Allocation(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public Allocation rename(Table<?> name) {
+        return new Allocation(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row3 type methods
     // -------------------------------------------------------------------------
@@ -165,5 +182,20 @@ public class Allocation extends TableImpl<AllocationRecord> {
     @Override
     public Row3<String, Integer, Integer> fieldsRow() {
         return (Row3) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function3<? super String, ? super Integer, ? super Integer, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super String, ? super Integer, ? super Integer, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

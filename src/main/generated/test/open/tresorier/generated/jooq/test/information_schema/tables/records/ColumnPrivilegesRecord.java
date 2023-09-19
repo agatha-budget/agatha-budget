@@ -368,6 +368,7 @@ public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesReco
         setColumnName(columnName);
         setPrivilegeType(privilegeType);
         setIsGrantable(isGrantable);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -385,6 +386,7 @@ public class ColumnPrivilegesRecord extends TableRecordImpl<ColumnPrivilegesReco
             setColumnName(value.getColumnName());
             setPrivilegeType(value.getPrivilegeType());
             setIsGrantable(value.getIsGrantable());
+            resetChangedOnNotNull();
         }
     }
 }

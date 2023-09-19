@@ -132,6 +132,7 @@ public class SessionStateRecord extends TableRecordImpl<SessionStateRecord> impl
 
         setStateKey(stateKey);
         setStateCommand(stateCommand);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -143,6 +144,7 @@ public class SessionStateRecord extends TableRecordImpl<SessionStateRecord> impl
         if (value != null) {
             setStateKey(value.getStateKey());
             setStateCommand(value.getStateCommand());
+            resetChangedOnNotNull();
         }
     }
 }

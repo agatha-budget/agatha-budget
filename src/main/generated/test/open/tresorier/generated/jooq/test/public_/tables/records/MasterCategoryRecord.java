@@ -256,6 +256,7 @@ public class MasterCategoryRecord extends UpdatableRecordImpl<MasterCategoryReco
         setName(name);
         setDeleted(deleted);
         setColor(color);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -270,6 +271,7 @@ public class MasterCategoryRecord extends UpdatableRecordImpl<MasterCategoryReco
             setName(value.getName());
             setDeleted(value.getDeleted());
             setColor(value.getColor());
+            resetChangedOnNotNull();
         }
     }
 }
