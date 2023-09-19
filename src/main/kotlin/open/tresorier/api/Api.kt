@@ -58,10 +58,10 @@ fun main() {
     }
 
     app.post("/signup") { ctx ->
-        val name = ctx.queryParam<String>("name").get()
-        val password = ctx.queryParam<String>("password").get()
-        val email = ctx.queryParam<String>("email").get()
-        val profileString = ctx.queryParam<String>("profile").get()
+        val name = getQueryParam<String>(ctx, "name")
+        val password = getQueryParam<String>(ctx, "password")
+        val email = getQueryParam<String>(ctx, "email")
+        val profileString = getQueryParam<String>(ctx,"profile")
         val profile: ProfileEnum = ProfileEnum.valueOf(profileString)
         val person: Person = ServiceManager.personService.createPerson(name, password, email, profile)
        // SuperTokens.newSession(ctx, person.id).create()
@@ -96,7 +96,7 @@ fun main() {
         if (person.billingId != null) {
             ctx.result(BillingService.createBillingManagementSession(person))
         } else {
-            val packageString = ctx.queryParam<String>("package").get()
+            val packageString = getQueryParam<String>(ctx, "package")
             val selectedPackage: PriceIdEnum = PriceIdEnum.valueOf(packageString)
             ctx.result(BillingService.createNewUserBillingSession(person, selectedPackage))
         }

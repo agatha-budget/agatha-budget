@@ -18,15 +18,15 @@ fun getHerokuAssignedOrDefaultPort(): Int {
 
 fun getUserFromAuth(ctx: Context): Person {
     // val validSession = SuperTokens.getFromContext(ctx)
-    val userId = validSession.userId
+    //val userId = validSession.userId
+    val userId = "afwe"
     return ServiceManager.personService.getById(userId)
 }
 
 inline fun <reified T: Any> getQueryParam(ctx: Context, paramName: String) : T {
-    return ctx.queryParam<T>(paramName).get()
+    return ctx.queryParamAsClass(paramName, T::class.java).get()
 }
 
 inline fun <reified T: Any> getOptionalQueryParam(ctx: Context, paramName: String) : T? {
-    val param = ctx.queryParam<T>(paramName).getOrNull()
-    return if (param == "null") null else param
+    return ctx.queryParamAsClass(paramName, T::class.java).allowNullable().get()
 }
