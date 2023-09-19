@@ -37,7 +37,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "1.4.10"
+    kotlin("jvm") version "1.9.10"
     id("org.jetbrains.dokka") version "1.4.0-rc"
     id("org.flywaydb.flyway") version "9.3.1"
     id("nu.studer.jooq") version "7.1.1"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
@@ -47,7 +47,6 @@ plugins {
 
 repositories {
     mavenCentral();
-    jcenter()
 }
 
 val generatedDir = "src/main/generated"
@@ -79,7 +78,7 @@ val intTestRuntimeOnly by configurations.getting {
 
 
 // Lib Versions
-val kotlin_version="1.4.10"
+val kotlin_version="1.9.10" // aout 2023
 val koin_version= "3.0.1-beta-2"
 val junit_version="5.1.1"
 val postgres_version="42.2.12"
@@ -88,8 +87,8 @@ val jooq_version="3.17.4"
 val mock_version="1.10.5"
 val logback_version="1.3.5"
 val javalin_version="3.11.0"
+val pac4j_version="6.0.0"  // aout 2023
 val jackson_version="2.10.3"
-val supertoken_version="1.4.+"
 val argon_version="2.7"
 val stripe_version="20.85.0"
 val json_version="20220320"
@@ -103,12 +102,14 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
 
     // API and Serialisation
-    implementation("io.javalin:javalin:$javalin_version")
+    implementation("io.javalin:javalin:$javalin_version") 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
 
     // Authentication
-    implementation("io.supertokens:javalin:$supertoken_version")
+    implementation("org.pac4j:javalin-pac4j:$pac4j_version")
+    implementation("org.pac4j:pac4j-oidc:$pac4j_version-RC8")
+
 
     // password encryption
     implementation("de.mkammerer:argon2-jvm:$argon_version")

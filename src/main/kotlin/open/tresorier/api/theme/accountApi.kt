@@ -2,8 +2,6 @@ package open.tresorier.api.theme
 
 import io.javalin.Javalin
 import io.javalin.http.Context
-import io.supertokens.javalin.SuperTokens
-import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
@@ -19,7 +17,6 @@ import open.tresorier.api.*
 
 fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService: BudgetService, bankingService: BankingService) : Javalin {
 
-    app.before("/account", SuperTokens.middleware())
     app.post("/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
@@ -47,7 +44,6 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         ctx.result("account ${account.name} has been deleted")
     }
 
-    app.before("/account/bank", SuperTokens.middleware())
     app.put("/account/bank") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
@@ -58,7 +54,6 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         ctx.result("updated")
     }
 
-    app.before("/account/budget", SuperTokens.middleware())
     app.get("/account/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))

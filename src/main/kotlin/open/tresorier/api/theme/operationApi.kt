@@ -2,8 +2,6 @@ package open.tresorier.api.theme
 
 import io.javalin.Javalin
 import io.javalin.http.Context
-import io.supertokens.javalin.SuperTokens
-import io.supertokens.javalin.core.exception.SuperTokensException
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.exception.SuspendedUserException
@@ -15,7 +13,6 @@ import open.tresorier.api.*
 
 fun addOperationRoute(app : Javalin, accountService: AccountService, budgetService: BudgetService, categoryService: CategoryService, operationService: OperationService) : Javalin {
 
-    app.before("/operation", SuperTokens.middleware())
     app.post("/operation") { ctx ->
         //required
         val user = getUserFromAuth(ctx)
@@ -67,7 +64,6 @@ fun addOperationRoute(app : Javalin, accountService: AccountService, budgetServi
         ctx.result("account ${operation.id} has been deleted")
     }
 
-    app.before("/operation/account", SuperTokens.middleware())
     app.get("/operation/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
@@ -77,7 +73,6 @@ fun addOperationRoute(app : Javalin, accountService: AccountService, budgetServi
         ctx.json(operations)
     }
 
-    app.before("/operation/budget", SuperTokens.middleware())
     app.get("/operation/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
@@ -87,7 +82,6 @@ fun addOperationRoute(app : Javalin, accountService: AccountService, budgetServi
         ctx.json(operations)
     }
  
-    app.before("/operation/import", SuperTokens.middleware())
     app.post("/operation/import") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
