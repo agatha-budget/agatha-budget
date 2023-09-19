@@ -28,13 +28,22 @@ val INTEGRATION_DB_URL = System.getenv(INTEGRATION_DB_ID +"_URL") ?: INTEGRATION
 val INTEGRATION_DB_USR = System.getenv(INTEGRATION_DB_ID + "_USERNAME") ?: INTEGRATION_DB_USR_DFLT
 val INTEGRATION_DB_PWD = System.getenv(INTEGRATION_DB_ID + "_PASSWORD") ?: INTEGRATION_DB_PWD_DFLT
 
-buildscript {
-    dependencies {
-        classpath("org.postgresql:postgresql:42.2.12")
-        classpath("com.h2database:h2:2.0.206")
 
-    }
-}
+// Lib Versions
+val kotlin_version="1.9.10" // aout 2023
+val koin_version= "3.5.0" // septembre 2023
+val junit_version="5.10.0" // juillet 2023
+val postgres_version="42.6.0" // mars 2023
+val h2_version="2.2.224" // septembre 2023
+val jooq_version="3.18.6" //aout 2023
+val mock_version="1.10.5"
+val logback_version="1.3.5"
+val javalin_version="5.6.2" // juillet 2023
+val pac4j_version="6.0.0"  // aout 2023
+val jackson_version="2.10.3"
+val argon_version="2.7"
+val stripe_version="20.85.0"
+val json_version="20220320"
 
 plugins {
     kotlin("jvm") version "1.9.10"
@@ -75,24 +84,6 @@ val intTestImplementation by configurations.getting {
 val intTestRuntimeOnly by configurations.getting {
     extendsFrom(configurations.runtimeOnly.get())
 }
-
-
-// Lib Versions
-val kotlin_version="1.9.10" // aout 2023
-val koin_version= "3.5.0" // septembre 2023
-val junit_version="5.1.1"
-val postgres_version="42.2.12"
-val h2_version="2.1.214"
-val jooq_version="3.17.4"
-val mock_version="1.10.5"
-val logback_version="1.3.5"
-val javalin_version="5.6.2" // juillet 2023
-val pac4j_version="6.0.0"  // aout 2023
-val jackson_version="2.10.3"
-val argon_version="2.7"
-val stripe_version="20.85.0"
-val json_version="20220320"
-
 
 dependencies {
     // Kotlin
