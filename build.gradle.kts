@@ -34,22 +34,23 @@ val kotlin_version="1.9.10" // aout 2023
 val koin_version= "3.5.0" // septembre 2023
 val junit_version="5.10.0" // juillet 2023
 val postgres_version="42.6.0" // mars 2023
+val flyway_version="9.22.1" // septembre 2023
 val h2_version="2.2.224" // septembre 2023
 val jooq_version="3.18.6" //aout 2023
-val mock_version="1.10.5"
-val logback_version="1.3.5"
+val mock_version="1.13.7" //aout 2023
+val logback_version="1.4.11" // aout 2023
 val javalin_version="5.6.2" // juillet 2023
 val pac4j_version="6.0.0"  // aout 2023
-val jackson_version="2.10.3"
-val argon_version="2.7"
-val stripe_version="20.85.0"
-val json_version="20220320"
+val jackson_version="2.15.2" // mai 2023
+val argon_version="2.11" // octobre 2021
+val stripe_version="23.5.0" // septembre 2023 
+val json_version="20230618" // juin 2023
 
 plugins {
-    kotlin("jvm") version "1.9.10"
-    id("org.jetbrains.dokka") version "1.4.0-rc"
-    id("org.flywaydb.flyway") version "9.3.1"
-    id("nu.studer.jooq") version "7.1.1"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
+    kotlin("jvm") version "1.9.10" // cf kotlin_version
+    id("org.jetbrains.dokka") version "1.9.0" // aout 2023
+    id("org.flywaydb.flyway") version "9.22.1" // septembre 2023
+    id("nu.studer.jooq") version "8.2"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
     jacoco
     application
 }
