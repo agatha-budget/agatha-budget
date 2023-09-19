@@ -124,7 +124,7 @@ fun main() {
 
     app.delete("/logout") { ctx ->
         //val session = SuperTokens.getFromContext(ctx)
-        session.revokeSession()
+        //session.revokeSession()
         ctx.result("you've been logged out")
     }
 
@@ -237,13 +237,17 @@ private fun setUpApp(properties: Properties): Javalin {
     val environmentStatus = properties.get(ENVIRONMENT)
     val app = Javalin.create { config ->
             if (environmentStatus == "dev") {
-                config.enableCorsForAllOrigins()
+                config.plugins.enableCors { cors ->
+                    cors.add { it -> 
+                        it.anyHost()
+                    }
+                }
             } else {
-                config.enableCorsForOrigin(
-                    properties.get(ALLOWED_ORIGIN_FRONT),
-                    properties.get(ALLOWED_ORIGIN_BETA_FRONT),
-                    properties.get(ALLOWED_ORIGIN_STRIPE)
-                )
+                config.plugins.enableCors { cors ->
+                    cors.add { it ->
+                        it.allowHost(properties.get(ALLOWED_ORIGIN_FRONT), properties.get(ALLOWED_ORIGIN_BETA_FRONT), properties.get(ALLOWED_ORIGIN_STRIPE))
+                    }
+                }
             }
     }.start(getHerokuAssignedOrDefaultPort())
 
