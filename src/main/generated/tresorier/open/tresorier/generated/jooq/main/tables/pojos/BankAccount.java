@@ -15,11 +15,11 @@ public class BankAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  id;
-    private final String  name;
-    private final String  agreementId;
+    private final String id;
+    private final String name;
+    private final String agreementId;
     private final Boolean deleted;
-    private final String  bankId;
+    private final String bankId;
 
     public BankAccount(BankAccount value) {
         this.id = value.id;
@@ -30,11 +30,11 @@ public class BankAccount implements Serializable {
     }
 
     public BankAccount(
-        String  id,
-        String  name,
-        String  agreementId,
+        String id,
+        String name,
+        String agreementId,
         Boolean deleted,
-        String  bankId
+        String bankId
     ) {
         this.id = id;
         this.name = name;
@@ -76,6 +76,60 @@ public class BankAccount implements Serializable {
      */
     public String getBankId() {
         return this.bankId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final BankAccount other = (BankAccount) obj;
+        if (this.id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!this.id.equals(other.id))
+            return false;
+        if (this.name == null) {
+            if (other.name != null)
+                return false;
+        }
+        else if (!this.name.equals(other.name))
+            return false;
+        if (this.agreementId == null) {
+            if (other.agreementId != null)
+                return false;
+        }
+        else if (!this.agreementId.equals(other.agreementId))
+            return false;
+        if (this.deleted == null) {
+            if (other.deleted != null)
+                return false;
+        }
+        else if (!this.deleted.equals(other.deleted))
+            return false;
+        if (this.bankId == null) {
+            if (other.bankId != null)
+                return false;
+        }
+        else if (!this.bankId.equals(other.bankId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.agreementId == null) ? 0 : this.agreementId.hashCode());
+        result = prime * result + ((this.deleted == null) ? 0 : this.deleted.hashCode());
+        result = prime * result + ((this.bankId == null) ? 0 : this.bankId.hashCode());
+        return result;
     }
 
     @Override

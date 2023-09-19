@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.main.tables;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.main.Keys;
 import open.tresorier.generated.jooq.main.Public;
@@ -13,10 +14,13 @@ import open.tresorier.generated.jooq.main.tables.records.MasterCategoryRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function5;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row5;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -65,12 +69,12 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
     /**
      * The column <code>public.master_category.deleted</code>.
      */
-    public final TableField<MasterCategoryRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<MasterCategoryRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.master_category.color</code>.
      */
-    public final TableField<MasterCategoryRecord, String> COLOR = createField(DSL.name("color"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL::character varying", SQLDataType.VARCHAR)), this, "");
+    public final TableField<MasterCategoryRecord, String> COLOR = createField(DSL.name("color"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL::character varying"), SQLDataType.VARCHAR)), this, "");
 
     private MasterCategory(Name alias, Table<MasterCategoryRecord> aliased) {
         this(alias, aliased, null);
@@ -142,6 +146,11 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
         return new MasterCategory(alias, this);
     }
 
+    @Override
+    public MasterCategory as(Table<?> alias) {
+        return new MasterCategory(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -158,6 +167,14 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
         return new MasterCategory(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public MasterCategory rename(Table<?> name) {
+        return new MasterCategory(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row5 type methods
     // -------------------------------------------------------------------------
@@ -165,5 +182,20 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
     @Override
     public Row5<String, String, String, Boolean, String> fieldsRow() {
         return (Row5) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function5<? super String, ? super String, ? super String, ? super Boolean, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super String, ? super String, ? super String, ? super Boolean, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

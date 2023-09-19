@@ -332,6 +332,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
         setNordigenRequisitionId(nordigenRequisitionId);
         setArchived(archived);
         setDeleted(deleted);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -348,6 +349,7 @@ public class BankAgreementRecord extends UpdatableRecordImpl<BankAgreementRecord
             setNordigenRequisitionId(value.getNordigenRequisitionId());
             setArchived(value.getArchived());
             setDeleted(value.getDeleted());
+            resetChangedOnNotNull();
         }
     }
 }

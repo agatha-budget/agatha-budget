@@ -6,6 +6,7 @@ package open.tresorier.generated.jooq.main.tables;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.main.Keys;
 import open.tresorier.generated.jooq.main.Public;
@@ -13,10 +14,13 @@ import open.tresorier.generated.jooq.main.tables.records.BankAccountRecord;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function5;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row5;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -65,12 +69,12 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
     /**
      * The column <code>public.bank_account.deleted</code>.
      */
-    public final TableField<BankAccountRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
+    public final TableField<BankAccountRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     /**
      * The column <code>public.bank_account.bank_id</code>.
      */
-    public final TableField<BankAccountRecord, String> BANK_ID = createField(DSL.name("bank_id"), SQLDataType.VARCHAR(36).defaultValue(DSL.field("NULL::character varying", SQLDataType.VARCHAR)), this, "");
+    public final TableField<BankAccountRecord, String> BANK_ID = createField(DSL.name("bank_id"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL::character varying"), SQLDataType.VARCHAR)), this, "");
 
     private BankAccount(Name alias, Table<BankAccountRecord> aliased) {
         this(alias, aliased, null);
@@ -143,6 +147,11 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
         return new BankAccount(alias, this);
     }
 
+    @Override
+    public BankAccount as(Table<?> alias) {
+        return new BankAccount(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -159,6 +168,14 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
         return new BankAccount(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public BankAccount rename(Table<?> name) {
+        return new BankAccount(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row5 type methods
     // -------------------------------------------------------------------------
@@ -166,5 +183,20 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
     @Override
     public Row5<String, String, String, Boolean, String> fieldsRow() {
         return (Row5) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function5<? super String, ? super String, ? super String, ? super Boolean, ? super String, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super String, ? super String, ? super String, ? super Boolean, ? super String, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

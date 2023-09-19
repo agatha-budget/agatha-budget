@@ -256,6 +256,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
         setName(name);
         setArchived(archived);
         setDeleted(deleted);
+        resetChangedOnNotNull();
     }
 
     /**
@@ -270,6 +271,7 @@ public class CategoryRecord extends UpdatableRecordImpl<CategoryRecord> implemen
             setName(value.getName());
             setArchived(value.getArchived());
             setDeleted(value.getDeleted());
+            resetChangedOnNotNull();
         }
     }
 }

@@ -15,12 +15,12 @@ public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  id;
-    private final String  budgetId;
-    private final String  name;
+    private final String id;
+    private final String budgetId;
+    private final String name;
     private final Boolean archived;
     private final Boolean deleted;
-    private final String  bankAccountId;
+    private final String bankAccountId;
 
     public Account(Account value) {
         this.id = value.id;
@@ -32,12 +32,12 @@ public class Account implements Serializable {
     }
 
     public Account(
-        String  id,
-        String  budgetId,
-        String  name,
+        String id,
+        String budgetId,
+        String name,
         Boolean archived,
         Boolean deleted,
-        String  bankAccountId
+        String bankAccountId
     ) {
         this.id = id;
         this.budgetId = budgetId;
@@ -87,6 +87,67 @@ public class Account implements Serializable {
      */
     public String getBankAccountId() {
         return this.bankAccountId;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Account other = (Account) obj;
+        if (this.id == null) {
+            if (other.id != null)
+                return false;
+        }
+        else if (!this.id.equals(other.id))
+            return false;
+        if (this.budgetId == null) {
+            if (other.budgetId != null)
+                return false;
+        }
+        else if (!this.budgetId.equals(other.budgetId))
+            return false;
+        if (this.name == null) {
+            if (other.name != null)
+                return false;
+        }
+        else if (!this.name.equals(other.name))
+            return false;
+        if (this.archived == null) {
+            if (other.archived != null)
+                return false;
+        }
+        else if (!this.archived.equals(other.archived))
+            return false;
+        if (this.deleted == null) {
+            if (other.deleted != null)
+                return false;
+        }
+        else if (!this.deleted.equals(other.deleted))
+            return false;
+        if (this.bankAccountId == null) {
+            if (other.bankAccountId != null)
+                return false;
+        }
+        else if (!this.bankAccountId.equals(other.bankAccountId))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
+        result = prime * result + ((this.budgetId == null) ? 0 : this.budgetId.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.archived == null) ? 0 : this.archived.hashCode());
+        result = prime * result + ((this.deleted == null) ? 0 : this.deleted.hashCode());
+        result = prime * result + ((this.bankAccountId == null) ? 0 : this.bankAccountId.hashCode());
+        return result;
     }
 
     @Override

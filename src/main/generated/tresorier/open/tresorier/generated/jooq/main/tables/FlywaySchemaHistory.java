@@ -7,6 +7,7 @@ package open.tresorier.generated.jooq.main.tables;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import open.tresorier.generated.jooq.main.Indexes;
 import open.tresorier.generated.jooq.main.Keys;
@@ -15,11 +16,14 @@ import open.tresorier.generated.jooq.main.tables.records.FlywaySchemaHistoryReco
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Function10;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
+import org.jooq.Records;
 import org.jooq.Row10;
 import org.jooq.Schema;
+import org.jooq.SelectField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -88,7 +92,7 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
     /**
      * The column <code>public.flyway_schema_history.installed_on</code>.
      */
-    public final TableField<FlywaySchemaHistoryRecord, LocalDateTime> INSTALLED_ON = createField(DSL.name("installed_on"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field("now()", SQLDataType.LOCALDATETIME)), this, "");
+    public final TableField<FlywaySchemaHistoryRecord, LocalDateTime> INSTALLED_ON = createField(DSL.name("installed_on"), SQLDataType.LOCALDATETIME(6).nullable(false).defaultValue(DSL.field(DSL.raw("now()"), SQLDataType.LOCALDATETIME)), this, "");
 
     /**
      * The column <code>public.flyway_schema_history.execution_time</code>.
@@ -160,6 +164,11 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
         return new FlywaySchemaHistory(alias, this);
     }
 
+    @Override
+    public FlywaySchemaHistory as(Table<?> alias) {
+        return new FlywaySchemaHistory(alias.getQualifiedName(), this);
+    }
+
     /**
      * Rename this table
      */
@@ -176,6 +185,14 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
         return new FlywaySchemaHistory(name, null);
     }
 
+    /**
+     * Rename this table
+     */
+    @Override
+    public FlywaySchemaHistory rename(Table<?> name) {
+        return new FlywaySchemaHistory(name.getQualifiedName(), null);
+    }
+
     // -------------------------------------------------------------------------
     // Row10 type methods
     // -------------------------------------------------------------------------
@@ -183,5 +200,20 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
     @Override
     public Row10<Integer, String, String, String, String, Integer, String, LocalDateTime, Integer, Boolean> fieldsRow() {
         return (Row10) super.fieldsRow();
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     */
+    public <U> SelectField<U> mapping(Function10<? super Integer, ? super String, ? super String, ? super String, ? super String, ? super Integer, ? super String, ? super LocalDateTime, ? super Integer, ? super Boolean, ? extends U> from) {
+        return convertFrom(Records.mapping(from));
+    }
+
+    /**
+     * Convenience mapping calling {@link SelectField#convertFrom(Class,
+     * Function)}.
+     */
+    public <U> SelectField<U> mapping(Class<U> toType, Function10<? super Integer, ? super String, ? super String, ? super String, ? super String, ? super Integer, ? super String, ? super LocalDateTime, ? super Integer, ? super Boolean, ? extends U> from) {
+        return convertFrom(toType, Records.mapping(from));
     }
 }

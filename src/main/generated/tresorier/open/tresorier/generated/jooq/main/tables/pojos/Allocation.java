@@ -15,7 +15,7 @@ public class Allocation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String  categoryId;
+    private final String categoryId;
     private final Integer month;
     private final Integer amount;
 
@@ -26,7 +26,7 @@ public class Allocation implements Serializable {
     }
 
     public Allocation(
-        String  categoryId,
+        String categoryId,
         Integer month,
         Integer amount
     ) {
@@ -54,6 +54,46 @@ public class Allocation implements Serializable {
      */
     public Integer getAmount() {
         return this.amount;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Allocation other = (Allocation) obj;
+        if (this.categoryId == null) {
+            if (other.categoryId != null)
+                return false;
+        }
+        else if (!this.categoryId.equals(other.categoryId))
+            return false;
+        if (this.month == null) {
+            if (other.month != null)
+                return false;
+        }
+        else if (!this.month.equals(other.month))
+            return false;
+        if (this.amount == null) {
+            if (other.amount != null)
+                return false;
+        }
+        else if (!this.amount.equals(other.amount))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.categoryId == null) ? 0 : this.categoryId.hashCode());
+        result = prime * result + ((this.month == null) ? 0 : this.month.hashCode());
+        result = prime * result + ((this.amount == null) ? 0 : this.amount.hashCode());
+        return result;
     }
 
     @Override
