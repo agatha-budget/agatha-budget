@@ -40,7 +40,8 @@ val jooq_version="3.18.6" //aout 2023
 val mock_version="1.13.7" //aout 2023
 val logback_version="1.4.11" // aout 2023
 val javalin_version="5.6.2" // juillet 2023
-val pac4j_version="6.0.0"  // aout 2023
+val javalin_pac4j_version="6.0.0"  // novembre 2022
+val oidc_pac4j_version="5.7.1"  // avril 2023
 val jackson_version="2.15.2" // mai 2023
 val argon_version="2.11" // octobre 2021
 val stripe_version="23.5.0" // septembre 2023 
@@ -99,9 +100,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
 
     // Authentication
-    implementation("org.pac4j:javalin-pac4j:$pac4j_version")
-    implementation("org.pac4j:pac4j-oidc:$pac4j_version-RC8")
-
+    implementation("org.pac4j:javalin-pac4j:$javalin_pac4j_version")
+    implementation("org.pac4j:pac4j-oidc:$oidc_pac4j_version")
 
     // password encryption
     implementation("de.mkammerer:argon2-jvm:$argon_version")
