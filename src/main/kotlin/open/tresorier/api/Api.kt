@@ -56,7 +56,7 @@ fun main() {
      properties, 
      ServiceManager.personService)
 
-    val callback: CallbackHandler = CallbackHandler(authenticationConfig, null, true);
+    val callback: CallbackHandler = CallbackHandler(authenticationConfig);
     app.get("/callback", callback);
     app.post("/callback", callback);
     
@@ -303,7 +303,7 @@ private fun setUpAuthentication(properties: Properties): AuthenticationConfig {
     config.setClientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 
     val keyCloakClient = KeycloakOidcClient(config)
-    val clients = Clients("http://localhost:7000/callback", keyCloakClient)
+    val clients = Clients(properties.get(API_BASE_URL)+"/callback", keyCloakClient)
     return AuthenticationConfig(clients)
 }
 
