@@ -56,5 +56,6 @@ enum class PropertiesEnum {
 
     KEYCLOAK_ID,
     KEYCLOAK_SECRET,
-    KEYCLOAK_DISC_URI
+    KEYCLOAK_REALM,
+    KEYCLOAK_BASE_URI
 }

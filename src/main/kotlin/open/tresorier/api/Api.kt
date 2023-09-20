@@ -15,12 +15,19 @@ import open.tresorier.model.enum.PriceIdEnum
 import open.tresorier.api.theme.*
 import org.pac4j.oidc.config.OidcConfiguration
 import org.pac4j.oidc.config.KeycloakOidcConfiguration
+import org.pac4j.javalin.SecurityHandler
+import org.pac4j.javalin.CallbackHandler
+import org.pac4j.core.config.Config as AuthenticationConfig
+import org.pac4j.core.client.Clients
 import org.pac4j.oidc.client.KeycloakOidcClient
+import com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod
+//import org.pac4j.jee.context.JEEFrameworkParameters;
 
 fun main() {
 
     val properties = Properties()
     var app = setUpApp(properties)
+    val authenticationConfig: AuthenticationConfig = setUpAuthentication(properties)
 
     // Dependencies injection
     ServiceManager.start()
@@ -45,32 +52,23 @@ fun main() {
      ServiceManager.budgetService,
      ServiceManager.budgetDataService)
 
-    app.post("/session/refresh") { ctx -> ctx.result("refreshed") }
+    app = addUnprotectedRoute(app,
+     properties, 
+     ServiceManager.personService)
 
-    app.get("/") { ctx ->
-        ctx.result("Hello Sunshine !")
+    val callback: CallbackHandler = CallbackHandler(authenticationConfig, null, true);
+    app.get("/callback", callback);
+    app.post("/callback", callback);
+    
+
+    val securityHandler: SecurityHandler = SecurityHandler(authenticationConfig, "KeycloakOidcClient")
+
+    app.before("/keycloak", securityHandler)
+    app.get("/keycloak") { ctx ->
+        ctx.result("Hello Keycloak !")
     }
-
-    app.get("/error") { ctx ->
-        val exception = TresorierException("this is your doing", Exception("why ?"))
-        ctx.result(exception.id)
-    }
-
-    app.get("/ping") { ctx ->
-        ctx.result(properties.get(ENVIRONMENT))
-    }
-
-    app.post("/signup") { ctx ->
-        val name = getQueryParam<String>(ctx, "name")
-        val password = getQueryParam<String>(ctx, "password")
-        val email = getQueryParam<String>(ctx, "email")
-        val profileString = getQueryParam<String>(ctx,"profile")
-        val profile: ProfileEnum = ProfileEnum.valueOf(profileString)
-        val person: Person = ServiceManager.personService.createPerson(name, password, email, profile)
-       // SuperTokens.newSession(ctx, person.id).create()
-        ctx.json("{\"name\" : " + person.name + "}")
-    }
-
+    
+    app.before("/person", securityHandler)
     app.get("/person") { ctx ->
         val publicPerson : PublicPerson = getUserFromAuth(ctx).toPublicPerson() 
         ctx.json(publicPerson)
@@ -295,13 +293,24 @@ private fun setUpApp(properties: Properties): Javalin {
     return app
 }
 
-private fun setUpAuthentication(properties: Properties): OidcConfiguration {
+private fun setUpAuthentication(properties: Properties): AuthenticationConfig {
 
     val config: KeycloakOidcConfiguration = KeycloakOidcConfiguration()
     config.setClientId(properties.get(KEYCLOAK_ID))
     config.setSecret(properties.get(KEYCLOAK_SECRET))
-    config.setDiscoveryURI(properties.get(KEYCLOAK_DISC_URI))
-    val oidcClient: KeycloakOidcClient = KeycloakOidcClient(config)
+    config.setRealm(properties.get(KEYCLOAK_REALM))
+    config.setBaseUri(properties.get(KEYCLOAK_BASE_URI))
+    config.setClientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 
-    return config
+    val keyCloakClient = KeycloakOidcClient(config)
+    val clients = Clients("http://localhost:7000/callback", keyCloakClient)
+    return AuthenticationConfig(clients)
 }
+
+/**private fun getProfiles(ctx: Context, config: OidcConfiguration): List<UserProfile> {
+    val parameters: JEEFrameworkParameters = JEEFrameworkParameters(ctx.req(), ctx.res());
+    return config.getProfileManagerFactory().apply(
+            config.getWebContextFactory().newContext(parameters),
+            config.getSessionStoreFactory().newSessionStore(parameters)
+    ).getProfiles();
+}*/
