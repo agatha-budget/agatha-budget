@@ -12,7 +12,8 @@
           <div class="title">{{ $t('ACCOUNT_ASSOCIATION') }}</div>
         </div>
 
-        <template class="associationForm" v-for="account of this.accounts" :key="account">
+        <template v-for="account of this.accounts" :key="account">
+          <div class="associationForm">
             <div class="subtitle col-md-4">{{ account.name }}</div>
             <div class="col-md-4 col-8 offset-2 offset-md-0 bankSelector">
               <select class="form-select" v-model="bankAssociation[account.id].bankAccountId">
@@ -30,6 +31,7 @@
                 <input id="importHistory" class="form-check-input" type="checkbox" v-model="bankAssociation[account.id].importHistory" >
               </template>
             </div>
+          </div>
         </template>
 
         <button class="actionButton" v-on:click="saveAssociation()">{{ $t('UPDATE') }}</button>
@@ -93,12 +95,21 @@ import Time from '@/utils/Time'
 import Multiselect from '@vueform/multiselect'
 import router, { RouterPages } from '@/router'
 
+interface BankAccountByTimestampList {
+  [timestamp: number]: BankAccount[];
+}
+
 interface BankAuthorizationList {
   [bankId: string]: BankAccountByTimestampList;
 }
 
-interface BankAccountByTimestampList {
-  [timestamp: number]: BankAccount[];
+interface BankAssociationData {
+  bankAccountId: string;
+  importHistory: boolean;
+}
+
+interface BankAssociationList {
+  [accountId: string]: BankAssociationData;
 }
 
 interface BanksData {
@@ -108,17 +119,8 @@ interface BanksData {
   selectedBankId: string|null;
 }
 
-interface BankAssociationList {
-  [accountId: string]: BankAssociationData;
-}
-
-interface BankAssociationData {
-  bankAccountId: string;
-  importHistory: boolean;
-}
-
 export default defineComponent({
-  name: 'banksPage',
+  name: 'BanksView',
   components: { NavMenu, Multiselect },
   created: async function () {
     StoreHandler.initBudget(this.$store)

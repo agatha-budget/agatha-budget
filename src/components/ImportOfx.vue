@@ -28,7 +28,7 @@ import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
 
 interface ImportOfxData {
-    fileOfx: any;
+    fileOfx: Blob | undefined;
     fileImported: boolean;
     nbOperationImported: string;
 }
@@ -44,7 +44,7 @@ export default defineComponent({
   },
   computed: {
     fileSelected (): boolean {
-      if (this.fileOfx === '') {
+      if (this.fileOfx === undefined) {
         return false
       } else {
         return true
@@ -53,32 +53,34 @@ export default defineComponent({
   },
   data (): ImportOfxData {
     return {
-      fileOfx: '',
+      fileOfx: undefined,
       fileImported: false,
       nbOperationImported: '0'
     }
   },
   emits: ['closeImport'],
   methods: {
-    onFileChange (event: { target: { files: any[] } }) {
+    onFileChange (event: { target: { files: Blob[] } }) {
       const file = event.target.files[0]
       this.fileOfx = file
     },
     async importOfxFile () {
-      const fr = new FileReader()
-      fr.readAsText(this.fileOfx, 'UTF-8')
-      fr.onload = async (evt) => {
-        if (evt.target) {
-          console.log(evt.target.result)
-          if (evt.target.result) {
-            const ofx: string = evt.target.result.toString()
-            this.nbOperationImported = await OperationService.importOfxFile(this.$store, this.accountId, ofx)
-            this.fileImported = true
+      if (this.fileOfx !== undefined) {
+        const fr = new FileReader()
+        fr.readAsText(this.fileOfx, 'UTF-8')
+        fr.onload = async (evt) => {
+          if (evt.target) {
+            console.log(evt.target.result)
+            if (evt.target.result) {
+              const ofx: string = evt.target.result.toString()
+              this.nbOperationImported = await OperationService.importOfxFile(this.$store, this.accountId, ofx)
+              this.fileImported = true
+            }
           }
         }
-      }
-      fr.onerror = (evt) => {
-        console.error('Failed to read this file')
+        fr.onerror = () => {
+          console.error('Failed to read this file')
+        }
       }
     },
     closeImport () {

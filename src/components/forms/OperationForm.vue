@@ -142,6 +142,14 @@ import Utils from '@/utils/Utils'
 import Calcul from '@/utils/Calcul'
 import Multiselect from '@vueform/multiselect'
 
+interface DaughterFormData {
+  id: string;
+  incoming: boolean;
+  amountString: string;
+  categoryId: string;
+  memo: string;
+}
+
 interface OperationFormData {
   date: string;
   isPending: boolean;
@@ -150,14 +158,6 @@ interface OperationFormData {
   categoryId: string;
   memo: string;
   daughtersData: DaughterFormData[];
-}
-
-interface DaughterFormData {
-  id: string;
-  incoming: boolean;
-  amountString: string;
-  categoryId: string;
-  memo: string;
 }
 
 export default defineComponent({

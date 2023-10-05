@@ -1,33 +1,33 @@
 import { Person, Operation, OperationWithDaughters, Account, Bank, BankAccount, Budget, Category, CategoryData as ICategoryData, MasterCategory } from '@/services/api/openApi/api'
 
-interface BudgetData {
-    [monthComparable: number]: CategoryDataList;
+class CategoryData implements ICategoryData {
+  allocated = 0
+  spent = 0
+  available = 0
 }
 
 interface CategoryDataList {
-    [categoryId: string]: CategoryData;
+  [categoryId: string]: CategoryData;
 }
 
-class CategoryData implements ICategoryData {
-    allocated = 0;
-    spent = 0;
-    available = 0;
+interface BudgetData {
+  [monthComparable: number]: CategoryDataList;
 }
 
 interface SelectOption {
-    value: string;
-    label: string;
+  value: string;
+  label: string;
 }
 
 interface GroupSelectOption {
-    label: string;
-    options: SelectOption[];
+  label: string;
+  options: SelectOption[];
 }
 
 interface ChoiceElement {
-    label: string;
-    value: string;
-    preSelected: boolean;
+  label: string;
+  value: string;
+  preSelected: boolean;
 }
 
 const incomeCategoryId = 'universal_income_category'

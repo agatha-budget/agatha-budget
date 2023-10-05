@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Profile from '../views/Profile.vue'
-import Banks from '../views/Banks.vue'
-import Signup from '../views/Signup.vue'
+import HomeView from '../views/Home.vue'
+import LoginView from '../views/Login.vue'
+import ProfileView from '../views/Profile.vue'
+import BanksView from '../views/Banks.vue'
+import SignupView from '../views/Signup.vue'
 import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
-import AccountPage from '../views/AccountPage.vue'
-import Subscription from '../views/Subscription.vue'
-import ChartPage from '../views/ChartPage.vue'
+import AccountView from '../views/Account.vue'
+import SubscriptionView from '../views/Subscription.vue'
+import ChartsView from '../views/Charts.vue'
 import { StoreState } from '@/store/index'
 import { Store } from 'vuex'
 import { AxiosError } from 'axios'
@@ -29,23 +29,23 @@ export enum RouterPages {
 const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.home,
-    component: Home
+    component: HomeView
   },
   {
     path: RouterPages.login,
-    component: Login
+    component: LoginView
   },
   {
     path: RouterPages.signup,
-    component: Signup
+    component: SignupView
   },
   {
     path: RouterPages.profile,
-    component: Profile
+    component: ProfileView
   },
   {
     path: RouterPages.banks,
-    component: Banks,
+    component: BanksView,
     props: route => ({ query: route.query.agreementId })
   },
   {
@@ -54,17 +54,17 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: RouterPages.subscription,
-    component: Subscription,
+    component: SubscriptionView,
     props: { validSubscription: true }
   },
   {
     path: RouterPages.invalidSubscription,
-    component: Subscription,
+    component: SubscriptionView,
     props: { validSubscription: false }
   },
   {
     path: RouterPages.account,
-    component: AccountPage,
+    component: AccountView,
     props: route => ({ accountId: route.query.accountId })
   },
   {
@@ -76,7 +76,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: RouterPages.chartPage,
-    component: ChartPage
+    component: ChartsView
   }
 ]
 

@@ -392,7 +392,7 @@ import Multiselect from '@vueform/multiselect'
 import BarChart from '@/components/charts/BarChart.vue'
 
 export default defineComponent({
-  name: 'About',
+  name: 'AboutView',
   components: {
     Multiselect,
     BarChart

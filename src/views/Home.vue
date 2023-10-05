@@ -31,7 +31,7 @@ import Loader from '@/components/utils/Loader.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
 
 export default defineComponent({
-  name: 'Home',
+  name: 'HomeView',
   beforeCreate: async function () {
     redirectToLoginPageIfNotLogged(this.$store)
   },

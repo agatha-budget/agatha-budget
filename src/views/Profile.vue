@@ -52,7 +52,7 @@ import StoreHandler from '@/store/StoreHandler'
 import router, { RouterPages } from '@/router'
 
 export default defineComponent({
-  name: 'profilePage',
+  name: 'ProfileView',
   components: { NavMenu },
   created: async function () {
     StoreHandler.initStore(this.$store)

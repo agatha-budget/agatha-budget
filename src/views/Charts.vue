@@ -97,7 +97,7 @@ interface ChartPageData {
 }
 
 export default defineComponent({
-  name: 'ChartPage',
+  name: 'ChartsView',
   components: {
     ChartPageHeader,
     BarChart,

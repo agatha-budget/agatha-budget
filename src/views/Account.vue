@@ -103,6 +103,10 @@ import ImportOfx from '@/components/ImportOfx.vue'
 import FilterCmpt from '@/components/FilterCmpt.vue'
 import Utils from '@/utils/Utils'
 
+interface EditableOperation extends OperationWithDaughters {
+  editing: boolean;
+}
+
 interface AccountPageData {
     operations: EditableOperation[];
     importBloc: boolean;
@@ -112,12 +116,8 @@ interface AccountPageData {
     existingPendingOperation: boolean;
 }
 
-interface EditableOperation extends OperationWithDaughters {
-  editing: boolean;
-}
-
 export default defineComponent({
-  name: 'AccountPage',
+  name: 'AccountView',
   components: {
     OperationForm,
     NavMenu,

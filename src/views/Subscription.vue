@@ -102,7 +102,7 @@ interface SubscriptionPageData {
 }
 
 export default defineComponent({
-  name: 'Subscription',
+  name: 'SubscriptionView',
   components: { NavMenu },
   created: async function () {
     StoreHandler.initStore(this.$store)

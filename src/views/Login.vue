@@ -17,7 +17,7 @@ import PersonService from '@/services/PersonService'
 import router, { RouterPages } from '@/router'
 
 export default defineComponent({
-  name: 'Login',
+  name: 'LoginView',
   components: {},
   data () {
     return {

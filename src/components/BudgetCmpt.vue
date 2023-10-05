@@ -17,8 +17,8 @@
         <span class="illustrationLabel col-11">{{ $t("ADD_MASTER_CATEGORY") }}</span>
       </button>
       <div id="budgetTables">
-        <template class="budgetTable table" v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
-          <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" @empty-master-category="emptyMasterCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit"/>
+        <template v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
+          <MasterCategoryCmpt class="budgetTable table" @update-allocation="updateAllocation" @empty-category="emptyCategory" @empty-master-category="emptyMasterCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit"/>
         </template>
         <div class="budget-tools">
           <div v-on:click="this.archiveVisible = !this.archiveVisible" class="actionLabelIcon">
