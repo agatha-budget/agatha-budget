@@ -15,6 +15,6 @@ const messages = {
   en: localeEN
 }
 
-const i18n = createI18n({ locale: 'fr', fallbackLocale: 'en', messages: messages, datetime: localeDate })
+const i18n = createI18n({ locale: 'fr', fallbackLocale: 'en', messages, localeDate })
 console.log('version : ' + Properties.commitHash)
 createApp(App).use(store, key).use(router).use(i18n).mount('#app')

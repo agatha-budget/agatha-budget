@@ -33,7 +33,7 @@ export default defineComponent({
         const minutes = 1000 * 60
         const lockingDuration = Math.round((responseData.unlockingDate - new Date().getTime()) / minutes)
         if (lockingDuration > 0) {
-          this.$data.errorMsg = this.$t('SORRY_LOCKED_OUT', { lockingDuration: lockingDuration })
+          this.$data.errorMsg = this.$t('SORRY_LOCKED_OUT', { lockingDuration })
         } else {
           this.$data.errorMsg = this.$t('SORRY_WRONG_PASSWORD')
         }
