@@ -51,6 +51,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.0" // aout 2023
     id("org.flywaydb.flyway") version "9.22.1" // septembre 2023
     id("nu.studer.jooq") version "8.2"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
+    id("org.sonarqube") version "4.4.1.3373"
     jacoco
     application
 }
@@ -376,10 +377,6 @@ tasks.register("printInfo") {
         println("hello")
         println(sourceSets.getByName("main").runtimeClasspath.first())
     }
-}
-
-plugins {
-    id("org.sonarqube") version "4.4.1.3373"
 }
 
 sonar {
