@@ -377,3 +377,15 @@ tasks.register("printInfo") {
         println(sourceSets.getByName("main").runtimeClasspath.first())
     }
 }
+
+plugins {
+    id("org.sonarqube") version "4.4.1.3373"
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "agatha-budget_back")
+        property("sonar.organization", "agatha-budget")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
+}
