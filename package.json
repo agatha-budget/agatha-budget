@@ -6,11 +6,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve",
-    "build": "export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
-    "buildProd": "sh scripts/add_commithash_to_properties.sh ; export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build",
-    "test:unit": "export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service test:unit",
-    "lint": "export SET NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service lint"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "buildProd": "sh scripts/add_commithash_to_properties.sh ; vue-cli-service build",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.2",
