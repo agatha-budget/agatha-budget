@@ -52,6 +52,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.9.0" // aout 2023
     id("org.flywaydb.flyway") version "9.22.1" // septembre 2023
     id("nu.studer.jooq") version "8.2"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
+    id("org.sonarqube") version "4.4.1.3373"
     jacoco
     application
 }
@@ -375,5 +376,13 @@ tasks.register("printInfo") {
     doLast {
         println("hello")
         println(sourceSets.getByName("main").runtimeClasspath.first())
+    }
+}
+
+sonar {
+    properties {
+        property("sonar.projectKey", "agatha-budget_back")
+        property("sonar.organization", "agatha-budget")
+        property("sonar.host.url", "https://sonarcloud.io")
     }
 }
