@@ -67,6 +67,13 @@ fun main() {
     app.get("/keycloak") { ctx ->
         ctx.result("Hello Keycloak !")
     }
+
+    app.before("/budget/user", securityHandler)
+    app.get("/budget/user") { ctx ->
+        val user = getUserFromAuth(ctx)
+        val budgetList = ServiceManager.budgetService.findByUser(user)
+        ctx.json(budgetList)
+    }
     
     app.before("/person", securityHandler)
     app.get("/person") { ctx ->
@@ -152,12 +159,6 @@ fun main() {
         val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         ServiceManager.budgetService.delete(user, budget)
         ctx.result("budget ${budget.name} has been deleted")
-    }
-
-    app.get("/budget/user") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budgetList = ServiceManager.budgetService.findByUser(user)
-        ctx.json(budgetList)
     }
 
     app.post("/mcategory") { ctx ->
