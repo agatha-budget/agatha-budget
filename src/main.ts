@@ -10,6 +10,7 @@ import localeEN from '@/assets/locale/en.json'
 import localeDate from '@/assets/locale/dateformat.json'
 import Properties from '../properties'
 import KeyCloakService from "@/services/security/KeycloakService";
+import HttpService from "@/services/api/httpservice";
 
 const messages = {
   fr: localeFR,
@@ -27,3 +28,4 @@ const renderApp = () => {
 };
 
 KeyCloakService.CallLogin(renderApp);
+HttpService.configureAxiosKeycloak();

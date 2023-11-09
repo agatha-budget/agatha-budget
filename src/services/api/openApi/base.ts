@@ -17,7 +17,8 @@ import type { Configuration } from './configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
-import globalAxios from 'axios';
+import HttpService from "@/services/api/httpservice";
+const globalAxios = HttpService.getAxiosClient();
 
 export const BASE_PATH = "http://localhost:7000".replace(/\/+$/, "");
 
