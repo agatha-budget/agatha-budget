@@ -1,5 +1,5 @@
 <template>
-  <div :class="this.$store.state.css">
+  <div :class="css">
     <div class="redirectToAccountPage menuLayout row col-md-8 offset-md-2 col-xxl-6 offset-xxl-3">
       <div class="header fixed title">
         {{ $t('MY_ACCOUNTS') }}
@@ -24,12 +24,18 @@
 import { defineComponent } from 'vue'
 import AccountsWidget from '@/components/AccountsWidget.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
+import { usePersonStore } from '@/stores/personStore'
 
 export default defineComponent({
   name: 'RedirectToAccountPage',
   components: {
     AccountsWidget,
     NavMenu
+  },
+  computed: {
+    css (): string {
+      return usePersonStore().css
+    }
   },
   methods: {}
 })

@@ -2,34 +2,34 @@
   <div id="budgetCmpt" class="container-fluid col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2">
     <div class="header fixed">
       <div class="col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-12 offset-lg-0">
-        <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate"
+        <BudgetHeader :month="budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate"
         @change-month="changeMonth" />
       </div>
     </div>
     <div class="placeholder top">
-      <BudgetHeader :month="this.budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
+      <BudgetHeader :month="budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
     </div>
     <div class="content">
       <button v-if="!edit" v-on:click="editFunction" class="actionButton edition">{{ $t("CUSTOMIZE_CATEGORY") }}</button>
       <button v-else v-on:click="saveChange" class="actionButton edition">{{ $t("SAVE_CHANGE") }}</button>
-      <button v-if="edit" v-on:click="this.createMasterCategory()" class="buttonGradation row">
+      <button v-if="edit" v-on:click="createMasterCategory()" class="buttonGradation row">
         <span class="illustration fas fa-plus col-1"/>
         <span class="illustrationLabel col-11">{{ $t("ADD_MASTER_CATEGORY") }}</span>
       </button>
       <div id="budgetTables">
-        <template v-for="masterCategory of this.$store.state.masterCategories" :key="masterCategory" >
-          <MasterCategoryCmpt class="budgetTable table" @update-allocation="updateAllocation" @empty-category="emptyCategory" @empty-master-category="emptyMasterCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit"/>
+        <template v-for="masterCategory of masterCategories" :key="masterCategory" >
+          <MasterCategoryCmpt class="budgetTable table" @update-allocation="updateAllocation" @empty-category="emptyCategory" @empty-master-category="emptyMasterCategory" :masterCategory="masterCategory" :categoryDataList="categoryDataList" :edit="edit"/>
         </template>
         <div class="budget-tools">
-          <div v-on:click="this.archiveVisible = !this.archiveVisible" class="actionLabelIcon">
-            <span v-if="this.archiveVisible" type="button" > > {{ $t("HIDE_ARCHIVE") }}</span>
+          <div v-on:click="archiveVisible = !archiveVisible" class="actionLabelIcon">
+            <span v-if="archiveVisible" type="button" > > {{ $t("HIDE_ARCHIVE") }}</span>
             <span v-else type="button"> > {{ $t("SHOW_ARCHIVE") }}</span>
           </div>
         </div>
-        <div v-if="this.archiveVisible" id="archive_section" >
+        <div v-if="archiveVisible" id="archive_section" >
           <div class="title">{{ $t("ARCHIVE") }}</div>
-          <template v-for="masterCategory in this.$store.state.masterCategories" :key="masterCategory" >
-            <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="this.categoryDataList" :edit="edit" :archived="true" />
+          <template v-for="masterCategory in masterCategories" :key="masterCategory" >
+            <MasterCategoryCmpt @update-allocation="updateAllocation" @empty-category="emptyCategory" :masterCategory="masterCategory" :categoryDataList="categoryDataList" :edit="edit" :archived="true" />
           </template>
         </div>
       </div>
@@ -42,12 +42,13 @@
 import { defineComponent } from 'vue'
 import BudgetDataService from '@/services/BudgetDataService'
 import AllocationService from '@/services/AllocationService'
-import { Account, Budget, CategoryData, CategoryDataList, newMasterCategoryName } from '@/model/model'
+import type { Account, Budget, CategoryDataList, MasterCategory } from '@/model/model'
+import { CategoryData, newMasterCategoryName } from '@/model/model'
 import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 import Time from '@/utils/Time'
 import MasterCategoryService from '@/services/MasterCategoryService'
-import StoreHandler from '@/store/StoreHandler'
 import BudgetHeader from '@/components/headers/BudgetHeader.vue'
+import { useBudgetStore } from '@/stores/budgetStore'
 
 interface BudgetCmptData {
     categoryDataList: CategoryDataList;
@@ -101,10 +102,10 @@ export default defineComponent({
   },
   computed: {
     budget (): Budget | null {
-      return this.$store.state.budget
+      return useBudgetStore().budget
     },
     accounts (): Account[] | null {
-      return this.$store.state.accounts
+      return useBudgetStore().accounts
     },
     totalBudgetData () {
       const totalBudgetData = new CategoryData()
@@ -145,6 +146,9 @@ export default defineComponent({
     },
     moneyToAllocate (): number {
       return this.toBeBudgeted
+    },
+    masterCategories (): MasterCategory[] {
+      return useBudgetStore().masterCategories
     }
   },
   methods: {
@@ -194,8 +198,8 @@ export default defineComponent({
       if (this.budget) {
         MasterCategoryService.createMasterCategory(newMasterCategoryName, this.budget).then(
           () => {
-            StoreHandler.updateMasterCategories(this.$store)
-            StoreHandler.updateCategories(this.$store)
+            useBudgetStore().updateMasterCategories()
+            useBudgetStore().updateCategories()
           }
         )
       }
@@ -209,9 +213,9 @@ export default defineComponent({
       }
     },
     emptyMasterCategory (masterCategoryId: string) {
-      const masterCategory = StoreHandler.getMasterCategoryById(this.$store, masterCategoryId)
+      const masterCategory = useBudgetStore().getMasterCategoryById(masterCategoryId)
       if (masterCategory) {
-        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+        const categories = useBudgetStore().getCategoriesByMasterCategory(masterCategory, false)
         categories.forEach(category => {
           this.emptyCategory(category.id)
         })

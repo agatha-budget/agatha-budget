@@ -1,5 +1,5 @@
 <template>
-  <tr v-if="!this.category.archived">
+  <tr v-if="!category.archived">
     <th class="col-6">
       <div class="form-group">
           <input type="textInput" class="form-control" v-model="name" v-on:change="changeName">
@@ -14,7 +14,7 @@
   </tr>
   <tr v-else>
     <td class="col-6">
-      <span class="name">{{ this.name }}</span>
+      <span class="name">{{ name }}</span>
     </td>
     <td class="col-6">
       <button class="illustration btn fas fa-level-up-alt" v-on:click="unarchiveCategory"/>
@@ -25,8 +25,8 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import CategoryService from '@/services/CategoryService'
-import StoreHandler from '@/store/StoreHandler'
-import { Category } from '@/model/model'
+import type { Category } from '@/model/model'
+import { useBudgetStore } from '@/stores/budgetStore'
 
 interface CategoryFormData {
   name: string;
@@ -50,7 +50,7 @@ export default defineComponent({
     updateCategory () {
       CategoryService.updateCategory(this.category.id, this.name).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          useBudgetStore().updateCategories()
         }
       )
     },
@@ -58,21 +58,21 @@ export default defineComponent({
       this.$emit('emptyEnvelope', this.category.id)
       CategoryService.archiveCategory(this.category.id).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          useBudgetStore().updateCategories()
         }
       )
     },
     unarchiveCategory () {
       CategoryService.unarchiveCategory(this.category.id).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          useBudgetStore().updateCategories()
         }
       )
     },
     changeName () {
       CategoryService.updateCategory(this.category.id, this.name).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          useBudgetStore().updateCategories()
         }
       )
     }

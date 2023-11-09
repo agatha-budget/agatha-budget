@@ -22,6 +22,8 @@
 import { defineComponent } from 'vue'
 import PersonService from '@/services/PersonService'
 import router, { RouterPages } from '@/router'
+import { usePersonStore } from '@/stores/personStore'
+
 
 export default defineComponent({
   name: 'SignupView',
@@ -38,13 +40,13 @@ export default defineComponent({
   },
   computed: {
     logged (): boolean {
-      return this.$store.state.logged
+      return usePersonStore().logged
     }
   },
   methods: {
     async create () {
       if (this.testForm()) {
-        PersonService.createPerson(this.$store, this.name, this.email, this.password, this.profile)
+        PersonService.createPerson(this.name, this.email, this.password, this.profile)
       }
     },
     testForm (): boolean {

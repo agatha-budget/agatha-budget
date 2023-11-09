@@ -1,12 +1,12 @@
 <template>
     <div class="row dateNav">
-        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="this.goToLastMonth()"/></div>
-        <div class="col-8 date-label" :class="this.toBeBudgetedClass()">
-            <p class="title">{{ $d(this.getMonthAsDate(selectedMonth), 'monthString') }} <span v-if="!this.isThisYear"> {{ $d(this.getMonthAsDate(selectedMonth), 'year') }}</span></p>
-            <p class="title" v-if="this.money > 0"> {{ centsToEurosDisplay(money) }} € {{$t('TO_BE_BUDGETED')}}</p>
-            <p class="title" v-else-if="this.money < 0"> {{ centsToEurosDisplay(-1 * money) }} € {{$t('TO_BE_PULLED_OUT')}}</p>
+        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-left" v-on:click="goToLastMonth()"/></div>
+        <div class="col-8 date-label" :class="toBeBudgetedClass()">
+            <p class="title">{{ $d(getMonthAsDate(selectedMonth), 'monthString') }} <span v-if="!isThisYear"> {{ $d(getMonthAsDate(selectedMonth), 'year') }}</span></p>
+            <p class="title" v-if="money > 0"> {{ centsToEurosDisplay(money) }} € {{$t('TO_BE_BUDGETED')}}</p>
+            <p class="title" v-else-if="money < 0"> {{ centsToEurosDisplay(-1 * money) }} € {{$t('TO_BE_PULLED_OUT')}}</p>
         </div>
-        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="this.goToNextMonth()"/></div>
+        <div class="col-2 d-flex justify-content-center" ><button type="button" class="btn fas fa-chevron-right" v-on:click="goToNextMonth()"/></div>
     </div>
 </template>
 

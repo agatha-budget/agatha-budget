@@ -1,5 +1,5 @@
 <template>
-  <div :class="this.$store.state.css">
+  <div :class="css">
     <div class="chartPage menuLayout row col-12 offset-0 col-sm-12 offset-sm-0 col-md-10 offset-md-1 col-lg-12 offset-lg-0 col-xl-10 offset-xl-1 col-xxl-8 offset-xxl-2">
       <div class="header fixed title">
         <ChartPageHeader @change-graph="changeGraph"/>
@@ -71,13 +71,14 @@ import RadioSelect from '@/components/inputs/RadioSelect.vue'
 import CheckboxSelect from '@/components/inputs/CheckboxSelect.vue'
 import DateNav from '@/components/inputs/DateNavigation.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
-import StoreHandler from '@/store/StoreHandler'
 import BudgetDataService from '@/services/BudgetDataService'
-import { CategoryDataList, Budget, GroupSelectOption, Category } from '@/model/model'
+import type { CategoryDataList, Budget, GroupSelectOption, Category } from '@/model/model'
 import Utils from '@/utils/Utils'
 import Time from '@/utils/Time'
 import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor, lightGreyColor, darkGreyColor, lightGreenColor, salmonColor, lavenderColor, bordeauxColor } from '@/utils/Color'
 import Multiselect from '@vueform/multiselect'
+import { usePersonStore } from '@/stores/personStore'
+import { useBudgetStore } from '@/stores/budgetStore'
 
 interface ChartPageData {
     barChartData: { labels: string[]; datasets: { label: string; backgroundColor: string;data: number[] }[] };
@@ -110,10 +111,10 @@ export default defineComponent({
   },
   props: { },
   beforeCreate: async function () {
-    redirectToLoginPageIfNotLogged(this.$store)
+    redirectToLoginPageIfNotLogged()
   },
   created: async function () {
-    StoreHandler.initStore(this.$store)
+    usePersonStore().init()
     await this.getBudgetData()
     this.recalculate()
     this.getcolorsMasterCategories()
@@ -163,7 +164,7 @@ export default defineComponent({
   },
   computed: {
     budget (): Budget | null {
-      return this.$store.state.budget
+      return useBudgetStore().budget
     },
     masterCategories (): GroupSelectOption[] {
       const optionsList = [
@@ -174,14 +175,18 @@ export default defineComponent({
           ]
         }
       ]
-      for (const masterCategory of this.$store.state.masterCategories) {
-        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+      const budgetStore = useBudgetStore()
+      for (const masterCategory of budgetStore.masterCategories) {
+        const categories = budgetStore.getCategoriesByMasterCategory(masterCategory, false)
         if (categories.length > 0) {
           const newOption = { value: masterCategory.id, label: masterCategory.name }
           optionsList[0].options.push(newOption)
         }
       }
       return optionsList
+    },
+    css (): string {
+      return usePersonStore().css
     }
   },
   methods: {
@@ -196,16 +201,17 @@ export default defineComponent({
     },
     getLegend (masterCategorySelectedId: string): string[] {
       const listName: string[] = []
-      const masterCategorySelected = StoreHandler.getMasterCategoryById(this.$store, masterCategorySelectedId)
+      const budgetStore = useBudgetStore()
+      const masterCategorySelected = budgetStore.getMasterCategoryById(masterCategorySelectedId)
       if (masterCategorySelected) {
-        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategorySelected, false)
+        const categories = budgetStore.getCategoriesByMasterCategory(masterCategorySelected, false)
         for (const category of categories) {
           listName.push(category.name)
         }
       } else {
-        for (const masterCategory of this.$store.state.masterCategories) {
-          const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
-          const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
+        for (const masterCategory of budgetStore.masterCategories) {
+          const categories = budgetStore.getCategoriesByMasterCategory(masterCategory, false)
+          const archivedCategories = budgetStore.getCategoriesByMasterCategory(masterCategory, true)
           if (!(categories.length === 0 && archivedCategories.length > 0)) {
             listName.push(masterCategory.name)
           }
@@ -216,9 +222,10 @@ export default defineComponent({
     getDatas (type: string, masterCategorySelectedId: string): number[] {
       this.deficitCategories = []
       const listData: number[] = []
-      const masterCategorySelected = StoreHandler.getMasterCategoryById(this.$store, masterCategorySelectedId)
+      const budgetStore = useBudgetStore()
+      const masterCategorySelected = budgetStore.getMasterCategoryById(masterCategorySelectedId)
       if (masterCategorySelected) {
-        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategorySelected, false)
+        const categories = budgetStore.getCategoriesByMasterCategory(masterCategorySelected, false)
         for (const category of categories) {
           const data = this.getCategoryDatas(type, category)
           if (data >= 0 || this.currentGraph === 'bar') {
@@ -229,9 +236,9 @@ export default defineComponent({
           }
         }
       } else {
-        for (const masterCategory of this.$store.state.masterCategories) {
-          const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
-          const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
+        for (const masterCategory of budgetStore.masterCategories) {
+          const categories = budgetStore.getCategoriesByMasterCategory(masterCategory, false)
+          const archivedCategories = budgetStore.getCategoriesByMasterCategory(masterCategory, true)
           if (!(categories.length === 0 && archivedCategories.length > 0)) {
             let data = 0
             for (const category of categories) {
@@ -265,9 +272,10 @@ export default defineComponent({
     },
     getcolorsMasterCategories () {
       let indexColor = 0
-      for (const masterCategory of this.$store.state.masterCategories) {
-        const categories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
-        const archivedCategories = StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, true)
+      const budgetStore = useBudgetStore()
+      for (const masterCategory of budgetStore.masterCategories) {
+        const categories = budgetStore.getCategoriesByMasterCategory(masterCategory, false)
+        const archivedCategories = budgetStore.getCategoriesByMasterCategory(masterCategory, true)
         if (!(categories.length === 0 && archivedCategories.length > 0)) {
           if (masterCategory.color === null) {
             this.colorListMasterCategories.push(this.predefinedListColor[indexColor])

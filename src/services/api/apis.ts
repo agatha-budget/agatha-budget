@@ -1,4 +1,14 @@
-import { PersonApi, AccountApi, BudgetApi, AllocationApi, BudgetDataApi, OperationApi, CategoryApi, MasterCategoryApi, BankingApi } from './openApi/api'
+import {
+  PersonApi,
+  AccountApi,
+  BudgetApi,
+  AllocationApi,
+  BudgetDataApi,
+  OperationApi,
+  CategoryApi,
+  MasterCategoryApi,
+  BankingApi
+} from './openApi/api'
 
 export const personApi = new PersonApi()
 export const budgetApi = new BudgetApi()

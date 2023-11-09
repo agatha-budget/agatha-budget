@@ -5,7 +5,7 @@
     </div>
     <div class="importPage">
       <div v-if="fileImported">
-        <p class="text">{{ this.nbOperationImported }}{{ $t('IMPORTED_OPERATION') }}</p>
+        <p class="text">{{ nbOperationImported }}{{ $t('IMPORTED_OPERATION') }}</p>
       </div>
       <div v-else>
         <div v-if="fileSelected">
@@ -73,7 +73,7 @@ export default defineComponent({
             console.log(evt.target.result)
             if (evt.target.result) {
               const ofx: string = evt.target.result.toString()
-              this.nbOperationImported = await OperationService.importOfxFile(this.$store, this.accountId, ofx)
+              this.nbOperationImported = await OperationService.importOfxFile(this.accountId, ofx)
               this.fileImported = true
             }
           }

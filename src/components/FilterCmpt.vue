@@ -20,9 +20,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { Category, MasterCategory, incomeCategoryId, transfertCategoryId, GroupSelectOption, SelectOption } from '@/model/model'
-import StoreHandler from '@/store/StoreHandler'
+import type { Category, MasterCategory, GroupSelectOption, SelectOption } from '@/model/model'
+import { incomeCategoryId, transfertCategoryId} from '@/model/model'
 import Multiselect from '@vueform/multiselect'
+import { useBudgetStore } from '@/stores/budgetStore'
 
 interface FilterData {
   categoryId: string;
@@ -45,7 +46,7 @@ export default defineComponent({
           ]
         }
       ]
-      for (const masterCategory of this.$store.state.masterCategories) {
+      for (const masterCategory of useBudgetStore().masterCategories) {
         const categories = this.getCategoriesByMasterCategory(masterCategory)
         if (categories.length > 0) {
           optionsList.push(this.createOptionGroup(masterCategory, categories))
@@ -62,7 +63,7 @@ export default defineComponent({
   emits: ['closeFilter', 'filteringCategory'],
   methods: {
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
-      return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+      return useBudgetStore().getCategoriesByMasterCategory(masterCategory, false)
     },
     createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
       const group: GroupSelectOption = {

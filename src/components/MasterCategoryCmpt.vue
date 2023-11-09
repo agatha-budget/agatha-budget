@@ -1,5 +1,5 @@
 <template>
-  <table class="budgetTable table" v-if="this.categories.length > 0">
+  <table class="budgetTable table" v-if="categories.length > 0">
     <MasterCategoryForm v-if="edit" :masterCategory="masterCategory" :archived="archived" @create-category="createCategory" @empty-master-category="emptyMasterCategory"/>
     <thead v-else class="masterCategory" :style=style>
         <tr>
@@ -16,7 +16,7 @@
         </tr>
       </thead>
     <tbody >
-      <template v-for="category of this.categories" :key="category">
+      <template v-for="category of categories" :key="category">
         <CategoryForm class="categoryBudget" v-if="edit" :category="category" @empty-envelope="emptyEnvelope"/>
         <tr v-else class="categoryBudget">
           <td class="col-6 name">
@@ -25,20 +25,20 @@
             </div>
           </td>
           <td class="col-2">
-              <span v-if="archived">{{ centsToEurosDisplay(this.categoryDataList[category.id]?.allocated) ?? "" }}</span>
+              <span v-if="archived">{{ centsToEurosDisplay(categoryDataList[category.id]?.allocated) ?? "" }}</span>
               <div v-else class="form-group numberInput">
               <input  type="textInput" class="form-control"
-                v-bind:value="centsToEurosDisplay(this.categoryDataList[category.id]?.allocated ?? 0)"
-                v-on:change="updateAllocationOnChange(category.id, this.computeStringToCents($event.target.value))"
+                v-bind:value="centsToEurosDisplay(categoryDataList[category.id]?.allocated ?? 0)"
+                v-on:change="updateAllocationOnChange(category.id, computeStringToCents($event.target.value).toString())"
               >
               </div>
             </td>
             <td class="col-2 spent">
-                {{ centsToEurosDisplay(this.categoryDataList[category.id]?.spent ?? "") }}
+                {{ centsToEurosDisplay(categoryDataList[category.id]?.spent ?? "") }}
             </td>
             <td class="col-2 available">
-              <span v-if="this.categoryDataList[category.id] && this.categoryDataList[category.id].available != 0" :class="this.categoryDataList[category.id]?.available < 0 ? 'negative' : ''">
-              {{ centsToEurosDisplay(this.categoryDataList[category.id]?.available) }}
+              <span v-if="categoryDataList[category.id] && categoryDataList[category.id].available != 0" :class="categoryDataList[category.id]?.available < 0 ? 'negative' : ''">
+              {{ centsToEurosDisplay(categoryDataList[category.id]?.available) }}
             </span>
           </td>
         </tr>
@@ -54,14 +54,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { MasterCategory, CategoryDataList, CategoryData, Category, newCategoryName } from '@/model/model'
+import type { MasterCategory, CategoryDataList, Category } from '@/model/model'
+import { CategoryData, newCategoryName } from '@/model/model'
 import Utils from '@/utils/Utils'
 import Calcul from '@/utils/Calcul'
 import CategoryService from '@/services/CategoryService'
-import StoreHandler from '@/store/StoreHandler'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
 import MasterCategoryForm from '@/components/forms/MasterCategoryForm.vue'
 import { Color } from '@/utils/Color'
+import { useBudgetStore } from '@/stores/budgetStore'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
@@ -92,7 +93,7 @@ export default defineComponent({
   },
   computed: {
     categories (): Category[] {
-      return StoreHandler.getCategoriesByMasterCategory(this.$store, this.masterCategory, this.archived)
+      return useBudgetStore().getCategoriesByMasterCategory(this.masterCategory, this.archived)
     },
     masterCategoryData () {
       const masterCategoryData = new CategoryData()
@@ -114,7 +115,7 @@ export default defineComponent({
     createCategory () {
       CategoryService.createCategory(newCategoryName, this.masterCategory).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          useBudgetStore().updateCategories()
         }
       )
     },

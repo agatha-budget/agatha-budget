@@ -1,5 +1,5 @@
 <template>
-  <div :class="this.$store.state.css">
+  <div :class="css">
     <div class="bankPage menuLayout row col-md-8 offset-md-2 col-xxl-6 offset-xxl-3">
         <div class="header fixed title">
           {{ $t('BANKS') }}
@@ -12,13 +12,13 @@
           <div class="title">{{ $t('ACCOUNT_ASSOCIATION') }}</div>
         </div>
 
-        <template v-for="account of this.accounts" :key="account">
+        <template v-for="account of accounts" :key="account">
           <div class="associationForm">
             <div class="subtitle col-md-4">{{ account.name }}</div>
             <div class="col-md-4 col-8 offset-2 offset-md-0 bankSelector">
               <select class="form-select" v-model="bankAssociation[account.id].bankAccountId">
                 <option value="none" selected>{{ $t('NO_ASSOCIATED_BANK_ACCOUNT') }}</option>
-                <template v-for="bankAccount of this.bankAccounts" :key="bankAccount">
+                <template v-for="bankAccount of bankAccounts" :key="bankAccount">
                   <option :value=bankAccount.id>
                   {{ bankAccount.name }}
                   </option>
@@ -40,7 +40,7 @@
           <div class="title">{{ $t('SYNCHRONISED_BANKS') }}</div>
         </div>
 
-        <template v-for="(timestampList, bankId) of this.authorizedBanks" :key="bankId">
+        <template v-for="(timestampList, bankId) of authorizedBanks" :key="bankId">
             <div class="container bordered row col-8 offset-2">
               <div class="col-md-6">
                 <img class="illustration banklogo" alt="banklogo" :src="getLogo(bankId)"/>
@@ -86,14 +86,17 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import StoreHandler from '@/store/StoreHandler'
 import NavMenu from '@/components/NavigationMenu.vue'
 import BankingService from '@/services/BankingService'
-import { Bank, BankAccount, Budget, Account, SelectOption } from '@/model/model'
+import type { Bank, BankAccount, Budget, Account, SelectOption } from '@/model/model'
 import AccountService from '@/services/AccountService'
 import Time from '@/utils/Time'
 import Multiselect from '@vueform/multiselect'
 import router, { RouterPages } from '@/router'
+import { useBudgetStore } from '@/stores/budgetStore'
+import { usePersonStore } from '@/stores/personStore'
+
+
 
 interface BankAccountByTimestampList {
   [timestamp: number]: BankAccount[];
@@ -123,7 +126,7 @@ export default defineComponent({
   name: 'BanksView',
   components: { NavMenu, Multiselect },
   created: async function () {
-    StoreHandler.initBudget(this.$store)
+    useBudgetStore().init()
     this.getAvailableBanks()
     this.getAuthorizedAccounts()
     this.updateIfAgreement()
@@ -153,10 +156,10 @@ export default defineComponent({
   },
   computed: {
     budget (): Budget | null {
-      return this.$store.state.budget
+      return useBudgetStore().budget
     },
     accounts (): Account[] | null {
-      return this.$store.state.accounts
+      return useBudgetStore().accounts
     },
     authorizedBanks (): BankAuthorizationList | null {
       return this.groupAccountByBankAndTimestamp(this.bankAccounts)
@@ -168,6 +171,9 @@ export default defineComponent({
         optionsList.push(option)
       }
       return optionsList
+    },
+    css (): string {
+      return usePersonStore().css
     }
   },
   methods: {
@@ -220,10 +226,10 @@ export default defineComponent({
           const bankAccountId = this.bankAssociation[account.id].bankAccountId
           const importHistory = this.bankAssociation[account.id].importHistory
           if (account.bankAccountId !== bankAccountId) {
-            AccountService.updateAccountBankAssociation(this.$store, account.id, bankAccountId, importHistory)
+            AccountService.updateAccountBankAssociation(account.id, bankAccountId, importHistory)
           }
         }
-        StoreHandler.updateAccounts(this.$store)
+        useBudgetStore().updateAccounts()
       }
     },
     groupAccountByBankAndTimestamp (bankAccounts: BankAccount[]): BankAuthorizationList {

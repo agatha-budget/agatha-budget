@@ -1,9 +1,9 @@
 <template >
-  <div :class="this.$store.state.css">
+  <div :class="css">
     <div class="row">
-      <div v-if="this.$store.state.storeLoaded">
+      <div v-if="storeLoaded">
         <div class="home">
-          <BudgetCmpt :month="this.currentMonth" />
+          <BudgetCmpt :month="currentMonth" />
           <div class="col-3 offset-1 col-xl-3 offset-xl-1 col-xxl-3 offset-xxl-1">
             <div class="accountWidgetAtHome">
               <AccountsWidget :page="'home'"/>
@@ -21,7 +21,6 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import StoreHandler from '@/store/StoreHandler'
 import router, { RouterPages, redirectToLoginPageIfNotLogged } from '@/router'
 import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
 import AccountsWidget from '@/components/AccountsWidget.vue'
@@ -29,14 +28,17 @@ import PersonService from '@/services/PersonService'
 import Time from '@/utils/Time'
 import Loader from '@/components/utils/Loader.vue'
 import NavMenu from '@/components/NavigationMenu.vue'
+import { usePersonStore } from '@/stores/personStore'
+import { useBudgetStore } from '@/stores/budgetStore'
 
 export default defineComponent({
   name: 'HomeView',
   beforeCreate: async function () {
-    redirectToLoginPageIfNotLogged(this.$store)
+    redirectToLoginPageIfNotLogged()
   },
   created: async function () {
-    StoreHandler.initStore(this.$store)
+    usePersonStore().init()
+
   },
   components: {
     BudgetCmpt,
@@ -49,9 +51,17 @@ export default defineComponent({
       currentMonth: Time.getCurrentMonth()
     }
   },
+  computed: {
+    css (): string {
+      return usePersonStore().css
+    },
+    storeLoaded (): boolean {
+      return useBudgetStore().storeLoaded
+    }
+  },
   methods: {
     logout () {
-      PersonService.deleteSession(this.$store)
+      PersonService.deleteSession()
     },
     goToProfile () {
       router.push(RouterPages.profile)

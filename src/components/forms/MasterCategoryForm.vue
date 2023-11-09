@@ -1,5 +1,5 @@
 <template>
-  <thead v-if="!this.archived" class="masterCategory edit" :style=style>
+  <thead v-if="!archived" class="masterCategory edit" :style=style>
     <tr>
       <th class="col-6">
         <div class="darkTextInput form-group">
@@ -24,7 +24,7 @@
   <thead v-else class="masterCategory edit" :style=style>
     <tr>
       <th class="col-6">
-        <span class="name">{{ this.name }}</span>
+        <span class="name">{{ name }}</span>
       </th>
       <th class="col-6">
         <button class="illustration btn fas fa-level-up-alt" v-on:click="unarchiveMasterCategory"/>
@@ -35,10 +35,10 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import StoreHandler from '@/store/StoreHandler'
 import MasterCategoryService from '@/services/MasterCategoryService'
-import { MasterCategory } from '@/model/model'
+import type { MasterCategory } from '@/model/model'
 import { navigationColor, Color } from '@/utils/Color'
+import { useBudgetStore } from '@/stores/budgetStore'
 
 interface MasterCategoryFormData {
   name: string;
@@ -75,7 +75,7 @@ export default defineComponent({
     updateMasterCategory () {
       MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
         () => {
-          StoreHandler.updateMasterCategories(this.$store)
+          useBudgetStore().updateMasterCategories()
         }
       )
     },
@@ -83,14 +83,14 @@ export default defineComponent({
       this.$emit('emptyMasterCategory', this.masterCategory.id)
       MasterCategoryService.archiveMasterCategory(this.masterCategory.id).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          useBudgetStore().updateCategories()
         }
       )
     },
     unarchiveMasterCategory () {
       MasterCategoryService.unarchiveMasterCategory(this.masterCategory.id).then(
         () => {
-          StoreHandler.updateCategories(this.$store)
+          useBudgetStore().updateCategories()
         }
       )
     },
@@ -100,7 +100,7 @@ export default defineComponent({
     removeColor () {
       MasterCategoryService.updateColorMasterCategory(this.masterCategory.id, 'null').then(
         () => {
-          StoreHandler.updateMasterCategories(this.$store)
+          useBudgetStore().updateMasterCategories()
           this.colorPicker = false
         }
       )
@@ -108,7 +108,7 @@ export default defineComponent({
     validColor () {
       MasterCategoryService.updateColorMasterCategory(this.masterCategory.id, this.color).then(
         () => {
-          StoreHandler.updateMasterCategories(this.$store)
+          useBudgetStore().updateMasterCategories()
           this.colorPicker = false
         }
       )
@@ -116,7 +116,7 @@ export default defineComponent({
     changeName () {
       MasterCategoryService.renameMasterCategory(this.masterCategory.id, this.name).then(
         () => {
-          StoreHandler.updateMasterCategories(this.$store)
+          useBudgetStore().updateMasterCategories()
         }
       )
     }

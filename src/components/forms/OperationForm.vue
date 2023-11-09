@@ -29,7 +29,7 @@
         </div>
       </div>
     </div>
-    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Envelope, not displayed if daughters -->
+    <div v-if="daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Envelope, not displayed if daughters -->
       <label class="label col-4">{{ $t("ENVELOPE") }}</label>
       <div class="selectAutoComplete form-group col-8">
         <Multiselect
@@ -42,7 +42,7 @@
         />
       </div>
     </div>
-    <div v-if="this.daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Amount With No Daugther-->
+    <div v-if="daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Amount With No Daugther-->
       <label class="label col-4">{{ $t("AMOUNT") }}</label>
       <div class="amountElement col-8">
         <div class="amountInput input-group flex-nowrap">
@@ -58,7 +58,7 @@
     <div v-else class="formItem col-12 inline"> <!-- Amount With Daugther-->
       <label class="label col-4 col-md-2">{{ $t("AMOUNT") }}</label>
       <div class="sumAmountElement col-8 col-md-10">
-        <template v-if="this.amountStringIsUnset">
+        <template v-if="amountStringIsUnset">
           {{centsToEurosDisplay(signedCentsDaughterSumAmount)}} €
         </template>
         <template v-else>
@@ -72,11 +72,11 @@
         <input id="operationMemoInput" class="form-control" v-model="memo">
       </div>
     </div>
-    <div v-if="this.daughtersData.length != 0"> <!-- Daugthers -->
+    <div v-if="daughtersData.length != 0"> <!-- Daugthers -->
 
       <hr>
       <p class="formSectionTitle">{{ $t("REPARTITION") }}</p>
-      <div v-for="daughterOperation of this.daughtersData" :key="daughterOperation" class="flexForm form col-12">
+      <div v-for="daughterOperation of daughtersData" :key="daughterOperation" class="flexForm form col-12">
         <div class="containerCross col-12">
           <span class="cross fas fa-trash" v-on:click="removeDaughter(daughterOperation)"/>
         </div>
@@ -115,10 +115,10 @@
       </div>
     </div>
     <div class="col-12">  <!-- Add Daugther Action -->
-      <btn v-if="this.daughtersData.length == 0" class="actionButton" v-on:click="addDaughter">{{ $t('CREATE_DAUGTHERS') }}</btn>
+      <btn v-if="daughtersData.length == 0" class="actionButton" v-on:click="addDaughter">{{ $t('CREATE_DAUGTHERS') }}</btn>
       <btn v-else class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</btn>
     </div>
-    <div class="col-12 row formAction" v-if="this.operation"> <!-- Update/Delete Action -->
+    <div class="col-12 row formAction" v-if="operation"> <!-- Update/Delete Action -->
       <div class="col-6">
         <btn  class="actionButton" v-on:click="saveOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
       </div>
@@ -135,12 +135,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import OperationService from '@/services/OperationService'
-import { Category, MasterCategory, OperationWithDaughters, Account, incomeCategoryId, transfertCategoryId, GroupSelectOption, SelectOption, Operation } from '@/model/model'
+import type { Category, MasterCategory, OperationWithDaughters, Account, GroupSelectOption, SelectOption, Operation } from '@/model/model'
+import { incomeCategoryId, transfertCategoryId } from '@/model/model'
 import Time from '@/utils/Time'
-import StoreHandler from '@/store/StoreHandler'
 import Utils from '@/utils/Utils'
 import Calcul from '@/utils/Calcul'
 import Multiselect from '@vueform/multiselect'
+import { useBudgetStore } from '@/stores/budgetStore'
 
 interface DaughterFormData {
   id: string;
@@ -216,9 +217,10 @@ export default defineComponent({
           ]
         }
       ]
-      const allAccounts = this.$store.state.accounts
+      const budgetStore = useBudgetStore()
+      const allAccounts = budgetStore.accounts
       optionsList.push(this.createOptionTransfer(allAccounts))
-      for (const masterCategory of this.$store.state.masterCategories) {
+      for (const masterCategory of budgetStore.masterCategories) {
         const categories = this.getCategoriesByMasterCategory(masterCategory)
         if (categories.length > 0) {
           optionsList.push(this.createOptionGroup(masterCategory, categories))
@@ -268,7 +270,7 @@ export default defineComponent({
     },
     async deleteOperation () {
       if (this.operation) {
-        OperationService.deleteOperation(this.$store, this.operation.id).then(
+        OperationService.deleteOperation(this.operation.id).then(
           () => {
             this.$emit('updateOperationList')
           }
@@ -276,7 +278,7 @@ export default defineComponent({
       }
     },
     getCategoriesByMasterCategory (masterCategory: MasterCategory): Category[] {
-      return StoreHandler.getCategoriesByMasterCategory(this.$store, masterCategory, false)
+      return useBudgetStore().getCategoriesByMasterCategory(masterCategory, false)
     },
     createOptionGroup (masterCategory: MasterCategory, categories: Category[]): GroupSelectOption {
       const group: GroupSelectOption = {
@@ -308,11 +310,10 @@ export default defineComponent({
       return group
     },
     getAccountById (accountId: string): Account | null {
-      return StoreHandler.getAccountById(this.$store, accountId)
+      return useBudgetStore().getAccountById(accountId)
     },
     createOperationForTransfert (transfertAccount: Account) {
       OperationService.addOperation(
-        this.$store,
         this.accountId,
         Time.getDayFromDateString(this.date),
         transfertCategoryId,
@@ -365,7 +366,7 @@ export default defineComponent({
         memo = this.memo
       }
       if (this.operation) {
-        OperationService.updateOperation(this.$store,
+        OperationService.updateOperation(
           this.operation.id,
           this.accountId,
           Time.getDayFromDateString(this.date),
@@ -377,7 +378,7 @@ export default defineComponent({
         )
         this.saveChangesToDaughters(this.operation.id)
       } else {
-        const motherOperation = await OperationService.addOperation(this.$store,
+        const motherOperation = await OperationService.addOperation(
           this.accountId,
           Time.getDayFromDateString(this.date),
           this.categoryId,
@@ -404,7 +405,7 @@ export default defineComponent({
 
         // update an existing daughter
         if (this.daughterAlreadyExist(daughter, preexistingDaughters)) {
-          OperationService.updateOperation(this.$store,
+          OperationService.updateOperation(
             daughter.id,
             this.accountId,
             Time.getDayFromDateString(this.date),
@@ -416,7 +417,7 @@ export default defineComponent({
           )
         // or create new daughter
         } else {
-          OperationService.addOperation(this.$store,
+          OperationService.addOperation(
             this.accountId,
             Time.getDayFromDateString(this.date),
             categoryId,
@@ -432,7 +433,7 @@ export default defineComponent({
       preexistingDaughters.forEach(daughter => {
         if (this.operation) {
           if (this.daughterWasDeleted(daughter, this.daughtersData)) {
-            OperationService.deleteOperation(this.$store, daughter.id)
+            OperationService.deleteOperation(daughter.id)
           }
         }
       })

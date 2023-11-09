@@ -1,16 +1,15 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/Home.vue'
-import LoginView from '../views/Login.vue'
-import ProfileView from '../views/Profile.vue'
-import BanksView from '../views/Banks.vue'
-import SignupView from '../views/Signup.vue'
-import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
-import AccountView from '../views/Account.vue'
-import SubscriptionView from '../views/Subscription.vue'
-import ChartsView from '../views/Charts.vue'
-import { StoreState } from '@/store/index'
-import { Store } from 'vuex'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import HomeView from '@/views/Home.vue'
+import LoginView from '@/views/Login.vue'
+import ProfileView from '@/views/Profile.vue'
+import BanksView from '@/views/Banks.vue'
+import SignupView from '@/views/Signup.vue'
+import RedirectToAccountPage from '@/views/RedirectToAccountPage.vue'
+import AccountView from '@/views/Account.vue'
+import SubscriptionView from '@/views/Subscription.vue'
+import ChartsView from '@/views/Charts.vue'
 import { AxiosError } from 'axios'
+import { usePersonStore } from '@/stores/personStore'
 
 export enum RouterPages {
   home = '/',
@@ -69,10 +68,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: RouterPages.about,
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: () => import('@/views/About.vue')
   },
   {
     path: RouterPages.chartPage,
@@ -81,12 +77,13 @@ const routes: Array<RouteRecordRaw> = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
 
-export function redirectToLoginPageIfNotLogged (store: Store<StoreState>) {
-  if (!store.state.logged) {
+export function redirectToLoginPageIfNotLogged () {
+  const personStore = usePersonStore()
+  if (!personStore.logged) {
     router.push(RouterPages.login)
   }
 }

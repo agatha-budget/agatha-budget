@@ -28,7 +28,7 @@ export default defineComponent({
   },
   methods: {
     async login () {
-      const responseData = await PersonService.createSession(this.$store, this.email, this.password)
+      const responseData = await PersonService.createSession(this.email, this.password)
       if (responseData.unlockingDate !== null) {
         const minutes = 1000 * 60
         const lockingDuration = Math.round((responseData.unlockingDate - new Date().getTime()) / minutes)

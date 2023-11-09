@@ -17,6 +17,8 @@
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
 import Calcul from '@/utils/Calcul'
+import { useBudgetStore } from '@/stores/budgetStore'
+
 
 export default defineComponent({
   name: 'AccountCreationForm',
@@ -34,8 +36,9 @@ export default defineComponent({
   emits: ['updateAccountList', 'closeForm'],
   methods: {
     createAccount () {
-      if (this.$store.state.budget) {
-        AccountService.createAccount(this.$store, this.$store.state.budget, this.name, this.amount).then(
+      const budget = useBudgetStore().budget
+      if (budget) {
+        AccountService.createAccount(budget, this.name, this.amount).then(
           () => {
             this.$emit('updateAccountList')
             this.$emit('closeForm')
