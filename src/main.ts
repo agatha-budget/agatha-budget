@@ -9,6 +9,7 @@ import localeFR from '@/assets/locale/fr.json'
 import localeEN from '@/assets/locale/en.json'
 import localeDate from '@/assets/locale/dateformat.json'
 import Properties from '../properties'
+import KeyCloakService from "@/services/security/KeycloakService";
 
 const messages = {
   fr: localeFR,
@@ -17,10 +18,12 @@ const messages = {
 const i18n = createI18n({ locale: 'fr', fallbackLocale: 'en', messages, localeDate })
 console.log('version : ' + Properties.commitHash)
 
-const app = createApp(App)
+const renderApp = () => {
+  createApp(App)
+  .use(createPinia())
+  .use(router)
+  .use(i18n)
+  .mount("#app");
+};
 
-app.use(createPinia())
-app.use(router)
-app.use(i18n)
-
-app.mount('#app')
+KeyCloakService.CallLogin(renderApp);
