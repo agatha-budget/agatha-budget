@@ -32,15 +32,15 @@ inline fun <reified T: Any> getOptionalQueryParam(ctx: Context, paramName: Strin
 
 fun setUpAuthentication(properties: Properties): AuthenticationConfig {
 
-    val config: KeycloakOidcConfiguration = KeycloakOidcConfiguration()
-    config.setClientId(properties.get(KEYCLOAK_ID))
-    config.setSecret(properties.get(KEYCLOAK_SECRET))
-    config.setDiscoveryURI(properties.get(KEYCLOAK_DISC_URI))
-    config.setBaseUri(properties.get(KEYCLOAK_BASE_URI))
-    config.setRealm(properties.get(KEYCLOAK_REALM))
-    config.setClientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+    val oidcConfig: KeycloakOidcConfiguration = KeycloakOidcConfiguration()
+    oidcConfig.setClientId(properties.get(KEYCLOAK_ID))
+    oidcConfig.setSecret(properties.get(KEYCLOAK_SECRET))
+    oidcConfig.setDiscoveryURI(properties.get(KEYCLOAK_DISC_URI))
+    oidcConfig.setBaseUri(properties.get(KEYCLOAK_BASE_URI))
+    oidcConfig.setRealm(properties.get(KEYCLOAK_REALM))
+    oidcConfig.setClientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
 
-    val keyCloakClient = KeycloakOidcClient(config)
+    val keyCloakClient = KeycloakOidcClient(oidcConfig)
     val clients = Clients(properties.get(API_BASE_URL)+"/callback", keyCloakClient)
     return AuthenticationConfig(clients)
 }
