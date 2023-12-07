@@ -8,14 +8,6 @@ fun sendToAdminMessage(errorId : String) : String {
     return " Send this code to your administrator for details : $errorId"
 }
 
-fun getHerokuAssignedOrDefaultPort(): Int {
-    val herokuPort = System.getenv("PORT");
-    if (herokuPort != null) {
-        return Integer.parseInt(herokuPort);
-    }
-    return 7000;
-}
-
 fun getUserFromAuth(ctx: Context): Person {
     // val validSession = SuperTokens.getFromContext(ctx)
     //val userId = validSession.userId

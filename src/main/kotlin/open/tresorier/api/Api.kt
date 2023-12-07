@@ -251,7 +251,7 @@ private fun setUpApp(properties: Properties): Javalin {
                     }
                 }
             }
-    }.start(getHerokuAssignedOrDefaultPort())
+    }.start(7000)
 
     app.exception(TresorierException::class.java) { e, ctx ->
         ctx.status(400)
