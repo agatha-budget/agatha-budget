@@ -344,6 +344,10 @@ tasks.named("integrationTest") {
 
 tasks.check { dependsOn(integrationTest) }
 
+application {
+    mainClass.set("open.tresorier.api.ApiKt")
+}
+
 tasks.register<Jar>("uberJar") {
     manifest {
         attributes(
@@ -361,7 +365,6 @@ tasks.register<Jar>("uberJar") {
         configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
     })
 }
-
 
 tasks.register("stage") {
     dependsOn("uberJar")
