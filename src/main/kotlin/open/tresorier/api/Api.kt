@@ -13,21 +13,20 @@ import open.tresorier.services.BillingService
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.model.enum.PriceIdEnum
 import open.tresorier.api.theme.*
-import org.pac4j.oidc.config.OidcConfiguration
-import org.pac4j.oidc.config.KeycloakOidcConfiguration
 import org.pac4j.javalin.SecurityHandler
 import org.pac4j.javalin.CallbackHandler
 import org.pac4j.core.config.Config as AuthenticationConfig
-import org.pac4j.core.client.Clients
-import org.pac4j.oidc.client.KeycloakOidcClient
-import com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod
-//import org.pac4j.jee.context.JEEFrameworkParameters;
 
 fun main() {
 
     val properties = Properties()
     var app = setUpApp(properties)
     val authenticationConfig: AuthenticationConfig = setUpAuthentication(properties)
+    val callback: CallbackHandler = CallbackHandler(authenticationConfig);
+    app.get("/callback", callback);
+    app.post("/callback", callback);
+    
+    val securityHandler: SecurityHandler = SecurityHandler(authenticationConfig, "KeycloakOidcClient")
 
     // Dependencies injection
     ServiceManager.start()
@@ -55,14 +54,7 @@ fun main() {
     app = addUnprotectedRoute(app,
      properties, 
      ServiceManager.personService)
-
-    val callback: CallbackHandler = CallbackHandler(authenticationConfig);
-    app.get("/callback", callback);
-    app.post("/callback", callback);
     
-
-    val securityHandler: SecurityHandler = SecurityHandler(authenticationConfig, "KeycloakOidcClient")
-
     app.before("/keycloak", securityHandler)
     app.get("/keycloak") { ctx ->
         ctx.result("Hello Keycloak !")
@@ -70,15 +62,16 @@ fun main() {
 
     app.before("/budget/user", securityHandler)
     app.get("/budget/user") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budgetList = ServiceManager.budgetService.findByUser(user)
-        ctx.json(budgetList)
+        ctx.result("Hello Keycloak protected!")
+        //val user = getUserFromAuth(ctx)
+        //val budgetList = ServiceManager.budgetService.findByUser(user)
+        //ctx.json(budgetList)
     }
     
-    app.before("/person", securityHandler)
     app.get("/person") { ctx ->
-        val publicPerson : PublicPerson = getUserFromAuth(ctx).toPublicPerson() 
-        ctx.json(publicPerson)
+        ctx.result("Hello Open Door et co !")
+        //val publicPerson : PublicPerson = getUserFromAuth(ctx).toPublicPerson() 
+        //ctx.json(publicPerson)
     }
 
     app.put("/person") { ctx ->
@@ -108,32 +101,6 @@ fun main() {
             val selectedPackage: PriceIdEnum = PriceIdEnum.valueOf(packageString)
             ctx.result(BillingService.createNewUserBillingSession(person, selectedPackage))
         }
-    }
-
-    app.post("/login") { ctx ->
-        val email = getQueryParam<String>(ctx, "email")
-        val password = getQueryParam<String>(ctx, "password")
-        try {
-            val person: Person? = ServiceManager.personService.login(email, password)
-            if (person == null) {
-                val unlockingDate = ServiceManager.personService.getUnlockingDateForEmail(email)
-                ctx.status(400)
-                ctx.json("{\"unlockingDate\" : $unlockingDate}")
-            }
-            person?.let {
-                // SuperTokens.newSession(ctx, it.id).create()
-                ctx.json("{\"name\" : " + it.name + "}")
-            }
-        } catch (e: Exception) {
-            ctx.status(400)
-            ctx.json("{\"unlockingDate\" : null }")
-        }
-    }
-
-    app.delete("/logout") { ctx ->
-        //val session = SuperTokens.getFromContext(ctx)
-        //session.revokeSession()
-        ctx.result("you've been logged out")
     }
 
     app.post("/budget") { ctx ->
@@ -241,13 +208,19 @@ private fun setUpApp(properties: Properties): Javalin {
             if (environmentStatus == "dev") {
                 config.plugins.enableCors { cors ->
                     cors.add { it -> 
-                        it.anyHost()
+                        it.allowHost(
+                            properties.get(ALLOWED_ORIGIN_LOCALHOST),
+                        )
                     }
                 }
             } else {
                 config.plugins.enableCors { cors ->
                     cors.add { it ->
-                        it.allowHost(properties.get(ALLOWED_ORIGIN_FRONT), properties.get(ALLOWED_ORIGIN_BETA_FRONT), properties.get(ALLOWED_ORIGIN_STRIPE))
+                        it.allowHost(
+                            properties.get(ALLOWED_ORIGIN_FRONT), 
+                            properties.get(ALLOWED_ORIGIN_BETA_FRONT),
+                            properties.get(ALLOWED_ORIGIN_STRIPE),
+                        )
                     }
                 }
             }
@@ -293,25 +266,3 @@ private fun setUpApp(properties: Properties): Javalin {
 
     return app
 }
-
-private fun setUpAuthentication(properties: Properties): AuthenticationConfig {
-
-    val config: KeycloakOidcConfiguration = KeycloakOidcConfiguration()
-    config.setClientId(properties.get(KEYCLOAK_ID))
-    config.setSecret(properties.get(KEYCLOAK_SECRET))
-    config.setRealm(properties.get(KEYCLOAK_REALM))
-    config.setBaseUri(properties.get(KEYCLOAK_BASE_URI))
-    config.setClientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
-
-    val keyCloakClient = KeycloakOidcClient(config)
-    val clients = Clients(properties.get(API_BASE_URL)+"/callback", keyCloakClient)
-    return AuthenticationConfig(clients)
-}
-
-/**private fun getProfiles(ctx: Context, config: OidcConfiguration): List<UserProfile> {
-    val parameters: JEEFrameworkParameters = JEEFrameworkParameters(ctx.req(), ctx.res());
-    return config.getProfileManagerFactory().apply(
-            config.getWebContextFactory().newContext(parameters),
-            config.getSessionStoreFactory().newSessionStore(parameters)
-    ).getProfiles();
-}*/
