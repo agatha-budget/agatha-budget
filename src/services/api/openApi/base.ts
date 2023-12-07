@@ -18,9 +18,10 @@ import type { Configuration } from './configuration';
 // @ts-ignore
 import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
 import HttpService from "@/services/api/httpservice";
+import Properties from "@/../properties";
 const globalAxios = HttpService.getAxiosClient();
 
-export const BASE_PATH = "http://localhost:7000".replace(/\/+$/, "");
+export const BASE_PATH = Properties.server.replace(/\/+$/, "");
 
 /**
  *

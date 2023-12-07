@@ -21,7 +21,6 @@ const configureAxiosKeycloak = (): void => {
       if (KeyCloakService.IsLoggedIn()) {
         KeyCloakService.UpdateToken(cb(config));
       }
-
       return config;
     }
   );
@@ -35,4 +34,5 @@ const HttpService = {
   getAxiosClient,
 };
 
+export const globalAxios = HttpService.getAxiosClient()
 export default HttpService;
