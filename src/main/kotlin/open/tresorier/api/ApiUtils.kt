@@ -10,6 +10,8 @@ import org.pac4j.oidc.client.KeycloakOidcClient
 import org.pac4j.core.config.Config as AuthenticationConfig
 import org.pac4j.oidc.config.KeycloakOidcConfiguration
 import com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod
+import org.pac4j.core.authorization.authorizer.CsrfAuthorizer
+import org.pac4j.core.matching.matcher.CorsMatcher
 
 fun sendToAdminMessage(errorId : String) : String {
     return " Send this code to your administrator for details : $errorId"
@@ -42,5 +44,9 @@ fun setUpAuthentication(properties: Properties): AuthenticationConfig {
 
     val keyCloakClient = KeycloakOidcClient(oidcConfig)
     val clients = Clients(properties.get(API_BASE_URL)+"/callback", keyCloakClient)
-    return AuthenticationConfig(clients)
+    val config = AuthenticationConfig(clients)
+    val corsMatcher = CorsMatcher()
+    corsMatcher.setAllowOrigin(properties.get(FRONT_URL) + " " + properties.get(KEYCLOAK_BASE_URI))
+    config.addMatcher("cors", CorsMatcher())
+    return config
 }

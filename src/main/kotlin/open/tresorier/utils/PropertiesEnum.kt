@@ -62,5 +62,6 @@ enum class PropertiesEnum {
     KEYCLOAK_BASE_URI,
 
     API_BASE_URL,
-    REDIRECT_URI
+    REDIRECT_URI,
+    FRONT_URL
 }

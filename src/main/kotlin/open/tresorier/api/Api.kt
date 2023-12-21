@@ -26,7 +26,7 @@ fun main() {
     app.get("/callback", callback);
     app.post("/callback", callback);
     
-    val securityHandler: SecurityHandler = SecurityHandler(authenticationConfig, "KeycloakOidcClient")
+    val securityHandler: SecurityHandler = SecurityHandler(authenticationConfig, "KeycloakOidcClient", "isAuthenticated", "cors")
 
     // Dependencies injection
     ServiceManager.start()
