@@ -102,7 +102,6 @@ class BillingService(private val personService: PersonService) {
                     // For metered billing, do not pass quantity
                     .setQuantity(1L)
                     .setPrice(priceId)
-                    .addTaxRate(taxId)
                     .build()
                 )
                 .putExtraParam("allow_promotion_codes", "true")
