@@ -41,3 +41,5 @@ logs/
 local.properties
 
 logback.xml
+
+gradle.properties
