@@ -30,7 +30,7 @@ val INTEGRATION_DB_PWD = System.getenv(INTEGRATION_DB_ID + "_PASSWORD") ?: INTEG
 
 
 // Lib Versions
-val kotlin_version="1.9.10" // aout 2023
+val kotlin_version="1.9.22" // decembre 2023 - when updated also change kotlin("jvm")
 val koin_version= "3.5.0" // septembre 2023
 val junit_version="5.10.0" // juillet 2023
 val postgres_version="42.6.0" // mars 2023
@@ -48,7 +48,7 @@ val stripe_version="23.5.0" // septembre 2023
 val json_version="20230618" // juin 2023
 
 plugins {
-    kotlin("jvm") version "1.9.10" // cf kotlin_version
+    kotlin("jvm") version "1.9.22" // cf kotlin_version
     id("org.jetbrains.dokka") version "1.9.0" // aout 2023
     id("org.flywaydb.flyway") version "9.22.1" // septembre 2023
     id("nu.studer.jooq") version "8.2"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
