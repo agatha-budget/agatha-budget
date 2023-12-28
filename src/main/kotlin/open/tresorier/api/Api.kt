@@ -20,20 +20,16 @@ fun main() {
     ServiceManager.start()
 
     app = addRoute(app, properties)
-    app.get("/keycloak") { ctx ->
-        ctx.result("Hello Keycloak !")
-    }
-
-    app.get("/budget/user") { ctx ->
-        val person = getUserFromAuth(ctx)
-        val budgetList = ServiceManager.budgetService.findByUser(person)
-        ctx.json(budgetList)
-    }
 
     app.get("/person") { ctx ->
-        ctx.result("Hello Open Door et co !")
-        //val publicPerson : PublicPerson = getUserFromAuth(ctx).toPublicPerson()
-        //ctx.json(publicPerson)
+        try {
+            val person = getUserFromAuth(ctx)
+            ctx.json(person.toPublicPerson())
+        } catch (e : Exception) {
+            val data = getAuthenticationData(ctx)
+            val person = ServiceManager.personService.createPerson(data["preferred_username"].toString(), id=data.subject)
+            ctx.json(person.toPublicPerson())
+        }
     }
 
 }
@@ -71,9 +67,7 @@ private fun addRoute(app: Javalin, properties: Properties) : Javalin {
         ServiceManager.categoryService,
         ServiceManager.allocationService)
 
-    _app = addUnprotectedRoute(_app,
-        properties,
-        ServiceManager.personService)
+    _app = addUnprotectedRoute(_app, properties)
 
     _app.put("/person") { ctx ->
         val person = getUserFromAuth(ctx)

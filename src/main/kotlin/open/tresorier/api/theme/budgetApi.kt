@@ -9,6 +9,12 @@ import open.tresorier.services.BudgetService
 
 fun addBudgetRoute(app : Javalin, budgetService: BudgetService) : Javalin {
 
+    app.get("/budget/user") { ctx ->
+        val person = getUserFromAuth(ctx)
+        val budgetList = budgetService.findByUser(person)
+        ctx.json(budgetList)
+    }
+
     app.post("/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val name = getQueryParam<String>(ctx, "name")

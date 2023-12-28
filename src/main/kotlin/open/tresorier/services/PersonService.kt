@@ -8,69 +8,29 @@ import open.tresorier.model.PublicPerson
 import open.tresorier.model.enum.ActionEnum
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.utils.Time
+import java.util.*
 
 
 class PersonService(private val personDao: IPersonDao, 
         private val budgetService: BudgetService,
-        private val userActivityService: UserActivityService,
         private val mailingService: MailingService,
-        private val bankingService: BankingService) {
+        private val bankingService: BankingService,
+        private val userActivityService: UserActivityService) {
 
-    fun createPerson(name: String, password: String, email: String, profile: ProfileEnum): Person {
-        val hashedPassword = AuthenticationService.hashPassword(password)
-        var person = Person(name, hashedPassword, email)
+    fun createPerson(name: String, profile: ProfileEnum = ProfileEnum.PROFILE_USER, id: String? = null): Person {
+        // keeping password and uuid email for now until the transition to keycloak is sure
+        var person = Person(name, "hashedPassword", UUID.randomUUID().toString(), id=id)
         mailingService.addPersonToMailingList(person)
         person = personDao.insert(person)
         budgetService.create(person, Budget.DEFAULT_BUDGET_NAME, profile)
         return person
     }
 
-    /* return either the person or null if the login failed
-     ex : email doesn't exist
-     ex : invalid password
-     ex : account is still locked
-     */
-    fun login(email: String, password: String): Person? {
-        var person : Person? = personDao.getByEmail(email)
-        person?.let {
-            val correctPassword = AuthenticationService.passwordMatch(it.hashedPassword, password)
-            val unlockedAccount = (it.unlockingDate <= Time.now())
-            updateLoginAttempt(it, correctPassword)
-            if (!(correctPassword && unlockedAccount)){
-                person = null
-            } else {
-                userActivityService.create(it, Time.now(), ActionEnum.ACTION_LOGIN)
-                try {
-                    bankingService.synchronise(it) 
-                } catch (e: Throwable) {
-                     /* do not prevent login if synch */ 
-                }
-            }
-        }
-        return person
-    }
-
-    private fun updateLoginAttempt(person : Person, correctPassword: Boolean){
-        if (!correctPassword){
-            person.loginAttemptCount += 1
-            person.unlockingDate = addIncrementalDelay(person.unlockingDate, person.loginAttemptCount)
-        } else {
-            person.loginAttemptCount = 0
-        }
-        personDao.update(person)
-    }
-
-    fun addIncrementalDelay(currentUnlockingDate : Long, loginAttemptCount: Int) : Long {
-        if (loginAttemptCount < 3) {return Time.now()}
-
-        val baseUnlockingDate = maxOf(currentUnlockingDate, Time.now())
-        val incrementedDate = baseUnlockingDate + ((loginAttemptCount-2) * Time.getDuration(minutes = 5))
-
-        return incrementedDate
-    }
-
     fun getById(id: String) : Person {
-        return personDao.getById(id)
+        var person = personDao.getById(id)
+        userActivityService.create(person, Time.now(), ActionEnum.ACTION_REQUEST)
+        bankingService.synchronise(person)
+        return person
     }
 
     fun getByBillingId(billingId: String) : Person {
