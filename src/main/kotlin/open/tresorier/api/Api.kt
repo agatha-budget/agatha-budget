@@ -1,5 +1,6 @@
 package open.tresorier.api
 
+import com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod
 import io.javalin.Javalin
 import open.tresorier.api.theme.*
 import open.tresorier.dependenciesinjection.ServiceManager
@@ -7,13 +8,15 @@ import open.tresorier.exception.SuspendedUserException
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.*
-import open.tresorier.model.enum.PriceIdEnum
-import open.tresorier.model.enum.ProfileEnum
-import open.tresorier.services.BillingService
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
+import org.pac4j.core.client.Clients
+import org.pac4j.core.config.Config
+import org.pac4j.core.matching.matcher.CorsMatcher
 import org.pac4j.javalin.CallbackHandler
 import org.pac4j.javalin.SecurityHandler
+import org.pac4j.oidc.client.KeycloakOidcClient
+import org.pac4j.oidc.config.KeycloakOidcConfiguration
 import org.pac4j.core.config.Config as AuthenticationConfig
 
 fun main() {
@@ -30,30 +33,7 @@ fun main() {
     // Dependencies injection
     ServiceManager.start()
 
-    app = addBankingRoute(app,
-     ServiceManager.bankingService,
-     ServiceManager.accountService,
-     ServiceManager.budgetService)
-
-    app = addAccountRoute(app,
-     ServiceManager.accountService,
-     ServiceManager.budgetService,
-     ServiceManager.bankingService)
-
-    app = addOperationRoute(app,
-     ServiceManager.accountService,
-     ServiceManager.budgetService,
-     ServiceManager.categoryService,
-     ServiceManager.operationService)
-
-    app = addBudgetDataRoute(app,
-     ServiceManager.budgetService,
-     ServiceManager.budgetDataService)
-
-    app = addUnprotectedRoute(app,
-     properties, 
-     ServiceManager.personService)
-    
+    app = addRoute(app, properties)
     app.before("/keycloak", securityHandler)
     app.get("/keycloak") { ctx ->
         ctx.result("Hello Keycloak !")
@@ -66,14 +46,72 @@ fun main() {
         //val budgetList = ServiceManager.budgetService.findByUser(user)
         //ctx.json(budgetList)
     }
-    
+
     app.get("/person") { ctx ->
         ctx.result("Hello Open Door et co !")
-        //val publicPerson : PublicPerson = getUserFromAuth(ctx).toPublicPerson() 
+        //val publicPerson : PublicPerson = getUserFromAuth(ctx).toPublicPerson()
         //ctx.json(publicPerson)
     }
 
-    app.put("/person") { ctx ->
+}
+
+fun setUpAuthentication(properties: Properties): Config {
+
+    val oidcConfig: KeycloakOidcConfiguration = KeycloakOidcConfiguration()
+    oidcConfig.clientId = properties.get(KEYCLOAK_ID)
+    oidcConfig.secret = properties.get(KEYCLOAK_SECRET)
+    oidcConfig.discoveryURI = properties.get(KEYCLOAK_DISC_URI)
+    oidcConfig.baseUri = properties.get(KEYCLOAK_BASE_URI)
+    oidcConfig.realm = properties.get(KEYCLOAK_REALM)
+    oidcConfig.clientAuthenticationMethod = ClientAuthenticationMethod.CLIENT_SECRET_BASIC
+
+    val keyCloakClient = KeycloakOidcClient(oidcConfig)
+    val clients = Clients(properties.get(API_BASE_URL) + "/callback", keyCloakClient)
+    val config = Config(clients)
+    val corsMatcher = CorsMatcher()
+    corsMatcher.allowOrigin = properties.get(FRONT_URL) + " " + properties.get(KEYCLOAK_BASE_URI)
+    config.addMatcher("cors", CorsMatcher())
+    return config
+}
+
+private fun addRoute(app: Javalin, properties: Properties) : Javalin {
+    var _app = addBankingRoute(app,
+        ServiceManager.bankingService,
+        ServiceManager.accountService,
+        ServiceManager.budgetService)
+
+    _app = addAccountRoute(_app,
+        ServiceManager.accountService,
+        ServiceManager.budgetService,
+        ServiceManager.bankingService)
+
+    _app = addOperationRoute(_app,
+        ServiceManager.accountService,
+        ServiceManager.budgetService,
+        ServiceManager.categoryService,
+        ServiceManager.operationService)
+
+    _app = addBudgetDataRoute(_app,
+        ServiceManager.budgetService,
+        ServiceManager.budgetDataService)
+
+    _app = addBillingRoute(_app,
+        ServiceManager.billingService)
+
+    _app = addBudgetRoute(_app,
+        ServiceManager.budgetService)
+
+    _app = addCategoryRoute(_app,
+        ServiceManager.budgetService,
+        ServiceManager.masterCategoryService,
+        ServiceManager.categoryService,
+        ServiceManager.allocationService)
+
+    _app = addUnprotectedRoute(_app,
+        properties,
+        ServiceManager.personService)
+
+    _app.put("/person") { ctx ->
         val person = getUserFromAuth(ctx)
         //optional
         val newName = getOptionalQueryParam<String>(ctx, "new_name")
@@ -81,124 +119,10 @@ fun main() {
         val newDyslexia = getOptionalQueryParam<Boolean>(ctx, "new_dyslexia")
 
         val publicPerson : PublicPerson = ServiceManager.personService.updatePublicPerson(person, newName, newStyle, newDyslexia)
-        ctx.json(publicPerson)    
+        ctx.json(publicPerson)
     }
 
-    // handle webhook sent by stripe
-    app.post("/from_stripe") { ctx -> 
-        val payload = ctx.body()
-        val sigHeader = ctx.header("Stripe-Signature")
-        ServiceManager.billingService.handleWebhook(payload, sigHeader)
-    }
-
-    app.get("/billing") { ctx ->
-        val person = getUserFromAuth(ctx)
-        if (person.billingId != null) {
-            ctx.result(BillingService.createBillingManagementSession(person))
-        } else {
-            val packageString = getQueryParam<String>(ctx, "package")
-            val selectedPackage: PriceIdEnum = PriceIdEnum.valueOf(packageString)
-            ctx.result(BillingService.createNewUserBillingSession(person, selectedPackage))
-        }
-    }
-
-    app.post("/budget") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val name = getQueryParam<String>(ctx, "name")
-        val profileString = getQueryParam<String>(ctx, "profile")
-        val profile: ProfileEnum = ProfileEnum.valueOf(profileString)
-        val budget: Budget = ServiceManager.budgetService.create(user, name, profile)
-        ctx.result(budget.id)
-    }
-
-    app.put("/budget") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val formerName = budget.name
-        val newName = getQueryParam<String>(ctx, "new_name")
-        ServiceManager.budgetService.update(user, budget, newName)
-        ctx.result("updated from $formerName to $newName")
-    }
-
-    app.delete("/budget") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        ServiceManager.budgetService.delete(user, budget)
-        ctx.result("budget ${budget.name} has been deleted")
-    }
-
-    app.post("/mcategory") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-        val name = getQueryParam<String>(ctx, "name")
-
-        val mcategory = ServiceManager.masterCategoryService.create(user, budget, name)
-        ctx.json(mcategory)
-    }
-
-    app.put("/mcategory") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "id"))
-
-        //optional
-        val newName = getOptionalQueryParam<String>(ctx, "new_name")
-        val newColor = getOptionalQueryParam<String>(ctx, "new_color")
-        val newArchived = getOptionalQueryParam<Boolean>(ctx, "new_archived")
-        val newDeleted = getOptionalQueryParam<Boolean>(ctx, "new_deleted")
-
-        val updatedMasterCategory = ServiceManager.masterCategoryService.update(user, masterCategory, newName, newColor, newArchived, newDeleted)
-        ctx.json(updatedMasterCategory)
-    }
-
-    app.get("/mcategory/budget") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-
-        val masterCategories = ServiceManager.masterCategoryService.findByBudget(user, budget)
-        ctx.json(masterCategories)
-    }
-
-    app.post("/category") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val masterCategory: MasterCategory = ServiceManager.masterCategoryService.getById(user, getQueryParam<String>(ctx, "master_category_id"))
-        val name = getQueryParam<String>(ctx, "name")
-
-        val category = ServiceManager.categoryService.create(user, masterCategory, name)
-        ctx.json(category)
-    }
-
-    app.put("/category") { ctx ->
-        // required
-        val user = getUserFromAuth(ctx)
-        val category: Category = ServiceManager.categoryService.getById(user, getQueryParam<String>(ctx, "id"))
-
-        //optional
-        val newName = getOptionalQueryParam<String>(ctx, "new_name")
-        val newMasterCategory: MasterCategory? = getOptionalQueryParam<String>(ctx, "new_master_category_id")?.let{
-            ServiceManager.masterCategoryService.getById(user, it)
-        }
-        val newArchived = getOptionalQueryParam<Boolean>(ctx, "new_archived")
-        val newDeleted = getOptionalQueryParam<Boolean>(ctx, "new_deleted")
-        val updatedCategory = ServiceManager.categoryService.update(user, category, newName, newMasterCategory, newArchived, newDeleted)
-        ctx.json(updatedCategory)
-    }
-
-    app.get("/category/budget") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val budget: Budget = ServiceManager.budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
-
-        val categories = ServiceManager.categoryService.findByBudget(user, budget)
-        ctx.json(categories)
-    }
-
-    app.post("/allocation") { ctx ->
-        val user = getUserFromAuth(ctx)
-        val month : Month = Month.createFromComparable(getQueryParam<Int>(ctx, "month"))
-        val category: Category = ServiceManager.categoryService.getById(user, getQueryParam<String>(ctx, "category_id"))
-        val amount : Int = getQueryParam<Int>(ctx, "amount")
-        val allocation = ServiceManager.allocationService.insertOrUpdate(user, month, category, amount)
-        ctx.json(allocation)
-    }
+    return _app
 }
 
 private fun setUpApp(properties: Properties): Javalin {
