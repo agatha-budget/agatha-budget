@@ -11,20 +11,19 @@ import open.tresorier.model.*
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
 import org.pac4j.core.client.Clients
-import org.pac4j.core.config.Config
 import org.pac4j.core.matching.matcher.CorsMatcher
 import org.pac4j.javalin.CallbackHandler
 import org.pac4j.javalin.SecurityHandler
 import org.pac4j.oidc.client.KeycloakOidcClient
 import org.pac4j.oidc.config.KeycloakOidcConfiguration
-import org.pac4j.core.config.Config as AuthenticationConfig
+import org.pac4j.core.config.Config as PAC4J_Config
 
 fun main() {
 
     val properties = Properties()
     var app = setUpApp(properties)
-    val authenticationConfig: AuthenticationConfig = setUpAuthentication(properties)
-    val callback: CallbackHandler = CallbackHandler(authenticationConfig);
+    val authenticationConfig: PAC4J_Config = setUpAuthentication(properties)
+    val callback = CallbackHandler(authenticationConfig);
     app.get("/callback", callback);
     app.post("/callback", callback);
     
@@ -55,9 +54,9 @@ fun main() {
 
 }
 
-fun setUpAuthentication(properties: Properties): Config {
+private fun setUpAuthentication(properties: Properties): PAC4J_Config {
 
-    val oidcConfig: KeycloakOidcConfiguration = KeycloakOidcConfiguration()
+    val oidcConfig = KeycloakOidcConfiguration()
     oidcConfig.clientId = properties.get(KEYCLOAK_ID)
     oidcConfig.secret = properties.get(KEYCLOAK_SECRET)
     oidcConfig.discoveryURI = properties.get(KEYCLOAK_DISC_URI)
@@ -67,10 +66,10 @@ fun setUpAuthentication(properties: Properties): Config {
 
     val keyCloakClient = KeycloakOidcClient(oidcConfig)
     val clients = Clients(properties.get(API_BASE_URL) + "/callback", keyCloakClient)
-    val config = Config(clients)
+    val config = PAC4J_Config(clients)
     val corsMatcher = CorsMatcher()
     corsMatcher.allowOrigin = properties.get(FRONT_URL) + " " + properties.get(KEYCLOAK_BASE_URI)
-    config.addMatcher("cors", CorsMatcher())
+    config.addMatcher("cors", corsMatcher)
     return config
 }
 
