@@ -1,11 +1,11 @@
 package open.tresorier.dependenciesinjection
 
-import open.tresorier.mailing.*
-import open.tresorier.mailing.adapter.*
-import open.tresorier.banking.*
-import open.tresorier.banking.adapter.*
+import open.tresorier.banking.IBankingPort
+import open.tresorier.banking.adapter.MockBankingAdapter
 import open.tresorier.dao.*
 import open.tresorier.dao.jooq.h2.*
+import open.tresorier.mailing.IMailingPort
+import open.tresorier.mailing.adapter.MockMailingAdapter
 import org.koin.dsl.module
 
 

@@ -8,10 +8,10 @@ import open.tresorier.generated.jooq.main.tables.daos.BudgetDao
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
 import open.tresorier.model.Budget
 import open.tresorier.model.Person
+import open.tresorier.model.enum.ProfileEnum
 import org.jooq.Configuration
 import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.main.tables.pojos.Budget as JooqBudget
-import open.tresorier.model.enum.ProfileEnum
 
 class PgBudgetDao (val configuration : Configuration) : IBudgetDao {
 

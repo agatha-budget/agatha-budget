@@ -1,10 +1,9 @@
 package open.tresorier.utils
 
-import java.util.Properties as JavaProperties
 import open.tresorier.utils.PropertiesEnum.*
-import java.io.FileInputStream
 import java.io.File
-import kotlin.text.Regex
+import java.io.FileInputStream
+import java.util.Properties as JavaProperties
 
 class Properties () {
 

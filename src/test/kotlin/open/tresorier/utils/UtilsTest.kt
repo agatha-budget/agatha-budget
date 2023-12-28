@@ -1,7 +1,6 @@
 package open.tresorier.utils
 
-import open.tresorier.model.Month
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
 class UtilsTest {

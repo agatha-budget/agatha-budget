@@ -2,17 +2,17 @@ package open.tresorier.dao.jooq.pgsql
 
 import open.tresorier.dao.IBankAgreementDao
 import open.tresorier.exception.TresorierException
+import open.tresorier.generated.jooq.main.Tables.*
+import open.tresorier.generated.jooq.main.tables.daos.BankAgreementDao
 import open.tresorier.generated.jooq.main.tables.records.BankAgreementRecord
 import open.tresorier.generated.jooq.main.tables.records.PersonRecord
-import open.tresorier.generated.jooq.main.tables.daos.BankAgreementDao
-import open.tresorier.generated.jooq.main.Tables.*
-import org.jooq.impl.DSL
-import open.tresorier.model.banking.BankAgreement
-import open.tresorier.model.Person
-import open.tresorier.model.Budget
 import open.tresorier.model.Account
+import open.tresorier.model.Budget
+import open.tresorier.model.Person
+import open.tresorier.model.banking.BankAgreement
 import open.tresorier.utils.Time
 import org.jooq.Configuration
+import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.main.tables.pojos.BankAgreement as JooqBankAgreement
 
 class PgBankAgreementDao(val configuration: Configuration) : IBankAgreementDao {

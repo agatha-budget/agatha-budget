@@ -1,7 +1,7 @@
 package open.tresorier.model
 
-import open.tresorier.utils.Time
 import open.tresorier.model.enum.ActionEnum
+import open.tresorier.utils.Time
 
 class UserActivity (
     val userId: String? = null,

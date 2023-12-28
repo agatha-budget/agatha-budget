@@ -2,20 +2,17 @@ package open.tresorier.dao.jooq.h2
 
 import open.tresorier.dao.IBankAgreementDao
 import open.tresorier.exception.TresorierException
+import open.tresorier.generated.jooq.test.public_.Tables.*
+import open.tresorier.generated.jooq.test.public_.tables.daos.BankAgreementDao
 import open.tresorier.generated.jooq.test.public_.tables.records.BankAgreementRecord
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
-import open.tresorier.generated.jooq.test.public_.tables.daos.BankAgreementDao
-import open.tresorier.generated.jooq.test.public_.Tables.PERSON
-import open.tresorier.generated.jooq.test.public_.Tables.BUDGET
-import open.tresorier.generated.jooq.test.public_.Tables.BANK_AGREEMENT
-import open.tresorier.generated.jooq.test.public_.Tables.BANK_ACCOUNT
-import org.jooq.impl.DSL
-import open.tresorier.model.banking.BankAgreement
-import open.tresorier.model.Person
-import open.tresorier.model.Budget
 import open.tresorier.model.Account
+import open.tresorier.model.Budget
+import open.tresorier.model.Person
+import open.tresorier.model.banking.BankAgreement
 import open.tresorier.utils.Time
 import org.jooq.Configuration
+import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.test.public_.tables.pojos.BankAgreement as JooqBankAgreement
 
 class H2BankAgreementDao(val configuration: Configuration) : IBankAgreementDao {

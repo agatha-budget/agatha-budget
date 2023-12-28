@@ -3,7 +3,8 @@ package open.tresorier.services
 import open.tresorier.dao.*
 import open.tresorier.exception.TresorierIllegalException
 import open.tresorier.model.*
-import open.tresorier.model.banking.*
+import open.tresorier.model.banking.BankAccount
+import open.tresorier.model.banking.BankAgreement
 
 class AuthorizationService(
     private val accountDao: IAccountDao,

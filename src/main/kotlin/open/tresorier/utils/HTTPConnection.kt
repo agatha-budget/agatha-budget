@@ -1,9 +1,9 @@
 package open.tresorier.utils
 
+import org.json.JSONObject
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
-import org.json.JSONObject
 
 object HTTPConnection {
 

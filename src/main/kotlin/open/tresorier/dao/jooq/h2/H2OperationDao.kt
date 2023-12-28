@@ -3,21 +3,15 @@ package open.tresorier.dao.jooq.h2
 import open.tresorier.dao.IOperationDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.test.public_.Tables.*
-import open.tresorier.generated.jooq.test.public_.tables.Operation as OperationTable
 import open.tresorier.generated.jooq.test.public_.tables.daos.OperationDao
 import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord
 import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.*
-import org.jooq.Configuration
-import org.jooq.Record
-import org.jooq.Result
-import org.jooq.Field
-import org.jooq.Record3
-import org.jooq.Record11
-import org.jooq.Record13
+import org.jooq.*
 import org.jooq.impl.DSL
 import org.jooq.impl.DSL.*
 import java.math.BigDecimal
+import open.tresorier.generated.jooq.test.public_.tables.Operation as OperationTable
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Operation as JooqOperation
 
 typealias OperationWithDaughtersRecord = Record11<String, String, Int, Int, String, Int, Long, String, Boolean, Boolean, Result<OperationRecord>>

@@ -1,15 +1,11 @@
 package open.tresorier.dao
 
 import open.tresorier.dependenciesinjection.IIntegrationTest
-import open.tresorier.model.Operation
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
-import org.junit.jupiter.api.Test
-import open.tresorier.exception.TresorierException
 import open.tresorier.model.*
 import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.utils.TestData
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 
 class AccountDaoIntTest : AccountDaoTest(), IIntegrationTest {}
 

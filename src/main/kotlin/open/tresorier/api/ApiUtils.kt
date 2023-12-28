@@ -1,17 +1,16 @@
 package open.tresorier.api
 
+import com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod
 import io.javalin.http.Context
 import open.tresorier.dependenciesinjection.ServiceManager
 import open.tresorier.model.Person
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
 import org.pac4j.core.client.Clients
-import org.pac4j.oidc.client.KeycloakOidcClient
-import org.pac4j.core.config.Config as AuthenticationConfig
-import org.pac4j.oidc.config.KeycloakOidcConfiguration
-import com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod
-import org.pac4j.core.authorization.authorizer.CsrfAuthorizer
 import org.pac4j.core.matching.matcher.CorsMatcher
+import org.pac4j.oidc.client.KeycloakOidcClient
+import org.pac4j.oidc.config.KeycloakOidcConfiguration
+import org.pac4j.core.config.Config as AuthenticationConfig
 
 fun sendToAdminMessage(errorId : String) : String {
     return " Send this code to your administrator for details : $errorId"

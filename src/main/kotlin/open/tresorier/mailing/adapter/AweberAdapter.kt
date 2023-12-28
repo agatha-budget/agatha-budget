@@ -1,14 +1,13 @@
 package open.tresorier.mailing.adapter
 
-import org.json.JSONArray
+import open.tresorier.exception.MailingException
+import open.tresorier.mailing.IMailingPort
+import open.tresorier.model.Person
 import open.tresorier.utils.HTTPConnection
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
-import open.tresorier.mailing.IMailingPort
-import open.tresorier.exception.MailingException
+import org.json.JSONArray
 import org.json.JSONObject
-
-import open.tresorier.model.Person
 
 class AweberAdapter() : IMailingPort {
     override fun add(person: Person) {

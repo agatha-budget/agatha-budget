@@ -1,13 +1,13 @@
 package open.tresorier.api.theme
 
 import io.javalin.Javalin
-import open.tresorier.model.enum.ProfileEnum
-import open.tresorier.utils.Properties
-import open.tresorier.utils.PropertiesEnum.*
-import open.tresorier.services.PersonService
+import open.tresorier.api.getQueryParam
 import open.tresorier.exception.TresorierException
-import open.tresorier.api.*
-import open.tresorier.model.*
+import open.tresorier.model.Person
+import open.tresorier.model.enum.ProfileEnum
+import open.tresorier.services.PersonService
+import open.tresorier.utils.Properties
+import open.tresorier.utils.PropertiesEnum.ENVIRONMENT
 
 fun addUnprotectedRoute(app : Javalin, properties: Properties, personService: PersonService) : Javalin {
 

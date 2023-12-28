@@ -1,20 +1,19 @@
 package open.tresorier.api
 
 import io.javalin.Javalin
-import io.javalin.http.Context
+import open.tresorier.api.theme.*
 import open.tresorier.dependenciesinjection.ServiceManager
+import open.tresorier.exception.SuspendedUserException
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
-import open.tresorier.exception.SuspendedUserException
 import open.tresorier.model.*
+import open.tresorier.model.enum.PriceIdEnum
+import open.tresorier.model.enum.ProfileEnum
+import open.tresorier.services.BillingService
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
-import open.tresorier.services.BillingService
-import open.tresorier.model.enum.ProfileEnum
-import open.tresorier.model.enum.PriceIdEnum
-import open.tresorier.api.theme.*
-import org.pac4j.javalin.SecurityHandler
 import org.pac4j.javalin.CallbackHandler
+import org.pac4j.javalin.SecurityHandler
 import org.pac4j.core.config.Config as AuthenticationConfig
 
 fun main() {
