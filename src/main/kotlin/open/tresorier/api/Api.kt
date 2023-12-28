@@ -1,49 +1,33 @@
 package open.tresorier.api
 
-import com.nimbusds.oauth2.sdk.auth.ClientAuthenticationMethod
 import io.javalin.Javalin
 import open.tresorier.api.theme.*
 import open.tresorier.dependenciesinjection.ServiceManager
+import open.tresorier.exception.NoAuthTokenException
 import open.tresorier.exception.SuspendedUserException
 import open.tresorier.exception.TresorierException
 import open.tresorier.exception.TresorierIllegalException
-import open.tresorier.model.*
+import open.tresorier.model.PublicPerson
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
-import org.pac4j.core.client.Clients
-import org.pac4j.core.matching.matcher.CorsMatcher
-import org.pac4j.javalin.CallbackHandler
-import org.pac4j.javalin.SecurityHandler
-import org.pac4j.oidc.client.KeycloakOidcClient
-import org.pac4j.oidc.config.KeycloakOidcConfiguration
-import org.pac4j.core.config.Config as PAC4J_Config
 
 fun main() {
 
     val properties = Properties()
     var app = setUpApp(properties)
-    val authenticationConfig: PAC4J_Config = setUpAuthentication(properties)
-    val callback = CallbackHandler(authenticationConfig);
-    app.get("/callback", callback);
-    app.post("/callback", callback);
-    
-    val securityHandler: SecurityHandler = SecurityHandler(authenticationConfig, "KeycloakOidcClient", "isAuthenticated", "cors")
 
     // Dependencies injection
     ServiceManager.start()
 
     app = addRoute(app, properties)
-    app.before("/keycloak", securityHandler)
     app.get("/keycloak") { ctx ->
         ctx.result("Hello Keycloak !")
     }
 
-    app.before("/budget/user", securityHandler)
     app.get("/budget/user") { ctx ->
-        ctx.result("Hello Keycloak protected!")
-        //val user = getUserFromAuth(ctx)
-        //val budgetList = ServiceManager.budgetService.findByUser(user)
-        //ctx.json(budgetList)
+        val person = getUserFromAuth(ctx)
+        val budgetList = ServiceManager.budgetService.findByUser(person)
+        ctx.json(budgetList)
     }
 
     app.get("/person") { ctx ->
@@ -52,25 +36,6 @@ fun main() {
         //ctx.json(publicPerson)
     }
 
-}
-
-private fun setUpAuthentication(properties: Properties): PAC4J_Config {
-
-    val oidcConfig = KeycloakOidcConfiguration()
-    oidcConfig.clientId = properties.get(KEYCLOAK_ID)
-    oidcConfig.secret = properties.get(KEYCLOAK_SECRET)
-    oidcConfig.discoveryURI = properties.get(KEYCLOAK_DISC_URI)
-    oidcConfig.baseUri = properties.get(KEYCLOAK_BASE_URI)
-    oidcConfig.realm = properties.get(KEYCLOAK_REALM)
-    oidcConfig.clientAuthenticationMethod = ClientAuthenticationMethod.CLIENT_SECRET_BASIC
-
-    val keyCloakClient = KeycloakOidcClient(oidcConfig)
-    val clients = Clients(properties.get(API_BASE_URL) + "/callback", keyCloakClient)
-    val config = PAC4J_Config(clients)
-    val corsMatcher = CorsMatcher()
-    corsMatcher.allowOrigin = properties.get(FRONT_URL) + " " + properties.get(KEYCLOAK_BASE_URI)
-    config.addMatcher("cors", corsMatcher)
-    return config
 }
 
 private fun addRoute(app: Javalin, properties: Properties) : Javalin {
@@ -172,6 +137,15 @@ private fun setUpApp(properties: Properties): Javalin {
             ctx.json(e.toMap())
         } else {
             ctx.result("User needs to update its subscription" + sendToAdminMessage(e.id))
+        }
+    }
+
+    app.exception(NoAuthTokenException::class.java) { e, ctx ->
+        ctx.status(402)
+        if (environmentStatus == "dev") {
+            ctx.json(e.toMap())
+        } else {
+            ctx.result("An errorOccured with the auth token" + sendToAdminMessage(e.id))
         }
     }
 

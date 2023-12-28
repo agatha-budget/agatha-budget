@@ -141,6 +141,11 @@ dependencies {
     // Billing
     implementation("com.stripe:stripe-java:$stripe_version")
 
+    // JWT
+    implementation("io.jsonwebtoken:jjwt-api:0.12.3")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
+
     implementation("org.json:json:$json_version")
 }
 

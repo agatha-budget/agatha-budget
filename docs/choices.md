@@ -4,4 +4,3 @@ https://stackoverflow.com/questions/4348590/how-can-i-make-git-ignore-future-rev
 
 Aweber : https://api.aweber.com/
 
-https://medium.com/devops-dudes/secure-front-end-react-js-and-back-end-node-js-express-rest-api-with-keycloak-daf159f0a94e
