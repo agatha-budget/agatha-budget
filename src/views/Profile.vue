@@ -45,11 +45,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import NavMenu from '@/components/NavigationMenu.vue'
-import PersonService from '@/services/PersonService'
-import router, { RouterPages } from '@/router'
-import { usePersonStore } from '@/stores/personStore'
+import NavMenu from '@/components/NavigationMenu.vue';
+import router, { RouterPages } from '@/router';
+import KeycloakService from "@/services/security/KeycloakService";
+import { usePersonStore } from '@/stores/personStore';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'ProfileView',
@@ -67,7 +67,7 @@ export default defineComponent({
   },
   methods: {
     logout () {
-      PersonService.deleteSession()
+      KeycloakService.CallLogOut();
     },
     goToSubscriptionPage () {
       router.push(RouterPages.subscription)

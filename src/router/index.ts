@@ -1,20 +1,16 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import HomeView from '@/views/Home.vue'
-import LoginView from '@/views/Login.vue'
-import ProfileView from '@/views/Profile.vue'
-import BanksView from '@/views/Banks.vue'
-import SignupView from '@/views/Signup.vue'
-import RedirectToAccountPage from '@/views/RedirectToAccountPage.vue'
-import AccountView from '@/views/Account.vue'
-import SubscriptionView from '@/views/Subscription.vue'
-import ChartsView from '@/views/Charts.vue'
-import { AxiosError } from 'axios'
 import { usePersonStore } from '@/stores/personStore'
+import AccountView from '@/views/Account.vue'
+import BanksView from '@/views/Banks.vue'
+import ChartsView from '@/views/Charts.vue'
+import HomeView from '@/views/Home.vue'
+import ProfileView from '@/views/Profile.vue'
+import RedirectToAccountPage from '@/views/RedirectToAccountPage.vue'
+import SubscriptionView from '@/views/Subscription.vue'
+import { AxiosError } from 'axios'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 
 export enum RouterPages {
   home = '/',
-  login = '/login',
-  signup = '/signup',
   account = '/account',
   about = '/about',
   profile = '/profile',
@@ -29,14 +25,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.home,
     component: HomeView
-  },
-  {
-    path: RouterPages.login,
-    component: LoginView
-  },
-  {
-    path: RouterPages.signup,
-    component: SignupView
   },
   {
     path: RouterPages.profile,
@@ -84,7 +72,7 @@ const router = createRouter({
 export function redirectToLoginPageIfNotLogged () {
   const personStore = usePersonStore()
   if (!personStore.logged) {
-    router.push(RouterPages.login)
+    router.push(RouterPages.home)
   }
 }
 
@@ -92,7 +80,7 @@ export function redirectOnApiError (error: AxiosError) {
   if (error.response && error.response.status === 402) {
     router.push(RouterPages.invalidSubscription)
   } else {
-    router.push(RouterPages.login)
+    router.push(RouterPages.home)
   }
 }
 
