@@ -1,4 +1,5 @@
 import { usePersonStore } from '@/stores/personStore'
+import AboutView from '@/views/About.vue'
 import AccountView from '@/views/Account.vue'
 import BanksView from '@/views/Banks.vue'
 import ChartsView from '@/views/Charts.vue'
@@ -56,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: RouterPages.about,
-    component: () => import('@/views/About.vue')
+    component: AboutView,
   },
   {
     path: RouterPages.chartPage,
