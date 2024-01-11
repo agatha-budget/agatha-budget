@@ -1,14 +1,14 @@
-import { usePersonStore } from '@/stores/personStore'
-import AboutView from '@/views/About.vue'
-import AccountView from '@/views/Account.vue'
-import BanksView from '@/views/Banks.vue'
-import ChartsView from '@/views/Charts.vue'
-import HomeView from '@/views/Home.vue'
-import ProfileView from '@/views/Profile.vue'
-import RedirectToAccountPage from '@/views/RedirectToAccountPage.vue'
-import SubscriptionView from '@/views/Subscription.vue'
-import { AxiosError } from 'axios'
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import KeycloakService from "@/services/security/KeycloakService";
+import AboutView from '@/views/About.vue';
+import AccountView from '@/views/Account.vue';
+import BanksView from '@/views/Banks.vue';
+import ChartsView from '@/views/Charts.vue';
+import HomeView from '@/views/Home.vue';
+import ProfileView from '@/views/Profile.vue';
+import RedirectToAccountPage from '@/views/RedirectToAccountPage.vue';
+import SubscriptionView from '@/views/Subscription.vue';
+import { AxiosError } from 'axios';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 
 export enum RouterPages {
   home = '/',
@@ -70,18 +70,11 @@ const router = createRouter({
   routes
 })
 
-export function redirectToLoginPageIfNotLogged () {
-  const personStore = usePersonStore()
-  if (!personStore.logged) {
-    router.push(RouterPages.home)
-  }
-}
-
 export function redirectOnApiError (error: AxiosError) {
   if (error.response && error.response.status === 402) {
     router.push(RouterPages.invalidSubscription)
   } else {
-    router.push(RouterPages.home)
+    KeycloakService.CallLogOut();
   }
 }
 

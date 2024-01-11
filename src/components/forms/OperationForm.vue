@@ -133,15 +133,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import OperationService from '@/services/OperationService'
-import type { Category, MasterCategory, OperationWithDaughters, Account, GroupSelectOption, SelectOption, Operation } from '@/model/model'
+import type { Account, Category, GroupSelectOption, MasterCategory, Operation, OperationWithDaughters, SelectOption } from '@/model/model'
 import { incomeCategoryId, transfertCategoryId } from '@/model/model'
+import OperationService from '@/services/OperationService'
+import { useBudgetStore } from '@/stores/budgetStore'
+import Calcul from '@/utils/Calcul'
 import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
-import Calcul from '@/utils/Calcul'
 import Multiselect from '@vueform/multiselect'
-import { useBudgetStore } from '@/stores/budgetStore'
+import { defineComponent } from 'vue'
 
 interface DaughterFormData {
   id: string;
@@ -213,13 +213,13 @@ export default defineComponent({
         {
           label: this.$t('DEFAULT'),
           options: [
-            { value: incomeCategoryId, label: this.$t('I18N_INCOME') }
+            { value: incomeCategoryId, label: this.$t('I18N_INCOME') },
+            { value: transfertCategoryId, label: this.$t('I18N_TRANSFER') }
           ]
         }
       ]
       const budgetStore = useBudgetStore()
       const allAccounts = budgetStore.accounts
-      optionsList.push(this.createOptionTransfer(allAccounts))
       for (const masterCategory of budgetStore.masterCategories) {
         const categories = this.getCategoriesByMasterCategory(masterCategory)
         if (categories.length > 0) {
@@ -293,21 +293,6 @@ export default defineComponent({
     },
     inversePending () {
       this.isPending = !this.isPending
-    },
-    createOptionTransfer (accounts: Account[]): GroupSelectOption {
-      const group: GroupSelectOption = {
-        label: this.$t('I18N_TRANSFER'),
-        options: []
-      }
-      let option: SelectOption = { value: transfertCategoryId, label: this.$t('I18N_TRANSFER') }
-      group.options.push(option)
-      for (const account of accounts) {
-        if (account.id !== this.accountId) {
-          option = { value: account.id, label: account.name }
-          group.options.push(option)
-        }
-      }
-      return group
     },
     getAccountById (accountId: string): Account | null {
       return useBudgetStore().getAccountById(accountId)

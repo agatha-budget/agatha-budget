@@ -20,25 +20,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import router, { RouterPages, redirectToLoginPageIfNotLogged } from '@/router'
-import BudgetCmpt from '@/components/BudgetCmpt.vue' // @ is an alias to /src
-import AccountsWidget from '@/components/AccountsWidget.vue'
-import PersonService from '@/services/PersonService'
-import Time from '@/utils/Time'
-import Loader from '@/components/utils/Loader.vue'
-import NavMenu from '@/components/NavigationMenu.vue'
-import { usePersonStore } from '@/stores/personStore'
-import { useBudgetStore } from '@/stores/budgetStore'
+import AccountsWidget from '@/components/AccountsWidget.vue';
+import BudgetCmpt from '@/components/BudgetCmpt.vue';
+import NavMenu from '@/components/NavigationMenu.vue';
+import Loader from '@/components/utils/Loader.vue';
+import router, { RouterPages } from '@/router';
+import PersonService from '@/services/PersonService';
+import { useBudgetStore } from '@/stores/budgetStore';
+import { usePersonStore } from '@/stores/personStore';
+import Time from '@/utils/Time';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   name: 'HomeView',
-  beforeCreate: async function () {
-    redirectToLoginPageIfNotLogged()
-  },
   created: async function () {
     usePersonStore().init()
-
   },
   components: {
     BudgetCmpt,

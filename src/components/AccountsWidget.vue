@@ -4,7 +4,7 @@
       <span class="subtitle"> {{ $t('SEE_MY_ACCOUNTS') }} </span>
     </div>
     <div class="accountList col-12 offset-0 col-sm-8 offset-sm-2 col-md-12 offset-md-0">
-      <button v-for="account of accounts" :key="account" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
+      <button v-for="account of accounts" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
         <template v-if="fromPage == 'home'">
           <div class="name col-10 offset-2 col-xl-8 offset-xl-0 col-xxl-7 offset-xxl-1">{{ account.name }} :</div>
           <div class="amount col-6 offset-3 col-xl-4 offset-xl-0">{{centsToEurosDisplay(account.amount)}}€</div>
@@ -30,12 +30,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
 import AccountCreationForm from '@/components/forms/AccountCreationForm.vue'
-import router, { RouterPages } from '@/router'
 import type { Account } from '@/model/model'
-import Utils from '@/utils/Utils'
+import router, { RouterPages } from '@/router'
 import { useBudgetStore } from '@/stores/budgetStore'
+import Utils from '@/utils/Utils'
+import { defineComponent } from 'vue'
 
 
 interface AccountsWidgetData {

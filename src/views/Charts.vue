@@ -62,23 +62,22 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { redirectToLoginPageIfNotLogged } from '@/router'
-import ChartPageHeader from '@/components/headers/ChartPageHeader.vue'
+import NavMenu from '@/components/NavigationMenu.vue'
 import BarChart from '@/components/charts/BarChart.vue'
 import PieChart from '@/components/charts/PieChart.vue'
-import RadioSelect from '@/components/inputs/RadioSelect.vue'
+import ChartPageHeader from '@/components/headers/ChartPageHeader.vue'
 import CheckboxSelect from '@/components/inputs/CheckboxSelect.vue'
 import DateNav from '@/components/inputs/DateNavigation.vue'
-import NavMenu from '@/components/NavigationMenu.vue'
+import RadioSelect from '@/components/inputs/RadioSelect.vue'
+import type { Budget, Category, CategoryDataList, GroupSelectOption } from '@/model/model'
 import BudgetDataService from '@/services/BudgetDataService'
-import type { CategoryDataList, Budget, GroupSelectOption, Category } from '@/model/model'
-import Utils from '@/utils/Utils'
-import Time from '@/utils/Time'
-import { allocatedColor, spentColor, availableColor, redColor, blueColor, orangeColor, purpleColor, greenColor, yellowColor, navyColor, pinkColor, brownColor, blackColor, lightGreyColor, darkGreyColor, lightGreenColor, salmonColor, lavenderColor, bordeauxColor } from '@/utils/Color'
-import Multiselect from '@vueform/multiselect'
-import { usePersonStore } from '@/stores/personStore'
 import { useBudgetStore } from '@/stores/budgetStore'
+import { usePersonStore } from '@/stores/personStore'
+import { allocatedColor, availableColor, blackColor, blueColor, bordeauxColor, brownColor, darkGreyColor, greenColor, lavenderColor, lightGreenColor, lightGreyColor, navyColor, orangeColor, pinkColor, purpleColor, redColor, salmonColor, spentColor, yellowColor } from '@/utils/Color'
+import Time from '@/utils/Time'
+import Utils from '@/utils/Utils'
+import Multiselect from '@vueform/multiselect'
+import { defineComponent } from 'vue'
 
 interface ChartPageData {
     barChartData: { labels: string[]; datasets: { label: string; backgroundColor: string;data: number[] }[] };
@@ -110,9 +109,6 @@ export default defineComponent({
     Multiselect
   },
   props: { },
-  beforeCreate: async function () {
-    redirectToLoginPageIfNotLogged()
-  },
   created: async function () {
     usePersonStore().init()
     await this.getBudgetData()

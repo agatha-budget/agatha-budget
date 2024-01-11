@@ -90,19 +90,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import router, { redirectToLoginPageIfNotLogged, RouterPages } from '@/router'
-import type { Account, Category, Operation, OperationWithDaughters } from '@/model/model'
-import Time from '@/utils/Time'
-import OperationService from '@/services/OperationService'
+import FilterCmpt from '@/components/FilterCmpt.vue'
 import OperationForm from '@/components/forms/OperationForm.vue'
-import NavMenu from '@/components/NavigationMenu.vue'
 import AccountPageHeader from '@/components/headers/AccountPageHeader.vue'
 import ImportOfx from '@/components/ImportOfx.vue'
-import FilterCmpt from '@/components/FilterCmpt.vue'
-import Utils from '@/utils/Utils'
-import { usePersonStore } from '@/stores/personStore'
+import NavMenu from '@/components/NavigationMenu.vue'
+import type { Account, Category, Operation, OperationWithDaughters } from '@/model/model'
+import router, { RouterPages } from '@/router'
+import OperationService from '@/services/OperationService'
 import { useBudgetStore } from '@/stores/budgetStore'
+import { usePersonStore } from '@/stores/personStore'
+import Time from '@/utils/Time'
+import Utils from '@/utils/Utils'
+import { defineComponent } from 'vue'
 
 interface EditableOperation extends OperationWithDaughters {
   editing: boolean;
@@ -125,9 +125,6 @@ export default defineComponent({
     AccountPageHeader,
     ImportOfx,
     FilterCmpt
-  },
-  beforeCreate: async function () {
-    redirectToLoginPageIfNotLogged()
   },
   created: async function () {
     usePersonStore().init()
