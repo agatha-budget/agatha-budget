@@ -3,7 +3,6 @@
 with pkgs;
 
 mkShell {
-# seems we should use jdk11_headless for server env
 buildInputs = [
 kotlin postgresql_13 gradle temurin-bin-17 python38
 ];
