@@ -1,9 +1,9 @@
-import { defineStore } from 'pinia'
-import type { Budget, Account, Category, MasterCategory } from '@/model/model'
-import BudgetService from '@/services/BudgetService'
+import type { Account, Budget, Category, MasterCategory } from '@/model/model'
 import AccountService from '@/services/AccountService'
+import BudgetService from '@/services/BudgetService'
 import CategoryService from '@/services/CategoryService'
 import MasterCategoryService from '@/services/MasterCategoryService'
+import { defineStore } from 'pinia'
 
 export const useBudgetStore = defineStore('budget', {
   state: () => ({
@@ -49,6 +49,11 @@ export const useBudgetStore = defineStore('budget', {
         this.masterCategories = await MasterCategoryService.getMasterCategories(this.budget)
       }
     },
+    getOrderedMasterCategory(): MasterCategory[] {
+      return this.masterCategories.sort(function(a,b) {
+        return (a.name < b.name) ? -1 : 1 
+      })
+    },
     getMasterCategoryById(masterCategoryId: string): MasterCategory | null {
       for (const masterCategory of this.masterCategories) {
         if (masterCategory.id === masterCategoryId) {
@@ -72,7 +77,7 @@ export const useBudgetStore = defineStore('budget', {
           categories.push(category)
         }
       }
-      return categories
+      return this.orderCategory(categories)
     },
     getCategoriesByArchivedStatus(archived: boolean): Category[] {
       const categories: Category[] = []
@@ -90,6 +95,11 @@ export const useBudgetStore = defineStore('budget', {
         }
       }
       return null
+    },
+    orderCategory(categories: Category[]): Category[] {
+      return categories.sort(function(a,b) {
+        return (a.name < b.name) ? -1 : 1 
+      })
     }
   }
 })
