@@ -1,1 +1,0 @@
-curl -X POST "https://tresorier-back.herokuapp.com/person?name=a&password=a&email=a" -H "accept: application/json" -d "" -v

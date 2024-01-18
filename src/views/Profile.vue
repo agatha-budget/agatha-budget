@@ -1,5 +1,5 @@
 <template>
-  <div :class="this.$store.state.css">
+  <div :class="css">
     <div class="profilePage menuLayout row col-md-8 offset-md-2 col-xxl-6 offset-xxl-3">
         <div class="header fixed title">
           {{ $t('PARAMETERS') }}
@@ -45,24 +45,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import NavMenu from '@/components/NavigationMenu.vue'
-import PersonService from '@/services/PersonService'
-import StoreHandler from '@/store/StoreHandler'
-import router, { RouterPages } from '@/router'
+import NavMenu from '@/components/NavigationMenu.vue';
+import router, { RouterPages } from '@/router';
+import KeycloakService from "@/services/security/KeycloakService";
+import { usePersonStore } from '@/stores/personStore';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'profilePage',
+  name: 'ProfileView',
   components: { NavMenu },
   created: async function () {
-    StoreHandler.initStore(this.$store)
+    usePersonStore().init()
   },
   data () {
     return { }
   },
+  computed: {
+    css (): string {
+      return usePersonStore().css
+    }
+  },
   methods: {
     logout () {
-      PersonService.deleteSession(this.$store)
+      KeycloakService.CallLogOut();
     },
     goToSubscriptionPage () {
       router.push(RouterPages.subscription)

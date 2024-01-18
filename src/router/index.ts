@@ -1,21 +1,17 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Profile from '../views/Profile.vue'
-import Banks from '../views/Banks.vue'
-import Signup from '../views/Signup.vue'
-import RedirectToAccountPage from '../views/RedirectToAccountPage.vue'
-import AccountPage from '../views/AccountPage.vue'
-import Subscription from '../views/Subscription.vue'
-import ChartPage from '../views/ChartPage.vue'
-import { StoreState } from '@/store/index'
-import { Store } from 'vuex'
-import { AxiosError } from 'axios'
+import KeycloakService from "@/services/security/KeycloakService";
+import AboutView from '@/views/About.vue';
+import AccountView from '@/views/Account.vue';
+import BanksView from '@/views/Banks.vue';
+import ChartsView from '@/views/Charts.vue';
+import HomeView from '@/views/Home.vue';
+import ProfileView from '@/views/Profile.vue';
+import RedirectToAccountPage from '@/views/RedirectToAccountPage.vue';
+import SubscriptionView from '@/views/Subscription.vue';
+import { AxiosError } from 'axios';
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router';
 
 export enum RouterPages {
   home = '/',
-  login = '/login',
-  signup = '/signup',
   account = '/account',
   about = '/about',
   profile = '/profile',
@@ -29,23 +25,15 @@ export enum RouterPages {
 const routes: Array<RouteRecordRaw> = [
   {
     path: RouterPages.home,
-    component: Home
-  },
-  {
-    path: RouterPages.login,
-    component: Login
-  },
-  {
-    path: RouterPages.signup,
-    component: Signup
+    component: HomeView
   },
   {
     path: RouterPages.profile,
-    component: Profile
+    component: ProfileView
   },
   {
     path: RouterPages.banks,
-    component: Banks,
+    component: BanksView,
     props: route => ({ query: route.query.agreementId })
   },
   {
@@ -54,48 +42,39 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: RouterPages.subscription,
-    component: Subscription,
+    component: SubscriptionView,
     props: { validSubscription: true }
   },
   {
     path: RouterPages.invalidSubscription,
-    component: Subscription,
+    component: SubscriptionView,
     props: { validSubscription: false }
   },
   {
     path: RouterPages.account,
-    component: AccountPage,
+    component: AccountView,
     props: route => ({ accountId: route.query.accountId })
   },
   {
     path: RouterPages.about,
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: AboutView,
   },
   {
     path: RouterPages.chartPage,
-    component: ChartPage
+    component: ChartsView
   }
 ]
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes
 })
-
-export function redirectToLoginPageIfNotLogged (store: Store<StoreState>) {
-  if (!store.state.logged) {
-    router.push(RouterPages.login)
-  }
-}
 
 export function redirectOnApiError (error: AxiosError) {
   if (error.response && error.response.status === 402) {
     router.push(RouterPages.invalidSubscription)
   } else {
-    router.push(RouterPages.login)
+    KeycloakService.CallLogOut();
   }
 }
 

@@ -3,31 +3,31 @@
       <div  class="editableNameAccount row">
         <div>
           <div class="col-md-10 offset-md-1 col-sm-12 offset-sm-0 row">
-            <div class="col-md-8 offset-md-2 col-sm-12 offset-sm-0 headerContent" :class="this.getClassDependingOnAmount()">
+            <div class="col-md-8 offset-md-2 col-sm-12 offset-sm-0 headerContent" :class="getClassDependingOnAmount()">
               <!-- Normal Title -->
-              <div v-if="!this.editingTitle">
-                <h1 class="title clickable breakableRow" v-on:click="this.displayTitleEditing()">
-                  <span class="breakable">{{ this.name }} : </span>
+              <div v-if="!editingTitle">
+                <h1 class="title clickable breakableRow" v-on:click="displayTitleEditing()">
+                  <span class="breakable">{{ name }} : </span>
                   <span class="breakable">{{ amountAsString }} €</span>
                 </h1>
               </div>
               <!-- Edit Title -->
               <div v-else class="editingNameAccount row">
                 <span class="name">
-                    <input id="accountName" class="form-control" :placeholder=this.name v-model="name">
+                    <input id="accountName" class="form-control" :placeholder=name v-model="name">
                 </span>
                 <span class="validation">
                   <button class="illustration btn fas fa-check" v-on:click="updateName()"/>
                 </span>
               </div>
               <!-- Pending -->
-              <div v-if="existingPendingOperation" class="subtitle pendingSection breakableRow clickable" v-on:click="this.displayTitleEditing()">
+              <div v-if="existingPendingOperation" class="subtitle pendingSection breakableRow clickable" v-on:click="displayTitleEditing()">
                 <span class="breakable">{{ realAmountAsString }} € {{ $t("ON_ACCOUNT") }}</span>
                 <span class="breakable">{{ symbolBeforePendingAmount  }} {{ pendingAmount  }} € {{ $t("PENDING") }} (<span class="illustration fas fa-hourglass-half"/>)</span>
               </div>
             </div>
-            <div v-if="!this.editingTitle" class="editTitleBtn col-md col-sm">
-              <button v-on:click="this.displayTitleEditing()" class="illustration btn fas fa-pen" />
+            <div v-if="!editingTitle" class="editTitleBtn col-md col-sm">
+              <button v-on:click="displayTitleEditing()" class="illustration btn fas fa-pen" />
             </div>
           </div>
         </div>
@@ -38,8 +38,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import AccountService from '@/services/AccountService'
-import { Account } from '@/model/model'
+import type { Account } from '@/model/model'
 import Utils from '@/utils/Utils'
+import { useBudgetStore } from '@/stores/budgetStore'
 
 interface AccountPageHeaderData {
     account: Account | null;
@@ -102,7 +103,7 @@ export default defineComponent({
   emits: [],
   methods: {
     updateName () {
-      AccountService.updateAccount(this.$store, this.accountId, this.name)
+      AccountService.updateAccount(this.accountId, this.name)
       this.editingTitle = !this.editingTitle
     },
     displayTitleEditing () {
@@ -119,7 +120,7 @@ export default defineComponent({
       this.displayRealAmount = !this.displayRealAmount
     },
     getAccount () {
-      for (const account of this.$store.state.accounts) {
+      for (const account of useBudgetStore().accounts) {
         if (account.id === this.accountId) {
           this.name = account.name
           this.account = account

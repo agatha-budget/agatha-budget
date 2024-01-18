@@ -1,1 +1,0 @@
-git update-index --skip-worktree properties.ts

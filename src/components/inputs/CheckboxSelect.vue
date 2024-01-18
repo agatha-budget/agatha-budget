@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { ChoiceElement } from '@/model/model'
+import type { ChoiceElement } from '@/model/model'
 import { defineComponent } from 'vue'
 
 interface CheckboxSelectData {

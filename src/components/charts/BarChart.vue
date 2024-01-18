@@ -16,11 +16,24 @@
 
 import { Bar } from 'vue-chartjs'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
-import pattern from 'patternomaly'
+
+interface ChartOptionsData {
+  responsive: boolean;
+}
+
+interface ChartDataDefaultData {
+  labels: string[],
+  datasets:
+    {
+      label: string,
+      backgroundColor: string,
+      data: string[]
+    }[]
+}
 
 interface BarChartData {
-    chartDataDefault: Record<string, any>;
-    chartOptions: Record<string, any>;
+    chartDataDefault: ChartDataDefaultData;
+    chartOptions: ChartOptionsData;
 }
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
