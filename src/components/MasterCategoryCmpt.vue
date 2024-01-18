@@ -29,7 +29,7 @@
               <div v-else class="form-group numberInput">
               <input  type="textInput" class="form-control"
                 v-bind:value="centsToEurosDisplay(categoryDataList[category.id]?.allocated ?? 0)"
-                v-on:change="updateAllocationOnChange(category.id, computeStringToCents($event.target.value).toString())"
+                v-on:change="updateAllocationOnChange(category.id, computeStringToCents($event.target.value))"
               >
               </div>
             </td>
@@ -109,7 +109,7 @@ export default defineComponent({
     }
   },
   methods: {
-    updateAllocationOnChange (categoryId: string, value: string) {
+    updateAllocationOnChange (categoryId: string, value: number) {
       this.$emit('updateAllocation', categoryId, value)
     },
     createCategory () {
