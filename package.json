@@ -3,14 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "sh ./scripts/set_dev_properties.sh; vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "for dev": "sh ./scripts/set_dev_properties.sh;",
     "build_for_beta": "sh ./scripts/set_beta_properties.sh; npm run build",
     "build_for_prod": "sh ./scripts/set_prod_properties.sh; npm run build"
 

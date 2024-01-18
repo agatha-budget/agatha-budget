@@ -25,7 +25,6 @@ import BudgetCmpt from '@/components/BudgetCmpt.vue';
 import NavMenu from '@/components/NavigationMenu.vue';
 import Loader from '@/components/utils/Loader.vue';
 import router, { RouterPages } from '@/router';
-import PersonService from '@/services/PersonService';
 import { useBudgetStore } from '@/stores/budgetStore';
 import { usePersonStore } from '@/stores/personStore';
 import Time from '@/utils/Time';
@@ -56,9 +55,6 @@ export default defineComponent({
     }
   },
   methods: {
-    logout () {
-      PersonService.deleteSession()
-    },
     goToProfile () {
       router.push(RouterPages.profile)
     }

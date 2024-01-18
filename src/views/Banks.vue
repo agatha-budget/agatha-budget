@@ -43,14 +43,14 @@
         <template v-for="(timestampList, bankId) of authorizedBanks" :key="bankId">
             <div class="container bordered row col-8 offset-2">
               <div class="col-md-6">
-                <img class="illustration banklogo" alt="banklogo" :src="getLogo(bankId)"/>
+                <img class="illustration banklogo" alt="banklogo" :src="getLogo(bankId.toString())"/>
               </div>
               <div class="col-md-6">
                 <template v-for="(bankAccountArray, timestamp) of timestampList" :key="timestamp">
                   <div class="subtext">
                   {{ $t('EXPIRE_ON') }} {{ getExpirationDateFromTimestamp(timestamp) }}
                   </div>
-                  <div v-for="bankAccount of bankAccountArray" :key="bankAccount">
+                  <div v-for="bankAccount of bankAccountArray">
                     {{ bankAccount.name }}
                   </div>
                 </template>
@@ -85,16 +85,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
 import NavMenu from '@/components/NavigationMenu.vue'
-import BankingService from '@/services/BankingService'
-import type { Bank, BankAccount, Budget, Account, SelectOption } from '@/model/model'
-import AccountService from '@/services/AccountService'
-import Time from '@/utils/Time'
-import Multiselect from '@vueform/multiselect'
+import type { Account, Bank, BankAccount, Budget, SelectOption } from '@/model/model'
 import router, { RouterPages } from '@/router'
+import AccountService from '@/services/AccountService'
+import BankingService from '@/services/BankingService'
 import { useBudgetStore } from '@/stores/budgetStore'
 import { usePersonStore } from '@/stores/personStore'
+import Time from '@/utils/Time'
+import Multiselect from '@vueform/multiselect'
+import { defineComponent } from 'vue'
 
 
 

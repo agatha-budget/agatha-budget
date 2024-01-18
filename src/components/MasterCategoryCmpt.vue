@@ -53,16 +53,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import type { MasterCategory, CategoryDataList, Category } from '@/model/model'
-import { CategoryData, newCategoryName } from '@/model/model'
-import Utils from '@/utils/Utils'
-import Calcul from '@/utils/Calcul'
-import CategoryService from '@/services/CategoryService'
 import CategoryForm from '@/components/forms/CategoryForm.vue'
 import MasterCategoryForm from '@/components/forms/MasterCategoryForm.vue'
-import { Color } from '@/utils/Color'
+import type { Category, CategoryDataList, MasterCategory } from '@/model/model'
+import { CategoryData, newCategoryName } from '@/model/model'
+import CategoryService from '@/services/CategoryService'
 import { useBudgetStore } from '@/stores/budgetStore'
+import Calcul from '@/utils/Calcul'
+import { Color } from '@/utils/Color'
+import Utils from '@/utils/Utils'
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'MasterCategoryCmpt',
