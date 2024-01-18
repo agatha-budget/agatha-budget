@@ -10,12 +10,12 @@ export default class Calcul {
   // to calculate a mathematical expression
   public static computeStringToCents (calculation: string): number {
     let newCalculation = calculation.replace(/x/g, '*')
-    newCalculation = newCalculation.replace(/ /g, '')
+    newCalculation = newCalculation.replace(/[^+\-x*\/().,\d]/g, '')
     if (calculation.includes(')') && calculation.includes('(')) {
       const numberParenthesis = this.validityParenthesis(newCalculation)
       const listParenthesis = this.separateParenthesis(newCalculation, numberParenthesis)
       const result = this.calculParenthesis(newCalculation, numberParenthesis, listParenthesis)
-      return this.basicCalcul(result)
+      return Math.round(this.basicCalcul(result))
     }
     return Math.round(this.basicCalcul(newCalculation) * 100)
   }

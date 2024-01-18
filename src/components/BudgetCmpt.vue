@@ -39,16 +39,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import BudgetDataService from '@/services/BudgetDataService'
-import AllocationService from '@/services/AllocationService'
+import BudgetHeader from '@/components/headers/BudgetHeader.vue'
 import type { Account, Budget, CategoryDataList, MasterCategory } from '@/model/model'
 import { CategoryData, newMasterCategoryName } from '@/model/model'
-import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
-import Time from '@/utils/Time'
+import AllocationService from '@/services/AllocationService'
+import BudgetDataService from '@/services/BudgetDataService'
 import MasterCategoryService from '@/services/MasterCategoryService'
-import BudgetHeader from '@/components/headers/BudgetHeader.vue'
 import { useBudgetStore } from '@/stores/budgetStore'
+import Time from '@/utils/Time'
+import { defineComponent } from 'vue'
+import MasterCategoryCmpt from './MasterCategoryCmpt.vue'
 
 interface BudgetCmptData {
     categoryDataList: CategoryDataList;
@@ -148,7 +148,7 @@ export default defineComponent({
       return this.toBeBudgeted
     },
     masterCategories (): MasterCategory[] {
-      return useBudgetStore().masterCategories
+      return useBudgetStore().getOrderedMasterCategory()
     }
   },
   methods: {
