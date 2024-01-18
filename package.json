@@ -9,7 +9,11 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "for dev": "sh ./scripts/set_dev_properties.sh;",
+    "build_for_beta": "sh ./scripts/set_beta_properties.sh; npm run build",
+    "build_for_prod": "sh ./scripts/set_prod_properties.sh; npm run build"
+
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.2",
