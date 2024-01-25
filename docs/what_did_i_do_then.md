@@ -96,6 +96,31 @@ read read and read the doc and stack overflow
 *how often* :hopefully never again
 
 --------------
+## TRANSFERT DES UTILISATEURS
+
+*how long* :
+
+*what happened* :
+
+*why* :
+
+*what did i do to fix it* :
+
+INSERT INTO person (id, email, name, password, unlockingdate, loginattemptcount, deleted, billing_id, billing_status, creation_date, style, dyslexia) VALUES ('keycloak_transfert_id', 'ewf', 'keycloack_transfert', 'efwrgf', 0, 0, false, 'feerg', true, 0, 've', false)
+
+BEGIN TRANSACTION;
+// redirect new budget/user somewhere
+update budget set person_id='keycloak_for_new_budget' where person_id='NEW_ID';
+update person set id='NOM_USER' where id='NEW_ID';
+// link new id with existing user and budget
+update budget set person_id='keycloak_transfert_id' where person_id='OLD_ID';
+update person set id='NEW_ID' where id='OLD_ID';
+update budget set person_id='NEW_ID' where person_id='keycloak_transfert_id';
+COMMIT;
+
+*how often* :
+
+--------------
 ## Bug description
 
 *how long* :
@@ -105,6 +130,8 @@ read read and read the doc and stack overflow
 *why* :
 
 *what did i do to fix it* :
+
+
 
 *how often* :
 
