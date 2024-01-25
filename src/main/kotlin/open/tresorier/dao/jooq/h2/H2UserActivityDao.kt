@@ -6,11 +6,10 @@ import open.tresorier.generated.jooq.test.public_.Tables.*
 import open.tresorier.generated.jooq.test.public_.tables.daos.UserActivityDao
 import open.tresorier.generated.jooq.test.public_.tables.records.UserActivityRecord
 import open.tresorier.model.UserActivity
+import open.tresorier.model.enum.ActionEnum
 import org.jooq.Configuration
 import org.jooq.impl.DSL
-import open.tresorier.model.Day
 import open.tresorier.generated.jooq.test.public_.tables.pojos.UserActivity as JooqUserActivity
-import open.tresorier.model.enum.ActionEnum
 
 class H2UserActivityDao(val configuration: Configuration): IUserActivityDao {
 

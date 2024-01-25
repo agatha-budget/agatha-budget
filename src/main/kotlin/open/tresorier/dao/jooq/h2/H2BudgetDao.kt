@@ -3,14 +3,14 @@ package open.tresorier.dao.jooq.h2
 import open.tresorier.dao.IBudgetDao
 import open.tresorier.exception.TresorierException
 import open.tresorier.generated.jooq.test.public_.Tables
-import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.generated.jooq.test.public_.tables.daos.BudgetDao
+import open.tresorier.generated.jooq.test.public_.tables.records.PersonRecord
 import open.tresorier.model.Budget
 import open.tresorier.model.Person
+import open.tresorier.model.enum.ProfileEnum
 import org.jooq.Configuration
 import org.jooq.impl.DSL
 import open.tresorier.generated.jooq.test.public_.tables.pojos.Budget as JooqBudget
-import open.tresorier.model.enum.ProfileEnum
 
 class H2BudgetDao (val configuration : Configuration) : IBudgetDao {
 

@@ -2,16 +2,15 @@ package open.tresorier.dao
 
 
 import open.tresorier.dependenciesinjection.ITest
-import open.tresorier.exception.TresorierException
-import open.tresorier.model.*
-import open.tresorier.model.banking.*
-import org.junit.jupiter.api.Assertions
+import open.tresorier.model.Account
+import open.tresorier.model.banking.BankAccount
+import open.tresorier.model.banking.BankAgreement
+import open.tresorier.utils.TestData
+import open.tresorier.utils.Time
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
-import open.tresorier.utils.Time
-import open.tresorier.utils.TestData
 
 open class BankAgreementDaoTest : ITest {
 

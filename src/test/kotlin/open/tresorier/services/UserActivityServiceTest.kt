@@ -1,16 +1,15 @@
 package open.tresorier.services
 
 import open.tresorier.dependenciesinjection.ITest
-import open.tresorier.model.Category
+import open.tresorier.model.Account
+import open.tresorier.model.Budget
 import open.tresorier.model.Person
-import org.junit.jupiter.api.Test
-import org.koin.core.component.inject
 import open.tresorier.model.enum.ActionEnum
 import open.tresorier.model.enum.ProfileEnum
-import org.junit.jupiter.api.Assertions
-import open.tresorier.dao.*
-import open.tresorier.model.*
 import open.tresorier.utils.TestData
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
+import org.koin.core.component.inject
 
 class UserActivityServiceTest : ITest {
 

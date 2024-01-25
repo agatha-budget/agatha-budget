@@ -2,11 +2,11 @@ package open.tresorier.services
 
 import open.tresorier.dependenciesinjection.ITest
 import open.tresorier.model.Person
+import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.utils.Time
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
-import open.tresorier.model.enum.ProfileEnum
 
 class PersonServiceTest : ITest {
 

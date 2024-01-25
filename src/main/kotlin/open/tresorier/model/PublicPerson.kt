@@ -1,5 +1,4 @@
 package open.tresorier.model
-import open.tresorier.utils.Time
 
 class PublicPerson (
     var name: String,

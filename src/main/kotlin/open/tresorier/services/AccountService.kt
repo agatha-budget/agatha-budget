@@ -3,7 +3,7 @@ package open.tresorier.services
 import open.tresorier.dao.IAccountDao
 import open.tresorier.dao.IBankAccountDao
 import open.tresorier.model.*
-import open.tresorier.model.banking.*
+import open.tresorier.model.banking.BankAccount
 
 
 class AccountService(private val accountDao: IAccountDao, 

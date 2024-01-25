@@ -1,13 +1,14 @@
 package open.tresorier.dependenciesinjection
 
-import open.tresorier.mailing.*
-import open.tresorier.mailing.adapter.*
-import open.tresorier.banking.*
-import open.tresorier.banking.adapter.*
+import open.tresorier.banking.IBankingPort
+import open.tresorier.banking.adapter.NordigenAdapter
 import open.tresorier.dao.*
 import open.tresorier.dao.jooq.pgsql.*
+import open.tresorier.mailing.IMailingPort
+import open.tresorier.mailing.adapter.AweberAdapter
+import open.tresorier.mailing.adapter.MockMailingAdapter
 import open.tresorier.utils.Properties
-import open.tresorier.utils.PropertiesEnum.*
+import open.tresorier.utils.PropertiesEnum.ENVIRONMENT
 import org.koin.dsl.module
 
 val properties = Properties()

@@ -30,7 +30,7 @@ val INTEGRATION_DB_PWD = System.getenv(INTEGRATION_DB_ID + "_PASSWORD") ?: INTEG
 
 
 // Lib Versions
-val kotlin_version="1.9.10" // aout 2023
+val kotlin_version="1.9.22" // decembre 2023 - when updated also change kotlin("jvm")
 val koin_version= "3.5.0" // septembre 2023
 val junit_version="5.10.0" // juillet 2023
 val postgres_version="42.6.0" // mars 2023
@@ -39,15 +39,16 @@ val h2_version="2.2.224" // septembre 2023
 val jooq_version="3.18.6" //aout 2023
 val mock_version="1.13.7" //aout 2023
 val logback_version="1.4.11" // aout 2023
-val javalin_version="5.6.2" // juillet 2023
-val pac4j_version="6.0.0"  // aout 2023
+val javalin_version="5.6.3" // juillet 2023
+val javalin_pac4j_version="6.0.0"  // novembre 2022
+val oidc_pac4j_version="5.7.1"  // avril 2023
 val jackson_version="2.15.2" // mai 2023
 val argon_version="2.11" // octobre 2021
 val stripe_version="23.5.0" // septembre 2023 
 val json_version="20230618" // juin 2023
 
 plugins {
-    kotlin("jvm") version "1.9.10" // cf kotlin_version
+    kotlin("jvm") version "1.9.22" // cf kotlin_version
     id("org.jetbrains.dokka") version "1.9.0" // aout 2023
     id("org.flywaydb.flyway") version "9.22.1" // septembre 2023
     id("nu.studer.jooq") version "8.2"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
@@ -100,9 +101,8 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
 
     // Authentication
-    implementation("org.pac4j:javalin-pac4j:$pac4j_version")
-    implementation("org.pac4j:pac4j-oidc:$pac4j_version-RC8")
-
+    implementation("org.pac4j:javalin-pac4j:$javalin_pac4j_version")
+    implementation("org.pac4j:pac4j-oidc:$oidc_pac4j_version")
 
     // password encryption
     implementation("de.mkammerer:argon2-jvm:$argon_version")
@@ -140,6 +140,11 @@ dependencies {
 
     // Billing
     implementation("com.stripe:stripe-java:$stripe_version")
+
+    // JWT
+    implementation("io.jsonwebtoken:jjwt-api:0.12.3")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.12.3")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.12.3")
 
     implementation("org.json:json:$json_version")
 }
@@ -344,6 +349,10 @@ tasks.named("integrationTest") {
 
 tasks.check { dependsOn(integrationTest) }
 
+application {
+    mainClass.set("open.tresorier.api.ApiKt")
+}
+
 tasks.register<Jar>("uberJar") {
     manifest {
         attributes(
@@ -361,7 +370,6 @@ tasks.register<Jar>("uberJar") {
         configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
     })
 }
-
 
 tasks.register("stage") {
     dependsOn("uberJar")

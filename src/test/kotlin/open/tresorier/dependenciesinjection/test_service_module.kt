@@ -3,9 +3,9 @@ package open.tresorier.dependenciesinjection
 
 import io.mockk.every
 import io.mockk.mockk
-import open.tresorier.dao.*
+import open.tresorier.dao.IPersonDao
 import open.tresorier.exception.TresorierException
-import open.tresorier.services.*
+import open.tresorier.services.PersonService
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 

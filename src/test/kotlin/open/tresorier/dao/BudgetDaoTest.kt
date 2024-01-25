@@ -4,12 +4,12 @@ import open.tresorier.dependenciesinjection.ITest
 import open.tresorier.exception.TresorierException
 import open.tresorier.model.Budget
 import open.tresorier.model.Person
+import open.tresorier.model.enum.ProfileEnum
 import open.tresorier.utils.TestData
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.koin.core.component.inject
-import open.tresorier.model.enum.ProfileEnum
 
 open class BudgetDaoTest : ITest {
 

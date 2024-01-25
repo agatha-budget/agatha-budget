@@ -1,11 +1,7 @@
 package open.tresorier.services
 
-import open.tresorier.dao.IAllocationDao
-import open.tresorier.model.Allocation
-import open.tresorier.model.Category
-import open.tresorier.model.Month
-import open.tresorier.model.Person
 import open.tresorier.mailing.IMailingPort
+import open.tresorier.model.Person
 
 class MailingService(private val mailingPort: IMailingPort) {
 

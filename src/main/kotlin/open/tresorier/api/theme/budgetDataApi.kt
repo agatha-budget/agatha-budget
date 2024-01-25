@@ -1,15 +1,13 @@
 package open.tresorier.api.theme
 
 import io.javalin.Javalin
-import io.javalin.http.Context
-import open.tresorier.exception.TresorierException
-import open.tresorier.exception.TresorierIllegalException
-import open.tresorier.exception.SuspendedUserException
-import open.tresorier.model.*
-import open.tresorier.utils.Properties
-import open.tresorier.utils.PropertiesEnum.*
-import open.tresorier.services.*
-import open.tresorier.api.*
+import open.tresorier.api.getOptionalQueryParam
+import open.tresorier.api.getQueryParam
+import open.tresorier.api.getUserFromAuth
+import open.tresorier.model.Budget
+import open.tresorier.model.Month
+import open.tresorier.services.BudgetDataService
+import open.tresorier.services.BudgetService
 
 fun addBudgetDataRoute(app : Javalin, budgetService: BudgetService, budgetDataService: BudgetDataService) : Javalin {
 

@@ -1,10 +1,10 @@
 package open.tresorier.utils
 
-import java.util.Properties as JavaProperties
+import open.tresorier.exception.TresorierException
 import open.tresorier.utils.PropertiesEnum.*
-import java.io.FileInputStream
 import java.io.File
-import kotlin.text.Regex
+import java.io.FileInputStream
+import java.util.Properties as JavaProperties
 
 class Properties () {
 
@@ -18,7 +18,7 @@ class Properties () {
     }
 
     fun get(name : PropertiesEnum) : String {
-        return properties.getProperty(name.name)
+        return properties.getProperty(name.name) ?: throw TresorierException("could not find properties : ${name.name}")
     }
 
     fun getDBProperties() {

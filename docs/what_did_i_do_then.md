@@ -71,6 +71,56 @@ https://ittutoria.net/solutions-for-error-compilejava-task-current-target-is-11-
 *how often* :
 
 --------------
+## Option CORS Failed for Authentication
+
+*how long* : days....
+
+*what happened* : 
+- wasn't using the right configuration :
+  https://stackoverflow.com/questions/77621552/pac4j-cors-allow-origin-not-matching-origin/
+- option was redirected instead of server handling it on its side :
+  https://stackoverflow.com/questions/42168773/how-to-resolve-preflight-is-invalid-redirect-or-redirect-is-not-allowed-for
+- didn't need pac4j, just trust the jwt :
+  https://medium.com/devops-dudes/secure-front-end-react-js-and-back-end-node-js-express-rest-api-with-keycloak-daf159f0a94e
+  https://arielweinberger.medium.com/json-web-token-jwt-the-only-explanation-youll-ever-need-cf53f0822f50
+*why* :
+  I had the wrong impression of what should be done (check with keycloak for each request) and it led me to do try and force things the way I thought it should go
+  I learned a lot about security/CORS/etc
+  Try and find trusted source of how things should works if there is a next time but I did that now so accept that it is part of the process I guess
+  Read well done doc even if it's not the right language/tool to understand things on a meta level and be able to apply it
+  Ask more quickly on StackOverflow
+  Contacting a maintainer and paying him/her for help may be a good deal (still glad I managed before !)
+*what did I do to fix it* : 
+read read and read the doc and stack overflow
+
+*how often* :hopefully never again
+
+--------------
+## TRANSFERT DES UTILISATEURS
+
+*how long* :
+
+*what happened* :
+
+*why* :
+
+*what did i do to fix it* :
+
+INSERT INTO person (id, email, name, password, unlockingdate, loginattemptcount, deleted, billing_id, billing_status, creation_date, style, dyslexia) VALUES ('keycloak_transfert_id', 'ewf', 'keycloack_transfert', 'efwrgf', 0, 0, false, 'feerg', true, 0, 've', false)
+
+BEGIN TRANSACTION;
+// redirect new budget/user somewhere
+update budget set person_id='keycloak_for_new_budget' where person_id='NEW_ID';
+update person set id='NOM_USER' where id='NEW_ID';
+// link new id with existing user and budget
+update budget set person_id='keycloak_transfert_id' where person_id='OLD_ID';
+update person set id='NEW_ID' where id='OLD_ID';
+update budget set person_id='NEW_ID' where person_id='keycloak_transfert_id';
+COMMIT;
+
+*how often* :
+
+--------------
 ## Bug description
 
 *how long* :
@@ -79,7 +129,9 @@ https://ittutoria.net/solutions-for-error-compilejava-task-current-target-is-11-
 
 *why* :
 
-*what did i do to fix it* : 
+*what did i do to fix it* :
+
+
 
 *how often* :
 

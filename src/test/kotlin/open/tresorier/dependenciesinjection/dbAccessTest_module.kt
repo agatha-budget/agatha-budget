@@ -1,13 +1,13 @@
 package open.tresorier.dependenciesinjection
 
+import open.tresorier.utils.Properties
+import open.tresorier.utils.PropertiesEnum.*
+import org.jooq.Configuration
 import org.jooq.SQLDialect
 import org.jooq.impl.DefaultConfiguration
 import org.koin.dsl.module
-import java.sql.DriverManager
-import org.jooq.Configuration
-import open.tresorier.utils.Properties
-import open.tresorier.utils.PropertiesEnum.*
 import java.sql.Connection
+import java.sql.DriverManager
 
 val dbAccessTest_module = module {
     single<Configuration> {DBTestConfiguration.configuration}

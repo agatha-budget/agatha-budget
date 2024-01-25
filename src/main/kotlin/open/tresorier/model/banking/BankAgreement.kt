@@ -1,7 +1,7 @@
 package open.tresorier.model.banking
 
-import open.tresorier.utils.Time
 import open.tresorier.model.DbObject
+import open.tresorier.utils.Time
 
 open class BankAgreement (
     var budgetId: String,

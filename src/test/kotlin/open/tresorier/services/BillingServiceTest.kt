@@ -1,11 +1,11 @@
 package open.tresorier.services
 
 import open.tresorier.dependenciesinjection.ITest
+import open.tresorier.exception.SuspendedUserException
 import open.tresorier.model.Person
-import org.junit.jupiter.api.Test
 import open.tresorier.utils.Time
 import org.junit.jupiter.api.Assertions
-import open.tresorier.exception.SuspendedUserException
+import org.junit.jupiter.api.Test
 
 class BillingServiceTest : ITest {
 

@@ -1,23 +1,22 @@
 package open.tresorier.banking.adapter
 
-import org.json.JSONArray
-import open.tresorier.utils.HTTPConnection
-import open.tresorier.utils.Properties
-import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.banking.IBankingPort
+import open.tresorier.dao.IBankAccountDao
+import open.tresorier.dao.IBankAgreementDao
 import open.tresorier.exception.BankingException
-import org.json.JSONObject
 import open.tresorier.model.Account
-import open.tresorier.model.Person
 import open.tresorier.model.Budget
 import open.tresorier.model.Day
 import open.tresorier.model.Operation
 import open.tresorier.model.banking.Bank
 import open.tresorier.model.banking.BankAccount
 import open.tresorier.model.banking.BankAgreement
-import open.tresorier.dao.IBankAgreementDao
-import open.tresorier.dao.IBankAccountDao
+import open.tresorier.utils.HTTPConnection
+import open.tresorier.utils.Properties
+import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.utils.Time
+import org.json.JSONArray
+import org.json.JSONObject
 
 class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private val bankAccountDao : IBankAccountDao) : IBankingPort {
 

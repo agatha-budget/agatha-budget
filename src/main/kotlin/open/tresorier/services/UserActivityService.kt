@@ -1,7 +1,8 @@
 package open.tresorier.services
 
 import open.tresorier.dao.IUserActivityDao
-import open.tresorier.model.*
+import open.tresorier.model.Person
+import open.tresorier.model.UserActivity
 import open.tresorier.model.enum.ActionEnum
 
 
