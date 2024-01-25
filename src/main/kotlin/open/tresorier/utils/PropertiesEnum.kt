@@ -1,6 +1,8 @@
 package open.tresorier.utils
 
 enum class PropertiesEnum {
+    SERVER_PORT,
+
     TRESORIER_DB_URL_DFLT,
     TRESORIER_DB_USR_DFLT,
     TRESORIER_DB_PWD_DFLT,
@@ -21,8 +23,8 @@ enum class PropertiesEnum {
     INTEGRATION_DB_USR,
     INTEGRATION_DB_PWD,
 
-    ALLOWED_ORIGIN_FRONT,
     ALLOWED_ORIGIN_LOCALHOST,
+    ALLOWED_ORIGIN_FRONT,
     ALLOWED_ORIGIN_BETA_FRONT,
     ALLOWED_ORIGIN_STRIPE,
     

@@ -105,7 +105,7 @@ private fun setUpApp(properties: Properties): Javalin {
                     }
                 }
             }
-    }.start(7000)
+    }.start(Integer.parseInt(properties.get(SERVER_PORT)))
 
     app.exception(TresorierException::class.java) { e, ctx ->
         ctx.status(400)

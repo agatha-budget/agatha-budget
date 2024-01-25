@@ -1,5 +1,6 @@
 package open.tresorier.utils
 
+import open.tresorier.exception.TresorierException
 import open.tresorier.utils.PropertiesEnum.*
 import java.io.File
 import java.io.FileInputStream
@@ -17,7 +18,7 @@ class Properties () {
     }
 
     fun get(name : PropertiesEnum) : String {
-        return properties.getProperty(name.name)
+        return properties.getProperty(name.name) ?: throw TresorierException("could not find properties : ${name.name}")
     }
 
     fun getDBProperties() {

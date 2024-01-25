@@ -18,13 +18,8 @@ fun sendToAdminMessage(errorId : String) : String {
 }
 
 fun getUserFromAuth(ctx: Context): Person {
-    var personId = checkAuthentication(ctx)
+    var personId = getAuthenticationData(ctx).subject
     return ServiceManager.personService.getById(personId)
-}
-
-fun checkAuthentication(ctx: Context) : String {
-    var data = getAuthenticationData(ctx)
-    return data.subject
 }
 
 fun getAuthenticationData(ctx: Context) : Claims {
