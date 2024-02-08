@@ -48,6 +48,10 @@ fun addBankingRoute(app : Javalin, bankingService: BankingService,
             bankingService.synchronise(person)
         }
     }
+
+    app.post("/bank/sync") { _ ->
+        bankingService.synchronise()
+    }
     
     return app
 }

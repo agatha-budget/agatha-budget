@@ -38,7 +38,6 @@ class PersonService(private val personDao: IPersonDao,
     fun getById(id: String) : Person {
         var person = personDao.getById(id)
         userActivityService.create(person, Time.now(), ActionEnum.ACTION_REQUEST)
-        bankingService.synchronise(person)
         return person
     }
 
