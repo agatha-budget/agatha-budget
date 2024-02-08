@@ -22,4 +22,17 @@ open class PersonDaoTest : ITest {
         }
         assertEquals("could not create new person", exception.message)
     }
+
+    @Test fun testGetAllNonDeleted() {
+        val louise = Person("Louise Weiss", "Vote!1944", "louise@suffragette.fr")
+        val leodile = Person("Léodile Champseix", "Egalité!", "leodile@champseix.eu")
+        val julie = Person("Julie Daubié", "Bacheliere!1861", "julie@diplomee.com", deleted = true)
+
+        arrayOf(louise, leodile, julie).forEach {
+            personDao.insert(it)
+        }
+        // includes mockData from migration 3
+        assertEquals(7, personDao.findAll().size)
+
+    }
 }
