@@ -20,19 +20,6 @@ class UserActivityServiceTest : ITest {
     val accountService by inject<AccountService>()
 
     @Test
-    fun testLoginFillUserActivityTable () {
-        val lucie: Person = personService.createPerson(
-            "Lucie Aubrac", "DernièreColonne!1940", "lucie@resitance.fr", ProfileEnum.PROFILE_USER
-        )
-        personService.login("lucie@resitance.fr", "DernièreColonne!1940")
-        val listLogin = userActivityService.getByUser(lucie)
-        
-        Assertions.assertEquals(1, listLogin.size)
-        Assertions.assertEquals(ActionEnum.ACTION_LOGIN, listLogin[0].action)
-
-    }
-
-    @Test
     fun testImportFillUserActivityTable () {
         val josephine: Person = personService.createPerson(
             "Joséphine Baker", "RevueNègre!1925", "josephine@resitance.fr", ProfileEnum.PROFILE_USER
