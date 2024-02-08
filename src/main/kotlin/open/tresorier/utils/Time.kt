@@ -6,24 +6,39 @@ import java.util.*
 
 object Time {
 
+    val HOUR = 36000000
+    val WEEK = 86400000
+    val MONTH = 2629743000
     fun now() : Long {
         return System.currentTimeMillis()
     }
 
+    fun isInTheFuture(date: Long) : Boolean {
+        return date > now()
+    }
+
+    fun anHourAgo(): Long {
+        return now() - HOUR
+    }
+
     fun twoMonthAgo() : Long {
-        return now() - 2 * 2629743000
+        return now() - 2 * MONTH
     }
 
     fun threeMonthAgo() : Long {
-        return now() - 3 * 2629743000
+        return now() - 3 * MONTH
     }
 
     fun aWeekAgo() : Long {
-        return now() - 7 * 86400000
+        return now() - 7 * WEEK
+    }
+
+    fun inTwoWeeks(): Long {
+        return now() + 2 * WEEK
     }
 
     fun isMoreThanAMonthAgo(date : Long) : Boolean {
-        return ((now() - date) > 2629743000)
+        return ((now() - date) > MONTH)
     }
 
     fun getDuration(hours : Int = 0, minutes : Int = 0, seconds : Int = 0) : Long {

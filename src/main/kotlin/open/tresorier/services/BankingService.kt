@@ -9,6 +9,8 @@ import open.tresorier.model.banking.Bank
 import open.tresorier.model.banking.BankAccount
 import open.tresorier.model.banking.BankAgreement
 import open.tresorier.model.banking.PublicBankAccount
+import open.tresorier.model.enum.ActionEnum
+import open.tresorier.utils.Time
 
 class BankingService (
     private val bankingAdapter: IBankingPort,
@@ -17,7 +19,9 @@ class BankingService (
     private val bankAgreementDao: IBankAgreementDao,
     private val accountDao: IAccountDao,
     private val bankAccountDao: IBankAccountDao,
-    private val budgetDao: IBudgetDao) {
+    private val budgetDao: IBudgetDao,
+    private val personDao: IPersonDao,
+    private val userActivityService: UserActivityService) {
 
     fun getLinkForUserAgreement(person: Person, budget: Budget, bankId: String) : String {
         this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
@@ -35,6 +39,13 @@ class BankingService (
         return bankAccountDao.findByBudget(budget)
     }
 
+    fun synchronise() {
+        val persons = this.personDao.findAll()
+        persons.forEach{
+            synchronise(it)
+        }
+    }
+
     fun synchronise(person: Person) {
         val budgets = this.budgetDao.findByPersonId(person.id)
         budgets.forEach {
@@ -46,6 +57,7 @@ class BankingService (
                 }
             }
         }
+        userActivityService.create(person, Time.now(), ActionEnum.ACTION_BANK_SYNC)
     }
 
     fun synchronise(person: Person, account: Account) {
@@ -53,7 +65,7 @@ class BankingService (
         synchroniseAccount(account)  
     }
 
-    fun synchroniseAccount(account: Account, from: Long? = null) {
+    private fun synchroniseAccount(account: Account, from: Long? = null) {
         val operations = this.bankingAdapter.getOperations(account, from)
         operations.forEach { 
             try {

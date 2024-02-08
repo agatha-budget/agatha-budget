@@ -8,4 +8,5 @@ interface IPersonDao {
     fun getById(id: String): Person
     fun getByEmail(email: String) : Person
     fun getByBillingId(billingId: String): Person
+    fun findAll(): List<Person>
 }

@@ -40,6 +40,12 @@ class PgPersonDao(val configuration: Configuration) : IPersonDao {
         return toPerson(jooqPerson)?: throw TresorierException("no person found for the following billing id : $billingId")
     }
 
+    override fun findAll(): List<Person> {
+        val jooqPersonsList : List<JooqPerson> = this.generatedDao.fetchByDeleted(false)
+        return jooqPersonsList.mapNotNull { toPerson(it) }
+    }
+
+
     override fun getById(id: String): Person {
         val jooqPerson = this.generatedDao.fetchOneById(id)
         return toPerson(jooqPerson) ?: throw TresorierException("no person found for the following id : $id")
