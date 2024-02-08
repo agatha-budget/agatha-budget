@@ -26,6 +26,15 @@ class PersonService(private val personDao: IPersonDao,
         return person
     }
 
+    fun createPerson(name: String, password: String, email: String, profile: ProfileEnum = ProfileEnum.PROFILE_USER, id: String? = null): Person {
+        // legacy function used for test
+        var person = Person(name, password, email, id=id)
+        mailingService.addPersonToMailingList(person)
+        person = personDao.insert(person)
+        budgetService.create(person, Budget.DEFAULT_BUDGET_NAME, profile)
+        return person
+    }
+
     fun getById(id: String) : Person {
         var person = personDao.getById(id)
         userActivityService.create(person, Time.now(), ActionEnum.ACTION_REQUEST)
