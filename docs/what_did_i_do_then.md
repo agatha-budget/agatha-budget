@@ -121,7 +121,7 @@ COMMIT;
 *how often* :
 
 --------------
-## Bug description
+## Prolongation periode d'essai
 
 *how long* :
 
@@ -131,7 +131,8 @@ COMMIT;
 
 *what did i do to fix it* :
 
-
+select * from person where email='email';
+update person set creation_date=1709219196000 where email='email';
 
 *how often* :
 
