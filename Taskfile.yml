@@ -1,0 +1,18 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+  hello:
+    cmds:
+      - echo "Bonjour à vous mes très chers amis !"
+  run:
+    cmds:
+      - gradle run
+  compile:
+    cmds:
+      - gradle uberjar
+  run_compiled:
+    cmds:
+      - java -jar -Dlogback.configurationFile=logback.xml build/libs/tresorier-backend-uber.jar
