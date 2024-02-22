@@ -87,7 +87,6 @@ class BillingService(private val personService: PersonService) {
             setStripeApiKey()
             val properties = Properties()
             val priceId: String = properties.get(PropertiesEnum.valueOf(selectedPackage.toString()))
-            val taxId: String = properties.get(TAX_ID)
             val succesUrl: String = properties.get(SUCCES_URL)
             val cancelUrl: String = properties.get(CANCEL_URL)
 
