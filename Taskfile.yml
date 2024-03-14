@@ -16,3 +16,7 @@ tasks:
   run_compiled:
     cmds:
       - java -jar -Dlogback.configurationFile=logback.xml build/libs/tresorier-backend-uber.jar
+  import_sql:
+    desc: task import_sql PATH=path_to_file (/!\ replace all role by postgres in the file beforehand)
+    cmds:
+      - psql -h localhost -U postgres -d agatha -f {{.PATH}}
