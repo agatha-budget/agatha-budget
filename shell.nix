@@ -30,7 +30,7 @@ pg_ctl restart -l $LOG_PATH -o "-c unix_socket_directories=$PGHOST"
 createuser postgres --superuser --createdb
 
 # create user and database if need be
-psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'tresorier'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE tresorier"
-psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'integration_tresorier'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE integration_tresorier"
+psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'agatha'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE agatha"
+psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'integration_agatha'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE integration_agatha"
 '';
 }

@@ -5,20 +5,20 @@ package open.tresorier.generated.jooq.test.information_schema.tables;
 
 
 import java.time.OffsetDateTime;
-import java.util.function.Function;
+import java.util.Collection;
 
 import open.tresorier.generated.jooq.test.information_schema.InformationSchema;
 import open.tresorier.generated.jooq.test.information_schema.tables.records.SessionsRecord;
 
+import org.jooq.Condition;
 import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Function13;
 import org.jooq.Name;
-import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row13;
+import org.jooq.PlainSQL;
+import org.jooq.QueryPart;
+import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.SelectField;
+import org.jooq.Select;
+import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -115,11 +115,11 @@ public class Sessions extends TableImpl<SessionsRecord> {
     public final TableField<SessionsRecord, OffsetDateTime> SLEEP_SINCE = createField(DSL.name("SLEEP_SINCE"), SQLDataType.TIMESTAMPWITHTIMEZONE(9), this, "");
 
     private Sessions(Name alias, Table<SessionsRecord> aliased) {
-        this(alias, aliased, null);
+        this(alias, aliased, (Field<?>[]) null, null);
     }
 
-    private Sessions(Name alias, Table<SessionsRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    private Sessions(Name alias, Table<SessionsRecord> aliased, Field<?>[] parameters, Condition where) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table(), where);
     }
 
     /**
@@ -143,10 +143,6 @@ public class Sessions extends TableImpl<SessionsRecord> {
      */
     public Sessions() {
         this(DSL.name("SESSIONS"), null);
-    }
-
-    public <O extends Record> Sessions(Table<O> child, ForeignKey<O, SessionsRecord> key) {
-        super(child, key, SESSIONS);
     }
 
     @Override
@@ -193,27 +189,87 @@ public class Sessions extends TableImpl<SessionsRecord> {
         return new Sessions(name.getQualifiedName(), null);
     }
 
-    // -------------------------------------------------------------------------
-    // Row13 type methods
-    // -------------------------------------------------------------------------
-
+    /**
+     * Create an inline derived table from this table
+     */
     @Override
-    public Row13<Integer, String, String, String, String, OffsetDateTime, String, String, OffsetDateTime, Boolean, String, Integer, OffsetDateTime> fieldsRow() {
-        return (Row13) super.fieldsRow();
+    public Sessions where(Condition condition) {
+        return new Sessions(getQualifiedName(), aliased() ? this : null, null, condition);
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Function13<? super Integer, ? super String, ? super String, ? super String, ? super String, ? super OffsetDateTime, ? super String, ? super String, ? super OffsetDateTime, ? super Boolean, ? super String, ? super Integer, ? super OffsetDateTime, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
+    @Override
+    public Sessions where(Collection<? extends Condition> conditions) {
+        return where(DSL.and(conditions));
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super Integer, ? super String, ? super String, ? super String, ? super String, ? super OffsetDateTime, ? super String, ? super String, ? super OffsetDateTime, ? super Boolean, ? super String, ? super Integer, ? super OffsetDateTime, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
+    @Override
+    public Sessions where(Condition... conditions) {
+        return where(DSL.and(conditions));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Sessions where(Field<Boolean> condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Sessions where(SQL condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Sessions where(@Stringly.SQL String condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Sessions where(@Stringly.SQL String condition, Object... binds) {
+        return where(DSL.condition(condition, binds));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Sessions where(@Stringly.SQL String condition, QueryPart... parts) {
+        return where(DSL.condition(condition, parts));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Sessions whereExists(Select<?> select) {
+        return where(DSL.exists(select));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Sessions whereNotExists(Select<?> select) {
+        return where(DSL.notExists(select));
     }
 }

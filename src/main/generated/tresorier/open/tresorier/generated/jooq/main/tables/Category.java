@@ -5,22 +5,29 @@ package open.tresorier.generated.jooq.main.tables;
 
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
 import open.tresorier.generated.jooq.main.Keys;
 import open.tresorier.generated.jooq.main.Public;
+import open.tresorier.generated.jooq.main.tables.Allocation.AllocationPath;
+import open.tresorier.generated.jooq.main.tables.MasterCategory.MasterCategoryPath;
+import open.tresorier.generated.jooq.main.tables.Operation.OperationPath;
 import open.tresorier.generated.jooq.main.tables.records.CategoryRecord;
 
+import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function5;
+import org.jooq.InverseForeignKey;
 import org.jooq.Name;
+import org.jooq.Path;
+import org.jooq.PlainSQL;
+import org.jooq.QueryPart;
 import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row5;
+import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.SelectField;
+import org.jooq.Select;
+import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -77,11 +84,11 @@ public class Category extends TableImpl<CategoryRecord> {
     public final TableField<CategoryRecord, Boolean> DELETED = createField(DSL.name("deleted"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("false"), SQLDataType.BOOLEAN)), this, "");
 
     private Category(Name alias, Table<CategoryRecord> aliased) {
-        this(alias, aliased, null);
+        this(alias, aliased, (Field<?>[]) null, null);
     }
 
-    private Category(Name alias, Table<CategoryRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    private Category(Name alias, Table<CategoryRecord> aliased, Field<?>[] parameters, Condition where) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table(), where);
     }
 
     /**
@@ -105,8 +112,37 @@ public class Category extends TableImpl<CategoryRecord> {
         this(DSL.name("category"), null);
     }
 
-    public <O extends Record> Category(Table<O> child, ForeignKey<O, CategoryRecord> key) {
-        super(child, key, CATEGORY);
+    public <O extends Record> Category(Table<O> path, ForeignKey<O, CategoryRecord> childPath, InverseForeignKey<O, CategoryRecord> parentPath) {
+        super(path, childPath, parentPath, CATEGORY);
+    }
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    public static class CategoryPath extends Category implements Path<CategoryRecord> {
+
+        private static final long serialVersionUID = 1L;
+        public <O extends Record> CategoryPath(Table<O> path, ForeignKey<O, CategoryRecord> childPath, InverseForeignKey<O, CategoryRecord> parentPath) {
+            super(path, childPath, parentPath);
+        }
+        private CategoryPath(Name alias, Table<CategoryRecord> aliased) {
+            super(alias, aliased);
+        }
+
+        @Override
+        public CategoryPath as(String alias) {
+            return new CategoryPath(DSL.name(alias), this);
+        }
+
+        @Override
+        public CategoryPath as(Name alias) {
+            return new CategoryPath(alias, this);
+        }
+
+        @Override
+        public CategoryPath as(Table<?> alias) {
+            return new CategoryPath(alias.getQualifiedName(), this);
+        }
     }
 
     @Override
@@ -124,17 +160,43 @@ public class Category extends TableImpl<CategoryRecord> {
         return Arrays.asList(Keys.CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY);
     }
 
-    private transient MasterCategory _masterCategory;
+    private transient MasterCategoryPath _masterCategory;
 
     /**
      * Get the implicit join path to the <code>public.master_category</code>
      * table.
      */
-    public MasterCategory masterCategory() {
+    public MasterCategoryPath masterCategory() {
         if (_masterCategory == null)
-            _masterCategory = new MasterCategory(this, Keys.CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY);
+            _masterCategory = new MasterCategoryPath(this, Keys.CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY, null);
 
         return _masterCategory;
+    }
+
+    private transient AllocationPath _allocation;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.allocation</code>
+     * table
+     */
+    public AllocationPath allocation() {
+        if (_allocation == null)
+            _allocation = new AllocationPath(this, null, Keys.ALLOCATION__ALLOCATION_CATEGORY_ID_FKEY.getInverseKey());
+
+        return _allocation;
+    }
+
+    private transient OperationPath _operation;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.operation</code>
+     * table
+     */
+    public OperationPath operation() {
+        if (_operation == null)
+            _operation = new OperationPath(this, null, Keys.OPERATION__OPERATION_CATEGORY_ID_FKEY.getInverseKey());
+
+        return _operation;
     }
 
     @Override
@@ -176,27 +238,87 @@ public class Category extends TableImpl<CategoryRecord> {
         return new Category(name.getQualifiedName(), null);
     }
 
-    // -------------------------------------------------------------------------
-    // Row5 type methods
-    // -------------------------------------------------------------------------
-
+    /**
+     * Create an inline derived table from this table
+     */
     @Override
-    public Row5<String, String, String, Boolean, Boolean> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Category where(Condition condition) {
+        return new Category(getQualifiedName(), aliased() ? this : null, null, condition);
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Function5<? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
+    @Override
+    public Category where(Collection<? extends Condition> conditions) {
+        return where(DSL.and(conditions));
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super String, ? super String, ? super String, ? super Boolean, ? super Boolean, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
+    @Override
+    public Category where(Condition... conditions) {
+        return where(DSL.and(conditions));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Category where(Field<Boolean> condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Category where(SQL condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Category where(@Stringly.SQL String condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Category where(@Stringly.SQL String condition, Object... binds) {
+        return where(DSL.condition(condition, binds));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Category where(@Stringly.SQL String condition, QueryPart... parts) {
+        return where(DSL.condition(condition, parts));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Category whereExists(Select<?> select) {
+        return where(DSL.exists(select));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Category whereNotExists(Select<?> select) {
+        return where(DSL.notExists(select));
     }
 }

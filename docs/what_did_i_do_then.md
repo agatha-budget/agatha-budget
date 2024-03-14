@@ -11,8 +11,33 @@ I ran :
 sudo service postgresql stop 
 ''
 outside of the shell
+or 
+ps aux | grep postgres  to find the pid
+kill pid_number
 
-*how often* : 3
+
+*how often* : 5
+
+--------------
+## Adress already in use, Is another postmaster already runnin on port 5432 ?
+
+*how long* : 
+
+*what happened* : 
+can't start postgres
+
+*why* :
+already run somewhere else
+
+*what did i do to fix it* :
+
+```
+- nix-shell -p lsof
+- sudo lsof -i :5432
+- kill -9 XXXX(pid)
+
+```
+*how often* : 2
 
 --------------
 ## Stripe webhook doesn't call the API

@@ -5,22 +5,28 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
+import open.tresorier.generated.jooq.test.public_.tables.BankAccount.BankAccountPath;
+import open.tresorier.generated.jooq.test.public_.tables.Budget.BudgetPath;
 import open.tresorier.generated.jooq.test.public_.tables.records.BankAgreementRecord;
 
+import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function7;
+import org.jooq.InverseForeignKey;
 import org.jooq.Name;
+import org.jooq.Path;
+import org.jooq.PlainSQL;
+import org.jooq.QueryPart;
 import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row7;
+import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.SelectField;
+import org.jooq.Select;
+import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -87,11 +93,11 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
     public final TableField<BankAgreementRecord, Boolean> DELETED = createField(DSL.name("DELETED"), SQLDataType.BOOLEAN.defaultValue(DSL.field(DSL.raw("FALSE"), SQLDataType.BOOLEAN)), this, "");
 
     private BankAgreement(Name alias, Table<BankAgreementRecord> aliased) {
-        this(alias, aliased, null);
+        this(alias, aliased, (Field<?>[]) null, null);
     }
 
-    private BankAgreement(Name alias, Table<BankAgreementRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    private BankAgreement(Name alias, Table<BankAgreementRecord> aliased, Field<?>[] parameters, Condition where) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table(), where);
     }
 
     /**
@@ -115,8 +121,37 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
         this(DSL.name("BANK_AGREEMENT"), null);
     }
 
-    public <O extends Record> BankAgreement(Table<O> child, ForeignKey<O, BankAgreementRecord> key) {
-        super(child, key, BANK_AGREEMENT);
+    public <O extends Record> BankAgreement(Table<O> path, ForeignKey<O, BankAgreementRecord> childPath, InverseForeignKey<O, BankAgreementRecord> parentPath) {
+        super(path, childPath, parentPath, BANK_AGREEMENT);
+    }
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    public static class BankAgreementPath extends BankAgreement implements Path<BankAgreementRecord> {
+
+        private static final long serialVersionUID = 1L;
+        public <O extends Record> BankAgreementPath(Table<O> path, ForeignKey<O, BankAgreementRecord> childPath, InverseForeignKey<O, BankAgreementRecord> parentPath) {
+            super(path, childPath, parentPath);
+        }
+        private BankAgreementPath(Name alias, Table<BankAgreementRecord> aliased) {
+            super(alias, aliased);
+        }
+
+        @Override
+        public BankAgreementPath as(String alias) {
+            return new BankAgreementPath(DSL.name(alias), this);
+        }
+
+        @Override
+        public BankAgreementPath as(Name alias) {
+            return new BankAgreementPath(alias, this);
+        }
+
+        @Override
+        public BankAgreementPath as(Table<?> alias) {
+            return new BankAgreementPath(alias.getQualifiedName(), this);
+        }
     }
 
     @Override
@@ -134,16 +169,29 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
         return Arrays.asList(Keys.CONSTRAINT_49);
     }
 
-    private transient Budget _budget;
+    private transient BudgetPath _budget;
 
     /**
      * Get the implicit join path to the <code>PUBLIC.BUDGET</code> table.
      */
-    public Budget budget() {
+    public BudgetPath budget() {
         if (_budget == null)
-            _budget = new Budget(this, Keys.CONSTRAINT_49);
+            _budget = new BudgetPath(this, Keys.CONSTRAINT_49, null);
 
         return _budget;
+    }
+
+    private transient BankAccountPath _bankAccount;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>PUBLIC.BANK_ACCOUNT</code> table
+     */
+    public BankAccountPath bankAccount() {
+        if (_bankAccount == null)
+            _bankAccount = new BankAccountPath(this, null, Keys.CONSTRAINT_19.getInverseKey());
+
+        return _bankAccount;
     }
 
     @Override
@@ -185,27 +233,87 @@ public class BankAgreement extends TableImpl<BankAgreementRecord> {
         return new BankAgreement(name.getQualifiedName(), null);
     }
 
-    // -------------------------------------------------------------------------
-    // Row7 type methods
-    // -------------------------------------------------------------------------
-
+    /**
+     * Create an inline derived table from this table
+     */
     @Override
-    public Row7<String, String, String, Long, String, Boolean, Boolean> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public BankAgreement where(Condition condition) {
+        return new BankAgreement(getQualifiedName(), aliased() ? this : null, null, condition);
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Function7<? super String, ? super String, ? super String, ? super Long, ? super String, ? super Boolean, ? super Boolean, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
+    @Override
+    public BankAgreement where(Collection<? extends Condition> conditions) {
+        return where(DSL.and(conditions));
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super String, ? super String, ? super String, ? super Long, ? super String, ? super Boolean, ? super Boolean, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
+    @Override
+    public BankAgreement where(Condition... conditions) {
+        return where(DSL.and(conditions));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public BankAgreement where(Field<Boolean> condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public BankAgreement where(SQL condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public BankAgreement where(@Stringly.SQL String condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public BankAgreement where(@Stringly.SQL String condition, Object... binds) {
+        return where(DSL.condition(condition, binds));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public BankAgreement where(@Stringly.SQL String condition, QueryPart... parts) {
+        return where(DSL.condition(condition, parts));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public BankAgreement whereExists(Select<?> select) {
+        return where(DSL.exists(select));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public BankAgreement whereNotExists(Select<?> select) {
+        return where(DSL.notExists(select));
     }
 }

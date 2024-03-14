@@ -1,32 +1,21 @@
-import org.jooq.meta.jaxb.ForcedType
+import org.jooq.meta.jaxb.* 
 
 // Properties for DB access
 val TRESORIER_DB_DRIVER: String by project
-val TRESORIER_DB_URL_DFLT: String by project
-val TRESORIER_DB_USR_DFLT: String by project
-val TRESORIER_DB_PWD_DFLT: String by project
+val TRESORIER_DB_URL: String by project
+val TRESORIER_DB_USR: String by project
+val TRESORIER_DB_PWD: String by project
 val TRESORIER_DB_VERSION: String by project
 
-val INTEGRATION_DB_URL_DFLT: String by project
-val INTEGRATION_DB_USR_DFLT: String by project
-val INTEGRATION_DB_PWD_DFLT: String by project
+val INTEGRATION_DB_URL: String by project
+val INTEGRATION_DB_USR: String by project
+val INTEGRATION_DB_PWD: String by project
 
 val TEST_DB_DRIVER: String by project
 val TEST_DB_URL: String by project
 val TEST_DB_USR: String by project
 val TEST_DB_PWD: String by project
 val TEST_DB_VERSION: String by project
-
-val TRESORIER_DB_ID: String by project
-val INTEGRATION_DB_ID: String by project
-
-val TRESORIER_DB_URL = System.getenv(TRESORIER_DB_ID +"_URL") ?: TRESORIER_DB_URL_DFLT
-val TRESORIER_DB_USR = System.getenv(TRESORIER_DB_ID + "_USERNAME") ?: TRESORIER_DB_USR_DFLT
-val TRESORIER_DB_PWD = System.getenv(TRESORIER_DB_ID + "_PASSWORD") ?: TRESORIER_DB_PWD_DFLT
-
-val INTEGRATION_DB_URL = System.getenv(INTEGRATION_DB_ID +"_URL") ?: INTEGRATION_DB_URL_DFLT
-val INTEGRATION_DB_USR = System.getenv(INTEGRATION_DB_ID + "_USERNAME") ?: INTEGRATION_DB_USR_DFLT
-val INTEGRATION_DB_PWD = System.getenv(INTEGRATION_DB_ID + "_PASSWORD") ?: INTEGRATION_DB_PWD_DFLT
 
 
 // Lib Versions
@@ -36,12 +25,10 @@ val junit_version="5.10.0" // juillet 2023
 val postgres_version="42.6.0" // mars 2023
 val flyway_version="9.22.1" // septembre 2023
 val h2_version="2.2.224" // septembre 2023
-val jooq_version="3.18.6" //aout 2023
+val jooq_version="3.19.6" //aout 2023 - update in plugin too
 val mock_version="1.13.7" //aout 2023
 val logback_version="1.4.11" // aout 2023
 val javalin_version="5.6.3" // juillet 2023
-val javalin_pac4j_version="6.0.0"  // novembre 2022
-val oidc_pac4j_version="5.7.1"  // avril 2023
 val jackson_version="2.15.2" // mai 2023
 val argon_version="2.11" // octobre 2021
 val stripe_version="23.5.0" // septembre 2023 
@@ -51,8 +38,8 @@ plugins {
     kotlin("jvm") version "1.9.22" // cf kotlin_version
     id("org.jetbrains.dokka") version "1.9.0" // aout 2023
     id("org.flywaydb.flyway") version "9.22.1" // septembre 2023
-    id("nu.studer.jooq") version "8.2"  // https://github.com/etiennestuder/gradle-jooq-plugin#compatibility
     id("org.sonarqube") version "4.4.1.3373"
+    id("org.jooq.jooq-codegen-gradle") version "3.19.6"
     jacoco
     application
 }
@@ -100,10 +87,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
 
-    // Authentication
-    implementation("org.pac4j:javalin-pac4j:$javalin_pac4j_version")
-    implementation("org.pac4j:pac4j-oidc:$oidc_pac4j_version")
-
     // password encryption
     implementation("de.mkammerer:argon2-jvm:$argon_version")
 
@@ -116,8 +99,8 @@ dependencies {
     implementation("org.postgresql:postgresql:$postgres_version")
     intTestImplementation("org.postgresql:postgresql:$postgres_version")
     testImplementation("com.h2database:h2:$h2_version")
-    jooqGenerator("org.postgresql:postgresql:$postgres_version")
-    jooqGenerator("com.h2database:h2:$h2_version")
+    jooqCodegen("org.postgresql:postgresql:$postgres_version")
+    jooqCodegen("com.h2database:h2:$h2_version")
 
     // Junit
     intTestImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
@@ -215,81 +198,69 @@ tasks.register("cleanAllDB") {
 }
 
 jooq {
-    configurations {
+    executions {
         create("tresorier") { // name of the jOOQ configuration
-             jooqConfiguration.apply {
-                 logging = org.jooq.meta.jaxb.Logging.WARN
-                 jdbc.apply {
-                     driver = TRESORIER_DB_DRIVER
-                     url = TRESORIER_DB_URL
-                     user = TRESORIER_DB_USR
-                     password = TRESORIER_DB_PWD
-                 }
-                 generator.apply {
-                     name = "org.jooq.codegen.JavaGenerator"
-                     database.apply {
-                         name = "org.jooq.meta.postgres.PostgresDatabase"
-                         inputSchema = "public"
-                     }
-                     generate.apply {
-                         isDeprecated = false
-                         isRecords = true
-                         isImmutablePojos = true
-                         isFluentSetters = true
-                         isDaos = true
-                     }
-                     target.apply {
-                         packageName = "open.tresorier.generated.jooq.main"
-                         directory= generatedDirMain
-
-                     }
-                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
-                 }
-             }
-        }
-        create("test") { // name of the jOOQ configuration
-            jooqConfiguration.apply {
+             configuration  {
                 logging = org.jooq.meta.jaxb.Logging.WARN
-                jdbc.apply {
-                    driver = TEST_DB_DRIVER
-                    url = TEST_DB_URL
-                    user = TEST_DB_USR
-                    password = TEST_DB_PWD
+                jdbc {
+                    driver = TRESORIER_DB_DRIVER
+                    url = TRESORIER_DB_URL
+                    user = TRESORIER_DB_USR
+                    password = TRESORIER_DB_PWD
                 }
-                generator.apply {
-                    name = "org.jooq.codegen.JavaGenerator"
-                    database.apply {
-                        name = "org.jooq.meta.h2.H2Database"
+                generator {
+                    database {
+                        name = "org.jooq.meta.postgres.PostgresDatabase"
+                        inputSchema = "public"
                     }
-                    generate.apply {
+                    generate {
                         isDeprecated = false
                         isRecords = true
                         isImmutablePojos = true
                         isFluentSetters = true
                         isDaos = true
                     }
-                    target.apply {
+                    target {
+                        packageName = "open.tresorier.generated.jooq.main"
+                        directory= generatedDirMain
+                    }
+                }
+             }
+        }
+        create("test") { // name of the jOOQ configuration
+            configuration {
+                logging = org.jooq.meta.jaxb.Logging.WARN
+                jdbc {
+                    driver = TEST_DB_DRIVER
+                    url = TEST_DB_URL
+                    user = TEST_DB_USR
+                    password = TEST_DB_PWD
+                }
+                generator {
+                    database {
+                        name = "org.jooq.meta.h2.H2Database"
+                    }
+                    generate {
+                        isDeprecated = false
+                        isRecords = true
+                        isImmutablePojos = true
+                        isFluentSetters = true
+                        isDaos = true
+                    }
+                    target {
                         packageName = "open.tresorier.generated.jooq.test"
                         directory= generatedDirTest
                     }
-                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
                 }
             }
         }
     }
 }
 
-tasks.register("generateJooq") {
-    dependsOn("generateTresorierJooq")
-    dependsOn("generateTestJooq")
-    dependsOn("migrate")
-}
-
-tasks.named("generateTresorierJooq") {mustRunAfter("migrateTresorierDatabase")}
-tasks.named("generateTestJooq") {mustRunAfter("migrateTestDatabase")}
+tasks.named("jooqCodegenTresorier") {mustRunAfter("migrateTresorierDatabase")}
+tasks.named("jooqCodegenTest") {mustRunAfter("migrateTestDatabase")}
 tasks.named("compileKotlin") {
-    mustRunAfter("generateTresorierJooq")
-    mustRunAfter("generateTestJooq")
+    mustRunAfter("jooqCodegen")
 }
 
 tasks.named("test") {
