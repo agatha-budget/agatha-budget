@@ -336,7 +336,7 @@ tasks.register<Jar>("uberJar") {
 
     from(sourceSets.main.get().output)
 
-    dependsOn(configurations.runtimeClasspath, "generateJooq")
+    dependsOn(configurations.runtimeClasspath, "jooqCodegen")
     from({
         configurations.runtimeClasspath.get().filter { it.name.endsWith("jar") }.map { zipTree(it) }
     })
