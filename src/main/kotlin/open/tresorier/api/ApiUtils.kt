@@ -18,8 +18,12 @@ fun sendToAdminMessage(errorId : String) : String {
 }
 
 fun getUserFromAuth(ctx: Context): Person {
-    var personId = getAuthenticationData(ctx).subject
-    return ServiceManager.personService.getById(personId)
+    var authData = getAuthenticationData(ctx)
+    var personId = authData.subject
+    var email : String = authData.get("email").toString() ?: "email was absent from jwt"
+    var person = ServiceManager.personService.getById(personId)
+    person.email = email 
+    return person
 }
 
 fun getAuthenticationData(ctx: Context) : Claims {
