@@ -23,13 +23,13 @@ class Properties () {
 
     fun getDBProperties() {
 
-        val tresorier_db_url = this.get(TRESORIER_DB_URL_DFLT)
-        val tresorier_db_usr = this.get(TRESORIER_DB_USR_DFLT)
-        val tresorier_db_pwd = this.get(TRESORIER_DB_PWD_DFLT)
+        val tresorier_db_url = this.get(TRESORIER_DB_URL)
+        val tresorier_db_usr = this.get(TRESORIER_DB_USR)
+        val tresorier_db_pwd = this.get(TRESORIER_DB_PWD)
 
-        val integration_db_url = this.get(INTEGRATION_DB_URL_DFLT)
-        val integration_db_usr = this.get(INTEGRATION_DB_USR_DFLT)
-        val integration_db_pwd = this.get(INTEGRATION_DB_PWD_DFLT)
+        val integration_db_url = this.get(INTEGRATION_DB_URL)
+        val integration_db_usr = this.get(INTEGRATION_DB_USR)
+        val integration_db_pwd = this.get(INTEGRATION_DB_PWD)
 
         properties.setProperty("TRESORIER_DB_URL", tresorier_db_url)
         properties.setProperty("TRESORIER_DB_USR", tresorier_db_usr)

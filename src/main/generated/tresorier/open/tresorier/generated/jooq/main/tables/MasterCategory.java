@@ -5,22 +5,28 @@ package open.tresorier.generated.jooq.main.tables;
 
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
 import open.tresorier.generated.jooq.main.Keys;
 import open.tresorier.generated.jooq.main.Public;
+import open.tresorier.generated.jooq.main.tables.Budget.BudgetPath;
+import open.tresorier.generated.jooq.main.tables.Category.CategoryPath;
 import open.tresorier.generated.jooq.main.tables.records.MasterCategoryRecord;
 
+import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function5;
+import org.jooq.InverseForeignKey;
 import org.jooq.Name;
+import org.jooq.Path;
+import org.jooq.PlainSQL;
+import org.jooq.QueryPart;
 import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row5;
+import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.SelectField;
+import org.jooq.Select;
+import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -77,11 +83,11 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
     public final TableField<MasterCategoryRecord, String> COLOR = createField(DSL.name("color"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL::character varying"), SQLDataType.VARCHAR)), this, "");
 
     private MasterCategory(Name alias, Table<MasterCategoryRecord> aliased) {
-        this(alias, aliased, null);
+        this(alias, aliased, (Field<?>[]) null, null);
     }
 
-    private MasterCategory(Name alias, Table<MasterCategoryRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    private MasterCategory(Name alias, Table<MasterCategoryRecord> aliased, Field<?>[] parameters, Condition where) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table(), where);
     }
 
     /**
@@ -105,8 +111,37 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
         this(DSL.name("master_category"), null);
     }
 
-    public <O extends Record> MasterCategory(Table<O> child, ForeignKey<O, MasterCategoryRecord> key) {
-        super(child, key, MASTER_CATEGORY);
+    public <O extends Record> MasterCategory(Table<O> path, ForeignKey<O, MasterCategoryRecord> childPath, InverseForeignKey<O, MasterCategoryRecord> parentPath) {
+        super(path, childPath, parentPath, MASTER_CATEGORY);
+    }
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    public static class MasterCategoryPath extends MasterCategory implements Path<MasterCategoryRecord> {
+
+        private static final long serialVersionUID = 1L;
+        public <O extends Record> MasterCategoryPath(Table<O> path, ForeignKey<O, MasterCategoryRecord> childPath, InverseForeignKey<O, MasterCategoryRecord> parentPath) {
+            super(path, childPath, parentPath);
+        }
+        private MasterCategoryPath(Name alias, Table<MasterCategoryRecord> aliased) {
+            super(alias, aliased);
+        }
+
+        @Override
+        public MasterCategoryPath as(String alias) {
+            return new MasterCategoryPath(DSL.name(alias), this);
+        }
+
+        @Override
+        public MasterCategoryPath as(Name alias) {
+            return new MasterCategoryPath(alias, this);
+        }
+
+        @Override
+        public MasterCategoryPath as(Table<?> alias) {
+            return new MasterCategoryPath(alias.getQualifiedName(), this);
+        }
     }
 
     @Override
@@ -124,16 +159,29 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
         return Arrays.asList(Keys.MASTER_CATEGORY__MASTER_CATEGORY_BUDGET_ID_FKEY);
     }
 
-    private transient Budget _budget;
+    private transient BudgetPath _budget;
 
     /**
      * Get the implicit join path to the <code>public.budget</code> table.
      */
-    public Budget budget() {
+    public BudgetPath budget() {
         if (_budget == null)
-            _budget = new Budget(this, Keys.MASTER_CATEGORY__MASTER_CATEGORY_BUDGET_ID_FKEY);
+            _budget = new BudgetPath(this, Keys.MASTER_CATEGORY__MASTER_CATEGORY_BUDGET_ID_FKEY, null);
 
         return _budget;
+    }
+
+    private transient CategoryPath _category;
+
+    /**
+     * Get the implicit to-many join path to the <code>public.category</code>
+     * table
+     */
+    public CategoryPath category() {
+        if (_category == null)
+            _category = new CategoryPath(this, null, Keys.CATEGORY__CATEGORY_MASTER_CATEGORY_ID_FKEY.getInverseKey());
+
+        return _category;
     }
 
     @Override
@@ -175,27 +223,87 @@ public class MasterCategory extends TableImpl<MasterCategoryRecord> {
         return new MasterCategory(name.getQualifiedName(), null);
     }
 
-    // -------------------------------------------------------------------------
-    // Row5 type methods
-    // -------------------------------------------------------------------------
-
+    /**
+     * Create an inline derived table from this table
+     */
     @Override
-    public Row5<String, String, String, Boolean, String> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public MasterCategory where(Condition condition) {
+        return new MasterCategory(getQualifiedName(), aliased() ? this : null, null, condition);
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Function5<? super String, ? super String, ? super String, ? super Boolean, ? super String, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
+    @Override
+    public MasterCategory where(Collection<? extends Condition> conditions) {
+        return where(DSL.and(conditions));
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super String, ? super String, ? super String, ? super Boolean, ? super String, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
+    @Override
+    public MasterCategory where(Condition... conditions) {
+        return where(DSL.and(conditions));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public MasterCategory where(Field<Boolean> condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public MasterCategory where(SQL condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public MasterCategory where(@Stringly.SQL String condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public MasterCategory where(@Stringly.SQL String condition, Object... binds) {
+        return where(DSL.condition(condition, binds));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public MasterCategory where(@Stringly.SQL String condition, QueryPart... parts) {
+        return where(DSL.condition(condition, parts));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public MasterCategory whereExists(Select<?> select) {
+        return where(DSL.exists(select));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public MasterCategory whereNotExists(Select<?> select) {
+        return where(DSL.notExists(select));
     }
 }

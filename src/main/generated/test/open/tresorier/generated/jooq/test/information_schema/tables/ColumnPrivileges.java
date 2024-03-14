@@ -4,20 +4,20 @@
 package open.tresorier.generated.jooq.test.information_schema.tables;
 
 
-import java.util.function.Function;
+import java.util.Collection;
 
 import open.tresorier.generated.jooq.test.information_schema.InformationSchema;
 import open.tresorier.generated.jooq.test.information_schema.tables.records.ColumnPrivilegesRecord;
 
+import org.jooq.Condition;
 import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Function8;
 import org.jooq.Name;
-import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row8;
+import org.jooq.PlainSQL;
+import org.jooq.QueryPart;
+import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.SelectField;
+import org.jooq.Select;
+import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -93,11 +93,11 @@ public class ColumnPrivileges extends TableImpl<ColumnPrivilegesRecord> {
     public final TableField<ColumnPrivilegesRecord, String> IS_GRANTABLE = createField(DSL.name("IS_GRANTABLE"), SQLDataType.VARCHAR(1000000000), this, "");
 
     private ColumnPrivileges(Name alias, Table<ColumnPrivilegesRecord> aliased) {
-        this(alias, aliased, null);
+        this(alias, aliased, (Field<?>[]) null, null);
     }
 
-    private ColumnPrivileges(Name alias, Table<ColumnPrivilegesRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+    private ColumnPrivileges(Name alias, Table<ColumnPrivilegesRecord> aliased, Field<?>[] parameters, Condition where) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view(), where);
     }
 
     /**
@@ -122,10 +122,6 @@ public class ColumnPrivileges extends TableImpl<ColumnPrivilegesRecord> {
      */
     public ColumnPrivileges() {
         this(DSL.name("COLUMN_PRIVILEGES"), null);
-    }
-
-    public <O extends Record> ColumnPrivileges(Table<O> child, ForeignKey<O, ColumnPrivilegesRecord> key) {
-        super(child, key, COLUMN_PRIVILEGES);
     }
 
     @Override
@@ -172,27 +168,87 @@ public class ColumnPrivileges extends TableImpl<ColumnPrivilegesRecord> {
         return new ColumnPrivileges(name.getQualifiedName(), null);
     }
 
-    // -------------------------------------------------------------------------
-    // Row8 type methods
-    // -------------------------------------------------------------------------
-
+    /**
+     * Create an inline derived table from this table
+     */
     @Override
-    public Row8<String, String, String, String, String, String, String, String> fieldsRow() {
-        return (Row8) super.fieldsRow();
+    public ColumnPrivileges where(Condition condition) {
+        return new ColumnPrivileges(getQualifiedName(), aliased() ? this : null, null, condition);
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Function8<? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
+    @Override
+    public ColumnPrivileges where(Collection<? extends Condition> conditions) {
+        return where(DSL.and(conditions));
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
+    @Override
+    public ColumnPrivileges where(Condition... conditions) {
+        return where(DSL.and(conditions));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public ColumnPrivileges where(Field<Boolean> condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public ColumnPrivileges where(SQL condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public ColumnPrivileges where(@Stringly.SQL String condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public ColumnPrivileges where(@Stringly.SQL String condition, Object... binds) {
+        return where(DSL.condition(condition, binds));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public ColumnPrivileges where(@Stringly.SQL String condition, QueryPart... parts) {
+        return where(DSL.condition(condition, parts));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public ColumnPrivileges whereExists(Select<?> select) {
+        return where(DSL.exists(select));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public ColumnPrivileges whereNotExists(Select<?> select) {
+        return where(DSL.notExists(select));
     }
 }

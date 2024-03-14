@@ -6,24 +6,24 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Indexes;
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
 import open.tresorier.generated.jooq.test.public_.tables.records.FlywaySchemaHistoryRecord;
 
+import org.jooq.Condition;
 import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Function10;
 import org.jooq.Index;
 import org.jooq.Name;
-import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row10;
+import org.jooq.PlainSQL;
+import org.jooq.QueryPart;
+import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.SelectField;
+import org.jooq.Select;
+import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -105,11 +105,11 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
     public final TableField<FlywaySchemaHistoryRecord, Boolean> SUCCESS = createField(DSL.name("success"), SQLDataType.BOOLEAN.nullable(false), this, "");
 
     private FlywaySchemaHistory(Name alias, Table<FlywaySchemaHistoryRecord> aliased) {
-        this(alias, aliased, null);
+        this(alias, aliased, (Field<?>[]) null, null);
     }
 
-    private FlywaySchemaHistory(Name alias, Table<FlywaySchemaHistoryRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    private FlywaySchemaHistory(Name alias, Table<FlywaySchemaHistoryRecord> aliased, Field<?>[] parameters, Condition where) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table(), where);
     }
 
     /**
@@ -133,10 +133,6 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
      */
     public FlywaySchemaHistory() {
         this(DSL.name("flyway_schema_history"), null);
-    }
-
-    public <O extends Record> FlywaySchemaHistory(Table<O> child, ForeignKey<O, FlywaySchemaHistoryRecord> key) {
-        super(child, key, FLYWAY_SCHEMA_HISTORY);
     }
 
     @Override
@@ -193,27 +189,87 @@ public class FlywaySchemaHistory extends TableImpl<FlywaySchemaHistoryRecord> {
         return new FlywaySchemaHistory(name.getQualifiedName(), null);
     }
 
-    // -------------------------------------------------------------------------
-    // Row10 type methods
-    // -------------------------------------------------------------------------
-
+    /**
+     * Create an inline derived table from this table
+     */
     @Override
-    public Row10<Integer, String, String, String, String, Integer, String, LocalDateTime, Integer, Boolean> fieldsRow() {
-        return (Row10) super.fieldsRow();
+    public FlywaySchemaHistory where(Condition condition) {
+        return new FlywaySchemaHistory(getQualifiedName(), aliased() ? this : null, null, condition);
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Function10<? super Integer, ? super String, ? super String, ? super String, ? super String, ? super Integer, ? super String, ? super LocalDateTime, ? super Integer, ? super Boolean, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
+    @Override
+    public FlywaySchemaHistory where(Collection<? extends Condition> conditions) {
+        return where(DSL.and(conditions));
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function10<? super Integer, ? super String, ? super String, ? super String, ? super String, ? super Integer, ? super String, ? super LocalDateTime, ? super Integer, ? super Boolean, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
+    @Override
+    public FlywaySchemaHistory where(Condition... conditions) {
+        return where(DSL.and(conditions));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public FlywaySchemaHistory where(Field<Boolean> condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public FlywaySchemaHistory where(SQL condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public FlywaySchemaHistory where(@Stringly.SQL String condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public FlywaySchemaHistory where(@Stringly.SQL String condition, Object... binds) {
+        return where(DSL.condition(condition, binds));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public FlywaySchemaHistory where(@Stringly.SQL String condition, QueryPart... parts) {
+        return where(DSL.condition(condition, parts));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public FlywaySchemaHistory whereExists(Select<?> select) {
+        return where(DSL.exists(select));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public FlywaySchemaHistory whereNotExists(Select<?> select) {
+        return where(DSL.notExists(select));
     }
 }

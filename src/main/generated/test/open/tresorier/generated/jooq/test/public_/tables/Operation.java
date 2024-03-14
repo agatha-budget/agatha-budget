@@ -5,23 +5,29 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
+import open.tresorier.generated.jooq.test.public_.tables.Account.AccountPath;
+import open.tresorier.generated.jooq.test.public_.tables.Category.CategoryPath;
 import open.tresorier.generated.jooq.test.public_.tables.records.OperationRecord;
 
 import org.jooq.Check;
+import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function13;
+import org.jooq.InverseForeignKey;
 import org.jooq.Name;
+import org.jooq.Path;
+import org.jooq.PlainSQL;
+import org.jooq.QueryPart;
 import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row13;
+import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.SelectField;
+import org.jooq.Select;
+import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -119,11 +125,11 @@ public class Operation extends TableImpl<OperationRecord> {
     public final TableField<OperationRecord, Long> IMPORT_TIMESTAMP = createField(DSL.name("IMPORT_TIMESTAMP"), SQLDataType.BIGINT.defaultValue(DSL.field(DSL.raw("NULL"), SQLDataType.BIGINT)), this, "");
 
     private Operation(Name alias, Table<OperationRecord> aliased) {
-        this(alias, aliased, null);
+        this(alias, aliased, (Field<?>[]) null, null);
     }
 
-    private Operation(Name alias, Table<OperationRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    private Operation(Name alias, Table<OperationRecord> aliased, Field<?>[] parameters, Condition where) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table(), where);
     }
 
     /**
@@ -147,8 +153,37 @@ public class Operation extends TableImpl<OperationRecord> {
         this(DSL.name("OPERATION"), null);
     }
 
-    public <O extends Record> Operation(Table<O> child, ForeignKey<O, OperationRecord> key) {
-        super(child, key, OPERATION);
+    public <O extends Record> Operation(Table<O> path, ForeignKey<O, OperationRecord> childPath, InverseForeignKey<O, OperationRecord> parentPath) {
+        super(path, childPath, parentPath, OPERATION);
+    }
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    public static class OperationPath extends Operation implements Path<OperationRecord> {
+
+        private static final long serialVersionUID = 1L;
+        public <O extends Record> OperationPath(Table<O> path, ForeignKey<O, OperationRecord> childPath, InverseForeignKey<O, OperationRecord> parentPath) {
+            super(path, childPath, parentPath);
+        }
+        private OperationPath(Name alias, Table<OperationRecord> aliased) {
+            super(alias, aliased);
+        }
+
+        @Override
+        public OperationPath as(String alias) {
+            return new OperationPath(DSL.name(alias), this);
+        }
+
+        @Override
+        public OperationPath as(Name alias) {
+            return new OperationPath(alias, this);
+        }
+
+        @Override
+        public OperationPath as(Table<?> alias) {
+            return new OperationPath(alias.getQualifiedName(), this);
+        }
     }
 
     @Override
@@ -171,25 +206,26 @@ public class Operation extends TableImpl<OperationRecord> {
         return Arrays.asList(Keys.CONSTRAINT_93, Keys.CONSTRAINT_932);
     }
 
-    private transient Account _account;
-    private transient Category _category;
+    private transient AccountPath _account;
 
     /**
      * Get the implicit join path to the <code>PUBLIC.ACCOUNT</code> table.
      */
-    public Account account() {
+    public AccountPath account() {
         if (_account == null)
-            _account = new Account(this, Keys.CONSTRAINT_93);
+            _account = new AccountPath(this, Keys.CONSTRAINT_93, null);
 
         return _account;
     }
 
+    private transient CategoryPath _category;
+
     /**
      * Get the implicit join path to the <code>PUBLIC.CATEGORY</code> table.
      */
-    public Category category() {
+    public CategoryPath category() {
         if (_category == null)
-            _category = new Category(this, Keys.CONSTRAINT_932);
+            _category = new CategoryPath(this, Keys.CONSTRAINT_932, null);
 
         return _category;
     }
@@ -243,27 +279,87 @@ public class Operation extends TableImpl<OperationRecord> {
         return new Operation(name.getQualifiedName(), null);
     }
 
-    // -------------------------------------------------------------------------
-    // Row13 type methods
-    // -------------------------------------------------------------------------
-
+    /**
+     * Create an inline derived table from this table
+     */
     @Override
-    public Row13<String, String, Integer, Integer, String, String, Integer, Long, Boolean, Boolean, String, String, Long> fieldsRow() {
-        return (Row13) super.fieldsRow();
+    public Operation where(Condition condition) {
+        return new Operation(getQualifiedName(), aliased() ? this : null, null, condition);
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Function13<? super String, ? super String, ? super Integer, ? super Integer, ? super String, ? super String, ? super Integer, ? super Long, ? super Boolean, ? super Boolean, ? super String, ? super String, ? super Long, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
+    @Override
+    public Operation where(Collection<? extends Condition> conditions) {
+        return where(DSL.and(conditions));
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super String, ? super String, ? super Integer, ? super Integer, ? super String, ? super String, ? super Integer, ? super Long, ? super Boolean, ? super Boolean, ? super String, ? super String, ? super Long, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
+    @Override
+    public Operation where(Condition... conditions) {
+        return where(DSL.and(conditions));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Operation where(Field<Boolean> condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Operation where(SQL condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Operation where(@Stringly.SQL String condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Operation where(@Stringly.SQL String condition, Object... binds) {
+        return where(DSL.condition(condition, binds));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Operation where(@Stringly.SQL String condition, QueryPart... parts) {
+        return where(DSL.condition(condition, parts));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Operation whereExists(Select<?> select) {
+        return where(DSL.exists(select));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Operation whereNotExists(Select<?> select) {
+        return where(DSL.notExists(select));
     }
 }

@@ -5,23 +5,28 @@ package open.tresorier.generated.jooq.test.public_.tables;
 
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
 import open.tresorier.generated.jooq.test.public_.Keys;
 import open.tresorier.generated.jooq.test.public_.Public;
+import open.tresorier.generated.jooq.test.public_.tables.Category.CategoryPath;
 import open.tresorier.generated.jooq.test.public_.tables.records.AllocationRecord;
 
 import org.jooq.Check;
+import org.jooq.Condition;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function3;
+import org.jooq.InverseForeignKey;
 import org.jooq.Name;
+import org.jooq.Path;
+import org.jooq.PlainSQL;
+import org.jooq.QueryPart;
 import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row3;
+import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.SelectField;
+import org.jooq.Select;
+import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -69,11 +74,11 @@ public class Allocation extends TableImpl<AllocationRecord> {
     public final TableField<AllocationRecord, Integer> AMOUNT = createField(DSL.name("AMOUNT"), SQLDataType.INTEGER.nullable(false).defaultValue(DSL.field(DSL.raw("0"), SQLDataType.INTEGER)), this, "");
 
     private Allocation(Name alias, Table<AllocationRecord> aliased) {
-        this(alias, aliased, null);
+        this(alias, aliased, (Field<?>[]) null, null);
     }
 
-    private Allocation(Name alias, Table<AllocationRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table());
+    private Allocation(Name alias, Table<AllocationRecord> aliased, Field<?>[] parameters, Condition where) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.table(), where);
     }
 
     /**
@@ -97,8 +102,37 @@ public class Allocation extends TableImpl<AllocationRecord> {
         this(DSL.name("ALLOCATION"), null);
     }
 
-    public <O extends Record> Allocation(Table<O> child, ForeignKey<O, AllocationRecord> key) {
-        super(child, key, ALLOCATION);
+    public <O extends Record> Allocation(Table<O> path, ForeignKey<O, AllocationRecord> childPath, InverseForeignKey<O, AllocationRecord> parentPath) {
+        super(path, childPath, parentPath, ALLOCATION);
+    }
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    public static class AllocationPath extends Allocation implements Path<AllocationRecord> {
+
+        private static final long serialVersionUID = 1L;
+        public <O extends Record> AllocationPath(Table<O> path, ForeignKey<O, AllocationRecord> childPath, InverseForeignKey<O, AllocationRecord> parentPath) {
+            super(path, childPath, parentPath);
+        }
+        private AllocationPath(Name alias, Table<AllocationRecord> aliased) {
+            super(alias, aliased);
+        }
+
+        @Override
+        public AllocationPath as(String alias) {
+            return new AllocationPath(DSL.name(alias), this);
+        }
+
+        @Override
+        public AllocationPath as(Name alias) {
+            return new AllocationPath(alias, this);
+        }
+
+        @Override
+        public AllocationPath as(Table<?> alias) {
+            return new AllocationPath(alias.getQualifiedName(), this);
+        }
     }
 
     @Override
@@ -116,14 +150,14 @@ public class Allocation extends TableImpl<AllocationRecord> {
         return Arrays.asList(Keys.CONSTRAINT_A);
     }
 
-    private transient Category _category;
+    private transient CategoryPath _category;
 
     /**
      * Get the implicit join path to the <code>PUBLIC.CATEGORY</code> table.
      */
-    public Category category() {
+    public CategoryPath category() {
         if (_category == null)
-            _category = new Category(this, Keys.CONSTRAINT_A);
+            _category = new CategoryPath(this, Keys.CONSTRAINT_A, null);
 
         return _category;
     }
@@ -175,27 +209,87 @@ public class Allocation extends TableImpl<AllocationRecord> {
         return new Allocation(name.getQualifiedName(), null);
     }
 
-    // -------------------------------------------------------------------------
-    // Row3 type methods
-    // -------------------------------------------------------------------------
-
+    /**
+     * Create an inline derived table from this table
+     */
     @Override
-    public Row3<String, Integer, Integer> fieldsRow() {
-        return (Row3) super.fieldsRow();
+    public Allocation where(Condition condition) {
+        return new Allocation(getQualifiedName(), aliased() ? this : null, null, condition);
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Function3<? super String, ? super Integer, ? super Integer, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
+    @Override
+    public Allocation where(Collection<? extends Condition> conditions) {
+        return where(DSL.and(conditions));
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super String, ? super Integer, ? super Integer, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
+    @Override
+    public Allocation where(Condition... conditions) {
+        return where(DSL.and(conditions));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Allocation where(Field<Boolean> condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Allocation where(SQL condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Allocation where(@Stringly.SQL String condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Allocation where(@Stringly.SQL String condition, Object... binds) {
+        return where(DSL.condition(condition, binds));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Allocation where(@Stringly.SQL String condition, QueryPart... parts) {
+        return where(DSL.condition(condition, parts));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Allocation whereExists(Select<?> select) {
+        return where(DSL.exists(select));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Allocation whereNotExists(Select<?> select) {
+        return where(DSL.notExists(select));
     }
 }

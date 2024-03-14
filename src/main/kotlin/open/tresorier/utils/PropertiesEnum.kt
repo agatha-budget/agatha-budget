@@ -3,17 +3,9 @@ package open.tresorier.utils
 enum class PropertiesEnum {
     SERVER_PORT,
 
-    TRESORIER_DB_URL_DFLT,
-    TRESORIER_DB_USR_DFLT,
-    TRESORIER_DB_PWD_DFLT,
-
     TEST_DB_URL,
     TEST_DB_USR,
     TEST_DB_PWD,
-
-    INTEGRATION_DB_URL_DFLT,
-    INTEGRATION_DB_USR_DFLT,
-    INTEGRATION_DB_PWD_DFLT,
 
     TRESORIER_DB_URL,
     TRESORIER_DB_USR,

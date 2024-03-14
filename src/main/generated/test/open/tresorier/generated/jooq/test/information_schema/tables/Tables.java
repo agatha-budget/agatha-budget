@@ -4,20 +4,20 @@
 package open.tresorier.generated.jooq.test.information_schema.tables;
 
 
-import java.util.function.Function;
+import java.util.Collection;
 
 import open.tresorier.generated.jooq.test.information_schema.InformationSchema;
 import open.tresorier.generated.jooq.test.information_schema.tables.records.TablesRecord;
 
+import org.jooq.Condition;
 import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Function11;
 import org.jooq.Name;
-import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row11;
+import org.jooq.PlainSQL;
+import org.jooq.QueryPart;
+import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.SelectField;
+import org.jooq.Select;
+import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.jooq.TableOptions;
@@ -103,11 +103,11 @@ public class Tables extends TableImpl<TablesRecord> {
     public final TableField<TablesRecord, Long> ROW_COUNT_ESTIMATE = createField(DSL.name("ROW_COUNT_ESTIMATE"), SQLDataType.BIGINT, this, "");
 
     private Tables(Name alias, Table<TablesRecord> aliased) {
-        this(alias, aliased, null);
+        this(alias, aliased, (Field<?>[]) null, null);
     }
 
-    private Tables(Name alias, Table<TablesRecord> aliased, Field<?>[] parameters) {
-        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view());
+    private Tables(Name alias, Table<TablesRecord> aliased, Field<?>[] parameters, Condition where) {
+        super(alias, null, aliased, parameters, DSL.comment(""), TableOptions.view(), where);
     }
 
     /**
@@ -129,10 +129,6 @@ public class Tables extends TableImpl<TablesRecord> {
      */
     public Tables() {
         this(DSL.name("TABLES"), null);
-    }
-
-    public <O extends Record> Tables(Table<O> child, ForeignKey<O, TablesRecord> key) {
-        super(child, key, TABLES);
     }
 
     @Override
@@ -179,27 +175,87 @@ public class Tables extends TableImpl<TablesRecord> {
         return new Tables(name.getQualifiedName(), null);
     }
 
-    // -------------------------------------------------------------------------
-    // Row11 type methods
-    // -------------------------------------------------------------------------
-
+    /**
+     * Create an inline derived table from this table
+     */
     @Override
-    public Row11<String, String, String, String, String, String, String, String, Long, String, Long> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Tables where(Condition condition) {
+        return new Tables(getQualifiedName(), aliased() ? this : null, null, condition);
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Function11<? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Long, ? super String, ? super Long, ? extends U> from) {
-        return convertFrom(Records.mapping(from));
+    @Override
+    public Tables where(Collection<? extends Condition> conditions) {
+        return where(DSL.and(conditions));
     }
 
     /**
-     * Convenience mapping calling {@link SelectField#convertFrom(Class,
-     * Function)}.
+     * Create an inline derived table from this table
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Long, ? super String, ? super Long, ? extends U> from) {
-        return convertFrom(toType, Records.mapping(from));
+    @Override
+    public Tables where(Condition... conditions) {
+        return where(DSL.and(conditions));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Tables where(Field<Boolean> condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Tables where(SQL condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Tables where(@Stringly.SQL String condition) {
+        return where(DSL.condition(condition));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Tables where(@Stringly.SQL String condition, Object... binds) {
+        return where(DSL.condition(condition, binds));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    @PlainSQL
+    public Tables where(@Stringly.SQL String condition, QueryPart... parts) {
+        return where(DSL.condition(condition, parts));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Tables whereExists(Select<?> select) {
+        return where(DSL.exists(select));
+    }
+
+    /**
+     * Create an inline derived table from this table
+     */
+    @Override
+    public Tables whereNotExists(Select<?> select) {
+        return where(DSL.notExists(select));
     }
 }
