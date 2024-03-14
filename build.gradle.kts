@@ -17,16 +17,13 @@ val TEST_DB_USR: String by project
 val TEST_DB_PWD: String by project
 val TEST_DB_VERSION: String by project
 
-val TRESORIER_DB_ID: String by project
-val INTEGRATION_DB_ID: String by project
+val TRESORIER_DB_URL =  TRESORIER_DB_URL_DFLT
+val TRESORIER_DB_USR =  TRESORIER_DB_USR_DFLT
+val TRESORIER_DB_PWD =  TRESORIER_DB_PWD_DFLT
 
-val TRESORIER_DB_URL = System.getenv(TRESORIER_DB_ID +"_URL") ?: TRESORIER_DB_URL_DFLT
-val TRESORIER_DB_USR = System.getenv(TRESORIER_DB_ID + "_USERNAME") ?: TRESORIER_DB_USR_DFLT
-val TRESORIER_DB_PWD = System.getenv(TRESORIER_DB_ID + "_PASSWORD") ?: TRESORIER_DB_PWD_DFLT
-
-val INTEGRATION_DB_URL = System.getenv(INTEGRATION_DB_ID +"_URL") ?: INTEGRATION_DB_URL_DFLT
-val INTEGRATION_DB_USR = System.getenv(INTEGRATION_DB_ID + "_USERNAME") ?: INTEGRATION_DB_USR_DFLT
-val INTEGRATION_DB_PWD = System.getenv(INTEGRATION_DB_ID + "_PASSWORD") ?: INTEGRATION_DB_PWD_DFLT
+val INTEGRATION_DB_URL = INTEGRATION_DB_URL_DFLT
+val INTEGRATION_DB_USR = INTEGRATION_DB_USR_DFLT
+val INTEGRATION_DB_PWD = INTEGRATION_DB_PWD_DFLT
 
 
 // Lib Versions
@@ -40,8 +37,6 @@ val jooq_version="3.18.6" //aout 2023
 val mock_version="1.13.7" //aout 2023
 val logback_version="1.4.11" // aout 2023
 val javalin_version="5.6.3" // juillet 2023
-val javalin_pac4j_version="6.0.0"  // novembre 2022
-val oidc_pac4j_version="5.7.1"  // avril 2023
 val jackson_version="2.15.2" // mai 2023
 val argon_version="2.11" // octobre 2021
 val stripe_version="23.5.0" // septembre 2023 
@@ -99,10 +94,6 @@ dependencies {
     implementation("io.javalin:javalin:$javalin_version") 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
     implementation("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
-
-    // Authentication
-    implementation("org.pac4j:javalin-pac4j:$javalin_pac4j_version")
-    implementation("org.pac4j:pac4j-oidc:$oidc_pac4j_version")
 
     // password encryption
     implementation("de.mkammerer:argon2-jvm:$argon_version")

@@ -22,16 +22,14 @@ class Properties () {
     }
 
     fun getDBProperties() {
-        val tresorierDB = this.get(TRESORIER_DB_ID)
-        val integrationDB = this.get(INTEGRATION_DB_ID)
 
-        val tresorier_db_url = System.getenv(tresorierDB +"_URL") ?: this.get(TRESORIER_DB_URL_DFLT)
-        val tresorier_db_usr = System.getenv(tresorierDB + "_USERNAME") ?: this.get(TRESORIER_DB_USR_DFLT)
-        val tresorier_db_pwd = System.getenv(tresorierDB + "_PASSWORD") ?: this.get(TRESORIER_DB_PWD_DFLT)
+        val tresorier_db_url = this.get(TRESORIER_DB_URL_DFLT)
+        val tresorier_db_usr = this.get(TRESORIER_DB_USR_DFLT)
+        val tresorier_db_pwd = this.get(TRESORIER_DB_PWD_DFLT)
 
-        val integration_db_url = System.getenv(integrationDB +"_URL") ?: this.get(INTEGRATION_DB_URL_DFLT)
-        val integration_db_usr = System.getenv(integrationDB + "_USERNAME") ?: this.get(INTEGRATION_DB_USR_DFLT)
-        val integration_db_pwd = System.getenv(integrationDB + "_PASSWORD") ?: this.get(INTEGRATION_DB_PWD_DFLT)
+        val integration_db_url = this.get(INTEGRATION_DB_URL_DFLT)
+        val integration_db_usr = this.get(INTEGRATION_DB_USR_DFLT)
+        val integration_db_pwd = this.get(INTEGRATION_DB_PWD_DFLT)
 
         properties.setProperty("TRESORIER_DB_URL", tresorier_db_url)
         properties.setProperty("TRESORIER_DB_USR", tresorier_db_usr)

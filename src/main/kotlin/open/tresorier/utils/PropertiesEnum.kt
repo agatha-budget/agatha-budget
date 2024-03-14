@@ -30,9 +30,6 @@ enum class PropertiesEnum {
     
     ENVIRONMENT,
 
-    TRESORIER_DB_ID,
-    INTEGRATION_DB_ID,
-
     STRIPE_API_KEY,
     STRIPE_WEBHOOK,
     
