@@ -162,3 +162,18 @@ update person set creation_date=1709219196000 where email='email';
 *how often* :
 
 --------------
+## L'agreement est créé mais la liste des comptes pas récupérée
+
+*how long* : 10min
+
+*what happened* : Pas de redirection vers le back après l'autorisation donc pas de déclenchement de l'appel
+
+*why* : 
+
+*what did i do to fix it* :
+
+Hacking d'une requete avec l'option resend des dev tools pour envoyer une requete PUT /banking avec le bankagreementId
+
+*how often* :
+
+--------------
