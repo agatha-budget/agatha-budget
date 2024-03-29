@@ -131,7 +131,8 @@ class BillingService(private val personService: PersonService) {
                 person.billingStatus == null
                 && Time.isMoreThanAMonthAgo(person.creationDate)
             ) {
-                throw SuspendedUserException("this user subscription is not up to date")
+                val id = person.id
+                throw SuspendedUserException("this user $id subscription is not up to date")
             }
         }
 
