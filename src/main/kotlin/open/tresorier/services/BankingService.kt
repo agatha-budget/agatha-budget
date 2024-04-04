@@ -12,6 +12,7 @@ import open.tresorier.model.banking.PublicBankAccount
 import open.tresorier.model.enum.ActionEnum
 import open.tresorier.utils.Time
 import open.tresorier.exception.TresorierException
+import open.tresorier.exception.BankingException
 
 
 class BankingService (
@@ -54,8 +55,12 @@ class BankingService (
             val accounts = this.accountDao.findByBudget(it)
             accounts.forEach {
                 val agreement = this.bankAgreementDao.findByAccount(it)
-                if (agreement != null) {
-                    synchroniseAccount(it, agreement.timestamp)
+                if (agreement != null && Time.isLessThan89DaysAgo(agreement.timestamp)) {
+                    try {
+                        synchroniseAccount(it, agreement.timestamp)
+                    } catch (e: BankingException) {
+                        TresorierException("Can't synchronise account ${it.id} for person ${person.id}", e)
+                    }
                 }
             }
         }
@@ -64,11 +69,7 @@ class BankingService (
 
     fun synchronise(person: Person, account: Account) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, account)
-        try {
-            synchroniseAccount(account)
-        } catch (e: Exception) {
-            TresorierException("Can't synchronise account ${account.id} for person ${person.id}", e)
-        }
+        synchroniseAccount(account)
     }
 
     private fun synchroniseAccount(account: Account, from: Long? = null) {
