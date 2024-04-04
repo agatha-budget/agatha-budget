@@ -6,8 +6,9 @@ import java.util.*
 
 object Time {
 
-    val HOUR = 36000000
-    val WEEK = 86400000
+    val HOUR = 3600000
+    val DAY = 86400000
+    val WEEK = 604800000
     val MONTH = 2629743000
     fun now() : Long {
         return System.currentTimeMillis()
@@ -22,23 +23,27 @@ object Time {
     }
 
     fun twoMonthAgo() : Long {
-        return now() - 2 * MONTH
+        return now() - (2 * MONTH)
     }
 
     fun threeMonthAgo() : Long {
-        return now() - 3 * MONTH
+        return now() - (3 * MONTH)
     }
 
     fun aWeekAgo() : Long {
-        return now() - 7 * WEEK
+        return now() - WEEK
     }
 
     fun inTwoWeeks(): Long {
-        return now() + 2 * WEEK
+        return now() + (2 * WEEK)
     }
 
     fun isMoreThanAMonthAgo(date : Long) : Boolean {
         return ((now() - date) > MONTH)
+    }
+
+    fun isLessThan89DaysAgo(date : Long) : Boolean {
+        return ((now() - date) < 7689600000)
     }
 
     fun getDuration(hours : Int = 0, minutes : Int = 0, seconds : Int = 0) : Long {

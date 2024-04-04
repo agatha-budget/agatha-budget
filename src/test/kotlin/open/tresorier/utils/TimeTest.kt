@@ -1,6 +1,7 @@
 package open.tresorier.utils
 
 import open.tresorier.model.Month
+import open.tresorier.utils.Time
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -19,6 +20,11 @@ class TimeTest {
 
     @Test fun testisMoreThanAMonthAgo(){
         assertTrue(Time.isMoreThanAMonthAgo(0))
+    }
+
+    @Test fun testLessThan89Days(){
+        val anHourAgo = Time.now() - Time.HOUR
+        assertTrue(Time.isLessThan89DaysAgo(anHourAgo))
     }
 
     @Test fun testLessThanAMonthAgo(){
