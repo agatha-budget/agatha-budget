@@ -11,6 +11,8 @@ import open.tresorier.model.banking.BankAgreement
 import open.tresorier.model.banking.PublicBankAccount
 import open.tresorier.model.enum.ActionEnum
 import open.tresorier.utils.Time
+import open.tresorier.exception.TresorierException
+
 
 class BankingService (
     private val bankingAdapter: IBankingPort,
@@ -62,7 +64,11 @@ class BankingService (
 
     fun synchronise(person: Person, account: Account) {
         this.authorizationService.cancelIfUserIsUnauthorized(person, account)
-        synchroniseAccount(account)  
+        try {
+            synchroniseAccount(account)
+        } catch (e: Exception) {
+            TresorierException("Can't synchronise account ${account.id} for person ${person.id}", e)
+        }
     }
 
     private fun synchroniseAccount(account: Account, from: Long? = null) {

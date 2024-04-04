@@ -177,3 +177,19 @@ Hacking d'une requete avec l'option resend des dev tools pour envoyer une requet
 *how often* :
 
 --------------
+## CORS Missing Allow Origin NS_ERROR_DOM_BAD_URI
+
+*how long* : 10min
+
+*what happened* : mon.agatha se fait refuser par le backend
+
+*why* : 
+- backend wasn't running because the configuration file had the wrong server port !
+
+*what did i do to fix it* :  check journalctl -xeu backend
+
+Hacking d'une requete avec l'option resend des dev tools pour envoyer une requete PUT /banking avec le bankagreementId
+
+*how often* :
+
+--------------

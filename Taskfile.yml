@@ -10,6 +10,9 @@ tasks:
   run:
     cmds:
       - gradle run
+  test:
+    cmds:
+      - gradle test
   compile:
     cmds:
       - gradle uberjar
