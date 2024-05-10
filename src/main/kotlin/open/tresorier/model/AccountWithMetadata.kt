@@ -1,6 +1,6 @@
 package open.tresorier.model
 
-class AccountWithAmount (
+class AccountWithMetadata (
     name: String,
     budgetId: String,
     var amount: Int,
@@ -16,8 +16,8 @@ class AccountWithAmount (
 
     companion object {
 
-        fun createFromAccount(account: Account, amount: Int) : AccountWithAmount {
-            return AccountWithAmount(account.name, account.budgetId, amount, account.archived, account.bankAccountId, account.id, account.deleted)
+        fun createFromAccount(account: Account, amount: Int) : AccountWithMetadata {
+            return AccountWithMetadata(account.name, account.budgetId, amount, account.archived, account.bankAccountId, account.id, account.deleted)
         }
     }
 }

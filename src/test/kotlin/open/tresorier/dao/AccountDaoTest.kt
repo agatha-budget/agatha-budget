@@ -35,7 +35,7 @@ open class AccountDaoTest : ITest {
     }
 
     @Test
-    fun getAccountWithAmountForBudget() {
+    fun getAccountWithMetadataForBudget() {
         val budget = Budget("how much ?", TestData.person1Id, ProfileEnum.PROFILE_USER)
         budgetDao.insert(budget)
         val account = Account("account", budget.id)
@@ -52,8 +52,8 @@ open class AccountDaoTest : ITest {
 
         val accountList = accountDao.findByBudget(budget)
         val expectedList = listOf(
-            AccountWithAmount.createFromAccount(account, 5065),
-            AccountWithAmount.createFromAccount(account2, 7777)
+            AccountWithMetadata.createFromAccount(account, 5065),
+            AccountWithMetadata.createFromAccount(account2, 7777)
         )
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())
@@ -72,7 +72,7 @@ open class AccountDaoTest : ITest {
 
         val accountList = accountDao.findByBudget(budget)
         val expectedList = listOf(
-            AccountWithAmount.createFromAccount(account, 0)
+            AccountWithMetadata.createFromAccount(account, 0)
         )
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())
@@ -87,7 +87,7 @@ open class AccountDaoTest : ITest {
 
         val accountList = accountDao.findByBudget(budget)
         val expectedList = listOf(
-            AccountWithAmount.createFromAccount(account, 0)
+            AccountWithMetadata.createFromAccount(account, 0)
         )
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())
@@ -106,7 +106,7 @@ open class AccountDaoTest : ITest {
 
         val accountList = accountDao.findByBudget(budget)
         val expectedList = listOf(
-            AccountWithAmount.createFromAccount(account, -5000)
+            AccountWithMetadata.createFromAccount(account, -5000)
         )
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())
@@ -127,7 +127,7 @@ open class AccountDaoTest : ITest {
 
         val accountList = accountDao.findByBudget(budget)
         val expectedList = listOf(
-            AccountWithAmount.createFromAccount(account, 50)
+            AccountWithMetadata.createFromAccount(account, 50)
         )
 
         Assertions.assertEquals(expectedList.toString(), accountList.toString())

@@ -51,7 +51,7 @@ class AccountService(private val accountDao: IAccountDao,
         return accountDao.update(account)
     }
 
-    fun findByBudget(person: Person, budget: Budget) : List<AccountWithAmount> {
+    fun findByBudget(person: Person, budget: Budget) : List<AccountWithMetadata> {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
         return accountDao.findByBudget(budget)
     }
