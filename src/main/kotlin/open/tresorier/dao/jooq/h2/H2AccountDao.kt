@@ -104,6 +104,7 @@ class H2AccountDao(val configuration: Configuration) : IAccountDao {
             jooqAccountWithMetadata.get(ACCOUNT.NAME),
             jooqAccountWithMetadata.get(ACCOUNT.BUDGET_ID),
             jooqAccountWithMetadata.get(amountSum).toInt(),
+            0,
             jooqAccountWithMetadata.get(ACCOUNT.ARCHIVED),
             jooqAccountWithMetadata.get(ACCOUNT.BANK_ACCOUNT_ID),
             jooqAccountWithMetadata.get(ACCOUNT.ID),

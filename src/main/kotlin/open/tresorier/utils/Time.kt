@@ -46,6 +46,14 @@ object Time {
         return ((now() - date) < 7689600000)
     }
 
+    fun ninetyDaysLater(date: Long) : Long {
+        return (date + 7776000000)
+    }
+
+    fun ninetyDaysAgo() : Long {
+        return (now() - 7776000000)
+    }
+
     fun getDuration(hours : Int = 0, minutes : Int = 0, seconds : Int = 0) : Long {
         val duration : Int = (hours*(60*60)
             + minutes*(60)
@@ -73,5 +81,4 @@ object Time {
         val format = SimpleDateFormat("yyyy-MM-dd")
         return format.format(date)
     }
-
 }
