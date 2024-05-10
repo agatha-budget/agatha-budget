@@ -24,7 +24,6 @@ val koin_version= "3.5.0" // septembre 2023
 val junit_version="5.10.0" // juillet 2023
 val postgres_version="42.6.0" // mars 2023
 val flyway_version="9.22.1" // septembre 2023
-val h2_version="2.2.224" // septembre 2023
 val jooq_version="3.19.6" //aout 2023 - update in plugin too
 val mock_version="1.13.7" //aout 2023
 val logback_version="1.4.11" // aout 2023
@@ -98,9 +97,7 @@ dependencies {
     // DB
     implementation("org.postgresql:postgresql:$postgres_version")
     intTestImplementation("org.postgresql:postgresql:$postgres_version")
-    testImplementation("com.h2database:h2:$h2_version")
     jooqCodegen("org.postgresql:postgresql:$postgres_version")
-    jooqCodegen("com.h2database:h2:$h2_version")
 
     // Junit
     intTestImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
@@ -238,7 +235,8 @@ jooq {
                 }
                 generator {
                     database {
-                        name = "org.jooq.meta.h2.H2Database"
+                        name = "org.jooq.meta.postgres.PostgresDatabase"
+                        inputSchema = "public"
                     }
                     generate {
                         isDeprecated = false

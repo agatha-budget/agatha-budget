@@ -43,3 +43,5 @@ local.properties
 logback.xml
 
 gradle.properties
+
+*.hprof

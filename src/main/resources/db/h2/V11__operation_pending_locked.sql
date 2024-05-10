@@ -1,5 +1,0 @@
-ALTER TABLE operation
-ADD COLUMN pending BOOLEAN DEFAULT false;
-
-ALTER TABLE operation
-ADD COLUMN locked BOOLEAN DEFAULT false;
