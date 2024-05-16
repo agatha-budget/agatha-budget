@@ -15,6 +15,7 @@ import open.tresorier.utils.HTTPConnection
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.utils.Time
+import open.tresorier.exception.TresorierException
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -187,6 +188,31 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
             bankList += bank
         }
         return bankList
+    }
+
+    override fun getBankAccountBalance(id: String) : Int? {
+        try {
+            val url = "https://ob.nordigen.com/api/v2/accounts/${id}/balances/"
+
+            val headerProperties = mapOf(
+                "Content-Type" to "application/json",
+                "Accept" to "application/json",
+                "User-Agent" to "Agatha/1.0",
+                "Authorization" to "Bearer ${this.getToken()}"
+            )
+
+            val connection = HTTPConnection.sendRequest("GET", url, headerProperties)
+
+            if (connection.responseCode !in HTTPConnection.validResponseCodes) {
+                throw BankingException("could not get account details for ${id} : ${connection.errorStream.reader().use { it.readText() }}")
+            }
+            val response = JSONObject(connection.inputStream.reader().use { it.readText() })
+            val stringAmount = (response.getJSONArray("balances")[0] as JSONObject).getJSONObject("balanceAmount").optString("amount", "0")
+            return stringAmount.toInt()
+        } catch (e: Exception) {
+            TresorierException("could not find balance for %id", e)
+            return null
+        }
     }
 
     private fun createBank(nordigenBank: JSONObject) : Bank {

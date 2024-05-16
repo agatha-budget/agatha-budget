@@ -37,4 +37,8 @@ class MockBankingAdapter() : IBankingPort {
             )
         )
     }
+
+    override fun getBankAccountBalance(id: String) : Int? {
+        return 0
+    }
 }

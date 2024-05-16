@@ -16,6 +16,9 @@ tasks:
   jar:
     cmds:
       - gradle uberjar
+  migrate:
+    cmds: 
+      - gradle migrate
   run_jar:
     cmds:
       - task: jar

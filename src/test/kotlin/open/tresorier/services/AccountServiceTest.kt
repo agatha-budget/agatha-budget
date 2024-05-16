@@ -49,7 +49,7 @@ class AccountServiceTest : ITest {
         val time = Time.now()
         val bankAgreement = BankAgreement(budget.id, "BestEthicalBankId", time)
         bankAgreementDao.insert(bankAgreement)
-        val bankAccount = BankAccount("courant", bankAgreement.id)
+        val bankAccount = BankAccount("courant", bankAgreement.id, "id")
         bankAccountDao.insert(bankAccount)
         val account = Account("account", budget.id, false, bankAccount.id)
         accountDao.insert(account)

@@ -5,7 +5,7 @@ import open.tresorier.model.DbObject
 open class BankAccount (
     var name: String,
     var agreementId: String,
-    var bankId: String? = null,
+    var bankId: String,
     id: String? = null,
     deleted: Boolean? = null
 ) : DbObject(id, deleted) {
