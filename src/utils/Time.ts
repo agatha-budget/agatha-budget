@@ -30,6 +30,14 @@ export default class Time {
     return year * 100 + month
   }
 
+  public static now(): number {
+    return Date.now()
+  }
+
+  public static get30DaysAgo (): number {
+    return Time.now() - (30*86400000)
+  }
+
   public static getCurrentDay (): number {
     return this.getDayFromDate(this.getCurrentDate())
   }

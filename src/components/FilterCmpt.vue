@@ -19,11 +19,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import type { Category, MasterCategory, GroupSelectOption, SelectOption } from '@/model/model'
-import { incomeCategoryId, transfertCategoryId} from '@/model/model'
-import Multiselect from '@vueform/multiselect'
+import type { Category, GroupSelectOption, MasterCategory, SelectOption } from '@/model/model'
+import { incomeCategoryId, transfertCategoryId } from '@/model/model'
 import { useBudgetStore } from '@/stores/budgetStore'
+import Multiselect from '@vueform/multiselect'
+import { defineComponent } from 'vue'
 
 interface FilterData {
   categoryId: string;
@@ -34,7 +34,6 @@ export default defineComponent({
   components: {
     Multiselect
   },
-  props: { },
   computed: {
     categories (): GroupSelectOption[] {
       const optionsList = [

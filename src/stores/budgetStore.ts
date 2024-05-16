@@ -3,6 +3,7 @@ import AccountService from '@/services/AccountService'
 import BudgetService from '@/services/BudgetService'
 import CategoryService from '@/services/CategoryService'
 import MasterCategoryService from '@/services/MasterCategoryService'
+import { useOperationStore } from '@/stores/operationStore'
 import { defineStore } from 'pinia'
 
 export const useBudgetStore = defineStore('budget', {
@@ -11,7 +12,6 @@ export const useBudgetStore = defineStore('budget', {
     accounts: [] as Account[],
     categories: [] as Category[],
     masterCategories: [] as MasterCategory[],
-    storeLoaded: false
   }),
   actions: {
     reset() {
@@ -19,11 +19,12 @@ export const useBudgetStore = defineStore('budget', {
       this.accounts = []
       this.masterCategories = []
       this.categories = []
-      this.storeLoaded = false
     },
     async init() {
-      this.budget = await BudgetService.getDefaultBudget()
-      this.onBudgetUpdate()
+      if (this.budget === null) {
+        this.budget = await BudgetService.getDefaultBudget()
+        this.onBudgetUpdate()
+      }
     },
     async onBudgetUpdate() {
       // to be improved in case one of the update fail
@@ -32,21 +33,32 @@ export const useBudgetStore = defineStore('budget', {
         this.updateMasterCategories(),
         this.updateCategories()
       ])
-      this.storeLoaded = true
     },
-    async updateAccounts() {
+    async updateAccounts(withOperation: boolean = true) {
       if (this.budget) {
-        this.accounts = await AccountService.getAccounts(this.budget)
+        let res = await AccountService.getAccounts(this.budget)
+        if (res.isOk()) {
+          this.accounts = res.value
+        }
+        if (withOperation){
+          useOperationStore().retrieveOperations(this.accounts)
+        }
       }
     },
     async updateCategories() {
       if (this.budget) {
-        this.categories = await CategoryService.getCategories(this.budget)
+        let res = await CategoryService.getCategories(this.budget)
+        if (res.isOk()) {
+          this.categories = res.value
+        }
       }
     },
     async updateMasterCategories() {
       if (this.budget) {
-        this.masterCategories = await MasterCategoryService.getMasterCategories(this.budget)
+        let res = await MasterCategoryService.getMasterCategories(this.budget)
+        if (res.isOk()) {
+          this.masterCategories = res.value
+        }
       }
     },
     getOrderedMasterCategory(): MasterCategory[] {

@@ -29,7 +29,7 @@
               <div v-else class="form-group numberInput">
               <input  type="textInput" class="form-control"
                 v-bind:value="centsToEurosDisplay(categoryDataList[category.id]?.allocated ?? 0)"
-                v-on:change="updateAllocationOnChange(category.id, computeStringToCents($event.target.value))"
+                v-on:change="updateAllocationOnChange(category.id, computeStringToCents(getValue($event)))"
               >
               </div>
             </td>
@@ -61,6 +61,7 @@ import CategoryService from '@/services/CategoryService'
 import { useBudgetStore } from '@/stores/budgetStore'
 import Calcul from '@/utils/Calcul'
 import { Color } from '@/utils/Color'
+import EventUtils from "@/utils/EventUtils"
 import Utils from '@/utils/Utils'
 import { defineComponent } from 'vue'
 
@@ -130,6 +131,9 @@ export default defineComponent({
     },
     computeStringToCents (amount: string): number {
       return Calcul.computeStringToCents(amount)
+    },
+    getValue(e: Event): any {
+      return EventUtils.getInputValue(e)
     }
   }
 })

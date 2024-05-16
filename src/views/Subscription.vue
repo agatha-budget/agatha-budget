@@ -2,13 +2,15 @@
 
   <div :class="css">
     <div class="subscriptionPage menuLayout row col-md-4 offset-md-4 col-xl-8 offset-xl-2">
-      <div class="header fixed title">
+      <div class="header title">
         <h1 class="title">{{ $t('SUBSCRIPTION') }}</h1>
-        <p v-if="!validSubscription" class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
-      </div>
-      <div class="placeholder top">
-        <h1 class="title">{{ $t('SUBSCRIPTION') }}</h1>
-        <p v-if="!validSubscription" class="col-12">{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
+        <div v-if="!validSubscription">
+          <p>{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
+          <button class="navigationButton row" v-on:click="logout">
+            <span class="illustration fas fa-sign-out-alt col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("LOGOUT") }}</span>
+          </button>
+        </div>
       </div>
       <div v-if="managementPage">
         <p>{{ $t('MANAGE_SUBSCRIPTION') }} : </p>
@@ -28,15 +30,6 @@
             <p>{{ $t('TEXT_ESSENTIAL') }}</p>
             <button class="actionButton" v-on:click="goToBillingPortal('MONTHLY_ESSENTIAL')">{{ $t('PRICE_MONTHLY_ESSENTIAL') }}</button>
             <button class="actionButton" v-on:click="goToBillingPortal('ANNUAL_ESSENTIAL')">{{ $t('PRICE_ANNUAL_ESSENTIAL') }}</button>
-          </div>
-          <div class="integral">
-            <div class="banner">
-              <span class="icon icon-plane" />
-              <div class="title">{{ $t('INTEGRAL') }}</div>
-            </div>
-            <p>{{ $t('TEXT_INTEGRAL') }}</p>
-            <button class="actionButton" v-on:click="goToBillingPortal('MONTHLY_INTEGRAL')">{{ $t('PRICE_MONTHLY_INTEGRAL') }}</button>
-            <button class="actionButton" v-on:click="goToBillingPortal('ANNUAL_INTEGRAL')">{{ $t('PRICE_ANNUAL_INTEGRAL') }}</button>
           </div>
           <div class="solidarity">
             <div class="banner">
@@ -89,12 +82,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
 import NavMenu from '@/components/NavigationMenu.vue'
-import PersonService from '@/services/PersonService'
 import type { Person } from '@/model/model'
-import { usePersonStore } from '@/stores/personStore'
+import PersonService from '@/services/PersonService'
+import KeycloakService from '@/services/security/KeycloakService'
 import { useBudgetStore } from '@/stores/budgetStore'
+import { usePersonStore } from '@/stores/personStore'
+import { defineComponent } from 'vue'
 
 
 interface SubscriptionPageData {
@@ -148,7 +142,10 @@ export default defineComponent({
     },
     changePage () {
       this.managementPage = !this.managementPage
-    }
+    },
+    logout () {
+      KeycloakService.CallLogOut();
+    },
   }
 })
 </script>

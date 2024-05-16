@@ -1,26 +1,24 @@
 import type { Account, Operation, OperationWithDaughters } from '@/model/model'
 import { operationApi } from '@/services/api/apis'
 import { useBudgetStore } from '@/stores/budgetStore'
+import { useOperationStore } from '@/stores/operationStore'
+import { ResultAsync } from "neverthrow"
+import { defaultErrorHandler } from './ServicesUtils'
 
 export default class OperationService {
-  public static async getOperations(
-    account: Account,
-    categoryId: string | null
-  ): Promise<OperationWithDaughters[]> {
-    let data: OperationWithDaughters[] = []
-    if (account.id) {
-      let response
-      if (categoryId) {
-        response = await operationApi.findOperationsByAccount(account.id, categoryId)
-      } else {
-        response = await operationApi.findOperationsByAccount(account.id, undefined)
-      }
-      data = response.data
-    }
-    return data
-  }
 
-  public static async addOperation(
+  public static getOperations(
+    account: Account,
+    categoryId: string | null = null
+  ): ResultAsync<OperationWithDaughters[], Error> {
+    
+    return ResultAsync.fromPromise(
+      operationApi.findOperationsByAccount(account.id, categoryId || undefined),
+      () => Error("error while contacting the DB")
+    ).map((response) => response.data)
+  }
+  
+  public static addOperation(
     accountId: string,
     day?: number,
     categoryId?: string,
@@ -28,26 +26,46 @@ export default class OperationService {
     memo?: string,
     isPending?: boolean,
     motheroperationId?: string
-  ): Promise<Operation> {
-    const response = await operationApi.addOperation(
-      accountId,
-      day,
-      categoryId,
-      amount,
-      memo,
-      isPending,
-      motheroperationId
-    )
-    useBudgetStore().updateAccounts()
-    return response.data
+  ): ResultAsync<Operation, Error> {
+    return ResultAsync.fromPromise(
+      operationApi.addOperation(
+        accountId,
+        day,
+        categoryId,
+        amount,
+        memo,
+        isPending,
+        motheroperationId
+      ),
+      defaultErrorHandler
+    ).map((response) => {
+      let operation = response.data
+      useOperationStore().addOperationToAccount(operation)
+      return operation
+    })
   }
 
-  public static async deleteOperation(operationId: string) {
-    await operationApi.deleteOperation(operationId)
-    useBudgetStore().updateAccounts()
+  public static deleteOperation(accountId: string, operationId: string): ResultAsync<string, Error> {
+    return ResultAsync.fromPromise(
+      operationApi.deleteOperation(operationId),
+      defaultErrorHandler
+    ).map((response) => {
+        useOperationStore().delete(accountId, operationId)
+        return response.data
+    })
   }
 
-  public static async updateOperation(
+  public static deleteDaughterOperation(accountId: string, operationId: string, motherOperationId: string): ResultAsync<string, Error> {
+    return ResultAsync.fromPromise(
+      operationApi.deleteOperation(operationId),
+      defaultErrorHandler
+    ).map((response) => {
+        useOperationStore().delete(accountId, operationId, motherOperationId)
+        return response.data
+    })
+  }
+
+  public static updateOperation(
     operationId: string,
     accountId: string,
     day?: number,
@@ -57,20 +75,25 @@ export default class OperationService {
     memo?: string,
     isPending?: boolean,
     motheroperationId?: string
-  ): Promise<Operation> {
-    const response = await operationApi.updateOperation(
-      operationId,
-      accountId,
-      day,
-      categoryId,
-      removeCategory,
-      amount,
-      memo,
-      isPending,
-      motheroperationId
-    )
-    useBudgetStore().updateAccounts()
-    return response.data
+  ): ResultAsync<Operation, Error> {
+    return ResultAsync.fromPromise(
+      operationApi.updateOperation(
+        operationId,
+        accountId,
+        day,
+        categoryId,
+        removeCategory,
+        amount,
+        memo,
+        isPending,
+        motheroperationId
+      ),
+      defaultErrorHandler
+    ).map((response) => {
+      let operation = response.data
+      useOperationStore().update(operation)
+      return operation
+    })
   }
 
   public static async importOfxFile(
@@ -81,4 +104,5 @@ export default class OperationService {
     useBudgetStore().updateAccounts()
     return response.data
   }
+
 }

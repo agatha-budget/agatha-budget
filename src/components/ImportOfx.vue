@@ -24,8 +24,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import OperationService from '@/services/OperationService'
+import OperationService from '@/services/OperationService';
+import { defineComponent } from 'vue';
 
 interface ImportOfxData {
     fileOfx: Blob | undefined;
@@ -60,8 +60,8 @@ export default defineComponent({
   },
   emits: ['closeImport'],
   methods: {
-    onFileChange (event: { target: { files: Blob[] } }) {
-      const file = event.target.files[0]
+    onFileChange (event: Event) {
+      const file = (event as unknown as { target: { files: Blob[] } }).target.files[0] // TODO - improve handling of target
       this.fileOfx = file
     },
     async importOfxFile () {

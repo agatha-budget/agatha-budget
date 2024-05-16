@@ -1,17 +1,25 @@
-import type { Budget, Account } from '@/model/model'
+import type { Account, Budget } from '@/model/model'
 import { accountApi } from '@/services/api/apis'
-import Time from '@/utils/Time'
 import { useBudgetStore } from '@/stores/budgetStore'
+import Time from '@/utils/Time'
+import { ResultAsync, okAsync } from "neverthrow"
+import { defaultErrorHandler } from './ServicesUtils'
 
 
 export default class AccountService {
-  public static async getAccounts(budget: Budget): Promise<Account[]> {
-    const data: Account[] = []
+
+  public static getAccounts(budget: Budget): ResultAsync<Account[], Error> {
     if (budget.id) {
-      const response = await accountApi.findAccountsByBudget(budget.id)
-      return response.data
+      return ResultAsync.fromPromise(
+        accountApi.findAccountsByBudget(budget.id),
+        defaultErrorHandler
+      ).map((response) => {
+        return response.data
+      })
     }
-    return data
+    else {
+      return okAsync([])
+    }
   }
 
   public static async createAccount(

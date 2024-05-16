@@ -1,14 +1,14 @@
 import type {
-  Person,
-  Operation,
-  OperationWithDaughters,
-  Account,
-  Bank,
-  BankAccount,
-  Budget,
-  Category,
-  CategoryData as ICategoryData,
-  MasterCategory
+Account,
+Bank,
+BankAccount,
+Budget,
+Category,
+CategoryData as ICategoryData,
+MasterCategory,
+Operation,
+OperationWithDaughters,
+Person
 } from '@/services/api/openApi/api'
 
 export class CategoryData implements ICategoryData {
@@ -41,6 +41,19 @@ interface ChoiceElement {
   preSelected: boolean
 }
 
+export function operationToOperationWithDaughter(operation: Operation) : OperationWithDaughters {
+  return {
+    id: operation.id,
+    day: operation.day,
+    accountId:operation.accountId,
+    categoryId:operation.categoryId,
+    amount:operation.amount,
+    memo:operation.memo,
+    pending:operation.pending,
+    daughters: []
+  }
+}
+
 export const incomeCategoryId = 'universal_income_category'
 export const transfertCategoryId = 'universal_transfert_category'
 export const newMasterCategoryName = ' Nouvelle Catégorie'
@@ -48,18 +61,9 @@ export const newCategoryName = ' Nouvelle Enveloppe'
 
 // export interface separatly from class and const because of Typescript compiler
 export type {
-  Person,
-  Operation,
-  OperationWithDaughters,
-  BudgetData,
-  Account,
-  Bank,
-  BankAccount,
-  Budget,
-  Category,
-  MasterCategory,
-  CategoryDataList,
-  GroupSelectOption,
-  SelectOption,
-  ChoiceElement
+Account,
+Bank,
+BankAccount,
+Budget, BudgetData, Category, CategoryDataList, ChoiceElement, GroupSelectOption, MasterCategory, Operation,
+OperationWithDaughters, Person, SelectOption
 }

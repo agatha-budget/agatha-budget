@@ -74,6 +74,10 @@ a.navigationButton {
   &:first-letter{
     text-transform: capitalize
   }
+  &:active {
+    background: black;
+    color: white;
+  }
 }
 
 .buttonGradation {
@@ -116,7 +120,7 @@ a.navigationButton {
 }
 
 @media (max-width: 767px) {
-  .dualTab, .tripleTab {
+  .tripleTab {
     button { 
       &.tabLeft, &.tabRight, &.tabCenter {
         border-radius: 15px;

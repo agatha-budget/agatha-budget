@@ -1,4 +1,4 @@
-backend_url=http://localhost:7000
+backend_url=http://localhost:8000
 hash=$(git rev-parse HEAD)
 # using @ instead of / to insert url smoothly
 sed -i "s@commitHash = '.*'@commitHash = '$hash'@g" properties.ts

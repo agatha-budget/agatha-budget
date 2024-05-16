@@ -14,7 +14,9 @@ export const usePersonStore = defineStore('person', {
       this.css = 'default'
     },
     async init() {
-      this.person = await PersonService.getPerson()
+      if (this.person === null) {
+        this.person = await PersonService.getPerson()
+      }      
       useBudgetStore().init()
     }
   }

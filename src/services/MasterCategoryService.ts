@@ -1,5 +1,7 @@
 import type { Budget, MasterCategory } from '@/model/model'
 import { masterCategoryApi } from '@/services/api/apis'
+import { ResultAsync, okAsync } from "neverthrow"
+import { defaultErrorHandler } from './ServicesUtils'
 
 export default class MasterCategoryService {
   public static async createMasterCategory(name: string, budget: Budget) {
@@ -28,12 +30,17 @@ export default class MasterCategoryService {
     await masterCategoryApi.updateMasterCategory(masterCategoryId, undefined, false)
   }
 
-  public static async getMasterCategories(budget: Budget): Promise<MasterCategory[]> {
-    const data: MasterCategory[] = []
+  public static getMasterCategories(budget: Budget): ResultAsync<MasterCategory[], Error> {
     if (budget.id) {
-      const response = await masterCategoryApi.getMasterCategoriesByBudget(budget.id)
-      return response.data
+      return ResultAsync.fromPromise(
+        masterCategoryApi.getMasterCategoriesByBudget(budget.id),
+        defaultErrorHandler
+      ).map((response) => {
+        return response.data
+      })
     }
-    return data
+    else {
+      return okAsync([])
+    }
   }
 }

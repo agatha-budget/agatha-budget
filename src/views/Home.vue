@@ -25,7 +25,7 @@ import BudgetCmpt from '@/components/BudgetCmpt.vue';
 import NavMenu from '@/components/NavigationMenu.vue';
 import Loader from '@/components/utils/Loader.vue';
 import router, { RouterPages } from '@/router';
-import { useBudgetStore } from '@/stores/budgetStore';
+import { useOperationStore } from '@/stores/operationStore';
 import { usePersonStore } from '@/stores/personStore';
 import Time from '@/utils/Time';
 import { defineComponent } from 'vue';
@@ -51,7 +51,7 @@ export default defineComponent({
       return usePersonStore().css
     },
     storeLoaded (): boolean {
-      return useBudgetStore().storeLoaded
+      return useOperationStore().storeLoaded
     }
   },
   methods: {

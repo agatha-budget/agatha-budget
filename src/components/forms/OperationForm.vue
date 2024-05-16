@@ -76,7 +76,7 @@
 
       <hr>
       <p class="formSectionTitle">{{ $t("REPARTITION") }}</p>
-      <div v-for="daughterOperation of daughtersData" :key="daughterOperation" class="flexForm form col-12">
+      <div v-for="daughterOperation of daughtersData" :key="daughterOperation.id" class="flexForm form col-12">
         <div class="containerCross col-12">
           <span class="cross fas fa-trash" v-on:click="removeDaughter(daughterOperation)"/>
         </div>
@@ -115,19 +115,19 @@
       </div>
     </div>
     <div class="col-12">  <!-- Add Daugther Action -->
-      <btn v-if="daughtersData.length == 0" class="actionButton" v-on:click="addDaughter">{{ $t('CREATE_DAUGTHERS') }}</btn>
-      <btn v-else class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</btn>
+      <button v-if="daughtersData.length == 0" class="actionButton" v-on:click="addDaughter">{{ $t('CREATE_DAUGTHERS') }}</button>
+      <button v-else class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</button>
     </div>
     <div class="col-12 row formAction" v-if="operation"> <!-- Update/Delete Action -->
       <div class="col-6">
-        <btn  class="actionButton" v-on:click="saveOperation" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</btn>
+        <button  class="actionButton" v-on:click="updateOperation(operation)" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</button>
       </div>
       <div class="col-6">
-        <btn class="actionButton" :title="$t('DELETE')" v-on:click="deleteOperation">{{ $t('DELETE') }}</btn>
+        <button class="actionButton" :title="$t('DELETE')" v-on:click="deleteOperation">{{ $t('DELETE') }}</button>
       </div>
     </div>
     <div v-else class="col-12 formAction"> <!-- Create Action -->
-      <btn  class="actionButton" v-on:click="saveOperation" :title="$t('ADD')">{{ $t('SUBMIT') }}</btn>
+      <button  class="actionButton" v-on:click="createOperation()" :title="$t('ADD')">{{ $t('SUBMIT') }}</button>
     </div>
   </div>
 </template>
@@ -147,8 +147,8 @@ interface DaughterFormData {
   id: string;
   incoming: boolean;
   amountString: string;
-  categoryId: string;
-  memo: string;
+  categoryId: string | undefined;
+  memo: string | undefined;
 }
 
 interface OperationFormData {
@@ -156,8 +156,8 @@ interface OperationFormData {
   isPending: boolean;
   incoming: boolean;
   amountString: string;
-  categoryId: string;
-  memo: string;
+  categoryId: string | undefined;
+  memo: string | undefined;
   daughtersData: DaughterFormData[];
 }
 
@@ -171,7 +171,7 @@ export default defineComponent({
       return {
         date: Time.getDateStringFromDay(this.operation.day),
         isPending: this.operation.pending,
-        memo: (this.operation.memo === 'null') ? '' : this.operation.memo,
+        memo: this.operation.memo,
         categoryId: this.operation.categoryId,
         incoming: this.operation.amount > 0,
         amountString: Utils.centsToEurosDisplay(Math.abs(this.operation?.amount)),
@@ -181,8 +181,8 @@ export default defineComponent({
       return {
         date: Time.getCurrentDateString(),
         isPending: false,
-        memo: '',
-        categoryId: '',
+        memo: undefined,
+        categoryId: undefined,
         incoming: false,
         amountString: Math.abs(0).toString(),
         daughtersData: []
@@ -199,6 +199,9 @@ export default defineComponent({
     }
   },
   computed: {
+    hasDaughters(): boolean {
+      return this.daughtersData.length > 0
+    },
     amountStringIsUnset (): boolean {
       return this.amountString === Math.abs(0).toString()
     },
@@ -219,7 +222,6 @@ export default defineComponent({
         }
       ]
       const budgetStore = useBudgetStore()
-      const allAccounts = budgetStore.accounts
       for (const masterCategory of budgetStore.masterCategories) {
         const categories = this.getCategoriesByMasterCategory(masterCategory)
         if (categories.length > 0) {
@@ -255,9 +257,12 @@ export default defineComponent({
       } else {
         return -1 * this.computeStringToCents(this.amountString) - this.signedCentsDaughterSumAmount
       }
-    }
+    },
+    preexistingDaughters(): Operation[] {
+      return (this.operation) ? this.operation.daughters : []
+    } 
   },
-  emits: ['updateOperationList', 'closeForm', 'closeUpdate'],
+  emits: ['closeForm', 'closeUpdate'],
   methods: {
     daughtersToDaughterData (daughter: Operation): DaughterFormData {
       return {
@@ -265,14 +270,16 @@ export default defineComponent({
         incoming: daughter.amount > 0,
         amountString: Utils.centsToEurosDisplay(Math.abs(daughter.amount)),
         categoryId: daughter.categoryId,
-        memo: (daughter.memo === 'null') ? '' : daughter.memo
+        memo: daughter.memo
       }
     },
     async deleteOperation () {
       if (this.operation) {
-        OperationService.deleteOperation(this.operation.id).then(
-          () => {
-            this.$emit('updateOperationList')
+        OperationService.deleteOperation(this.operation.accountId, this.operation.id).then(
+          (res) => {
+            if (res.isOk()){
+              useBudgetStore().updateAccounts(false)
+            }
           }
         )
       }
@@ -297,23 +304,9 @@ export default defineComponent({
     getAccountById (accountId: string): Account | null {
       return useBudgetStore().getAccountById(accountId)
     },
-    createOperationForTransfert (transfertAccount: Account) {
-      OperationService.addOperation(
-        this.accountId,
-        Time.getDayFromDateString(this.date),
-        transfertCategoryId,
-        this.signedCentsAmount,
-        this.addTransfertNoteToMemo(this.memo, transfertAccount)
-      )
-    },
-    addTransfertNoteToMemo (memo: string, account: Account): string {
-      const regex = new RegExp('\\[.*' + this.$t('TRANSFER_TO') + '.*\\]', 'g')
-      memo = memo.replace(regex, '')
-      return '[ ' + this.$t('TRANSFER_TO') + account.name + '] ' + memo
-    },
     closeForm () {
       if (this.operation) {
-        this.$emit('closeUpdate', this.operation)
+        this.$emit('closeUpdate')
       }
       this.$emit('closeForm')
     },
@@ -323,8 +316,8 @@ export default defineComponent({
           id: '',
           incoming: false,
           amountString: '0',
-          categoryId: '',
-          memo: ''
+          categoryId: undefined,
+          memo: undefined
         }
       )
       if (this.daughtersData.length === 1) { // if the operation has daughter it should have minimum two
@@ -335,115 +328,110 @@ export default defineComponent({
       const index = this.daughtersData.indexOf(daughter)
       this.daughtersData.splice(index, 1)
     },
-    async saveOperation () {
-      // if no category is selected, use remove category
-      let removeCategory = (this.categoryId === null || this.categoryId === '')
-
-      // if transfert use specific category and memo
-      const accountForTransfer = this.getAccountById(this.categoryId)
-      let categoryId: string | undefined = (accountForTransfer) ? transfertCategoryId : this.categoryId
-      let memo = (accountForTransfer) ? this.addTransfertNoteToMemo(this.memo, accountForTransfer) : this.memo
-
-      // no category for mother operation if it has daughter  (overriding transfer data if needed)
-      if (this.daughtersData.length !== 0) {
-        categoryId = undefined
-        removeCategory = true
-        memo = this.memo
-      }
-      if (this.operation) {
-        OperationService.updateOperation(
-          this.operation.id,
+    createOperation () {
+      // no category for mother operation if it has daughter (overriding if needed)
+      let categoryId = (this.hasDaughters) ? undefined : this.categoryId
+      OperationService.addOperation(
           this.accountId,
           Time.getDayFromDateString(this.date),
           categoryId,
-          removeCategory,
-          this.signedCentsAmount,
-          memo,
-          this.isPending
-        )
-        this.saveChangesToDaughters(this.operation.id)
-      } else {
-        const motherOperation = await OperationService.addOperation(
-          this.accountId,
-          Time.getDayFromDateString(this.date),
-          this.categoryId,
           this.signedCentsAmount,
           this.memo,
           this.isPending
+        ).then(
+          (res) => {
+            if (res.isOk()){
+              let motherOperation = res.value
+              this.saveChangesToDaughters(motherOperation.id)
+              useBudgetStore().updateAccounts(false)
+              this.rebootAddOperationForm()
+            }
+          }
         )
-        this.saveChangesToDaughters(motherOperation.id)
-        this.rebootAddOperationForm()
-      }
-      this.$emit('updateOperationList')
+    },
+    updateOperation(operation: OperationWithDaughters) {
+      // no category for mother operation if it has daughter (overriding if needed)
+      let categoryId = (this.hasDaughters) ? undefined : this.categoryId
+      // removeCategory enable the distinction between "category was not updated" and "category was updated to undefined"
+      let removeCategory = (this.hasDaughters) ? true : (this.categoryId === undefined || this.categoryId === null)
+      OperationService.updateOperation(
+        operation.id,
+        this.accountId,
+        Time.getDayFromDateString(this.date),
+        categoryId,
+        removeCategory,
+        this.signedCentsAmount,
+        this.memo,
+        this.isPending
+      ).then(
+        (res) => {
+          if (res.isOk()){
+            this.saveChangesToDaughters(operation.id)
+            useBudgetStore().updateAccounts(false)
+          }
+        }
+      )
+      this.closeForm()
     },
     saveChangesToDaughters (motherOperationId: string) {
-      const preexistingDaughters = (this.operation) ? this.operation.daughters : []
-
       this.daughtersData.forEach(daughter => {
-        // if transfert use specific category and memo
-        const accountForTransfer = this.getAccountById(daughter.categoryId)
-        const categoryId: string | undefined = (accountForTransfer) ? transfertCategoryId : daughter.categoryId
-        const memo = (accountForTransfer) ? this.addTransfertNoteToMemo(daughter.memo, accountForTransfer) : daughter.memo
-
-        const amountCent = this.getSignedCentsAmount(daughter.incoming, daughter.amountString)
-        const removeCategory = (this.categoryId === null || this.categoryId === '')
-
-        // update an existing daughter
-        if (this.daughterAlreadyExist(daughter, preexistingDaughters)) {
-          OperationService.updateOperation(
-            daughter.id,
-            this.accountId,
-            Time.getDayFromDateString(this.date),
-            categoryId,
-            removeCategory,
-            amountCent,
-            memo,
-            this.isPending
-          )
-        // or create new daughter
+        if (this.isPresent(daughter.id, this.preexistingDaughters)) {
+          this.updatePreexistingDaughter(daughter)
         } else {
-          OperationService.addOperation(
-            this.accountId,
-            Time.getDayFromDateString(this.date),
-            categoryId,
-            amountCent,
-            memo,
-            this.isPending,
-            motherOperationId
-          )
+          this.addNewDaughter(daughter, motherOperationId)
         }
       })
-
-      // check if preexisting daughters were deleted
-      preexistingDaughters.forEach(daughter => {
+      this.deleteRemovedPreexistingDaughter()
+    },
+    updatePreexistingDaughter(daughter: DaughterFormData) {
+      const removeCategory = (daughter.categoryId === undefined || daughter.categoryId === null)
+      const amountCent = this.getSignedCentsAmount(daughter.incoming, daughter.amountString)
+      OperationService.updateOperation(
+        daughter.id,
+        this.accountId,
+        Time.getDayFromDateString(this.date),
+        daughter.categoryId,
+        removeCategory,
+        amountCent,
+        daughter.memo,
+        this.isPending
+      )
+    },
+    addNewDaughter(daughter:DaughterFormData, motherOperationId : string) {
+      const amountCent = this.getSignedCentsAmount(daughter.incoming, daughter.amountString)
+      OperationService.addOperation(
+        this.accountId,
+        Time.getDayFromDateString(this.date),
+        daughter.categoryId,
+        amountCent,
+        daughter.memo,
+        this.isPending,
+        motherOperationId
+      )
+    },
+    deleteRemovedPreexistingDaughter() {
+      this.preexistingDaughters.forEach(daughter => {
         if (this.operation) {
-          if (this.daughterWasDeleted(daughter, this.daughtersData)) {
-            OperationService.deleteOperation(daughter.id)
+          // former daughter is not the the new list of daughter of the form
+          if (!this.isPresent(daughter.id, this.daughtersData)) {
+            OperationService.deleteDaughterOperation(daughter.accountId, daughter.id, daughter.motherOperationId)
           }
         }
       })
     },
-    daughterAlreadyExist (daughter: DaughterFormData, list: Operation[]): boolean {
-      list.forEach(operation => {
-        if (operation.id === daughter.id) {
+    isPresent(daughterId: string, daugtherList: Operation[] | DaughterFormData[]): boolean {
+      for (let operation of daugtherList) {
+        if (operation.id === daughterId) {
           return true
         }
-      })
+      }
       return false
-    },
-    daughterWasDeleted (daughter: Operation, list: DaughterFormData[]): boolean {
-      list.forEach(operation => {
-        if (operation.id === daughter.id) {
-          return false
-        }
-      })
-      return true
     },
     rebootAddOperationForm () {
       this.date = Time.getCurrentDateString()
       this.isPending = false
-      this.memo = ''
-      this.categoryId = ''
+      this.memo = undefined
+      this.categoryId = undefined
       this.incoming = false
       this.amountString = Utils.centsToEurosDisplay(Math.abs(0))
       this.daughtersData = []

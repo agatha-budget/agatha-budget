@@ -6,13 +6,15 @@
     <div class="accountList col-12 offset-0 col-sm-8 offset-sm-2 col-md-12 offset-md-0">
       <button v-for="account of accounts" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
         <template v-if="fromPage == 'home'">
-          <div class="name col-10 offset-2 col-xl-8 offset-xl-0 col-xxl-7 offset-xxl-1">{{ account.name }} :</div>
+          <div class="name col-8 offset-2 col-xl-6 offset-xl-0 col-xxl-5 offset-xxl-1">{{ account.name }} :</div>
           <div class="amount col-6 offset-3 col-xl-4 offset-xl-0">{{centsToEurosDisplay(account.amount)}}€</div>
         </template>
         <template v-else>
-          <div class="name col-7 offset-1">{{ account.name }} :</div>
+          <div class="name col-5 offset-1">{{ account.name }} :</div>
           <div class="amount col-4 offset-0">{{centsToEurosDisplay(account.amount)}}€</div>
         </template>
+        <span v-if="isSynced(account)" class="illustration fas fa-link"/>
+        <span v-if="isRecentlyUnsynced(account)" class="illustration fas fa-unlink"/>
       </button>
     </div>
     <div>
@@ -34,6 +36,7 @@ import AccountCreationForm from '@/components/forms/AccountCreationForm.vue'
 import type { Account } from '@/model/model'
 import router, { RouterPages } from '@/router'
 import { useBudgetStore } from '@/stores/budgetStore'
+import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
 import { defineComponent } from 'vue'
 
@@ -70,7 +73,7 @@ export default defineComponent({
     },
     accounts (): Account[] {
       return useBudgetStore().accounts
-    }
+    },
   },
   methods: {
     goToAccountPage (account: Account) {
@@ -81,6 +84,15 @@ export default defineComponent({
     },
     centsToEurosDisplay (amount: number): string {
       return Utils.centsToEurosDisplay(amount)
+    },
+    getAccounts(){
+      useBudgetStore().updateAccounts()
+    },
+    isSynced(account: Account): Boolean {
+      return (account.syncedUntil != null) && (account.syncedUntil > Time.now())
+    },
+    isRecentlyUnsynced(account: Account): Boolean {
+      return (account.syncedUntil != null) && !this.isSynced(account) && (account.syncedUntil > Time.get30DaysAgo())
     }
   }
 })

@@ -34,6 +34,9 @@
             <span class="illustrationLabel col-8">{{ $t("LOGOUT") }}</span>
           </button>
         </div>
+        <div class="versionNumber">
+          v.{{ version }}
+        </div>
         <div class="placeholder bottom">
           <NavMenu :page="'profile'" />
         </div>
@@ -45,6 +48,7 @@
 </template>
 
 <script lang="ts">
+import Properties from "@/../properties";
 import NavMenu from '@/components/NavigationMenu.vue';
 import router, { RouterPages } from '@/router';
 import KeycloakService from "@/services/security/KeycloakService";
@@ -63,6 +67,9 @@ export default defineComponent({
   computed: {
     css (): string {
       return usePersonStore().css
+    },
+    version(): string {
+      return Properties.commitHash.slice(0,6)
     }
   },
   methods: {
