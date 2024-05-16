@@ -210,10 +210,11 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
                 throw BankingException("could not get account details for ${id} : ${connection.errorStream.reader().use { it.readText() }}")
             }
             val response = JSONObject(connection.inputStream.reader().use { it.readText() })
-            val stringAmount = (response.getJSONArray("balances")[0] as JSONObject).getJSONObject("balanceAmount").optString("amount", "0")
-            return stringAmount.toInt()
+            val bankAmount = (response.getJSONArray("balances")[0] as JSONObject).getJSONObject("balanceAmount").getFloat("amount")
+            val centsAmount = (bankAmount * 100).toInt()
+            return centsAmount
         } catch (e: Exception) {
-            TresorierException("could not find balance for %id", e)
+            TresorierException("could not find balance for "+ id, e)
             return null
         }
     }

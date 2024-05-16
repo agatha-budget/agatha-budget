@@ -72,7 +72,7 @@ class PgBankAccountDao(val configuration: Configuration) : IBankAccountDao {
 
     override fun findByBudget(budget: Budget): List<PublicBankAccount> {
         val query = this.query
-            .select(BANK_ACCOUNT.ID, BANK_ACCOUNT.NAME, BANK_AGREEMENT.BANK_ID, BANK_AGREEMENT.TIMESTAMP)
+            .select(BANK_ACCOUNT.ID, BANK_ACCOUNT.NAME, BANK_ACCOUNT.BANK_ID, BANK_AGREEMENT.BANK_ID, BANK_AGREEMENT.TIMESTAMP)
             .from(BANK_ACCOUNT)
             .leftJoin(BANK_AGREEMENT).on(BANK_ACCOUNT.AGREEMENT_ID.eq(BANK_AGREEMENT.ID))
             .where(BANK_AGREEMENT.BUDGET_ID.eq(budget.id))
@@ -85,7 +85,8 @@ class PgBankAccountDao(val configuration: Configuration) : IBankAccountDao {
             val publicBankAccount = PublicBankAccount(
                 bankAccountRecord.get(BANK_ACCOUNT.ID), 
                 bankAccountRecord.get(BANK_ACCOUNT.NAME), 
-                bankAccountRecord.get(BANK_AGREEMENT.BANK_ID),
+                bankAccountRecord.get(BANK_AGREEMENT.BANK_ID), 
+                bankAccountRecord.get(BANK_ACCOUNT.BANK_ID),
                 bankAccountRecord.get(BANK_AGREEMENT.TIMESTAMP)
             ) 
             accountList.add(publicBankAccount)

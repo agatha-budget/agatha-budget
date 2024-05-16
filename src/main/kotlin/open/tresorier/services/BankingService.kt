@@ -40,7 +40,7 @@ class BankingService (
     fun findBankAccountByBudget(person: Person, budget: Budget) : List<PublicBankAccount>{
         this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
         val bankAccounts = bankAccountDao.findByBudget(budget)
-        bankAccounts.forEach { it.balance = getBankAccountBalance(it.bankId) } 
+        bankAccounts.forEach { it.balance = getBankAccountBalance(it.bankingId) } 
         return bankAccounts
     }
 
