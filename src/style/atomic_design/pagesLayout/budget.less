@@ -1,121 +1,39 @@
 #budgetCmpt {
 
-    // pour toutes les versions
+    margin: 10px;
+    border-radius: 10px;
+    background: @white;
+    max-width: @max-div_width;
+    width: 100%;
 
-    background: white;
-    overflow-x: hidden; // remove the horizontal elevator
+    .edition {
+        justify-self: center;
+    }
 
-    #budgetHeader {
-        border-radius: 0;
+    .fixedHeader {
+        padding: 30px;
+        background: @white;
+        border-radius: 10px;
+    }
+
+    .headedContent {
+        display: grid;
+        border-radius: 10px;
+        padding: 0 30px;
     }
     
-    .placeholderTop{
-        padding: 20px;
-    }
-
-    .content {
-        padding: 0 20px 10px;
-        text-align: center;
-        .masterCategory {
-            .illustration {
-                padding-bottom: 8px;
-            }
-        }
-        .fa-exchange-alt {
-            transform: rotate(90deg);
-        }
-        .categoryBudget {
-            th {
-                padding-left: 0;
-            }
-        }
-    }
-
     .budgetTable {
         margin-top: 10px;
-        background: @background;
         .amountCol {
             min-width: 85px;
         }
     }
 
-    // version for computer
-    @media (min-width: 1200px) {
-        .fixed {
-            width: 41%;
-            margin-left: 21%;
-        }
-    }
-
-    @media (min-width: 992px) and (max-width: 1200px) {
-        .fixed {
-            width: 49%;
-            margin-left: 13%;
-        }
-    }
-
-    @media (min-width: 992px) {
-        padding-top: 8px;
-        margin-right: 0;
-        .fixed {
-            justify-content: center;
-            #budgetHeader {
-                border-radius: 20px 20px 0 0;
-            }
-        }
-        .content {
-            #budgetTables {
-                padding-top: 20px;
-                margin-top: -28px;
-                table .budgetTable {
-                    overflow-y: scroll;
-                    overflow-x: hidden;
-                    max-height: 70vh;
-                }
-            }
-        }
-    }
-
-    // version for mobile
-    @media (min-width: 768px) and (max-width: 992px) {
-        .fixed {
-            width: 100%;
-        }
-    }
-    @media (min-width: 576px) and (max-width: 767px) {
-        .fixed {
-            width: 100%;
-            #budgetHeader {
-                padding-right: 15px;
-            }
-        }
-    }
-    @media (max-width: 576px) {
-        .fixed {
-            width: 100%;
-        }
-    }
-
-    @media (max-width: 992px) {
-        .scrollable {
-            #budgetTables {
-                .placeholderBottom {
-                    height: 93px;
-                }
-            }
-        }
-    }
-
     // tiny version (one column less)
     @media (max-width: 500px) {
-        .spent, .disappearForMobile {
+        .spent {
             display: none;
         }
     }
-    
-    @media (max-height: 400px) {
-        .placeholderBottom {
-            display: none;
-        }
-    }
+
 }

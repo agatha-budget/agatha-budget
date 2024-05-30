@@ -26,7 +26,28 @@
       max-height: 500px;
     }
   }
-  
+
+  .inline_label_input {
+    display: grid;
+    grid-template-areas: "label input";
+    grid-template-columns: 1fr 1fr;
+    .label {
+      justify-self: left;
+      align-self: center;
+    }
+    .input {
+      justify-self: center;
+      align-self: center;
+    }
+
+  }
+}
+
+@media (max-width: 550px) {
+  .hideableActionGuide {
+    visibility: visible;
+    color: @action;
+  }
 }
 
 .flexForm {

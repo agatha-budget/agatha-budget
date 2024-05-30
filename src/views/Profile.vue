@@ -1,6 +1,6 @@
 <template>
   <div :class="css">
-    <div class="profilePage menuLayout row col-md-8 offset-md-2 col-xxl-6 offset-xxl-3">
+    <div class="profilePage menuLayout">
         <div class="header fixed title">
           {{ $t('PARAMETERS') }}
         </div>
@@ -8,31 +8,25 @@
           {{ $t('PARAMETERS') }}
         </div>
         <div class="content container">
-          <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png" />
-          <button class="navigationButton row" v-on:click="goToSubscriptionPage">
-            <span class="illustration fas fa-credit-card col-4"/>
-            <span class="illustrationLabel col-8">{{ $t("SUBSCRIPTION") }}</span>
-          </button>
-          <button class="navigationButton row" v-on:click="goToBanksPage">
-            <span class="illustration fas fa-university col-4"/>
-            <span class="illustrationLabel col-8">{{ $t("BANKS") }}</span>
-          </button>
-          <button class="navigationButton disabled row">
-            <span class="illustration fas fa-book-open col-4"/>
-            <span class="illustrationLabel col-8">{{ $t("FREE_RESOURCES") }}</span>
-          </button>
-          <button class="navigationButton disabled row">
-            <span class="illustration fas fa-palette col-4"/>
-            <span class="illustrationLabel col-8">{{ $t("APPEARANCE") }}</span>
-          </button>
-          <a class="navigationButton row" href="https://forum.agatha-budget.fr">
-            <span class="illustration fas fa-question col-4"/>
-            <span class="illustrationLabel col-8">{{ $t("SUPPORT") }}</span>
-          </a>
-          <button class="navigationButton row" v-on:click="logout">
-            <span class="illustration fas fa-sign-out-alt col-4"/>
-            <span class="illustrationLabel col-8">{{ $t("LOGOUT") }}</span>
-          </button>
+          <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png"/>
+          <div class="buttonList">
+            <button class="navigationButton illustrated" v-on:click="goToSubscriptionPage">
+              <span class="illustration fas fa-credit-card"/>
+              <span class="illustrationLabel">{{ $t("SUBSCRIPTION") }}</span>
+            </button>
+            <button class="navigationButton illustrated" v-on:click="goToBanksPage">
+              <span class="illustration fas fa-university"/>
+              <span class="illustrationLabel">{{ $t("BANKS") }}</span>
+            </button>
+            <button class="navigationButton illustrated disabled">
+              <span class="illustration fas fa-palette"/>
+              <span class="illustrationLabel">{{ $t("APPEARANCE") }}</span>
+            </button>
+            <button class="navigationButton illustrated" v-on:click="logout">
+              <span class="illustration fas fa-sign-out-alt"/>
+              <span class="illustrationLabel">{{ $t("LOGOUT") }}</span>
+            </button>
+          </div>
         </div>
         <div class="versionNumber">
           v.{{ version }}

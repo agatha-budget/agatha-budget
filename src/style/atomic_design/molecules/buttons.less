@@ -15,6 +15,8 @@ a.navigationButton {
   text-transform: none;
 }
 .navigationButton {
+
+  // color and behavior
   background: @navigation;
   border-radius: @btnBorderRadius;
   border:none;
@@ -44,21 +46,40 @@ a.navigationButton {
       color: @navigation;
     }
   }
+
+  // content layout
+  &.illustrated {
+    display: grid;
+    grid-template-areas: "icon content";
+    grid-template-columns: 4fr 6fr;
+    .illustration {
+      grid-area: icon;
+      text-align: right;
+      align-self: center;
+      margin-right: 20px;
+    }
+    .illustrationLabel {
+      grid-area: content;
+      text-align: left;
+    }
+  }
+
+
   &.accounts {
-    margin: 5px auto;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-areas: "name amount icon";
+    grid-template-columns: 5fr 3fr 1fr ;
+  }
+  .name {
+    text-align: left;
+    padding-left: 30px;
+  }
+  .amount {
+    padding: 0 20px;
     text-align: left;
   }
 }
-.illustration {
-  padding: 4px;
-  text-align: right;
-}
-.illustrationLabel {
-  padding-left: 20px;
-  text-align: left;
-}
+
 
 
 
@@ -69,7 +90,8 @@ a.navigationButton {
   padding: 3px 15px 3px 15px ;
   border-radius: @btnBorderRadius;
   text-align: center;
-  height: 32px;
+  height: fit-content;
+  min-height: 32px;
   width: fit-content;
   &:first-letter{
     text-transform: capitalize

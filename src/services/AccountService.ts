@@ -43,6 +43,8 @@ export default class AccountService {
     bankAccountId: string,
     importHistory: boolean
   ) {
+    console.log(bankAccountId)
+    console.log(id)
     const budgetStore = useBudgetStore()
     if (bankAccountId === 'none') {
       accountApi.updateAccountBankAssociation(id, false).then(() => {

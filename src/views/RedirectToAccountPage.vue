@@ -1,6 +1,6 @@
 <template>
   <div :class="css">
-    <div class="redirectToAccountPage menuLayout row col-md-8 offset-md-2 col-xxl-6 offset-xxl-3">
+    <div class="redirectToAccountPage menuLayout">
       <div class="header fixed title">
         {{ $t('MY_ACCOUNTS') }}
       </div>

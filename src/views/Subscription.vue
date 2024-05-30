@@ -2,7 +2,7 @@
 
   <div :class="css">
     <div class="subscriptionPage menuLayout row col-md-4 offset-md-4 col-xl-8 offset-xl-2">
-      <div class="header title">
+      <div class="header fixed title">
         <h1 class="title">{{ $t('SUBSCRIPTION') }}</h1>
         <div v-if="!validSubscription">
           <p>{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
@@ -12,6 +12,17 @@
           </button>
         </div>
       </div>
+      <div class="placeholder top">
+        <h1 class="title">{{ $t('SUBSCRIPTION') }}</h1>
+        <div v-if="!validSubscription">
+          <p>{{ $t('TRIAL_PERIOD_IS_OVER') }}</p>
+          <button class="navigationButton row" v-on:click="logout">
+            <span class="illustration fas fa-sign-out-alt col-4"/>
+            <span class="illustrationLabel col-8">{{ $t("LOGOUT") }}</span>
+          </button>
+        </div>
+      </div>
+
       <div v-if="managementPage">
         <p>{{ $t('MANAGE_SUBSCRIPTION') }} : </p>
         <p v-if="!billingStatus">{{ $t('DEFERMENT_SUBSCRIPTION') }}</p>
@@ -20,14 +31,12 @@
       </div>
       <div v-else>
         <div v-if="profile == 'PROFILE_USER'" class="content">
-          <p class="subtitle" v-on:click="goToContactPage">{{ $t('CHOOSE_THE_BEST_FOR_YOU') }}</p>
           <p class="subtitle" v-on:click="goToContactPage">{{ $t('ASK_FOR_HELP') }}</p>
           <div class="essential">
             <div class="banner">
               <span class="icon icon-paper-plane" />
-              <div class="title">{{ $t('ESSENTIAL') }}</div>
+              <div class="title">{{ $t('CLASSICAL') }}</div>
             </div>
-            <p>{{ $t('TEXT_ESSENTIAL') }}</p>
             <button class="actionButton" v-on:click="goToBillingPortal('MONTHLY_ESSENTIAL')">{{ $t('PRICE_MONTHLY_ESSENTIAL') }}</button>
             <button class="actionButton" v-on:click="goToBillingPortal('ANNUAL_ESSENTIAL')">{{ $t('PRICE_ANNUAL_ESSENTIAL') }}</button>
           </div>

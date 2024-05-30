@@ -6,7 +6,7 @@ export default class Utils {
   }
 
   public static centsToEurosDisplay (centsAmount: number): string {
-    return (centsAmount / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
+    return (centsAmount / 100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ').replace(' ', "\xa0")
   }
 
   public static insertInListSortedByDate(operation: OperationWithDaughters,

@@ -1,15 +1,10 @@
 <template>
-  <div id="budgetCmpt" class="container-fluid col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-1 col-xl-5 offset-xl-2">
-    <div class="header fixed">
-      <div class="col-12 offset-0 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-12 offset-lg-0">
-        <BudgetHeader :month="budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate"
+  <div id="budgetCmpt" class="withFixedHeader">
+    <div class="fixedHeader">
+      <BudgetHeader :month="budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate"
         @change-month="changeMonth" />
-      </div>
     </div>
-    <div class="placeholder top">
-      <BudgetHeader :month="budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate" />
-    </div>
-    <div class="content">
+    <div class="headedContent">
       <button v-if="!edit" v-on:click="editFunction" class="actionButton edition">{{ $t("CUSTOMIZE_CATEGORY") }}</button>
       <button v-else v-on:click="saveChange" class="actionButton edition">{{ $t("SAVE_CHANGE") }}</button>
       <button v-if="edit" v-on:click="createMasterCategory()" class="buttonGradation row">

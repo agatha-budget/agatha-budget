@@ -108,6 +108,14 @@ export const useBudgetStore = defineStore('budget', {
       }
       return null
     },
+    getAccountByBankAccountId(bankAccountId: string): Account | null {
+      for (const account of this.accounts) {
+        if (account.bankAccountId === bankAccountId) {
+          return account
+        }
+      }
+      return null
+    },
     orderCategory(categories: Category[]): Category[] {
       return categories.sort(function(a,b) {
         return (a.name < b.name) ? -1 : 1 

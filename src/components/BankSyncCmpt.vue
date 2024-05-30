@@ -16,11 +16,6 @@ import Time from '@/utils/Time'
 import { defineComponent } from 'vue'
 
 
-interface BankSyncCmpt {
-    accountCreationFormIsDisplayed: boolean;
-    fromPage: string;
-}
-
 export default defineComponent({
   name: 'BankSyncCmpt',
   components: {

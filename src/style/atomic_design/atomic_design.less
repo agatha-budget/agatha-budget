@@ -14,7 +14,8 @@
 @import "organisms/operation.less";
 @import "organisms/navigation.less";
 @import "organisms/forms.less";
-
+@import "organisms/buttonList.less";
+@import "organisms/bankAccountCmpt.less";
 @import "organisms/forms/operationForm.less";
 
 @import "pagesLayout/home.less";
@@ -31,10 +32,15 @@
 
 #app {
   background-color: @background;
-  .container-fluid {
-    padding-right: 0;
-    padding-left: 0;
-    overflow-x: hidden;
+  .default {
+    display: grid;
+    grid-template-columns: 1fr;
+    .content {
+      min-width: 375px;
+      width: 50vw;
+      max-width: 1000px;
+      justify-self: center;
+    }
   }
 }
 

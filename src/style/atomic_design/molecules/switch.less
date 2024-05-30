@@ -1,4 +1,15 @@
 .customSwitch {
+
+	&.yesNo {
+		width: 90px;
+		.switch-input:checked ~ .switch-handle {
+			left: 65px;
+		}
+		.switch-input:checked ~ .switch-handle-pending {
+			left: 65px;
+		}
+	}
+
 	position: relative;
 	display: block;
 	vertical-align: top;
