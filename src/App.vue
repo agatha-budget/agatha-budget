@@ -2,10 +2,8 @@
 import { RouterView } from 'vue-router'
 
 </script>
-<template>
-<div class="main">
+<template id="app">
   <RouterView />
-</div>
 </template>
 <style lang="less">
 @import "bootstrap/dist/css/bootstrap.min.css";

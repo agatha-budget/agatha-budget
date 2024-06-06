@@ -1,34 +1,28 @@
 <template>
   <div :class="css">
-    <div class="bankPage menuLayout ">
-        <div class="header fixed title">
-          {{ $t('BANKS') }}
-        </div>
-        <div class="placeholder top">
-          {{ $t('BANKS') }}
-        </div>
-        <div class="content container">
-          <div v-if="bankLoaded">
-            <BankForm v-if="displayBankForm" :availableBanks="availableBanks" @close-form="updateOpenBankForm"/>
-            
-            <template v-if="!displayBankForm">
-              <button v-on:click="updateOpenBankForm" class="actionButton">{{$t('ADD_BANK_ACCOUNT')}}</button>
-              <template v-for="bankAccount of bankAccounts" :key="bankAccount">
-                <BankAccountCmpt :bankAccount="bankAccount" :logo="getLogo(bankAccount.bankId)"/>
-              </template>
+    <div class="bankPage page ">
+      <div class="fixedHeader">
+        <h1 class="title">{{ $t('BANKS') }}</h1>
+      </div>
+      <div class="pageContent">
+        <div v-if="bankLoaded" class="centeredContent">
+          <BankForm v-if="displayBankForm" :availableBanks="availableBanks" @close-form="updateOpenBankForm"/>
+          
+          <template v-if="!displayBankForm">
+            <button id="addBankBtn" v-on:click="updateOpenBankForm" class="actionButton">{{$t('ADD_BANK_ACCOUNT')}}</button>
+            <template v-for="bankAccount of bankAccounts" :key="bankAccount">
+              <BankAccountCmpt :bankAccount="bankAccount" :logo="getLogo(bankAccount.bankId)"/>
             </template>
-          </div>
-          <div v-else>
-            <Loader class="loader" :message="$t('CONTACTING_BANKS')"/>
-          </div>
+          </template>
         </div>
-        <div class="placeholder bottom">
-          <NavMenu :page="'profile'" />
-        </div>
-        <div class="footer fixed">
-          <NavMenu :page="'profile'" />
+        <div v-else>
+          <Loader class="loader" :message="$t('CONTACTING_BANKS')"/>
         </div>
       </div>
+      <div class="fixedFooter">
+        <NavMenu />
+      </div>
+    </div>
   </div>
 </template>
 

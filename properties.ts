@@ -1,6 +1,6 @@
 enum Properties {
-    server = 'http://localhost:8000',
-    commitHash = '1bdcdb2a4aab7717173d545a8f109b2ac8891b29'
+    server = 'https://betapi.agatha-budget.fr',
+    commitHash = 'ab9c4be525935c3265ce2353832332307b7cbd53'
 }
 
 export default Properties

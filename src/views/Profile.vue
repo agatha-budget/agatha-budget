@@ -1,13 +1,11 @@
 <template>
   <div :class="css">
-    <div class="profilePage menuLayout">
-        <div class="header fixed title">
-          {{ $t('PARAMETERS') }}
-        </div>
-        <div class="placeholder top">
-          {{ $t('PARAMETERS') }}
-        </div>
-        <div class="content container">
+    <div class="profilePage page">
+      <div class="fixedHeader">
+        <h1 class="title">{{ $t('PARAMETERS') }}</h1>
+      </div>
+      <div class="pageContent">
+        <div class="centeredContent">
           <img id="logoface" alt="Vue logoface" src="../assets/logo_round.png"/>
           <div class="buttonList">
             <button class="navigationButton illustrated" v-on:click="goToSubscriptionPage">
@@ -27,17 +25,15 @@
               <span class="illustrationLabel">{{ $t("LOGOUT") }}</span>
             </button>
           </div>
-        </div>
-        <div class="versionNumber">
-          v.{{ version }}
-        </div>
-        <div class="placeholder bottom">
-          <NavMenu :page="'profile'" />
-        </div>
-        <div class="footer fixed">
-          <NavMenu :page="'profile'" />
+          <div class="versionNumber">
+            v.{{ version }}
+          </div>
         </div>
       </div>
+      <div class="fixedFooter">
+        <NavMenu :page="'profile'" />
+      </div>
+    </div>
   </div>
 </template>
 

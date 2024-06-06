@@ -1,15 +1,10 @@
 <template >
-  <div :class="css">
-    <div v-if="storeLoaded">
-      <div class="accountPage row">
-        <div class="header fixed">
-            <AccountPageHeader :accountId="accountId" :totalAccount="totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="realAmount"/>
-        </div>
-        <div class="placeholderTop">
-          <AccountPageHeader :accountId="accountId" :totalAccount="totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="realAmount"/>
-        </div>
-        <div class="content container operationTable table-hover">
-
+    <div v-if="storeLoaded" class="accountPage page" :class="css">
+      <div class="fixedHeader">
+        <AccountPageHeader :accountId="accountId" :totalAccount="totalAccount" :existingPendingOperation="pendingOperation()" :realAmountOnAccount="realAmount"/>
+      </div>
+      <div class="pageContent operationTable table-hover">
+        <div class="centeredContent">
           <BankSyncCmpt :accountId="accountId"/>
           <div class="dualTab switchOperation">
             <button v-if="manualBloc" v-on:click="switchAddOperation('manual')" class="tabLeft active">{{ $t("ADD_MANUALLY") }}</button>
@@ -26,57 +21,45 @@
           <FilterCmpt v-if="filterBloc" @close-filter="closeFilter" @filtering-category="filter"/>
           <div class="operationList">
             <template v-for="operation in operations" :key="operation">
-              <OperationForm v-if="operation.id === editing" class="operationForm inlineOperationForm container inline" @close-update="closeUpdate" :accountId="accountId" :operation="operation"/>
+              <OperationForm v-if="operation.id === editing" class="operationForm inlineForm container" @close-update="closeUpdate" :accountId="accountId" :operation="operation"/>
               <!-- Operation without daugther -->
-              <div v-else-if="operation.daughters.length == 0"  v-on:click="setAsEditing(operation)" class="operationListItem operation row">
-                  <div class="row">
-                    <div class="date col-6">{{ $d(getDayAsDate(operation.day), "day") }}</div>
-                    <div class="col-1 offset-5"><button class="illustration btn fas fa-pen action" :title="$t('EDIT')" /></div>
-                  </div>
-                  <div class="row">
-                    <div class="category col-8" :class="getClassDependingCategory(operation)">
-                      {{ getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
-                    </div>
-                    <div class="amount col-3" :class="getClassDependingOnAmount(operation.amount)">
-                      {{ centsToEurosDisplay(operation.amount) }} €
-                    </div>
-                    <div class="col-1">
-                      <span v-if="operation.pending" class="pending illustration btn fas fa-hourglass-half"></span>
-                    </div>
-                  </div>
-                  <div class="memo row">
-                    <div>{{ operation.memo }}</div>
-                  </div>
+              <div v-else-if="operation.daughters.length == 0"  v-on:click="setAsEditing(operation)" class="operationListItem operation">
+                <div class="date">{{ $d(getDayAsDate(operation.day), "day") }}</div>
+                <button class="illustration btn fas fa-pen action edit" :title="$t('EDIT')" />
+                <div class="category" :class="getClassDependingCategory(operation)">
+                  {{ getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
+                </div>
+                <div class="amount" :class="getClassDependingOnAmount(operation.amount)">
+                  {{ centsToEurosDisplay(operation.amount) }} €
+                </div>
+                <span v-if="operation.pending" class="pending illustration btn fas fa-hourglass-half"></span>
+                <div class="memo">
+                  <div>{{ operation.memo }}</div>
+                </div>
               </div>
               <!-- Operation with daugther -->
-              <div v-else class="operationListItem operation row" v-on:click="setAsEditing(operation)">
-                <div class="row">
-                  <div class="date col-6">{{ $d(getDayAsDate(operation.day), "day") }}</div>
-                  <div class="col-1 offset-5"><button class="illustration btn fas fa-pen action" :title="$t('EDIT')" /></div>
+              <div v-else class="operationListItem hasDaughter operation" v-on:click="setAsEditing(operation)">
+                <div class="date">{{ $d(getDayAsDate(operation.day), "day") }}</div>
+                <button class="illustration btn fas fa-pen action edit" :title="$t('EDIT')" />
+                <div class="memo">{{ operation.memo }}</div>
+                <div class="amount" :class="getClassDependingOnAmount(operation.amount)">
+                  {{ centsToEurosDisplay(operation.amount) }} €
                 </div>
-                <div class="row beforeDaughter">
-                  <div class="memo col-8">
-                    {{ operation.memo }}
-                  </div>
-                  <div class="amount col-3" :class="getClassDependingOnAmount(operation.amount)">
-                    {{ centsToEurosDisplay(operation.amount) }} €
-                  </div>
-                  <div class="col-1">
-                    <span v-if="operation.pending" class="pending illustration btn fas fa-hourglass-half"></span>
-                  </div>
-                </div>
-                <hr>
+                <span v-if="operation.pending" class="pending illustration btn fas fa-hourglass-half"></span>
+                <hr class="separator"/>
+                <div class="daughters">
                 <template v-for="daughter in operation.daughters" :key="daughter">
-                  <div class="row daughter">
-                    <div class="daughterCategory category col-8" :class="getClassDependingCategoryDaughter(daughter.categoryId)">
+                  <div class=" daughter">
+                    <div class="daughterCategory category" :class="getClassDependingCategoryDaughter(daughter.categoryId)">
                       {{ getCategoryById(daughter.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                     </div>
-                    <div class="amount col-3" :class="getClassDependingOnAmount(daughter.amount)">
+                    <div class="amount" :class="getClassDependingOnAmount(daughter.amount)">
                       {{ centsToEurosDisplay(daughter.amount) }} €
                     </div>
+                    <div class="daughterMemo">{{ (daughter.memo === 'null') ? '' : daughter.memo }}</div>
                   </div>
-                  <div class="daughterMemo">{{ (daughter.memo === 'null') ? '' : daughter.memo }}</div>
                 </template>
+                </div>
               </div>
             </template>
           </div>
@@ -84,18 +67,14 @@
             <button v-on:click="increaseMaxDisplayed" class="actionButton">{{ $t("DISPLAY_MORE") }}</button>
           </div>
         </div>
-        <div class="placeholder bottom">
-          <NavMenu/>
-        </div>
-        <div class="footer fixed">
-          <NavMenu/>
-        </div>
+      </div>
+      <div class="fixedFooter">
+        <NavMenu />
       </div>
     </div>
     <div v-else>
       <Loader class="loader"/>
     </div>
-  </div>
 </template>
 
 <script lang="ts">

@@ -10,11 +10,12 @@
                   <span class="breakable">{{ name }} : </span>
                   <span class="breakable">{{ amountAsString }} €</span>
                 </h1>
+                <button v-on:click="displayTitleEditing()" class="illustration btn fas fa-pen" />
               </div>
               <!-- Edit Title -->
-              <div v-else class="editingNameAccount row">
+              <div v-else class="editingNameAccount">
                 <span class="name">
-                    <input id="accountName" class="form-control" :placeholder=name v-model="name">
+                    <input id="accountName" class="form-control title" :placeholder=name v-model="name">
                 </span>
                 <span class="validation">
                   <button class="illustration btn fas fa-check" v-on:click="updateName()"/>
@@ -25,9 +26,6 @@
                 <span class="breakable">{{ realAmountAsString }} € {{ $t("ON_ACCOUNT") }}</span>
                 <span class="breakable">{{ symbolBeforePendingAmount  }} {{ pendingAmount  }} € {{ $t("PENDING") }} (<span class="illustration fas fa-hourglass-half"/>)</span>
               </div>
-            </div>
-            <div v-if="!editingTitle" class="editTitleBtn col-md col-sm">
-              <button v-on:click="displayTitleEditing()" class="illustration btn fas fa-pen" />
             </div>
           </div>
         </div>

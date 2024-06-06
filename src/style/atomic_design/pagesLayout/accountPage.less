@@ -1,8 +1,7 @@
 .accountPage {
-    background-color: @lighterBackground;
-    min-height: 100vh;
 
     #accountPageHeader {
+        padding-top: 15px;
         text-align: center;
         .subtitle {
             .illustration {
@@ -17,6 +16,11 @@
                 }
             }
         }
+    }
+
+    .operationList {
+        margin: 30px 0;
+        width: 90%;
     }
 
     .placeholderTop {
@@ -46,68 +50,16 @@
         }
     }
 
-    .title, .editTitleBtn, .editingNameAccount {
-        margin: 10px;
+    .title, .editTitleBtn {
         text-align: center;
     }
-
-    @media (max-width: 767px) {
-        .fixed {
-            &.header {
-              position: static;
-              padding: 0;
+    .editingNameAccount {
+        .name {
+            display: grid;
+            input {
+                text-align: center;
+                justify-self: center;
             }
-        }
-        .placeholderTop {
-            display: none;
-        }
-        .illustration .btn {
-            visibility: visible;
-        }
-        .breakableRow {
-            .breakable {
-                display: block;
-                margin: 0;
-            }
-        }
-    }
-
-    #BankSyncCmpt {
-        margin-bottom: 20px;
-        .navigationButton {
-            width: fit-content;
-            padding: 5px 30px;
-        }
-    }
-
-    .content {
-        max-width: 700px;
-        margin: auto;
-        .label {
-            padding-top: 4px;
-        }
-        .inline {
-            display: flex;
-        }
-        .textPending {
-            padding-top: 7px;
-        }
-        .actionLabelIcon {
-            margin: 20px 0;
-        }
-    }
-    .operationForm {
-        .actionButton {
-            max-height: 56px;
-            height: auto;
-        }
-        .fa-trash {
-            font-size: 16px;
-        }
-        .sumAmountElement {
-            padding-top: 4px;
-            font-size: large;
-            font-weight: bold;
         }
     }
 }

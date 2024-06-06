@@ -1,37 +1,37 @@
 <template>
-  <div class="flexForm form operationForm">
-    <div class="containerCross col-12">
+  <div class="form operationForm" :class={withDaugtherDisplay}>
+    <div class="containerCross">
       <span class="cross fas fa-times-circle" v-on:click="closeForm()"/>
     </div>
-    <div class="formItem col-12 col-md-6 inline"> <!-- Date -->
-      <label class="label col-4">{{ $t("DATE") }}</label>
-      <div class="col-8"><input id="operationDateInput" type="date" class="form-control" v-model="date"></div>
+    <div class="formItem date"> <!-- Date -->
+      <label class="label">{{ $t("DATE") }}</label>
+      <div><input id="operationDateInput" type="date" class="form-control" v-model="date"></div>
     </div>
-    <div class="formItem col-12 col-md-6 inline"> <!-- Status -->
-      <label class="label col-4">{{ $t("STATUS") }}</label>
-      <div class="col-8 inline">
+    <div class="formItem status"> <!-- Status -->
+      <label class="label">{{ $t("STATUS") }}</label>
+      <div>
         <label class="customSwitch">
             <input class="switch-input" type="checkbox" v-on:click="inversePending" v-model="isPending"/>
             <span class="switch-label-pending"/>
             <span class="switch-handle-pending"/>
         </label>
-        <div v-if="isPending" class="inline textPending">
+        <div v-if="isPending" class="textPending">
           <div class="icon">
             <button class="illustration btn fas fa-hourglass-half"/>
           </div>
-          <div>{{ $t("PENDING") }}</div>
+          <div class="iconLabel">{{ $t("PENDING") }}</div>
         </div>
-        <div v-else class="inline textPending">
+        <div v-else class="textPending">
           <div class="icon">
             <button class="illustration btn fas fa-calendar-check"/>
           </div>
-          <div>{{ $t("DEBITED") }}</div>
+          <div class="iconLabel">{{ $t("DEBITED") }}</div>
         </div>
       </div>
     </div>
-    <div v-if="daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Envelope, not displayed if daughters -->
-      <label class="label col-4">{{ $t("ENVELOPE") }}</label>
-      <div class="selectAutoComplete form-group col-8">
+    <div v-if="daughtersData.length == 0" class="formItem category"> <!-- Envelope, not displayed if daughters -->
+      <label class="label">{{ $t("ENVELOPE") }}</label>
+      <div class="selectAutoComplete form-group ">
         <Multiselect
           v-model="categoryId"
           :groups="true"
@@ -42,10 +42,10 @@
         />
       </div>
     </div>
-    <div v-if="daughtersData.length == 0" class="formItem col-12 col-md-6 inline"> <!-- Amount With No Daugther-->
-      <label class="label col-4">{{ $t("AMOUNT") }}</label>
-      <div class="amountElement col-8">
-        <div class="amountInput input-group flex-nowrap">
+    <div v-if="daughtersData.length == 0" class="formItem amount"> <!-- Amount With No Daugther-->
+      <label class="label">{{ $t("AMOUNT") }}</label>
+      <div class="amountElement ">
+        <div class="amountInput input-group">
           <label class="customSwitch">
             <input class="switch-input" type="checkbox" v-model="incoming"/>
             <span class="switch-label" data-on="+" data-off="-"/>
@@ -55,9 +55,9 @@
         </div>
       </div>
     </div>
-    <div v-else class="formItem col-12 inline"> <!-- Amount With Daugther-->
-      <label class="label col-4 col-md-2">{{ $t("AMOUNT") }}</label>
-      <div class="sumAmountElement col-8 col-md-10">
+    <div v-else class="formItem amount"> <!-- Amount With Daugther-->
+      <label class="label  ">{{ $t("AMOUNT") }}</label>
+      <div class="sumAmountElement">
         <template v-if="amountStringIsUnset">
           {{centsToEurosDisplay(signedCentsDaughterSumAmount)}} €
         </template>
@@ -66,23 +66,23 @@
         </template>
       </div>
     </div>
-    <div class="formItem col-12 inline"> <!-- Memo -->
-      <label class="label col-4 col-md-2">{{ $t("MEMO") }}</label>
-      <div class="textInput form-group col-8 col-md-10">
+    <div class="formItem memo"> <!-- Memo -->
+      <label class="label">{{ $t("MEMO") }}</label>
+      <div class="textInput form-group">
         <input id="operationMemoInput" class="form-control" v-model="memo">
       </div>
     </div>
-    <div v-if="daughtersData.length != 0"> <!-- Daugthers -->
+    <div v-if="daughtersData.length != 0" class="daughters"> <!-- Daugthers -->
 
       <hr>
       <p class="formSectionTitle">{{ $t("REPARTITION") }}</p>
-      <div v-for="daughterOperation of daughtersData" :key="daughterOperation.id" class="flexForm form col-12">
-        <div class="containerCross col-12">
+      <div v-for="daughterOperation of daughtersData" :key="daughterOperation.id" class="form daughter">
+        <div class="containerCross">
           <span class="cross fas fa-trash" v-on:click="removeDaughter(daughterOperation)"/>
         </div>
-        <div class="formItem col-12 col-md-6 inline"> <!-- Daugther Enveloppe -->
-          <div class="label col-4">{{ $t("ENVELOPE") }}</div>
-          <div class="selectAutoComplete form-group col-8">
+        <div class="formItem category"> <!-- Daugther Enveloppe -->
+          <div class="label">{{ $t("ENVELOPE") }}</div>
+          <div class="selectAutoComplete form-group ">
             <Multiselect
               v-model="daughterOperation.categoryId"
               :groups="true"
@@ -93,10 +93,10 @@
             />
           </div>
         </div>
-        <div class="formItem col-12 col-md-6 inline"> <!-- Daugther Amount -->
-          <div class="label col-4">{{ $t("AMOUNT") }}</div>
-          <div class="amountElement col-8">
-            <div class="amountInput input-group flex-nowrap">
+        <div class="formItem amount"> <!-- Daugther Amount -->
+          <div class="label">{{ $t("AMOUNT") }}</div>
+          <div class="amountElement ">
+            <div class="amountInput input-group">
               <label class="customSwitch">
                 <input class="switch-input" type="checkbox" v-model="daughterOperation.incoming"/>
                 <span class="switch-label" data-on="+" data-off="-"/>
@@ -106,27 +106,27 @@
             </div>
           </div>
         </div>
-        <div class="formItem col-12 inline"> <!-- Daugther Memo -->
-          <div class="label col-4 col-md-2">{{ $t("MEMO") }}</div>
-          <div class="textInput form-group col-8 col-md-10">
+        <div class="formItem memo"> <!-- Daugther Memo -->
+          <div class="label">{{ $t("MEMO") }}</div>
+          <div class="textInput form-group">
             <input id="operationMemoInput" class="form-control" v-model="daughterOperation.memo">
           </div>
         </div>
       </div>
     </div>
-    <div class="col-12">  <!-- Add Daugther Action -->
+    <div class="addDaughter">  <!-- Add Daugther Action -->
       <button v-if="daughtersData.length == 0" class="actionButton" v-on:click="addDaughter">{{ $t('CREATE_DAUGTHERS') }}</button>
       <button v-else class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</button>
     </div>
-    <div class="col-12 row formAction" v-if="operation"> <!-- Update/Delete Action -->
-      <div class="col-6">
-        <button  class="actionButton" v-on:click="updateOperation(operation)" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</button>
+    <div class="formAction" :class={withEditDisplay} v-if="operation"> <!-- Update/Delete Action -->
+      <div>
+        <button class="actionButton add" v-on:click="updateOperation(operation)" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</button>
       </div>
-      <div class="col-6">
-        <button class="actionButton" :title="$t('DELETE')" v-on:click="deleteOperation">{{ $t('DELETE') }}</button>
+      <div>
+        <button class="actionButton delete" :title="$t('DELETE')" v-on:click="deleteOperation">{{ $t('DELETE') }}</button>
       </div>
     </div>
-    <div v-else class="col-12 formAction"> <!-- Create Action -->
+    <div v-else class=" formAction"> <!-- Create Action -->
       <button  class="actionButton" v-on:click="createOperation()" :title="$t('ADD')">{{ $t('SUBMIT') }}</button>
     </div>
   </div>
@@ -201,6 +201,12 @@ export default defineComponent({
   computed: {
     hasDaughters(): boolean {
       return this.daughtersData.length > 0
+    },
+    withDaugtherDisplay(): string {
+      return (this.hasDaughters) ? "withDaughterForm" : ""
+    },
+    withEditDisplay(): string {
+      return (this.operation) ? "isUpdateForm" : ""
     },
     amountStringIsUnset (): boolean {
       return this.amountString === Math.abs(0).toString()

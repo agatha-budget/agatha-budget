@@ -1,19 +1,13 @@
 <template>
   <div :class="css">
-    <div class="redirectToAccountPage menuLayout">
-      <div class="header fixed title">
-        {{ $t('MY_ACCOUNTS') }}
+    <div class="redirectToAccountPage page">
+      <div class="fixedHeader">
+        <h1 class="title">{{ $t('MY_ACCOUNTS') }}</h1>
       </div>
-      <div class="placeholder top">
-        {{ $t('MY_ACCOUNTS') }}
+      <div class="pageContent">
+        <AccountsWidget class="centeredContent" :page="'account'"/>
       </div>
-      <div class="content container">
-        <AccountsWidget :page="'account'"/>
-      </div>
-      <div class="placeholder bottom">
-        <NavMenu :page="'accounts'" />
-      </div>
-      <div class="footer fixed">
+      <div class="fixedFooter">
         <NavMenu :page="'accounts'" />
       </div>
     </div>

@@ -1,7 +1,6 @@
 <template >
-  <div v-if="storeLoaded">
+  <template v-if=storeLoaded>
     <div :class="css">
-
       <div class="home">
         <div class="main">
           <BudgetCmpt :month="currentMonth" />
@@ -14,11 +13,11 @@
         <NavMenu :page="'home'" />
       </div>
     </div>
-  </div>
+  </template>
 
-  <div v-else>
+  <template v-else>
       <Loader class="loader"/>
-  </div>
+  </template>
 </template>
 
 <script lang="ts">

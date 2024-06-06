@@ -1,7 +1,5 @@
 .form {
-  input, select, .selectAutoComplete {
-    margin-bottom: 10px;
-  }
+
   .label {
     font-size: large;
     font-weight: bold;
@@ -14,6 +12,17 @@
 
   .formItem {
     padding: 5px 10px;
+    display: grid;
+    grid-template-areas: "label input";
+    label, .label {
+      grid-area: label;
+      align-self: center;
+      justify-self: start;
+    }
+    div {
+      grid-area: input;
+      align-self: center;
+    }
   }
 
   .formSectionTitle {
@@ -43,15 +52,13 @@
   }
 }
 
+.inlineForm {
+  background: @inline;
+}
+
 @media (max-width: 550px) {
   .hideableActionGuide {
     visibility: visible;
     color: @action;
   }
-}
-
-.flexForm {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: none;
 }

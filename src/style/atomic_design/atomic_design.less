@@ -18,23 +18,25 @@
 @import "organisms/bankAccountCmpt.less";
 @import "organisms/forms/operationForm.less";
 
+@import "pagesLayout/page.less";
 @import "pagesLayout/home.less";
 @import "pagesLayout/budget.less";
 @import "pagesLayout/login.less";
 @import "pagesLayout/profile.less";
 @import "pagesLayout/accountPage.less";
 @import "pagesLayout/banks.less";
-@import "pagesLayout/menuLayout.less";
 @import "pagesLayout/accountWidget.less";
 @import "pagesLayout/subscriptionPage.less";
 @import "pagesLayout/chartPage.less";
 
 
 #app {
+  display: grid;
   background-color: @background;
-  .default {
+  .page, .default {
     display: grid;
     grid-template-columns: 1fr;
+    justify-self: center;
     .content {
       min-width: 375px;
       width: 50vw;
