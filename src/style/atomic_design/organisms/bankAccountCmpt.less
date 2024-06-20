@@ -1,0 +1,70 @@
+.bankAccount {
+    margin-top: 30px;
+    display: grid;
+    padding: 0 0 35px 0;
+    grid-template-areas:
+        "edit edit" 
+        "logo title"
+        "associated associated";
+    grid-template-columns: 1fr 2fr;
+    column-gap: 20px;
+    max-width: min(500px, 80vw);
+    height: fit-content;
+    .logo {
+        align-self: center;
+        justify-self: end;
+        max-height: 100px;
+        padding-left: 40px;
+    }
+    .bankAccountTitle {
+        margin-right: 40px;
+        grid-area: title;
+        align-self: center;
+        justify-self: center;
+        .name, .balance {
+            display: block;
+            margin: 0;
+        }
+    }
+    .action {
+        grid-area: edit;
+        padding: 5px;
+        justify-self: end;
+    }
+    .details {
+        width: 80%;
+        margin-top: 30px;
+        justify-self: center;
+        grid-area: associated;
+    }
+    .until {
+        grid-area: until;
+    }
+    &:hover{
+        .action {
+            visibility: visible;
+            color: @action;
+        }
+    }
+
+    // FORM
+    &.editing {
+        background: @header;
+        .bankAccountTitle *, .label{
+            color: @white;
+        }
+        .input {
+            margin: 0;
+        }
+        .history {
+            margin-top: 20px;
+            .label {
+                text-align: left;
+            }
+        }
+        .action {
+            visibility: visible;
+            color: @white;
+        }
+    }
+}

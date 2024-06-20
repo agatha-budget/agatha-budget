@@ -1,0 +1,64 @@
+.form {
+
+  .label {
+    font-size: large;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .formAction {
+    margin-top: 20px;
+  }
+
+  .formItem {
+    padding: 5px 10px;
+    display: grid;
+    grid-template-areas: "label input";
+    label, .label {
+      grid-area: label;
+      align-self: center;
+      justify-self: start;
+    }
+    div {
+      grid-area: input;
+      align-self: center;
+    }
+  }
+
+  .formSectionTitle {
+    text-align: center;
+  }
+
+  .multiselect-dropdown {
+    max-height: none;
+    ul.multiselect-options {
+      max-height: 500px;
+    }
+  }
+
+  .inline_label_input {
+    display: grid;
+    grid-template-areas: "label input";
+    grid-template-columns: 1fr 1fr;
+    .label {
+      justify-self: left;
+      align-self: center;
+    }
+    .input {
+      justify-self: center;
+      align-self: center;
+    }
+
+  }
+}
+
+.inlineForm {
+  background: @inline;
+}
+
+@media (max-width: 550px) {
+  .hideableActionGuide {
+    visibility: visible;
+    color: @action;
+  }
+}

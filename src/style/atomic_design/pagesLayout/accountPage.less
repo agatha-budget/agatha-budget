@@ -1,0 +1,65 @@
+.accountPage {
+
+    #accountPageHeader {
+        padding-top: 15px;
+        text-align: center;
+        .subtitle {
+            .illustration {
+                color: @dark;
+                font-size: 14px;
+            }
+        }
+        .negative {
+            .subtitle {
+                .illustration {
+                    color: @white;
+                }
+            }
+        }
+    }
+
+    .operationList {
+        margin: 30px 0;
+        width: 90%;
+    }
+
+    .placeholderTop {
+        padding: 20px;
+    }
+
+    .illustration {
+        color: @action;
+        margin-top: 0;
+    }
+
+    .illustration .btn {
+        visibility: hidden;
+        padding: 0;
+        &:hover{
+            .btn {
+                visibility: visible;
+            }
+        }
+    }
+    
+    .pendingSection {
+        &:hover{
+            .btn {
+                visibility: visible;
+            }
+        }
+    }
+
+    .title, .editTitleBtn {
+        text-align: center;
+    }
+    .editingNameAccount {
+        .name {
+            display: grid;
+            input {
+                text-align: center;
+                justify-self: center;
+            }
+        }
+    }
+}
