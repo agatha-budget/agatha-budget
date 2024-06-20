@@ -1,0 +1,31 @@
+version: '3'
+
+includes:
+  back:
+    taskfile: ./back/Taskfile.yml
+    dir: ./back
+  front:
+    taskfile: ./front/Taskfile.yml
+    dir: ./front
+tasks:
+  default:
+    cmds:
+      - task --list-all
+  hello:
+    cmds:
+      - echo "Bonjour à vous mes très chers amis !"
+  install_nix_linux:
+    cmds:
+      - sh <(curl -L https://nixos.org/nix/install) --daemon
+  install_nix_windows:
+    cmds:
+      - sh <(curl -L https://nixos.org/nix/install) --no-daemon
+  install_nix_mac:
+    cmds:
+      - sh <(curl -L https://nixos.org/nix/install)
+  serve_back:
+    cmds:
+      - task: back:auto_serve
+  serve_front:
+    cmds:
+      - task: front:auto_serve

@@ -7,8 +7,9 @@ tasks:
   hello:
     cmds:
       - echo "Bonjour à vous mes très chers amis !"
-  run:
+  serve:
     cmds:
+      - gradle migrate
       - gradle run
   test:
     cmds:
@@ -31,3 +32,8 @@ tasks:
       - psql -h localhost -U postgres -d agatha -f imported_backup.sql
       - rm imported_backup.sql
       - pg_ctl restart 
+  auto_serve:
+    desc: serve backend from scratch
+    cmds:
+      - nix-shell --pure --command "task serve"
+    

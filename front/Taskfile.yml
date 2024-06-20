@@ -7,9 +7,6 @@ tasks:
   hello:
     cmds:
       - echo "Bonjour à vous mes très chers amis !"
-  start_env:
-    cmds:
-      - nix-shell --pure
   serve:
     cmds:
       - sh ./scripts/set_dev_properties.sh; vite
@@ -36,9 +33,12 @@ tasks:
       - sed -i -e "s/import globalAxios from 'axios';/const globalAxios = HttpService.getAxiosClient();/g" ./src/services/api/openApi/base.ts
       - sed -i '20i import HttpService from \"@\/services\/api\/httpservice\";' ./src/services/api/openApi/base.ts
       - sed -i '21i import Properties from \"@\/..\/properties\";' ./src/services/api/openApi/base.ts
-
-
   pwa_assets:
     desc: generate icons for PWA
     cmds: 
       - pwa-assets-generator --preset minimal-2023 public/logo_round.png
+  auto_serve:
+    desc: serve front from scratch
+    cmds:
+      - nix-shell --pure --command "npm install | task serve"
+  
