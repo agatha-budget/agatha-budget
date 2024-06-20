@@ -1,0 +1,113 @@
+.budgetTable {
+    border-style: none;
+    border-collapse: collapse;
+    border-radius: @borderRadius;
+    border-style: hidden; /* hide standard table (collapsed) border */
+    box-shadow: 0 0 0 2px @action; /* this draws the table border  */ 
+    overflow: hidden;
+    width: 100%;
+    *{
+        font-weight: normal;
+    }
+    .illustration{
+        font-weight: 700;
+    }
+
+    .action {
+        .btn {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+        display: none;
+    }
+    .name, .action {
+        cursor: default;
+        &:hover {
+            .action {
+                display: inline;
+            }
+        }
+    }
+    th , td {
+        text-align: center;
+        padding-right: 0;
+        padding-left:0;
+        vertical-align: middle;
+        &:first-child{
+            padding-left: 10px;
+            text-align: left;
+        }
+        &.available {
+            span {
+                font-weight: bold;
+            }
+        }
+        &.spent {
+            font-weight: lighter;
+            color: @blackGrey;
+        }
+    }
+    .masterCategory {
+        background: @header;
+        color: @white;
+        *{
+          color: @white;
+        }
+        th {
+            background: inherit;
+        }
+        th.spent {
+            font-weight: lighter;
+            color:  @white;
+        }
+        .illustration {
+            padding-bottom: 0px;
+        }
+        .ban-color {
+            vertical-align: middle;
+        }
+        &.edit{
+            *{
+                padding: 2px;
+            }
+        }
+    }
+    .categoryBudget {
+        background: @background;
+        *{
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+        &:first-child{
+            text-align: left;
+        }
+        .illustration{
+            color: @action;
+        }
+        .numberInput {
+            input {
+                text-align: center;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+        .icon {
+            text-align: right;
+        }
+        .text {
+            text-align: left;
+            color: @action;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+        .actionLabelIcon {
+            .text {
+                padding: 0;
+            }
+            *{
+                color: @action;
+            }
+        }
+    }
+}

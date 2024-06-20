@@ -1,0 +1,161 @@
+.operationForm {
+  .sumAmountElement {
+    text-align: left;
+    padding-bottom: 10px;
+  }
+  display: grid;
+  grid-template-areas: 
+    "close close"
+    "date status"
+    "category amount"
+    "memo memo"
+    "addDaughter addDaughter"
+    "actions actions"
+  ;
+
+  &.withDaugtherDisplay {
+    grid-template-areas: 
+    "close close"
+    "date status"
+    "amount amount"
+    "memo memo"
+    "daughters daughters"
+    "addDaughter addDaughter"
+    "actions actions"
+  ;
+  }
+
+  .containerCross {
+    padding-bottom: 8px;
+    grid-area: close;
+  }
+  .date {
+    grid-area: date;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+  .status {
+    grid-area: status;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    div {
+      display: grid;
+      grid-template-areas: "switch pending";
+      grid-template-columns: 60px auto;
+      .customSwitch {
+        grid-area: switch;
+      }
+      .textPending {
+        grid-area: pending;
+        display: grid;
+        grid-template-areas: "icon text";
+        grid-template-columns: 30px auto;
+        .icon {
+          justify-self: left;
+          grid-area: icon;
+          .illustration { 
+            padding: 0;
+          }
+        }
+        .iconLabel {
+          justify-self: center;
+          grid-area: text;
+          align-self: center;
+        }
+      }
+    }
+  }
+  .category {
+    grid-area: category;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+  .amount {
+    grid-area: amount;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+  }
+  .sumAmountElement {
+    text-align: left;
+  }
+  .memo {
+    grid-area: memo;
+    display: grid;
+    grid-template-columns: 1fr 6fr;
+  }
+  .daughters {
+    grid-area: daughters;
+    .daughter {
+      border-style: solid;
+      border-width: 1px;
+      margin: 20px 0;
+      padding: 10px;
+      border-radius: 10px;
+      display: grid;
+      grid-template-areas:
+        "close close" 
+        "category amount"
+        "memo memo"
+      ;
+      .containerCross {
+        grid-area: close;
+      }
+
+    }
+  }
+  .addDaughter {
+    margin-top: 20px;
+    grid-area: addDaughter;
+    justify-self: center;
+  }
+  .formAction {
+    grid-area: actions;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+
+
+}
+
+
+@media (max-width: 800px) {
+  .operationForm {
+    grid-template-areas:
+      "close"
+      "date"
+      "status"
+      "category"
+      "amount"
+      "memo"
+      "addDaughter"
+      "actions"
+    ;
+
+    .memo {
+      grid-template-columns: 1fr 2fr;
+    }
+
+    &.withDaugtherDisplay {
+      grid-template-areas: 
+      "close"
+      "date"
+      "status"
+      "amount"
+      "memo"
+      "daughters"
+      "addDaughter"
+      "actions"
+    ;
+    }
+
+    .daughters .daughter {
+      grid-template-areas:
+        "close" 
+        "category"
+        "amount"
+        "memo"
+      ;
+    }
+  }
+}

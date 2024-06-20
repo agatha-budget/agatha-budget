@@ -1,5 +1,15 @@
 version: '3'
 
+includes:
+  back:
+    taskfile: ./back/Taskfile.yml
+    dir: ./back
+  front:
+    taskfile: ./front/Taskfile.yml
+    dir: ./front
+  doc:
+    taskfile: ./doc/Taskfile.yml
+    dir: ./doc
 tasks:
   default:
     cmds:
@@ -7,27 +17,22 @@ tasks:
   hello:
     cmds:
       - echo "Bonjour à vous mes très chers amis !"
-  run:
+  install_nix_linux:
     cmds:
-      - gradle run
-  test:
+      - sh <(curl -L https://nixos.org/nix/install) --daemon
+  install_nix_windows:
     cmds:
-      - gradle test
-  jar:
+      - sh <(curl -L https://nixos.org/nix/install) --no-daemon
+  install_nix_mac:
     cmds:
-      - gradle uberjar
-  run_jar:
+      - sh <(curl -L https://nixos.org/nix/install)
+  serve_back:
     cmds:
-      - task: jar
-      - java -jar -Dlogback.configurationFile=logback.xml build/libs/tresorier-backend-uber.jar
-  import_sql:
-    desc: task import_sql PATH=path_to_file (/!\ replace all role by postgres in the file beforehand)
+      - task: back:auto_serve
+  serve_front:
     cmds:
-      - pg_ctl restart 
-      - dropdb -h localhost -U postgres agatha
-      - createdb -h localhost -U postgres agatha
-      - cp {{.PATH}} imported_backup.sql
-      - sed -i -e 's/szigudsebbcgip/postgres/g' imported_backup.sql
-      - psql -h localhost -U postgres -d agatha -f imported_backup.sql
-      - rm imported_backup.sql
-      - pg_ctl restart 
+      - task: front:auto_serve
+  serve_doc:
+    cmds:
+      - task: doc:auto_serve
+

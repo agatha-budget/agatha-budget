@@ -1,0 +1,39 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+  hello:
+    cmds:
+      - echo "Bonjour à vous mes très chers amis !"
+  serve:
+    cmds:
+      - gradle migrate
+      - gradle run
+  test:
+    cmds:
+      - gradle test
+  jar:
+    cmds:
+      - gradle uberjar
+  run_jar:
+    cmds:
+      - task: jar
+      - java -jar -Dlogback.configurationFile=logback.xml build/libs/tresorier-backend-uber.jar
+  import_sql:
+    desc: task import_sql PATH=path_to_file (/!\ replace all role by postgres in the file beforehand)
+    cmds:
+      - pg_ctl restart 
+      - dropdb -h localhost -U postgres agatha
+      - createdb -h localhost -U postgres agatha
+      - cp {{.PATH}} imported_backup.sql
+      - sed -i -e 's/szigudsebbcgip/postgres/g' imported_backup.sql
+      - psql -h localhost -U postgres -d agatha -f imported_backup.sql
+      - rm imported_backup.sql
+      - pg_ctl restart 
+  auto_serve:
+    desc: serve backend from scratch
+    cmds:
+      - nix-shell --pure --command "task serve"
+    

@@ -1,1 +1,0 @@
-curl -X POST "http://localhost:7000/login?email=aa&password=a" -H  "accept: application/json" -d "" -c /tmp/cookie -v

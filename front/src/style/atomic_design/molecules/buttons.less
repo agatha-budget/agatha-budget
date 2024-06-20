@@ -1,0 +1,213 @@
+button:hover, btn:hover, .clickable:hover {
+  cursor: pointer;
+}
+
+button, .btn {
+  white-space: nowarp;
+  display: inline-block;
+  margin: 5px;
+  padding: 3px 15px 3px 15px ;
+}
+
+a.navigationButton {
+  padding: 2px;
+  text-decoration: none;
+  text-transform: none;
+}
+.navigationButton {
+
+  // color and behavior
+  background: @navigation;
+  border-radius: @btnBorderRadius;
+  border:none;
+  width: 100%;
+  text-align: center;
+  color: @white;
+  * {
+    color: @white;
+  }
+  span:first-letter{
+    text-transform: capitalize
+  }
+  &.disabled {
+    background: @darkerBackground;
+    color: @dark;
+    * {
+      color: @dark;
+    }
+  }
+
+  &:hover:not(.disabled){ 
+    background-color:  @background;
+    // replace border so that the 'border' is inside the button and doesn't change the total size
+    box-shadow:inset 0px 0px 0px 3px @navigation;
+    color: @navigation;
+    * {
+      color: @navigation;
+    }
+  }
+
+  // content layout
+  &.illustrated {
+    display: grid;
+    grid-template-areas: "icon content";
+    grid-template-columns: 4fr 6fr;
+    .illustration {
+      grid-area: icon;
+      text-align: right;
+      align-self: center;
+      margin-right: 20px;
+    }
+    .illustrationLabel {
+      grid-area: content;
+      text-align: left;
+    }
+  }
+
+
+  &.accounts {
+    display: grid;
+    grid-template-areas: "name amount icon";
+    grid-template-columns: 5fr 3fr 1fr ;
+  }
+  .name {
+    text-align: left;
+    padding-left: 30px;
+  }
+  .amount {
+    padding: 0 20px;
+    text-align: left;
+  }
+}
+
+
+
+
+.actionButton {
+  background: rgb(221, 221, 221);
+  color: rgb(0, 0, 0);
+  border: 1px solid @navigation;
+  padding: 3px 15px 3px 15px ;
+  border-radius: @btnBorderRadius;
+  text-align: center;
+  height: fit-content;
+  min-height: 32px;
+  width: fit-content;
+  &:first-letter{
+    text-transform: capitalize
+  }
+  &:active {
+    background: black;
+    color: white;
+  }
+  &:hover {
+    border: none;
+  }
+}
+
+.buttonGradation {
+  margin: 0 0 5px 0;
+  width: 100%;
+  border-radius: @borderRadius;
+  border-style: hidden; /* hide standard table (collapsed) border */
+  box-shadow: 0 0 0 2px @action; /* this draws the table border  */ 
+  background: @header;
+  color: @white;
+  *{
+    color: @white;
+  }
+}
+
+.dualTab, .tripleTab {
+  button {  
+    border: 1px solid @action;
+    color: @dark;
+
+    &.tabLeft {
+      border-radius: 15px 0px 0px 15px;
+      margin-right: 0;
+    }
+
+    &.tabRight {
+      border-radius: 0px 15px 15px 0px;
+      margin-left: 0;
+    }
+
+    &.tabCenter {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    &.active{
+      background: @active;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .tripleTab {
+    button { 
+      &.tabLeft, &.tabRight, &.tabCenter {
+        border-radius: 15px;
+        display: block;
+        margin: 10px auto; 
+      }
+    }
+  }
+}
+
+
+.containerCross {
+  text-align: right;
+  .cross {
+    font-size: 26px;
+    font-weight: 600;
+  }
+  .cross:hover {
+    cursor: pointer;
+  }
+}
+
+.actionLabelIcon {
+  text-align: left;
+  padding: 0 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  .text {
+    padding-top: 3px;
+  }
+}
+.actionLabelIcon:hover {
+  cursor: pointer;
+}
+
+.navBarBtn {
+    font-size: 30px;
+    background-color: @navigation;
+    color: @background;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 45px;
+    width: 52px;
+    &.disabled {
+      background-color: @active;
+      color: @navigation;
+    }
+    &:hover {
+      background-color: @background;
+      color: @navigation;
+    }
+}
+
+.bankButton {
+  .illustration {
+    max-height: 40px;
+    width: auto;
+  }
+  height: fit-content;
+}
+
+.select {
+  background: @action;
+  color: white;
+}

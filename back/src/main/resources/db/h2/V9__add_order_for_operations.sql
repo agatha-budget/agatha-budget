@@ -1,0 +1,2 @@
+ALTER TABLE operation
+ADD COLUMN order_in_day BIGINT NOT NULL DEFAULT 1;

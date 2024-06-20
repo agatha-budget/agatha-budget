@@ -1,2 +1,0 @@
-ALTER TABLE master_category
-ADD COLUMN color VARCHAR(36) DEFAULT NULL;

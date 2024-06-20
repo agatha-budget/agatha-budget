@@ -1,0 +1,44 @@
+version: '3'
+
+tasks:
+  default:
+    cmds:
+      - task --list-all
+  hello:
+    cmds:
+      - echo "Bonjour à vous mes très chers amis !"
+  serve:
+    cmds:
+      - sh ./scripts/set_dev_properties.sh; vite
+  test:
+    cmds:
+      - jest
+  build:
+    cmds:
+      - vue-tsc --noEmit && vite build
+  build_for_beta:
+    cmds:
+      - sh ./scripts/set_beta_properties.sh
+      - task: build
+  build_for_prod:
+    cmds:
+      - sh ./scripts/set_prod_properties.sh
+      - task: build
+  apigen:
+    cmds:
+      - java -jar openapi-generator-cli-7.5.0.jar generate -g typescript-axios -i src/services/api/openapi.yaml -o src/services/api/openApi
+      - rm -r src/services/api/openApi/.* src/services/api/openApi/git_push.sh
+      - sed -i -e "s/globalAxios from 'axios';/{ globalAxios } from \"@\/services\/api\/httpservice\";/g" ./src/services/api/openApi/api.ts
+      - sed -i -e "s/\"http:\/\/localhost:8000\"/Properties.server/g" ./src/services/api/openApi/base.ts
+      - sed -i -e "s/import globalAxios from 'axios';/const globalAxios = HttpService.getAxiosClient();/g" ./src/services/api/openApi/base.ts
+      - sed -i '20i import HttpService from \"@\/services\/api\/httpservice\";' ./src/services/api/openApi/base.ts
+      - sed -i '21i import Properties from \"@\/..\/properties\";' ./src/services/api/openApi/base.ts
+  pwa_assets:
+    desc: generate icons for PWA
+    cmds: 
+      - pwa-assets-generator --preset minimal-2023 public/logo_round.png
+  auto_serve:
+    desc: serve front from scratch
+    cmds:
+      - nix-shell --pure --command "npm install | task serve"
+  

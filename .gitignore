@@ -1,45 +1,34 @@
-.gradle
-/build/
-!gradle/wrapper/gradle-wrapper.jar
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
+# EDITOR
 .idea
-*.iws
-*.iml
-*.ipr
-/out/
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-docs/gradle-getting-started
-docs/tmp
-.vscode/
+## FRONT
+front/node_modules
+front/dist
+front/npm-debug.log*
+front/yarn-debug.log*
+front/yarn-error.log*
+front/pnpm-debug.log*
 
-session_mngt/
+## BACKEND
+back/.gradle
+back/build/
+back/db/
+back/logs/
+back/local.properties
+back/logback.xml
+back/gradle.properties
 
-.env
+## DOC
 
-/db/
-
-logs/app.log
-
-logs/
-
-local.properties
-
-logback.xml
-
-gradle.properties
+doc/_site/
+doc/.sass-cache/
+doc/.jekyll-cache/
+doc/.jekyll-metadata
+doc/.bundle/
+doc/vendor/

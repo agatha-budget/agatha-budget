@@ -1,0 +1,16 @@
+{
+    "fr": {
+        "day": {
+            "year": "numeric", "month":"2-digit", "day": "numeric" 
+        },
+        "month": {
+            "year": "numeric", "month":"2-digit"
+        },
+        "monthString": {
+            "month":"long"
+        },
+        "year": {
+            "year": "numeric"
+        }
+    }
+}

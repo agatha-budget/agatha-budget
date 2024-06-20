@@ -1,0 +1,94 @@
+.operationList {
+  margin-bottom: 20px;
+  .operationListItem {
+    cursor: pointer;
+    padding: 8px 15px;
+    text-align: left;
+    &:nth-child(even) {
+      background-color: @background;
+    }
+    &:nth-child(odd) {
+      background-color: @darkerBackground;
+    }
+
+    display: grid;
+    grid-template-areas: 
+      "date date edit"
+      "category amount pending"
+      "memo memo memo"
+    ;
+
+    &.hasDaughter {
+      grid-template-areas: 
+      "date amount edit"
+      "memo memo pending"
+      "space space space"
+      "daughters daughters daughters"
+    ;
+    } 
+
+    grid-template-columns: 1fr 1fr 50px;
+
+    .edit {
+      grid-area: edit;
+      justify-self: right;
+      padding: 0;
+    }
+
+    .date {
+      grid-area: date
+    };
+
+    .category {
+      text-align: center;
+      grid-area: category;
+      font-weight: bold;
+      width: fit-content;
+
+    }
+    .amount {
+      grid-area: amount;
+      font-size: large;
+      width: fit-content;
+      justify-self: center;
+    }
+
+    .pending {
+      grid-area: pending;
+    }
+
+    .memo{
+      grid-area: memo;
+    }
+
+    .separator {
+      grid-area: space;
+    }
+    .daughters {
+      grid-area: daughters;
+      .daughter {
+        margin: 15px 0;
+        display: grid;
+        grid-template-areas:
+         "category amount edit"
+         "memo memo memo"
+        ;
+        grid-template-columns: 1fr 1fr 50px;
+        .daughterMemo {
+          grid-area: memo;
+        }
+      }
+    }
+    
+    @media (pointer: fine) { 
+      .action {
+          visibility: hidden;
+      }
+      &:hover{
+        .action {
+            visibility: visible;
+        }
+      }
+    }
+  }
+}
