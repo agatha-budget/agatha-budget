@@ -1,0 +1,25 @@
+# EDITOR
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+## FRONT
+front/node_modules
+front/dist
+front/npm-debug.log*
+front/yarn-debug.log*
+front/yarn-error.log*
+front/pnpm-debug.log*
+
+## BACKEND
+back/.gradle
+back/build/
+back/db/
+back/logs/
+back/local.properties
+back/logback.xml
+back/gradle.properties
