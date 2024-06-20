@@ -7,6 +7,9 @@ includes:
   front:
     taskfile: ./front/Taskfile.yml
     dir: ./front
+  doc:
+    taskfile: ./doc/Taskfile.yml
+    dir: ./doc
 tasks:
   default:
     cmds:
@@ -29,3 +32,7 @@ tasks:
   serve_front:
     cmds:
       - task: front:auto_serve
+  serve_doc:
+    cmds:
+      - task: doc:auto_serve
+
