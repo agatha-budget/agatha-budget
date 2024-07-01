@@ -14,10 +14,12 @@ front/npm-debug.log*
 front/yarn-debug.log*
 front/yarn-error.log*
 front/pnpm-debug.log*
+front/.vite/
 
 ## BACKEND
 back/.gradle
-back/build/
+back/build/*
+!back/build/libs/
 back/db/
 back/logs/
 back/local.properties
@@ -32,3 +34,7 @@ doc/.jekyll-cache/
 doc/.jekyll-metadata
 doc/.bundle/
 doc/vendor/
+
+## DEPLOY 
+
+deploy/gradle.properties

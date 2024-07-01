@@ -20,7 +20,7 @@ tasks:
   run_jar:
     cmds:
       - task: jar
-      - java -jar -Dlogback.configurationFile=logback.xml build/libs/tresorier-backend-uber.jar
+      - java -jar -Dlogback.configurationFile=logback.xml build/libs/agatha-backend-uber.jar
   import_sql:
     desc: task import_sql PATH=path_to_file (/!\ replace all role by postgres in the file beforehand)
     cmds:
