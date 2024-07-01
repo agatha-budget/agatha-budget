@@ -20,7 +20,7 @@ import open.tresorier.generated.jooq.test.public_.tables.UserActivity;
 /**
  * Convenience access to all tables in PUBLIC.
  */
-@SuppressWarnings({ "all", "unchecked", "rawtypes" })
+@SuppressWarnings({ "all", "unchecked", "rawtypes", "this-escape" })
 public class Tables {
 
     /**

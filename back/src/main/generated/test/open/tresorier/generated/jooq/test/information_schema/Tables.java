@@ -43,7 +43,7 @@ import open.tresorier.generated.jooq.test.information_schema.tables.Views;
 /**
  * Convenience access to all tables in INFORMATION_SCHEMA.
  */
-@SuppressWarnings({ "all", "unchecked", "rawtypes" })
+@SuppressWarnings({ "all", "unchecked", "rawtypes", "this-escape" })
 public class Tables {
 
     /**
