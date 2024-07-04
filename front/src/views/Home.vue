@@ -1,7 +1,7 @@
 <template >
   <template v-if=storeLoaded>
     <div :class="css">
-      <div class="home">
+      <div class="home main_with_sidebar">
         <div class="main">
           <BudgetCmpt :month="currentMonth" />
         </div>
