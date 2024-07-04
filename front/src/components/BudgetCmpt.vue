@@ -1,5 +1,5 @@
 <template>
-  <div id="budgetCmpt" class="withFixedHeader">
+  <div id="budgetCmpt">
     <div class="fixedHeader">
       <BudgetHeader :month="budgetMonth" :totalAllocated="totalAllocated" :totalSpent="totalSpent" :totalAvailable="totalAvailable" :money="moneyToAllocate"
         @change-month="changeMonth" />
@@ -28,7 +28,6 @@
           </template>
         </div>
       </div>
-      <div class="placeholder bottom"></div>
     </div>
   </div>
 </template>
