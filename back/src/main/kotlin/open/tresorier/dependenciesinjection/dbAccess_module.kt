@@ -17,9 +17,9 @@ object DBConfiguration {
 
     private val properties = Properties()
 
-    private val userName: String = properties.get(TRESORIER_DB_USR)
-    private val password: String = properties.get(TRESORIER_DB_PWD)
-    private val url: String = properties.get(TRESORIER_DB_URL)
+    private val userName: String = properties.get(DB_USR)
+    private val password: String = properties.get(DB_PWD)
+    private val url: String = properties.get(DB_URL)
 
     private val connection: Connection = DriverManager.getConnection(url, userName, password)
     val configuration: Configuration = DefaultConfiguration().set(connection).set(SQLDialect.POSTGRES)
