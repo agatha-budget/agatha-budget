@@ -87,16 +87,16 @@ private fun setUpApp(properties: Properties): Javalin {
     val environmentStatus = properties.get(ENVIRONMENT)
     val app = Javalin.create { config ->
             if (environmentStatus == "dev") {
-                config.plugins.enableCors { cors ->
-                    cors.add { it -> 
+                config.bundledPlugins.enableCors { cors ->
+                    cors.addRule { it -> 
                         it.allowHost(
                             properties.get(ALLOWED_ORIGIN_LOCALHOST),
                         )
                     }
                 }
             } else {
-                config.plugins.enableCors { cors ->
-                    cors.add { it ->
+                config.bundledPlugins.enableCors { cors ->
+                    cors.addRule { it ->
                         it.allowHost(
                             properties.get(ALLOWED_ORIGIN_FRONT), 
                             properties.get(ALLOWED_ORIGIN_BETA_FRONT),
