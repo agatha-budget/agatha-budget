@@ -1,0 +1,74 @@
+.main_with_sidebar {
+  
+    display: grid;
+    grid-template-areas: 
+      "main sidebar"
+      "main navbar"
+    ;
+    justify-self: center;
+    max-width: 2000px;
+    column-gap: 20px;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto 1fr;
+  
+    .main {
+      grid-area: main;
+      justify-self: center;
+      display: grid;
+      width: 100%;
+      max-width: 1000px;
+    }
+  
+    .sidebar {
+      grid-area: sidebar;
+      justify-self: center;
+      width: 600px;
+    }
+    
+    .navbar {
+      grid-area: navbar;
+    }
+  
+    .addCategoryRow{
+      width: max-content;
+    }
+  
+    @media (min-width: 2000px) {
+      .navBar {
+        position: relative;
+      }
+    }
+    
+    @media (max-width: 2000px) {
+      grid-template-areas: "main";
+      grid-template-columns: 1fr;
+      column-gap: 0px;
+  
+      .main {
+        margin: 0 0 100px 0;
+        width: 100vw;
+      }
+      .sidebar {
+        display: none;
+      }
+  
+      .navBar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: @white;
+        box-shadow: 0px -23px 25px -25px rgba(0, 0, 0, 0.2);
+      }
+    }
+    
+    @media (max-height: 550px) {
+      column-gap: 0px;
+      .navBar {
+          display: none;
+      }
+    }
+  
+  }
+  
+  
