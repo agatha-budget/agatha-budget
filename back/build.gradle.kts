@@ -1,17 +1,12 @@
 import org.jooq.meta.jaxb.* 
 
 // Properties for DB access
-val TRESORIER_DB_DRIVER: String by project
-val TRESORIER_DB_URL: String by project
-val TRESORIER_DB_USR: String by project
-val TRESORIER_DB_PWD: String by project
-val TRESORIER_DB_VERSION: String by project
+val DB_DRIVER: String by project
+val DB_URL: String by project
+val DB_USR: String by project
+val DB_PWD: String by project
+val DB_VERSION: String by project
 
-val INTEGRATION_DB_URL: String by project
-val INTEGRATION_DB_USR: String by project
-val INTEGRATION_DB_PWD: String by project
-
-val TEST_DB_DRIVER: String by project
 val TEST_DB_URL: String by project
 val TEST_DB_USR: String by project
 val TEST_DB_PWD: String by project
@@ -19,12 +14,11 @@ val TEST_DB_VERSION: String by project
 
 
 // Lib Versions
-val kotlin_version="1.9.22" // decembre 2023 - when updated also change kotlin("jvm")
+val kotlin_version="1.9.24" // mai 2024 - when updated also change kotlin("jvm")
 val koin_version= "3.5.0" // septembre 2023
 val junit_version="5.10.0" // juillet 2023
 val postgres_version="42.6.0" // mars 2023
 val flyway_version="9.22.1" // septembre 2023
-val h2_version="2.2.224" // septembre 2023
 val jooq_version="3.19.6" //aout 2023 - update in plugin too
 val mock_version="1.13.7" //aout 2023
 val logback_version="1.4.11" // aout 2023
@@ -35,10 +29,9 @@ val stripe_version="23.5.0" // septembre 2023
 val json_version="20230618" // juin 2023
 
 plugins {
-    kotlin("jvm") version "1.9.22" // cf kotlin_version
+    kotlin("jvm") version "1.9.24" // cf kotlin_version
     id("org.jetbrains.dokka") version "1.9.0" // aout 2023
     id("org.flywaydb.flyway") version "9.22.1" // septembre 2023
-    id("org.sonarqube") version "4.4.1.3373"
     id("org.jooq.jooq-codegen-gradle") version "3.19.6"
     jacoco
     application
@@ -58,21 +51,6 @@ sourceSets {
             setSrcDirs(listOf(generatedDirMain, generatedDirTest, "src/main/kotlin"))
         }
     }
-    create("intTest") {
-        java {
-            compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
-            runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
-            setSrcDirs(listOf("src/testIntegration/kotlin"))
-        }
-    }
-}
-
-val intTestImplementation by configurations.getting {
-    extendsFrom(configurations.implementation.get())
-}
-
-val intTestRuntimeOnly by configurations.getting {
-    extendsFrom(configurations.runtimeOnly.get())
 }
 
 dependencies {
@@ -91,26 +69,21 @@ dependencies {
     implementation("de.mkammerer:argon2-jvm:$argon_version")
 
     // koin
-    intTestImplementation("io.insert-koin:koin-test-junit5:$koin_version")
     testImplementation ("io.insert-koin:koin-test-junit5:$koin_version")
     implementation ("io.insert-koin:koin-core:$koin_version")
 
     // DB
     implementation("org.postgresql:postgresql:$postgres_version")
-    intTestImplementation("org.postgresql:postgresql:$postgres_version")
-    testImplementation("com.h2database:h2:$h2_version")
+    testImplementation("org.postgresql:postgresql:$postgres_version")
     jooqCodegen("org.postgresql:postgresql:$postgres_version")
-    jooqCodegen("com.h2database:h2:$h2_version")
+    jooqCodegen("org.postgresql:postgresql:$postgres_version")
 
     // Junit
-    intTestImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
-    intTestRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
 
     // Mock
     testImplementation("io.mockk:mockk:$mock_version")
-    intTestImplementation("io.mockk:mockk:$mock_version")
 
     // Jooq
     implementation("org.jooq:jooq:$jooq_version")
@@ -140,61 +113,45 @@ flyway {
     cleanDisabled = false
 }
 
-tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTresorierDatabase") {
-    url = TRESORIER_DB_URL
-    user = TRESORIER_DB_USR
-    password = TRESORIER_DB_PWD
-    locations = arrayOf(TRESORIER_DB_VERSION)
-}
-
-
-tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateIntegrationDatabase") {
-    url = INTEGRATION_DB_URL
-    user = INTEGRATION_DB_USR
-    password = INTEGRATION_DB_PWD
-    locations = arrayOf(TRESORIER_DB_VERSION)
+tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateDatabase") {
+    url = DB_URL
+    user = DB_USR
+    password = DB_PWD
+    locations = arrayOf(DB_VERSION)
 }
 
 tasks.register<org.flywaydb.gradle.task.FlywayMigrateTask>("migrateTestDatabase") {
-    driver = TEST_DB_DRIVER
+    driver = DB_DRIVER
     url = TEST_DB_URL
     user = TEST_DB_USR
     password = TEST_DB_PWD
-    locations = arrayOf(TEST_DB_VERSION)
+    locations = arrayOf(DB_VERSION)
 }
 
 tasks.register("migrate") {
-    dependsOn("migrateTresorierDatabase")
+    dependsOn("migrateDatabase")
     dependsOn("migrateTestDatabase")
-    dependsOn("migrateIntegrationDatabase")
 }
 
-tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanIntegrationDatabase") {
-    url = INTEGRATION_DB_URL
-    user = INTEGRATION_DB_USR
-    password = INTEGRATION_DB_PWD
-    locations = arrayOf(TRESORIER_DB_VERSION)
-}
 
-tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTresorierDatabase") {
-    url = TRESORIER_DB_URL
-    user = TRESORIER_DB_USR
-    password = TRESORIER_DB_PWD
-    locations = arrayOf(TRESORIER_DB_VERSION)
+tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanDatabase") {
+    url = DB_URL
+    user = DB_USR
+    password = DB_PWD
+    locations = arrayOf(DB_VERSION)
 }
 
 tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTestDatabase") {
-    driver = TEST_DB_DRIVER
+    driver = DB_DRIVER
     url = TEST_DB_URL
     user = TEST_DB_USR
     password = TEST_DB_PWD
-    locations = arrayOf(TEST_DB_VERSION)
+    locations = arrayOf(DB_VERSION)
 }
 
 tasks.register("cleanAllDB") {
-    dependsOn("cleanTresorierDatabase")
+    dependsOn("cleanDatabase")
     dependsOn("cleanTestDatabase")
-    dependsOn("cleanIntegrationDatabase")
 }
 
 jooq {
@@ -203,10 +160,10 @@ jooq {
              configuration  {
                 logging = org.jooq.meta.jaxb.Logging.WARN
                 jdbc {
-                    driver = TRESORIER_DB_DRIVER
-                    url = TRESORIER_DB_URL
-                    user = TRESORIER_DB_USR
-                    password = TRESORIER_DB_PWD
+                    driver = DB_DRIVER
+                    url = DB_URL
+                    user = DB_USR
+                    password = DB_PWD
                 }
                 generator {
                     database {
@@ -231,14 +188,15 @@ jooq {
             configuration {
                 logging = org.jooq.meta.jaxb.Logging.WARN
                 jdbc {
-                    driver = TEST_DB_DRIVER
+                    driver = DB_DRIVER
                     url = TEST_DB_URL
                     user = TEST_DB_USR
                     password = TEST_DB_PWD
                 }
                 generator {
                     database {
-                        name = "org.jooq.meta.h2.H2Database"
+                        name = "org.jooq.meta.postgres.PostgresDatabase"
+                        inputSchema = "public"
                     }
                     generate {
                         isDeprecated = false
@@ -257,7 +215,7 @@ jooq {
     }
 }
 
-tasks.named("jooqCodegenTresorier") {mustRunAfter("migrateTresorierDatabase")}
+tasks.named("jooqCodegenTresorier") {mustRunAfter("migrateDatabase")}
 tasks.named("jooqCodegenTest") {mustRunAfter("migrateTestDatabase")}
 tasks.named("compileKotlin") {
     mustRunAfter("jooqCodegen")
@@ -299,27 +257,6 @@ tasks.test {
     finalizedBy(tasks.jacocoTestReport)
 }
 
-
-val integrationTest = task<Test>("integrationTest") {
-    description = "Runs integration tests."
-    group = "verification"
-
-    testClassesDirs = sourceSets["intTest"].output.classesDirs
-    classpath = sourceSets["intTest"].runtimeClasspath
-    useJUnitPlatform()
-    testLogging {
-        events("passed", "skipped", "failed")
-    }
-    shouldRunAfter("test")
-}
-
-tasks.named("integrationTest") {
-    dependsOn("migrate")
-    finalizedBy("cleanIntegrationDatabase")
-}
-
-tasks.check { dependsOn(integrationTest) }
-
 application {
     mainClass.set("open.tresorier.api.ApiKt")
 }
@@ -355,13 +292,5 @@ tasks.register("printInfo") {
     doLast {
         println("hello")
         println(sourceSets.getByName("main").runtimeClasspath.first())
-    }
-}
-
-sonar {
-    properties {
-        property("sonar.projectKey", "agatha-budget_back")
-        property("sonar.organization", "agatha-budget")
-        property("sonar.host.url", "https://sonarcloud.io")
     }
 }

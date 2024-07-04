@@ -31,6 +31,6 @@ createuser postgres --superuser --createdb
 
 # create user and database if need be
 psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'agatha'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE agatha"
-psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'integration_agatha'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE integration_agatha"
+psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'agatest'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE agatest"
 '';
 }
