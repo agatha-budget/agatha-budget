@@ -42,17 +42,27 @@ tasks:
       - nix-build deploy/back.nix
   build_docker_img:
     cmds:
-      - nix-build deploy/docker.nix 
+      - nix-build deploy/back-docker.nix 
+      - docker load < result
+      - nix-build deploy/db-docker.nix
       - docker load < result
   run_docker:
-    desc: --mount -> link the properties file to the container, --net=host -> use same port dans access the databse
+    dir: deploy
     cmds:
-      - docker run --mount type=bind,source="$(pwd)/gradle.properties",target=/home/gradle.properties --net=host agatha-back-image:latest
+      - docker compose up -d
   fresh_start_docker:
     cmds:
       - task: build_docker_img
       - task: run_docker
-  clean_docker:
+  clean_container:
     cmds:
+      - docker stop $(docker ps -a -q)
       - docker container prune
+      - docker volume prune  
+  clean_docker_images:
+    cmds: 
       - docker rmi -f $(docker images -aq)
+  clean_docker: 
+    cmds:
+      - task: clean_container
+      - task: clean_docker_images

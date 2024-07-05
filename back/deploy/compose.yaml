@@ -1,0 +1,23 @@
+services:
+
+  agatha-db:
+    image: agatha-db-image:latest
+    environment:
+      POSTGRES_PASSWORD: agatha-db-password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: agatha
+    ports:
+      - 4321:5432    #HOST:CONTAINER
+    volumes:
+      - ../db/postgres-data:/var/lib/postgresql/data
+
+  agatha-back:
+    image: agatha-back-image:latest
+    ports:
+      - 8000:8000
+    volumes:
+      - type: bind
+        source: gradle.properties
+        target: /home/gradle.properties
+    depends_on:
+      - agatha-db
