@@ -38,15 +38,21 @@ tasks:
       - nix-shell --pure --command "task serve"
   build_nix_package:
     cmds: 
+      - task: jar
       - nix-build deploy/back.nix
   build_docker_img:
     cmds:
-      - nix-build deploy/docker.nix ; echo $?
-      - docker image load -i /nix/store/792xalvdr8m9vy172nrk02c8yzr8zmr7-agatha-back-image.tar.gz
+      - nix-build deploy/docker.nix 
+      - docker load < result
   run_docker:
+    desc: --mount -> link the properties file to the container, --net=host -> use same port dans access the databse
     cmds:
-      - docker run --mount type=bind,source=./gradle.properties,target=/home/gradle.properties:ro agatha-back-image:latest
+      - docker run --mount type=bind,source="$(pwd)/gradle.properties",target=/home/gradle.properties --net=host agatha-back-image:latest
   fresh_start_docker:
     cmds:
       - task: build_docker_img
       - task: run_docker
+  clean_docker:
+    cmds:
+      - docker container prune
+      - docker rmi -f $(docker images -aq)
