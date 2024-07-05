@@ -22,5 +22,5 @@ object DBTestConfiguration {
     private val url: String = properties.get(TEST_DB_URL)
 
     private val connection: Connection = DriverManager.getConnection(url, userName, password)
-    val configuration: Configuration = DefaultConfiguration().set(connection).set(SQLDialect.H2)
+    val configuration: Configuration = DefaultConfiguration().set(connection).set(SQLDialect.POSTGRES)
 }

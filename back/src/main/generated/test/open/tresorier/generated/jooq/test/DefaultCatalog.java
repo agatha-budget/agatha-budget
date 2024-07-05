@@ -7,9 +7,6 @@ package open.tresorier.generated.jooq.test;
 import java.util.Arrays;
 import java.util.List;
 
-import open.tresorier.generated.jooq.test.information_schema.InformationSchema;
-import open.tresorier.generated.jooq.test.public_.Public;
-
 import org.jooq.Constants;
 import org.jooq.Schema;
 import org.jooq.impl.CatalogImpl;
@@ -29,12 +26,7 @@ public class DefaultCatalog extends CatalogImpl {
     public static final DefaultCatalog DEFAULT_CATALOG = new DefaultCatalog();
 
     /**
-     * The schema <code>INFORMATION_SCHEMA</code>.
-     */
-    public final InformationSchema INFORMATION_SCHEMA = InformationSchema.INFORMATION_SCHEMA;
-
-    /**
-     * The schema <code>PUBLIC</code>.
+     * The schema <code>public</code>.
      */
     public final Public PUBLIC = Public.PUBLIC;
 
@@ -48,7 +40,6 @@ public class DefaultCatalog extends CatalogImpl {
     @Override
     public final List<Schema> getSchemas() {
         return Arrays.asList(
-            InformationSchema.INFORMATION_SCHEMA,
             Public.PUBLIC
         );
     }
