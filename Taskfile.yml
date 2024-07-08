@@ -35,4 +35,25 @@ tasks:
   serve_doc:
     cmds:
       - task: doc:auto_serve
+  clean_container:
+    cmds:
+      - docker stop $(docker ps -a -q)
+      - docker container prune
+      - docker volume prune  
+  clean_docker_images:
+    cmds: 
+      - docker rmi -f $(docker images -aq)
+  clean_docker: 
+    cmds:
+      - task: clean_container
+      - task: clean_docker_images
+  run_docker:
+    dir: deploy
+    cmds:
+      - docker compose up -d
+  fresh_start_docker:
+    cmds:
+      - task: back:build_docker_img
+      - task: front:build_docker_img
+      - task: run_docker
 
