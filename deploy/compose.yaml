@@ -28,8 +28,11 @@ services:
       - 8080:8080
     volumes:
       - type: bind
-        source: ../front/deploy/nginx.conf
-        target: /home/conf/nginx.conf
-      - ../front/deploy/nginx:/var/log/nginx/
+        source: ../front/deploy/nginx/nginx.conf
+        target: /home/nginx.conf
+      - ../front/deploy/nginx/logs:/var/log/nginx
+      - type: bind
+        source: ../back/deploy/gradle.properties
+        target: /home/gradle.properties
     depends_on:
       - agatha-back

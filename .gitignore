@@ -40,3 +40,7 @@ deploy/gradle.properties
 deploy/result
 back/result
 back/deploy/result
+
+front/result
+
+front/deploy/nginx/logs/

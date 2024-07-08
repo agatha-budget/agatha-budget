@@ -1,4 +1,11 @@
-{ stdenv }:
+let
+  pkgs = import <nixpkgs> {};
+in
+
+{
+# can be overridden with `yourPackage.override { enableSomething = true; }`
+stdenv ? pkgs.stdenv,
+}:
 
 stdenv.mkDerivation rec {
   name = "agatha-front";
@@ -10,7 +17,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ ];
 
   installPhase = ''
-    mkdir -p $out
-    cp -a . $out
+    mkdir -p $out/share
+    cp -a . $out/share/agatha-front
   '';
 }

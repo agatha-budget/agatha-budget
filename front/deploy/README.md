@@ -10,3 +10,7 @@ Using the easier solution, I just created a package that copied the generated di
 I would have like to use the nixos nginx module but it isn't available in dockers tool
 
 http://nginx.org/en/docs/beginners_guide.html  
+
+IN THE COMMAND YOU NEED TO WRITE A LIST WITH THE COMMAND AND ITS OPTION
+
+ex  ["ls" "-l"] not ["ls -l"] DAMNIT !! 
