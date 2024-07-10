@@ -1,0 +1,36 @@
+---
+title: Bienvenue chez Agatha-Budget
+description: Devenez un contributeur du projet
+template: splash
+hero:
+  tagline: Devenez un contributeur du projet
+  image:
+    file: ../../../assets/agatha.png
+  actions:
+    - text: Example Guide
+      link: /guides/example/
+      icon: right-arrow
+      variant: primary
+    - text: Find us on Github
+      link: https://github.com/agatha-budget/agatha-budget
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Faites comme chez vous
+
+<CardGrid stagger>
+    <Card title="Comment auto-héberger Agatha" icon="pencil">
+        Edit `src/content/docs/index.mdx` to see this page change.
+    </Card>
+    <Card title="Comment contribuer" icon="add-document">
+        Add Markdown or MDX files to `src/content/docs` to create new pages.
+    </Card>
+    <Card title="Découvrir le code" icon="setting">
+        Edit your `sidebar` and other config in `astro.config.mjs`.
+    </Card>
+    <Card title="Read the docs" icon="open-book">
+        Learn more in [the Starlight Docs](https://starlight.astro.build/).
+    </Card>
+</CardGrid>

@@ -3,11 +3,8 @@ version: '3'
 tasks:
   default:
     cmds:
-      - task --list-all
+      - task --list
   serve:
+    desc: serve the static doc website
     cmds:
-      - bundle exec jekyll serve
-  auto_serve: 
-    cmds:
-      - nix-shell --pure --command "bundle install && task serve"
-  
+      - npm run dev

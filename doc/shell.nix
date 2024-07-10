@@ -4,9 +4,11 @@ with pkgs;
 
 mkShell {
 buildInputs = [
-    jekyll
-    bundler
-    go-task
+nodejs-18_x go-task
 ];
+
+shellHook = ''
+        export PATH="$PWD/node_modules/.bin/:$PATH"
+    '';
 
 }
