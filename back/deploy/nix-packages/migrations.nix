@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   name = "agatha-migrations";
   version = "2.4";
 
-  src = ./../../src/main/resources/db;
+  src = ./../../src/main/resources/db/pg;
 
   nativeBuildInputs = [ ];
   buildInputs = [ ];

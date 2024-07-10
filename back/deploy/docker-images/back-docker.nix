@@ -17,7 +17,8 @@ dockerTools.buildLayeredImage {
   '';
 
   config = { 
-    Cmd = [ "/bin/bash" "-c" "/bin/flyway -configFiles=/share/agatha-migrations/flyway.conf migrate && /bin/agatha-back" ];
+    ## this commands needs to mounted file : flyway.conf and gradle.properties. see docker-compose
+    Cmd = [ "/bin/bash" "-c" "/bin/flyway -configFiles=/home/flyway.conf migrate && /bin/agatha-back" ];
     WorkingDir = "/home";
   };
 }
