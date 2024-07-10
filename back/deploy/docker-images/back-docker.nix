@@ -9,7 +9,7 @@ dockerTools.buildLayeredImage {
   name = "agatha-back-image";
   tag = "latest";
 
-  contents = [ agatha-back agatha-migrations flyway bash];
+  contents = [ agatha-back flyway bash];
 
   extraCommands = ''
     mkdir -p home
