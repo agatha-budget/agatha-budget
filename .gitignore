@@ -27,22 +27,20 @@ back/gradle.properties
 
 ## DOC
 
-doc/_site/
-doc/.sass-cache/
-doc/.jekyll-cache/
-doc/.jekyll-metadata
-doc/.bundle/
-doc/vendor/
+doc/node_modules/
+doc/.astro/
+dov/dist
+
 
 ## DEPLOY 
 
 deploy/gradle.properties
 deploy/result
 back/result
+
+
 back/deploy/result
-
 front/result
-
-front/deploy/nginx/logs/
-
 back/deploy/nix-packages/result
+
+
