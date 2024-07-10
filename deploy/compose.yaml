@@ -17,7 +17,7 @@ services:
       - 8000:8000
     volumes:
       - type: bind
-        source: ../back/deploy/gradle.properties
+        source: gradle.properties
         target: /home/gradle.properties
     depends_on:
       - agatha-db
@@ -25,14 +25,6 @@ services:
   agatha-front:
     image: agatha-front-image:latest
     ports:
-      - 8080:8080
-    volumes:
-      - type: bind
-        source: ../front/deploy/nginx/nginx.conf
-        target: /home/nginx.conf
-      - ../front/deploy/nginx/logs:/var/log/nginx
-      - type: bind
-        source: ../back/deploy/gradle.properties
-        target: /home/gradle.properties
+      - 5173:5173
     depends_on:
       - agatha-back

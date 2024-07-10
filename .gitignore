@@ -44,3 +44,5 @@ back/deploy/result
 front/result
 
 front/deploy/nginx/logs/
+
+back/deploy/nix-packages/result

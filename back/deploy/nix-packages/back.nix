@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   name = "agatha-back";
   version = "2.4";
 
-  src = ../build/libs/tresorier-backend-uber.jar;
+  src = ../../build/libs/tresorier-backend-uber.jar;
   dontUnpack = true;
 
   nativeBuildInputs = [ makeWrapper ];
