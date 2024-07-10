@@ -19,7 +19,7 @@ in
 stdenv ? pkgs.stdenv,
 fetchurl ? pkgs.fetchurl,
 makeWrapper ? pkgs.makeWrapper,
-jre ? pkgs.temurin-jre-bin
+jre ? pkgs.temurin-jre-bin-17
 }:
 
 stdenv.mkDerivation rec {
