@@ -127,7 +127,12 @@
       </div>
     </div>
     <div v-else class=" formAction"> <!-- Create Action -->
-      <button  class="actionButton" v-on:click="createOperation()" :title="$t('ADD')">{{ $t('SUBMIT') }}</button>
+      <div>
+        <button  class="actionButton add" v-on:click="createOperation()" :title="$t('ADD')">{{ $t('SUBMIT') }}</button>
+      </div>
+      <div>
+        <button class="actionButton cancel" :title="$t('CANCEL')"  v-on:click="closeForm()">{{ $t('CANCEL') }}</button>
+      </div>
     </div>
   </div>
 </template>
