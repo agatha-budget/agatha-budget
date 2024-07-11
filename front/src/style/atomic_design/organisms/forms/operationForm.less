@@ -17,10 +17,11 @@
     grid-template-areas: 
     "close close"
     "date status"
-    "amount amount"
+    "amount empty"
     "memo memo"
     "daughters daughters"
     "addDaughter addDaughter"
+    "daughterChecker daughterChecker"
     "actions actions"
   ;
   }
@@ -108,6 +109,13 @@
     grid-area: addDaughter;
     justify-self: center;
   }
+
+  .daughterChecker {
+    grid-area: daughterChecker ;
+    justify-self: center;
+    p {text-align: center;}
+  }
+
   .formAction {
     grid-area: actions;
     display: grid;
@@ -145,6 +153,7 @@
       "memo"
       "daughters"
       "addDaughter"
+      "daughterChecker"
       "actions"
     ;
     }

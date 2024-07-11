@@ -26,6 +26,10 @@
   }
 }
 
+.spot {
+  width: fit-content;
+}
+
 .container {
   margin: 10px auto;
   padding: 20px;
@@ -68,6 +72,18 @@
   }
   &.small {
     max-width: 500px;
+  }
+
+  &.warning {
+    background-color: @warning_smooth;
+    border-style: solid;
+    border-color: @warning;
+  }
+
+  &.all_good {
+    background-color: @validation_smooth;
+    border-style: solid;
+    border-color: @validation;
   }
 }
 

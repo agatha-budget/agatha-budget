@@ -176,5 +176,11 @@
     "IMPORT_DONE": "Les dépenses des 3 derniers mois ont été importées",
     "ASSOCIATE_TO" : "associer à",
     "DEFAULT_LOADING_MSG": "~~( Profitons des coquelicots )~~",
-    "INDIVIDUAL_COACHING": "Accompagnement individuel"
+    "INDIVIDUAL_COACHING": "Accompagnement individuel",
+    "TOTAL_DAUGHTER_SHOULD_BE" : "Le total des enveloppes devrait être de",
+    "BUT_IS": "mais il est de",
+    "NEED_REMOVE": "Il faut enlever",
+    "NEED_ADD": "Il faut ajouter",
+    "CLICK_VALIDATE_TO_UPDATE": "Clique sur valider pour remplacer l'ancien montant",
+    "GOOD_REPARTITION": "Le compte est bon !"
 }

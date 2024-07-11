@@ -57,14 +57,14 @@
     </div>
     <div v-else class="formItem amount"> <!-- Amount With Daugther-->
       <label class="label  ">{{ $t("AMOUNT") }}</label>
-      <div class="sumAmountElement">
+      <span class="sumAmountElement">
         <template v-if="amountStringIsUnset">
           {{centsToEurosDisplay(signedCentsDaughterSumAmount)}} €
         </template>
         <template v-else>
-          {{ incoming ? "" : "-" }}{{ amountString }} € ( {{centsToEurosDisplay(signedCentsDaughterSumAmount)}} € {{$t('SHARED')}}, {{centsToEurosDisplay(toShareAmountString)}} € {{$t('TO_SHARE')}} )
+          {{ incoming ? "" : "-" }}{{ amountString }} €
         </template>
-      </div>
+      </span>
     </div>
     <div class="formItem memo"> <!-- Memo -->
       <label class="label">{{ $t("MEMO") }}</label>
@@ -118,6 +118,7 @@
       <button v-if="daughtersData.length == 0" class="actionButton" v-on:click="addDaughter">{{ $t('CREATE_DAUGTHERS') }}</button>
       <button v-else class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</button>
     </div>
+    <DaughterRepartitionChecker class="daughterChecker" v-if="operation && hasDaughters" :toShare="getSignedCentsAmount(incoming, operation.amount)" :shared="signedCentsDaughterSumAmount"/>
     <div class="formAction" :class={withEditDisplay} v-if="operation"> <!-- Update/Delete Action -->
       <div>
         <button class="actionButton add" v-on:click="updateOperation(operation)" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</button>
@@ -141,6 +142,7 @@
 import type { Account, Category, GroupSelectOption, MasterCategory, Operation, OperationWithDaughters, SelectOption } from '@/model/model'
 import { incomeCategoryId, transfertCategoryId } from '@/model/model'
 import OperationService from '@/services/OperationService'
+import DaughterRepartitionChecker from '@/components/forms/components/DaughterRepartitionChecker.vue'
 import { useBudgetStore } from '@/stores/budgetStore'
 import Calcul from '@/utils/Calcul'
 import Time from '@/utils/Time'
@@ -169,7 +171,7 @@ interface OperationFormData {
 export default defineComponent({
   name: 'OperationForm',
   components: {
-    Multiselect
+    Multiselect, DaughterRepartitionChecker
   },
   data (): OperationFormData {
     if (this.operation) {
@@ -246,7 +248,7 @@ export default defineComponent({
     },
     signedCentsAmount (): number {
       if (this.daughtersData.length === 0) {
-        return this.getSignedCentsAmount(this.incoming, this.amountString)
+        return this.getSignedCentsAmountFromString(this.incoming, this.amountString)
       } else {
         return this.signedCentsDaughterSumAmount
       }
@@ -396,7 +398,7 @@ export default defineComponent({
     },
     updatePreexistingDaughter(daughter: DaughterFormData) {
       const removeCategory = (daughter.categoryId === undefined || daughter.categoryId === null)
-      const amountCent = this.getSignedCentsAmount(daughter.incoming, daughter.amountString)
+      const amountCent = this.getSignedCentsAmountFromString(daughter.incoming, daughter.amountString)
       OperationService.updateOperation(
         daughter.id,
         this.accountId,
@@ -409,7 +411,7 @@ export default defineComponent({
       )
     },
     addNewDaughter(daughter:DaughterFormData, motherOperationId : string) {
-      const amountCent = this.getSignedCentsAmount(daughter.incoming, daughter.amountString)
+      const amountCent = this.getSignedCentsAmountFromString(daughter.incoming, daughter.amountString)
       OperationService.addOperation(
         this.accountId,
         Time.getDayFromDateString(this.date),
@@ -447,8 +449,11 @@ export default defineComponent({
       this.amountString = Utils.centsToEurosDisplay(Math.abs(0))
       this.daughtersData = []
     },
-    getSignedCentsAmount (incoming: boolean, amountString: string): number {
+    getSignedCentsAmountFromString (incoming: boolean, amountString: string): number {
       const amount = this.computeStringToCents(amountString)
+      return getSignedCentsAmount(incoming, amount)
+    },
+    getSignedCentsAmount (incoming: boolean, amount: number): number {
       return (incoming) ? Math.abs(amount) : Math.abs(amount) * -1
     },
     computeStringToCents (amount: string): number {
