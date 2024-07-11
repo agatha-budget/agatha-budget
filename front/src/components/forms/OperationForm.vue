@@ -10,23 +10,11 @@
     <div class="formItem status"> <!-- Status -->
       <label class="label">{{ $t("STATUS") }}</label>
       <div>
-        <label class="customSwitch">
-            <input class="switch-input" type="checkbox" v-on:click="inversePending" v-model="isPending"/>
-            <span class="switch-label-pending"/>
-            <span class="switch-handle-pending"/>
-        </label>
-        <div v-if="isPending" class="textPending">
-          <div class="icon">
-            <button class="illustration btn fas fa-hourglass-half"/>
-          </div>
-          <div class="iconLabel">{{ $t("PENDING") }}</div>
-        </div>
-        <div v-else class="textPending">
-          <div class="icon">
-            <button class="illustration btn fas fa-calendar-check"/>
-          </div>
-          <div class="iconLabel">{{ $t("DEBITED") }}</div>
-        </div>
+      <label class="customSwitch pending">
+        <input class="switch-input" type="checkbox" v-model="isPending"/>
+        <span class="switch-label-pending" :data-on="$t('PENDING')" :data-off="$t('DEBITED')"/>
+        <span class="switch-handle-pending"/>
+      </label>
       </div>
     </div>
     <div v-if="daughtersData.length == 0" class="formItem category"> <!-- Envelope, not displayed if daughters -->
@@ -451,7 +439,7 @@ export default defineComponent({
     },
     getSignedCentsAmountFromString (incoming: boolean, amountString: string): number {
       const amount = this.computeStringToCents(amountString)
-      return getSignedCentsAmount(incoming, amount)
+      return this.getSignedCentsAmount(incoming, amount)
     },
     getSignedCentsAmount (incoming: boolean, amount: number): number {
       return (incoming) ? Math.abs(amount) : Math.abs(amount) * -1
