@@ -32,3 +32,5 @@ doc/.jekyll-cache/
 doc/.jekyll-metadata
 doc/.bundle/
 doc/vendor/
+
+doc/node_modules/
