@@ -25,7 +25,7 @@
               <!-- Operation without daugther -->
               <div v-else-if="operation.daughters.length == 0"  v-on:click="setAsEditing(operation)" class="operationListItem operation">
                 <div class="date">{{ $d(getDayAsDate(operation.day), "day") }}</div>
-                <button class="illustration btn fas fa-pen action edit" :title="$t('EDIT')" />
+                <span class="illustration btn fas fa-pen action edit" :title="$t('EDIT')"></span>
                 <div class="category" :class="getClassDependingCategory(operation)">
                   {{ getCategoryById(operation.categoryId)?.name ?? $t("UNKNOWN_CATEGORY") }}
                 </div>

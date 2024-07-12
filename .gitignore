@@ -44,3 +44,5 @@ front/result
 back/deploy/nix-packages/result
 
 
+
+doc/node_modules/

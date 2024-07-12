@@ -10,6 +10,16 @@
 		}
 	}
 
+	&.pending {
+		width: 130px;
+		.switch-input:checked ~ .switch-handle {
+			left: 103px;
+		}
+		.switch-input:checked ~ .switch-handle-pending {
+			left: 103px;
+		}
+	}
+
 	position: relative;
 	display: block;
 	vertical-align: top;
@@ -47,6 +57,8 @@
 	}
 	.switch-label-pending {
 		background: @blackGrey;
+		color: @white;
+		text-transform: lowercase;
 	}
 	.switch-label:before, .switch-label:after, .switch-label-pending:after, .switch-label-pending:before {
 		position: absolute;

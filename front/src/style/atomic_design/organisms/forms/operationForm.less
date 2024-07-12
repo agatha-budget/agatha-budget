@@ -12,15 +12,17 @@
     "addDaughter addDaughter"
     "actions actions"
   ;
+  grid-template-columns: 1fr 1fr;
 
   &.withDaugtherDisplay {
     grid-template-areas: 
     "close close"
     "date status"
-    "amount amount"
+    "amount empty"
     "memo memo"
     "daughters daughters"
     "addDaughter addDaughter"
+    "daughterChecker daughterChecker"
     "actions actions"
   ;
   }
@@ -44,24 +46,6 @@
       grid-template-columns: 60px auto;
       .customSwitch {
         grid-area: switch;
-      }
-      .textPending {
-        grid-area: pending;
-        display: grid;
-        grid-template-areas: "icon text";
-        grid-template-columns: 30px auto;
-        .icon {
-          justify-self: left;
-          grid-area: icon;
-          .illustration { 
-            padding: 0;
-          }
-        }
-        .iconLabel {
-          justify-self: center;
-          grid-area: text;
-          align-self: center;
-        }
       }
     }
   }
@@ -108,14 +92,22 @@
     grid-area: addDaughter;
     justify-self: center;
   }
+
+  .daughterChecker {
+    grid-area: daughterChecker ;
+    justify-self: center;
+    p {text-align: center;}
+  }
+
   .formAction {
     grid-area: actions;
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
 
-
-
+  .formItem {
+    grid-template-columns: 120px 1fr;
+  }
 }
 
 
@@ -145,6 +137,7 @@
       "memo"
       "daughters"
       "addDaughter"
+      "daughterChecker"
       "actions"
     ;
     }
