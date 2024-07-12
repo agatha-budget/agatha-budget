@@ -8,8 +8,8 @@ description: Understanding how Agatha create its docker image
 As a nix user myself, I wanted to create a deployment sytem that could be derived both as a nix package (my end goal for personal use) and as a set of docker images (for production use). 
 Being used to working in a reproducible environment with a nix-shell but aware that Docker was the industry standard, I did some research on the complementarity of both tools. 
 
-- Docker insures a consistant runtime environment. Once the image is built, you're good to go. But if you need to rebuild it, you don't have any guarantee you will be able to recreate it.
-- Nix on the other hand ensure a reproducible build. No matter when you retrieve the source, if you rebuilt it you will have the exact same result.
+- Docker ensures a consistant runtime environment. Once the image is built, you're good to go. But if you need to rebuild it, you don't have any guarantee you will be able to recreate it.
+- Nix on the other hand ensures a reproducible build. No matter when you retrieve the source, if you rebuilt it you will have the exact same result.
 
 Is Docker still relevant then ? (was it worth it for me to learn it ? was my main question at first)
 Docker has a formidable deployment ecosystem that ensure you can easily deploy your application anywhere. Moreover, most developer are used to using it and will be glad to keep a familiar setup 
@@ -23,7 +23,7 @@ Docker has a formidable deployment ecosystem that ensure you can easily deploy y
 There seems to be multiple approach, one where you start from your raw code source (see Gradle2Nix) and one where you start with the jar. 
 I decided to keep it simple for now and went with the jar option.
 
-```nix title="deploy/nix-packages/back.nix"
+```nix title="back/deploy/back.nix"
 let
   pkgs = import <nixpkgs> {};
 in
@@ -33,7 +33,7 @@ in
 stdenv ? pkgs.stdenv,
 fetchurl ? pkgs.fetchurl,
 makeWrapper ? pkgs.makeWrapper,
-jre ? pkgs.temurin-jre-bin-17
+jre ? pkgs.temurin-jre-bin-17,
 }:
 
 # Create a derivation (aka, recipe to create the package)
@@ -41,24 +41,27 @@ stdenv.mkDerivation rec {
   name = "agatha-back";
   version = "2.4";
 
-  # the src file/folder will be accessible in your package
-  src = ../../build/libs/tresorier-backend-uber.jar; 
-  dontUnpack = true;
+  # the src files/folders will be accessible in the install Phase of your package
+  src = [
+    ../build/libs/tresorier-backend-uber.jar
+    ../src/main/resources/db/pg
+  ];
+  dontUnpack = true; 
 
   nativeBuildInputs = [ makeWrapper ];
 
-  # the cp put the jar /share/java 
+  # the cp put the jar and migrations in /share/agatha  
   # the makeWrapper define a /bin/agatha-back executable
   # that will run the jar with the given options 
   installPhase = ''
-  mkdir -pv $out/share/java $out/bin
-  cp ${src} $out/share/java/${name}-${version}.jar
-
-  makeWrapper ${jre}/bin/java $out/bin/agatha-back \
-    --add-flags "-Dlogback.configurationFile=logback.xml" \
-    --add-flags "-jar $out/share/java/${name}-${version}.jar" \
-    --set _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on' \
-    --set _JAVA_AWT_WM_NONREPARENTING 1
+    mkdir -pv $out/share/agatha $out/bin
+    cp $src[0] $out/share/agatha/${name}-${version}.jar
+    cp $src[1] $out/share/agatha/migrations 
+    makeWrapper ${jre}/bin/java $out/bin/agatha-back \
+      --add-flags "-Dlogback.configurationFile=logback.xml" \
+      --add-flags "-jar $out/share/agatha/${name}-${version}.jar" \
+      --set _JAVA_OPTIONS '-Dawt.useSystemAAFontSettings=on' \
+      --set _JAVA_AWT_WM_NONREPARENTING 1
   '';
 }
 ```
@@ -73,10 +76,10 @@ nix-build back.nix
 <summary>See the console output</summary>
 
 ```sh 
-[erica@xiangu:~/_Agatha/code/app/back/deploy/nix-packages]$ nix-build back.nix
+[erica@xiangu:~/_Agatha/code/app/back/deploy]$ nix-build back.nix 
 this derivation will be built:
-  /nix/store/r3mm6cwws2w07gn6v56c3nxgac3ihw5i-agatha-back.drv
-building '/nix/store/r3mm6cwws2w07gn6v56c3nxgac3ihw5i-agatha-back.drv'...
+  /nix/store/aklgkqvn80v6c8iglwyk3chc25l89rrs-agatha-back.drv
+building '/nix/store/aklgkqvn80v6c8iglwyk3chc25l89rrs-agatha-back.drv'...
 Running phase: patchPhase
 Running phase: updateAutotoolsGnuConfigScriptsPhase
 Running phase: configurePhase
@@ -84,16 +87,16 @@ no configure script, doing nothing
 Running phase: buildPhase
 no Makefile or custom buildPhase, doing nothing
 Running phase: installPhase
-mkdir: created directory '/nix/store/q47aidmp4akf08ipmqr7xxyd5gdc8kdq-agatha-back'
-mkdir: created directory '/nix/store/q47aidmp4akf08ipmqr7xxyd5gdc8kdq-agatha-back/share'
-mkdir: created directory '/nix/store/q47aidmp4akf08ipmqr7xxyd5gdc8kdq-agatha-back/share/java'
-mkdir: created directory '/nix/store/q47aidmp4akf08ipmqr7xxyd5gdc8kdq-agatha-back/bin'
+mkdir: created directory '/nix/store/nl3215hyl2bnyfsgbwsjryfg682dym1a-agatha-back'
+mkdir: created directory '/nix/store/nl3215hyl2bnyfsgbwsjryfg682dym1a-agatha-back/share'
+mkdir: created directory '/nix/store/nl3215hyl2bnyfsgbwsjryfg682dym1a-agatha-back/share/agatha'
+mkdir: created directory '/nix/store/nl3215hyl2bnyfsgbwsjryfg682dym1a-agatha-back/bin'
 Running phase: fixupPhase
-shrinking RPATHs of ELF executables and libraries in /nix/store/q47aidmp4akf08ipmqr7xxyd5gdc8kdq-agatha-back
-checking for references to /build/ in /nix/store/q47aidmp4akf08ipmqr7xxyd5gdc8kdq-agatha-back...
-patching script interpreter paths in /nix/store/q47aidmp4akf08ipmqr7xxyd5gdc8kdq-agatha-back
-stripping (with command strip and flags -S -p) in  /nix/store/q47aidmp4akf08ipmqr7xxyd5gdc8kdq-agatha-back/bin
-/nix/store/q47aidmp4akf08ipmqr7xxyd5gdc8kdq-agatha-back
+shrinking RPATHs of ELF executables and libraries in /nix/store/nl3215hyl2bnyfsgbwsjryfg682dym1a-agatha-back
+checking for references to /build/ in /nix/store/nl3215hyl2bnyfsgbwsjryfg682dym1a-agatha-back...
+patching script interpreter paths in /nix/store/nl3215hyl2bnyfsgbwsjryfg682dym1a-agatha-back
+stripping (with command strip and flags -S -p) in  /nix/store/nl3215hyl2bnyfsgbwsjryfg682dym1a-agatha-back/bin
+/nix/store/nl3215hyl2bnyfsgbwsjryfg682dym1a-agatha-back
 ```
 
 </details>
@@ -115,38 +118,130 @@ and here we are, my package is running !
 
 #### 2) Creating a docker image
 
-Again, there are multiple ways to do it.
+I now want to wrap my package in a docker container. Again, there are multiple ways to do it.
 
-You could go with a classic Dockerfile but I wanted to experiment with a full nix option (besides, I had read that [Nix is a better Docker image builder than Docker's image builder, by Xe](https://xeiaso.net/talks/2024/nix-docker-build/))
+You could go with a classic Dockerfile but I wanted to experiment with a full nix option (besides, I had read that [Nix is a better Docker image builder than Docker's image builder, by Xe](https://xeiaso.net/talks/2024/nix-docker-build/) which made me want to try)
 
 It isn't well referenced but my main source of information was the official [nixpkgs documentation for DockerTools](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-dockerTools)
 
 So here we are :
 
-```nix title="deploy/docker-images/back-docker.nix"
-# Import all the required library and only those. 
+```nix title="back/deploy/back-docker.nix"
+# Define all the required libraries and give a default value for each
 { 
   pkgs ? import <nixpkgs> { system = builtins.currentSystem; },
   dockerTools ? pkgs.dockerTools,
-  agatha-back  ? pkgs.callPackage ../nix-packages/back.nix { }, 
-  agatha-migrations ? pkgs.callPackage ../nix-packages/migrations.nix { },
+  agatha-back  ? pkgs.callPackage ./back.nix { },
   flyway ? pkgs.flyway,
-  bash ? pkgs.bash, # needed to run a double command
+  bash ? pkgs.bash,
 }:
 dockerTools.buildLayeredImage {
   name = "agatha-back-image";
   tag = "latest";
 
-  contents = [ agatha-back agatha-migrations flyway bash];
+  contents = [ agatha-back flyway bash];
 
   extraCommands = ''
     mkdir -p home
   '';
 
   config = { 
-    ## this commands needs to mounted file : flyway.conf and gradle.properties. see docker-compose
+    ## this commands needs to mounted file : flyway.conf and gradle.properties. see root/deploy/compose.yaml
     Cmd = [ "/bin/bash" "-c" "/bin/flyway -configFiles=/home/flyway.conf migrate && /bin/agatha-back" ];
     WorkingDir = "/home";
   };
 }
+```
+
+You can now build the image and load it 
+
+```sh
+nix-build deploy/back-docker.nix 
+docker load < result
+```
+
+
+
+### B) Creating a Docker image for the database
+
+*(optional, you could just use any database)*
+
+
+```nix title="back/deploy/db-docker.nix"
+{ 
+  pkgs ? import <nixpkgs> { system = builtins.currentSystem; },
+  dockerTools ? pkgs.dockerTools,
+}:
+dockerTools.pullImage {
+  imageName = "postgres";
+  imageDigest = "sha256:afcb675cf038e3fc006fe515d407a79dc8e1f829f671dd25b176a8d823be1e7c"; # found in the image page just under the title : https://hub.docker.com/layers/library/postgres/13.15/images/sha256-c07edc26368f1c68093cc9247cc8daa38199e7a78a4fcc2879eef533388ef22c?context=explore
+  finalImageName = "agatha-db-image";
+  finalImageTag = "latest";
+  # start by setting any value to the sha256 string, after the first build, you will receive the signature of the 
+  sha256 = "sha256-+wzNtWHS+ZwpKCVJZSNE5gVxzErgBOB1LOSesggVTA0=";
+}
+```
+
+Again, build the image and load it 
+
+```sh
+nix-build deploy/db-docker.nix 
+docker load < result
+```
+
+### C) Creating a Docker image for my Vue front-end
+
+#### 1) Creating a nix package
+
+```nix title="front/deploy/front.nix"
+let
+  pkgs = import <nixpkgs> {};
+in
+
+{
+stdenv ? pkgs.stdenv,
+}:
+
+stdenv.mkDerivation rec {
+  name = "agatha-front";
+  version = "2.4";
+
+  src = ../dist;
+
+  nativeBuildInputs = [ ];
+  buildInputs = [ ];
+
+  installPhase = ''
+    mkdir -p $out/share
+    cp -a . $out/share/agatha-front
+  '';
+}
+```
+
+As before, I went with the easy route of just wrapping the build project inside a nix package
+
+#### 2) Creating a docker image
+
+
+
+```nix title="front/deploy/front-docker.nix"
+{ 
+  pkgs ? import <nixpkgs> { system = builtins.currentSystem; },
+  dockerTools ? pkgs.dockerTools,
+  agatha-front  ? pkgs.callPackage ./front.nix { },
+  http-server ? pkgs.http-server
+}:
+dockerTools.buildLayeredImage {
+  name = "agatha-front-image";
+  tag = "latest";
+
+  contents = [ agatha-front http-server];
+
+  config = {
+    # I used a really simple http-server here, I will configure a nginx outside of the whole docker setup
+    Cmd = [ "/bin/http-server" "/share/agatha-front" "-p" "5173" ];
+  };
+}
+
+
 ```

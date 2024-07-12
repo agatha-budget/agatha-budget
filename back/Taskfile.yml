@@ -42,7 +42,8 @@ tasks:
       - nix-build deploy/back.nix
   build_docker_img:
     cmds:
-      - nix-build deploy/docker-images/back-docker.nix 
+      - nix-shell --pure --command "task jar"
+      - nix-build deploy/back-docker.nix 
       - docker load < result
-      - nix-build deploy/docker-images/db-docker.nix
+      - nix-build deploy/db-docker.nix
       - docker load < result
