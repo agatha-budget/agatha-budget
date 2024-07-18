@@ -42,6 +42,7 @@ stdenv.mkDerivation rec {
   version = "2.4";
 
   # the src files/folders will be accessible in the install Phase of your package
+  # here, I took the jar and the associated database migration folder 
   src = [
     ../build/libs/tresorier-backend-uber.jar
     ../src/main/resources/db/pg
@@ -146,7 +147,8 @@ dockerTools.buildLayeredImage {
   '';
 
   config = { 
-    ## this commands needs to mounted file : flyway.conf and gradle.properties. see root/deploy/compose.yaml
+    ## this commands runs first the migrations on the database, then the jar
+    ## for easier configuration, both flyway.conf and gradle.properties will be shared with the container later on
     Cmd = [ "/bin/bash" "-c" "/bin/flyway -configFiles=/home/flyway.conf migrate && /bin/agatha-back" ];
     WorkingDir = "/home";
   };
@@ -198,8 +200,11 @@ let
   pkgs = import <nixpkgs> {};
 in
 
-{
-stdenv ? pkgs.stdenv,
+{would take a small hatchback 6 days of doing the same journey every day to damage the road as much as one journey in a small suv.
+# can be overridden with `yourPackage.override { enableSomething = true; }`
+  stdenv ? pkgs.stdenv,
+  makeWrapper ? pkgs.makeWrapper,
+  http-server ? pkgs.http-server
 }:
 
 stdenv.mkDerivation rec {
@@ -208,40 +213,164 @@ stdenv.mkDerivation rec {
 
   src = ../dist;
 
-  nativeBuildInputs = [ ];
+  nativeBuildInputs = [ makeWrapper];
   buildInputs = [ ];
 
+  # the makeWrapper define a /bin/agatha-front executable
+  # that will serve the /share/agatha-front on port 5273 with a simple http-server 
   installPhase = ''
     mkdir -p $out/share
     cp -a . $out/share/agatha-front
+    makeWrapper ${http-server}/bin/http-server $out/bin/agatha-front \
+      --add-flags "$out/share/agatha-front" \
+      --add-flags "-p" \
+      --add-flags "5173"
   '';
 }
 ```
 
 As before, I went with the easy route of just wrapping the build project inside a nix package
+Again, I can run it as a standalone : 
+
+```sh
+[erica@xiangu:~/_Agatha/code/app/front/deploy]$ nix-build front.nix 
+/nix/store/pzrgmp1ps9w1ciql3wwrnziw7704sql6-agatha-front
+
+[erica@xiangu:~/_Agatha/code/app/front/deploy]$ ./result/bin/agatha-front 
+Starting up http-server, serving /nix/store/pzrgmp1ps9w1ciql3wwrnziw7704sql6-agatha-front/share/agatha-front
+
+http-server version: 14.1.1
+
+http-server settings: 
+CORS: disabled
+Cache: 3600 seconds
+Connection Timeout: 120 seconds
+Directory Listings: visible
+AutoIndex: visible
+Serve GZIP Files: false
+Serve Brotli Files: false
+Default File Extension: none
+
+Available on:
+  http://127.0.0.1:5173
+  http://192.168.1.65:5173
+Hit CTRL-C to stop the server
+```
+
 
 #### 2) Creating a docker image
-
-
 
 ```nix title="front/deploy/front-docker.nix"
 { 
   pkgs ? import <nixpkgs> { system = builtins.currentSystem; },
   dockerTools ? pkgs.dockerTools,
   agatha-front  ? pkgs.callPackage ./front.nix { },
-  http-server ? pkgs.http-server
 }:
 dockerTools.buildLayeredImage {
   name = "agatha-front-image";
   tag = "latest";
 
-  contents = [ agatha-front http-server];
+  contents = [ agatha-front];
 
   config = {
-    # I used a really simple http-server here, I will configure a nginx outside of the whole docker setup
-    Cmd = [ "/bin/http-server" "/share/agatha-front" "-p" "5173" ];
+    Cmd = [ "/bin/agatha-front" ];
   };
 }
-
-
 ```
+
+The docker container only needs to run the command and bim we're done
+
+```sh
+nix-build deploy/front-docker.nix 
+docker load < result
+```
+
+### D) Running them all together
+
+I then use docker-compose to start them all so that they can communicate with each other
+
+```yaml title="deploy/compose.yaml"
+services:
+  agatha-db:
+    image: agatha-db-image:latest
+    environment:
+      POSTGRES_PASSWORD: agatha-db-password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: docker_agatha_db
+    ports:
+      - 4321:5432    #HOST:CONTAINER
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+
+  agatha-back:
+    image: agatha-back-image:latest
+    ports:
+      - 8000:8000
+    volumes:
+      - type: bind
+        source: gradle.properties
+        target: /home/gradle.properties
+      - type: bind
+        source: flyway.conf
+        target: /home/flyway.conf
+    depends_on:
+      - agatha-db
+
+  agatha-front:
+    image: agatha-front-image:latest
+    ports:
+      - 5173:5173
+    depends_on:
+      - agatha-back
+```
+
+Note on the port, I opened a port to each container to allow independant access, but a member of the same network create by docker compose, they can adress each other trough any port using their name as the host (ex: agatha-db:5432, agatha-back:8000)
+
+For example, the configuration file used by the backend to contact the database is like so :
+
+```conf title="flyway.conf"
+flyway.driver=org.postgresql.Driver
+flyway.url=jdbc:postgresql://agatha-db:5432/docker_agatha_db <- 
+flyway.user=postgres
+flyway.password=agatha-db-password
+flyway.locations=filesystem:/share/agatha-migrations
+```
+
+Note I call the original port 5432, used by the service, not 4321 wich is the redirection I gave it in the docker compose
+
+I now run :
+
+```sh
+docker compose up -d
+```
+
+and can see the result using [lazydocker](https://github.com/jesseduffield/lazydocker) :
+
+![screenshot of the lazy docker utility](./assets/lazydocker.png)
+
+
+### E) Final note
+
+Everything is working smoothly and once I found the relevant tools, the code seems quite straight forward to improve and maintain.
+I used [dive](https://github.com/wagoodman/dive) to check on the images efficiency :
+
+- agatha-back : 
+  - Total Image size: 1.8GB  <= why java ??
+  - Potential wasted space: 0 B 
+  - Image efficiency score: 100 %
+
+- agatha-front :
+  - Total Image size: 173 MB
+  - Potential wasted space: 0 B
+  - Image efficiency score: 100 %  
+
+- agatha-db : 
+  - Total Image size: 419 MB
+  - Potential wasted space: 8.3 MB 
+  - Image efficiency score: 98 %  <= ironically the official image is the one with wasted space
+
+I woudl like to improve it a bit in the future : 
+- reduce the size of the java image (maybe by using a smaller jre)
+- take the migration process out of the docker image and in the nix package itself
+
+but still, **Mission accomplished**.
