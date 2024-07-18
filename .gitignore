@@ -9,15 +9,16 @@
 
 ## FRONT
 front/node_modules
-front/dist
 front/npm-debug.log*
 front/yarn-debug.log*
 front/yarn-error.log*
 front/pnpm-debug.log*
+front/.vite/
 
 ## BACKEND
 back/.gradle
-back/build/
+back/build/*
+!back/build/libs/
 back/db/
 back/logs/
 back/local.properties
@@ -25,12 +26,10 @@ back/logback.xml
 back/gradle.properties
 
 ## DOC
-
-doc/_site/
-doc/.sass-cache/
-doc/.jekyll-cache/
-doc/.jekyll-metadata
-doc/.bundle/
-doc/vendor/
-
 doc/node_modules/
+doc/.astro/
+doc/dist
+
+## DEPLOY 
+deploy/gradle.properties
+**/result

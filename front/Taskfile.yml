@@ -41,4 +41,11 @@ tasks:
     desc: serve front from scratch
     cmds:
       - nix-shell --pure --command "npm install | task serve"
+  build_nix_package:
+    cmds: 
+      - nix-build deploy/front.nix
+  build_docker_img:
+    cmds:
+      - nix-build deploy/front-docker.nix 
+      - docker load < result
   

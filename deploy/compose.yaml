@@ -1,0 +1,33 @@
+services:
+
+  agatha-db:
+    image: agatha-db-image:latest
+    environment:
+      POSTGRES_PASSWORD: agatha-db-password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: docker_agatha_db
+    ports:
+      - 4321:5432    #HOST:CONTAINER
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+
+  agatha-back:
+    image: agatha-back-image:latest
+    ports:
+      - 8000:8000
+    volumes:
+      - type: bind
+        source: gradle.properties
+        target: /home/gradle.properties
+      - type: bind
+        source: flyway.conf
+        target: /home/flyway.conf
+    depends_on:
+      - agatha-db
+
+  agatha-front:
+    image: agatha-front-image:latest
+    ports:
+      - 5173:5173
+    depends_on:
+      - agatha-back
