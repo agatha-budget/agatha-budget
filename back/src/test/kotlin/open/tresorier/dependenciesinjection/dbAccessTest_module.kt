@@ -17,8 +17,8 @@ object DBTestConfiguration {
 
     private val properties = Properties()
 
-    private val userName: String = properties.get(TEST_DB_USR)
-    private val password: String = properties.get(TEST_DB_PWD)
+    private val userName: String = properties.get(DB_USR)
+    private val password: String = properties.get(DB_PWD)
     private val url: String = properties.get(TEST_DB_URL)
 
     private val connection: Connection = DriverManager.getConnection(url, userName, password)
