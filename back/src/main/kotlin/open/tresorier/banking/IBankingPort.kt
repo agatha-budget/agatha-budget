@@ -12,4 +12,5 @@ interface IBankingPort {
     fun getBankAccountList(agreement: BankAgreement) : List<BankAccount>
     fun getOperations(account: Account, _from: Long? = null) : List<Operation>
     fun getAvailableBanks() : List<Bank>
+    fun getBankAccountBalance(id: String) : Int?
 }

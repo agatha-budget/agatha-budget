@@ -14,7 +14,7 @@ import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Account as JooqAccount
 
 
-class PgAccountDao(val configuration: Configuration) : IAccountDao {
+class PgAccountDao(val configuration: Configuration, ) : IAccountDao {
 
     private val generatedDao: AccountDao = AccountDao(configuration)
     private val query = DSL.using(configuration)
@@ -46,7 +46,7 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
 
     private val amountSum: Field<BigDecimal> = DSL.coalesce(DSL.sum(OPERATION.AMOUNT), 0.00.toBigDecimal()).`as`("sum")
 
-    override fun findByBudget(budget: Budget): List<AccountWithAmount> {
+    override fun findByBudget(budget: Budget): List<AccountWithMetadata> {
         val query = this.query
             .select(ACCOUNT.ID, ACCOUNT.NAME, ACCOUNT.BUDGET_ID, amountSum, ACCOUNT.ARCHIVED, ACCOUNT.BANK_ACCOUNT_ID, ACCOUNT.DELETED)
             .from(ACCOUNT)
@@ -56,9 +56,9 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
             .groupBy(ACCOUNT.ID)
             .orderBy(ACCOUNT.NAME)
         val jooqAccountList = query.fetch()
-        val accountList: MutableList<AccountWithAmount> = mutableListOf()
+        val accountList: MutableList<AccountWithMetadata> = mutableListOf()
         for (accountRecord in jooqAccountList) {
-            val account = this.toAccountWithAmount(accountRecord)
+            val account = this.toAccountWithMetadata(accountRecord)
             accountList.add(account)
         }
         return accountList
@@ -100,15 +100,16 @@ class PgAccountDao(val configuration: Configuration) : IAccountDao {
         )
     }
 
-    private fun toAccountWithAmount(jooqAccountWithAmount: Record7<String, String, String, BigDecimal, Boolean, String, Boolean>): AccountWithAmount {
-        return AccountWithAmount(
-            jooqAccountWithAmount.get(ACCOUNT.NAME),
-            jooqAccountWithAmount.get(ACCOUNT.BUDGET_ID),
-            jooqAccountWithAmount.get(amountSum).toInt(),
-            jooqAccountWithAmount.get(ACCOUNT.ARCHIVED),
-            jooqAccountWithAmount.get(ACCOUNT.BANK_ACCOUNT_ID),
-            jooqAccountWithAmount.get(ACCOUNT.ID),
-            jooqAccountWithAmount.get(ACCOUNT.DELETED)
+    private fun toAccountWithMetadata(jooqAccountWithMetadata: Record7<String, String, String, BigDecimal, Boolean, String, Boolean>): AccountWithMetadata {
+        return AccountWithMetadata(
+            jooqAccountWithMetadata.get(ACCOUNT.NAME),
+            jooqAccountWithMetadata.get(ACCOUNT.BUDGET_ID),
+            jooqAccountWithMetadata.get(amountSum).toInt(),
+            syncedUntil = 0,
+            jooqAccountWithMetadata.get(ACCOUNT.ARCHIVED),
+            jooqAccountWithMetadata.get(ACCOUNT.BANK_ACCOUNT_ID),
+            jooqAccountWithMetadata.get(ACCOUNT.ID),
+            jooqAccountWithMetadata.get(ACCOUNT.DELETED)
         )
     }
 }

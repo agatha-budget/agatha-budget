@@ -15,6 +15,7 @@ import open.tresorier.utils.HTTPConnection
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.*
 import open.tresorier.utils.Time
+import open.tresorier.exception.TresorierException
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -150,7 +151,10 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
     private fun createOperation(account: Account, pending: Boolean, nordigenOperation: JSONObject) : Operation {
         val date : String? = nordigenOperation.optString("bookingDate")
         val day : Day = date?.let {Day.createFromComparable(it.replace("-","").toInt())} ?: Day.today()
-        val amount = (nordigenOperation.getJSONObject("transactionAmount").getFloat("amount") * 100).toInt()
+        val bankAmount = nordigenOperation.getJSONObject("transactionAmount").getFloat("amount")
+        val centsAmount = (bankAmount * 100).toInt()
+        TresorierException("BANK ----- from $bankAmount to $centsAmount")
+        val amount = centsAmount
         val orderInDay = Time.now()
         val memo = nordigenOperation.optJSONArray("remittanceInformationUnstructuredArray")?.getString(0)
         val importIdentifier = day.toString() + "__" + amount + "__" + nordigenOperation.optString("entryReference") + "__" + account.id
@@ -187,6 +191,32 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
             bankList += bank
         }
         return bankList
+    }
+
+    override fun getBankAccountBalance(id: String) : Int? {
+        try {
+            val url = "https://ob.nordigen.com/api/v2/accounts/${id}/balances/"
+
+            val headerProperties = mapOf(
+                "Content-Type" to "application/json",
+                "Accept" to "application/json",
+                "User-Agent" to "Agatha/1.0",
+                "Authorization" to "Bearer ${this.getToken()}"
+            )
+
+            val connection = HTTPConnection.sendRequest("GET", url, headerProperties)
+
+            if (connection.responseCode !in HTTPConnection.validResponseCodes) {
+                throw BankingException("could not get account details for ${id} : ${connection.errorStream.reader().use { it.readText() }}")
+            }
+            val response = JSONObject(connection.inputStream.reader().use { it.readText() })
+            val bankAmount = (response.getJSONArray("balances")[0] as JSONObject).getJSONObject("balanceAmount").getFloat("amount")
+            val centsAmount = (bankAmount * 100).toInt()
+            return centsAmount
+        } catch (e: Exception) {
+            TresorierException("could not find balance for "+ id, e)
+            return null
+        }
     }
 
     private fun createBank(nordigenBank: JSONObject) : Bank {
