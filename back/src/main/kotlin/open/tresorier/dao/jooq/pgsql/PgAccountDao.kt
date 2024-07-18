@@ -14,7 +14,7 @@ import java.math.BigDecimal
 import open.tresorier.generated.jooq.main.tables.pojos.Account as JooqAccount
 
 
-class PgAccountDao(val configuration: Configuration, ) : IAccountDao {
+class PgAccountDao(val configuration: Configuration) : IAccountDao {
 
     private val generatedDao: AccountDao = AccountDao(configuration)
     private val query = DSL.using(configuration)
