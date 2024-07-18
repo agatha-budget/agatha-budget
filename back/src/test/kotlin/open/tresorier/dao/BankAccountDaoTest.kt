@@ -24,12 +24,12 @@ open class BankAccountDaoTest : ITest {
 
         val bankAgreement = BankAgreement(budget.id, "bankId", Time.now())
         this.bankAgreementDao.insert(bankAgreement)
-        val bankAccount = BankAccount("compte", bankAgreement.id)
+        val bankAccount = BankAccount("compte", bankAgreement.id, "id")
         this.bankAccountDao.insert(bankAccount)
 
         val oldAgreement = BankAgreement(budget.id, "bankId", TestData.oldTimestamp)
         this.bankAgreementDao.insert(oldAgreement)
-        val oldAccount = BankAccount("epargne", oldAgreement.id)
+        val oldAccount = BankAccount("epargne", oldAgreement.id, "")
         this.bankAccountDao.insert(oldAccount)
 
         val bankAccounts = bankAccountDao.findByBudget(budget)

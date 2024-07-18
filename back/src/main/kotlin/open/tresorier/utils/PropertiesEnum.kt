@@ -4,8 +4,6 @@ enum class PropertiesEnum {
     SERVER_PORT,
 
     TEST_DB_URL,
-    TEST_DB_USR,
-    TEST_DB_PWD,
 
     DB_URL,
     DB_USR,

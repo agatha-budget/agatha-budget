@@ -14,11 +14,11 @@ front/yarn-debug.log*
 front/yarn-error.log*
 front/pnpm-debug.log*
 front/.vite/
+front/dist/
 
 ## BACKEND
 back/.gradle
 back/build/*
-!back/build/libs/
 back/db/
 back/logs/
 back/local.properties

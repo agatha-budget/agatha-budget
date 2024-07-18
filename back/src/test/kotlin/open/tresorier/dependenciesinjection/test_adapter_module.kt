@@ -12,14 +12,15 @@ import org.koin.dsl.module
 val test_adapter_module = module {
     single<IMailingPort> { MockMailingAdapter() }
     single<IBankingPort> { MockBankingAdapter() }
-    single<IPersonDao> { PgPersonDao((get())) }
-    single<IBudgetDao> { PgBudgetDao((get())) }
-    single<IAccountDao> { PgAccountDao((get())) }
-    single<ICategoryDao> { PgCategoryDao((get())) }
-    single<IMasterCategoryDao> { PgMasterCategoryDao((get())) }
-    single<IOperationDao> { PgOperationDao((get())) }
+    single<IPersonDao> { PgPersonDao(get()) }
+    single<IBudgetDao> { PgBudgetDao(get()) }
+    single<IAccountDao> { PgAccountDao(get()) }
+    single<ICategoryDao> { PgCategoryDao(get()) }
+    single<IMasterCategoryDao> { PgMasterCategoryDao(get()) }
+    single<IOperationDao> { PgOperationDao(get()) }
     single<IAllocationDao> { PgAllocationDao(get()) }
     single<IUserActivityDao> { PgUserActivityDao(get()) }
-    single<IBankAgreementDao> { PgBankAgreementDao(get()) }
     single<IBankAccountDao> { PgBankAccountDao(get()) }
+    single<IBankAgreementDao> { PgBankAgreementDao(get()) }
 }
+

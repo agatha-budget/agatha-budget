@@ -80,7 +80,7 @@ public class BankAccount extends TableImpl<BankAccountRecord> {
     /**
      * The column <code>public.bank_account.bank_id</code>.
      */
-    public final TableField<BankAccountRecord, String> BANK_ID = createField(DSL.name("bank_id"), SQLDataType.VARCHAR(36).defaultValue(DSL.field(DSL.raw("NULL::character varying"), SQLDataType.VARCHAR)), this, "");
+    public final TableField<BankAccountRecord, String> BANK_ID = createField(DSL.name("bank_id"), SQLDataType.VARCHAR(36).nullable(false).defaultValue(DSL.field(DSL.raw("NULL::character varying"), SQLDataType.VARCHAR)), this, "");
 
     private BankAccount(Name alias, Table<BankAccountRecord> aliased) {
         this(alias, aliased, (Field<?>[]) null, null);

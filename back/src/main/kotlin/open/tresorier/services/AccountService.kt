@@ -4,6 +4,7 @@ import open.tresorier.dao.IAccountDao
 import open.tresorier.dao.IBankAccountDao
 import open.tresorier.model.*
 import open.tresorier.model.banking.BankAccount
+import open.tresorier.utils.Time
 
 
 class AccountService(private val accountDao: IAccountDao, 
@@ -51,8 +52,24 @@ class AccountService(private val accountDao: IAccountDao,
         return accountDao.update(account)
     }
 
-    fun findByBudget(person: Person, budget: Budget) : List<AccountWithAmount> {
+    fun findByBudget(person: Person, budget: Budget) : List<AccountWithMetadata> {
         authorizationService.cancelIfUserIsUnauthorized(person, budget)
-        return accountDao.findByBudget(budget)
+        var accountList = accountDao.findByBudget(budget)
+        accountList.forEach { 
+            it.syncedUntil = getSyncedUntil(it)
+        } 
+        return accountList
+    }
+    
+    // TODO move as part of the DAO process to improve performance
+    fun getSyncedUntil(account: AccountWithMetadata): Long {
+        val bankAccountId = account.bankAccountId
+        if ( bankAccountId != null) {
+            val bankAccount = bankAccountDao.getById(bankAccountId)
+            val bankAgreement = bankingService.getAgreementById(bankAccount.agreementId)
+            return Time.ninetyDaysLater(bankAgreement.timestamp)
+        } else {
+            return 0
+        }
     }
 }

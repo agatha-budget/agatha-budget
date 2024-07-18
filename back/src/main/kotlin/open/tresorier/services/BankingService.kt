@@ -39,7 +39,9 @@ class BankingService (
 
     fun findBankAccountByBudget(person: Person, budget: Budget) : List<PublicBankAccount>{
         this.authorizationService.cancelIfUserIsUnauthorized(person, budget)
-        return bankAccountDao.findByBudget(budget)
+        val bankAccounts = bankAccountDao.findByBudget(budget)
+        bankAccounts.forEach { it.balance = getBankAccountBalance(it.bankingId) } 
+        return bankAccounts
     }
 
     fun synchronise() {
@@ -90,6 +92,10 @@ class BankingService (
 
     fun getAgreementById(id: String) : BankAgreement {
         return this.bankAgreementDao.getById(id)
+    }
+
+    fun getBankAccountBalance(bankAccountBankId: String): Int? {
+        return this.bankingAdapter.getBankAccountBalance(bankAccountBankId)
     }
 
     fun getBankAccountById(person: Person, id: String) : BankAccount {
