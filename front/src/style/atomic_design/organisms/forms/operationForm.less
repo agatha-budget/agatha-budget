@@ -33,8 +33,6 @@
   }
   .date {
     grid-area: date;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
   }
   .status {
     grid-area: status;
@@ -51,13 +49,9 @@
   }
   .category {
     grid-area: category;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
   }
   .amount {
     grid-area: amount;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
   }
   .sumAmountElement {
     text-align: left;
@@ -65,7 +59,6 @@
   .memo {
     grid-area: memo;
     display: grid;
-    grid-template-columns: 1fr 6fr;
   }
   .daughters {
     grid-area: daughters;
@@ -106,13 +99,15 @@
   }
 
   .formItem {
-    grid-template-columns: 120px 1fr;
+    grid-template-columns: 100px 1fr;
   }
 }
 
 
 @media (max-width: 800px) {
   .operationForm {
+    grid-template-columns: 1fr;
+
     grid-template-areas:
       "close"
       "date"
@@ -123,10 +118,6 @@
       "addDaughter"
       "actions"
     ;
-
-    .memo {
-      grid-template-columns: 1fr 2fr;
-    }
 
     &.withDaugtherDisplay {
       grid-template-areas: 
