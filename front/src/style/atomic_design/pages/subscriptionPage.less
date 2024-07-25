@@ -1,28 +1,32 @@
 #subscriptionPage {
-    p {
-        margin: 10px auto;
-        padding: 10px;
-        max-width: 500px;
+    .centeredContent {
+        * {
+            width: 100%;
+        }
+    }
+    p, button {
         text-align: center;
     }
-    .content {
-        padding: 0;
-    }
-    .icon {
-        font-size: 34px;
-        color: @white;
-        padding-bottom: 5px;
-    }
-
-    .actionButton {
-        background: @background;
-        width: 40%;
-        justify-self: center;
-
-    }
-
-    div {
+    .offer {
         display: grid;
-        width: 100%;
+        grid-template-areas: 
+            "banner"
+            "action";
+        .actions {
+            justify-self: center;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            button {
+                max-width: 200px;
+                justify-self: center;
+            }
+        }
+        .action {
+            display: grid;
+            a {
+                max-width: 200px;
+                justify-self: center;
+            }
+        }
     }
 }
