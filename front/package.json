@@ -17,7 +17,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.5.2",
     "@vueform/multiselect": "^2.6.8",
-    "axios": "^1.7.2",
+    "axios": "^1.7.4",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3",
     "keycloak-js": "^25.0.1",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@babel/types": "^7.24.7",
-    "@openapitools/openapi-generator-cli": "^2.13.4",
+    "@openapitools/openapi-generator-cli": "^2.13.5",
     "@vite-pwa/assets-generator": "^0.2.4",
     "less": "^4.2.0",
     "typescript": "~5.5.3",
