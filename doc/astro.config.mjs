@@ -3,8 +3,8 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://agatha-budget.github.io',
-    base: '/agatha-budget',
+    site: 'https://doc.agatha-budget.fr',
+    base: '/',
     integrations: [
         starlight({
             title: 'Documentation',
