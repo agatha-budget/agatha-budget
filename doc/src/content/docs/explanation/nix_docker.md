@@ -1,5 +1,5 @@
 ---
-title: Creating docker images with nix
+title: Using Docker via Nix
 description: Understanding how Agatha create its docker image
 ---
 

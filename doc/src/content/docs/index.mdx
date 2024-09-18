@@ -1,14 +1,13 @@
 ---
-title: Welcome to Agatha's doc
-description: Discover how you can contribute to the project
+title: Welcome to </br> Agatha's doc
+description: Make it your own
 template: splash
 hero:
-  tagline: Discover how you can contribute to the project
   image:
     file: ../../assets/agadoc.webp
   actions:
-    - text: Example Guide
-      link: /agatha-budget/guides/example/
+    - text: How to contribute
+      link: /explanation/contribute/
       icon: right-arrow
       variant: primary
     - text: Find us on Github
@@ -18,19 +17,19 @@ hero:
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## See Also 
 
 <CardGrid stagger>
-    <Card title="How to self-host" icon="pencil">
-        Edit `src/content/docs/index.mdx` to see this page change.
+    <Card title="Run Agatha locally" icon="laptop">
+        follow our 4-steps-only [tutorial](/tutorial/dev_setup)
     </Card>
-    <Card title="Add new content" icon="add-document">
-        Add Markdown or MDX files to `src/content/docs` to create new pages.
+    <Card title="Deploy Agatha" icon="rocket">
+        check out our deployment [guide](/guide/deploy)
     </Card>
-    <Card title="Configure your site" icon="setting">
-        Edit your `sidebar` and other config in `astro.config.mjs`.
+    <Card title="Discover our user's guide" icon="open-book">
+        learn how to get the best out of Agatha : [french only](https://agatha-budget.fr) (for now)
     </Card>
-    <Card title="Read the docs" icon="open-book">
-        Learn more in [the Starlight Docs](https://starlight.astro.build/).
+    <Card title="Explore our doc" icon="magnifier">
+        discover all [our guides and tutorial](/explanation/doc)
     </Card>
 </CardGrid>

@@ -3,7 +3,9 @@ title: Deployment Guide
 description: A guide to self-host
 ---
 
-You can deploy Agatha either nix or Docker 
+[Work in progress]
+
+You can deploy Agatha using either nix or Docker 
 
 ## Further reading
 

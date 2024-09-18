@@ -25,6 +25,25 @@ export default defineConfig({
             social: {
                 github: 'https://github.com/agatha-budget/agatha-budget',
             },
+            sidebar: [
+                {
+                    label: 'Getting started',
+                    autogenerate: { directory: 'tutorial' },
+
+                },
+                {
+                    label: 'How to..',
+                    autogenerate: { directory: 'guides' },
+                },
+                {
+                    label: 'Let\'s talk about... ',
+                    autogenerate: { directory: 'explanation' },
+                },
+                {
+                    label: 'Reference',
+                    autogenerate: { directory: 'reference' },
+                },
+            ],
         }),
     ],
 });
