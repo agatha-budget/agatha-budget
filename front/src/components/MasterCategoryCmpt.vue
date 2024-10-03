@@ -21,7 +21,7 @@
         <tr v-else class="categoryBudget">
           <td class="col-6 name">
             <div>
-              <span>{{ category.name }}</span>
+              <span>{{ category.name }}</span> <!-- @TODO : change this to a button -->
             </div>
           </td>
           <td class="col-2">
@@ -34,7 +34,7 @@
               </div>
             </td>
             <td class="col-2 spent">
-                {{ centsToEurosDisplay(categoryDataList[category.id]?.spent ?? "") }}
+                {{ centsToEurosDisplay(categoryDataList[category.id]?.spent ?? "") }} <!-- @TODO : change this to a button -->
             </td>
             <td class="col-2 available">
               <span v-if="categoryDataList[category.id] && categoryDataList[category.id].available != 0" :class="categoryDataList[category.id]?.available < 0 ? 'negative' : ''">

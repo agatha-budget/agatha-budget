@@ -1,0 +1,12 @@
+Sortir 'operationList' avec sa partie filtre
+Rajouter la operation list dans account page
+
+Ajouter en paramètre le mois et le filtre dans l'appel à operationList (ajouter les paramètre en optionnel)
+changer les appel correspondant
+
+Créer une page AllAccounts
+    Comme un account pas de liens d'ajout
+
+mettre en place le boutton avec son lien
+    récupération des valeurs
+rajouter tous les comptes à la liste des comptes
