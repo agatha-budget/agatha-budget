@@ -16,7 +16,7 @@ ps aux | grep postgres  to find the pid
 kill pid_number
 
 
-*how often* : 5
+*how often* : 7
 
 --------------
 ## Adress already in use, Is another postmaster already runnin on port 5432 ?
