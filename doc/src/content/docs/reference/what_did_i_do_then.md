@@ -1,4 +1,27 @@
-## postmaster.pid does not exist
+---
+title: What did I do then ? 
+description: A bug diary. What happened ? Why and how did I solve it. Taking the time to formalize what was learned from the mistake and prevent spending time on the same thing later
+---
+
+### keycloak admin running in cercle
+
+*how long* : 
+
+*what happened* : 
+can't start postgres
+
+*why* :
+already run somewhere else
+
+*what did i do to fix it* :
+
+https://github.com/keycloak/keycloak/issues/33835
+
+*how often* : 2
+
+--------------
+
+### postmaster.pid does not exist
 *how long* : 1h
 
 *what happened* : impossible to access database when starting nix-shell
@@ -19,7 +42,7 @@ kill pid_number
 *how often* : 7
 
 --------------
-## Adress already in use, Is another postmaster already runnin on port 5432 ?
+### Adress already in use, Is another postmaster already runnin on port 5432 ?
 
 *how long* : 
 
@@ -40,7 +63,7 @@ already run somewhere else
 *how often* : 2
 
 --------------
-## Stripe webhook doesn't call the API
+### Stripe webhook doesn't call the API
 
 *how long* : 1h
 
@@ -56,7 +79,7 @@ stripe listen --forward-to localhost:7000/webhook
 *how often* : 2
 
 --------------
-## migration is skipping 
+### migration is skipping 
 
 *how long* : 20min
 
@@ -69,7 +92,7 @@ stripe listen --forward-to localhost:7000/webhook
 *how often* : 1
 
 --------------
-## ‘compileKotlin’ task (current target is 1.8)
+### ‘compileKotlin’ task (current target is 1.8)
 
 *how long* : 3h
 
@@ -83,7 +106,7 @@ https://ittutoria.net/solutions-for-error-compilejava-task-current-target-is-11-
 *how often* :
 
 --------------
-## expected "identifier"; SQL statement:
+### expected "identifier"; SQL statement:
 
 *how long* : 3h
 
@@ -96,7 +119,7 @@ https://ittutoria.net/solutions-for-error-compilejava-task-current-target-is-11-
 *how often* :
 
 --------------
-## Option CORS Failed for Authentication
+### Option CORS Failed for Authentication
 
 *how long* : days....
 
@@ -121,7 +144,7 @@ read read and read the doc and stack overflow
 *how often* :hopefully never again
 
 --------------
-## TRANSFERT DES UTILISATEURS
+### TRANSFERT DES UTILISATEURS
 
 *how long* :
 
@@ -146,7 +169,7 @@ COMMIT;
 *how often* :
 
 --------------
-## Prolongation periode d'essai
+### Prolongation periode d'essai
 
 *how long* :
 
@@ -162,7 +185,7 @@ update person set creation_date=1709219196000 where email='email';
 *how often* :
 
 --------------
-## L'agreement est créé mais la liste des comptes pas récupérée
+### L'agreement est créé mais la liste des comptes pas récupérée
 
 *how long* : 10min
 
@@ -177,7 +200,7 @@ Hacking d'une requete avec l'option resend des dev tools pour envoyer une requet
 *how often* :
 
 --------------
-## CORS Missing Allow Origin NS_ERROR_DOM_BAD_URI
+### CORS Missing Allow Origin NS_ERROR_DOM_BAD_URI
 
 *how long* : 10min
 
