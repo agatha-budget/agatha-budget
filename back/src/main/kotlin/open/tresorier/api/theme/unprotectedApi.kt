@@ -4,6 +4,8 @@ import io.javalin.Javalin
 import open.tresorier.exception.TresorierException
 import open.tresorier.utils.Properties
 import open.tresorier.utils.PropertiesEnum.ENVIRONMENT
+import open.tresorier.dependenciesinjection.ServiceManager
+
 
 fun addUnprotectedRoute(app : Javalin, properties: Properties) : Javalin {
 
@@ -21,6 +23,8 @@ fun addUnprotectedRoute(app : Javalin, properties: Properties) : Javalin {
     }
 
     app.get("/ping") { ctx ->
+        var pinguId = "a7898f2c-70c7-411c-82a9-bb7c55a9c9e5"
+        ServiceManager.personService.getById(pinguId)
         ctx.result(properties.get(ENVIRONMENT))
     }
 
