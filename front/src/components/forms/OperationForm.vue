@@ -311,12 +311,13 @@ export default defineComponent({
       }
       this.$emit('closeForm')
     },
-    addDaughter () {
+    addDaughter (amount? : string) {
+      let amountString = (typeof amount === 'string') ? amount! : '0'
       this.daughtersData.push(
         {
           id: '',
           incoming: false,
-          amountString: '0',
+          amountString: amountString,
           categoryId: undefined,
           memo: undefined
         }
