@@ -182,5 +182,6 @@
     "NEED_REMOVE": "Il faut enlever",
     "NEED_ADD": "Il faut ajouter",
     "CLICK_VALIDATE_TO_UPDATE": "Clique sur valider pour remplacer l'ancien montant",
-    "GOOD_REPARTITION": "Le compte est bon !"
+    "GOOD_REPARTITION": "Le compte est bon !",
+    "DO_IT_AUTOMATICALLY": "Le faire automatiquement"
 }

@@ -15,6 +15,9 @@
         {{centsToSignedEurosDisplay(remaining)}} €
       </span>
       </p>
+      <p>
+        <button  class="actionButton add" v-on:click="addDaughter">{{ $t('DO_IT_AUTOMATICALLY') }}</button>
+      </p>
       <p class="subtext"> {{ $t("CLICK_VALIDATE_TO_UPDATE") }}</p>
     </div>
   </div>
@@ -36,6 +39,7 @@ export default defineComponent({
       required: true
     }
   },
+  emits: ['addDaughter'],
   computed: {
     done (): boolean {
       return this.toShare === this.shared
@@ -62,6 +66,9 @@ export default defineComponent({
         return 'negative'
       }
     },
+    addDaughter(){
+      this.$emit('addDaughter', this.remaining)
+    }
   }
 })
 </script>
