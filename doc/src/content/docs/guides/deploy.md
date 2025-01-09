@@ -1,11 +1,11 @@
 ---
-title: Deployment Guide
+title: Self-host
 description: A guide to self-host
 ---
 
 This documentation is intended to deploy Agatha on a Nixos server with a keycloak and both a beta and a default instances (to be honest it's my recipe to be able to reinstall everything in case of trouble)
 
-The documentation will be improved to better adress the needs of self-hoster with ready to use nixos packages and redirection toward the Agatha Identity provider rather than having to install your own. Make yourself known so I can prioritize it accordingly. 
+The documentation will be improved to better adress the needs of an everyday self-hoster with ready to use nixos packages and redirection toward the Agatha Identity provider rather than having to install your own. Make yourself known so I can prioritize it accordingly. 
 
 /!\ This requires an understanding of Nixos as you will need to edit the OS configuration file
 
@@ -47,7 +47,7 @@ su erica
 - clone the agatha deploy repo
 
 ```sh
-cd ~ 
+cd /home/erica/deploy/ 
 git clone git@github.com:agatha-budget/deploy.git
 git config --global user.email "erica@agatha-budget.fr"
 git config --global user.name "Erica - Server name"
@@ -61,7 +61,7 @@ see [Github documentation](https://docs.github.com/en/authentication/connecting-
 - Add the server configuration to your repo to version it 
 
 ```sh
-cd /var/deploy/
+cd /home/erica/deploy/
 
 
 ## retrieve the server configuration file to version them
@@ -159,11 +159,25 @@ sudo mkdir /var/www/beta
 task update
 ```
 
-## import backups from keycloak 
+
+
+# Let's save the day 
+
+## import backup
 
 ```sh
-psql -h database.clvrcld.net -p 1234 -U name-of-the-user -d name-of-the-database
+pg_restore -h database.host.net -p 1234 -U name-of-the-user -d name-of-the-database -c database_backup
 ```
+
+## change the database 
+
+- keycloak
+    - update the configuration.nix file
+    - update the db_password file in the server config
+
+- agatha 
+    - update the gradle.properties
+    - update the flyway.conf
 
 ## Further reading
 

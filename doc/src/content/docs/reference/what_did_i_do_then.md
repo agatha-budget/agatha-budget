@@ -1,7 +1,14 @@
 ---
 title: What did I do then ? 
-description: A bug diary. What happened ? Why and how did I solve it. Taking the time to formalize what was learned from the mistake and prevent spending time on the same thing later
 ---
+
+The project bug diary. 
+
+What happened ? Why and how did I solve it. 
+
+Taking the time to formalize what was learned from the mistake and prevent spending time on the same thing later
+
+----------
 
 ### keycloak admin running in cercle
 
