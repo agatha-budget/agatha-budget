@@ -4,18 +4,8 @@
       {{ $t("GOOD_REPARTITION") }}
     </div>
     <div v-else class="container warning">
-      <p>
-      {{ $t("TOTAL_DAUGHTER_SHOULD_BE") }}
-      <span class="spot" :class="getClassDependingOnAmount(toShare)">
-        {{ signedEurosDisplay(toShare) }} €
-      </span>      
-      &nbsp;{{ $t("BUT_IS") }}
-      <span class="spot" :class="getClassDependingOnAmount(shared)">
-        {{ signedEurosDisplay(shared) }} €
-      </span>
-      </p>
-      <p v-if=tooMuchShared>{{ $t("NEED_REMOVE") }}&nbsp;{{centsToEurosDisplay(shared-toShare)}} €</p>
-      <p v-else>{{ $t("NEED_ADD") }}&nbsp;{{centsToEurosDisplay(toShare-shared)}} €</p>
+      <p v-if=tooMuchShared>{{ $t("NEED_REMOVE") }}&nbsp;{{centsToSignedEurosDisplay(shared-toShare)}} €</p>
+      <p v-else>{{ $t("NEED_ADD") }}&nbsp;{{centsToSignedEurosDisplay(toShare-shared)}} €</p>
       <p class="subtext"> {{ $t("CLICK_VALIDATE_TO_UPDATE") }}</p>
     </div>
   </div>
@@ -49,7 +39,7 @@ export default defineComponent({
     centsToEurosDisplay (amount: number): string {
       return Utils.centsToEurosDisplay(amount)
     },
-    signedEurosDisplay(amount: number) : string {
+    centsToSignedEurosDisplay(amount: number) : string {
       let amoutString = Utils.centsToEurosDisplay(amount)
       return (amount > 0) ? "+" + amoutString : amoutString
     },
