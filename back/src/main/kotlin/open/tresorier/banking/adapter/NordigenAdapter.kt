@@ -24,7 +24,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
     override fun getLinkForUserAgreement(budget: Budget, bankId: String) : String {
         val properties = Properties()
         val successUrl = properties.get(NORDIGEN_SUCCESS_URL)
-        val url = "https://ob.nordigen.com/api/v2/requisitions/"
+        val url = "https://bankaccountdata.gocardless.com/api/v2/requisitions/"
         val bankAgreement = BankAgreement(budget.id, bankId)
 
         val headerProperties = mapOf(
@@ -54,7 +54,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
     }
 
     override fun getBankAccountList(agreement: BankAgreement) : List<BankAccount> {
-        val url = "https://ob.nordigen.com/api/v2/requisitions/${agreement.nordigenRequisitionId}/"
+        val url = "https://bankaccountdata.gocardless.com/api/v2/requisitions/${agreement.nordigenRequisitionId}/"
 
         val headerProperties = mapOf(
             "Content-Type" to "application/json",
@@ -81,7 +81,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
     }
 
     private fun getAccountName(id: String) : String {
-        val url = "https://ob.nordigen.com/api/v2/accounts/${id}/details/"
+        val url = "https://bankaccountdata.gocardless.com/api/v2/accounts/${id}/details/"
 
         val headerProperties = mapOf(
             "Content-Type" to "application/json",
@@ -111,7 +111,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
 
             // date format is 2022-07-07
             val from = if (_from != null) Time.getDateStringFromTimestamp(_from) else "2022-01-01"
-            val url = "https://ob.nordigen.com/api/v2/accounts/${bankAccount.bankId}/transactions/?date_from=${from}"
+            val url = "https://bankaccountdata.gocardless.com/api/v2/accounts/${bankAccount.bankId}/transactions/?date_from=${from}"
 
             val headerProperties = mapOf(
                 "Content-Type" to "application/json",
@@ -166,7 +166,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
 
     override fun getAvailableBanks() : List<Bank> {
 
-        val url = "https://ob.nordigen.com/api/v2/institutions/?country=fr"
+        val url = "https://bankaccountdata.gocardless.com/api/v2/institutions/?country=fr"
 
         val headerProperties = mapOf(
             "Content-Type" to "application/json",
@@ -195,7 +195,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
 
     override fun getBankAccountBalance(id: String) : Int? {
         try {
-            val url = "https://ob.nordigen.com/api/v2/accounts/${id}/balances/"
+            val url = "https://bankaccountdata.gocardless.com/api/v2/accounts/${id}/balances/"
 
             val headerProperties = mapOf(
                 "Content-Type" to "application/json",
@@ -229,7 +229,7 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
     fun getToken() : String {
         val properties = Properties()
 
-        val url = "https://ob.nordigen.com/api/v2/token/new/"
+        val url = "https://bankaccountdata.gocardless.com/api/v2/token/new/"
 
         val headerProperties = mapOf(
             "Content-Type" to "application/json",
