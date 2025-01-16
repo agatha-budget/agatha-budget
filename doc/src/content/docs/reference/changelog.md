@@ -20,4 +20,3 @@ Better text and a button to automatically create a enveloppe with the required a
 It was so deliciously easy to be back on the dev ground, I look forward to the next feature (should be the handling of accents)
 
 
-
