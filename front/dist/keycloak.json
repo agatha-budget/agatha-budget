@@ -1,8 +1,0 @@
-{
-    "realm": "agatha",
-    "auth-server-url": "https://user.agatha-budget.fr",
-    "ssl-required": "external",
-    "resource": "agatha-front",
-    "public-client": true,
-    "confidential-port": 0
-  }

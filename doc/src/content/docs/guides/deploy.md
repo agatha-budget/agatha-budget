@@ -165,9 +165,15 @@ task update
 
 ## import backup
 
+- create a new database from scratch
+- import the backup
+
 ```sh
 pg_restore -h database.host.net -p 1234 -U name-of-the-user -d name-of-the-database -c database_backup
 ```
+- then, see "change the database" section
+
+/!\ Warning ! Do not import the data in the current database. This is likely to create a migration conflict between the current structure and the former data
 
 ## change the database 
 
@@ -176,8 +182,18 @@ pg_restore -h database.host.net -p 1234 -U name-of-the-user -d name-of-the-datab
     - update the db_password file in the server config
 
 - agatha 
-    - update the gradle.properties
-    - update the flyway.conf
+    - update the gradle.properties int the server config
+    - update the flyway.conf in the server config
+
+## change the url 
+
+if you want to change the url you will have to update  :
+
+- the gradle.properties files the server config
+- the configuration.nix file
+- when building the front : 
+    - app/front/scripts/set_beta_properties.sh
+    - app/front/scripts/set_prod_properties.sh
 
 ## Further reading
 
