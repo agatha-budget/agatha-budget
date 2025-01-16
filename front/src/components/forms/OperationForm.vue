@@ -106,7 +106,11 @@
       <button v-if="daughtersData.length == 0" class="actionButton" v-on:click="addDaughter">{{ $t('CREATE_DAUGTHERS') }}</button>
       <button v-else class="actionButton" v-on:click="addDaughter">{{ $t('ADD_NEW_DAUGHTER') }}</button>
     </div>
-    <DaughterRepartitionChecker class="daughterChecker" v-if="operation && hasDaughters" :toShare="getSignedCentsAmount(incoming, operation.amount)" :shared="signedCentsDaughterSumAmount"/>
+    <DaughterRepartitionChecker class="daughterChecker" v-if="operation && hasDaughters" 
+      :toShare="getSignedCentsAmount(incoming, operation.amount)" 
+      :shared="signedCentsDaughterSumAmount"
+      @addDaughter="addDaughter"  
+    />
     <div class="formAction" :class={withEditDisplay} v-if="operation"> <!-- Update/Delete Action -->
       <div>
         <button class="actionButton add" v-on:click="updateOperation(operation)" :title="$t('UPDATE')">{{ $t('SUBMIT') }}</button>
@@ -137,6 +141,7 @@ import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
 import Multiselect from '@vueform/multiselect'
 import { defineComponent } from 'vue'
+import { numberLiteralTypeAnnotation } from '@babel/types'
 
 interface DaughterFormData {
   id: string;
@@ -311,12 +316,15 @@ export default defineComponent({
       }
       this.$emit('closeForm')
     },
-    addDaughter () {
+    addDaughter (_amount? : number) {
+      let amount = (typeof _amount === 'number') ? _amount! : 0
+      let incoming = amount > 0
+      let amountString = String(Math.abs(amount) / 100)
       this.daughtersData.push(
         {
           id: '',
-          incoming: false,
-          amountString: '0',
+          incoming: incoming,
+          amountString: amountString,
           categoryId: undefined,
           memo: undefined
         }

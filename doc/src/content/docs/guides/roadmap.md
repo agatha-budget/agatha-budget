@@ -8,4 +8,4 @@ Our roadmap is designed according to :
 
 You can check it out on our [Github Dashboard](https://github.com/orgs/agatha-budget/projects/1)
 
-You can make suggestions by creating issues still on our [github](https://github.com/agatha-budget/agatha-budget) or by contacting me directly
+You can make suggestions by creating issues still on our [github](https://github.com/agatha-budget/agatha-budget/issues/new) or by contacting me directly

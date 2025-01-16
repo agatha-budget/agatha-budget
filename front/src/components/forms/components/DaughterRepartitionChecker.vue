@@ -5,17 +5,19 @@
     </div>
     <div v-else class="container warning">
       <p>
-      {{ $t("TOTAL_DAUGHTER_SHOULD_BE") }}
-      <span class="spot" :class="getClassDependingOnAmount(toShare)">
-        {{ signedEurosDisplay(toShare) }} €
-      </span>      
-      &nbsp;{{ $t("BUT_IS") }}
-      <span class="spot" :class="getClassDependingOnAmount(shared)">
-        {{ signedEurosDisplay(shared) }} €
+      <span v-if=tooMuchShared>
+        {{ $t("NEED_REMOVE") }}
+      </span>
+      <span v-else>
+        {{ $t("NEED_ADD") }}
+      </span>
+      &nbsp;<span class="spot" :class="getClassDependingOnAmount(remaining)">
+        {{centsToSignedEurosDisplay(remaining)}} €
       </span>
       </p>
-      <p v-if=tooMuchShared>{{ $t("NEED_REMOVE") }}&nbsp;{{centsToEurosDisplay(shared-toShare)}} €</p>
-      <p v-else>{{ $t("NEED_ADD") }}&nbsp;{{centsToEurosDisplay(toShare-shared)}} €</p>
+      <p>
+        <button  class="actionButton add" v-on:click="addDaughter">{{ $t('DO_IT_AUTOMATICALLY') }}</button>
+      </p>
       <p class="subtext"> {{ $t("CLICK_VALIDATE_TO_UPDATE") }}</p>
     </div>
   </div>
@@ -37,6 +39,7 @@ export default defineComponent({
       required: true
     }
   },
+  emits: ['addDaughter'],
   computed: {
     done (): boolean {
       return this.toShare === this.shared
@@ -44,12 +47,15 @@ export default defineComponent({
     tooMuchShared (): boolean {
       return this.toShare < this.shared
     },
+    remaining(): number {
+      return this.toShare - this.shared
+    }
   },
   methods: {
     centsToEurosDisplay (amount: number): string {
       return Utils.centsToEurosDisplay(amount)
     },
-    signedEurosDisplay(amount: number) : string {
+    centsToSignedEurosDisplay(amount: number) : string {
       let amoutString = Utils.centsToEurosDisplay(amount)
       return (amount > 0) ? "+" + amoutString : amoutString
     },
@@ -60,6 +66,9 @@ export default defineComponent({
         return 'negative'
       }
     },
+    addDaughter(){
+      this.$emit('addDaughter', this.remaining)
+    }
   }
 })
 </script>
