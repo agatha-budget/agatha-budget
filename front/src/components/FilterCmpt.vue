@@ -9,6 +9,7 @@
         v-model="categoryId"
         :groups="true"
         :searchable="true"
+        :strict="false"
         :options="categories"
         :noResultsText="$t('NO_RESULT_FOUND')"
         :placeholder="$t('CHOOSE')"
