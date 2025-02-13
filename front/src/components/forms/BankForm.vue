@@ -12,6 +12,7 @@
       v-model="selectedBankId"
       :groups="false"
       :searchable="true"
+      :strict="false"
       :options="bankOptions"
       :noResultsText="$t('NO_RESULT_FOUND')"
       :placeholder="$t('SELECT_BANK')"
