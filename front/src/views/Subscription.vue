@@ -37,7 +37,7 @@
                 <div class="title">{{ $t('SOLIDARITY') }}</div>
               </div>
               <p>{{ $t('TEXT_FOR_USER') }}, {{ $t('PLEASE_CONTACT_US') }}</p>
-              <a href="mailto:votreadresse@mail.fr" class="btn actionButton">{{ $t('PRICE_MONTHLY_SOLIDARITY') }}</a>
+              <a href="mailto:erica@agatha-budget.fr" class="btn actionButton">{{ $t('PRICE_MONTHLY_SOLIDARITY') }}</a>
             </div>
             <div class="solidarity">
               <div class="banner">
@@ -47,8 +47,8 @@
             </div>
             <p>{{ $t('TEXT_PERSONAL_SUPPORT') }}</p>
             <p>{{ $t('PLEASE_CONTACT_US_AND_RDV') }}</p>
-            <a href="mailto:votreadresse@mail.fr" class="btn actionButton">{{ $t('PRICE_COACHING_1H') }}</a>
-            <a href="mailto:votreadresse@mail.fr" class="btn actionButton">{{ $t('PRICE_COACHING_5H') }}</a>
+            <a href="mailto:erica@agatha-budget.fr" class="btn actionButton">{{ $t('PRICE_COACHING_1H') }}</a>
+            <a href="mailto:erica@agatha-budget.fr" class="btn actionButton">{{ $t('PRICE_COACHING_5H') }}</a>
           </div>
           <button class="actionButton" v-if="hasBillingId" v-on:click="changePage">{{ $t('MANAGE_SUBSCRIPTION') }}</button>
         </div>
@@ -112,9 +112,6 @@ export default defineComponent({
   methods: {
     async goToBillingPortal (selectedPackage: string): Promise<void> {
       PersonService.redirectToBillingPortalUrl(selectedPackage)
-    },
-    goToContactPage () {
-      window.location.href = 'https://agatha-budget.fr/contact/'
     },
     async getInformation () {
       PersonService.manageSubscription()
