@@ -124,7 +124,7 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> {
         setName(name);
         setDeleted(deleted);
         setProfile(profile);
-        resetChangedOnNotNull();
+        resetTouchedOnNotNull();
     }
 
     /**
@@ -139,7 +139,7 @@ public class BudgetRecord extends UpdatableRecordImpl<BudgetRecord> {
             setName(value.getName());
             setDeleted(value.getDeleted());
             setProfile(value.getProfile());
-            resetChangedOnNotNull();
+            resetTouchedOnNotNull();
         }
     }
 }

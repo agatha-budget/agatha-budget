@@ -104,36 +104,6 @@ public class Account implements Serializable {
         }
         else if (!this.id.equals(other.id))
             return false;
-        if (this.budgetId == null) {
-            if (other.budgetId != null)
-                return false;
-        }
-        else if (!this.budgetId.equals(other.budgetId))
-            return false;
-        if (this.name == null) {
-            if (other.name != null)
-                return false;
-        }
-        else if (!this.name.equals(other.name))
-            return false;
-        if (this.archived == null) {
-            if (other.archived != null)
-                return false;
-        }
-        else if (!this.archived.equals(other.archived))
-            return false;
-        if (this.deleted == null) {
-            if (other.deleted != null)
-                return false;
-        }
-        else if (!this.deleted.equals(other.deleted))
-            return false;
-        if (this.bankAccountId == null) {
-            if (other.bankAccountId != null)
-                return false;
-        }
-        else if (!this.bankAccountId.equals(other.bankAccountId))
-            return false;
         return true;
     }
 
@@ -142,11 +112,6 @@ public class Account implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        result = prime * result + ((this.budgetId == null) ? 0 : this.budgetId.hashCode());
-        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-        result = prime * result + ((this.archived == null) ? 0 : this.archived.hashCode());
-        result = prime * result + ((this.deleted == null) ? 0 : this.deleted.hashCode());
-        result = prime * result + ((this.bankAccountId == null) ? 0 : this.bankAccountId.hashCode());
         return result;
     }
 

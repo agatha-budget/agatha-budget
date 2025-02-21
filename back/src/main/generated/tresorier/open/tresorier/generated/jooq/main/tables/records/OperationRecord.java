@@ -252,7 +252,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> {
         setMotherOperationId(motherOperationId);
         setImportIdentifier(importIdentifier);
         setImportTimestamp(importTimestamp);
-        resetChangedOnNotNull();
+        resetTouchedOnNotNull();
     }
 
     /**
@@ -275,7 +275,7 @@ public class OperationRecord extends UpdatableRecordImpl<OperationRecord> {
             setMotherOperationId(value.getMotherOperationId());
             setImportIdentifier(value.getImportIdentifier());
             setImportTimestamp(value.getImportTimestamp());
-            resetChangedOnNotNull();
+            resetTouchedOnNotNull();
         }
     }
 }

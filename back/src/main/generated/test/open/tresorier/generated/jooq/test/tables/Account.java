@@ -162,19 +162,7 @@ public class Account extends TableImpl<AccountRecord> {
 
     @Override
     public List<ForeignKey<AccountRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY, Keys.ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY);
-    }
-
-    private transient BudgetPath _budget;
-
-    /**
-     * Get the implicit join path to the <code>public.budget</code> table.
-     */
-    public BudgetPath budget() {
-        if (_budget == null)
-            _budget = new BudgetPath(this, Keys.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY, null);
-
-        return _budget;
+        return Arrays.asList(Keys.ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY, Keys.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY);
     }
 
     private transient BankAccountPath _bankAccount;
@@ -187,6 +175,18 @@ public class Account extends TableImpl<AccountRecord> {
             _bankAccount = new BankAccountPath(this, Keys.ACCOUNT__ACCOUNT_BANK_ACCOUNT_ID_FKEY, null);
 
         return _bankAccount;
+    }
+
+    private transient BudgetPath _budget;
+
+    /**
+     * Get the implicit join path to the <code>public.budget</code> table.
+     */
+    public BudgetPath budget() {
+        if (_budget == null)
+            _budget = new BudgetPath(this, Keys.ACCOUNT__ACCOUNT_BUDGET_ID_FKEY, null);
+
+        return _budget;
     }
 
     private transient OperationPath _operation;

@@ -108,7 +108,7 @@ public class UserActivityRecord extends UpdatableRecordImpl<UserActivityRecord> 
         setUserId(userId);
         setDate(date);
         setAction(action);
-        resetChangedOnNotNull();
+        resetTouchedOnNotNull();
     }
 
     /**
@@ -122,7 +122,7 @@ public class UserActivityRecord extends UpdatableRecordImpl<UserActivityRecord> 
             setUserId(value.getUserId());
             setDate(value.getDate());
             setAction(value.getAction());
-            resetChangedOnNotNull();
+            resetTouchedOnNotNull();
         }
     }
 }

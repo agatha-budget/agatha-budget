@@ -190,7 +190,7 @@ public class Person extends TableImpl<PersonRecord> {
 
     @Override
     public List<UniqueKey<PersonRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.PERSON_EMAIL_KEY, Keys.PERSON_BILLING_ID_KEY);
+        return Arrays.asList(Keys.PERSON_BILLING_ID_KEY, Keys.PERSON_EMAIL_KEY);
     }
 
     private transient BudgetPath _budget;

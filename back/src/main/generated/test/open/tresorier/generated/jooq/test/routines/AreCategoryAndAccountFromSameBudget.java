@@ -9,6 +9,7 @@ import open.tresorier.generated.jooq.test.Public;
 import org.jooq.Field;
 import org.jooq.Parameter;
 import org.jooq.impl.AbstractRoutine;
+import org.jooq.impl.DSL;
 import org.jooq.impl.Internal;
 import org.jooq.impl.SQLDataType;
 
@@ -43,7 +44,7 @@ public class AreCategoryAndAccountFromSameBudget extends AbstractRoutine<Boolean
      * Create a new routine call instance
      */
     public AreCategoryAndAccountFromSameBudget() {
-        super("are_category_and_account_from_same_budget", Public.PUBLIC, SQLDataType.BOOLEAN);
+        super("are_category_and_account_from_same_budget", Public.PUBLIC, DSL.comment(""), SQLDataType.BOOLEAN);
 
         setReturnParameter(RETURN_VALUE);
         addInParameter(_CATEGORY_ID);

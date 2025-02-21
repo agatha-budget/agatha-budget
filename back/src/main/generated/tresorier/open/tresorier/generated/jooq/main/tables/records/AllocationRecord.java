@@ -92,7 +92,7 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> {
         setCategoryId(categoryId);
         setMonth(month);
         setAmount(amount);
-        resetChangedOnNotNull();
+        resetTouchedOnNotNull();
     }
 
     /**
@@ -105,7 +105,7 @@ public class AllocationRecord extends UpdatableRecordImpl<AllocationRecord> {
             setCategoryId(value.getCategoryId());
             setMonth(value.getMonth());
             setAmount(value.getAmount());
-            resetChangedOnNotNull();
+            resetTouchedOnNotNull();
         }
     }
 }

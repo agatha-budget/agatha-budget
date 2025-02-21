@@ -93,30 +93,6 @@ public class Budget implements Serializable {
         }
         else if (!this.id.equals(other.id))
             return false;
-        if (this.personId == null) {
-            if (other.personId != null)
-                return false;
-        }
-        else if (!this.personId.equals(other.personId))
-            return false;
-        if (this.name == null) {
-            if (other.name != null)
-                return false;
-        }
-        else if (!this.name.equals(other.name))
-            return false;
-        if (this.deleted == null) {
-            if (other.deleted != null)
-                return false;
-        }
-        else if (!this.deleted.equals(other.deleted))
-            return false;
-        if (this.profile == null) {
-            if (other.profile != null)
-                return false;
-        }
-        else if (!this.profile.equals(other.profile))
-            return false;
         return true;
     }
 
@@ -125,10 +101,6 @@ public class Budget implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        result = prime * result + ((this.personId == null) ? 0 : this.personId.hashCode());
-        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-        result = prime * result + ((this.deleted == null) ? 0 : this.deleted.hashCode());
-        result = prime * result + ((this.profile == null) ? 0 : this.profile.hashCode());
         return result;
     }
 

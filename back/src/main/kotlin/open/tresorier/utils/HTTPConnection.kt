@@ -3,13 +3,13 @@ package open.tresorier.utils
 import org.json.JSONObject
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
-import java.net.URL
+import java.net.URI
 
 object HTTPConnection {
 
     fun sendRequest(type: String, url: String, headerProperties: Map<String, String>, bodyProperties: Map<String, Any>? = null) : HttpURLConnection {
         // HEADER
-        val connection = URL(url).openConnection() as HttpURLConnection
+        val connection = URI(url).toURL().openConnection() as HttpURLConnection
 		connection.requestMethod = type
         headerProperties.forEach{ k, v -> connection.setRequestProperty(k, v)}
         connection.doInput = true;

@@ -170,72 +170,6 @@ public class Person implements Serializable {
         }
         else if (!this.id.equals(other.id))
             return false;
-        if (this.email == null) {
-            if (other.email != null)
-                return false;
-        }
-        else if (!this.email.equals(other.email))
-            return false;
-        if (this.name == null) {
-            if (other.name != null)
-                return false;
-        }
-        else if (!this.name.equals(other.name))
-            return false;
-        if (this.password == null) {
-            if (other.password != null)
-                return false;
-        }
-        else if (!this.password.equals(other.password))
-            return false;
-        if (this.unlockingdate == null) {
-            if (other.unlockingdate != null)
-                return false;
-        }
-        else if (!this.unlockingdate.equals(other.unlockingdate))
-            return false;
-        if (this.loginattemptcount == null) {
-            if (other.loginattemptcount != null)
-                return false;
-        }
-        else if (!this.loginattemptcount.equals(other.loginattemptcount))
-            return false;
-        if (this.deleted == null) {
-            if (other.deleted != null)
-                return false;
-        }
-        else if (!this.deleted.equals(other.deleted))
-            return false;
-        if (this.billingId == null) {
-            if (other.billingId != null)
-                return false;
-        }
-        else if (!this.billingId.equals(other.billingId))
-            return false;
-        if (this.billingStatus == null) {
-            if (other.billingStatus != null)
-                return false;
-        }
-        else if (!this.billingStatus.equals(other.billingStatus))
-            return false;
-        if (this.creationDate == null) {
-            if (other.creationDate != null)
-                return false;
-        }
-        else if (!this.creationDate.equals(other.creationDate))
-            return false;
-        if (this.style == null) {
-            if (other.style != null)
-                return false;
-        }
-        else if (!this.style.equals(other.style))
-            return false;
-        if (this.dyslexia == null) {
-            if (other.dyslexia != null)
-                return false;
-        }
-        else if (!this.dyslexia.equals(other.dyslexia))
-            return false;
         return true;
     }
 
@@ -244,17 +178,6 @@ public class Person implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        result = prime * result + ((this.email == null) ? 0 : this.email.hashCode());
-        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-        result = prime * result + ((this.password == null) ? 0 : this.password.hashCode());
-        result = prime * result + ((this.unlockingdate == null) ? 0 : this.unlockingdate.hashCode());
-        result = prime * result + ((this.loginattemptcount == null) ? 0 : this.loginattemptcount.hashCode());
-        result = prime * result + ((this.deleted == null) ? 0 : this.deleted.hashCode());
-        result = prime * result + ((this.billingId == null) ? 0 : this.billingId.hashCode());
-        result = prime * result + ((this.billingStatus == null) ? 0 : this.billingStatus.hashCode());
-        result = prime * result + ((this.creationDate == null) ? 0 : this.creationDate.hashCode());
-        result = prime * result + ((this.style == null) ? 0 : this.style.hashCode());
-        result = prime * result + ((this.dyslexia == null) ? 0 : this.dyslexia.hashCode());
         return result;
     }
 

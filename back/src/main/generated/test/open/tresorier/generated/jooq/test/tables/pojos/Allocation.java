@@ -77,12 +77,6 @@ public class Allocation implements Serializable {
         }
         else if (!this.month.equals(other.month))
             return false;
-        if (this.amount == null) {
-            if (other.amount != null)
-                return false;
-        }
-        else if (!this.amount.equals(other.amount))
-            return false;
         return true;
     }
 
@@ -92,7 +86,6 @@ public class Allocation implements Serializable {
         int result = 1;
         result = prime * result + ((this.categoryId == null) ? 0 : this.categoryId.hashCode());
         result = prime * result + ((this.month == null) ? 0 : this.month.hashCode());
-        result = prime * result + ((this.amount == null) ? 0 : this.amount.hashCode());
         return result;
     }
 

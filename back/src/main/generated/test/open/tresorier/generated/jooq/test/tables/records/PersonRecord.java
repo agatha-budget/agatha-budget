@@ -236,7 +236,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> {
         setCreationDate(creationDate);
         setStyle(style);
         setDyslexia(dyslexia);
-        resetChangedOnNotNull();
+        resetTouchedOnNotNull();
     }
 
     /**
@@ -258,7 +258,7 @@ public class PersonRecord extends UpdatableRecordImpl<PersonRecord> {
             setCreationDate(value.getCreationDate());
             setStyle(value.getStyle());
             setDyslexia(value.getDyslexia());
-            resetChangedOnNotNull();
+            resetTouchedOnNotNull();
         }
     }
 }

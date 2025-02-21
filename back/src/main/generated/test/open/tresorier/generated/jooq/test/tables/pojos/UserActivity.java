@@ -82,24 +82,6 @@ public class UserActivity implements Serializable {
         }
         else if (!this.id.equals(other.id))
             return false;
-        if (this.userId == null) {
-            if (other.userId != null)
-                return false;
-        }
-        else if (!this.userId.equals(other.userId))
-            return false;
-        if (this.date == null) {
-            if (other.date != null)
-                return false;
-        }
-        else if (!this.date.equals(other.date))
-            return false;
-        if (this.action == null) {
-            if (other.action != null)
-                return false;
-        }
-        else if (!this.action.equals(other.action))
-            return false;
         return true;
     }
 
@@ -108,9 +90,6 @@ public class UserActivity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
-        result = prime * result + ((this.date == null) ? 0 : this.date.hashCode());
-        result = prime * result + ((this.action == null) ? 0 : this.action.hashCode());
         return result;
     }
 

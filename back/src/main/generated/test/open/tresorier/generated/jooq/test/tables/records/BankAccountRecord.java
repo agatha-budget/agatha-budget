@@ -124,7 +124,7 @@ public class BankAccountRecord extends UpdatableRecordImpl<BankAccountRecord> {
         setAgreementId(agreementId);
         setDeleted(deleted);
         setBankId(bankId);
-        resetChangedOnNotNull();
+        resetTouchedOnNotNull();
     }
 
     /**
@@ -139,7 +139,7 @@ public class BankAccountRecord extends UpdatableRecordImpl<BankAccountRecord> {
             setAgreementId(value.getAgreementId());
             setDeleted(value.getDeleted());
             setBankId(value.getBankId());
-            resetChangedOnNotNull();
+            resetTouchedOnNotNull();
         }
     }
 }

@@ -10,31 +10,31 @@ val DB_VERSION: String by project
 val TEST_DB_URL: String by project
 
 // Lib Versions
-val kotlin_version="1.9.24" // mai 2024 - when updated also change kotlin("jvm")
-val koin_version= "3.5.6" // avril 2024
-val junit_version="5.10.3" // juin 2024
-val postgres_version="42.7.3" // mars 2024
-val flywaydb_version="10.15.2" // juillet 2024 - update in plugin too
-val jooq_version="3.19.10" //juin 2024 - update in plugin too
-val mock_version="1.13.11" //mai 2024
-val logback_version="1.5.6" // avril 2024
-val javalin_version="6.1.6" // mai 2024
-val jackson_version="2.17.1" // mai 2024
-val stripe_version="26.1.0" // juin 2024 
-val json_version="20240303" // mars 2024
-val jjwt_version="0.12.3"
+val kotlin_version="2.1.10" // jan 2025 - when updated also change kotlin("jvm")
+val koin_version= "4.0.2" // jan 2025
+val junit_version="5.11.4" // dec 2024
+val postgres_version="42.7.5" // jan 2025
+val flywaydb_version="11.3.3" // juillet 2024 - update in plugin too
+val jooq_version="3.20.0" // fev 2025 - update in plugin too
+val mock_version="1.13.16" //jan 2025
+val logback_version="1.5.16" // jan 2025
+val javalin_version="6.4.0" // dec 2024
+val jackson_version="2.18.2" // nov 2024
+val stripe_version="28.3.1" // fevrier 2025 
+val json_version="20250107" // jan 2025
+val jjwt_version="0.12.6" // jun 2024
 
 
 buildscript {
     dependencies {
-        classpath("org.flywaydb:flyway-database-postgresql:10.15.2") // cf flywaydb
+        classpath("org.flywaydb:flyway-database-postgresql:11.3.3") // cf flywaydb
     }
 }
 
 plugins {
-    kotlin("jvm") version "1.9.24" // cf kotlin_version
-    id("org.flywaydb.flyway") version "10.15.2" // cf flywaydb
-    id("org.jooq.jooq-codegen-gradle") version "3.19.10" // cf jooq version
+    kotlin("jvm") version "2.1.10" // cf kotlin_version
+    id("org.flywaydb.flyway") version "11.3.3" // cf flywaydb
+    id("org.jooq.jooq-codegen-gradle") version "3.20.0" // cf jooq version
     jacoco
     application
 }
