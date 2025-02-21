@@ -131,8 +131,9 @@ class NordigenAdapter(private val bankAgreementDao: IBankAgreementDao, private v
             var nordigenOperations = response.getJSONObject("transactions").getJSONArray("booked")
             operationList = createOperations(account, nordigenOperations, operationList, false)
 
-            nordigenOperations = response.getJSONObject("transactions").getJSONArray("pending")
-            operationList = createOperations(account, nordigenOperations, operationList, true)
+            // Ignore Pending Operation for Now (TODO - Remove once confirmed)
+            // nordigenOperations = response.getJSONObject("transactions").getJSONArray("pending")
+            // operationList = createOperations(account, nordigenOperations, operationList, true)
 
             return operationList
         }
