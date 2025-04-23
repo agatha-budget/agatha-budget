@@ -25,7 +25,7 @@
     "pinia": "^2.1.7",
     "vue": "^3.4.31",
     "vue-chartjs": "^5.3.1",
-    "vue-i18n": "^9.13.1",
+    "vue-i18n": "^9.14.2",
     "vue-router": "^4.4.0"
   },
   "devDependencies": {
