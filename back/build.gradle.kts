@@ -13,7 +13,7 @@ val TEST_DB_URL: String by project
 val kotlin_version="2.3.20" // mar 2026 - when updated also change kotlin("jvm")
 val koin_version= "4.2.0" // mar 2026
 val junit_version="5.11.4" // dec 2024
-val postgres_version="42.7.5" // jan 2025
+val postgres_version="42.7.10" // feb 2026
 val flywaydb_version="11.3.3" // juillet 2024 - update in plugin too
 val jooq_version="3.20.0" // fev 2025 - update in plugin too
 val mock_version="1.13.16" //jan 2025
