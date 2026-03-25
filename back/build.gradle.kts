@@ -11,7 +11,7 @@ val TEST_DB_URL: String by project
 
 // Lib Versions (see https://mvnrepository.com/search?q=flywaydb)
 val kotlin_version="2.3.20" // mar 2026 - when updated also change kotlin("jvm")
-val koin_version= "4.0.2" // jan 2025
+val koin_version= "4.2.0" // mar 2026
 val junit_version="5.11.4" // dec 2024
 val postgres_version="42.7.5" // jan 2025
 val flywaydb_version="11.3.3" // juillet 2024 - update in plugin too
