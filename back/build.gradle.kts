@@ -9,8 +9,8 @@ val DB_VERSION: String by project
 
 val TEST_DB_URL: String by project
 
-// Lib Versions
-val kotlin_version="2.1.10" // jan 2025 - when updated also change kotlin("jvm")
+// Lib Versions (see https://mvnrepository.com/search?q=flywaydb)
+val kotlin_version="2.3.20" // mar 2026 - when updated also change kotlin("jvm")
 val koin_version= "4.0.2" // jan 2025
 val junit_version="5.11.4" // dec 2024
 val postgres_version="42.7.5" // jan 2025
@@ -32,7 +32,7 @@ buildscript {
 }
 
 plugins {
-    kotlin("jvm") version "2.1.10" // cf kotlin_version
+    kotlin("jvm") version "2.3.20" // cf kotlin_version
     id("org.flywaydb.flyway") version "11.3.3" // cf flywaydb
     id("org.jooq.jooq-codegen-gradle") version "3.20.0" // cf jooq version
     jacoco
