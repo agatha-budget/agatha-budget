@@ -14,7 +14,7 @@ val kotlin_version="2.3.20" // mar 2026 - when updated also change kotlin("jvm")
 val koin_version= "4.2.0" // mar 2026
 val junit_version="5.11.4" // dec 2024
 val postgres_version="42.7.10" // feb 2026
-val flywaydb_version="11.3.3" // juillet 2024 - update in plugin too
+val flywaydb_version="12.1.1" // mar 2026 - update in plugin too
 val jooq_version="3.20.0" // fev 2025 - update in plugin too
 val mock_version="1.13.16" //jan 2025
 val logback_version="1.5.16" // jan 2025
@@ -27,13 +27,13 @@ val jjwt_version="0.12.6" // jun 2024
 
 buildscript {
     dependencies {
-        classpath("org.flywaydb:flyway-database-postgresql:11.3.3") // cf flywaydb
+        classpath("org.flywaydb:flyway-database-postgresql:12.1.1") // cf flywaydb
     }
 }
 
 plugins {
     kotlin("jvm") version "2.3.20" // cf kotlin_version
-    id("org.flywaydb.flyway") version "11.3.3" // cf flywaydb
+    id("org.flywaydb.flyway") version "12.1.1" // cf flywaydb
     id("org.jooq.jooq-codegen-gradle") version "3.20.0" // cf jooq version
     jacoco
     application
