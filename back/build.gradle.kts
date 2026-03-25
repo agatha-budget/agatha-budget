@@ -21,7 +21,7 @@ val logback_version="1.5.32" // feb 2026
 val javalin_version="6.4.0" // dec 2024
 val jackson_version="2.18.2" // nov 2024
 val stripe_version="28.3.1" // fevrier 2025 
-val json_version="20250107" // jan 2025
+val json_version="20251224" // dec 2025
 val jjwt_version="0.12.6" // jun 2024
 
 
