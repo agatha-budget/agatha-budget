@@ -4,7 +4,7 @@ with pkgs;
 
 mkShell {
 buildInputs = [
-nodejs-18_x jdk11 git go-task
+nodejs_24 jdk11 git go-task
 
 ];
 shellHook = ''
