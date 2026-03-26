@@ -134,6 +134,7 @@ tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanDatabase") {
     url = DB_URL
 }
 
+// Invocation of Task.project at execution time has been deprecated. => See Flywaydb (https://github.com/flyway/flyway/issues/4107)
 tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTestDatabase") {
     url = TEST_DB_URL
 }
