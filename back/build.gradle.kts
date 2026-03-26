@@ -19,7 +19,7 @@ val jooq_version="3.20.0" // fev 2025 - update in plugin too
 val mock_version="1.14.9" //jan 2026
 val logback_version="1.5.32" // feb 2026
 val javalin_version="6.4.0" // dec 2024
-val jackson_version="2.18.2" // nov 2024
+val jackson_version="3.1.0" // feb 2026
 val stripe_version="28.3.1" // fevrier 2025 
 val json_version="20251224" // dec 2025
 val jjwt_version="0.13.0" // aug 2025
@@ -64,8 +64,8 @@ dependencies {
 
     // API and Serialisation
     implementation("io.javalin:javalin:$javalin_version") 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
-    implementation("com.fasterxml.jackson.core:jackson-databind:$jackson_version")
+    implementation("tools.jackson.module:jackson-module-kotlin:$jackson_version")
+    implementation("tools.jackson.core:jackson-databind:$jackson_version")
 
     // koin
     testImplementation ("io.insert-koin:koin-test-junit5:$koin_version")
