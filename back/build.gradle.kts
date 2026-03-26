@@ -221,8 +221,9 @@ tasks.named("migrateTestDatabase") {
 
 tasks.jacocoTestReport {
     dependsOn(tasks.test) // tests are required to run before generating the report
+    val path = "file://${project.rootDir}/build/reports/jacoco/test/html/index.html"
     doLast {
-        println("file://${project.rootDir}/build/reports/jacoco/test/html/index.html")
+        println(path)
     }
     classDirectories.setFrom(
             files(classDirectories.files.map {
