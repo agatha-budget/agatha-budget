@@ -1,6 +1,6 @@
 package open.tresorier.api.theme
 
-import io.javalin.Javalin
+import io.javalin.router.JavalinDefaultRoutingApi
 import open.tresorier.api.getOptionalQueryParam
 import open.tresorier.api.getQueryParam
 import open.tresorier.api.getUserFromAuth
@@ -13,10 +13,10 @@ import open.tresorier.services.BudgetService
 import open.tresorier.services.MasterCategoryService
 import open.tresorier.services.CategoryService
 
-fun addCategoryRoute(app : Javalin, budgetService: BudgetService, masterCategoryService: MasterCategoryService,
-                     categoryService: CategoryService, allocationService: AllocationService) : Javalin {
+fun addCategoryRoute(routes: JavalinDefaultRoutingApi, budgetService: BudgetService, masterCategoryService: MasterCategoryService,
+                     categoryService: CategoryService, allocationService: AllocationService) {
 
-    app.post("/mcategory") { ctx ->
+    routes.post("/mcategory") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val name = getQueryParam<String>(ctx, "name")
@@ -25,7 +25,7 @@ fun addCategoryRoute(app : Javalin, budgetService: BudgetService, masterCategory
         ctx.json(mcategory)
     }
 
-    app.put("/mcategory") { ctx ->
+    routes.put("/mcategory") { ctx ->
         val user = getUserFromAuth(ctx)
         val masterCategory: MasterCategory = masterCategoryService.getById(user, getQueryParam<String>(ctx, "id"))
 
@@ -39,7 +39,7 @@ fun addCategoryRoute(app : Javalin, budgetService: BudgetService, masterCategory
         ctx.json(updatedMasterCategory)
     }
 
-    app.get("/mcategory/budget") { ctx ->
+    routes.get("/mcategory/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
 
@@ -47,7 +47,7 @@ fun addCategoryRoute(app : Javalin, budgetService: BudgetService, masterCategory
         ctx.json(masterCategories)
     }
 
-    app.post("/category") { ctx ->
+    routes.post("/category") { ctx ->
         val user = getUserFromAuth(ctx)
         val masterCategory: MasterCategory = masterCategoryService.getById(user, getQueryParam<String>(ctx, "master_category_id"))
         val name = getQueryParam<String>(ctx, "name")
@@ -56,7 +56,7 @@ fun addCategoryRoute(app : Javalin, budgetService: BudgetService, masterCategory
         ctx.json(category)
     }
 
-    app.put("/category") { ctx ->
+    routes.put("/category") { ctx ->
         // required
         val user = getUserFromAuth(ctx)
         val category: Category = categoryService.getById(user, getQueryParam<String>(ctx, "id"))
@@ -72,7 +72,7 @@ fun addCategoryRoute(app : Javalin, budgetService: BudgetService, masterCategory
         ctx.json(updatedCategory)
     }
 
-    app.get("/category/budget") { ctx ->
+    routes.get("/category/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
 
@@ -80,7 +80,7 @@ fun addCategoryRoute(app : Javalin, budgetService: BudgetService, masterCategory
         ctx.json(categories)
     }
 
-    app.post("/allocation") { ctx ->
+    routes.post("/allocation") { ctx ->
         val user = getUserFromAuth(ctx)
         val month : Month = Month.createFromComparable(getQueryParam<Int>(ctx, "month"))
         val category: Category = categoryService.getById(user, getQueryParam<String>(ctx, "category_id"))
@@ -89,5 +89,5 @@ fun addCategoryRoute(app : Javalin, budgetService: BudgetService, masterCategory
         ctx.json(allocation)
     }
 
-    return app
+
 }

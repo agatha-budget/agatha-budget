@@ -25,10 +25,10 @@ import org.jooq.QueryPart;
 import org.jooq.Record;
 import org.jooq.SQL;
 import org.jooq.Schema;
-import org.jooq.Select;
 import org.jooq.Stringly;
 import org.jooq.Table;
 import org.jooq.TableField;
+import org.jooq.TableLike;
 import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
@@ -214,7 +214,7 @@ public class Allocation extends TableImpl<AllocationRecord> {
      */
     @Override
     public Allocation where(Condition condition) {
-        return new Allocation(getQualifiedName(), aliased() ? this : null, null, condition);
+        return new Allocation(getQualifiedName(), aliased() ? this : null, null, Internal.condition(this, condition));
     }
 
     /**
@@ -281,7 +281,7 @@ public class Allocation extends TableImpl<AllocationRecord> {
      * Create an inline derived table from this table
      */
     @Override
-    public Allocation whereExists(Select<?> select) {
+    public Allocation whereExists(TableLike<?> select) {
         return where(DSL.exists(select));
     }
 
@@ -289,7 +289,7 @@ public class Allocation extends TableImpl<AllocationRecord> {
      * Create an inline derived table from this table
      */
     @Override
-    public Allocation whereNotExists(Select<?> select) {
+    public Allocation whereNotExists(TableLike<?> select) {
         return where(DSL.notExists(select));
     }
 }

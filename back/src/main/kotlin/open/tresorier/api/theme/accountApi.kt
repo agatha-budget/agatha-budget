@@ -1,6 +1,6 @@
 package open.tresorier.api.theme
 
-import io.javalin.Javalin
+import io.javalin.router.JavalinDefaultRoutingApi
 import open.tresorier.api.getOptionalQueryParam
 import open.tresorier.api.getQueryParam
 import open.tresorier.api.getUserFromAuth
@@ -11,9 +11,9 @@ import open.tresorier.services.AccountService
 import open.tresorier.services.BankingService
 import open.tresorier.services.BudgetService
 
-fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService: BudgetService, bankingService: BankingService) : Javalin {
+fun addAccountRoute(routes: JavalinDefaultRoutingApi, accountService: AccountService, budgetService: BudgetService, bankingService: BankingService) {
 
-    app.post("/account") { ctx ->
+    routes.post("/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val name = getQueryParam<String>(ctx, "name")
@@ -23,7 +23,7 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         ctx.json(account)
     }
 
-    app.put("/account") { ctx ->
+    routes.put("/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val name = getOptionalQueryParam<String>(ctx, "name")
@@ -33,14 +33,14 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         ctx.result("updated")
     }
 
-    app.delete("/account") { ctx ->
+    routes.delete("/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         accountService.delete(user, account)
         ctx.result("account ${account.name} has been deleted")
     }
 
-    app.put("/account/bank") { ctx ->
+    routes.put("/account/bank") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val bankAccountId = getOptionalQueryParam<String>(ctx, "bank_account_id")
@@ -50,12 +50,10 @@ fun addAccountRoute(app : Javalin, accountService: AccountService, budgetService
         ctx.result("updated")
     }
 
-    app.get("/account/budget") { ctx ->
+    routes.get("/account/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val accounts = accountService.findByBudget(user, budget)
         ctx.json(accounts)
     }    
-    
-    return app
 }

@@ -26,19 +26,19 @@ public class AreCategoryAndAccountFromSameBudget extends AbstractRoutine<Boolean
      * The parameter
      * <code>public.are_category_and_account_from_same_budget.RETURN_VALUE</code>.
      */
-    public static final Parameter<Boolean> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", SQLDataType.BOOLEAN, false, false);
+    public static final Parameter<Boolean> RETURN_VALUE = Internal.createParameter("RETURN_VALUE", SQLDataType.BOOLEAN, false);
 
     /**
      * The parameter
      * <code>public.are_category_and_account_from_same_budget._category_id</code>.
      */
-    public static final Parameter<String> _CATEGORY_ID = Internal.createParameter("_category_id", SQLDataType.VARCHAR, false, false);
+    public static final Parameter<String> _CATEGORY_ID = Internal.createParameter("_category_id", SQLDataType.VARCHAR, false);
 
     /**
      * The parameter
      * <code>public.are_category_and_account_from_same_budget._account_id</code>.
      */
-    public static final Parameter<String> _ACCOUNT_ID = Internal.createParameter("_account_id", SQLDataType.VARCHAR, false, false);
+    public static final Parameter<String> _ACCOUNT_ID = Internal.createParameter("_account_id", SQLDataType.VARCHAR, false);
 
     /**
      * Create a new routine call instance
@@ -54,8 +54,9 @@ public class AreCategoryAndAccountFromSameBudget extends AbstractRoutine<Boolean
     /**
      * Set the <code>_category_id</code> parameter IN value to the routine
      */
-    public void set_CategoryId(String value) {
+    public AreCategoryAndAccountFromSameBudget set_CategoryId(String value) {
         setValue(_CATEGORY_ID, value);
+        return this;
     }
 
     /**
@@ -70,8 +71,9 @@ public class AreCategoryAndAccountFromSameBudget extends AbstractRoutine<Boolean
     /**
      * Set the <code>_account_id</code> parameter IN value to the routine
      */
-    public void set_AccountId(String value) {
+    public AreCategoryAndAccountFromSameBudget set_AccountId(String value) {
         setValue(_ACCOUNT_ID, value);
+        return this;
     }
 
     /**

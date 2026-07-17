@@ -44,6 +44,6 @@ inline fun <reified T: Any> getQueryParam(ctx: Context, paramName: String) : T {
 }
 
 inline fun <reified T: Any> getOptionalQueryParam(ctx: Context, paramName: String) : T? {
-    return ctx.queryParamAsClass(paramName, T::class.java).allowNullable().get()
+    return ctx.queryParamAsClass(paramName, T::class.java).getOrNull()
 }
 

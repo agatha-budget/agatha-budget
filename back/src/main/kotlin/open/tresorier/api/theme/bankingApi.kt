@@ -1,6 +1,6 @@
 package open.tresorier.api.theme
 
-import io.javalin.Javalin
+import io.javalin.router.JavalinDefaultRoutingApi
 import open.tresorier.api.getOptionalQueryParam
 import open.tresorier.api.getQueryParam
 import open.tresorier.api.getUserFromAuth
@@ -9,14 +9,14 @@ import open.tresorier.services.BankingService
 import open.tresorier.services.BudgetService
 
 
-fun addBankingRoute(app : Javalin, bankingService: BankingService, 
-    accountService: AccountService, budgetService: BudgetService) : Javalin {
+fun addBankingRoute(routes: JavalinDefaultRoutingApi, bankingService: BankingService, 
+    accountService: AccountService, budgetService: BudgetService) {
 
-    app.get("/banks") { ctx ->
+    routes.get("/banks") { ctx ->
         ctx.json(bankingService.getAvailableBanks())
     }
 
-    app.get("/banking") { ctx ->
+    routes.get("/banking") { ctx ->
         val person = getUserFromAuth(ctx)
         val budgetId = getQueryParam<String>(ctx, "budgetId")
         val budget = budgetService.getById(person, budgetId)
@@ -24,21 +24,21 @@ fun addBankingRoute(app : Javalin, bankingService: BankingService,
         ctx.result(bankingService.getLinkForUserAgreement(person, budget, bankId))
     }
 
-    app.put("/banking") { ctx ->
+    routes.put("/banking") { ctx ->
         val person = getUserFromAuth(ctx)
         val bankAgreementId = getQueryParam<String>(ctx, "bankAgreementId")
         val bankAgreement = bankingService.getAgreementById(bankAgreementId)
         bankingService.updateBankAccountList(person, bankAgreement)
     }
 
-    app.get("/bank/accounts") { ctx ->
+    routes.get("/bank/accounts") { ctx ->
         val person = getUserFromAuth(ctx)
         val budgetId = getQueryParam<String>(ctx, "budgetId")
         val budget = budgetService.getById(person, budgetId)
         ctx.json(bankingService.findBankAccountByBudget(person, budget))
     }
 
-    app.get("/bank/operations") { ctx ->
+    routes.get("/bank/operations") { ctx ->
         val person = getUserFromAuth(ctx)
         val accountId = getOptionalQueryParam<String>(ctx, "accountId")
         if (accountId != null) {
@@ -49,10 +49,10 @@ fun addBankingRoute(app : Javalin, bankingService: BankingService,
         }
     }
 
-    app.post("/bank/sync") { _ ->
+    routes.post("/bank/sync") { _ ->
         bankingService.synchronise()
     }
     
-    return app
+
 }
 

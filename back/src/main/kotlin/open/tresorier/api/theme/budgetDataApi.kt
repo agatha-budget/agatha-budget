@@ -1,6 +1,6 @@
 package open.tresorier.api.theme
 
-import io.javalin.Javalin
+import io.javalin.router.JavalinDefaultRoutingApi
 import open.tresorier.api.getOptionalQueryParam
 import open.tresorier.api.getQueryParam
 import open.tresorier.api.getUserFromAuth
@@ -9,9 +9,9 @@ import open.tresorier.model.Month
 import open.tresorier.services.BudgetDataService
 import open.tresorier.services.BudgetService
 
-fun addBudgetDataRoute(app : Javalin, budgetService: BudgetService, budgetDataService: BudgetDataService) : Javalin {
+fun addBudgetDataRoute(routes: JavalinDefaultRoutingApi, budgetService: BudgetService, budgetDataService: BudgetDataService) {
 
-    app.get("/budget/data") { ctx ->
+    routes.get("/budget/data") { ctx ->
         // required
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
@@ -22,7 +22,7 @@ fun addBudgetDataRoute(app : Javalin, budgetService: BudgetService, budgetDataSe
         ctx.json(budgetData)
     }
 
-    app.get("/budget/amount") { ctx ->
+    routes.get("/budget/amount") { ctx ->
         // required
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
@@ -32,5 +32,5 @@ fun addBudgetDataRoute(app : Javalin, budgetService: BudgetService, budgetDataSe
         ctx.json(budgetData)
     }
     
-    return app
+
 }

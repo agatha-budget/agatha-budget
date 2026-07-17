@@ -1,6 +1,6 @@
 package open.tresorier.api.theme
 
-import io.javalin.Javalin
+import io.javalin.router.JavalinDefaultRoutingApi
 import open.tresorier.api.getOptionalQueryParam
 import open.tresorier.api.getQueryParam
 import open.tresorier.api.getUserFromAuth
@@ -10,9 +10,9 @@ import open.tresorier.services.BudgetService
 import open.tresorier.services.CategoryService
 import open.tresorier.services.OperationService
 
-fun addOperationRoute(app : Javalin, accountService: AccountService, budgetService: BudgetService, categoryService: CategoryService, operationService: OperationService) : Javalin {
+fun addOperationRoute(routes: JavalinDefaultRoutingApi, accountService: AccountService, budgetService: BudgetService, categoryService: CategoryService, operationService: OperationService) {
 
-    app.post("/operation") { ctx ->
+    routes.post("/operation") { ctx ->
         //required
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
@@ -32,7 +32,7 @@ fun addOperationRoute(app : Javalin, accountService: AccountService, budgetServi
         ctx.json(operation)
     }
 
-    app.put("/operation") { ctx ->
+    routes.put("/operation") { ctx ->
         //required
         val user = getUserFromAuth(ctx)
         val operation: Operation = operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
@@ -56,14 +56,14 @@ fun addOperationRoute(app : Javalin, accountService: AccountService, budgetServi
         ctx.json(updatedOperation)
     }
 
-    app.delete("/operation") { ctx ->
+    routes.delete("/operation") { ctx ->
         val user = getUserFromAuth(ctx)
         val operation: Operation = operationService.getById(user, getQueryParam<String>(ctx, "operation_id"))
         operationService.delete(user, operation)
         ctx.result("account ${operation.id} has been deleted")
     }
 
-    app.get("/operation/account") { ctx ->
+    routes.get("/operation/account") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id") 
@@ -72,7 +72,7 @@ fun addOperationRoute(app : Javalin, accountService: AccountService, budgetServi
         ctx.json(operations)
     }
 
-    app.get("/operation/budget") { ctx ->
+    routes.get("/operation/budget") { ctx ->
         val user = getUserFromAuth(ctx)
         val budget: Budget = budgetService.getById(user, getQueryParam<String>(ctx, "budget_id"))
         val categoryId: String? = getOptionalQueryParam<String>(ctx, "category_id")
@@ -81,7 +81,7 @@ fun addOperationRoute(app : Javalin, accountService: AccountService, budgetServi
         ctx.json(operations)
     }
  
-    app.post("/operation/import") { ctx ->
+    routes.post("/operation/import") { ctx ->
         val user = getUserFromAuth(ctx)
         val account: Account = accountService.getById(user, getQueryParam<String>(ctx, "account_id"))
         val fileOfx: String = ctx.body()
@@ -89,5 +89,5 @@ fun addOperationRoute(app : Javalin, accountService: AccountService, budgetServi
         ctx.json(numberOperation)
     }
     
-    return app
+
 }

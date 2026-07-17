@@ -1,21 +1,21 @@
 package open.tresorier.api.theme
 
-import io.javalin.Javalin
+import io.javalin.router.JavalinDefaultRoutingApi
 import open.tresorier.api.getQueryParam
 import open.tresorier.api.getUserFromAuth
 import open.tresorier.model.enum.PriceIdEnum
 import open.tresorier.services.BillingService
 
-fun addBillingRoute(app : Javalin, billingService: BillingService) : Javalin {
+fun addBillingRoute(routes: JavalinDefaultRoutingApi, billingService: BillingService) {
 
     // handle webhook sent by stripe
-    app.post("/from_stripe") { ctx ->
+    routes.post("/from_stripe") { ctx ->
         val payload = ctx.body()
         val sigHeader = ctx.header("Stripe-Signature")
         billingService.handleWebhook(payload, sigHeader)
     }
 
-    app.get("/billing") { ctx ->
+    routes.get("/billing") { ctx ->
         val person = getUserFromAuth(ctx)
         if (person.billingId != null) {
             ctx.result(BillingService.createBillingManagementSession(person))
@@ -27,5 +27,5 @@ fun addBillingRoute(app : Javalin, billingService: BillingService) : Javalin {
     }
 
     
-    return app
+
 }
