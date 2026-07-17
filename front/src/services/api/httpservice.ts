@@ -18,11 +18,12 @@ const cb = (config: InternalAxiosRequestConfig) => {
 const configureAxiosKeycloak = (): void => {
   _axios.interceptors.request.use(
     (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
+      let _config = config
       if (KeyCloakService.IsLoggedIn()) {
-        cb(config);
         KeyCloakService.UpdateToken(undefined);
+        _config = cb(config);
       }
-      return config;
+      return _config;
     }
   );
 };

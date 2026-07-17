@@ -1,6 +1,6 @@
 import Keycloak from "keycloak-js";
 
-const keycloakInstance = new Keycloak();
+const keycloakInstance = new Keycloak('/keycloak.json');
 
 interface CallbackOneParam<T1 = void, T2 = void> {
   (param1: T1): T2;
@@ -14,7 +14,11 @@ const Login = (onAuthenticatedCallback: CallbackOneParam): void => {
   keycloakInstance
     .init({ onLoad: "login-required" })
     .then(function (authenticated) {
-      authenticated ? onAuthenticatedCallback() : alert("non authenticated");
+      if (authenticated) {
+        onAuthenticatedCallback()
+      } else {
+        alert('non authenticated')
+      }
     })
     .catch((e) => {
       console.dir(e);
@@ -36,7 +40,7 @@ const UserRoles = (): string[] | undefined => {
   return keycloakInstance.resourceAccess["vuejs"].roles;
 };
 
-const updateToken = (successCallback: any) =>
+const updateToken = (successCallback?: (refreshed: boolean) => void) =>
   keycloakInstance.updateToken(5).then(successCallback).catch(doLogin);
 
 const doLogin = keycloakInstance.login;
