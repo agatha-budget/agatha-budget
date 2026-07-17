@@ -76,7 +76,6 @@ dependencies {
     testImplementation("org.postgresql:postgresql:$postgres_version")
 
     jooqCodegen("org.postgresql:postgresql:$postgres_version")
-    jooqCodegen("org.postgresql:postgresql:$postgres_version")
 
     // Junit
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
@@ -106,7 +105,7 @@ dependencies {
 }
 
 tasks.clean {
-    doLast { delete(project.file(generatedDir)) }
+    delete(layout.projectDirectory.dir(generatedDir))
 }
 
 flyway {
