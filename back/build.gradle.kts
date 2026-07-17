@@ -20,7 +20,7 @@ val mock_version="1.14.11" //mai 2026
 val logback_version="1.5.38" // jul 2026
 val javalin_version="7.2.2" // dec 2024
 val jackson_version="3.2.1" // jul 2026
-val stripe_version="28.3.1" // fev 2025
+val stripe_version="33.1.0" // jun 2026
 val json_version="20260522" // mai 2026
 val jjwt_version="0.13.0" // aug 2025
 
