@@ -12,7 +12,7 @@ val TEST_DB_URL: String by project
 // Lib Versions (see https://mvnrepository.com/search?q=flywaydb)
 val kotlin_version="2.3.20" // mar 2026 - when updated also change kotlin("jvm")
 val koin_version= "4.2.0" // mar 2026
-val junit_version="5.11.4" // dec 2024
+val junit_version="6.1.1" // jun 2026
 val postgres_version="42.7.10" // feb 2026
 val flywaydb_version="12.10.0" // jul 2026 - update in plugin too
 val jooq_version="3.20.0" // fev 2025 - update in plugin too
@@ -80,6 +80,7 @@ dependencies {
     // Junit
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     // Mock
     testImplementation("io.mockk:mockk:$mock_version")
