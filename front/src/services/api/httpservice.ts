@@ -19,7 +19,8 @@ const configureAxiosKeycloak = (): void => {
   _axios.interceptors.request.use(
     (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
       if (KeyCloakService.IsLoggedIn()) {
-        KeyCloakService.UpdateToken(cb(config));
+        cb(config);
+        KeyCloakService.UpdateToken(undefined);
       }
       return config;
     }

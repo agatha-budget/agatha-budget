@@ -65,7 +65,7 @@ export default defineComponent({
     accounts (): Account[] {
       return useBudgetStore().accounts
     },
-    diplayedBalance() : String {
+    diplayedBalance() : string {
       if (this.bankAccount.balance) {
         return Utils.centsToEurosDisplay(this.bankAccount.balance)
       } else {
@@ -78,10 +78,10 @@ export default defineComponent({
     initiallyAssociatedAccount(): Account|undefined {
       return this.associatedAccount ? this.associatedAccount : undefined
     },
-    syncedUntil(): String {
+    syncedUntil(): string {
       return Time.getDateStringFromTimestamp(Time.after90Days(this.bankAccount.timestamp))
     },
-    editingClass(): String {
+    editingClass(): string {
       return this.edit ? 'editing' : ''
     }
   },

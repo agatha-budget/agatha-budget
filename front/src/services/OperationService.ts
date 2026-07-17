@@ -39,7 +39,7 @@ export default class OperationService {
       ),
       defaultErrorHandler
     ).map((response) => {
-      let operation = response.data
+      const operation = response.data
       useOperationStore().addOperationToAccount(operation)
       return operation
     })
@@ -90,7 +90,7 @@ export default class OperationService {
       ),
       defaultErrorHandler
     ).map((response) => {
-      let operation = response.data
+      const operation = response.data
       useOperationStore().update(operation)
       return operation
     })

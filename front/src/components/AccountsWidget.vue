@@ -4,7 +4,7 @@
       <span class="subtitle"> {{ $t('SEE_MY_ACCOUNTS') }} </span>
     </div>
     <div>
-      <button v-for="account of accounts" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
+      <button v-for="account of accounts" :key="account.id" class="navigationButton accounts" v-on:click="goToAccountPage(account)">
         <div class="name">{{ account.name }}</div>
         <div class="amount">{{centsToEurosDisplay(account.amount)}}€</div>
         <div class="sync">
@@ -84,10 +84,10 @@ export default defineComponent({
     getAccounts(){
       useBudgetStore().updateAccounts()
     },
-    isSynced(account: Account): Boolean {
+    isSynced(account: Account): boolean {
       return (account.syncedUntil != null) && (account.syncedUntil > Time.now())
     },
-    isRecentlyUnsynced(account: Account): Boolean {
+    isRecentlyUnsynced(account: Account): boolean {
       return (account.syncedUntil != null) && !this.isSynced(account) && (account.syncedUntil > Time.get30DaysAgo())
     }
   }

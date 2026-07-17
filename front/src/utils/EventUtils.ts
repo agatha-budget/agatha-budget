@@ -1,5 +1,5 @@
 export default class EventUtils {
-    public static getInputValue (e: Event): any {
+    public static getInputValue (e: Event): string {
       return (e.target as HTMLInputElement).value
     }
   

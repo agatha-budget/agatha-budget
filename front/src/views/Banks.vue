@@ -63,8 +63,8 @@ interface BanksData {
   bankAccounts: BankAccount[];
   bankAssociation: BankAssociationList;
   selectedBankId: string|null;
-  openBankForm: Boolean;
-  bankLoaded: Boolean;
+  openBankForm: boolean;
+  bankLoaded: boolean;
 }
 
 export default defineComponent({

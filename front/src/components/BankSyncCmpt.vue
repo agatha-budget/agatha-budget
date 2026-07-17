@@ -31,7 +31,7 @@ export default defineComponent({
     account (): Account | null {
       return useBudgetStore().getAccountById(this.accountId)
     },
-    syncedUntil(): String {
+    syncedUntil(): string {
       return (this.account?.syncedUntil) ? Time.getDateStringFromTimestamp(this.account.syncedUntil) : ""
     }
   },
@@ -39,10 +39,10 @@ export default defineComponent({
     goToBanksPage () {
       router.push(RouterPages.banks)
     },
-    isSynced(): Boolean {
+    isSynced(): boolean {
       return (this.account?.syncedUntil != null) && (this.account?.syncedUntil > Time.now())
     },
-    isRecentlyUnsynced(): Boolean {
+    isRecentlyUnsynced(): boolean {
       return (this.account?.syncedUntil != null) && !this.isSynced() && (this.account?.syncedUntil > Time.get30DaysAgo())
     }
   }

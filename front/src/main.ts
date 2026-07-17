@@ -8,7 +8,7 @@ import localeFR from '@/assets/locale/fr.json'
 import HttpService from "@/services/api/httpservice"
 import KeyCloakService from "@/services/security/KeycloakService"
 import 'bootstrap'
-import { createI18n } from 'vue-i18n'
+import { createI18n, type IntlDateTimeFormats } from 'vue-i18n'
 import Properties from '../properties'
 import router from './router'
 
@@ -17,11 +17,12 @@ const messages = {
   en: localeEN
 }
 
-const i18n = createI18n({ 
-  locale: 'fr', 
-  fallbackLocale: 'en', 
-  messages, 
-  datetimeFormats : localeDate,
+const i18n = createI18n({
+  legacy: true,
+  locale: 'fr',
+  fallbackLocale: 'en',
+  messages,
+  datetimeFormats: localeDate as IntlDateTimeFormats,
 })
 
 console.log('version : ' + Properties.commitHash)

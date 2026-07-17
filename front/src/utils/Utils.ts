@@ -12,17 +12,17 @@ export default class Utils {
   public static insertInListSortedByDate(operation: OperationWithDaughters,
      operationList: OperationWithDaughters[]) {
      
-      var index = this.getSortedIndex(operation, operationList)
+      const index = this.getSortedIndex(operation, operationList)
       operationList.splice(index, 0, operation);
       return operationList
   }
 
   private static getSortedIndex(operation: OperationWithDaughters, operationList: OperationWithDaughters[]): number {
-    var low = 0,
+    let low = 0,
         high = operationList.length;
 
     while (low < high) {
-        var mid = (low + high) >>> 1; // binary method to divide by two
+        const mid = (low + high) >>> 1; // binary method to divide by two
         if (operationList[mid].day > operation.day) low = mid + 1;
         else high = mid;
     }

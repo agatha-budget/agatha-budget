@@ -56,7 +56,7 @@ export default defineComponent({
       return Utils.centsToEurosDisplay(amount)
     },
     centsToSignedEurosDisplay(amount: number) : string {
-      let amoutString = Utils.centsToEurosDisplay(amount)
+      const amoutString = Utils.centsToEurosDisplay(amount)
       return (amount > 0) ? "+" + amoutString : amoutString
     },
     getClassDependingOnAmount (amount: number): string {

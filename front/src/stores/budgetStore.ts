@@ -36,7 +36,7 @@ export const useBudgetStore = defineStore('budget', {
     },
     async updateAccounts(withOperation: boolean = true) {
       if (this.budget) {
-        let res = await AccountService.getAccounts(this.budget)
+        const res = await AccountService.getAccounts(this.budget)
         if (res.isOk()) {
           this.accounts = res.value
         }
@@ -47,7 +47,7 @@ export const useBudgetStore = defineStore('budget', {
     },
     async updateCategories() {
       if (this.budget) {
-        let res = await CategoryService.getCategories(this.budget)
+        const res = await CategoryService.getCategories(this.budget)
         if (res.isOk()) {
           this.categories = res.value
         }
@@ -55,7 +55,7 @@ export const useBudgetStore = defineStore('budget', {
     },
     async updateMasterCategories() {
       if (this.budget) {
-        let res = await MasterCategoryService.getMasterCategories(this.budget)
+        const res = await MasterCategoryService.getMasterCategories(this.budget)
         if (res.isOk()) {
           this.masterCategories = res.value
         }

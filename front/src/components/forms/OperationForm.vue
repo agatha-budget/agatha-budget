@@ -143,7 +143,6 @@ import Time from '@/utils/Time'
 import Utils from '@/utils/Utils'
 import Multiselect from '@vueform/multiselect'
 import { defineComponent } from 'vue'
-import { numberLiteralTypeAnnotation } from '@babel/types'
 
 interface DaughterFormData {
   id: string;
@@ -318,10 +317,10 @@ export default defineComponent({
       }
       this.$emit('closeForm')
     },
-    addDaughter (_amount? : number) {
-      let amount = (typeof _amount === 'number') ? _amount! : 0
-      let incoming = amount > 0
-      let amountString = String(Math.abs(amount) / 100)
+    addDaughter (_amount?: number | Event) {
+      const amount = (typeof _amount === 'number') ? _amount : 0
+      const incoming = amount > 0
+      const amountString = String(Math.abs(amount) / 100)
       this.daughtersData.push(
         {
           id: '',
@@ -341,7 +340,7 @@ export default defineComponent({
     },
     createOperation () {
       // no category for mother operation if it has daughter (overriding if needed)
-      let categoryId = (this.hasDaughters) ? undefined : this.categoryId
+      const categoryId = (this.hasDaughters) ? undefined : this.categoryId
       OperationService.addOperation(
           this.accountId,
           Time.getDayFromDateString(this.date),
@@ -352,7 +351,7 @@ export default defineComponent({
         ).then(
           (res) => {
             if (res.isOk()){
-              let motherOperation = res.value
+              const motherOperation = res.value
               this.saveChangesToDaughters(motherOperation.id)
               useBudgetStore().updateAccounts(false)
               this.rebootAddOperationForm()
@@ -362,9 +361,9 @@ export default defineComponent({
     },
     updateOperation(operation: OperationWithDaughters) {
       // no category for mother operation if it has daughter (overriding if needed)
-      let categoryId = (this.hasDaughters) ? undefined : this.categoryId
+      const categoryId = (this.hasDaughters) ? undefined : this.categoryId
       // removeCategory enable the distinction between "category was not updated" and "category was updated to undefined"
-      let removeCategory = (this.hasDaughters) ? true : (this.categoryId === undefined || this.categoryId === null)
+      const removeCategory = (this.hasDaughters) ? true : (this.categoryId === undefined || this.categoryId === null)
       OperationService.updateOperation(
         operation.id,
         this.accountId,
@@ -431,7 +430,7 @@ export default defineComponent({
       })
     },
     isPresent(daughterId: string, daugtherList: Operation[] | DaughterFormData[]): boolean {
-      for (let operation of daugtherList) {
+      for (const operation of daugtherList) {
         if (operation.id === daughterId) {
           return true
         }

@@ -132,7 +132,7 @@ export default defineComponent({
     computeStringToCents (amount: string): number {
       return Calcul.computeStringToCents(amount)
     },
-    getValue(e: Event): any {
+    getValue(e: Event): string {
       return EventUtils.getInputValue(e)
     }
   }

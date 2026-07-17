@@ -23,7 +23,7 @@ export const useOperationStore = defineStore('operation', {
       )
     },
     async retrieveOperationsForAccount(account: Account) {
-      let res = await OperationService.getOperations(account)
+      const res = await OperationService.getOperations(account)
         if (res.isOk()) {
           this.operations[account.id] = res.value
         } else {
@@ -51,7 +51,7 @@ export const useOperationStore = defineStore('operation', {
       if (operation.motherOperationId){
         this.addDaughterOperation(operation)
       } else {
-        let motherOperation = operationToOperationWithDaughter(operation)
+        const motherOperation = operationToOperationWithDaughter(operation)
         this.operations[operation.accountId] = Utils.insertInListSortedByDate(motherOperation, this.operations[operation.accountId])
       }
     },
@@ -71,8 +71,8 @@ export const useOperationStore = defineStore('operation', {
     },
     updateOperationWithDaugther(operation: Operation) {
       const index = this.getOperationIndex(operation.id, this.operations[operation.accountId])
-      let daugthers = this.operations[operation.accountId][index].daughters
-      let operationWithDaughters = operationToOperationWithDaughter(operation)
+      const daugthers = this.operations[operation.accountId][index].daughters
+      const operationWithDaughters = operationToOperationWithDaughter(operation)
       operationWithDaughters.daughters = daugthers
       if (index >= 0) {
         this.operations[operation.accountId].splice(index, 1, operationWithDaughters)
