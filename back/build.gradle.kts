@@ -11,17 +11,17 @@ val TEST_DB_URL: String by project
 
 // Lib Versions (see https://mvnrepository.com/search?q=flywaydb)
 val kotlin_version="2.3.20" // mar 2026 - when updated also change kotlin("jvm")
-val koin_version= "4.2.0" // mar 2026
+val koin_version= "4.2.2" // mar 2026
 val junit_version="6.1.1" // jun 2026
-val postgres_version="42.7.10" // feb 2026
+val postgres_version="42.7.13" // jul 2026
 val flywaydb_version="12.10.0" // jul 2026 - update in plugin too
-val jooq_version="3.20.0" // fev 2025 - update in plugin too
-val mock_version="1.14.9" //jan 2026
-val logback_version="1.5.32" // feb 2026
+val jooq_version="3.21.6" // jun 2026 - update in plugin too
+val mock_version="1.14.11" //mai 2026
+val logback_version="1.5.38" // jul 2026
 val javalin_version="6.4.0" // dec 2024
-val jackson_version="3.1.0" // feb 2026
+val jackson_version="3.2.1" // jul 2026
 val stripe_version="28.3.1" // fevrier 2025 
-val json_version="20251224" // dec 2025
+val json_version="20260522" // mai 2026
 val jjwt_version="0.13.0" // aug 2025
 
 
@@ -34,7 +34,7 @@ buildscript {
 plugins {
     kotlin("jvm") version "2.3.20" // cf kotlin_version
     id("org.flywaydb.flyway") version "12.10.0" // cf flywaydb
-    id("org.jooq.jooq-codegen-gradle") version "3.20.0" // cf jooq version
+    id("org.jooq.jooq-codegen-gradle") version "3.21.6" // cf jooq version
     jacoco
     application
 }
@@ -134,7 +134,7 @@ tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanDatabase") {
     url = DB_URL
 }
 
-// Invocation of Task.project at execution time has been deprecated. => See Flywaydb (https://github.com/flyway/flyway/issues/4107)
+// Invocation of Task.project at execution time has been deprecated. => See Flywaydb (task )
 tasks.register<org.flywaydb.gradle.task.FlywayCleanTask>("cleanTestDatabase") {
     url = TEST_DB_URL
 }

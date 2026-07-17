@@ -4,7 +4,7 @@ with pkgs;
 
 mkShell {
 buildInputs = [
-kotlin postgresql_15 gradle_9 temurin-bin-17 python3 go-task
+kotlin postgresql_18 gradle_9 temurin-bin-17 python3 go-task
 ];
 
 shellHook = ''
