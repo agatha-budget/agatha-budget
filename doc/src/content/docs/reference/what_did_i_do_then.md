@@ -223,3 +223,17 @@ Hacking d'une requete avec l'option resend des dev tools pour envoyer une requet
 *how often* :
 
 --------------
+### Role wefnkwefmoiuwbgo does not exist (with pg_restore)
+
+*how long* : 
+
+*what happened* : 
+
+*why* : 
+- la base de donnée source et destination du dump n'a pas le même nom d'utilisateur 
+
+*what did i do to fix it* :  sed -i -e 's/wefnkwefmoiuwbgo/szigudsebbcgip/g' imported_backup.sql
+
+*how often* : puis pg_restore etc... il peut y avoir des erreurs mais les données viendront
+
+--------------

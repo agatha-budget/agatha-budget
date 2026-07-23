@@ -137,6 +137,10 @@ note for the Agatha-team, see the relevant repo to find our own configuration
 otherwise update the following script
 ```sh
 ## add symlinks so that the backend use the local configuration
+ln -s /home/erica/config/release_back/alpha/flyway.conf /home/erica/deploy/release_back/alpha/flyway.conf
+ln -s /home/erica/config/release_back/alpha/gradle.properties /home/erica/deploy/release_back/alpha/gradle.properties
+ln -s /home/erica/config/release_back/alpha/logback.xml /home/erica/deploy/release_back/alpha/logback.xml
+
 ln -s /home/erica/config/release_back/beta/flyway.conf /home/erica/deploy/release_back/beta/flyway.conf
 ln -s /home/erica/config/release_back/beta/gradle.properties /home/erica/deploy/release_back/beta/gradle.properties
 ln -s /home/erica/config/release_back/beta/logback.xml /home/erica/deploy/release_back/beta/logback.xml

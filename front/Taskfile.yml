@@ -16,6 +16,10 @@ tasks:
   build:
     cmds:
       - vue-tsc --noEmit && vite build
+  build_for_alpha:
+    cmds:
+      - sh ./scripts/set_alpha_properties.sh
+      - task: build
   build_for_beta:
     cmds:
       - sh ./scripts/set_beta_properties.sh

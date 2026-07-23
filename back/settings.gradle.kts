@@ -1,2 +1,2 @@
-rootProject.name = "agatha-backend"
+rootProject.name = "tresorier-backend"
 
